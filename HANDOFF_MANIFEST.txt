@@ -1,0 +1,18 @@
+NF55G Pico 2 Codex Handoff Rev.0
+Created: 2026-09-01
+
+Core handoff files:
+1. AGENTS.md
+2. README.md
+3. docs/ATE_Command_Master.md
+4. docs/Data_Decode_Master.md
+5. docs/Cache_Master.md
+6. docs/Software_Module_Interface.md
+7. docs/Protocol_State_Machine.md
+8. docs/Test_Specification.md
+9. docs/Logger_SD_Spec.md
+10. docs/Open_Issues.md
+11. docs/CHANGELOG.md
+12. Codex_Master_Prompt.md
+
+Before Codex starts, copy authoritative Word/PDF/source files into reference/.
