@@ -1,6 +1,12 @@
 # Real Hardware Test Log
 Revision: Rev.0-draft
 
+## Critical notice before any real-hardware debug
+- Before powering or wiring the final fixture stack, confirm ADA-5703 PiCowbell GP4/GP5 are physically isolated from the Pico header/UART lines.
+- GP4/GP5 are reserved for Pico-2CH-RS232 NF55G UART1. Do not start NF55G UART loopback, UART initialization, or real NF55G connection checks with ADA-5703 GP4/GP5 still connected.
+- ADA-5703 microSD may be used only as the SD function on GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI after the GP4/GP5 isolation is verified.
+- Track this as `docs/Open_Issues.md` HW-01 until the physical cut/isolation method and inspection result are recorded.
+
 ## 2026-09-02 Pico hardware smoke
 
 ### Scope
@@ -12,6 +18,7 @@ Revision: Rev.0-draft
 - Repository: `NF55G_Pico`
 - Branch: `main`
 - Hardware target: Raspberry Pi Pico 2 fixture bring-up path
+- ADA-5703 GP4/GP5 isolation: must be confirmed before final fixture UART/SD debug
 - Real NF55G control commands: not executed
 
 ### Host gate

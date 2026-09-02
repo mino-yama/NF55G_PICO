@@ -5,6 +5,8 @@ Revision: Rev.0
 - Adafruit ADA-5703 PiCowbell Data Logger
 - microSD 32GB
 - FAT32
+- Known hardware issue: ADA-5703 PCF8523 RTC/I2C circuitry is physically connected to GP4/GP5, which conflicts with Pico-2CH-RS232 NF55G UART1 on GP4/GP5. See `docs/Open_Issues.md` HW-01 before using this board in the final fixture.
+- Intended SD-only pin use remains GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI after the GP4/GP5 conflict is resolved by hardware action.
 
 ## Format
 - CSV

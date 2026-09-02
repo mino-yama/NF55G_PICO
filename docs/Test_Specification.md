@@ -18,6 +18,12 @@ T9 Real NF55G HIL
 
 T0-T7 must pass before HIL.
 
+## T8 hardware pre-check
+- Confirm ADA-5703 PiCowbell GP4/GP5 are physically isolated before starting final fixture debug.
+- GP4/GP5 must be dedicated to Pico-2CH-RS232 NF55G UART1. Disabling the PiCowbell RTC in software is not sufficient.
+- Confirm ADA-5703 SD operation uses only GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI after GP4/GP5 isolation.
+- Reference: `docs/Open_Issues.md` HW-01.
+
 ## Required tests
 ### Protocol
 - normal ACK/response/ACK
