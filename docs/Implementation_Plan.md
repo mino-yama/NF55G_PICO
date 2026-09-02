@@ -406,6 +406,7 @@ Date: 2026-09-01
 - マイナー変更時に module version を上げる条件。
 - ソース内 version と `docs/CHANGELOG.md`、Git tag、release artifact の対応方法。
 - 量産リリース後の hotfix / field fix / manufacturing variant の扱い。
+- 量産移行時の手順書が必要。作成は今後の量産移行準備で実施する。
 
 量産リリース時の推奨ヘッダ例:
 
