@@ -16,4 +16,7 @@ Core handoff files:
 12. Codex_Master_Prompt.md
 13. docs/Desktop_to_VSC_Migration_Plan.md
 
+Supporting reference files:
+1. reference/NF55G_VSC_Codex_Migration_Guide.md
+
 Before Codex starts, copy authoritative Word/PDF/source files into reference/.
