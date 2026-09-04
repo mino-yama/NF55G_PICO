@@ -306,3 +306,46 @@ Revision: Rev.0-draft
 - DS3231 hardware access pattern is now represented in the Pico RTC layer.
 - The same access pattern was verified on Pico 2 MicroPython against the connected DS3231.
 - Full final fixture firmware is not loaded yet; re-run this verification again after `main.py`/transport/scheduler integration is complete.
+
+## 2026-09-04 Pico 2 SD mount/write/readback verification
+
+### Scope
+- Continue non-UART real-hardware checks.
+- Verify the inserted SD card can be mounted as a FAT filesystem.
+- Verify temporary CSV creation, write, flush, close, readback, removal, and unmount.
+- Do not exercise card removal or forced write-error handling in this step because those require a separate physical/fault-injection procedure.
+
+### Environment
+| Item | Result | Note |
+|---|---|---|
+| Target board | INFO | Raspberry Pi Pico 2 / RP2350 |
+| MicroPython | INFO | v1.28.0 |
+| SD pins | INFO | SPI0: GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI |
+| Card capacity | INFO | 31,090,688 sectors, 15,918,432,256 bytes |
+| Existing card directory listing | INFO | `['System Volume Information']` |
+
+### Verification
+| Item | Result | Note |
+|---|---|---|
+| SD initialization | PASS | SDHC/SD v2 card initialized over SPI0 |
+| FAT mount | PASS | Mounted at `/sd` |
+| CSV create/write | PASS | Temporary `/sd/CODEX_SD.CSV` created |
+| Flush/close | PASS | File flush and close completed without error |
+| Readback | PASS | Readback matched written CSV content, `stat_size=37` |
+| Temporary file removal | PASS | `/sd/CODEX_SD.CSV` removed |
+| Unmount | PASS | `/sd` unmounted |
+| Continuous CSV logging smoke | PASS | Temporary `/sd/CODEX_RUN.CSV`; 120 rows plus header, `stat_size=1791`, readback `lines=121` |
+| Continuous logging readback | PASS | Last row `119,1961386,357`; readback structure matched expected row count/header/last sequence |
+| Continuous logging cleanup | PASS | `/sd/CODEX_RUN.CSV` removed and `/sd` unmounted |
+
+### Assessment
+- SD card recognition and FAT filesystem mount/write/readback are confirmed on the intended GP16-GP19 pin set.
+- This confirms basic filesystem I/O for SD logger bring-up.
+- ADA-5703 GP4/GP5 conflict remains governed by HW-01; do not close HW-01 without human confirmation.
+
+### Remaining non-UART real-hardware checks
+1. Continuous logging duration/load check using the final logger queue path.
+2. Card removal behavior.
+3. Write-error behavior.
+4. SD reinitialization behavior after removal/error.
+5. Re-run SD logger verification after final fixture firmware is loaded.
