@@ -14,5 +14,6 @@ Core handoff files:
 10. docs/Open_Issues.md
 11. docs/CHANGELOG.md
 12. Codex_Master_Prompt.md
+13. docs/Desktop_to_VSC_Migration_Plan.md
 
 Before Codex starts, copy authoritative Word/PDF/source files into reference/.
