@@ -133,3 +133,176 @@ Revision: Rev.0-draft
    - NF55G side: GP4 <-> GP5.
 2. Re-check RTC wiring/power and repeat I2C0 GP20/GP21 scan for DS3231 `0x68`.
 3. Use Pico 2 / RP2350 in the next debug session before declaring T8 complete for the final hardware target.
+
+## 2026-09-04 Pico 2 MicroPython hardware smoke
+
+### Scope
+- Continue T8 hardware smoke after changing hardware target to Raspberry Pi Pico 2.
+- Confirm USB CDC / MicroPython REPL.
+- Confirm DS3231 I2C detection.
+- Confirm UART peripheral initialization only; no loopback wiring and no real NF55G command/control executed.
+
+### USB recognition and MicroPython identity
+| Item | Result | Note |
+|---|---|---|
+| Serial port enumeration | PASS | `COM14` detected |
+| REPL banner | PASS | `MicroPython v1.28.0 on 2026-04-06` |
+| Print smoke | PASS | `print('CODEX_PICO2_REPL_CHECK')` returned `CODEX_PICO2_REPL_CHECK` |
+| Python identity | PASS | `sys.implementation.name` returned `micropython`; `sys.platform` returned `rp2` |
+| Board identity | PASS | `os.uname().machine` returned `Raspberry Pi Pico2 with RP2350` |
+| CPU frequency | INFO | `machine.freq()` returned `150000000` |
+
+### I2C scan
+| Bus / Pins | Result | Note |
+|---|---|---|
+| I2C0 GP21/GP20, 100 kHz | PASS | Scan result `['0x68']`; DS3231 expected address detected |
+| I2C0 GP17/GP16, 100 kHz | NOT DETECTED | Scan result `[]`; alternate check only |
+| I2C1 GP27/GP26, 100 kHz | NOT DETECTED | Scan result `[]`; alternate check only |
+| I2C1 GP19/GP18, 100 kHz | NOT DETECTED | Scan result `[]`; alternate check only |
+
+### UART initialization
+| Interface | Pins | Settings | Result | Note |
+|---|---|---|---|---|
+| ATE UART0 | TX GP0 / RX GP1 | 115200 bps, 8N1 | PASS | Peripheral init OK; `any()` returned 0 |
+| NF55G UART1 | TX GP4 / RX GP5 | 38400 bps, 8E1 | PASS | Peripheral init OK; `any()` returned 0 |
+
+### Assessment
+- Final hardware target Pico 2 / RP2350 is now confirmed over MicroPython.
+- DS3231 RTC address `0x68` is detected on expected I2C0 GP20/GP21 wiring.
+- Planned UART pin groups initialize successfully on Pico 2.
+- This is not yet a UART loopback or real NF55G HIL transaction test.
+- No `FU` or other NF55G control command was transmitted.
+
+### Next actions
+1. Run UART loopback smoke after wiring:
+   - ATE side: GP0 <-> GP1.
+   - NF55G side: GP4 <-> GP5.
+2. Add or prepare the Pico hardware UART/I2C layer source before moving from smoke checks to fixture firmware behavior.
+3. Real NF55G HIL remains pending until T8 loopback and hardware layer checks are complete.
+
+## 2026-09-04 Pico 2 SD card hardware recognition
+
+### Scope
+- Confirm SD hardware/card recognition before UART loopback.
+- Use ADA-5703 SD-only pins: GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI.
+- Read-only SPI command checks. No file write, erase, format, or CSV creation executed.
+
+### SPI / SD initialization
+| Item | Result | Note |
+|---|---|---|
+| SPI pins | PASS | SPI0, SCK=GP18, MOSI=GP19, MISO=GP16, CS=GP17 |
+| CMD0 | PASS | R1=`0x1`, card entered idle state |
+| CMD8 | PASS | R1=`0x1`, tail=`000001aa`, SD v2 voltage pattern accepted |
+| ACMD41 | PASS | Ready after 2 loops, last R1=`0x0` |
+| CMD58 OCR | PASS | R1=`0x0`, OCR=`c0ff8000`, CCS=True, POWER_UP=True |
+| CMD9 CSD | PASS | R1=`0x0`, token=`0xfe`, CSD=`400e00325b59000076997f800a4000ad` |
+| CSD version | PASS | CSD v2 |
+| Card capacity | INFO | 15918432256 bytes, 15.918 GB decimal, 14.825 GiB |
+
+### Partition / filesystem recognition
+| Item | Result | Note |
+|---|---|---|
+| LBA0 read | PASS | R1=`0x0`, token=`0xfe`, 512 bytes read |
+| MBR signature | PASS | `55aa` |
+| Partition 1 type | PASS | `0x0c` FAT32 LBA |
+| Partition 1 start | INFO | LBA 8192 |
+| Partition 1 sectors | INFO | 31082496 |
+| FAT boot sector read | PASS | LBA 8192, R1=`0x0`, token=`0xfe`, 512 bytes read |
+| FAT boot signature | PASS | `55aa` |
+| FAT OEM | INFO | `MSDOS5.0` |
+| Bytes per sector | PASS | 512 |
+| Sectors per cluster | INFO | 128 |
+| Filesystem label | PASS | `FAT32` |
+
+### Assessment
+- SD card hardware and card-level SPI recognition are confirmed on the intended GP16-GP19 SD pin set.
+- The inserted card is readable as an SDHC/SD v2 card with CSD v2 and roughly 16 GB capacity.
+- A valid MBR and FAT32 LBA partition were detected.
+- This check did not mount the filesystem and did not create/write/flush a CSV file.
+- ADA-5703 GP4/GP5 conflict remains governed by HW-01; SD-only pin operation GP16-GP19 is confirmed for this check.
+
+### Next actions
+1. Add or select the MicroPython/Pico firmware SD block-device driver path before mount/write testing.
+2. Run SD mount, CSV creation, write, flush, close, removal, write-error, and reinitialization checks as the separate SD real-hardware debug checklist.
+3. Continue UART loopback after SD mount/write plan is ready.
+
+## 2026-09-04 Pico 2 DS3231 RTC read/write verification
+
+### Scope
+- Confirm DS3231 read over I2C0 GP20/GP21.
+- Write PC current time to DS3231.
+- Read back and verify date/time.
+
+### Read check before write
+| Item | Result | Note |
+|---|---|---|
+| I2C scan | PASS | `['0x68']` |
+| Register read 0x00-0x12 | PASS | `42120001010100020b046f00c03f1c88001940` |
+| Decoded datetime | INFO | `2000-01-01 00:12:42` |
+| Status register 0x0F | INFO | `0x88` |
+| Temperature raw 0x11/0x12 | INFO | `0x19 0x40` |
+
+### Write and verify
+| Item | Result | Note |
+|---|---|---|
+| Target PC time | INFO | `2026-09-04 13:22:57` |
+| I2C scan before write | PASS | `['0x68']` |
+| Before write datetime | INFO | `2000-01-01 00:13:32` |
+| Write datetime registers 0x00-0x06 | PASS | Wrote seconds/minutes/hour/day/date/month/year in BCD |
+| Clear OSF bit | PASS | Status register changed from OSF set state to `0x08` |
+| After write register read 0x00-0x12 | PASS | `58221305040926020b046f00c03f1c08001940` |
+| After write datetime | PASS | `2026-09-04 13:22:58` |
+| Date verification | PASS | Same date as target |
+| Time verification | PASS | +1 second from target, within 0-5 second tolerance |
+
+### Assessment
+- DS3231 read path over I2C0 GP20/GP21 is confirmed.
+- DS3231 write path is confirmed.
+- Read-back verification passed after setting PC current time.
+- OI-13 RTC HAT revision pin mapping can be considered hardware-observed for this setup, but do not close the issue without human confirmation.
+
+### Next actions
+1. Add this DS3231 access pattern to the Pico hardware RTC layer when implementing fixture firmware.
+2. Re-run RTC read/write verification after final fixture firmware is loaded.
+3. Continue SD mount/write checks or UART loopback according to the next hardware-debug priority.
+
+## 2026-09-04 Pico 2 fixture RTC layer verification
+
+### Scope
+- Add DS3231 access pattern to the Pico hardware RTC layer.
+- Re-run read/write verification using the same access pattern on Pico 2 MicroPython.
+- This check verifies the hardware device access class behavior, not the final full fixture firmware image.
+
+### Implementation
+| Item | Result | Note |
+|---|---|---|
+| `DS3231I2CDevice` | ADDED | Uses I2C0 SCL=GP21, SDA=GP20, address `0x68` by default |
+| BCD datetime read | ADDED | Reads DS3231 registers `0x00` through `0x06` |
+| BCD datetime write | ADDED | Writes seconds/minutes/hour/day/date/month/year to registers `0x00` through `0x06` |
+| OSF clear | ADDED | Clears oscillator stop flag bit `0x80` in status register `0x0F` after setting time |
+| Host fake-I2C tests | PASS | Added read/write/missing-device tests |
+
+### Pico 2 verification
+| Item | Result | Note |
+|---|---|---|
+| I2C scan | PASS | `['0x68']` |
+| RTC check | PASS | `True` |
+| Before write datetime | INFO | `2026-09-04 13:29:22`, status `0x08` |
+| Target datetime | INFO | `2026-09-04 13:29:23` |
+| After write datetime | PASS | `2026-09-04 13:29:24`, status `0x08` |
+| Date verification | PASS | Same date as target |
+| Time verification | PASS | +1 second from target, within 0-5 second tolerance |
+| `src/rtc_driver.py` source execution | PASS | Source content executed on Pico 2 REPL; `DS3231I2CDevice()` check/read/write/read-back passed |
+| Source execution before write | INFO | `20260904_133031`, status `0x08` |
+| Source execution after write | PASS | Target `2026-09-04 13:31:30`; read-back `20260904_133131`, status `0x08` |
+
+### Host test
+| Item | Result | Note |
+|---|---|---|
+| RTC driver unit tests | PASS | 10 tests OK |
+| Full host test suite | PASS | 76 tests OK |
+
+### Assessment
+- DS3231 hardware access pattern is now represented in the Pico RTC layer.
+- The same access pattern was verified on Pico 2 MicroPython against the connected DS3231.
+- Full final fixture firmware is not loaded yet; re-run this verification again after `main.py`/transport/scheduler integration is complete.

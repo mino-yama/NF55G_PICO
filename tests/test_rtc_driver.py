@@ -10,7 +10,31 @@ from src.cache_manager import CacheManager
 from src.command_dispatcher import CommandDispatcher
 from src.mock_nf55g import FakeClock, MockNF55GScenario, MockUART
 from src.nf55_protocol import NF55Protocol
-from src.rtc_driver import DS3231RTC, FakeRTCDevice, RTCDateTime, RTCError
+from src.rtc_driver import DS3231I2CDevice, DS3231RTC, FakeRTCDevice, RTCDateTime, RTCError
+
+
+class FakeI2CBus:
+    def __init__(self, present=True):
+        self.present = present
+        self.regs = bytearray(19)
+        self.regs[0:7] = bytes.fromhex("42120001010100")
+        self.regs[0x0F] = 0x88
+        self.writes = []
+
+    def scan(self):
+        return [0x68] if self.present else []
+
+    def readfrom_mem(self, address, register, length):
+        if not self.present or address != 0x68:
+            raise OSError("no i2c device")
+        return bytes(self.regs[register : register + length])
+
+    def writeto_mem(self, address, register, data):
+        if not self.present or address != 0x68:
+            raise OSError("no i2c device")
+        payload = bytes(data)
+        self.regs[register : register + len(payload)] = payload
+        self.writes.append((address, register, payload))
 
 
 class RTCDriverTests(unittest.TestCase):
@@ -88,6 +112,29 @@ class RTCDriverTests(unittest.TestCase):
 
         self.assertFalse(result.ok)
         self.assertEqual(result.error, "UNKNOWN_RTC_CMD")
+
+    def test_ds3231_i2c_device_reads_bcd_datetime(self):
+        i2c = FakeI2CBus()
+        device = DS3231I2CDevice(i2c=i2c)
+
+        dt = device.read_datetime()
+
+        self.assertEqual(dt.datetime(), "20000101_001242")
+
+    def test_ds3231_i2c_device_writes_bcd_datetime_and_clears_osf(self):
+        i2c = FakeI2CBus()
+        device = DS3231I2CDevice(i2c=i2c)
+
+        device.set_datetime(RTCDateTime(2026, 9, 4, 13, 22, 57))
+
+        self.assertEqual(i2c.regs[0:7].hex(), "57221305040926")
+        self.assertEqual(i2c.regs[0x0F], 0x08)
+        self.assertIn((0x68, 0x0F, b"\x08"), i2c.writes)
+
+    def test_ds3231_i2c_device_check_reports_missing_device(self):
+        device = DS3231I2CDevice(i2c=FakeI2CBus(present=False))
+
+        self.assertFalse(device.check())
 
 
 if __name__ == "__main__":

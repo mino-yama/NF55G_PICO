@@ -34,7 +34,7 @@ USB CDC detailed implementation is deferred. Architecture should allow a future 
 - nf55_decode.py: pure decode only.
 - nf55_event.py: EB event handling only.
 - cache_manager.py: cache valid/invalid/data/metadata.
-- rtc_driver.py: DS3231 only.
+- rtc_driver.py: DS3231 command wrapper, fake device, and Pico I2C0 GP20/GP21 hardware device access.
 - logger.py: queue + sinks.
 - diagnostic.py: fixture self-check; no product judgement.
 - models.py: shared data structures.
@@ -61,6 +61,24 @@ CacheManager:
 - is_valid(name)
 - get(name)
 - metadata(name)
+
+DS3231RTC:
+- date()
+- time()
+- datetime()
+- set_from_ate(YYYYMMDD_HHMMSS)
+- check()
+
+DS3231I2CDevice:
+- read_datetime()
+- set_datetime(RTCDateTime)
+- check()
+- read_status()
+
+Default Pico hardware pins:
+- I2C0 SCL GP21
+- I2C0 SDA GP20
+- Address `0x68`
 
 ## Hard boundaries
 - Decode module never updates cache.
