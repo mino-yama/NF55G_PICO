@@ -5,7 +5,8 @@ Revision: Rev.0-draft
 - Before powering or wiring the final fixture stack, confirm ADA-5703 PiCowbell GP4/GP5 are physically isolated from the Pico header/UART lines.
 - GP4/GP5 are reserved for Pico-2CH-RS232 NF55G UART1. Do not start NF55G UART loopback, UART initialization, or real NF55G connection checks with ADA-5703 GP4/GP5 still connected.
 - ADA-5703 microSD may be used only as the SD function on GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI after the GP4/GP5 isolation is verified.
-- Track this as `docs/Open_Issues.md` HW-01 until the physical cut/isolation method and inspection result are recorded.
+- 2026-09-04 real-hardware tests were performed with ADA-5703 GP4/GP5 physically isolated from the Pico header/UART lines.
+- Track HW-01 until the final fixture physical cut/isolation method and inspection record are formally documented.
 
 ## 2026-09-02 Pico hardware smoke
 
@@ -18,7 +19,7 @@ Revision: Rev.0-draft
 - Repository: `NF55G_Pico`
 - Branch: `main`
 - Hardware target: Raspberry Pi Pico 2 fixture bring-up path
-- ADA-5703 GP4/GP5 isolation: must be confirmed before final fixture UART/SD debug
+- ADA-5703 GP4/GP5 isolation: physically isolated for 2026-09-04 tests; final fixture inspection record still required
 - Real NF55G control commands: not executed
 
 ### Host gate
@@ -219,7 +220,8 @@ Revision: Rev.0-draft
 - The inserted card is readable as an SDHC/SD v2 card with CSD v2 and roughly 16 GB capacity.
 - A valid MBR and FAT32 LBA partition were detected.
 - This check did not mount the filesystem and did not create/write/flush a CSV file.
-- ADA-5703 GP4/GP5 conflict remains governed by HW-01; SD-only pin operation GP16-GP19 is confirmed for this check.
+- ADA-5703 GP4/GP5 were physically isolated for this test, satisfying the local hardware condition for SD-only operation on GP16-GP19.
+- HW-01 remains open only for final fixture documentation/inspection traceability.
 
 ### Next actions
 1. Add or select the MicroPython/Pico firmware SD block-device driver path before mount/write testing.
@@ -341,7 +343,8 @@ Revision: Rev.0-draft
 ### Assessment
 - SD card recognition and FAT filesystem mount/write/readback are confirmed on the intended GP16-GP19 pin set.
 - This confirms basic filesystem I/O for SD logger bring-up.
-- ADA-5703 GP4/GP5 conflict remains governed by HW-01; do not close HW-01 without human confirmation.
+- ADA-5703 GP4/GP5 were physically isolated for this test, satisfying the local hardware condition for SD-only operation on GP16-GP19.
+- HW-01 remains open only for final fixture documentation/inspection traceability.
 
 ### Remaining non-UART real-hardware checks
 1. Continuous logging duration/load check using the final logger queue path.
