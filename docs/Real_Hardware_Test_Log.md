@@ -352,3 +352,36 @@ Revision: Rev.0-draft
 3. Write-error behavior.
 4. SD reinitialization behavior after removal/error.
 5. Re-run SD logger verification after final fixture firmware is loaded.
+
+## 2026-09-04 Pico 2 DS3231 backup battery verification
+
+### Scope
+- Verify DS3231 behavior after installing the RTC backup battery.
+- Confirm pre-test reset/oscillator-stop state.
+- Set RTC time, power-cycle Pico 2/main power, then confirm the RTC retained and advanced time on battery backup.
+
+### Phase 1: before power cycle
+| Item | Result | Note |
+|---|---|---|
+| I2C scan | PASS | `['0x68']` |
+| Before set datetime | INFO | `2000-01-01 00:02:29` |
+| Status register | INFO | `0x88`, `OSF=1` |
+| Assessment before set | INFO | Reset/oscillator-stop evidence was present, consistent with previous no-battery condition |
+| Target datetime | INFO | `2026-09-04 14:22:59` |
+| After set datetime | PASS | `2026-09-04 14:23:00` |
+| Status after set | PASS | `0x08`, `OSF=0` |
+
+### Phase 2: after power cycle
+| Item | Result | Note |
+|---|---|---|
+| Host read time | INFO | `2026-09-04 14:24:16` |
+| I2C scan | PASS | `['0x68']` |
+| RTC datetime after power cycle | PASS | `2026-09-04 14:24:18` |
+| Status register | PASS | `0x08`, `OSF=0` |
+| Reset-like date check | PASS | `False`; RTC did not return to `2000-01-01` |
+| Temperature raw | INFO | `19c0` |
+
+### Assessment
+- DS3231 backup battery retention is confirmed for this power-cycle check.
+- The RTC retained date/time and continued running while Pico 2/main power was off.
+- Re-run this check after final fixture firmware is loaded and after any RTC wiring or board-stack change.
