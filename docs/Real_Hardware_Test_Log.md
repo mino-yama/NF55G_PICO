@@ -385,3 +385,76 @@ Revision: Rev.0-draft
 - DS3231 backup battery retention is confirmed for this power-cycle check.
 - The RTC retained date/time and continued running while Pico 2/main power was off.
 - Re-run this check after final fixture firmware is loaded and after any RTC wiring or board-stack change.
+
+## 2026-09-07 Pico 2 SD logger queue-path verification
+
+### Scope
+- Continue SD card real-hardware checks before UART loopback / real NF55G HIL.
+- Verify SD mount, CSV creation, write, flush, close, readback, and clean reinitialization using a repeatable host-side HIL runner.
+- Verify the current `src/logger.py` queue/flush/close path on Pico 2 MicroPython with a Pico SD sink.
+- No NF55G command/control was transmitted.
+- Card removal and forced write-error injection were not executed in this step because they require separate physical/fault-injection handling.
+
+### Environment
+| Item | Result | Note |
+|---|---|---|
+| Target board | INFO | Raspberry Pi Pico 2 / RP2350 |
+| Serial port | INFO | `COM14` |
+| MicroPython access | PASS | REPL execution via `scripts/pico_sd_hil.py --port COM14` |
+| SD pins | INFO | SPI0: GP16=MISO, GP17=CS, GP18=SCK, GP19=MOSI |
+
+### Verification
+| Item | Result | Note |
+|---|---|---|
+| Host logger/SD regression | PASS | `python -m unittest tests.test_logger_sd -v`, 10 tests OK |
+| SD mount | PASS | Mounted at `/sd`; directory listing `['System Volume Information']` |
+| CSV create/write/flush/close/readback | PASS | Temporary `/sd/CODEX_SD_HIL.CSV`; readback matched `seq,value\n1,abc\n` |
+| Logger queue path | PASS | Executed current `src/logger.py` on Pico 2 with `PicoSDSink` |
+| Logger continuous queue/readback | PASS | 160 queued records plus CSV header; `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+| Clean SD reinitialization | PASS | `PicoSDSink.reinit()` after clean close returned `status=OK` |
+| Longer logger queue/load check | PASS | `scripts/pico_sd_hil.py --port COM14 --records 2000`; `lines=2001`, `writes=2000`, `flushes=63`, `closes=1`, `drops=0` |
+| Card-present probe before removal test | PASS | `scripts/pico_sd_hil.py --port COM14 --interactive-removal`; initial `mount_probe` passed, then stopped at operator card-removal prompt |
+| Card removal probe | PASS | With the microSD physically removed, `scripts/pico_sd_hil.py --port COM14 --probe` reported `mount_probe|FAIL|OSError: CMD0 failed: -1`, confirming card non-response detection |
+| Reinsert/remount probe | PASS | After reinserting the microSD, `scripts/pico_sd_hil.py --port COM14 --probe` reported `mount_probe|PASS|['System Volume Information']` |
+| Post-reinsert write/readback recovery | PASS | `scripts/pico_sd_hil.py --port COM14 --records 160`; CSV readback and logger queue path passed with `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+| Forced write-error after removal | INCONCLUSIVE | Delayed open-file probe was run after `CODEX_REMOVE_CARD_NOW`; both 1-record and 256-record write/flush attempts returned `status=OK`, `drops=0`, so MicroPython file/FAT buffering did not expose a logger-visible write error in this setup |
+| Final post-fault-attempt reinsert/remount probe | PASS | After reinserting the microSD, `scripts/pico_sd_hil.py --port COM14 --probe` reported `mount_probe|PASS` |
+| Final post-fault-attempt write/readback recovery | PASS | `scripts/pico_sd_hil.py --port COM14 --records 160`; CSV readback and logger queue path passed with `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+
+### Assessment
+- The current host logger implementation can run on Pico 2 MicroPython when paired with a Pico SD sink.
+- The logger queue path flushed and closed successfully without dropped records in this 160-record smoke/load check.
+- The same path also passed a 2000-record load check with no dropped records.
+- Physical card removal was detected as SD command failure, and reinsert/remount recovered successfully.
+- Forced write-error injection through an already-open MicroPython file did not produce a logger-visible error, even after 256 write/flush attempts following physical removal.
+- After the inconclusive write-error attempt, card reinsert/remount and normal logger write/readback recovered successfully.
+- This strengthens the SD bring-up beyond the 2026-09-04 direct CSV smoke because it exercises the fixture logger queue semantics.
+- Forced write-error behavior remains host-tested only; a lower-level block-device or power-fault procedure is needed before marking the hardware item PASS/FAIL.
+
+### Remaining SD real-hardware checks
+1. Define and run a lower-level SD write-error fault-injection procedure.
+2. SD reinitialization behavior after confirmed write error.
+3. Longer duration/load check if production logging rate or file rollover assumptions change.
+4. Re-run SD logger verification after final fixture firmware is loaded.
+
+## 2026-09-07 Pico 2 SD removal/reinsert retest
+
+### Scope
+- Re-run SD removal/reinsert checks because the prior physical removal timing was uncertain.
+- Confirm baseline SD write/readback before removal.
+- Confirm removed-card mount failure.
+- Confirm post-reinsert remount and write/readback recovery.
+- No NF55G command/control was transmitted.
+
+### Verification
+| Item | Result | Note |
+|---|---|---|
+| Baseline SD write/readback | PASS | `scripts/pico_sd_hil.py --port COM14 --records 160`; `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+| Card removal detection | PASS | With microSD physically removed, `scripts/pico_sd_hil.py --port COM14 --probe` reported `mount_probe|FAIL|OSError: CMD0 failed: -1` |
+| Reinsert/remount probe | PASS | After reinserting the microSD, `scripts/pico_sd_hil.py --port COM14 --probe` reported `mount_probe|PASS` |
+| Post-reinsert write/readback recovery | PASS | `scripts/pico_sd_hil.py --port COM14 --records 160`; CSV readback and logger queue path passed with `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+
+### Assessment
+- The retest confirms removed-card detection through SD command failure.
+- Reinsert/remount and normal logger write/readback recovered successfully.
+- The first post-reinsert attempt accidentally ran two serial tests in parallel and one failed to open `COM14` with `PermissionError`; this was a host-port contention issue, not an SD hardware failure. The write/readback recovery was then rerun serially and passed.
