@@ -498,3 +498,44 @@ Revision: Rev.0-draft
 - No crosstalk was observed in the passing loopback checks.
 - The 512-byte single-write attempt exceeded the reliable single-chunk behavior of this MicroPython REPL HIL path; fixture firmware should avoid relying on large undrained UART writes and should keep protocol frame handling byte/packet oriented.
 - Real NF55G HIL remains pending until the UART hardware layer / fixture firmware path is ready and safety procedure is reviewed.
+
+## 2026-09-07 Pico 2 pre-NF55G readiness check
+
+### Scope
+- Complete all practical checks available before a real NF55G unit is connected.
+- Add host-testable Pico hardware/transport layer skeletons and local command routing.
+- Re-run RTC, SD, and UART HIL checks serially on `COM14`.
+- Do not execute `NF_COMM_CHECK?` against hardware and do not transmit any NF55G command/control.
+
+### Implementation
+| Item | Result | Note |
+|---|---|---|
+| ATE UART transport skeleton | ADDED | `src/ate_uart.py`; UART0 byte transport, GP0/GP1, 115200 bps, 8N1 |
+| NF55G UART transport skeleton | ADDED | `src/nf55_uart.py`; UART1 byte transport, GP4/GP5, 38400 bps, 8E1 |
+| Local diagnostics skeleton | ADDED | `src/diagnostic.py`; fixture self-check, comm status, retry count helpers |
+| Fixture bootstrap skeleton | ADDED | `src/main.py`; local component wiring without NF55G command transmission at init |
+| ATE command parser | ADDED | `src/command_parser.py`; local/logger/RTC/diagnostic/control classification and `FW_UPDATE` forbidden category |
+| RTC HIL runner | ADDED | `scripts/pico_rtc_hil.py`; DS3231 scan/check/read through MicroPython REPL |
+
+### Verification
+| Item | Result | Note |
+|---|---|---|
+| Host unit/integration tests | PASS | `python -m unittest discover -s tests -v`, 91 tests OK |
+| Source syntax check | PASS | `python -m py_compile` for new hardware/parser/diagnostic/bootstrap modules and HIL scripts |
+| RTC HIL | PASS | `scripts/pico_rtc_hil.py --port COM14`; DS3231 `0x68`, `check=True`, datetime `20260907_093839`, status `0x08` |
+| SD HIL | PASS | `scripts/pico_sd_hil.py --port COM14 --records 160`; CSV readback and logger queue path passed with `lines=161`, `writes=160`, `flushes=5`, `closes=1`, `drops=0` |
+| UART HIL | PASS | `scripts/pico_uart_hil.py --port COM14 --bytes 256 --frames 100`; CH0/CH1 loopback and stress passed, crosstalk `0` |
+| `FW_UPDATE` local routing | PASS | Host tests confirm `FW_UPDATE` returns `ERR:FU_DISABLED` without requiring NF55G transport |
+| Control command before NF55G connection | PASS | Host tests confirm control routing returns `ERR:NF55G_NOT_CONNECTED` when protocol is unavailable |
+| `NF_COMM_CHECK?` before NF55G connection | PASS | Host tests confirm `ERR:NF55G_NOT_CONNECTED` |
+
+### Assessment
+- NF55G実機なしで進められる host-side implementation and Pico hardware HIL checks are complete for the current MicroPython bring-up path.
+- RTC, SD, and RS232C 2ch loopback have been rechecked on the actual Pico 2 setup.
+- The fixture still does not contain a final production firmware image/scheduler; `src/main.py` is a bootstrap skeleton and must be revisited when the firmware placement/build path is selected.
+- Real NF55G HIL must wait for a real NF55G unit and a safety-reviewed connection procedure.
+
+### Remaining before / at Real NF55G HIL
+1. Record the final fixture ADA-5703 GP4/GP5 physical isolation method and inspection evidence for HW-01.
+2. Select final firmware placement/build path and rerun RTC/SD/UART through that final image.
+3. Connect real NF55G only after the above and start with read-only/non-control HIL checks.

@@ -1,5 +1,5 @@
 # Test Specification / Mock NF55G Specification
-Revision: Rev.0
+Revision: Rev.1-draft
 
 ## Goal
 Before real NF55G connection, verify parser, protocol, decoder, cache, command integration and safety rules on host PC.
@@ -17,6 +17,20 @@ T8 Pico hardware
 T9 Real NF55G HIL
 
 T0-T7 must pass before HIL.
+
+## Current execution boundary as of 2026-09-07
+Desktop Codex has completed the currently available pre-NF55G checks:
+- Host T0-T7 baseline: 91 tests OK.
+- Pico 2 RTC REPL HIL: DS3231 I2C0 GP20/GP21 address `0x68`, check/read OK.
+- Pico 2 SD REPL HIL: mount, CSV write/readback, logger queue path, 2000-record load, card removal detection, and reinsert recovery OK.
+- Pico 2 RS232C 2ch REPL HIL: CH0 GP0/GP1 115200 bps 8N1 loopback OK; CH1 GP4/GP5 38400 bps 8E1 loopback OK; 100-frame stress OK.
+- Host-testable hardware/transport skeletons are present for ATE UART, NF55G UART, diagnostics, parser routing, and bootstrap.
+
+VSC+Codex must continue from this boundary:
+- Re-run host T0-T7 baseline after `git pull`.
+- Decide final firmware placement/build/flash path.
+- Re-run RTC/SD/UART checks through final fixture firmware, not only REPL HIL scripts.
+- Keep Real NF55G disconnected until final firmware smoke and safety checklist are reviewed.
 
 ## T8 hardware pre-check
 - Confirm ADA-5703 PiCowbell GP4/GP5 are physically isolated before starting final fixture debug.
@@ -81,6 +95,46 @@ Run as a separate debug/HIL check after SD hardware arrives. Do not treat host
 - Card removal
 - Write error
 - Reinitialization
+
+Current SD status:
+- PASS: mount, CSV creation, write, flush, close, continuous/logger queue logging, 2000-record load, card removal detection, reinsert/remount recovery.
+- INCONCLUSIVE: forced write-error through an already-open MicroPython file did not surface a logger-visible error.
+- VSC+Codex remaining item: define a lower-level write-error fault-injection method and verify SD reinitialization after confirmed write error.
+
+### RTC real-hardware debug
+- I2C scan on I2C0 GP20/GP21.
+- DS3231 check/read.
+- DS3231 set/readback.
+- Backup battery retention after power cycle.
+- Re-run after final firmware image/stack changes.
+
+Current RTC status:
+- PASS: I2C scan `0x68`, read/write, OSF clear, one power-cycle backup retention check, and 2026-09-07 readback.
+- VSC+Codex remaining item: final firmware image rerun; do not close OI-13 without human confirmation.
+
+### UART / RS232C 2ch real-hardware debug
+- UART0 / CH0 init: GP0=TX, GP1=RX, 115200 bps, 8N1.
+- UART1 / CH1 init: GP4=TX, GP5=RX, 38400 bps, 8E1.
+- RS232C-side TX/RX loopback for CH0.
+- RS232C-side TX/RX loopback for CH1.
+- Channel independence / crosstalk check.
+- Multi-frame stress check.
+- Re-run after final firmware image/stack changes.
+
+Current UART status:
+- PASS: CH0 and CH1 REPL HIL loopback, 256-byte pattern, no crosstalk, 100-frame stress.
+- LIMIT OBSERVED: 512-byte single-write REPL HIL attempt was partially received; treat as a MicroPython/UART buffering limit observation and keep production protocol handling byte/packet oriented.
+- VSC+Codex remaining item: final firmware transport/scheduler rerun.
+
+## T9 Real NF55G HIL entry gate
+Do not connect or command a real NF55G until all are true:
+- Desktop Codex changes are committed/pushed and VSC+Codex worktree is clean after pull.
+- Host T0-T7 baseline passes in VSC+Codex.
+- Final firmware image/build path is selected and recorded.
+- RTC/SD/UART smoke passes through final firmware.
+- ADA-5703 GP4/GP5 final physical isolation method and inspection record are documented for HW-01.
+- Real NF55G HIL checklist separates read-only smoke from control command testing.
+- `FW_UPDATE` / `FU` blocking path is verified before any NF55G control command sequence.
 
 ## Mock NF55G
 Provide:

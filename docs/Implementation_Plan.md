@@ -300,6 +300,7 @@ Date: 2026-09-01
 ### Phase 11: Pico UART Hardware Layer
 目的:
 - ATE UART と NF55G UART の physical byte I/O を Pico 実機上で接続する。
+- 2026-09-07 時点で Desktop Codex により REPL HIL の RS232C 2ch loopback は完了済み。VSC+Codex では final firmware 経由で再確認する。
 
 参照仕様:
 - `README.md`
@@ -312,20 +313,25 @@ Date: 2026-09-01
 - UART read/write abstraction。
 - timeout/deadline 用 tick source。
 - future USB CDC が command core を再利用できる構造。
+- `src/ate_uart.py` / `src/nf55_uart.py` host-testable transport skeleton。
+- `scripts/pico_uart_hil.py` REPL HIL runner。
 
 完了条件:
 - UART layer は command meaning を判断しない。
 - ATE 優先順位が scheduler 上で守れる。
 - NF55G transaction 同時実行禁止が hardware layer でも破られない。
+- RS232C CH0/CH1 loopback は Desktop Codex で PASS 済み。ただし final firmware scheduler/transport 経由の再確認を VSC+Codex で行う。
 
 テスト観点:
 - T8 Pico hardware。
 - loopback。
 - framing/parity error handling。
+- REPL HIL と final firmware の差異確認。
 
 ### Phase 12: 実機統合
 目的:
 - Real NF55G と接続し、T9 HIL と timing validation を行う。
+- NF55G 実機が未準備の場合は、final firmware smoke、safety checklist、handoff readiness までを先に完了させる。
 
 参照仕様:
 - 全 Master 仕様。
@@ -342,6 +348,8 @@ Date: 2026-09-01
 完了条件:
 - T0-T7 合格後にのみ実施。
 - T8 hardware smoke 合格後にのみ実施。
+- final firmware 経由の RTC/SD/UART smoke 合格後にのみ実施。
+- GP4/GP5 final fixture isolation method and inspection record を HW-01 に対応付けて記録してから実施。
 - 実機差異は Open Issue または仕様更新案として記録し、Pico 側で勝手に吸収しない。
 
 テスト観点:
@@ -357,13 +365,16 @@ Date: 2026-09-01
 | G2 | Phase 5-6 完了。Mock NF55G で protocol state machine が通る。 |
 | G3 | Phase 7-8 完了。ATE command から NF55G transaction/cache response まで host integration が通る。 |
 | G4 | Phase 9-10 完了。Logger/RTC が protocol timing を阻害しない。 |
-| G5 | Phase 11 完了。Pico UART/I2C smoke test が通る。 |
+| G5 | Phase 11 完了。Pico RTC/SD/UART REPL HIL smoke test が通る。VSC+Codex で final firmware 経由の再確認を行う。 |
 | G6 | Phase 12 完了。Real NF55G HIL の結果と残 Open Issues が記録されている。 |
 
 ## 6. Initial Test Execution Policy
 - Phase 1-8 は host PC unit/integration test を主対象にする。
 - T0-T7 は HIL 前の必須 gate とする。
 - 実機依存の T8/T9 は Mock NF55G test 合格後に限定する。
+- Desktop Codex で完了済みの REPL HIL は pre-NF55G evidence として扱う。
+- VSC+Codex 移行後、final firmware image/build path が決まったら RTC/SD/UART を final firmware 経由で再実行する。
+- NF55G 実機接続は final firmware smoke と safety checklist 後に限定する。
 - 仕様矛盾を見つけた場合は実装で吸収せず、`docs/Open_Issues.md` に追記する。
 
 ## 7. Documentation Update Policy

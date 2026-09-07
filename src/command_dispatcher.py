@@ -17,11 +17,12 @@ class CommandResult:
 
 
 class CommandDispatcher:
-    def __init__(self, protocol, cache, logger=None, rtc=None):
+    def __init__(self, protocol, cache, logger=None, rtc=None, diagnostics=None):
         self.protocol = protocol
         self.cache = cache
         self.logger = logger
         self.rtc = rtc
+        self.diagnostics = diagnostics
 
     def execute_control(self, ate_name, payload=None):
         try:
@@ -102,3 +103,21 @@ class CommandDispatcher:
             return CommandResult(False, "ERR:{}".format(exc), error=str(exc))
 
         return CommandResult(False, "ERR:UNKNOWN_RTC_CMD", error="UNKNOWN_RTC_CMD")
+
+    def execute_diagnostic(self, ate_name):
+        if self.diagnostics is None:
+            return CommandResult(False, "ERR:DIAG_UNAVAILABLE", error="DIAG_UNAVAILABLE")
+        if ate_name == "*IDN?":
+            return CommandResult(True, "NF55G_PICO_FIXTURE,Rev.0")
+        if ate_name == "PICO_SELF_CHECK?":
+            result = self.diagnostics.pico_self_check()
+            return CommandResult(result.ok, result.ate_text(), error=None if result.ok else "SELF_CHECK_NG")
+        if ate_name == "COMM_STATUS?":
+            result = self.diagnostics.comm_status(self.protocol)
+            return CommandResult(result.ok, result.ate_text(), error=None if result.ok else "COMM_STATUS_NG")
+        if ate_name == "RETRY_COUNT?":
+            result = self.diagnostics.retry_count()
+            return CommandResult(True, result.ate_text())
+        if ate_name == "NF_COMM_CHECK?":
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+        return CommandResult(False, "ERR:UNKNOWN_DIAG_CMD", error="UNKNOWN_DIAG_CMD")

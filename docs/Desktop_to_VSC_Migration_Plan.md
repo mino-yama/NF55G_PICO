@@ -1,6 +1,6 @@
 # Desktop Codex to VSC+Codex Migration Plan
-Revision: Rev.0-draft
-Date: 2026-09-04
+Revision: Rev.1-draft
+Date: 2026-09-07
 
 ## 1. Purpose
 本書は、Desktop 版 Codex で実施する開発範囲と、VSC+Codex へ移行して実機を使用する範囲を明確にし、移行時点のステータス、Gate、引き継ぎ資料、残 Issue を管理するための文書である。
@@ -10,8 +10,8 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 
 理由:
 - `docs/Implementation_Plan.md` は T0-T7 を host PC unit/integration test、T8/T9 を実機依存 Gate として定義している。
-- Desktop 版 Codex は host/mock 開発、仕様整理、Pico 単体 smoke、文書更新に適している。
-- VSC+Codex は実機 UART wiring、Pico firmware 配置、REPL/serial 操作、NF55G 実機 HIL、長時間 SD logger、故障注入を継続する環境として適している。
+- Desktop 版 Codex は host/mock 開発、仕様整理、Pico 単体 smoke、SD/RTC/UART HIL、文書更新まで実施済み。
+- VSC+Codex は final firmware placement/build、Real NF55G HIL、長時間 SD logger、低レベル故障注入、量産手順化を継続する環境として適している。
 
 ただし、移行後も `AGENTS.md` の Hard Rules を最上位ルールとし、D6 仕様との差異を Pico 側で独断吸収しない。
 
@@ -29,16 +29,20 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 - Pico 2 単体での非破壊 smoke:
   - USB CDC / MicroPython REPL recognition
   - DS3231 I2C scan/read/write
-  - SD SPI recognition, FAT mount, CSV write/readback
-  - UART peripheral initialization
+  - SD SPI recognition, FAT mount, CSV write/readback, logger queue path, removal/reinsert recovery
+  - UART peripheral initialization and RS232C CH0/CH1 loopback
+- Host-testable pre-NF55G fixture skeleton:
+  - ATE/NF55G UART byte transport skeletons
+  - local diagnostics and ATE command parser
+  - `FW_UPDATE` block / NF55G-not-connected safety routing
+  - repeatable RTC/SD/UART HIL runner scripts
 
 ### VSC+Codex scope
-- T8 Pico hardware continuation:
-  - ATE UART0 GP0/GP1 loopback
-  - NF55G UART1 GP4/GP5 38400 bps 8E1 loopback
+- T8 Pico hardware continuation after Desktop handoff:
+  - final fixture firmware placement/build/flash path selection
   - final fixture firmware transport/scheduler integration
-  - SD logger final queue path duration/load test
-  - SD card removal, write-error, reinitialization tests
+  - RTC/SD/UART rerun through final firmware image, not only REPL HIL scripts
+  - SD low-level write-error fault-injection and reinitialization after confirmed write error
   - final fixture GP4/GP5 isolation inspection record
 - T9 Real NF55G HIL:
   - D0/D1/D5/BC/AR/EL/OL/FD read confirmation
@@ -52,8 +56,8 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 | Item | Status | Note |
 |---|---|---|
 | Branch | INFO | Confirm with `git branch --show-current` at handoff time |
-| Uncommitted changes | WARNING | `docs/ATE_Command_List_for_Test_Program.docx` was already modified before this document update; do not overwrite without confirming ownership |
-| Host test suite | PASS | 2026-09-04: `python -m unittest discover -s tests -v`, 76 tests OK |
+| Uncommitted changes | ACTION REQUIRED | Confirm whether the latest Desktop Codex changes have been committed/pushed before opening VSC+Codex |
+| Host test suite | PASS | 2026-09-07: `python -m unittest discover -s tests -v`, 91 tests OK |
 
 ### Phase status
 | Phase | Status | Evidence / Note |
@@ -64,11 +68,11 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 | 4 Cache Manager | COMPLETE for host baseline | T4 tests pass |
 | 5 Mock NF55G | COMPLETE for host baseline | T6 tests pass |
 | 6 Protocol State Machine | COMPLETE for host baseline | T2/T7 protocol tests pass |
-| 7 ATE Command Parser / Dispatcher | PARTIAL/COMPLETE for covered host commands | Control/cache/RTC/logger paths covered; final transport integration pending |
+| 7 ATE Command Parser / Dispatcher | PARTIAL/COMPLETE for covered host commands | Control/cache/RTC/logger/diagnostic routing covered; final transport scheduler pending |
 | 8 NF55G Command Builder | PARTIAL | AD/AR and production FW confirmation remain open |
-| 9 Logger / SD | HOST COMPLETE, HARDWARE PARTIAL | Host queue/sink tests pass; Pico SD mount/write/readback verified; removal/error/reinit pending |
-| 10 RTC | HOST COMPLETE, HARDWARE PARTIAL | DS3231 I2C/read/write/battery verified; re-run after final firmware pending |
-| 11 Pico UART Hardware Layer | PENDING/PARTIAL | UART peripheral init verified; loopback and final hardware layer source pending |
+| 9 Logger / SD | HOST COMPLETE, HARDWARE PARTIAL | Host queue/sink tests pass; Pico SD mount/write/readback, queue load, removal/reinsert recovery verified; low-level write-error remains pending |
+| 10 RTC | HOST COMPLETE, HARDWARE PARTIAL | DS3231 I2C/read/write/battery and 2026-09-07 readback verified; re-run after final firmware pending |
+| 11 Pico UART Hardware Layer | HOST SKELETON + HARDWARE LOOPBACK COMPLETE | UART transport skeleton added; CH0/CH1 RS232C loopback passed through REPL HIL; final firmware scheduler pending |
 | 12 Real NF55G Integration | PENDING | No real NF55G HIL transaction executed |
 
 ### Hardware status
@@ -77,10 +81,10 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 | Pico 2 / RP2350 identity | PASS | MicroPython v1.28.0, `Raspberry Pi Pico2 with RP2350` observed |
 | DS3231 on I2C0 GP20/GP21 | PASS | Address `0x68` detected; read/write verified |
 | DS3231 backup battery | PASS for one power-cycle check | Re-run after final firmware and stack changes |
-| SD on GP16-GP19 | PASS basic I/O | SPI recognition, FAT mount, CSV write/readback, continuous smoke verified |
+| SD on GP16-GP19 | PASS basic I/O + removal recovery | SPI recognition, FAT mount, CSV write/readback, logger queue, 2000-record load, removal/reinsert recovery verified |
 | ADA-5703 GP4/GP5 conflict | OPEN | GP4/GP5 physically isolated during tests; final fixture inspection record still required |
-| ATE UART0 loopback | PENDING | GP0 <-> GP1 |
-| NF55G UART1 loopback | PENDING | GP4 <-> GP5, 38400 bps, 8E1 |
+| ATE UART0 loopback | PASS | RS232C-side loopback; GP0/GP1, 115200 bps, 8N1; 256-byte and 100-frame stress passed |
+| NF55G UART1 loopback | PASS | RS232C-side loopback; GP4/GP5, 38400 bps, 8E1; 256-byte and 100-frame stress passed |
 | Real NF55G connection | NOT STARTED | Control commands not executed |
 
 ## 5. Migration Gate
@@ -89,11 +93,11 @@ VSC+Codex へ移行する前に、以下を確認する。
 | Gate | Condition | Status |
 |---|---|---|
 | M1 | `AGENTS.md`、Master docs、Open Issues が最新である | READY |
-| M2 | Host test suite が PASS している | READY: 76 tests OK on 2026-09-04 |
+| M2 | Host test suite が PASS している | READY: 91 tests OK on 2026-09-07 |
 | M3 | 実機前提の残作業が T8/T9 として分離されている | READY |
 | M4 | 未確定事項が `docs/Open_Issues.md` に残っている | READY |
 | M5 | VSC 側で使う handoff checklist がある | READY with this document |
-| M6 | Git worktree の未コミット変更の所有者が明確である | ACTION REQUIRED: existing docx modification |
+| M6 | Git worktree の未コミット変更の所有者が明確である | ACTION REQUIRED at handoff: commit/push Desktop Codex changes or explicitly carry them forward |
 
 ## 6. VSC+Codex Start Checklist
 VSC+Codex 側の最初の作業で以下を行う。
@@ -104,19 +108,20 @@ VSC+Codex 側の最初の作業で以下を行う。
 4. `git status --short` を確認し、Desktop 版 Codex からの未コミット差分とユーザー差分を混同しない。
 5. `python -m unittest discover -s tests -v` を再実行し、T0-T7 baseline を再確認する。
 6. `docs/Real_Hardware_Test_Log.md` の最新 T8 記録を確認する。
-7. GP4/GP5 の最終 fixture isolation 状態を目視または検査記録で確認してから UART/NF55G 実機接続へ進む。
-8. UART loopback を ATE 側、NF55G 側の順に行う。
-9. final fixture firmware の transport/scheduler 統合後、RTC/SD を再検証する。
-10. Real NF55G HIL は T8 loopback と安全手順確認後に開始する。
+7. 2026-09-07 追加の HIL runner scripts (`pico_rtc_hil.py`, `pico_sd_hil.py`, `pico_uart_hil.py`) を確認する。
+8. GP4/GP5 の最終 fixture isolation 状態を目視または検査記録で確認してから NF55G 実機接続へ進む。
+9. final fixture firmware の placement/build/flash path を決め、REPL HIL ではなく final firmware 経由で RTC/SD/UART を再検証する。
+10. Real NF55G HIL は final firmware smoke と安全手順確認後に開始する。
 
 ## 7. VSC+Codex First Work Items
 優先順:
 
-1. `docs/ATE_Command_List_for_Test_Program.docx` の既存変更の扱いを確認する。
-2. UART loopback 手順を `docs/Real_Hardware_Test_Log.md` に追記できる形で実行する。
-3. Pico hardware UART/I2C/SD transport layer source または final firmware placement path を決める。
-4. SD removal/write-error/reinitialization の安全な fault-injection 手順を作る。
-5. Real NF55G HIL checklist を control command safety procedure と分離して作る。
+1. Desktop Codex の最終コミット/push 状態を確認し、VSC+Codex 側で `git pull` 後に `git status --short` が clean であることを確認する。
+2. `docs/Real_Hardware_Test_Log.md` の 2026-09-07 pre-NF55G readiness check を読み、RTC/SD/UART の Desktop 実施済み範囲を再確認する。
+3. Pico final firmware placement/build/flash path を決める。
+4. final firmware 経由で RTC/SD/UART self-check を再実行し、REPL HIL 結果との差異を記録する。
+5. SD low-level write-error/reinitialization の安全な fault-injection 手順を作る。
+6. Real NF55G HIL checklist を read-only smoke と control command safety procedure に分離して作る。
 
 ## 8. Required Records During VSC+Codex Work
 VSC+Codex で実機作業を行うたびに、以下を記録する。
@@ -136,12 +141,13 @@ VSC+Codex で実機作業を行うたびに、以下を記録する。
 ## 9. Risks and Controls
 | Risk | Control |
 |---|---|
-| Desktop/VSC 間で未コミット差分が混ざる | 移行時に `git status --short` と差分所有者を確認する |
+| Desktop/VSC 間で未コミット差分が混ざる | 移行前に commit/push、移行後に `git pull` と `git status --short` を確認する |
 | 実機差異を Pico 実装で吸収してしまう | `docs/Open_Issues.md` に記録し、人間確認まで Close しない |
 | GP4/GP5 conflict が再発する | UART/NF55G 作業前に final fixture isolation record を必須にする |
 | Query が自動 Refresh を呼ぶ | T5/T7 host tests と code review で維持する |
 | Control command を安全手順前に実行する | T9 checklist で read-only HIL と control HIL を分離する |
 | Logger/SD が通信 timing を阻害する | final firmware で protocol busy 中の SD write/flush 禁止を再検証する |
+| REPL HIL と final firmware の挙動差 | VSC+Codex 移行後に同等項目を final firmware 経由で再実行し、差異を記録する |
 
 ## 10. Open Issue Handling
 移行により Open Issue を Close しない。
@@ -151,10 +157,10 @@ VSC+Codex で実機作業を行うたびに、以下を記録する。
 - OI-04/OI-16 through OI-21: AD/AR final FW/design
 - OI-11: EB timing while command transaction active
 - OI-12: AR T2 final value
-- OI-13: RTC pin mapping confirmation record
+- OI-13: RTC pin mapping confirmation record; hardware observed but not closed without human confirmation
 - HW-01: GP4/GP5 final fixture isolation method and inspection record
 
 ## 11. Handoff Summary
-現時点では、Desktop 版 Codexで PICO 単体および host/mock の事前確認を進め、VSC+Codex で T8 continuation と T9 Real NF55G HIL を行う分担に問題はない。
+現時点では、Desktop 版 Codexで host/mock、Pico 2 RTC/SD/UART REPL HIL、pre-NF55G readiness skeleton まで実施済みである。VSC+Codex では final firmware placement/build/flash、final firmware 経由の再検証、SD low-level fault injection、T9 Real NF55G HIL を担当する。
 
-移行時の最重要条件は、未コミット差分の所有者確認、T0-T7 再実行、GP4/GP5 isolation record、Real NF55G control command safety procedure の 4 点である。
+移行時の最重要条件は、Desktop 版 Codex 変更の commit/push 確認、VSC+Codex 側の `git pull` と 91-test baseline 再実行、GP4/GP5 isolation record、final firmware smoke、Real NF55G control command safety procedure の 5 点である。
