@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-09-07 - D6 to r1 specification review
+
+- Added `docs/RW11_D6_to_R1_Impact_Review_20260907.md` with full 43-page text/image comparison, change list, implementation impact, and remaining verification.
+- Added OI-22 for r1 BOOT update recovery wording/procedure confirmation; FU remains prohibited and existing issues remain open.
+- No runtime, test, original-source, or baseline-rule changes. Existing host/mock suite: 91 tests passed. Real NF55G r1 behavior remains unverified.
+
 ## Rev.0 - 2026-09-01
 Initial Codex handoff baseline.
 
