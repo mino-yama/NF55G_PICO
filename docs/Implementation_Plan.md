@@ -1,4 +1,6 @@
 # NF55G Pico 2 Implementation Plan
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0
 Date: 2026-09-01
 
@@ -9,7 +11,7 @@ Date: 2026-09-01
 
 ## 2. Global Rules
 - 実装順は本書の Phase 1 から Phase 12 までの順に固定する。
-- 暫定 NF55G FW と D6 仕様の差異を Pico 側で勝手に吸収しない。
+- 暫定 NF55G FW と r1 仕様の差異を Pico 側で勝手に吸収しない。
 - 未確定事項は `docs/Open_Issues.md` に残し、Codex 判断で Close しない。
 - Pico は製品 PASS/FAIL を判定しない。
 - ATE 個別 Query から NF55G 通信や自動 Refresh を行わない。
@@ -155,7 +157,7 @@ Date: 2026-09-01
 
 完了条件:
 - Mock は試験用 peer であり、製品仕様の正本として扱わない。
-- D6 仕様と暫定 FW 差異を Mock 都合で Pico 実装に吸収しない。
+- r1 仕様と暫定 FW 差異を Mock 都合で Pico 実装に吸収しない。
 
 テスト観点:
 - T6 Mock NF55G end-to-end。

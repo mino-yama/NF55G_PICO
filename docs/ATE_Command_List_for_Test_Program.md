@@ -1,4 +1,6 @@
 # ATE Command List for Test Program
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0-draft
 Date: 2026-09-01
 
@@ -23,7 +25,7 @@ Date: 2026-09-01
 | Query 成功 | 値 | 半角 ASCII 英数字、10 進数値、または FD の 64 ASCII HEX。 |
 | Query 対象 Cache INVALID | `ERR:CACHE_INVALID` | 個別 Query から自動 Refresh しない。 |
 | Parser/形式エラー | `ERR:<reason>` | 引数長、形式、未対応コマンドなど。 |
-| NF55G エラー応答 | `ERR:CME` / `ERR:PME` / `ERR:SQE` / `ERR:HWE` / `ERR:MCM` / `ERR:FUE` | D6 error response を ATE へ返す。 |
+| NF55G エラー応答 | `ERR:CME` / `ERR:PME` / `ERR:SQE` / `ERR:HWE` / `ERR:MCM` / `ERR:FUE` | r1 error response を ATE へ返す。 |
 | Timeout/BCC/Frame 最終異常 | `ERR:<reason>` | 実行成否不明時は `ambiguous=True` とし、関連 Cache を INVALID にする。 |
 | FW_UPDATE | `ERR:FU_DISABLED` | NF55G へ `FU` を送信しない。 |
 

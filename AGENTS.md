@@ -1,15 +1,15 @@
 # AGENTS.md
 # NF55G Pico 2 試験治具 - Codex 開発ルール
-Revision: Rev.0
-Date: 2026-09-01
+Revision: Rev.1
+Date: 2026-09-07
 
 ## 1. 目的
 本リポジトリは、Raspberry Pi Pico 2 を用いた NF55G 試験治具ソフトウェアを開発するための正本である。
 Codex は本ファイルを最上位ルールとして扱い、仕様書・原典資料・Open Issues と矛盾する変更を独断で行ってはならない。
 
 ## 2. 最上位 Hard Rules
-1. NF55G 通信仕様書 D6 を基本仕様とする。
-2. 暫定 NF55G FW と D6 仕様の差異を、Pico 側で勝手に吸収しない。
+1. RW11用電源通信仕様書 r1（`reference/RW11用電源通信仕様書r1.pdf`、GVT-284454-001-00、初版 2026/9/4）を基本仕様とする。D6は過去比較用として保持する。
+2. 暫定 NF55G FW と r1 仕様の差異を、Pico 側で勝手に吸収しない。
 3. 未確定事項は `docs/Open_Issues.md` に残し、Codex 判断で確定・Close しない。
 4. `FU` は試験治具から絶対に NF55G へ送信しない。ATE から `FW_UPDATE` を受けても `ERR:FU_DISABLED` を返す。
 5. Pico は製品 PASS/FAIL を判定しない。Pico は通信・変換・Cache・Logger・RTC を担当し、最終判定は ATE 側が行う。
@@ -37,7 +37,7 @@ Codex は本ファイルを最上位ルールとして扱い、仕様書・原�
 ## 3. 優先順位
 1. 本 `AGENTS.md`
 2. 最終 NF55G 仕様資料
-3. NF55G 通信仕様書 D6
+3. RW11用電源通信仕様書 r1（初版 2026/9/4）
 4. `docs/ATE_Command_Master.md`
 5. `docs/Data_Decode_Master.md`
 6. `docs/Cache_Master.md`

@@ -2,11 +2,14 @@
 Revision: Rev.0
 Codex must NOT close these by inference.
 
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
+過去のAD/ARレビューにあるD6参照は当時の比較記録として保持する。r1への基準切替は既存Issueの解決・Closeを意味しない。
+
 | ID | Issue | Rev.0 implementation |
 |---|---|---|
 | OI-01 | Pico-side T1 final value | 200 ms provisional |
 | OI-02 | D0 T2 list=300ms vs detail=600ms | use 600 ms provisional |
-| OI-03 | Current FW may clear CHARGE_END after D0 ACK | implement D6 non-destructive D0; confirm FW |
+| OI-03 | Current FW may clear CHARGE_END after D0 ACK | retain existing non-destructive D0 policy; confirm r1/final FW interpretation |
 | OI-04 | AR REF/value8 final wire format and ATE return policy | Fixture draft keeps REF as raw8/open; interim FW appears to use IEEE754 float raw HEX. Decide raw/decode/both before final ATE release. |
 | OI-05 | AD runtime coefficient immediate reflection vs reboot | Interim FW writes EEPROM and computes response-local slope, but runtime coefficient globals may not update immediately. No automatic reboot; confirm final behavior. |
 | OI-06 | BC=0 STOP current FW behavior | implement spec; confirm final FW |
@@ -19,7 +22,7 @@ Codex must NOT close these by inference.
 | OI-13 | RTC HAT revision pin mapping | verify I2C scan 0x68 on received hardware |
 | OI-14 | UNIT_ID source for future filename extension | product FW read vs barcode undecided |
 | OI-15 | Detailed USB CDC/PySide6 protocol | deferred phase |
-| OI-16 | AD request/response wire format mismatch | Fixture draft defines AD as 10-char DATA control/set command; interim FW request is `TYPE1+POINT1+VALUE8` and success response is `TYPE1+POINT1+ADC6+CALC8`. Confirm final D6/production FW/design expectation. |
+| OI-16 | AD request/response wire format mismatch | Fixture draft defines AD as 10-char DATA control/set command; interim FW request is `TYPE1+POINT1+VALUE8` and success response is `TYPE1+POINT1+ADC6+CALC8`. Confirm r1/production FW/design expectation. |
 | OI-17 | AD/AR target mapping and 12VOUT_I coverage | Fixture draft/decoder expose five AR systems; interim FW implements the same five targets, while `12VOUT_I` has a runtime coefficient but no AD/AR EEPROM slot. Confirm final target list and ATE names. |
 | OI-18 | AD POINT/VALUE validation and rejection policy mismatch | Fixture docs leave POINT/VALUE validation open; interim FW uses POINT `1/2`, clamps out-of-range VALUE, and may not explicitly reject unsupported TYPE/POINT. Define final PME/SQE/clamp behavior. |
 | OI-19 | AD persistence/write timing and EEPROM error behavior | Interim FW stores `correct_t` to EEPROM and returns after write check; final commit timing, busy behavior, retention, write-cycle limits, and HWE behavior need confirmation. |
@@ -79,7 +82,7 @@ Detailed AD/AR differences:
 - AR response shape: `Data_Decode_Master.md` defines AR as 140 DATA chars: five systems x two points x `(ADC6 + REF8)`. Interim FW matches 140 DATA chars and full frame length 146, ordered `DISCHG_I`, `BATT_V`, `ACDC12V_V`, `BATT_CHG`, `12VOUT_V`. This agreement still needs final production FW confirmation before the ATE query behavior is fixed.
 
 Implementation cautions for AD/AR:
-- Do not translate between tentative FW behavior and D6/design intent inside Pico. If interim FW behavior differs, expose it as an Open Issue and confirm with production FW/design.
+- Do not translate between tentative FW behavior and r1/design intent inside Pico. If interim FW behavior differs, expose it as an Open Issue and confirm with production FW/design.
 - Keep AD implementation provisional until OI-16 through OI-21 and OI-04/OI-05 are answered. Parser strictness should follow the confirmed final format, not Codex inference.
 - AD success or ambiguous failure must invalidate `DATA` and `AR`. ATE individual Query must not auto-refresh; ATE must explicitly run `AR_REFRESH` after AD.
 - Do not update `AR` cache from AD response data unless final FW explicitly defines AD response as AR-equivalent.

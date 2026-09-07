@@ -1,4 +1,6 @@
 # Data Decode Master
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0
 
 ## 1. 共通 Decode Rule
@@ -47,6 +49,9 @@ ATE format:
 |39|11|RESERVED|-|-|
 
 ## 5. OFF_PERIOD
+
+r1 §13.5.1(1): 本データはNF55GのPS_OFF期間中に更新される。D2およびD0内OFF_PERIODに適用する。30文字の配置・単位・倍率は変更なし。Pico側で更新値を推測・補完しない。
+
 AC_OFF_HOUR4 x0.1h
 PS_OFF_HOUR4 x0.1h
 AVE_OFF_TEMP2 signed

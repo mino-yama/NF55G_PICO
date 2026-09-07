@@ -1,4 +1,6 @@
 # Desktop Codex to VSC+Codex Migration Plan
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.1-draft
 Date: 2026-09-07
 
@@ -13,7 +15,7 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 - Desktop 版 Codex は host/mock 開発、仕様整理、Pico 単体 smoke、SD/RTC/UART HIL、文書更新まで実施済み。
 - VSC+Codex は final firmware placement/build、Real NF55G HIL、長時間 SD logger、低レベル故障注入、量産手順化を継続する環境として適している。
 
-ただし、移行後も `AGENTS.md` の Hard Rules を最上位ルールとし、D6 仕様との差異を Pico 側で独断吸収しない。
+ただし、移行後も `AGENTS.md` の Hard Rules を最上位ルールとし、r1 仕様との差異を Pico 側で独断吸収しない。
 
 ## 3. Scope Boundary
 

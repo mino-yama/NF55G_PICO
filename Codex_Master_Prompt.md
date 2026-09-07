@@ -6,7 +6,7 @@ You are starting development of the NF55G Pico 2 production-test fixture.
 1. Read `AGENTS.md` first and treat it as the highest-level development rule.
 2. Read `README.md`.
 3. Read all documents under `docs/`.
-4. Read the final NF55G specification and original communication specification under `reference/`.
+4. Read the final NF55G specification and `reference/RW11用電源通信仕様書r1.pdf` (GVT-284454-001-00, first edition 2026/9/4) as the current communication baseline. Retain D6 only for historical comparison; do not use it as the current baseline.
 5. Treat NF55G source under `reference/` as evidence for implementation differences, not permission to silently override the formal specification.
 6. Do NOT start implementation immediately.
 
