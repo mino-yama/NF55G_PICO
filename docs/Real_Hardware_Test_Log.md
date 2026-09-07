@@ -458,3 +458,43 @@ Revision: Rev.0-draft
 - The retest confirms removed-card detection through SD command failure.
 - Reinsert/remount and normal logger write/readback recovered successfully.
 - The first post-reinsert attempt accidentally ran two serial tests in parallel and one failed to open `COM14` with `PermissionError`; this was a host-port contention issue, not an SD hardware failure. The write/readback recovery was then rerun serially and passed.
+
+## 2026-09-07 Pico 2 RS232C 2ch loopback verification
+
+### Scope
+- Continue T8 Pico hardware checks after SD/RTC bring-up.
+- Verify Waveshare Pico-2CH-RS232 CH0 and CH1 through RS232C-side TX/RX loopback wiring.
+- Verify UART0 ATE-side settings and UART1 NF55G-side settings.
+- Verify basic channel independence / no observed crosstalk.
+- No NF55G unit was connected and no NF55G command/control was transmitted.
+
+### Preconditions
+| Item | Result | Note |
+|---|---|---|
+| Host branch | INFO | `main` |
+| Target board | PASS | Raspberry Pi Pico 2 / RP2350 over MicroPython REPL |
+| Serial port | INFO | `COM14` |
+| RS232C CH0 loopback | DONE | Operator reported TX/RX short completed before test |
+| RS232C CH1 loopback | DONE | Operator reported TX/RX short completed before test |
+| ADA-5703 GP4/GP5 isolation | ASSUMED | Required by T8 pre-check; 2026-09-04 setup had GP4/GP5 physically isolated, final fixture inspection record still tracked by HW-01 |
+
+### Verification
+| Item | Result | Note |
+|---|---|---|
+| UART HIL runner syntax | PASS | `python -m py_compile scripts\pico_uart_hil.py` |
+| MicroPython identity | PASS | `micropython; rp2; Raspberry Pi Pico2 with RP2350` |
+| UART0 init | PASS | `UART(0)`, GP0=TX, GP1=RX, 115200 bps, 8N1 |
+| UART1 init | PASS | `UART(1)`, GP4=TX, GP5=RX, 38400 bps, 8E1 |
+| CH0 loopback smoke | PASS | `tx=32`, `rx=32`, `mismatch=0`, `crosstalk=0` |
+| CH1 loopback smoke | PASS | `tx=32`, `rx=32`, `mismatch=0`, `crosstalk=0` |
+| CH0 loopback 256-byte pattern | PASS | `tx=256`, `rx=256`, `mismatch=0`, `crosstalk=0` |
+| CH1 loopback 256-byte pattern | PASS | `tx=256`, `rx=256`, `mismatch=0`, `crosstalk=0` |
+| Dual-channel stress | PASS | `frames=100`, CH0 `3500` bytes, CH1 `3500` bytes, no mismatch reported |
+| 512-byte single-write observation | FAIL / LIMIT OBSERVED | CH0 `tx=512`, `rx=290`; CH1 `tx=512`, `rx=289`; stress frames still passed. Treat as MicroPython/UART buffering limit for this HIL method, not a D6 protocol failure. |
+
+### Assessment
+- Both RS232C channels initialized with the project-intended pin mapping and serial settings.
+- RS232C-side loopback passed on both CH0 and CH1 at smoke, 256-byte pattern, and 100-frame stress levels.
+- No crosstalk was observed in the passing loopback checks.
+- The 512-byte single-write attempt exceeded the reliable single-chunk behavior of this MicroPython REPL HIL path; fixture firmware should avoid relying on large undrained UART writes and should keep protocol frame handling byte/packet oriented.
+- Real NF55G HIL remains pending until the UART hardware layer / fixture firmware path is ready and safety procedure is reviewed.
