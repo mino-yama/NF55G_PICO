@@ -51,6 +51,8 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 - D0 T2: 600 ms provisional
 
 ## Development order
+Windows の環境導入手順と導入状況: [Development Environment](docs/Development_Environment.md)
+
 1. Read all specifications and `AGENTS.md`
 2. Review only; do not implement immediately
 3. Build Host test environment

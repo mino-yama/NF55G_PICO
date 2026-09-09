@@ -539,3 +539,213 @@ Revision: Rev.0-draft
 1. Record the final fixture ADA-5703 GP4/GP5 physical isolation method and inspection evidence for HW-01.
 2. Select final firmware placement/build path and rerun RTC/SD/UART through that final image.
 3. Connect real NF55G only after the above and start with read-only/non-control HIL checks.
+
+## 2026-09-09 Pico 2 identity, deployed files, and isolation confirmation
+
+### Scope and setup
+- Record time: 2026-09-09 17:36 JST (08:36 UTC), immediately after inspection.
+- Repository HEAD: `fca57e6cca82576f312de8d33761eeb6d7954b8d`; local development-environment changes and the inventory script were uncommitted.
+- USB port: COM14; VID:PID `2E8A:0005`; serial `2D35A1E11AC125E3`.
+- User explicitly confirmed that ADA-5703 GP4/GP5 are currently physically cut/disconnected.
+  This is operator-reported evidence, not an agent visual inspection or continuity measurement.
+  Exact cut locations, photographs, and final fixture inspection record were not provided; HW-01 remains open.
+- Other wiring and whether a real NF55G is physically attached were not independently checked.
+- Read-only inventory executed from host into RAM; no file placement, flash, SD mount,
+  UART/I2C/SPI initialization, or NF55G command was performed by the inspection script.
+- `resume` avoids mpremote's automatic soft reset. Entering REPL interrupts any running application;
+  this inspection did not restart application code.
+
+### Executed command
+```bat
+.venv\Scripts\python.exe -B -m mpremote connect COM14 resume run scripts\pico_inventory.py
+```
+
+### Raw response (exit code 0)
+```text
+PICO_INVENTORY_BEGIN
+IMPLEMENTATION|(name='micropython', version=(1, 28, 0, ''), _machine='Raspberry Pi Pico2 with RP2350', _mpy=7942, _build='RPI_PICO2', _thread='unsafe')
+VERSION|3.4.0; MicroPython v1.28.0 on 2026-04-06
+PLATFORM|rp2
+UNAME|(sysname='rp2', nodename='rp2', release='1.28.0', version='v1.28.0 on 2026-04-06 (GNU 14.2.0 MinSizeRel)', machine='Raspberry Pi Pico2 with RP2350')
+UNIQUE_ID|2d35a1e11ac125e3
+FREQ|150000000
+CWD|/
+SYS_PATH|['', '.frozen', '/lib']
+DIR|/sd
+PICO_INVENTORY_END
+```
+
+### Assessment and next action
+- PASS: USB REPL and Pico 2 / RP2350 MicroPython v1.28.0 identity; CPU frequency 150 MHz.
+- INFO: root contains only `/sd`; no root `boot.py`, `main.py`, or `/lib` directory.
+  No deployed fixture source files were found in the inspected filesystem scope.
+  `/sd` contents and firmware-frozen modules were not inspected; an `/sd` directory alone does not prove an SD mount.
+- INFO: current GP4/GP5 disconnection confirmed by user; final fixture inspection traceability remains HW-01.
+- No product PASS/FAIL assessment, NF55G control or FU transmission, or cache modification.
+  This inventory does not exercise the firmware FU-blocking path.
+- Next: Pico-only RTC/SD checks, then UART loopback after loopback wiring and NF55G disconnection are confirmed.
+  Final firmware placement/scheduler integration and final-firmware HIL remain pending.
+
+## 2026-09-10 SD initialization repeat check
+
+- Completed by 08:16:53 JST, COM14, normal permissions; same Pico/SD setup as the preceding checks.
+- Requested the card remain inserted throughout. No removal, power cycle, or firmware reset was requested or performed by the agent.
+  This tests repeated software initialization, not cold power-on behavior.
+- Executed sequentially: `.venv\Scripts\python.exe -B scripts\pico_sd_hil.py --port COM14 --probe`
+  three times, then `.venv\Scripts\python.exe -B scripts\pico_sd_hil.py --port COM14 --records 160`.
+- All four processes exited 0. Local raw captures: `temp/sd_probe_20260910_1.txt`,
+  `temp/sd_probe_20260910_2.txt`, `temp/sd_probe_20260910_3.txt`, `temp/sd_basic_20260910.txt` (git-ignored).
+- Each probe reported the same result payload:
+```text
+CODEX_SD_HIL_BEGIN
+mount_probe|PASS|['System Volume Information', '00000001406554.csv', '00000001470803.csv', '00000002075576.csv', '00000002204345.csv']
+CODEX_SD_HIL_END
+```
+- Subsequent basic I/O result payload:
+```text
+CODEX_SD_HIL_BEGIN
+mount|PASS|['System Volume Information', '00000001406554.csv', '00000001470803.csv', '00000002075576.csv', '00000002204345.csv']
+csv_create_write_flush_close_readback|PASS|'seq,value\n1,abc\n'
+logger_queue_flush_close_readback|PASS|lines=161, writes=160, flushes=5, closes=1, drops=0
+sd_reinit_after_clean_cycle|PASS|status=OK
+CODEX_SD_HIL_END
+```
+- PASS: three consecutive mount/unmount probes, CSV exact readback, 160-record logger path,
+  and clean-cycle reinitialization. No CMD0 anomaly recurred in this run.
+- The previous `CMD0 failed: 31` remains unexplained; these passes do not establish contact failure
+  as the cause or validate first initialization after power-on. No Open Issue was closed.
+- Existing HIL code was used without modification; no NF55G/FU command, cache operation,
+  or product PASS/FAIL assessment. Normal completion removes test CSVs and unmounts the card.
+
+## 2026-09-10 UART two-channel loopback verification
+
+- Execution: approximately 08:05-08:07 JST, COM14, normal permissions.
+- Repository HEAD: `fca57e6cca82576f312de8d33761eeb6d7954b8d`; staged development environment and earlier hardware log changes were preserved.
+- Pico identifies as MicroPython / rp2 / Raspberry Pi Pico2 with RP2350.
+  Firmware version was v1.28.0 in the preceding inventory; this UART script does not re-read its version.
+- Setup: operator reports both channels (user labels Ch1/Ch2) shorted for loopback;
+  ADA-5703 GP4/GP5 physically cut/disconnected per preceding operator confirmation.
+  Script labels are CH0=UART0 GP0/GP1 and CH1=UART1 GP4/GP5.
+- The prior turn's execution session was no longer available and its result could not be recovered.
+  No PASS is assigned to that lost run; this entry records the new completed run.
+
+Command:
+```bat
+.venv\Scripts\python.exe -B scripts\pico_uart_hil.py --port COM14 --bytes 256 --frames 100 > temp\uart_hil_20260910.txt 2>&1
+```
+
+Result: exit code 0. Result payload below omits only REPL transport bytes;
+the local raw capture is `temp/uart_hil_20260910.txt` (git-ignored).
+
+```text
+CODEX_UART_HIL_BEGIN
+stress_progress|INFO|frames_done=10
+stress_progress|INFO|frames_done=20
+stress_progress|INFO|frames_done=30
+stress_progress|INFO|frames_done=40
+stress_progress|INFO|frames_done=50
+stress_progress|INFO|frames_done=60
+stress_progress|INFO|frames_done=70
+stress_progress|INFO|frames_done=80
+stress_progress|INFO|frames_done=90
+stress_progress|INFO|frames_done=100
+micropython_identity|PASS|micropython; rp2; Raspberry Pi Pico2 with RP2350
+uart0_init_115200_8n1|PASS|GP0=TX, GP1=RX
+uart1_init_38400_8e1|PASS|GP4=TX, GP5=RX
+uart0_ch0_loopback|PASS|tx=256, rx=256, mismatch=0, crosstalk=0
+uart1_ch1_loopback|PASS|tx=256, rx=256, mismatch=0, crosstalk=0
+dual_channel_stress|PASS|frames=100, ch0_bytes=3500, ch1_bytes=3500
+CODEX_UART_HIL_END
+```
+
+- PASS: UART0 115200 bps 8N1 and UART1 38400 bps 8E1 initialize and loop back exactly.
+- PASS: 256-byte initial patterns match, other-channel received bytes are zero.
+- PASS: 100 frames per channel, 3500 bytes per channel, tested alternately (not simultaneous saturation).
+- Both UART peripherals are deinitialized by the script on normal completion.
+- Test patterns only: no NF55G protocol/control/FU command was generated. No product PASS/FAIL,
+  cache behavior, or firmware FU-blocking path was evaluated.
+- Scope is REPL HIL, not final fixture firmware. No firmware file placement or runtime source change.
+- Remaining: final fixture isolation inspection traceability (HW-01), final firmware integration,
+  final-firmware RTC/SD/UART tests, and previously observed SD initialization anomaly.
+  Open Issues remain open.
+
+## 2026-09-09 RTC/SD rerun - initial COM14 access failure
+
+- Time: approximately 17:38 JST (08:38 UTC).
+- Setup: same Pico 2 / MicroPython v1.28.0 as the preceding inventory;
+  user reports both channels (user labels Ch1/Ch2) shorted for loopback.
+  GP4/GP5 isolation remains user-confirmed as above; no new visual inspection.
+- Command: `.venv\Scripts\python.exe -B scripts\pico_rtc_hil.py --port COM14`.
+- Both normal and user-authorized elevated execution failed at serial port open, exit code 1:
+  `could not open port 'COM14': PermissionError(13, ..., None, 5)` (access denied).
+- Port enumeration still identifies COM14, VID:PID `2E8A:0005`, serial `2D35A1E11AC125E3`.
+- Result: RTC NOT RUN; SD NOT RUN. This is a host port access failure, not an RTC/SD hardware failure.
+  Another program holding the port is possible but not established.
+- Requested the user disconnect any COM14 serial monitor/REPL before retrying.
+  No RTC/SD operation or NF55G/FU command was transmitted by these failed attempts.
+
+### Retry after operator released COM14
+
+- Operator reported the COM14 connection was disconnected; the same RTC command then succeeded under normal permissions.
+  This is consistent with port contention, although the previous owning process was not identified.
+- RTC observation: 2026-09-09 17:39:26 as read from DS3231. Same Pico 2 / RP2350,
+  MicroPython v1.28.0 and repository revision as the preceding inventory; no firmware placement.
+- RTC uses I2C0 GP20/GP21 at 100 kHz; SD uses SPI0 GP16-GP19 with GP17 CS.
+- User also confirmed the microSD card was inserted after the first SD initialization failure.
+- Subsequent operator clarification: the card was physically removed and reinserted once
+  between the initial `CMD0 failed: 31` and recovery. Recovery therefore followed physical
+  intervention, not merely a software retry. Contact quality is a candidate cause, but
+  contact changes and card-state changes from reinsertion have not been distinguished.
+- USB REPL scripts executed sequentially. Ch1/Ch2 loopback wiring is operator-reported;
+  UART loopback was outside this RTC/SD execution scope.
+
+| Execution | Result | Evidence |
+|---|---|---|
+| RTC scan/check/read | PASS | Address `0x68`, check `True`, datetime `20260909_173926`, status `0x08`; exit 0 |
+| SD basic 160-record first attempt | FAIL at initialization | `OSError: CMD0 failed: 31`; exit 1; CSV operations not reached |
+| SD mount-only probe | PASS | Existing directory listing returned; exit 0 |
+| SD basic 160-record retry | PASS | CSV exact readback, logger 161 lines including header, 160 writes, 5 flushes, 1 close, 0 drops; clean reinit OK; exit 0 |
+
+Commands (all successful runs under normal permissions):
+```bat
+.venv\Scripts\python.exe -B scripts\pico_rtc_hil.py --port COM14
+.venv\Scripts\python.exe -B scripts\pico_sd_hil.py --port COM14 --records 160
+.venv\Scripts\python.exe -B scripts\pico_sd_hil.py --port COM14 --probe
+.venv\Scripts\python.exe -B scripts\pico_sd_hil.py --port COM14 --records 160
+```
+
+Raw result payloads (REPL transport control bytes omitted):
+```text
+CODEX_RTC_HIL_BEGIN
+micropython_identity|PASS|micropython; rp2; Raspberry Pi Pico2 with RP2350
+i2c0_gp20_gp21_scan|PASS|['0x68']
+ds3231_check|PASS|True
+ds3231_read_datetime|PASS|20260909_173926, status=0x08
+CODEX_RTC_HIL_END
+
+CODEX_SD_HIL_BEGIN
+EXCEPTION|FAIL|OSError: CMD0 failed: 31
+CODEX_SD_HIL_END
+
+CODEX_SD_HIL_BEGIN
+mount_probe|PASS|['System Volume Information', '00000001406554.csv', '00000001470803.csv', '00000002075576.csv', '00000002204345.csv']
+CODEX_SD_HIL_END
+
+CODEX_SD_HIL_BEGIN
+mount|PASS|['System Volume Information', '00000001406554.csv', '00000001470803.csv', '00000002075576.csv', '00000002204345.csv']
+csv_create_write_flush_close_readback|PASS|'seq,value\n1,abc\n'
+logger_queue_flush_close_readback|PASS|lines=161, writes=160, flushes=5, closes=1, drops=0
+sd_reinit_after_clean_cycle|PASS|status=OK
+CODEX_SD_HIL_END
+```
+
+### Limits and remaining work
+- Basic RTC read and SD I/O are verified through REPL HIL. The initial SD CMD0 response anomaly
+  remains unexplained; recovery after the operator's card reinsertion is not evidence of a permanent fix.
+  Record recurrence and investigate card/connection/initialization behavior if it returns.
+- RTC set/write, reference-clock accuracy, battery retention, long-duration SD logging,
+  card removal, and low-level write-error injection were not tested in this run.
+- The successful SD script removes its temporary test CSV files and unmounts `/sd` on completion.
+- No NF55G/FU command was sent. No final fixture firmware, production communication timing,
+  firmware FU-blocking path, or product PASS/FAIL was assessed. No Open Issue was closed.
+- Next: UART loopback verification using confirmed channel mapping, followed by final firmware integration/testing.

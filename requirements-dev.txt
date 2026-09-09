@@ -1,0 +1,7 @@
+# Host unit/mock tests use the Python standard library.
+# Existing RTC/SD/UART HIL runners:
+pyserial==3.5
+# ATE command list Word document generator:
+python-docx==1.2.0
+# MicroPython deployment/REPL utility (optional for the existing HIL runners):
+mpremote==1.29.0
