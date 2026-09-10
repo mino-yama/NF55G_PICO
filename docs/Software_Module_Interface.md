@@ -42,6 +42,27 @@ USB CDC detailed implementation is deferred. Architecture should allow a future 
 - models.py: shared data structures.
 
 ## Core interfaces
+Runtime統合の詳細と検証範囲: [Runtime Integration](Runtime_Integration.md)。
+
+- `SystemClock.ticks_ms()/sleep_ms()` をprotocol/cache/logger/schedulerで共有。
+- `FixtureApp.service_once()/run()/stop()` がATE受信、idle EB、背景Loggerを統括。
+- `NF55Protocol.busy/communication_busy/last_result`、`service_idle()`、
+  `poll_hook`（ATE収集のみ）、`trace_hook`（RAM記録のみ）を追加。
+- `FileSDSink` と `PicoSDSink` は通信中の実I/Oを拒否する。実カードと最終タイミングはHIL待ち。
+
+`CommandDispatcher.execute_refresh(ate_name, payload=None) -> CommandResult`
+
+- D1/D5のみ対応。開始時に対象CacheをINVALID、完全Decode後にVALID。
+- 結果には元のTransactionResultを保持する。Protocol成功後のDecode失敗では
+  `CommandResult.ok=False`、`transaction.ok=True`、`error=DECODE`となる。
+- protocol外へ漏れた `OSError` はUARTエラー、ambiguous=Trueとして返す。
+  この場合、復元できないelapsed_msとretry数はNone（未取得）。0回・0msとは扱わない。
+
+`CommandDispatcher.execute_query(ate_name, payload=None) -> CommandResult`
+
+- STATUS 37項目・INFO 26項目。Cacheのみを参照し、protocolを呼ばない。
+- `FixtureApp.execute_ate_line` は両経路をparserのREFRESH/QUERY分類から呼び出す。
+
 `nf55_protocol.transact(cmd, data, t2_ms, expected_length) -> TransactionResult`
 
 TransactionResult:

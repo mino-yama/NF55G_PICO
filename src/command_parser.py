@@ -5,6 +5,12 @@ judgement, or NF55G transmission.
 """
 
 
+try:
+    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+except ImportError:  # pragma: no cover
+    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+
+
 LOGGER_COMMANDS = (
     "TEST_START",
     "TEST_END",
@@ -63,6 +69,11 @@ def parse_ate_command(line):
 
     if name == "FW_UPDATE":
         return ParsedCommand(text, name, payload=payload, category="FORBIDDEN")
+    if name in READ_REFRESH_COMMANDS or name in CACHE_QUERY_COMMANDS:
+        if payload is not None:
+            raise ParseError("UNEXPECTED_PAYLOAD")
+        category = "REFRESH" if name in READ_REFRESH_COMMANDS else "QUERY"
+        return ParsedCommand(text, name, category=category)
     if name in LOGGER_COMMANDS:
         return ParsedCommand(text, name, payload=payload, category="LOGGER")
     if name in RTC_COMMANDS or name.startswith(RTC_PREFIXES):
@@ -88,4 +99,3 @@ def _split_payload(text):
         name, payload = text.split("=", 1)
         return name, payload.strip()
     return text, None
-

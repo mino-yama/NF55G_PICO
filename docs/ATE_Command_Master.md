@@ -4,6 +4,8 @@
 Revision: Rev.0
 
 ## 1. 共通原則
+- ATE UARTの要求・応答終端はCRLF（2026-09-10ユーザー確認）。受信は分割可能。
+  ホストは応答完了後に次コマンドを送る。開発受信上限は512文字、保留8コマンド。
 - ATE 応答は半角 ASCII 英数字、および 10 進数値（小数点・符号可）。
 - HEX/BIN 取得値は必要に応じ 10 進表記へ変換。
 - FD は例外で 32 byte を 64 ASCII HEX のまま返す。
@@ -24,6 +26,19 @@ Revision: Rev.0
 | FD_READ_xxxxxx | FD | 100ms | FD | 6 hex address |
 | EL_REFRESH_01/09/17/25 | EL | 100ms | EL block | 8 records/block |
 | OL_REFRESH_01/09/17/25/33/41/49/57 | OL | 100ms | OL block | 8 records/block |
+
+### D1/D5 Host実装状況（2026-09-10）
+
+- `STATUS_REFRESH` / `INFO_REFRESH` と第5節・第6節の全個別Queryを共通Command Coreに実装済み。
+- 引数なし。余分な引数・`=`指定は `ERR:UNEXPECTED_PAYLOAD`（Cache変更・送信なし）。
+- Refreshは対象Cacheを先にINVALIDにし、D1=15文字 / D5=100文字、T2=100msで通信する。
+  完全Decode後のみ対象CacheをVALIDにし `OK` を返す。失敗時に旧値は復元しない。
+- 個別QueryはCacheのみ参照。INVALID時は `ERR:CACHE_INVALID`。
+  STATUSは `0`/`1`、INFOの数値は10進数、製造ASCII textは先頭ゼロを保持する。
+- 通信未接続は `ERR:NF55G_NOT_CONNECTED`、Decode失敗は `ERR:DECODE`。
+  NF55Gエラー/timeout等は `ERR:<transaction.error>`。HWE時はDATA/STATUSもINVALID。
+- ATE受信ループ、Pico時計、EB、実SD統合コードはHost/Mockで検証済み。
+  最終firmware経由の実機検証は別途必要。実機送信Gateは変更しない。
 
 ## 3. Control / Set
 | ATE | NF CMD | NF DATA | T2 | Success invalidation | Post check |

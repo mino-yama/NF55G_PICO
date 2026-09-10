@@ -44,6 +44,6 @@ def create_ate_uart():
         from machine import Pin, UART
     except ImportError as exc:  # pragma: no cover - host path
         raise UARTTransportError("machine UART unavailable") from exc
-    uart = UART(0, baudrate=115200, bits=8, parity=None, stop=1, tx=Pin(0), rx=Pin(1))
+    uart = UART(0, baudrate=115200, bits=8, parity=None, stop=1, tx=Pin(0), rx=Pin(1),
+                rxbuf=4096, timeout=0, timeout_char=0)
     return UARTByteTransport(uart)
-

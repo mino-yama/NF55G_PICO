@@ -4,6 +4,9 @@
 Revision: Rev.0
 
 ## Hardware
+2026-09-10: 実SD sink・Pico SPI driver・RTCファイル名・runtime busy guardを統合。
+Host/Mock検証済み、統合版の実カード・電源断・通信遅延測定は未実施。
+詳細と制限は [Runtime Integration](Runtime_Integration.md) を参照。
 - Adafruit ADA-5703 PiCowbell Data Logger
 - microSD 32GB
 - FAT32
@@ -84,3 +87,18 @@ Priority:
 
 ## Suggested CSV fields
 timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail
+
+
+## 2026-09-10: SD startup diagnostics
+
+Added RAM-only first-startup SD stage/error snapshot; no automatic retry, added delay or ATE format change. Soft-boot mount passed; cold-power failure cause remains unconfirmed. Host/Mock: 138 tests passed. See [investigation](SD_Startup_Investigation.md).
+
+
+## 2026-09-10: Controlled SD cold-start comparison prepared
+
+Added opt-in startup delay / CS-before-SPI settings (normal defaults unchanged) and temporary `firmware/sd_startup_probe.py`. Pico /main.py now selects DELAY_ONLY: 500 ms wait, original CS order, one CMD0 attempt. Cold-power result pending; normal entry point must be restored after investigation. Host/Mock: 139 tests passed. See [experiment matrix](SD_Startup_Investigation.md).
+
+
+## 2026-09-10: SD startup comparison completed without improvement
+
+DELAY_AND_CS cold start: CMD0 failed: 31, CARD_INIT, elapsed 627 ms; captured before reset/reinit. Baseline, delay-only, CS-only and combined cases all exhibited the same CMD0 failure. Tested 500 ms wait and CS-before-SPI are not established fixes. Restored normal firmware/main.py to Pico /main.py, retaining diagnostic support. Root cause remains open. No Host tests rerun for hardware measurement and entry restoration; last suite 139 passed. See [full evidence](SD_Startup_Investigation.md).

@@ -53,6 +53,10 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 ## Development order
 Windows の環境導入手順と導入状況: [Development Environment](docs/Development_Environment.md)
 
+実物NF55G接続前の準備・残実装・試験手順案: [NF55G HIL Preparation](docs/NF55G_HIL_Preparation.md)
+
+Pico時計・EB・ATE受信・実SDの統合とHost検証: [Runtime Integration](docs/Runtime_Integration.md)
+
 1. Read all specifications and `AGENTS.md`
 2. Review only; do not implement immediately
 3. Build Host test environment

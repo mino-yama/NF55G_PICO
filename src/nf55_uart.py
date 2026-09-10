@@ -63,6 +63,8 @@ def create_nf55_uart():
         stop=config.NF55_STOP_BITS,
         tx=Pin(4),
         rx=Pin(5),
+        rxbuf=2048,
+        timeout=0,
+        timeout_char=0,
     )
     return NF55UARTTransport(uart)
-

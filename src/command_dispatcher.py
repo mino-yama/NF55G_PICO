@@ -2,8 +2,16 @@
 
 try:
     from .nf55_command import CommandError, build_control_command
+    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+    from .nf55_decode import DecodeError, decode_d1, decode_d5
+    from .models import TransactionResult
+    from .logger import LoggerError
 except ImportError:  # pragma: no cover
     from nf55_command import CommandError, build_control_command
+    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+    from nf55_decode import DecodeError, decode_d1, decode_d5
+    from models import TransactionResult
+    from logger import LoggerError
 
 
 class CommandResult:
@@ -23,6 +31,51 @@ class CommandDispatcher:
         self.logger = logger
         self.rtc = rtc
         self.diagnostics = diagnostics
+
+    def execute_refresh(self, ate_name, payload=None):
+        if ate_name not in READ_REFRESH_COMMANDS:
+            return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
+        if payload is not None:
+            return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
+        cmd, target, t2_ms, length = READ_REFRESH_COMMANDS[ate_name]
+        self.cache.refresh_started(target)
+        if self.protocol is None:
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+        try:
+            tx = self.protocol.transact(cmd, data=b"", t2_ms=t2_ms, expected_length=length)
+        except OSError:
+            # Transport failed outside the protocol's result path; timing/retries
+            # cannot be reconstructed here. Do not invent measurements.
+            tx = TransactionResult(False, cmd, error="UART", ambiguous=True,
+                                   elapsed_ms=None, command_retry_count=None,
+                                   response_retry_count=None)
+        if not tx.ok:
+            if tx.error == "HWE":
+                self.cache.invalidate_many(("DATA", "STATUS"))
+            return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
+        try:
+            decoded = (decode_d1 if cmd == "D1" else decode_d5)(tx.response_data)
+            for cache_name, field in CACHE_QUERY_COMMANDS.values():
+                if cache_name == target and field not in decoded:
+                    raise DecodeError("incomplete decoded cache")
+        except (ValueError, UnicodeError):
+            return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
+        self.cache.refresh_succeeded(target, decoded, cmd)
+        return CommandResult(True, "OK", transaction=tx)
+
+    def execute_query(self, ate_name, payload=None):
+        if ate_name not in CACHE_QUERY_COMMANDS:
+            return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
+        if payload is not None:
+            return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
+        target, field = CACHE_QUERY_COMMANDS[ate_name]
+        data = self.cache.get(target)
+        if data is None or field not in data:
+            return CommandResult(False, "ERR:CACHE_INVALID", error="CACHE_INVALID")
+        value = data[field]
+        if isinstance(value, bool):
+            value = int(value)
+        return CommandResult(True, str(value))
 
     def execute_control(self, ate_name, payload=None):
         try:
@@ -47,6 +100,14 @@ class CommandDispatcher:
         return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
 
     def execute_logger(self, ate_name):
+        if self.protocol is not None and getattr(self.protocol, "busy", False):
+            return CommandResult(False, "ERR:BUSY", error="BUSY")
+        try:
+            return self._execute_logger(ate_name)
+        except (ValueError, OSError, LoggerError) as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error=str(exc))
+
+    def _execute_logger(self, ate_name):
         if self.logger is None:
             return CommandResult(False, "ERR:LOGGER_UNAVAILABLE", error="LOGGER_UNAVAILABLE")
 
@@ -73,14 +134,15 @@ class CommandDispatcher:
         if ate_name == "LOG_DROP_COUNT?":
             return CommandResult(True, str(self.logger.drop_count))
         if ate_name == "SD_REINIT":
-            self.logger.reinit()
-            return CommandResult(True, "OK")
+            return self._logger_command_result(self.logger.reinit())
         return CommandResult(False, "ERR:UNKNOWN_LOGGER_CMD", error="UNKNOWN_LOGGER_CMD")
 
     def _logger_command_result(self, ok):
         if ok:
             return CommandResult(True, "OK")
         status = self.logger.status()
+        if status == 'OK':
+            status = 'BUSY'
         return CommandResult(False, "ERR:{}".format(status), error=status)
 
     def execute_rtc(self, ate_name):
@@ -116,7 +178,7 @@ class CommandDispatcher:
             result = self.diagnostics.comm_status(self.protocol)
             return CommandResult(result.ok, result.ate_text(), error=None if result.ok else "COMM_STATUS_NG")
         if ate_name == "RETRY_COUNT?":
-            result = self.diagnostics.retry_count()
+            result = self.diagnostics.retry_count(getattr(self.protocol, 'last_result', None))
             return CommandResult(True, result.ate_text())
         if ate_name == "NF_COMM_CHECK?":
             return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")

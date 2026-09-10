@@ -42,6 +42,7 @@ If NF55G response BCC/frame is invalid:
 - command_retry_count and response_retry_count are separate.
 
 ## Timing
+- RuntimeはSystemClockでPico ticks周回を吸収。EB処理中も元のdeadlineを保持。
 - Pico T1 = 200 ms provisional.
 - T2 starts after valid ACK.
 - D0 T2 = 600 ms provisional.
@@ -68,6 +69,8 @@ False for:
 Ambiguous control failure invalidates related caches.
 
 ## EB
+2026-09-10: idle/ACK待ち/応答待ち/Response RetryでのEB別処理をHost/Mockで検証済み。
+詳細・開発受信上限は `Runtime_Integration.md`。OI-11の製品側タイミング確認は継続。
 EB is asynchronous.
 - Decode and ACK separately.
 - Never update STATUS cache.

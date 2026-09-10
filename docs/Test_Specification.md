@@ -48,6 +48,30 @@ VSC+Codex must continue from this boundary:
 - これは製品側挙動のHIL確認項目。既存Host/Mockの合格を代替証拠にしない。FU禁止および既存の実機接続Gateは維持する。
 
 ## Required tests
+### Runtime integration (2026-09-10)
+
+`tests/test_runtime_integration.py` adds 31 tests; total Host/Mock count is 136.
+Coverage: Pico-style ticks wrap, deadline edges, EB during ACK/response/retry/idle,
+bounded buffers, UART errors/short writes, CRLF ATE receive/partial transmit,
+SD scheduling/deferred flush/fault recovery, RTC CSV names and filesystem readback.
+See `Runtime_Integration.md` for evidence and remaining real timing/SD HIL requirements.
+
+### D1/D5 common command path (2026-09-10)
+
+`tests/test_read_cache_integration.py` covers the Host/Mock path through FixtureApp,
+parser, dispatcher, protocol, decoder, and cache:
+- D1/D5 command ID, empty DATA, 100ms T2 and exact response length.
+- All 37 STATUS and 26 INFO queries; flags 0/1, decimal values, leading-zero text.
+- Invalidation before transmission; no invalid-query TX or automatic Refresh.
+- No unrelated cache updates; missing hardware invalidates the requested target.
+- Payload rejection without cache mutation/transmission; reserved fields remain unsupported.
+- Decode failure/partial dictionary, NAK, timeout, BCC, wrong CMD/length, HWE, UART OSError.
+- Response retry recovery with plain NAK and separate retry counters.
+- Control invalidation followed by invalid Query; FW_UPDATE still has no NF55G TX.
+
+Host/Mock total: 105 tests pass (14 added). This does not complete EB, scheduler,
+Pico clock, SD integration, or final-firmware HIL gates.
+
 ### Protocol
 - normal ACK/response/ACK
 - NAK30-36 then one command retry recovery
