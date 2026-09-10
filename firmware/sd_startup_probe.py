@@ -28,7 +28,7 @@ class ObservedSDCard(SDCard):
 
 def run_post_failure_probe(app, snapshot, factory=None, mode='REBUILD', retained_card=None):
     report = {'first_startup': dict(snapshot), 'results': [], 'error': None,
-              'skipped': None, 'baudrate': 400000, 'delay_ms': 50}
+              'skipped': None, 'baudrate': 100000, 'delay_ms': 50}
     report['mode'] = mode
     report['attempts'] = 1 if mode in ('RETRY_ONLY', 'CLOCKS_ONLY') else 10
     report['extra_idle_bytes'] = 16 if mode in ('CLOCKS_ONLY', 'REBUILD') else 0
