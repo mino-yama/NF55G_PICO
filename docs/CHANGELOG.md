@@ -228,3 +228,88 @@ no reconstruction factory, then exactly one retry and cleanup. The warm Pico
 smoke uses injected failure; cold-power evidence still requires a physical cycle.
 Evidence paths: temp/pico_clocks_only_warm_injection.log and
 temp/pico_clocks_only_warm_boot.log. No permanent workaround has been selected.
+
+
+## 2026-09-10: Pico CLOCKS_ONLY verification record
+
+Recorded COM14 preserved startup evidence (initial CMD0=31; follow-up=0x7F)
+in Real_Hardware_Test_Log.md and SD_Startup_Investigation.md. This was a re-read,
+not a new physical cold-start trial. Host/Mock 147 passed; firmware unchanged;
+root cause remains open. Device left at friendly REPL.
+
+
+## 2026-09-10: CLOCKS_ONLY physical power-cycle evidence
+
+Recorded operator-confirmed power-cycle trial at 15:20 JST: initial CMD0=31,
+retained-SPI follow-up after 128 clocks=0x7F, SD unmounted. Failure reproduced;
+root cause remains open. Evidence and device REPL state recorded in hardware
+log and SD investigation. No firmware changes; last Host/Mock run 147 passed.
+
+
+## 2026-09-10: Deploy chat SD changes; Phase 1 passed
+
+Deployed and byte-verified 24 files on Pico 2, with prior Python files backed up.
+Host/Mock 147 passed; basic CMD0 at measured 100 kHz returned 0x01.
+Phase 2 cold power cycle, Phase 3 five CASE cold trials and optional Phase 4
+physical measurement remain pending. See Real_Hardware_Test_Log.md.
+
+
+## 2026-09-10: Phase 2 cold mount succeeded; Phase 3 BASELINE ready
+
+100 kHz / PULL_UP cold boot returned mounted=True, READY, OK, elapsed_ms=305.
+Additional CMD0 probe skipped for mounted filesystem. Recorded first evidence;
+deployed and byte-verified BASELINE variant for next physical power cycle.
+No root-cause conclusion or Open Issue closure. See hardware test log.
+
+
+## 2026-09-10: Phase 3 BASELINE cold mount passed
+
+BASELINE cold boot: mounted=True, READY, OK, 304 ms. Initial evidence recorded;
+follow-up CMD0 skipped. DELAY_ONLY entry deployed and byte-verified for trial 2/5.
+No application source changes or Open Issue closure. See hardware test log.
+
+
+## 2026-09-10: Phase 3 DELAY_ONLY cold mount passed
+
+DELAY_ONLY cold boot: mounted=True, READY, OK, 806 ms including 500 ms wait.
+Initial evidence recorded; follow-up CMD0 skipped. CS_ONLY entry deployed and
+byte-verified for trial 3/5. No source change or Open Issue closure.
+
+
+## 2026-09-10: Phase 3 CS_ONLY cold mount passed
+
+CS_ONLY cold boot: mounted=True, READY, OK, 307 ms. Initial evidence recorded;
+follow-up CMD0 skipped. DELAY_AND_CS entry deployed and byte-verified for trial
+4/5. No application source change or Open Issue closure.
+
+
+## 2026-09-10: Phase 3 DELAY_AND_CS cold mount passed
+
+DELAY_AND_CS cold boot: mounted=True, READY, OK, 810 ms including 500 ms wait.
+Initial evidence recorded; follow-up CMD0 skipped. CMD0_NO_PRE_FF entry deployed
+and byte-verified for trial 5/5. No source change or Open Issue closure.
+
+
+## 2026-09-10: Five-CASE cold-boot series completed
+
+Final CMD0_NO_PRE_FF trial mounted successfully in 305 ms. All five CASEs
+returned OK/READY with 100 kHz initialization and MISO PULL_UP. Recorded
+evidence-backed comparison; no unique optimum or root cause established.
+Optional physical MISO measurement remains unperformed. Diagnostic entry
+retained; Pico at REPL with ATE loop stopped. Last Host/Mock: 147 passed.
+
+
+## 2026-09-10: Restore normal baseline per user decision
+
+Restored and byte-verified firmware/main.py as Pico /main.py; retained SD
+100 kHz initialization and MISO PULL_UP, with no wait, original CS order,
+and CMD0 pre-FF enabled. Normal warm mount check passed (333 ms), Host/Mock
+147 passed. Left normal firmware running. Requested task complete; optional
+voltage measurement unperformed, clock-only root cause not established.
+
+
+## 2026-09-10: User omits MISO voltage measurement
+
+Optional Phase 4 omitted by user decision. Recorded next step: physical ATE
+UART integration on final firmware, followed by T9 entry review and D1/D5
+product communication tests. No firmware changes or tests executed.
