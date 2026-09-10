@@ -172,3 +172,50 @@ class SDCard:
         if op == 5:
             return 512
         return None
+
+    @staticmethod
+    def _r1_bit_names(r1):
+        """Analyze R1 response byte and return list of set bit names."""
+        bits = {
+            0: "In Idle State",
+            1: "Erase Reset",
+            2: "Illegal Command",
+            3: "Command CRC Error",
+            4: "Erase Sequence Error",
+            5: "Address Error",
+            6: "Parameter Error",
+            7: "Reserved",
+        }
+        names = []
+        for bit_pos in range(8):
+            if r1 & (1 << bit_pos):
+                names.append(bits.get(bit_pos, "Unknown"))
+        return names
+
+    def diagnose_cmd0_multi(self, attempts=10, delay_ms=10):
+        """Execute multiple CMD0 attempts and log R1 responses with bit analysis.
+
+        Args:
+            attempts: Number of CMD0 attempts
+            delay_ms: Delay between attempts in milliseconds
+
+        Returns:
+            List of tuples: (attempt, r1_hex, r1_dec, bits_set, is_valid)
+            where is_valid = (r1_hex == 0x01)
+        """
+        if not isinstance(attempts, int) or not 1 <= attempts <= 20:
+            raise ValueError('attempts must be 1..20')
+        if not isinstance(delay_ms, int) or not 0 <= delay_ms <= 1000:
+            raise ValueError('delay_ms must be 0..1000')
+        # Diagnostic only: caller must ensure no mounted filesystem uses this card.
+        results = []
+        for attempt in range(1, attempts + 1):
+            if attempt > 1:
+                self.clock.sleep_ms(delay_ms)
+            r = self.cmd(0, 0, 0x95)
+            r1_hex = "0x{:02x}".format(r) if r >= 0 else "TIMEOUT"
+            r1_dec = r if r >= 0 else -1
+            bit_names = self._r1_bit_names(r) if r >= 0 else []
+            is_valid = (r == self.R1_IDLE_STATE)
+            results.append((attempt, r1_hex, r1_dec, bit_names, is_valid))
+        return results

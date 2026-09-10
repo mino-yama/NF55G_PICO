@@ -152,3 +152,13 @@ sampled before initialization; the timer start was corrected and the repeated
 check recorded 289 ms in the evidence file above before cold-boot use.
 Backup files: `temp/pico_main_before_sd_diagnostic.py` and
 `temp/pico_sd_sink_before_diagnostic.py`. No Open Issue was closed.
+
+
+## 2026-09-10: Chat CMD0 diagnostic handoff validated
+
+Corrected pre-mount diagnostic contamination: preserve first baseline mount failure, then probe only an unmounted CMD0 failure, without auto-remount. Bounded repeated-CMD0 method; actual regression tests replace synthetic assertions. Host/Mock 143 passed; Pico warm CMD0 10/10 idle responses, SD remount and existing 65-line CSV readback passed. Temporary diagnostic boot deployed for cold-power evidence; root cause unresolved. See [handoff validation](SD_CMD0_Chat_Handoff_Validation.md).
+
+
+## 2026-09-10: Cold first failure followed by successful diagnostic CMD0
+
+BASELINE first mount failed at CMD0=31 (CARD_INIT, MOUNT_ERR, elapsed 19 ms). Automatic post-failure raw probe recorded 10/10 CMD0=1 replies; original failure remained preserved, with no automatic SD remount. Probe reconstructs SPI and supplies extra idle clocks, so this is not proof of a simple one-command retry fix. Captured before host reset/reinit. See [handoff cold evidence](SD_CMD0_Chat_Handoff_Validation.md). No source/device changes or Host tests for this hardware measurement.
