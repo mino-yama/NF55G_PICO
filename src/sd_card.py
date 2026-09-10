@@ -6,6 +6,7 @@ except ImportError:
     from pico_clock import SystemClock
 
 class SDCard:
+    CMD0_PRE_DUMMY = True  # Diagnostic override; normal behavior retained.
     CMD_TIMEOUT = 100
     R1_IDLE_STATE = 1
     R1_ILLEGAL_COMMAND = 4
@@ -89,7 +90,8 @@ class SDCard:
         self.cmdbuf[3] = (arg >> 8) & 0xff
         self.cmdbuf[4] = arg & 0xff
         self.cmdbuf[5] = crc
-        self.spi.write(b"\xff")
+        if cmd != 0 or self.CMD0_PRE_DUMMY:
+            self.spi.write(b"\xff")
         self.spi.write(self.cmdbuf)
         if skip1:
             self.spi.readinto(self.tokenbuf, 0xff)

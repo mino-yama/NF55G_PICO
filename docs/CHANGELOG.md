@@ -158,3 +158,73 @@ DELAY_AND_CS cold start: CMD0 failed: 31, CARD_INIT, elapsed 627 ms; captured be
 ## 2026-09-10: Chat CMD0 diagnostic handoff validated
 
 Corrected pre-mount diagnostic contamination: preserve first baseline mount failure, then probe only an unmounted CMD0 failure, without auto-remount. Bounded repeated-CMD0 method; actual regression tests replace synthetic assertions. Host/Mock 143 passed; Pico warm CMD0 10/10 idle responses, SD remount and existing 65-line CSV readback passed. Temporary diagnostic boot deployed for cold-power evidence; root cause unresolved. See [handoff validation](SD_CMD0_Chat_Handoff_Validation.md).
+
+
+## 2026-09-10: Verification-method handoff
+
+Updated verify_sd_diagnostics.py to execute diagnostic regressions; aligned instructions to current 400 kHz baseline. Added simulated SPI constructor/command coverage for idle clocks, exact CMD0 frame, error preservation and timeout. Diagnostic 5 passed; full Host/Mock 144 passed. No Pico/runtime changes; see [verification handoff](SD_CMD0_Chat_Handoff_Validation.md).
+
+
+## 2026-09-10: CMD0_NO_PRE_FF hardware comparison prepared
+
+Temporary Pico /main.py selects CMD0_NO_PRE_FF: only CMD0's CS-Low pre-command
+FF byte is omitted. Other commands retain it. Initialization remains 400 kHz,
+mode 0, 16 FF bytes with CS High, zero added wait and original CS/SPI ordering.
+The driver default CMD0_PRE_DUMMY=True preserves normal behavior; only the
+diagnostic entry overrides it. Startup snapshot includes cmd0_pre_dummy=False.
+Post-failure probing still preserves the initial result; its CMD0 commands also
+use this setting. No automatic remount or production workaround was added.
+
+Host/Mock: 144 passed, with first-CMD0 byte sequence and failure/timeout checks
+covering both pre-FF settings. Pico warm runtime smoke passed: RTC advancing,
+64 CSV rows at /sd/BANK_A/20260910_114306.csv, zero drops, remount/readback,
+RAM ATE CRLF and FU rejection, run/stop and zero observed NF55G TX bytes.
+Evidence: temp/pico_no_ff_runtime_smoke.log and temp/pico_no_ff_warm_boot.log.
+Cold-power result pending operator power-cycle; no claim of root-cause repair.
+Earlier statements that this comparison was unimplemented are historical.
+
+
+## 2026-09-10: RETRY_ONLY comparison prepared
+
+Temporary diagnostic entry retains the SDCard object whose constructor failed,
+via ObservedSDCard, and records the original mount error before follow-up.
+PROBE_MODE=RETRY_ONLY issues one CMD0 on that same object/SPI: no SPI constructor
+or init, no additional 128-clock train and no explicit retry delay. Ordinary
+cmd() CS transitions and post-response FF clocks remain; "no extra clocks" does
+not mean zero clocks between commands. SPI is deinitialized only after the probe.
+CASE remains CMD0_NO_PRE_FF to keep the preceding trial's command bytes unchanged.
+The baseline of this comparison is that preceding trial, not the original driver.
+
+If first mount succeeds or no retained object exists, probing is skipped. No
+automatic remount follows a failure. First evidence is not overwritten by a
+successful follow-up. All additional probing is diagnostic, not production retry.
+
+Host/Mock: 146 passed. New checks enforce retained-object reuse, exactly one
+attempt, zero requested delay and no fallback reconstruction when object missing.
+Pico warm test injected a software CMD0 error after a real 0x01 reply, confirmed
+constructor-failure object retention, then obtained 0x01 from one same-SPI retry.
+SD remount and existing 65-line CSV readback passed. This injected failure is NOT
+a reproduced cold-power failure and does not establish a fix.
+Evidence: temp/pico_retry_only_warm_injection.log; reproducible script:
+scripts/pico_cmd0_retry_only_smoke.py. Warm boot evidence:
+temp/pico_retry_only_warm_boot.log.
+
+Pico /main.py and /sd_cmd0_probe.py contain the updated diagnostic module.
+The next operator power-cycle must be captured before host reset/reinit; inspect
+startup_sd_diagnostic and REPL global diagnostic_report, including probe_mode,
+mode, attempts and results. Cold result pending; root cause remains unresolved.
+
+
+## 2026-09-10: CLOCKS_ONLY comparison prepared
+
+PROBE_MODE=CLOCKS_ONLY retains the failed card/SPI, drives CS High and writes
+16 FF bytes (128 clocks), then sends one CMD0 with zero explicit delay. No SPI
+constructor/init occurs before that retry; deinit is cleanup after the result.
+CASE remains CMD0_NO_PRE_FF, matching RETRY_ONLY. Report includes mode, attempts,
+delay_ms and extra_idle_bytes=16. First failure is retained without automatic remount.
+
+Host/Mock: 147 passed. New test verifies CS High during all 16 writes, same SPI,
+no reconstruction factory, then exactly one retry and cleanup. The warm Pico
+smoke uses injected failure; cold-power evidence still requires a physical cycle.
+Evidence paths: temp/pico_clocks_only_warm_injection.log and
+temp/pico_clocks_only_warm_boot.log. No permanent workaround has been selected.
