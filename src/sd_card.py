@@ -14,7 +14,7 @@ class SDCard:
     TOKEN_STOP_TRAN = 0xfd
     TOKEN_DATA = 0xfe
 
-    def __init__(self, spi, cs, baudrate=400000, clock=None):
+    def __init__(self, spi, cs, baudrate=100000, clock=None):
         self.spi = spi
         self.clock = clock or SystemClock()
         self.cs = cs

@@ -244,7 +244,9 @@ class PicoSDSink(FileSDSink):
                 self.mount_stage = 'CS_SETUP'
                 cs = Pin(17, Pin.OUT, value=1)
             self.mount_stage = 'SPI_SETUP'
-            spi = SPI(0, sck=Pin(18), mosi=Pin(19), miso=Pin(16))
+            # MISO with internal pullup for reliable signal (ADA-5703 requirement)
+            miso = Pin(16, Pin.IN, Pin.PULL_UP)
+            spi = SPI(0, sck=Pin(18), mosi=Pin(19), miso=miso)
             self.mount_stage = 'CARD_INIT'
             self.card = SDCard(spi, cs if cs is not None else Pin(17))
             self.mount_stage = 'VFS_MOUNT'

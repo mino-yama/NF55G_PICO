@@ -84,7 +84,7 @@ class Cmd0DiagnosticTests(unittest.TestCase):
                     CardUnderTest(spi, cs)
                 self.assertEqual(events[0], ('CS', 1))
                 self.assertEqual(events[1], ('INIT', 1,
-                    dict(baudrate=400000, phase=0, polarity=0)))
+                    dict(baudrate=100000, phase=0, polarity=0)))
                 low = events.index(('CS', 0))
                 self.assertEqual(events[2:low], [('WRITE', 1, b'\xff')] * 16)
                 expected = [('WRITE', 0, b'\xff')] if pre_dummy else []

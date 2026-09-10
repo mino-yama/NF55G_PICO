@@ -16,6 +16,8 @@ class StartupDiagnosticTests(unittest.TestCase):
                 events = []
                 class Pin:
                     OUT = 1
+                    IN = 0
+                    PULL_UP = 2
                     def __init__(self, pin, *args, **kwargs):
                         if pin == 17:
                             events.append(('CS', kwargs.get('value')))
@@ -39,7 +41,12 @@ class StartupDiagnosticTests(unittest.TestCase):
                 self.assertIn('CMD0 failed: 31', sink.last_error)
 
     def test_card_init_error_preserved_and_no_retry(self):
-        machine = types.SimpleNamespace(Pin=lambda pin: pin, SPI=lambda *a, **k: object())
+        def pin_mock(pin, *args, **kwargs):
+            return pin
+        pin_mock.IN = 0
+        pin_mock.OUT = 1
+        pin_mock.PULL_UP = 2
+        machine = types.SimpleNamespace(Pin=pin_mock, SPI=lambda *a, **k: object())
         sink = PicoSDSink()
         with patch.dict(sys.modules, machine=machine), patch(
                 'src.sd_card.SDCard', side_effect=OSError('CMD0 failed: 31')) as card:

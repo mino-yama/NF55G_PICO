@@ -78,10 +78,12 @@ def create_cmd0_probe():
     card.cmdbuf = bytearray(6)
     card.tokenbuf = bytearray(1)
     card.last_extra = bytearray()
-    card.spi = SPI(0, sck=Pin(18), mosi=Pin(19), miso=Pin(16))
+    # MISO with internal pullup for reliable signal (ADA-5703 requirement)
+    miso = Pin(16, Pin.IN, Pin.PULL_UP)
+    card.spi = SPI(0, sck=Pin(18), mosi=Pin(19), miso=miso)
     try:
         card.cs = Pin(17, Pin.OUT, value=1)
-        card.init_spi(400000)
+        card.init_spi(100000)
         for _ in range(16):
             card.spi.write(bytes([255]))
         return card
