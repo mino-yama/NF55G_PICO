@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 2026-09-16 - Pico 2 hardware communication test
+
+- Recorded the COM14 HIL results for microSD, DS3231 RTC, and two-channel RS232C in `docs/Real_Hardware_Test_Log.md`.
+- SD passed after one retry and RTC passed; RS232C UART initialization passed but both loopback receive checks returned zero bytes. No NF55G command/control was transmitted.
+
+## 2026-09-16 - RS232C loopback retest after wiring correction
+
+- Re-ran the COM14 RS232C HIL after correcting the loopback wiring. CH0 and CH1 both passed 256-byte exact loopback and 100-frame stress with zero crosstalk.
+- No NF55G command/control was transmitted.
+
+## 2026-09-16 - Base board selection update
+
+- Replaced the hardware baseline base board identification with SeeedStudio 103030397 (GPIO EXPANDER QUAD RASPBERRY PI PICO).
+- Kept the existing UART, RTC, and microSD GPIO assignments unchanged; electrical and mechanical verification of the new base board remains a hardware follow-up.
+
 ## 2026-09-10 - Runtime clock, EB, ATE, and real SD integration
 
 - Integrated shared Pico-compatible monotonic clock, bounded EB processing without Cache promotion/deadline resets, transaction exclusion, UART exception results, and protocol-level FU blocking.

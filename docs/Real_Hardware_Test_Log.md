@@ -1,6 +1,39 @@
 # Real Hardware Test Log
 Revision: Rev.0-draft
 
+## 2026-09-16 Pico 2 SD / RTC / RS232C communication test
+
+### Scope
+- Run the SD card, DS3231 RTC, and two-channel RS232C HIL checks on COM14.
+- Do not connect to NF55G or transmit any NF55G command/control.
+
+### Results
+| Interface | Result | Details |
+|---|---|---|
+| microSD | PASS after retry | First `--records 160` run timed out waiting for a data token. A non-writing mount probe passed, then the serial retry passed: CSV readback, 160 logger records, 5 flushes, 1 close, 0 drops, and clean reinit. |
+| DS3231 RTC | PASS | I2C0 GP20/GP21 scan found `0x68`; `check=True`; read `2026-09-16 17:14:43`, status `0x08`. |
+| RS232C CH0 / UART0 | FAIL | Initialization passed at GP0/GP1, 115200 bps, 8N1, but loopback received 0/256 bytes. |
+| RS232C CH1 / UART1 | FAIL | Initialization passed at GP4/GP5, 38400 bps, 8E1, but loopback received 0/256 bytes. |
+
+### Assessment
+- Pico 2 / RP2350 and the SD/RTC paths are operational in this run.
+- RS232C transmit-side initialization is operational, but receive loopback was not observed on either channel. Confirm the RS232C-side TX/RX loopback wiring before repeating the test; this result is not evidence of NF55G communication failure.
+- No NF55G unit was connected and no NF55G command/control was transmitted.
+
+## 2026-09-16 Pico 2 RS232C loopback retest after wiring correction
+
+### Verification
+| Item | Result | Details |
+|---|---|---|
+| MicroPython identity | PASS | `micropython; rp2; Raspberry Pi Pico2 with RP2350` |
+| UART0 / CH0 | PASS | GP0/GP1, 115200 bps, 8N1; 256/256 bytes, mismatch 0, crosstalk 0 |
+| UART1 / CH1 | PASS | GP4/GP5, 38400 bps, 8E1; 256/256 bytes, mismatch 0, crosstalk 0 |
+| Dual-channel stress | PASS | 100 frames; CH0 3500 bytes and CH1 3500 bytes |
+
+### Assessment
+- The RS232C loopback wiring correction resolved the previous receive-zero result.
+- This test used loopback only. No NF55G unit was connected and no NF55G command/control was transmitted.
+
 ## Critical notice before any real-hardware debug
 - Before powering or wiring the final fixture stack, confirm ADA-5703 PiCowbell GP4/GP5 are physically isolated from the Pico header/UART lines.
 - GP4/GP5 are reserved for Pico-2CH-RS232 NF55G UART1. Do not start NF55G UART loopback, UART initialization, or real NF55G connection checks with ADA-5703 GP4/GP5 still connected.

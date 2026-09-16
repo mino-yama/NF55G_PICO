@@ -25,7 +25,7 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 
 ## Hardware baseline
 - MCU: Raspberry Pi Pico 2
-- Base: Waveshare Pico-Quad-Expander
+- Base board: SeeedStudio 103030397 (GPIO EXPANDER QUAD RASPBERRY PI PICO)
 - RS232: Waveshare Pico-2CH-RS232
   - ATE: GP0/GP1
   - NF55G: GP4/GP5
