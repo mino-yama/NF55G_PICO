@@ -328,3 +328,40 @@ voltage measurement unperformed, clock-only root cause not established.
 Optional Phase 4 omitted by user decision. Recorded next step: physical ATE
 UART integration on final firmware, followed by T9 entry review and D1/D5
 product communication tests. No firmware changes or tests executed.
+
+
+## 2026-09-17: Physical ATE UART0 verification on COM5
+
+Recorded ID/RTC/SD/FW_UPDATE-rejection, split CRLF and 20/20 repeated ID
+responses over Elecom RS232 at 115200 8N1. Initial ERR:ASCII preserved as an
+unresolved observation; subsequent checks passed. No firmware changes or
+NF55G product transactions; normal runtime left running.
+
+
+## 2026-09-17: NF55G preconnection review
+
+Recorded UART1 loopback removal and NF55G disconnection confirmed by operator.
+Checked port availability and harness reference; physical wiring/power evidence
+remains pending. No product communication or readiness approval.
+
+
+## 2026-09-17: Operator wiring and power inspection recorded
+
+Recorded GP4/GP5 isolation, correct CN24 wiring, harness/path checks and all-OFF
+state as operator reports. Target FW remains unknown; detailed isolation,
+battery state, shutdown method and individual identification remain pending.
+No product communication or Open Issue closure.
+
+
+## 2026-09-17: Sample 1 preconnection details
+
+Recorded operator-provided SD-board GP4/GP5 removal/soldering method, battery
+disconnected and test ID Sample 1. FW unknown; power shutdown method still
+awaiting confirmation. No hardware operations or Open Issue closure.
+
+
+## 2026-09-17: Power shutdown method recorded
+
+Operator confirmed NF54G AC-DC / NF55G DC-DC configuration and NF54G AC switch
+OFF as shutdown operation, with battery disconnected. Completed outstanding
+physical-check response record; no product communication or power operation.

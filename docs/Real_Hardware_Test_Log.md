@@ -1378,3 +1378,120 @@ Pico normal baseline firmware was left running; SD verification is complete.
 Resume with PC-side ATE adapter identification and physical UART0 integration
 checks after equipment is ready. Optional MISO voltage measurement is omitted
 by user decision. No new hardware operations at this pause/commit step.
+
+
+## 2026-09-17: Physical ATE UART0 check via COM5
+
+PC adapter: Elecom USB-Serial Converter, VID:PID=056E:5004, COM5.
+User identified connection to Pico UART0. Settings: 115200 baud, 8N1,
+no software/hardware flow control, ASCII requests/responses terminated CRLF.
+Pico USB REPL COM14 was not opened; no reset, deployment, or runtime interruption.
+Last operator NF55G state was disconnected (2026-09-10); physical connection
+was not independently reverified today. Only local commands below were sent.
+
+First *IDN? request (TX 2a49444e3f0d0a) returned ERR:ASCII CRLF
+(RX 4552523a41534349490d0a). Stopped initial sequence. One explicit ID recheck
+returned NF55G_PICO_FIXTURE,Rev.0 CRLF without resetting Pico. Initial anomaly
+cause remains unconfirmed; residual input is a hypothesis, not an established
+cause. Do not characterize this session as an error-free first connection.
+
+Subsequent validation:
+- *IDN? -> NF55G_PICO_FIXTURE,Rev.0
+- RTC_CHECK? -> OK
+- SD_STATUS? -> OK
+- FW_UPDATE -> ERR:FU_DISABLED
+- Split '*IDN?\r' then '\n': no response during 100 ms read before LF;
+  complete expected ID response after LF.
+- 20 sequential ID requests: 20 exact expected CRLF responses.
+
+Raw evidence:
+- temp/ate_uart0_com5_20260917_120612.jsonl (initial error)
+- temp/ate_uart0_com5_recheck_20260917_120638.json
+- temp/ate_uart0_com5_validation_20260917_120707.jsonl
+
+Physical ATE local command path demonstrated; initial ASCII anomaly remains
+for repeat connection/power-cycle investigation if it recurs. No NF55G refresh,
+control or FU frame requested. NF55G TX was not physically monitored, so zero
+wire traffic is not claimed. No T9 product communication or product PASS/FAIL.
+COM5 closed after tests; Pico normal runtime not interrupted. No source/device
+files changed; Host/Mock not rerun for this hardware-only test (last 147 passed).
+
+
+## 2026-09-17: NF55G preconnection inspection started
+
+Operator confirms UART1 loopback removed and NF55G disconnected. COM5 Elecom
+ATE adapter and COM14 Pico REPL enumerated. No NF55G command or hardware reset
+performed in this inspection. Prior physical ATE checks are recorded above.
+Reviewed NF55G_HIL_Preparation.md, Test_Specification.md T9 gate, HW-01 and
+reference/NF55G_試験治具仕様書_添付資料_CN24通信ハーネス結線表.docx
+(2026-08-28; cites historical D6, while project baseline remains r1).
+Harness table: CN24 #1 RX-IN to fixture RS232 TXD; #2 TX-OUT to RXD;
+#3 and #4 SG both to fixture RS232 SG. Verify numbering on actual housings/HRS
+drawing, not apparent left/right. No GPIO-direct RS232 connection intended.
+
+Pending operator evidence: final GP4/GP5 isolation location/method/inspection;
+CN24 pin numbering, continuity and adjacent-pin short check; RS232 converter
+path and SG connections; product identity/FW; actual power, load, battery and
+output state, operator and shutdown method. Physical conditions cannot be
+verified through COM enumeration. No connection readiness declared or Issue
+closed. Worktree has uncommitted test records; T9 clean/synchronized gate
+must also be satisfied before real product connection/transactions.
+
+
+## 2026-09-17: Operator preconnection inspection results
+
+Operator reports:
+- GP4/GP5 physically isolated.
+- CN24 wiring correct.
+- Harness inspection: no problems.
+- Communication path verified.
+- Power/load conditions: all OFF.
+- Target firmware revision unknown.
+Earlier confirmation remains: UART1 loopback removed and NF55G disconnected.
+These are operator inspection statements, not software measurements.
+Do not infer battery disconnection from 'all OFF', assign a target serial
+number, or infer an isolation location/method from 'physically isolated'.
+
+Remaining details: exact GP4/GP5 isolation location/method for HW-01 record;
+battery connected/disconnected state and actual power removal method; target
+individual identifier (a temporary test ID may be supplied). FW stays UNKNOWN
+until identified; no inferred FW compatibility or Open Issue closure.
+Latest preconnection Host/Mock execution: 147 tests passed on 2026-09-17.
+No serial commands, wiring changes, power operations or firmware deployment
+performed while recording this response. Connection/transmission remains
+pending completion of applicable T9 entry conditions, including record sync.
+
+
+## 2026-09-17: Sample 1 identification and isolation details
+
+Additional operator confirmation:
+- GP4/GP5 isolation location/method, verbatim: SDカード基板のGP4,5を抜去してはんだ付け。
+  This supplements the earlier explicit physical-isolation confirmation.
+  No independent continuity measurement was performed by the assistant.
+- Battery: not connected.
+- Test individual identifier: Sample 1 (operator-assigned identifier).
+- FW revision: still unknown.
+
+Prior CN24/harness/communication-path confirmations and all-OFF state remain
+applicable. UART1 loopback removed; NF55G remains disconnected as last reported.
+The concrete power-removal/shutdown method has not yet been supplied.
+No serial communication, reset, deployment or power operation in this step.
+No Open Issue automatically closed. T9 record synchronization remains pending.
+
+
+## 2026-09-17: Sample 1 power shutdown method confirmed
+
+Operator identifies NF54G as the AC-DC section and NF55G as the DC-DC section.
+The stated shutdown operation is NF54G AC switch OFF. Battery remains
+unconnected; the previously reported power/load state is all OFF.
+This completes the outstanding operator response about the shutdown method.
+It is not a measurement of residual voltage or discharge time.
+
+Target remains NF55G Sample 1, FW unknown. CN24 wiring, harness inspection,
+RS232 path and SD-board GP4/GP5 physical isolation are operator-confirmed in
+preceding entries; UART1 loopback removed, NF55G last reported disconnected.
+No product connection, serial transmission, power operation or firmware change
+was performed while recording this response. No Open Issue automatically closed.
+Physical-check responses are now recorded; applicable T9 entry conditions,
+including committing/synchronizing the test records, remain to be completed
+before authorizing real product connection and communication.
