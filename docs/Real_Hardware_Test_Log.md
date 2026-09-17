@@ -1495,3 +1495,41 @@ was performed while recording this response. No Open Issue automatically closed.
 Physical-check responses are now recorded; applicable T9 entry conditions,
 including committing/synchronizing the test records, remain to be completed
 before authorizing real product connection and communication.
+
+
+## 2026-09-17: T9 entry verification for Sample 1
+
+Verified against Test_Specification.md T9 entry conditions:
+- Started clean at 3fb61ed; git pull --ff-only origin main: already up to date.
+- Host T0-T7/Mock: 147 tests passed in this verification.
+- Deployment selected: firmware/main.py -> /main.py, src/*.py -> /src/.
+  All 23 active Python files SHA256-match current host source. Inventory:
+  temp/t9_inventory_20260917.log. No firmware changes/deployment performed.
+- Integrated deployed runtime: RTC advanced, SD 64 CSV rows exact readback,
+  zero drops, remount/readback and run/stop passed. FW_UPDATE rejected.
+  Observed NF55 UART wrapper write count=0 during smoke; this is software
+  observation after app creation, not physical startup waveform measurement.
+  Evidence: temp/t9_runtime_smoke_20260917.log.
+- Restored normal boot; COM5 physical ATE ID/RTC/SD/FW_UPDATE all matched
+  expected responses, including CRLF. No initial ASCII error on this check.
+  Evidence: temp/t9_normal_boot_20260917.log, temp/t9_ate_final_20260917.json.
+- HW-01 isolation method and operator inspection documented in preceding
+  records (SD-board GP4/GP5 removal/soldering). Issue itself remains open;
+  no inference of formal issue closure or independent measurement.
+- NF55G_HIL_Preparation.md separates D1/D5 initial checks from controls,
+  clear operations, calibration and D0. Use one transaction at a time;
+  stop after final error and preserve raw evidence. FU remains prohibited.
+
+Scope decision: ready for staged Sample 1 D1/D5 communication smoke once this
+entry is committed/pushed and synchronization is confirmed. Not production
+qualification. NF55G FW UNKNOWN remains recorded; D5 may identify it without
+assuming r1 compatibility. Initial ERR:ASCII observation remains unresolved;
+no failure recurred in this final local check. SD cold-boot causal isolation,
+physical timing qualification and other Open Issues remain outside this gate.
+Optional MISO voltage measurement is omitted by user decision.
+
+Physical state per operator: NF55G not connected, UART1 loopback removed,
+NF54G AC switch OFF, load/output OFF, battery disconnected. No NF55G command
+was requested. Pico normal firmware left running and COM5/COM14 released.
+Next physical step: connect confirmed CN24 harness with power OFF; report
+connection completion before arranging power-on/receive observation and D1/D5.

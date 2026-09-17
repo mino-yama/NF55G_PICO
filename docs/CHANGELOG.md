@@ -365,3 +365,11 @@ awaiting confirmation. No hardware operations or Open Issue closure.
 Operator confirmed NF54G AC-DC / NF55G DC-DC configuration and NF54G AC switch
 OFF as shutdown operation, with battery disconnected. Completed outstanding
 physical-check response record; no product communication or power operation.
+
+
+## 2026-09-17: T9 entry verification
+
+Host/Mock 147 passed; 23 deployed Python files SHA256 matched. Integrated
+RTC/SD/readback/FU rejection and software NF55 TX count=0 passed. Restored
+normal runtime and verified physical COM5 local responses. Recorded scoped
+Sample 1 D1/D5 entry readiness; no product transaction or Open Issue closure.
