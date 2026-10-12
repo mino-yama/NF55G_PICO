@@ -1,3 +1,6 @@
+# Host試験用の模擬NF55G。仮想時計と応答シナリオで遅延・NAK・BCC異常等を再現する。
+# 実機への通信は行わず、製品仕様そのものの代わりにはしない。
+
 """Host-side Mock NF55G for protocol and integration tests.
 
 This module is a deterministic test peer. It is not an authoritative product

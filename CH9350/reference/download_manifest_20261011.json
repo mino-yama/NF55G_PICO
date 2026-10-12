@@ -1,0 +1,54 @@
+[
+  {
+    "file": "CH9350DS_WCH_20261011.pdf",
+    "requested_url": "https://www.wch-ic.com/api/official/website/common/downloadFile?fileName=CH9350DS.PDF",
+    "status": "failed",
+    "reason": "PDF形式ではない応答です"
+  },
+  {
+    "file": "CH9350DS_LCSC_20261011.pdf",
+    "requested_url": "https://datasheet.lcsc.com/datasheet/pdf/ecb0fa7d6e5f43bb60b95f6b7ede24c8.pdf?productCode=C109472",
+    "final_url": "https://datasheet.lcsc.com/datasheet/pdf/ecb0fa7d6e5f43bb60b95f6b7ede24c8.pdf?productCode=C109472",
+    "status": "saved",
+    "bytes": 275027,
+    "sha256": "A76D148E4EB701D29CB403DC00866B3FCA4A36B17879E218B36BA7C27BBEE917"
+  },
+  {
+    "file": "easyusb.manual.20210616.pdf",
+    "requested_url": "https://q61.org/blog/wp-content/uploads/2021/06/easyusb.manual.20210616.pdf",
+    "final_url": "https://q61.org/blog/wp-content/uploads/2021/06/easyusb.manual.20210616.pdf",
+    "status": "saved",
+    "bytes": 1124446,
+    "sha256": "32B38E23E00E686B4B1A4FA29EF664563D7608A530A2B51C602E64DC9998ABE5"
+  },
+  {
+    "file": "WCH_CH9350_download_page_20261011.html",
+    "requested_url": "https://www.wch-ic.com/downloads/CH9350DS_PDF.html",
+    "final_url": "https://www.wch-ic.com/downloads/CH9350DS_PDF.html",
+    "status": "saved",
+    "bytes": 4305,
+    "sha256": "13738AAC5D94D8355E59DA0054975069298CF0991E0805552850E763231EB0E8"
+  },
+  {
+    "file": "WCH_CH9350_metadata_20261011.json",
+    "requested_url": "https://www.wch-ic.com/api/official/website/common/relationFiles?fileName=CH9350DS.PDF",
+    "final_url": "https://www.wch-ic.com/api/official/website/common/relationFiles?fileName=CH9350DS.PDF",
+    "status": "saved",
+    "bytes": 37,
+    "sha256": "2AA3C9127F947FF8F3DF3ED3C297FBA4BBBA55D7C2A57EEF8B63DD5C243B5C75"
+  },
+  {
+    "file": "SwitchScience_7280_20261011.html",
+    "requested_url": "https://www.switch-science.com/products/7280",
+    "status": "failed",
+    "reason": "Response status code does not indicate success: 429 (Too Many Requests)."
+  },
+  {
+    "file": "easyusbhost_support_20261011.html",
+    "requested_url": "https://q61.org/blog/2021/06/09/easyusbhost/",
+    "final_url": "https://q61.org/blog/2021/06/09/easyusbhost/",
+    "status": "saved",
+    "bytes": 61098,
+    "sha256": "13342B1A84F2D38A7AA988B2A648187E510E2F5EBAB850E29575E66C46A81687"
+  }
+]

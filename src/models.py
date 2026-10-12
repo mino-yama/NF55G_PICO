@@ -1,3 +1,6 @@
+# 通信結果・フレーム・Cache項目を受け渡す軽量な共通データ構造。
+# TransactionResultのokは通信結果、ambiguousは製品側の実行成否が不明であることを表す。
+
 """Shared lightweight data structures.
 
 The classes intentionally avoid dataclasses so the same shapes remain easy to

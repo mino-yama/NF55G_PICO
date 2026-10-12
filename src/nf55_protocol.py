@@ -1,3 +1,7 @@
+# NF55Gとの通信を1件ずつ実行する状態機械。送信→ACK待ち→応答検証→ACK/NAKを管理する。
+# コマンド再送と応答再送を別々に数え、EBイベントは通常応答から分離する。
+# 通信成功は製品PASSを意味しない。実行成否が不明な失敗はambiguousで上位へ伝える。
+
 """NF55G transaction protocol state machine."""
 
 try:
@@ -51,6 +55,7 @@ class NF55Protocol:
     def communication_busy(self):
         return self.busy or bool(self._idle_raw) or bool(self.uart.any())
 
+    # 外部入口でFUと同時実行を拒否し、通信終了時は成功/失敗にかかわらずIDLEへ戻す。
     def transact(self, cmd, data=b"", t2_ms=None, expected_length=None):
         if (isinstance(cmd, str) and cmd.upper() == 'FU') or (isinstance(cmd, (bytes, bytearray)) and bytes(cmd).upper() == b'FU'):
             return TransactionResult(False, cmd, error="FU_DISABLED")
@@ -86,6 +91,7 @@ class NF55Protocol:
             self._set_state(TX_COMMAND)
             self._write(raw_command)
 
+            # T1内のACKを待つ。対象NAKやtimeout時は上限内でコマンド全体を再送する。
             self._set_state(WAIT_ACK)
             ack_status, nak_reason = self._wait_ack(config.T1_ACK_TIMEOUT_MS)
             if ack_status == "ACK":
@@ -124,6 +130,7 @@ class NF55Protocol:
                     ambiguous=True,
                 )
 
+            # ACK後はT2内に応答を待つ。途中のEB処理でも、この待ち期限は延長しない。
             self._set_state(WAIT_RESPONSE)
             response = self._wait_response_frame(t2_ms)
             if response is None:
@@ -175,6 +182,7 @@ class NF55Protocol:
                     self._set_state(IDLE)
                     return result
 
+                # 応答破損時は理由なしNAK(0x15)で応答の再送を要求する。コマンド再送とは別管理。
                 self._set_state(TX_RESPONSE_NAK)
                 self._write(bytes((config.NAK,)))
                 if response_retry_count >= config.MAX_RESPONSE_RETRY:
@@ -255,6 +263,7 @@ class NF55Protocol:
                 return raw
         return None
 
+    # EBは独立して検証・記録・ACK/NAKする。STATUS/INFO Cacheには反映しない。
     def _handle_eb(self, raw):
         if raw[1:3] != b"EB":
             return False

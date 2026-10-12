@@ -1,3 +1,6 @@
+# タイムアウト計算用の単調増加ミリ秒時計。実日時用のRTCとは用途を分ける。
+# Picoのticks周回は差分の累積で吸収するため、周回周期の半分より短い間隔で呼び出す。
+
 """Monotonic milliseconds on CPython and MicroPython, including ticks wrap."""
 
 import time

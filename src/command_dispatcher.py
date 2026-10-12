@@ -1,3 +1,6 @@
+# 分類済みのATE要求を実行し、結果をATE向け文字列にまとめる共通処理。
+# Refreshは通信してCacheを更新、QueryはCache参照のみ、Controlは関連Cacheを無効化する。
+
 """Command execution core shared by future ATE and USB front ends."""
 
 try:
@@ -38,6 +41,7 @@ class CommandDispatcher:
         if payload is not None:
             return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
         cmd, target, t2_ms, length = READ_REFRESH_COMMANDS[ate_name]
+        # 取得開始時に旧値を無効化する。通信・Decode失敗後も旧VALIDへ戻さない。
         self.cache.refresh_started(target)
         if self.protocol is None:
             return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
@@ -60,9 +64,11 @@ class CommandDispatcher:
                     raise DecodeError("incomplete decoded cache")
         except (ValueError, UnicodeError):
             return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
+        # 全Query対象フィールドのDecode完了を確認できたときだけ、対象Cacheを有効化する。
         self.cache.refresh_succeeded(target, decoded, cmd)
         return CommandResult(True, "OK", transaction=tx)
 
+    # 個別Queryは保存済みの値だけを返す。INVALIDでも自動RefreshやNF55G送信はしない。
     def execute_query(self, ate_name, payload=None):
         if ate_name not in CACHE_QUERY_COMMANDS:
             return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
@@ -90,6 +96,7 @@ class CommandDispatcher:
             expected_length=None,
         )
 
+        # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。
         if tx.ok:
             self.cache.apply_success_invalidation(spec.cache_action)
             return CommandResult(True, "OK", transaction=tx)

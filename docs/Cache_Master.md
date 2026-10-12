@@ -53,3 +53,22 @@ Power-on: all INVALID.
 - PME/SQE/CME/MCM: existing cache generally unchanged; refresh target remains INVALID if refresh already started.
 - ACK_TIMEOUT/RESP_TIMEOUT/final BCC/FRAME/UART/COMM: apply ambiguous invalidation same as success-invalidates.
 - HWE: DATA/STATUS invalid at minimum.
+
+## QR Cache追加要件（2026-09-18、未実装）
+ATEのPico専用読取開始コマンド後に取得したQR情報をPico側にCacheし、後続のNF55G書込みとログファイル名生成に利用する。
+これはNF55Gから取得したINFO Cacheとは別の情報源であり、QR受信だけでINFOをVALIDにしない。
+正式Cache名、フィールド、検証条件、再読取・timeout・製品交換時の扱いはOI-23で確定する。既存Hard Rulesの完全Decode・INVALID方針を満たす設計とする。
+詳細: [QR読取要件](QR_Reader_Requirements.md)。
+
+### QR原文と解析値（2026-09-18追加、未実装）
+QR原文を保存し、ATEの解析指示により版数・製造年・製造週・製造号機等を分解・検証して各項目をCache保持する。
+原文取得と解析値の有効性を区別し、部分Decodeや桁数・文字種・範囲不正の結果をVALIDな書込み用Cacheにしない。
+ATEは原文取得/解析値取得の各指示で内容を確認する。QR情報とNF55G読出し情報の一致比較は製品PASS/FAIL判定ではない。
+具体的な世代管理、再読取時の無効化範囲、照合対象読出しの識別はOI-23で確定する。
+
+### SSへの紐付け方針（2026-09-18ユーザー指定）
+読取値の保存Cache名は後日決定し、NF55GのSSコマンドへ紐付ける。各フィールドのSS DATAへの対応は未確定のまま保持する。ATEの明示指示による書込みと、既存SSのDATA/INFO無効化規則を維持する。今回の指定のみではCache追加やSS連携を実装しない。
+
+## 2026-09-26 QR単独試験のRAM Cache
+QRReceiverのraw/fields/stateは試験専用で、正式Cache名の確定ではない。開始時に旧値を無効化し、35文字+終端の完全受信・文字種確認後に6項目を同時公開する。
+開始前/完了後の入力は破棄。失敗後は旧VALIDへ戻さない。文字列の先頭ゼロを維持。SS/INFOへの転用なし。

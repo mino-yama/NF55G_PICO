@@ -1,3 +1,6 @@
+# SPI接続SDカードの初期化と512バイト単位の読書きを提供する下位ドライバ。
+# カード種別・容量・アドレス方式を確認し、FAT側から使うブロックデバイスへ橋渡しする。
+
 """SPI SD block driver derived from the repository HIL driver."""
 
 try:

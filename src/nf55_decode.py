@@ -1,3 +1,6 @@
+# 応答DATAを固定位置・桁数で分割し、数値・状態bit・文字列へ変換する。
+# 通信やCache更新は行わない。返した値の採用と有効化は呼出し側が判断する。
+
 """Pure NF55G response decoders.
 
 Decode functions return dictionaries only. They never update cache and never
@@ -220,6 +223,7 @@ def decode_status(data):
     return decoded
 
 
+# D0内の製造情報・Parameter・StatusはRAWで保持し、INFO/STATUSへ昇格させない。
 def decode_d0(data):
     text = _ascii(data)
     _require_len(text, 327, "D0")
@@ -311,6 +315,7 @@ def decode_ol(data, expected_start=None):
     return decode_log_block(data, expected_start=expected_start)
 
 
+# REFの意味や変換を推測せずRAWで残す。未確定の扱いはOpen Issuesに従う。
 def decode_ar(data):
     text = _ascii(data)
     _require_len(text, 140, "AR")

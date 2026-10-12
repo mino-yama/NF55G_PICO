@@ -1,3 +1,6 @@
+# NF55G側UART1（GP4/GP5、38400bps・8E1）のバイト入出力を提供する。
+# フレーム検証・待ち時間・再送はnf55_protocolに任せる。
+
 """NF55G-side UART transport helpers.
 
 This module owns physical UART byte I/O only. NF55G command meaning, retries,

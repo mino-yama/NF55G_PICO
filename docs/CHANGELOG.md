@@ -1,5 +1,200 @@
 # CHANGELOG
 
+## 2026-09-28 実機デバッグ前のコード説明コメント
+
+- `src/`の24 Pythonファイルと`firmware/main.py`、`firmware/sd_startup_probe.py`に日本語の概要コメントを追加。各モジュールの役割と、ATE受信から通信・Decode・Cache更新・ログ保存までの流れを説明。
+- 主要処理には、FU拒否、再送の分離、EB処理、Refresh開始時のINVALID、Queryの自動Refresh禁止、通信中のRAM記録、QR単独試作の境界を追記。
+- コメント追加前後で全26ファイルのASTとコメント・空行以外のトークンの一致を確認。仕様・実行ロジックの変更なし。
+- 検証: `.venv\Scripts\python.exe -B -m unittest discover -s tests` — Host/Mock 161件成功。
+- Picoへの配置・実機通信は未実施。既存の未コミット変更を保持し、Open Issuesは変更・Closeしていない。
+
+## HOST TX0比較ログ: 前機器Usage残留の調査
+
+- L-46Xはキーボード経由でもReport解析ログが出ない一方、keyboard登録とD2点灯を確認。公開FWの取得エラー無視・Usage残留を原因候補として調査記録とOpen Issuesへ追加。実機原因は未確定。
+
+## HOST TX0診断受信の追加
+
+- GP10/PIO0 SM1/230400bps専用診断スクリプトを追加。既存PIO受信のpin/baud/SM/bufferを引数化しQR用既定値を維持。
+- 大容量リングのwrap/overflowと不正サイズ拒否のHost試験を追加。実機ログ取得結果は別途記録。
+
+## QR認識切分け - L-46X単体再接続では回復せず
+
+- キーボードなしの通常起動後、L-46Xのみ抜き差ししてもD2消灯のままとユーザー確認。調査書・手順・実機ログ・OI-23へ反映。
+- キーボード先行認識条件との差を優先調査。特定FW不具合の断定・設定変更・コード変更は行わない。
+
+
+## QR認識切分け - D2消灯後のL-46X再認識を確認
+
+- キーボード取り外しでD2消灯、L-46X接続で再点灯をユーザー確認。調査書・手順・実機ログ・OI-23へ追記。
+- 前機器の表示残留という説明を除外。電源投入直後との差の根本原因は未確定。コード変更なし。
+
+
+## QR認識切分け - キーボード経由の回復条件
+
+- キーボード接続後にL-46Xへ差し替えるとD2が点灯するとのユーザー報告を記録。調査書・試験手順・実機ログ・OI-23を更新。
+- 取り外し中のD2消灯とリーダによる実データ再受信は未確認。履歴依存の候補として扱い、根本原因の断定や恒久対策化は行わない。コード変更なし。
+
+
+## L-46X通常起動時の認識継続調査
+
+- 通常起動でもD2消灯と確認。メーカー公開FWの認識条件と未確定事項をL46X_USB_Recognition_Investigation.mdへ記録。実機FW一致・根本原因は未確定。設定/コード変更なし。
+
+
+## QR切分け追報 - L-46X長押し起動操作の確認
+
+- ユーザーの「強制初期化」は電源投入時トリガ10秒以上長押しと確認し、試験手順・実機ログ・OI-23へ記録。設定への影響は原典未確認として保持。コード変更なし。
+
+
+## QR切分け追報 - 電源再投入後のD2消灯再発
+
+- 電源切/入でD2消灯、QRリーダ初期化とのユーザー報告を試験手順・実機ログ・OI-23へ記録。先の受信成功と起動再現性を区別。
+- 初期化内容/操作順と起動後USB接続の比較は未確認。コード変更なし。
+
+
+## QR再試験 - 35文字受信・分割・Cache・REPL表示成功
+
+- COM14でQR_TEST READYを確認。US250A-CGXE-009491-10101A2623000001とLF（36byte）を受信し、6項目と先頭ゼロ保持を確認。
+- QR手順・試験仕様・実機ログ・OI-23を更新。コード変更なし。SS/CSVは対象外。認識改善要因は未特定のためIssueはCloseしない。
+
+
+## QR切分け実測 - キーボードABC+EnterをPicoで受信
+
+- COM14でABC+LFの4byteを確認し、期待どおりQR_LENGTHとなった。ホストTX1→GP9 PIO受信とLF終端検出の動作を実測。
+- 試験手順・実機ログ・試験仕様・OI-23に記録。L-46Xによる実QR受信は未確認。コード変更なし。
+
+
+## QR切分け追報 - USBキーボード認識成功
+
+- 通常USBキーボード接続時はD2点灯とユーザー確認。L-46X接続時との差を試験手順・実機ログ・OI-23へ記録。UART/Pico受信成功とは区別する。コード変更なし。
+
+
+## QR切分け追報 - 給電確認とLED識別訂正
+
+- HOST 5V/VBUS両端子への給電OKをユーザー確認として記録。
+- LED取り違えの可能性から、以前のD2点灯・ホストHID認識済み判断を撤回し、確認待ちへ訂正。QR試験手順・実機ログ・OI-23を更新。コード変更なし。
+
+
+## 2026-09-26 - HID認識確認とQR受信診断追加
+
+- PCでのHID入力とホストD2点灯をユーザー確認。Picoの直近timeout時Cacheは原文0文字。
+- 試験専用の受信byte数/先頭64byte/総受信数の表示を追加し、タイミング外入力と無受信・終端不足を切り分ける。Host159件合格、Pico上の応答Mock試験合格。
+
+
+## 2026-09-26 - QR試験ATE応答のMicroPython互換性修正
+
+- COM10送信後、応答バッファのbytearray部分削除がMicroPythonでTypeErrorとなり試験が停止。スライス再代入へ修正してPicoへ再配置。
+- Host/Mock159件合格。Pico上で試験runをMockポートに接続し、2byteずつの分割応答がIDLE+CRLFとして完了することを確認（ATE_PARTIAL_TX_PICO_OK）。実QR受信は未確認。
+
+
+## 2026-09-26 - QRホストへのVBUS/5V給電接続を記録
+
+- ユーザー報告のPico VBUS→HOST VBUSおよび5V両端子の給電接続完了を、試験手順・OI-23・実機ログに反映。
+- 電源実測とQR読取結果は未確認。コード変更なし。
+
+
+## 2026-09-26 - QRテスト機OPTICON L-46Xを記録
+
+- QR要件・試験手順・OI-23・実機ログにテスト機型番とCOM10=ATE/COM14=REPLを記録。
+- USB HID設定・Enter付加と実読取は未確認。文書のみの更新でコード変更なし。
+
+
+## 2026-09-26 - 接続済みQR用PIO受信を追加
+
+- GP9 RX/GP8 idle HighのPIO受信adapterと専用start()を追加。ATE UART0と共存し、NF55G UART1は変更しない。
+- Host/Mock159件合格。COM14へ試験専用3ファイルを追加し、PIO初期化とGP9/GP8 High、受信エラーなしを確認。確認後停止。
+- main.py/既存srcは変更なし。手順・Interface/Test/Open Issues・実機ログを更新。光学QR読取とATE指示の実測は待機中。
+
+
+## 2026-09-26 - QR用GPIO候補調査
+
+- 既存コードとRTC/RS232/SD資料を照合し、TX=GP8（物理11番）・RX=GP9（物理12番）・GND=物理13番を候補としてQR試験手順に記録。実配線確認は未実施。
+- UART1の別ピンであるためNF55G用UART1と独立使用できないこと、共存時はPIO UART実装が必要であることを明記。今回コード変更・GPIO初期化・実機試験なし。
+
+
+## 2026-09-26 - QR単独受信試作
+
+- ATE開始後の35文字受信、6項目固定位置分割、一時RAM Cache、REPL表示の独立試作を追加。英数字とハイフンを許可。
+- QR取得はSS連携と分離し、正式Cache名/SS変換/本番統合は保留。LF/CRLF・10秒timeout・100ms入力無通信確認は試験設定。
+- 保存済みマニュアル/図面を確認し、手順・関連仕様・OI-23・Host試験を更新。実機はCOM未検出、配線/リーダ設定待ち。
+- Host/Mock: 156件合格（QR新規9件）。Python構文検査・git diff --check合格。実機配備・HID読取・REPL表示の実測は未実施。
+
+
+## 2026-09-18 - QR製品REVと通信仕様の差異を確認事項として保持
+
+- ユーザーがQR製品REV3桁とUNIT_REV4バイトの差異を認識し、確認事項として残すよう指定。OI-23とQR要件に通信仕様r1 p.22 §8.5.3の根拠を追記。
+- ラベルと通信仕様の整合、格納・変換方法は未確定。補完処理やCode変更、IssueのCloseは行わない。
+
+
+## 2026-09-18 - QR REVは製品REV
+
+- ユーザー指定によりQR REVを製品REV（UNIT_REV対応）と明記し、FW_REVISIONとは区別。QR要件・ATE仕様・OI-23・試験仕様を更新。
+- QR3桁からUNIT_REV4桁への格納規則は未確定。Code変更なし。
+
+
+## 2026-09-18 - FW_REVISIONは仕様書との照合のみ
+
+- FW_REVISIONがFW書き込み仕様書のREVSIONと一致することを確認する要件をQR要件・ATE仕様・試験仕様・OI-23に記録。SS書込み対象外を維持。
+- 比較元仕様書・期待値・比較規則・照合担当は未確定。今回は要件記録のみで、Code変更や実機照合は行っていない。
+
+
+## 2026-09-18 - 生産情報のSS書込み範囲確認
+
+- 生産LOT・生産年月・S/N情報の書込み範囲をUNIT_REV～BBU_SRLの9項目としてユーザー確認を記録。QR要件、ATE仕様、OI-23、試験仕様を更新。
+- 各項目への割当て、QRの製造年/製造週と生産年月の関係、REV変換は未確定のまま。Code変更なし。
+
+
+## 2026-09-18 - SET_SERIAL書込み対象の記録
+
+- ユーザー提示画像を保存し、SS対象9項目と画面SRL/既存SERIALの名称対応をQR要件・ATE仕様に記録。
+- QR REV3桁と既存UNIT_REV4桁の変換、LOT/SERIAL対応、ADU/BBU取得元をOI-23に明記。FW_REVISIONはGET表示のみ。試験仕様と資料一覧を更新。
+- 詳細未確定のためCode変更なし。
+
+
+## 2026-09-18 - QR読取CacheとSSの紐付け方針
+
+- ユーザー指定により、QR読取値の書込みコマンドをNF55G SSとし、保存Cache名と詳細フィールド紐付けは後日決定する方針を記録。
+- QR要件、ATE/Cache/Test仕様、OI-23を更新。自動書込み禁止を維持し、Code変更・Cache追加・SS連携実装は行っていない。
+
+
+## 2026-09-18 - QRフィールド6項目の桁数指定
+
+- 製造年2桁、製造週2桁、製造号機6桁を追加。品名8桁・品目コード14桁・REV3桁と合わせた項目合計は35桁。
+- QR要件、OI-23、試験仕様を更新。文字種・範囲・配置順・区切りは未確定で、受信全長や切出し位置は推測しない。Code変更なし。
+
+
+## 2026-09-18 - QRフィールド3項目の桁数指定
+
+- 品名8桁、品目コード14桁、レビジョン（REV）3桁をQR要件に記録し、OI-23と試験仕様を更新。
+- その他の桁数、文字種、配置順・区切り等は未確定。部分仕様の記録のみで、Code変更・QR機能実装はなし。
+
+
+## 2026-09-18 - ATE主導QR工程の詳細要件
+
+- QR読取、原文取得、解析・妥当性検証、解析値取得、変換・明示書込み、必要時の明示読出し・照合を工程分離する要件とコマンド案を記録。
+- QR原文・解析値・書込み結果のCSV記録、ATEへの異常コード返却を追加。自動書込み禁止とATEによる製品PASS/FAIL判定を維持。
+- QR要件、ATE/Cache/Logger/Test仕様、OI-23を更新。名称・形式・ハード制御・照合担当は未確定。Codeと実行テストの追加は詳細確定後とし、今回も機能未実装。
+
+
+## 2026-09-18 - 製品銘板図の保存
+
+- 訂正されたDesktopのパスからNF55802-G_01.pdfをrequired_for_developmentへ保存し、SHA-256一致を確認。
+- 参照資料一覧、QR要件、OI-23の未保存状態を更新。本文解析・Code変更なし。詳細仕様とOI-14/OI-23は未確定のまま。過去の未保存記録は当時の履歴として保持。
+
+
+## 2026-09-18 - QR読取経路とCache利用要件の部分確定
+
+- ATEのPico専用読取開始後、QRリーダと「かんたんUSBホスト HIDキーボード用」を介してPicoへ取り込みCacheする要件を記録。
+- Cacheを後続のNF55G書込みとログファイル名に利用する。自動書込みは行わない。
+- ATE/Cache/Logger仕様、将来の受入試験観点、OI-14/OI-23、参照資料一覧を更新。詳細仕様未確定のためCodeと実行テストの追加は保留し、機能を未実装と明記。
+- USBホストマニュアルは保存済み。銘板図は指定元パスに存在せず未保存・未読。以前の記録は当時の状態として保持。
+
+
+## 2026-09-18 - QR label read/write feature discussion recorded (no implementation)
+
+- Recorded a new discussion: reading product label QR (revision/year/week/serial) and writing parsed values into NF55G, driven step-by-step by explicit ATE commands (proposed: `QR_SCAN`/`QR_GET`/`QR_PARSE`/`QR_DATA`/existing NF55G WRITE-READ/`QR_VERIFY`), with a proposed Pico-side `QR_RAW`/`REV`/`YEAR`/`WEEK`/`SERIAL`/`VALID`/`TIMESTAMP` cache.
+- Product nameplate drawing `NF55802-G_01.pdf` was shared as future reference for the QR format but has not been added to `reference/`, and no textual field layout was provided.
+- No code, command, or cache was implemented. Added `docs/Open_Issues.md` OI-23 to track all unconfirmed items (QR field layout, command/cache names, reader interface, and Pico 2 vs Pico 2 W hardware choice for a possible BLE HID Host reader).
+
 ## 2026-09-16 - Pico 2 hardware communication test
 
 - Recorded the COM14 HIL results for microSD, DS3231 RTC, and two-channel RS232C in `docs/Real_Hardware_Test_Log.md`.
@@ -373,3 +568,27 @@ Host/Mock 147 passed; 23 deployed Python files SHA256 matched. Integrated
 RTC/SD/readback/FU rejection and software NF55 TX count=0 passed. Restored
 normal runtime and verified physical COM5 local responses. Recorded scoped
 Sample 1 D1/D5 entry readiness; no product transaction or Open Issue closure.
+
+- 長押し起動の追加調査: メーカー作成第5版p.22に強制起動中はホストへ読取データを出力しない旨を確認。試験手順・実機ログ・OI-23へ追記。通常起動で再試験する。
+
+## 2026-10-11 HID-UART置換実験の共通TEST準備
+
+- CH9350/README.mdへDesktop原本を複製しSHA256一致を確認。資料原本は変更なし。
+- CH9350/src/ch9350_capture.pyに受信器を外部から渡す時刻付きHEX表示を追加。importでGPIO初期化なし、TX送信なし、終了時解放、受信器の欠落情報をLOSSで明示。
+- 共通受信ログのHost試験5件成功、既存Host/Mock 161件成功、mpremote起動確認成功。
+- CH9350/docs/に手順と新基板の未実施評価表を追加。型番CH9359/CH9350の不一致とGP4/GP5 UART1競合等をOpen Issuesへ追加。
+- IC依存のデコーダ・UART初期化とPico配置/実機評価は型番確認待ち。既存NF55G/ATE/QRソースとPico main.py/boot.pyは変更なし。
+
+## 2026-10-11 CH9350確定・QR試験ポート割当て
+
+- ユーザー訂正により対象ICをCH9350と確定。CH9350状態2/3/4の11byteキーボードフレームについて、分割/連結受信、押下/解放差分、Shift、US英数字・記号・Enter、不正/未完フレーム拒否を実装。
+- NF55G用GP4/GP5を保持し、CH9350試験をGP9=PIO0/SM0受信115200bps/8N1、GP8=送信禁止High固定へ割当て。ハードUART1を使用しないため、NF55G UART設定は変更しない。
+- HEXログ再生ツールと合成ログを追加。正式Cache、SS連携、製品PASS/FAIL、本番runtimeへの統合は対象外。
+- 販売基板のTX電圧、DIP対応、電源容量、RX接続条件、115200bps実受信は未確認。既存NF55G/ATE/QR runtimeとPico main.py/boot.pyは変更なし。
+
+## 2026-10-11 CH9350 DIP設定管理の追加
+
+- 評価基本ProfileをEVAL-CH9350-STATE2（SEL=H、S1=H、S0=L、BAUD1=H、BAUD0=H、115200bps/8N1）として記録。
+- 量産候補Profileを同じ論理のPROD-CH9350-STATE2として分離し、実機評価合格までは未承認と明記。状態0は互換性比較用で、状態2の試験結果と混在させない。
+- 販売基板のDIP番号・ON/OFFとIC論理の対応は未確認のため、現物の導通・電圧測定欄、評価記録、量産固定記録を追加。DIP変更は電源OFFで行い、再投入後に確認する手順とした。
+- 評価基板の詳細資料がなく、販売ホームページの記載を基にユーザーが提供した基板情報であることを追記。ホームページ画面・記載日時・DIP設定表原文は未保存とし、ICデータシート確認事項および現物測定結果と区別した。

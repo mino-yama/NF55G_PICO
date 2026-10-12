@@ -1,3 +1,7 @@
+# ログをCSVに変換し、FAT上のBANK_A/Bへ保存する実ファイル入出力層。
+# 通信中のI/O開始を拒否し、所有マーカーのあるログ領域だけを循環利用する。
+# 同期I/O開始後の割込みや実機の通信遅延までは、このガードだけでは保証しない。
+
 """FAT SD CSV sink. All methods must run outside NF55G transactions."""
 
 import os
@@ -52,6 +56,7 @@ class FileSDSink:
         return (len(name) == 19 and name[8] == '_' and name.endswith('.csv')
                 and (name[:8] + name[9:15]).isdigit())
 
+    # 所有マーカーと使用中BANKの記録を照合し、既存ログのある不明な領域は引き継がない。
     def _prepare_banks(self):
         for bank in self.bank_bytes:
             path = self.root + '/' + bank
@@ -209,6 +214,7 @@ class FileSDSink:
             self._error('MOUNT_ERR', exc)
 
 
+# Pico専用のSPI/VFS初期化。既存FATをマウントし、失敗段階をmount_stageに残す。
 class PicoSDSink(FileSDSink):
     def __init__(self, mount_point='/sd', startup_delay_ms=0, cs_before_spi=False, **kwargs):
         super().__init__(mount_point, **kwargs)

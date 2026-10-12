@@ -1,3 +1,6 @@
+# 治具のUARTオブジェクト、RTC、Loggerや通信状態を診断してATEへ返す。
+# 製品PASS/FAILやNF55Gとの実通信成立を、この自己診断だけで判定しない。
+
 """Local fixture diagnostics.
 
 Diagnostics report fixture readiness only. They do not decide product

@@ -110,3 +110,9 @@ Default Pico hardware pins:
 - Logger never blocks protocol.
 - Product PASS/FAIL is not implemented.
 - ATE has priority over future USB console.
+
+## 2026-09-26 QR単独試作
+src/qr_reader.py: GPIO非依存の固定位置分割・受信状態・試作用ATEコマンド。
+scripts/pico_qr_receive_test.py: 外部から渡したATE/QR受信ポートをポーリングし、受信結果をUSB REPLへ表示。import時のGPIO初期化/自動起動なし。NF55G/SD/本番dispatcherへ接続しない。
+
+2026-09-26: qr_pio_rx.pyを追加。PIO0/SM0、GP9 RX、GP8 idle High。pico_qr_receive_test.start()でUART0と独立PIO受信を起動し、終了時に解放。UART1は初期化しない。

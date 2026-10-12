@@ -1,3 +1,6 @@
+# ATE側UART0（GP0/GP1、115200bps・8N1）のバイト入出力を提供する。
+# 行の組立てはate_server、コマンドの意味の解釈はparser/dispatcherが担当する。
+
 """ATE-side UART transport helpers.
 
 The ATE channel is a byte transport only. Command parsing and execution stay in

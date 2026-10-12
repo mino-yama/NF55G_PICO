@@ -1,3 +1,6 @@
+# STX＋CMD＋DATA＋ETX＋BCCの組立て・検証を担当する。
+# BCCはSTXを除くCMDからETXまでのXORをASCII HEX 2文字にしたもの。
+
 """NF55G frame and BCC helpers."""
 
 try:

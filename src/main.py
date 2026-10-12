@@ -1,3 +1,6 @@
+# 全体の入口：UART・RTC・SDと共通処理を組み立て、協調型ループで順番に処理する。
+# ATE受信・応答を優先し、NF55G通信が落ち着いている間にRTC取得とログ保存を進める。
+
 """Fixture initialization and cooperative ATE/NF55G/SD scheduler."""
 
 import binascii
@@ -51,6 +54,7 @@ class FixtureApp:
         if hasattr(self.logger.sd_sink, 'busy'):
             self.logger.sd_sink.busy = self._comm_busy
         if self.protocol is not None:
+            # NF55G待ち時間にもATE入力を回収するが、別の要求はここでは実行しない。
             self.protocol.poll_hook = self._pump_ate
             self.protocol.trace_hook = self._trace_nf
         self.diagnostics = FixtureDiagnostics(rtc=self.rtc, logger=self.logger, ate_uart=self.ate_uart, nf55_uart=self.nf55_uart)
@@ -87,6 +91,7 @@ class FixtureApp:
                             detail='elapsed_ms={};ambiguous={}'.format(tx.elapsed_ms, tx.ambiguous))
         return result.ate_response
 
+    # 1巡分の処理：ATE受信とidle EB処理→ATE応答/要求実行→空き時間のRTC/SD処理。
     def service_once(self):
         self._pump_ate()
         if self.protocol is not None:
@@ -131,6 +136,7 @@ class FixtureApp:
     def self_check(self):
         return self.diagnostics.pico_self_check()
 
+    # 共通コマンド入口。分類ごとに担当へ渡し、NF55Gへ送らないローカル要求もここで分岐する。
     def execute_ate_line(self, line):
         try:
             parsed = parse_ate_command(line)
@@ -157,6 +163,7 @@ class FixtureApp:
         return "ERR:UNKNOWN_CMD"
 
 
+# 実機部品を生成して結合する。RTC/SDの初期化失敗は記録し、通信機能の起動を継続する。
 def create_fixture_app(enable_hardware=True):
     global startup_sd_diagnostic
     clock = SystemClock()

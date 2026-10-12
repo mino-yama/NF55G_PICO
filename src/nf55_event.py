@@ -1,3 +1,6 @@
+# 非同期EBの原文・CURRENT/CHANGE・受信時刻を上限付きRAM Queueに保存する。
+# STATUS Cacheは更新せず、満杯時は新規イベントを捨ててdrop_countを増やす。
+
 """Bounded EB storage, independent of all query caches."""
 
 try:

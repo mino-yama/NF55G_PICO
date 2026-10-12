@@ -201,3 +201,26 @@ RTC_DATE?, RTC_TIME?, RTC_DATETIME?, RTC_SET_YYYYMMDD_HHMMSS, RTC_CHECK?
 *IDN?, PICO_SELF_CHECK?, NF_COMM_CHECK?, COMM_STATUS?, RETRY_COUNT?
 TEST_START, TEST_END, LOG_CONT_START, LOG_CONT_STOP
 SD_STATUS?, SD_USAGE?, LOG_DROP_COUNT?, SD_REINIT
+
+## QR読取の追加要件（2026-09-18、未実装）
+- ATEが発行する読取開始はPico専用コマンドとする。正式コマンド名・引数・応答・待ち時間はOI-23で管理する。
+- 開始指示後、QRリーダ → かんたんUSBホスト HIDキーボード用 → Picoの経路で読み取り、PicoにCacheする。
+- 読取完了からNF55G書込みを自動起動しない。後続のATE指示でCacheをNF55Gへの書込みに利用する。
+- QR情報の書込みはNF55GのSSコマンドに紐付ける（ユーザー指定）。保存Cache名は後日決定し、SS DATAへの詳細対応を具体化する。ATEの明示書込み指示を必要とし、FU禁止は継続する。
+- 詳細: [QR読取要件](QR_Reader_Requirements.md)。
+
+### 工程分離と異常返却（2026-09-18追加、未実装）
+コマンド案は QR_SCAN → QR_GET → QR_PARSE → QR_DATA → 既存NF55G WRITE → 必要時に既存NF55G READ → QR_VERIFYまたはATE照合。
+QR_PARSEでフィールド分解と桁数・文字種・範囲検証を行い、QR_DATAでATEが内容を確認した後、ATEの明示指示で変換・書込みを実行する。
+QR_GET/QR_DATAは保持情報を返し、自動読取・自動Refreshを行わない。QR_VERIFYを採用する場合も明示読出し済みの値と比較する。
+各工程の異常はATEへエラーコードを返す。正式名称、応答形式、エラーコード表と照合担当はOI-23で確定する。
+
+### SET_SERIAL画面によるSS書込み対象の指定
+生産LOT・生産年月・S/N情報の書込み範囲は画面のUNIT_REVからBBU_SRLまで。SS対象はUNIT_REV/UNIT_LOT/UNIT_SERIAL、ADU_REV/ADU_LOT/ADU_SERIAL、BBU_REV/BBU_LOT/BBU_SERIALの9項目。画面のSRL表記は既存SERIAL項目に対応する。FW_REVISIONはFW書き込み仕様書のREVSIONとの一致照合のみとし、書込み対象に含めない。ATEが明示INFO_REFRESHを実行した後、FW_REV?で読出し値を取得する。比較元の仕様書・期待値・比較規則・照合担当はOI-23で確定する。
+QR値からの変換、各値の取得元、SS DATA詳細は[QR読取要件](QR_Reader_Requirements.md)とOI-23で管理する。
+
+QRのREVは製品REVで、SSのUNIT_REVに対応する。FW_REVISIONとの照合値には使用しない。QRの3桁からUNIT_REVの4桁への格納規則はOI-23で確定する。
+
+## 2026-09-26 QR単独受信試験（正式APIとは別）
+今回の試験ではQR_SCANでPico受信を開始し、35文字+LF/CRLFを受信後に自動分割して試作用RAM CacheとREPLへ出力する。以前のQR_PARSE工程分離案の本番採否は保留。
+試作用コマンド: QR_SCAN、QR_STATUS?、QR_GET、QR_DATA、QR_CANCEL。ATE終端はCRLF。詳細は[試験手順](QR_Receive_Test.md)。本番dispatcherには未登録。NF55Gコマンド送信機能なし。

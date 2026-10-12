@@ -1,3 +1,6 @@
+# 治具側DS3231の日時検証・ATE文字列変換・I2Cアクセスをまとめる。
+# 実機はI2C0（SDA=GP20、SCL=GP21）、Host試験はFakeRTCDeviceを使用。NF55GのSCとは独立。
+
 """Pico-side RTC driver abstraction for DS3231.
 
 Host tests use `FakeRTCDevice`; hardware I2C access is added in the Pico/HIL

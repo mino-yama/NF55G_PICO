@@ -1,3 +1,6 @@
+# NF55G未接続で使うSD起動不良の切分け専用エントリ。通常起動用main.pyとは別用途。
+# 最初の失敗記録を残したうえで、条件に合う場合だけ追加CMD0の結果を観測する。
+
 """Temporary diagnostic boot; NF55G disconnected. Restore firmware/main.py later.
 First mount evidence is preserved before extra CMD0 commands; no auto remount.
 """

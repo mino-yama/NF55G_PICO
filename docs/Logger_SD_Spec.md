@@ -172,3 +172,14 @@ no reconstruction factory, then exactly one retry and cleanup. The warm Pico
 smoke uses injected failure; cold-power evidence still requires a physical cycle.
 Evidence paths: temp/pico_clocks_only_warm_injection.log and
 temp/pico_clocks_only_warm_boot.log. No permanent workaround has been selected.
+
+## QR情報によるファイル名拡張（2026-09-18、未実装）
+ユーザー指定により、PicoのQR読取Cacheをログファイル名に利用する。
+現在の実装形式はYYYYMMDD_HHMMSS.csvのまま。採用フィールド、RTCとの組合せ、重複・使用不可文字・未読時の扱い、TEST_STARTと読取の順序はOI-14/OI-23で確定する。
+NF55G通信中のSD write/flush禁止とRAM Queue利用は継続する。
+詳細: [QR読取要件](QR_Reader_Requirements.md)。
+
+### QR工程のCSV記録（2026-09-18追加、未実装）
+QR原文・解析値・NF55G書込み結果をCSVへ記録する。異常停止・再実行をATE側から追跡できる構成とする。
+列名、エラーの記録形式、製品/工程/試行の識別、CSVエスケープはOI-23で確定する。
+ログはRAM Queue経由とし、NF55G通信Timingを妨げない。QR情報をファイル名に使用する既定の追加要件も維持する。

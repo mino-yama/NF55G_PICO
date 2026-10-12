@@ -1,3 +1,6 @@
+# 取得データとVALID/INVALID、取得元コマンド、更新時刻をまとめて管理する。
+# VALIDは前回の取得成功を示す。現在の製品状態と一致する保証ではない。
+
 """Cache validity manager for decoded NF55G data."""
 
 try:
@@ -75,5 +78,6 @@ class CacheManager:
     def apply_success_invalidation(self, action):
         self.invalidate_many(config.SUCCESS_INVALIDATION.get(action, ()))
 
+    # 成否不明でも操作が実行された可能性があるため、成功時と同じ対象を無効化する。
     def apply_ambiguous_invalidation(self, action):
         self.apply_success_invalidation(action)

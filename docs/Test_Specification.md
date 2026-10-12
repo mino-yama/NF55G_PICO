@@ -234,3 +234,65 @@ no reconstruction factory, then exactly one retry and cleanup. The warm Pico
 smoke uses injected failure; cold-power evidence still requires a physical cycle.
 Evidence paths: temp/pico_clocks_only_warm_injection.log and
 temp/pico_clocks_only_warm_boot.log. No permanent workaround has been selected.
+
+## QR機能の受入観点（2026-09-18、仕様確定後に実装）
+以下は将来の試験要求であり、既存テストの合格はQR機能の動作確認を意味しない。
+- ATEの読取開始前には読取結果を新しい有効Cacheとして取り込まない。
+- Pico専用読取開始とQR受信ではNF55Gへの送信が発生せず、読取完了後にCacheを利用できる。
+- 後続の明示ATE指示により、確定したフィールド/コマンド対応でNF55Gへ書き込む。FUは送信しない。
+- ログ名が確定したQR Cacheと対応し、別製品の情報を再利用しない。
+- timeout、不正/部分受信、再読取、製品交換、未読時のログ開始、ファイル名重複の試験はOI-14/OI-23の回答に基づいて具体化する。
+- Host Unit/Mock NF55Gに加え、実リーダ・USBホスト・PicoによるHILを実施する。
+
+### 工程別の追加受入観点（未実装）
+- 読取後に原文を取得でき、解析後に版数・製造年・製造週・製造号機等をATEへ返せる。
+- 桁数・文字種・範囲の各不正を検出し、部分解析値をVALIDにせず、不正値を書込みに使用しない。
+- QR_SCAN/QR_GET/QR_PARSE/QR_DATAだけではNF55G書込みが発生しない。
+- 有効な解析値の変換結果が確定したNF55G書込み形式に一致する。
+- 必要時の明示READと照合が一致/不一致を正しく扱い、自動Refreshも製品PASS/FAIL判定も行わない。
+- QR原文・解析値・書込み結果をCSVから追跡でき、各工程異常が確定したエラーコードでATEに返る。
+- 再実行・製品交換時に古い解析値や読出し値が混入しない。ログ待ちでNF55G通信Timingを阻害しない。
+具体的な試験データと期待値はOI-23の確定後にCodeと同時追加する。
+
+### QRフィールド長の受入観点（2026-09-18追加、未実装）
+- 品名8桁、品目コード14桁、REV3桁、製造年2桁、製造週2桁、製造号機6桁を桁数検証の基準とする。項目合計35桁を、区切り・終端を含む受信文字列全長とはみなさない。
+- レイアウト確定後、各フィールドの規定長と1桁不足/超過を検証する。規定長のみでは文字種・範囲を含む全体の妥当性合格としない。
+- 文字種、切出し位置、空白埋め、文字コードは未確定のため、推測した実行テストやパーサを追加しない。
+
+### QR CacheとSSの連携（詳細確定後に実装）
+保存Cache名とフィールド対応の決定後、ATEの明示指示によりQR解析値がSS DATAへ正しく変換されること、読取だけではSSが送信されないこと、SS後の既存DATA/INFO無効化規則が維持されることを検証する。
+
+### SS書込み項目の受入観点（詳細確定後に実装）
+- UNIT/ADU/BBUのREV・LOT・SERIALの9項目について確定した値の取得元・変換・配置を検証する。
+- QR REV3桁からUNIT_REV4桁への変換は人間が確認した規則で検証し、未確定の末尾文字やゼロ値を補完しない。
+- 画面のGET値を既定書込値としない。FW_REVISIONを今回のQR書込み対象に含めない。
+
+- 生産LOT・生産年月・S/N情報の書込み対象範囲がUNIT_REV～BBU_SRLの9項目であることを確認する。製造週と生産月の関係は未確定のため、週から月への推測変換を試験期待値にしない。
+
+### FW_REVISION照合（詳細確定後に実装）
+- 明示INFO_REFRESH後のFW_REV?読出し値をFW書き込み仕様書のREVSIONと比較し、確定した比較規則で一致/不一致を検証する。
+- 比較元仕様書・版・期待値と照合担当は未確定。表示例S1.10を期待値として固定しない。
+- FW_REVISION照合によるSS書込み・FU送信・Queryからの自動Refreshを行わない。Cache INVALID時の既存エラーとRefresh失敗を扱い、古い値で照合成功としない。
+
+- QRのREVを製品REVとしてUNIT_REVへ対応させ、FW_REVISIONの期待値として使用しないことを検証する。3桁から4桁への格納方法は未確定のため推測しない。
+
+## 2026-09-26 QR単独試作のHost検証
+tests/test_qr_reader.pyで固定位置・先頭ゼロ、全分割境界、開始前/2件目破棄、超過/不足/文字種異常、CRLF不正、期限切れ、再開始INVALID、busy/cancel/Query、FU禁止とハイフン方針を検証する。
+上記の「文字種・切出し位置未確定」は当時の記録。今回ユーザー指定で順序/35文字/英数字とハイフンが確定し、この範囲の試作を許可された。実機試験の合格とは別。
+
+2026-09-26: PIOリングwrap、満杯時の破棄、フレーム異常時の破棄をHostで3件追加し全159件合格。COM14でPIO初期化・待機Highを確認。実際のHID QR→ATE受付→REPL表示は未確認。
+
+2026-09-26 QR試験: ATE応答後のbytearray item deletion TypeErrorをスライス再代入で修正。Host159件合格、Pico実機上のMockポートでrun()の2byte分割応答完了を確認。ATE_PARTIAL_TX_PICO_OK。光学QR読取の成功とは別。
+
+## USBキーボード入力のPico受信確認
+COM14実測: QR_TEST READING → QR_TEST ERROR QR_LENGTH。QR_DIAG scan_bytes 4 raw_len 3 wire b'ABC\n'、QR_RX_TOTAL 4。通常USBキーボードからABC+Enterを受信し、ホストTX1→GP9 PIOの9600bps/8N1経路とLF終端検出を確認。QR_LENGTHは35文字要件に対し3文字だったための期待どおりの形式エラー。L-46Xの認識/実QR35文字読取の成功は未確認。
+
+## QR再試験成功（COM14実測）
+ATE開始後、QR_TEST READING → QR_TEST READYを確認。
+原文: US250A-CGXE-009491-10101A2623000001
+受信36byte = 本文35文字 + LF。QR_DIAG scan_bytes 36 raw_len 35。
+分解値: 品名=US250A-C、品目コード=GXE-009491-101、製品REV=01A、製造年=26、製造週=23、製造号機=000001。
+一時RAM CacheのREADYとREPL表示を確認。前回のドットを含む入力はQR_CHARで拒否され、今回の入力ではドットなしで正常完了した。入力が変わった理由は未確認で、許可文字規則は変更していない。
+確認範囲はATE受付→QR経路からの受信→形式検証/分割→一時Cache/REPL表示。SS送信・CSV記録・量産Timing・全入力パターンを含むHIL完了ではない。L-46X認識が改善した要因は未特定のまま。
+
+2026-09-26 HOST TX0診断: Host/Mock全161件合格、git diff --check合格（既存ファイルの改行警告のみ）。COM14への転送は接続不可で未完了。serial.tools.list_portsではCOM10のみ列挙、COM14は認識されていない。診断受信開始・230400bps実受信・ログ比較は未実施。Pico USB再接続後に転送から再開する。

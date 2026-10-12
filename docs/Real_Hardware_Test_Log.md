@@ -1533,3 +1533,119 @@ NF54G AC switch OFF, load/output OFF, battery disconnected. No NF55G command
 was requested. Pico normal firmware left running and COM5/COM14 released.
 Next physical step: connect confirmed CN24 harness with power OFF; report
 connection completion before arranging power-on/receive observation and D1/D5.
+
+## 2026-09-26 QR PIO受信準備
+ユーザーがGP9(12番)←TX1、GP8(11番)→RX1、GND(13番)の接続完了を報告。
+COM14のPico2/RP2350・MicroPython v1.28.0を確認。読み取り時PIO0_CTRL=0x0。
+qr_reader.py/qr_pio_rx.py/pico_qr_receive_test.pyのみルートへ追加。既存main.py/srcは変更なし。
+PIO初期化: QR_PIO_INIT OK GP9 1 GP8 1 RX 0 ERROR None。GP8はアイドルHighのみで送信なし、UART1は初期化しない。
+確認後PIO停止・COM解放。USBホスト給電/リーダ設定/ATE指示と実際の光学読取は未確認。QR受信成功の記録ではない。
+
+## 2026-09-26 QRテスト機の指定
+ユーザー指定: OPTICON L-46Xをテスト機として使用。COM10からATEコマンドを送信し、COM14でPico REPLを監視。試験プロセスのIDLE表示を確認済み。型番指定をUSB HID設定確認やQR読取成功とは扱わない。
+
+## 2026-09-26 QRホスト給電接続完了
+ユーザー報告: Pico VBUS → HOST VBUSおよび5Vの両端子へ供給する必要があり、接続完了。信号線は既報のGP9←TX1/GP8→RX1/GND。電圧・電流の測定およびQR読取合格は未確認。
+
+2026-09-26 QR試験: ATE応答後のbytearray item deletion TypeErrorをスライス再代入で修正。Host159件合格、Pico実機上のMockポートでrun()の2byte分割応答完了を確認。ATE_PARTIAL_TX_PICO_OK。光学QR読取の成功とは別。
+
+2026-09-26切分け: ユーザーがPCのExcelへ入力できること、およびホストD2点灯を確認。直近のPico RAMはstate=ERROR, raw="", length=0, error=QR_TIMEOUT。文字がPicoの有効原文へ保存されていない。ホストUART出力/配線/PIO処理のどこが原因かは未確定。試験コードに受付中の受信byte数・先頭64byteと総受信数の診断表示を追加。受付前のデータはCacheへ昇格しない。今回の再試験のみtimeoutを30秒に延長する。
+
+## QR給電OK・LED認識記録の訂正
+ユーザー追報: HOST 5V・VBUS両端子への給電OK（数値未提示）。D1/D2を当初から取り違えた可能性があり、D1点灯・D2消灯/変化なしとの報告。以前のD2点灯によるホストHID認識確認は撤回し、未確認として扱う。PC ExcelへのHID入力確認とは区別する。9600bps/8N1は一致、実QR受信は未解決。
+
+## USBキーボードによる認識切分け
+ユーザー確認: 通常のUSBキーボード接続ではホストD2が点灯した。少なくとも当該キーボードを認識する機能は動作。L-46X接続時のD2消灯との差があり、L-46XのUSBモード/列挙相性/接続条件を優先調査する。ホスト全機能・UART送信・Pico受信の正常をこの結果だけで断定しない。
+
+## USBキーボード入力のPico受信確認
+COM14実測: QR_TEST READING → QR_TEST ERROR QR_LENGTH。QR_DIAG scan_bytes 4 raw_len 3 wire b'ABC\n'、QR_RX_TOTAL 4。通常USBキーボードからABC+Enterを受信し、ホストTX1→GP9 PIOの9600bps/8N1経路とLF終端検出を確認。QR_LENGTHは35文字要件に対し3文字だったための期待どおりの形式エラー。L-46Xの認識/実QR35文字読取の成功は未確認。
+
+## QR再試験成功（COM14実測）
+ATE開始後、QR_TEST READING → QR_TEST READYを確認。
+原文: US250A-CGXE-009491-10101A2623000001
+受信36byte = 本文35文字 + LF。QR_DIAG scan_bytes 36 raw_len 35。
+分解値: 品名=US250A-C、品目コード=GXE-009491-101、製品REV=01A、製造年=26、製造週=23、製造号機=000001。
+一時RAM CacheのREADYとREPL表示を確認。前回のドットを含む入力はQR_CHARで拒否され、今回の入力ではドットなしで正常完了した。入力が変わった理由は未確認で、許可文字規則は変更していない。
+確認範囲はATE受付→QR経路からの受信→形式検証/分割→一時Cache/REPL表示。SS送信・CSV記録・量産Timing・全入力パターンを含むHIL完了ではない。L-46X認識が改善した要因は未特定のまま。
+
+## QRホストの電源再投入後に認識再発
+ユーザー追報: 電源を切り/入りするとD2が消灯した。QRリーダは初期化したとのこと。初期化が設定の工場出荷リセットか、電源投入時の起動処理か、および操作順・電源を切った対象は未確認。
+先の35文字+LF受信成功は保持するが、電源再投入時の安定認識は未確認へ戻す。Pico試験main.pyは自動起動設定していないため、Picoの再起動後は別途試験start()が必要。ただしホストD2はUSB側の認識表示であり、ATE QR_SCANやPicoの試験開始をD2点灯の条件とは扱わない。
+次はL-46Xを外した状態でホストを給電し、起動後にL-46Xを接続した場合のD2を確認して、接続済みでの電源投入との差を調べる。認識改善要因は未特定。仕様・FWの変更は行わない。
+
+## L-46X初期化操作の詳細（ユーザー確認）
+ユーザーが初期化操作を具体化: 電源投入時にトリガを10秒以上押して起動させる操作を実施し、「強制初期化」と説明。設定コードによる工場出荷リセットではない。この長押し操作による保存設定の変更範囲・USBモードへの影響は原典未確認。通常の電源投入と区別して記録する。
+
+原典確認追記: メーカー作成L-46Xユーザーズマニュアル第5版p.22 §3.1.4「強制初期化」は、電源投入時トリガ10秒以上長押しを強制起動方法として説明する。ホストとの通信設定をせず読取可能にし、この強制起動中は読取データをホストへ出力しない。従って、この状態での成功音は通常通信復旧の証拠ではない。通常の受信試験はトリガを押さず電源投入し直して行う。先の35文字受信成功時の起動条件は未確定で、D2消灯の根本原因をこの操作だけに断定しない。出典（メーカー作成資料の販売店掲載版）: https://www.j-itecs.co.jp/wp/wp-content/uploads/2020/11/6dfa8720842f8ee09b40c16ba5909b4c.pdf
+
+通常起動でもD2消灯とのユーザー報告。PC直結は現在不可。公開ホストFWの認識条件を確認し、L46X_USB_Recognition_Investigation.mdへ記録。起動後USB接続との比較は未確認、コード/設定変更なし。
+
+## キーボード経由での認識回復（ユーザー報告）
+キーボードを接続した後、キーボードを外してQRリーダに差し替えるとD2が点灯する。
+これはキーボード認識を先行させた接続履歴に依存する回復条件の候補。ホスト内の状態、経過時間、USBリーダへの給電再投入等が同時に変わるため、ホストFWの不具合や特定の初期化不足と断定しない。
+キーボードを外した後にD2が消灯し、L-46X接続後に再点灯するかは未確認。D2の前機器表示残りと、新機器認識を区別する。通常起動のL-46Xで再度35文字+LF受信できれば、実データ通信の回復も確認できる。
+キーボード経由の操作は切分け手順であり、量産の起動手順や恒久対策には採用しない。根本原因と電源再投入後の再現性はOpenのまま。
+
+## D2消灯・再点灯の確認（ユーザー追報）
+キーボードを抜くとD2が一度消灯し、L-46Xを挿すと再点灯することをユーザーが確認。
+前機器の認識表示が残っただけという説明は当該操作について除外できる。キーボード認識後のホストではL-46Xへの差し替えで新たな認識表示が成立する。
+電源投入直後との違いがホスト内部状態、USB初期化タイミング、給電立上りのどれかは未確定。今回の認識回復状態での実データ再受信はまだ別途確認が必要。
+
+## L-46X単体の抜き差しでは回復しない（ユーザー確認）
+提案した比較手順（キーボードなしで通常電源投入→L-46Xだけを抜き差し）について、ユーザーがD2点灯しないと報告。
+観測の整理: L-46X直接起動=認識表示なし、L-46X単体再接続=認識表示なし、キーボード認識→取り外しでD2消灯→L-46X接続=D2再点灯。
+単なるL-46Xの再接続だけでは回復しない。キーボードを認識させる操作に関連したホスト状態/初期化経路を優先調査する。ただし試行回数、待ち時間、電源波形を揃えた反復比較は未実施であり、特定FW不具合と断定しない。
+次の確証はホストのUSB初期化ログを失敗条件と成功条件で比較すること。公開FWと実機FWの同一性、診断出力の有効性と端子を確認してから取得方法を決める。診断のためのFW書換えや追加配線は未実施。
+
+2026-09-26 HOST TX0診断: Host/Mock全161件合格、git diff --check合格（既存ファイルの改行警告のみ）。COM14への転送は接続不可で未完了。serial.tools.list_portsではCOM10のみ列挙、COM14は認識されていない。診断受信開始・230400bps実受信・ログ比較は未実施。Pico USB再接続後に転送から再開する。
+
+2026-09-26 再接続後: COM14（USB VID:PID=2E8A:0005）を確認。qr_pio_rx.pyとpico_usb_host_debug.pyをPicoへ転送し、HOST_DEBUG READY GP10 physical14 230400 8N1 PIO0/SM1を実機で確認。診断受信待機を開始。開始時点ではHOST_TX0の受信出力なし。HOST実機の診断出力有効性とUSB認識失敗原因は未確認。専用診断中はATE QR_SCANを処理しない。
+
+## 2026-09-26 TX0実測: L-46X再接続でD2消灯
+GP10/230400bpsで実際の診断出力を取得。ユーザーは再接続後D2消灯と報告。
+以下はCOM14の分割受信を連結した抜粋（受信開始から約84秒）。HOST_DEBUG LOSS表示なし。ただしUART全バイトの完全性は独立検証していない。
+```text
+Device at root hub 1 connected
+initializing device at root hub port 1
+Device class 0
+Max packet size 64
+VID/PID: 065a/a001
+SetAddress: 16
+Manufacturer String: Opticon
+Model String: Opticon USB Barcode Reader
+config total length: 0x0022
+Configuration value: 1
+Interface count: 1
+Interface descriptor found
+Interface 0
+  Class 3
+  Sub Class 1
+  Interface Protocol 1
+  Alternate Setting 0
+  Endpoint Count 1
+HID descriptor found
+HID at Interface 0
+  USB 1.11
+  Country code 0x00
+  TypeX 0x22
+Endpoint descriptor found
+Requesting report from interface 0
+CALLBACK: dev[0] @16, is_attach=1
+```
+機器情報・HID interface取得までは進行。Report要求後にUsage等の解析出力およびkeyboard connected出力が観測されない。取得済み公開udev_hid.cはReport転送エラー時に解析前returnするためReport取得/解析段階を優先調査。ただし実機FW同一性・転送結果コード・受信長は不明で、エラー原因は断定しない。
+次はPico/HOSTを通電したままキーボード接続→D2確認→取り外し→L-46X接続の比較ログを取得する。QR/SS試験は行わない。
+
+## 2026-09-26 キーボード経由の比較ログ
+ユーザー操作: L-46Xを外す→キーボードD2点灯→外す→L-46X再接続でD2点灯。COM14 TX0診断にも対応する接続/切断を確認（LOSS表示なし）。
+- 約221秒: Dell KB216 Wired Keyboard、VID/PID 413c/2113、EP0最大8byte、interface 2個。Report要求後にUsage Keyboardとreport解析内容が出力され、CALLBACK: 1 keyboard(s) now connected。
+- 約228秒: disconnect, 0 keyboard(s) now connected。
+- 約232秒: Opticon USB Barcode Reader、065a/a001、EP0最大64byte、interface 1個。Requesting report from interface 0から約294ms後にattach callback。Usage/Report解析ログは今回もないがCALLBACK: 1 keyboard(s) now connectedが出力された。
+- 先のD2消灯時もReport要求→attachが約293msで、解析ログなし。違いはkeyboard登録の有無。
+取得済み公開コードとの照合: udev_hid.cのhiddevice_init_endpointはgetHIDDeviceReportの戻り値を無視する。Report取得エラーは解析前return。USBHost.cの確認した切断/再登録経路はiface usageをクリアしておらず、main.cの登録判定はiface.usage == Usage_KEYBOARD。従って前のキーボードのUsageが残り、Report取得が正常化しなくても登録される仮説が今回の差を説明する。実機FW同一性・実際のReport転送結果/長さ未確認のため原因確定ではない。
+従前の「単なるD2表示残留ではない」は維持するが、新規登録の根拠に前機器の内部情報が残留する可能性は別問題として追加。D2点灯を完全なHID初期化成功とは扱わない。
+次に専用診断を継続したままQRを1回読み、TX0のKeyEvt等を確認する。これはキー入力経路の診断であり、QR Cache/35文字受信の再試験ではない。HOST設定/FWは変更しない。
+
+## 2026-09-26 QR読取時のTX0キーイベント確認
+ユーザーがキーボード経由でD2点灯したL-46XでQRを1回読取。COM14で受信開始後473064～473158msに@16 KeyEvtのDown/Upを連続観測。冒頭D02,D18,U02/U18、続いてD02,D16等、末尾D1e,U1e,D28,U28。HOST_DEBUG LOSS表示なし。
+これにより現在の接続状態ではL-46Xの読取に対応した入力をHOSTがキーイベントへ変換していることを確認。D2表示だけの確認から進展した。ただし今回の診断はTX0のみで、TX1の35文字本文・QR Cache・ATE応答は監視していない。今回の結果をQR受信試験全体の合格や電源再投入後の認識改善とは扱わない。
+Report解析ログが無いのにキーボード経由で登録/入力処理できるという観測は、前機器Usage残留の仮説と整合するが、実機FW一致とReport取得失敗理由は未確定。恒久対策は未実施。診断受信は継続中。

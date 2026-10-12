@@ -1,3 +1,6 @@
+# 通信条件、再送上限、Cache名、操作後の無効化対象を集約する。
+# T1=200msとD0のT2=600msは暫定値。確定状況はdocs/Open_Issues.mdを参照。
+
 """Project-wide constants for the NF55G Pico fixture."""
 
 STX = 0x02

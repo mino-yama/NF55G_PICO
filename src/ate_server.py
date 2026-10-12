@@ -1,3 +1,6 @@
+# 分割到着するATE入力をCRLF単位で組み立て、実行待ちQueueへ格納する。
+# 受信処理だけではコマンドを実行せず、応答の未送信部分も保持する。
+
 """Bounded CRLF ATE transport; receive pumping never executes commands."""
 
 
@@ -45,6 +48,7 @@ class ATEServer:
             raise RuntimeError('pending ATE response')
         self.tx = (text + '\r\n').encode('ascii')
 
+    # UARTが一部だけ受理した場合は、未送信の末尾を次の巡回へ持ち越す。
     def flush_reply(self):
         if self.tx:
             written = self.transport.write(self.tx)

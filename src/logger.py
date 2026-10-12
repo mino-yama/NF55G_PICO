@@ -1,3 +1,6 @@
+# 通信中の記録はRAM Queueに積み、待機中に件数・時間条件で保存先へ書き出す。
+# TEST/CONTの記録期間、保存エラー、破棄件数を管理する。MemorySDSinkはHost試験用。
+
 """Non-blocking logger core and SD sink abstraction."""
 
 
@@ -134,6 +137,7 @@ class Logger:
     def log_cont_stop(self, protocol_busy=False):
         return self.test_end(protocol_busy=protocol_busy)
 
+    # 通信中にも呼ばれる入口。ここではRAMへの追加だけを行い、SDアクセスはしない。
     def log(self, timestamp="", category="", direction="", cmd="", event="", raw_ascii="", raw_hex="", bcc_rx="", bcc_calc="", bcc_ok="", cmd_retry="", rsp_retry="", result="", detail=""):
         row = (
             str(timestamp or self.timestamp_snapshot),
@@ -227,6 +231,7 @@ class Logger:
         self.sd_status = SD_OK
         return True
 
+    # 書込みの各段階で通信を再確認する。通信待避なら未送信行と未flush件数を保持する。
     def _drain(self, flush=False, all_records=False):
         written = 0
         while self.queue and (all_records or written < self.flush_record_count):

@@ -1,3 +1,6 @@
+# ATEの1行をコマンド名・引数に分け、Refresh／Query／Control等に分類する。
+# ここでは送信やCache更新を行わず、FW_UPDATEは送信禁止の分類にする。
+
 """ATE ASCII command parser and router.
 
 The parser classifies commands only. It does not perform cache updates, product
