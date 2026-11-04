@@ -70,6 +70,10 @@ Pico時計・EB・ATE受信・実SDの統合とHost検証: [Runtime Integration]
 11. Add Pico hardware UART/I2C layer
 12. HIL with real NF55G
 
+2026-11-04ユーザー指定の追加開発順序: **現在の実機確認 → QRコード読取り → 7355連携による外部測定値取得・補正機能追加**。
+7355の通信仕様・アドレス設定の詳細化、取得値のATE返却、ATE判定後の別指令による数値付き補正書込みは、実機確認とQRコード読取りの後に進める。
+詳細: [Implementation Plan](docs/Implementation_Plan.md)、[追加要求仕様](docs/Calibration_External_Measurement_Requirements_20261104.md)。
+
 ## Directory
 ```text
 NF55G_Pico/
