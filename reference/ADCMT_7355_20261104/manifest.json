@@ -1,0 +1,38 @@
+{
+  "saved_date": "2026-11-04",
+  "source": "User-provided files",
+  "verification": "SHA-256 source/copy match for all five files",
+  "content_review": "Not reviewed; no archives extracted or samples executed",
+  "files": [
+    {
+      "file": "7355-ope--foa-00000201a00-e.pdf",
+      "bytes": 3167144,
+      "sha256": "D63171A718F0644E38E431331B2010CA81D0A4F7EA86C575F3F1BE672162621C",
+      "source": "C:\\Users\\m_yamada\\Downloads\\7355-ope--foa-00000201a00-e.pdf"
+    },
+    {
+      "file": "7355-ope-fow-00000200a00-j.pdf",
+      "bytes": 5563256,
+      "sha256": "45EC0DB02E5A78CC673FA032E203F9C4E4D54D6682CC0C2E43E6563FC8EB616A",
+      "source": "C:\\Users\\m_yamada\\Downloads\\7355-ope-fow-00000200a00-j.pdf"
+    },
+    {
+      "file": "catalog-7355.pdf",
+      "bytes": 1184501,
+      "sha256": "CEF4872EF8C84C328645E6745CECD73F40D864D9F9799066B770CB07319346C8",
+      "source": "C:\\Users\\m_yamada\\Downloads\\catalog-7355.pdf"
+    },
+    {
+      "file": "7355-Samples2-JP.zip",
+      "bytes": 956954,
+      "sha256": "0CAE7FB776CA05FA70F2E2E490C3EEA9236EDC3788019DD5AA047D73E316334C",
+      "source": "C:\\Users\\m_yamada\\Downloads\\7355-Samples2-JP.zip"
+    },
+    {
+      "file": "7355-u-adacq-64.zip",
+      "bytes": 119041,
+      "sha256": "3BAC180F6E20B7CC4BD16A7FC147CC8E2D7CFA8207C0D645009828D5C30B1254",
+      "source": "C:\\Users\\m_yamada\\Downloads\\7355-u-adacq-64.zip"
+    }
+  ]
+}
