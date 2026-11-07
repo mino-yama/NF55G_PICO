@@ -22,6 +22,7 @@ from src.nf55_decode import (
     decode_ol,
     decode_parameter,
     decode_status,
+    decode_time,
 )
 
 
@@ -42,6 +43,12 @@ def realtime_payload():
         "5"  # FAN_LEVEL
         + "0" * 11
     )
+
+
+class TimeRuleTests(unittest.TestCase):
+    def test_hex_numeric_fields_are_rendered_as_decimal_datetime(self):
+        result = decode_time("1A0B03100730")
+        self.assertEqual(result["DATETIME"], "20261103_160748")
 
 
 def off_period_payload():
@@ -117,7 +124,7 @@ def parameter_payload():
 
 def d0_payload():
     return (
-        "260901123456"
+        "1A09010C2238"
         + realtime_payload()
         + off_period_payload()
         + life_calc_payload()
@@ -144,10 +151,10 @@ GOLDEN_D0_TIME = {
 GOLDEN_D0_REALTIME = {
     "VOUT12": 12.0,
     "IOUT12": 1.0,
-    "BATT_VOLT": 6000,
-    "CHG_VOLT": 6144,
-    "CHG_CURR": 100,
-    "BATT_CURR": 16,
+    "BATT_VOLT": 6.0,
+    "CHG_VOLT": 6.144,
+    "CHG_CURR": 0.1,
+    "BATT_CURR": 0.016,
     "BATT_SOC_WH": 100,
     "BATT_SOC_MAH": -2,
     "BATT_TEMP": 25,
@@ -301,7 +308,7 @@ class DecoderCompleteTests(unittest.TestCase):
 
     def test_decode_d4_212_chars(self):
         payload = (
-            "260901123456"
+            "1A09010C2238"
             + realtime_payload()
             + life_diag_payload()
             + accumulated_payload()

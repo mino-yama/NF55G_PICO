@@ -5,8 +5,10 @@
 
 try:
     from . import config
+    from .rtc_driver import RTCDateTime, RTCError
 except ImportError:  # pragma: no cover
     import config
+    from rtc_driver import RTCDateTime, RTCError
 
 
 class CommandError(ValueError):
@@ -116,6 +118,24 @@ CONTROL_COMMANDS = {
 
 
 def build_control_command(ate_name, payload=None):
+    if ate_name == "CLOCK_SYNC":
+        try:
+            data = _ascii_bytes(payload)
+        except UnicodeError:
+            raise CommandError("CLOCK_SYNC payload must be 12 ASCII digits")
+        if len(data) != 12 or not all(48 <= value <= 57 for value in data):
+            raise CommandError("CLOCK_SYNC payload must be 12 ASCII digits")
+        text = data.decode("ascii")
+        try:
+            timestamp = RTCDateTime.parse_ate("20" + text[:6] + "_" + text[6:])
+        except RTCError:
+            raise CommandError("CLOCK_SYNC payload is not a valid datetime")
+        encoded = "{:02X}{:02X}{:02X}{:02X}{:02X}{:02X}".format(
+            timestamp.year - 2000, timestamp.month, timestamp.day,
+            timestamp.hour, timestamp.minute, timestamp.second,
+        ).encode("ascii")
+        return NF55CommandSpec("CLOCK_SYNC", "SC", encoded, cache_action="SC")
+
     if ate_name == "PARAM_SET":
         data = _ascii_bytes(payload)
         if len(data) != 50:

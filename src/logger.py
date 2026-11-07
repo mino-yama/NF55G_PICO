@@ -3,6 +3,8 @@
 
 """Non-blocking logger core and SD sink abstraction."""
 
+import binascii
+
 
 CSV_FIELDS = (
     "timestamp",
@@ -27,6 +29,17 @@ SD_MOUNT_ERR = "MOUNT_ERR"
 SD_OPEN_ERR = "OPEN_ERR"
 SD_WRITE_ERR = "WRITE_ERR"
 SD_FULL = "FULL"
+
+
+def _raw_ascii(raw_hex):
+    try:
+        raw = binascii.unhexlify(raw_hex)
+    except (ValueError, TypeError):
+        return ""
+    return "".join(
+        "\\\\" if byte == 92 else chr(byte) if 32 <= byte <= 126 else "\\x{:02X}".format(byte)
+        for byte in raw
+    )
 
 
 class LoggerError(RuntimeError):
@@ -238,6 +251,10 @@ class Logger:
             if self.busy():
                 break
             row = self.queue[0]
+            if row[1] == "NF55" and row[4] == "RAW" and not row[5] and row[6]:
+                row = row[:5] + (_raw_ascii(row[6]),) + row[6:]
+                if self.busy():
+                    break
             try:
                 self.sd_sink.write_record(row)
             except LoggerError as exc:

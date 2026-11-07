@@ -25,6 +25,8 @@ Revision: Rev.0
 
 ## 3. TIME
 YEAR2, MONTH2, DAY2, HOUR2, MIN2, SEC2.
+各2文字はルール②のASCII HEX数値。各値を10進2桁へ変換する。
+例: `1A0B03100730` -> `20261103_160748`。この表現は取得日時であり、現在時刻とは限らない。
 ATE format:
 - DATE YYYYMMDD
 - TIME HHMMSS

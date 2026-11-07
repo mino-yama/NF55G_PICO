@@ -46,6 +46,7 @@ CONTROL_COMMANDS = (
     "OUTPUT_RESTART",
     "PARAM_RESET",
     "PARAM_SET",
+    "CLOCK_SYNC",
 )
 
 

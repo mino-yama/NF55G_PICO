@@ -1875,6 +1875,185 @@ Keep the NF55G unpowered and do not send product commands during this check.
 - Resume D2 only after SD Logger is healthy and the responsible test/design
   procedure confirms the D2 acceptance condition, including SC completion.
 
+## 2026-11-07 Post-D0 review and D2 precondition recheck
+
+- D0 review: the two most recent Logger-captured D0 transactions were protocol
+  OK, 327-character DATA with valid BCC, and no retry/ambiguous indication.
+  Both returned CHARGE_END=0, including the first response. Thus no D0 transport
+  or Decode fault was observed, but OI-03 (effect on a nonzero CHARGE_END) is
+  still inconclusive and remains OPEN. This observation alone does not close
+  OI-03 or establish product behavior.
+- After the operator requested return to the main debug sequence, normal app
+  preflight reported `LOGGER=MOUNT_ERR`, `SD_STATUS?=MOUNT_ERR`, while
+  `COMM_STATUS?=IDLE`. No SD_REINIT or D2 command was sent in this step.
+- For D2 acceptance context, sent `STATUS_REFRESH` once without Logger:
+  TX `5354415455535F524546524553480D0A`, RX `4F4B0D0A` (`OK`). Then
+  `PS_ON?` returned `1` (TX `50535F4F4E3F0D0A`, RX `310D0A`). This is only the
+  PS_ON state at this STATUS acquisition; it does not evidence NF55G-side SET
+  CLOCK completion.
+- D2 was not sent. D2-PS-01 remains OPEN, SC completion is unconfirmed, and the
+  Logger is unavailable. Resume D2 only after the Logger gate and the approved
+  D2 acceptance/SC-completion procedure are satisfied. No control, SET/CLEAR,
+  SC, or FU command was sent.
+
+### D0 Logger rerun after SD card reinsertion
+
+- After the operator reported the SD card had been removed and reinserted,
+  normal D0-enabled app preflight passed: Logger/SD `OK`, protocol `IDLE`,
+  drop count 0. Logger session was started; two `DATA_REFRESH` requests were
+  issued, each followed by Cache-only `CHARGE_END?`; the first also queried
+  `CHG_VOLT?`. `TEST_END` returned `OK`; post-session SD remained `OK`, drop
+  count 0, usage `1507328/15910043648/0.009%`.
+- CSV `/sd/BANK_A/20261107_143305.csv` was read back from the reinserted card.
+  It contained 10 rows including header, 8 NF raw records, and two D0
+  transaction summaries. Both D0 frames were 333 bytes with 327-character DATA;
+  BCC verified (`2F` and `29`). Both transactions returned `OK`, command and
+  response retries 0, `ambiguous=False`, elapsed 219ms and 236ms.
+- Both raw D0 responses decoded to `CHG_VOLT=0` (`0000` HEX),
+  `CHARGE_DATA=0`, and `CHARGE_END=0`. The first and second CHARGE_END values
+  therefore showed no observed transition; because the first was already 0,
+  this does not establish whether D0 ACK clears a nonzero CHARGE_END. OI-03
+  remains Open and no product PASS/FAIL is assigned.
+- The CSV logger records NF raw TX/RX and transaction summaries, not ATE Query
+  replies. The host transcript for this run did not retain the CHG_VOLT/CHARGE_END
+  ATE response lines, so the recorded field values above come from decoding the
+  two stored raw D0 frames. No control, SET/CLEAR, SC, or FU command was sent.
+
+### D0 Logger/CHARGE_END result after stale VFS recovery
+
+- The earlier empty-output ATE loop command was not used as evidence. Subsequent
+  local cache query showed DATA valid and `CHARGE_END?=0`; protocol was IDLE,
+  SD status OK, and drop count 0. The run log was then closed with
+  `TEST_END` -> `OK`.
+- Read back `/sd/BANK_A/20261107_135211.csv`: 10 CSV rows including header,
+  eight NF raw records, and two D0 transaction summaries. Both D0 frames had
+  327-character DATA, 333-byte full frame, received/calculated BCC `23`, and
+  valid BCC. Both transactions returned `OK`, command retry 0, response retry
+  0, `ambiguous=False`, elapsed 215 ms and 214 ms.
+- D0 DATA offsets 92..111 (LIFE_CALC) were `00001900000000000000` in both
+  responses. Therefore both captured `CHARGE_DATA=0`, `CHARGE_END=0`. No change
+  was observed between the two D0 responses. The first value was already 0, so
+  this does not determine whether an initially asserted CHARGE_END would clear
+  after D0 ACK; OI-03 remains OPEN and the effect is INCONCLUSIVE. No product
+  PASS/FAIL judgment is made.
+- ATE `CHARGE_END?` output was not captured in the host transcript; the two
+  values above are decoded from SD-saved raw D0 responses, not from an ATE query.
+  No CHARGE_OFF_CLEAR, SET LIFE, SC, or other control command was sent in this
+  D0 sequence.
+- Logger close verification: `TEST_END=OK`, `SD_STATUS?=OK`,
+  `LOG_DROP_COUNT?=0`, `SD_USAGE?=1376256/15910043648/0.009%`. The CSV was read
+  directly from the SD and parsed; NF raw BCC and D0 transaction summaries
+  matched the records above.
+- Mount investigation: before the successful run, `/sd` already exposed the
+  15.9 GB card and prior CSV/BANK files, while a newly created sink failed at
+  `VFS_MOUNT` with `OSError(1,)`, `mounted=False`, and no open Logger file.
+  Explicitly unmounted the stale VFS mount, then `Logger.reinit()` returned
+  `True`, stage `READY`; no files were removed. The identical failing symptom
+  was consistent with a duplicate/stale VFS mount in that interpreter. This
+  recovery establishes this session's mount issue, but does not close the
+  separate cold-power CMD0 investigation.
+- After CSV readback, the app was stopped for REPL inspection, the existing
+  `/sd` VFS mount was released, and the normal D0-enabled app was restarted.
+  Final local checks: self-check all OK, `SD_STATUS?=OK`, `COMM_STATUS?=IDLE`,
+  `LOG_DROP_COUNT?=0`. No source deployment changes were made during this
+  recovery; deployed firmware remains commit `441cb42`.
+
+### DATA_REFRESH followed by CHG_VOLT query
+
+- Post-restart preflight: `PICO_SELF_CHECK?` reported ATE/NF UART, RTC, LOGGER
+  all OK; `SD_STATUS?=OK`, `COMM_STATUS?=OK:state=IDLE`,
+  `LOG_DROP_COUNT?=0`.
+- Logger sequence: `TEST_START` -> `OK`; `DATA_REFRESH` (D0) sent once -> `OK`
+  (TX `444154415F524546524553480D0A`, RX `4F4B0D0A`); then `CHG_VOLT?` -> `0`
+  (TX `4348475F564F4C543F0D0A`, RX `300D0A`); `TEST_END` -> `OK`.
+- Post-test `SD_STATUS?=OK`, `LOG_DROP_COUNT?=0`,
+  `SD_USAGE?=1441792/15910043648/0.009%`. The Logger was active over D0; this
+  invocation's CSV has not yet been independently read back. Usage is total
+  volume usage and not an exact per-file size measurement.
+- `CHG_VOLT?=0` is the D0 Cache response. It is an observed decoded value only;
+  Pico does not judge it as product PASS/FAIL. This test did not query
+  `CHARGE_END?` after D0, so it provides no new evidence for OI-03. No control,
+  SET/CLEAR, SC, or FU command was sent in this sequence. Physical UART1
+  waveform capture remains deferred.
+
+### D0/CHG_VOLT CSV readback
+
+- After `TEST_END=OK`, the Pico service loop was stopped with Ctrl-C to inspect
+  the card. `mpremote resume fs ls` showed the file at
+  `/sd/BANK_A/20261107_140145.csv`. No reset, format, file write, delete, or
+  NF55G command was performed during inspection.
+- CSV readback contained the header plus five records: NF D0 TX, ACK RX, D0
+  response RX, final ACK TX, and D0 transaction summary.
+- Parsed raw response: full frame 333 bytes, DATA 327 ASCII characters, BCC
+  received/calculated `2D` (match). D0 DATA `CHG_VOLT` field at offset 24 was
+  `0000` HEX (=0); `LIFE_CALC` raw was `00001900000000000000`, with
+  `CHARGE_DATA=0`, `CHARGE_END=0`. Transaction summary was `OK`, command retry
+  0, response retry 0, elapsed 214ms, ambiguous False.
+- The raw D0 CHG_VOLT value agrees with the ATE `CHG_VOLT?` response `0`.
+  This verifies the saved frame and decoder value only; it is not external
+  voltage/current evidence or product PASS/FAIL. Since CHARGE_END was already
+  0 in this response, this record does not resolve OI-03.
+- App is left at REPL after inspection; `/sd` remains mounted in this interpreter.
+  Restart the normal entry after finishing SD inspection before further ATE use.
+
+## 2026-11-07 SD mount failure recurred after D0 CSV inspection
+
+- After the operator confirmed the SD contents had been reviewed, the D0 HIL
+  session proceeded to resume the normal app. Before restart, an explicit
+  `os.umount('/sd')` in the inspection REPL returned `OSError(EINVAL)`, meaning
+  that REPL context did not have an active `/sd` mount to release.
+- The next normal `firmware/main.py` startup snapshot reported
+  `status=MOUNT_ERR`, `stage=CARD_INIT`, `error=OSError('CMD0 failed: -1',)`,
+  `mounted=False`, `elapsed_ms=163`. `/sd` was empty and `statvfs('/sd')`
+  described the internal 3 MiB filesystem. This differs from the earlier
+  stale-VFS case (`VFS_MOUNT`, `OSError(1,)`) that recovered after unmounting
+  the old VFS mount; the current failure is before VFS mount, at card CMD0.
+- A single ATE `SD_REINIT` attempt returned `ERR:MOUNT_ERR`; no repeated retry
+  was made. `COMM_STATUS?` was IDLE, `LOG_DROP_COUNT?=0`. No D0, NF55G control,
+  SET/CLEAR, SC, or FU command was sent in this recovery attempt.
+- D0 debugging is paused because Logger cannot start. Preserve the 2026-11-07
+  D0 CSV and the external Pico backup. Before any further SD initialization,
+  check the card seating and SD-board connections/power with the Sample in the
+  operator-approved safe state. Then perform one controlled retry and capture
+  its startup snapshot; do not format the card or delete existing SD files.
+  Root cause of the recurring CMD0 no-response remains open.
+
+## 2026-11-07 D0 / CHARGE_END Logger HIL after SD mount recovery
+
+- D0-enabled source baseline: `441cb42`. After a soft-reset, the prior
+  `PICO_SELF_CHECK?` and `SD_STATUS?` had reported `MOUNT_ERR`. A fresh
+  `startup_sd_diagnostic` read showed `stage=VFS_MOUNT`,
+  `error=OSError(1,)`, `mounted=False`. However `/sd` contained prior CSVs and
+  BANK_A/B metadata, and `statvfs('/sd')` reported the 15.9 GB card capacity.
+  The current Logger had `active=False` and no open file.
+- In the same interpreter, explicitly unmounted the stale `/sd` VFS mount, then
+  called the current Logger's `reinit()` once. It returned `True`; status became
+  `OK`, mount stage `READY`, `last_error=None`, and existing `/sd` entries were
+  still present. This identifies a stale/double VFS mount as the cause of this
+  runtime's MOUNT_ERR. It does not resolve the separately observed cold-start
+  CMD0 issue.
+- Reused the D0-enabled app and started its service loop. Preflight passed:
+  `PICO_SELF_CHECK?` all ATE/NF UART, RTC, LOGGER OK; `SD_STATUS?=OK`;
+  `COMM_STATUS?=IDLE`; `LOG_DROP_COUNT?=0`.
+- Logger-backed sequence produced two NF55G D0 transactions. CSV readback:
+  `/sd/BANK_A/20261107_135211.csv`, 10 rows including header; 8 raw NF TX/RX
+  rows and 2 transaction summaries. Both D0 frames were 333 bytes total with
+  327-character DATA and valid BCC (`23` received/calculated). Both summaries:
+  result `OK`, command retry 0, response retry 0, ambiguous False; elapsed
+  215 ms and 214 ms respectively. `TEST_END=OK`, post-test SD status OK,
+  drop count 0. These timings are observed elapsed values; configured D0 T2
+  remains the provisional 600 ms limit.
+- Both D0 DATA payloads contained LIFE_CALC raw
+  `00001900000000000000` at DATA offset 92; decoded `CHARGE_DATA=0` and
+  `CHARGE_END=0` for the first and second response. No transition was observed.
+  Because the first captured value was already 0, this run cannot determine
+  whether a nonzero CHARGE_END would be cleared by D0 ACK. OI-03 remains OPEN;
+  no product behavior conclusion or PASS/FAIL is assigned.
+- No NF55G control, SET/CLEAR, SC, or FU command was sent in this D0 sequence.
+  The ATE-side CHARGE_END Query output was not captured in the host transcript;
+  the two values above were decoded directly from independently saved raw D0
+  response frames in the SD CSV.
+
 ### D2 precondition STATUS recheck
 
 - On the operator's request, queried `STATUS_REFRESH` once over COM19 at
@@ -1928,3 +2107,265 @@ Keep the NF55G unpowered and do not send product commands during this check.
   `MOUNT_ERR` after startup and `SD_REINIT` returned `ERR:MOUNT_ERR`, so Logger
   could not be enabled. D0 HIL also remains subject to OI-03 review. No D0 frame
   or other NF55G command was sent for this implementation checkpoint.
+
+### D0 deployment/HIL retry with Logger gate
+
+- Source baseline was commit `441cb42`, `main` synchronized with `origin/main`,
+  and worktree clean before deployment. Target was Pico 2/RP2350, MicroPython
+  v1.28.0, unique ID `2d35a1e11ac125e3` on COM14; ATE adapter COM19 at
+  115200 bps 8N1.
+- Before replacement, copied the existing D2 firmware `/src/` and `/main.py`
+  outside the repository to `NF55G_Pico_pico_backup_preD0_441cb42_retry_20261107/`.
+  The prior ATE runtime had to be interrupted with Ctrl-C to release COM14.
+- Deployed the 24 Python modules under `/src/` and `firmware/main.py` as
+  `/main.py`. All 25 deployed SHA-256 digests matched commit `441cb42`.
+  Existing root QR/diagnostic files and SD contents were not removed.
+- The deployed app started and `*IDN?` returned
+  `NF55G_PICO_FIXTURE,Rev.0`. Preflight `PICO_SELF_CHECK?` returned
+  `NG:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=MOUNT_ERR`; Logger was not ready.
+- Per the requested Logger gate, did not send `TEST_START` or `DATA_REFRESH`.
+  No D0 NF55G frame was requested. Thus no D0 response or CHARGE_END change
+  was observed; OI-03 remains open. Stop here until SD mount is diagnosed and
+  `SD_STATUS?` plus `PICO_SELF_CHECK?` report OK. Then perform Logger-backed
+  D0 once with before/after `CHARGE_END?` cache readings and record the
+  transaction; do not infer product PASS/FAIL from the protocol result.
+
+## 2026-11-07 SD recovery after app restart in existing interpreter
+
+- After a COM14 transport error, the normal app was run again using `resume`.
+  ATE self-check reported ATE/NF UART and RTC OK but LOGGER `MOUNT_ERR`;
+  `SD_STATUS?=MOUNT_ERR`, `COMM_STATUS?=IDLE`, and `LOG_DROP_COUNT?=0`.
+- The app loop was interrupted and the first-startup RAM snapshot read without
+  resetting the interpreter: status `OK`, stage `READY`, mounted True, error
+  None, elapsed 499 ms. This snapshot belongs to the first app startup in that
+  interpreter, not necessarily the failed app instance. The failed instance's
+  exact mount stage and exception were not captured.
+- `/sd` exposed the existing CSVs, BANK_A/B and active-bank marker; statvfs
+  reported the 15,910,043,648-byte card. This is consistent with an existing
+  VFS mount, but does not by itself prove the failed instance's exception.
+- With the failed app stopped and no logger session started in that instance,
+  unmounted `/sd` once and created one new app. Its sink reported `READY`,
+  `OK`, mounted True, error None, logger inactive and no open filename. Existing
+  directory entries remained visible. No formatting, file deletion, `SD_REINIT`
+  or NF55G command was performed.
+- Started the recovered app's service loop without another mount. ATE reported
+  `PICO_SELF_CHECK?=OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK`,
+  `SD_STATUS?=OK`, `SD_USAGE?=1507328/15910043648/0.009%`,
+  `COMM_STATUS?=OK:state=IDLE`, and `LOG_DROP_COUNT?=0`. This is a warm recovery,
+  not proof that the separate cold-start CMD0 failure has been resolved.
+
+## 2026-11-07 Logger-backed D1 after SD recovery
+
+- Preflight: `PICO_SELF_CHECK?` reported ATE UART, NF55 UART, RTC and LOGGER
+  OK; `SD_STATUS?=OK`, `COMM_STATUS?=OK:state=IDLE`, `LOG_DROP_COUNT?=0`.
+- `TEST_START` returned `OK`. One `STATUS_REFRESH` returned `OK` (ATE TX
+  `5354415455535F524546524553480D0A`, RX `4F4B0D0A`); `PS_ON?` returned `1`
+  (TX `50535F4F4E3F0D0A`, RX `310D0A`). `TEST_END` returned `OK`; all ATE
+  responses had CRLF. Post-session SD remained OK, protocol IDLE, drop count 0.
+- Read back `/sd/BANK_A/20261107_145729.csv` after stopping the loop. It
+  contained D1 TX `024431033736`, ACK RX `06`, D1 response RX
+  `024431323130313030303034303032303030033432`, ACK TX `06`, and one D1
+  transaction summary. The existing frame parser verified CMD D1, DATA length
+  15, DATA `210100004002000`, and BCC received/calculated `42`. Summary:
+  `OK`, command retry 0, response retry 0, elapsed 26 ms, ambiguous False.
+- Resumed the same app without reinitializing SD; `SD_STATUS?=OK`,
+  `COMM_STATUS?=OK:state=IDLE`, `LOG_DROP_COUNT?=0`. PS_ON is an observation
+  at D1 acquisition only; it does not demonstrate NF55G SET CLOCK completion.
+  D2-PS-01 remains Open and D2 was not sent. No SC, control, SET/CLEAR, D0,
+  FU or other NF55G command was sent in this sequence. No product PASS/FAIL
+  was assigned. Host/Mock tests were not run for this hardware-only check.
+
+## 2026-11-07 SC preparation: D0 TIME observation
+
+- User reported that batteryless AC OFF/ON returns the NF55G calendar to
+  2026-01-01 and requested SC with a test time instead of the current time.
+  This report is not an independently verified power-cycle measurement.
+- Preflight: self-check, SD and RTC OK; communication IDLE; drop count 0.
+  `TEST_START=OK`, one `DATA_REFRESH=OK`, then `NF55_DATETIME?` returned
+  `201A0B03_100730` and `CHARGE_END?=0`. `TEST_END=OK`, SD OK, drop count 0.
+  ATE responses had CRLF. D0 ACK's potential CHARGE_END effect remains OI-03.
+- r1 rule 2 encodes each TIME numeric field as ASCII HEX. The observed TIME
+  `1A0B03100730` converts to `20261103_160748`; the deployed decoder had
+  concatenated the HEX text rather than converting it. This is an offline
+  conversion of the ATE observation; the D0 CSV has not been read back in this
+  step, and this value must not be interpreted as the PC or Pico RTC time.
+- Host changes for SC and TIME conversion are under test. SC was not sent,
+  D2 was not sent, no AC power cycle was performed, and no product PASS/FAIL
+  was assigned. SC can count time difference as AC OFF time; test time and
+  resulting impact need operator confirmation before deployment and transmission.
+
+## 2026-11-07 RTC-based SC and D0 readback
+
+- On the operator's request, used the Pico DS3231 RTC value as the SC time.
+  The previously observed NF55G time was 2026-11-03 16:07:48; the clock shift
+  may affect AC OFF time calculations under r1. No AC power cycle was performed.
+- Backed up the existing Pico `/src/command_parser.py`, `nf55_command.py`,
+  `command_dispatcher.py`, and `nf55_decode.py` to
+  `temp/pico_pre_sc_20261107_1530/`, then deployed the four changed files.
+  Pico SHA-256 values matched the Host files. Existing SD contents were kept.
+  Host source includes uncommitted changes and is not identical to commit 441cb42.
+- Post-deployment preflight: ATE/NF UART, RTC and LOGGER OK; SD OK; protocol
+  IDLE; drop count 0. `TEST_START=OK`. `RTC_DATETIME?=20261107_153531`;
+  `CLOCK_SYNC 261107153531=OK`, then `STATUS_REFRESH=OK` and
+  `DATA_REFRESH=OK`. `NF55_DATETIME?=20261107_153531`; a subsequent
+  `RTC_DATETIME?=20261107_153532`. NF55 D0 minus the SC source was 0 seconds;
+  NF55 D0 minus the later RTC reading was -1 second. These are sequential
+  second-resolution readings, not an independent oscillator-accuracy test.
+- `TEST_END=OK`; SD remained OK, protocol IDLE, drop count 0. Read back
+  `/sd/BANK_A/20261107_153531.csv`: SC TX DATA `1A0B070F231F`, SC RX DATA
+  length 0, D1 RX DATA length 15, and D0 RX DATA length 327 with TIME
+  `1A0B070F231F`. Calculated and received BCC matched on every SC/D1/D0 frame.
+  SC/D1/D0 transaction summaries were OK with command and response retries 0,
+  ambiguous False, elapsed 22/26/216 ms respectively.
+- After readback, released the closed SD mount and restarted the same firmware;
+  self-check and SD OK, protocol IDLE, drop count 0. Immediate readback does
+  not establish long-term or AC-off retention. D0 ACK's potential CHARGE_END
+  effect remains OI-03. D2-PS-01 remains Open; no D2, other control, CLEAR or
+  FU command was sent in this sequence. No product PASS/FAIL was assigned.
+
+## 2026-11-07 NF55 RAW ASCII formatting
+
+- Added deferred RAW ASCII formatting while preserving `raw_hex`; Host/Mock
+  suite passed 176 tests. The previously saved SC/D1/D0 CSV was not modified;
+  a separate local readable copy was generated from its `raw_hex` fields.
+- Backed up Pico `/src/logger.py` to `temp/pico_logger_before_raw_ascii_20261107.py`,
+  deployed the new file and verified its SHA-256 against the Host source.
+  MicroPython conversion checks returned `\x02SC\x0313` for the SC response
+  and `\x06` for ACK, and correctly escaped CSV special and non-ASCII bytes.
+- After service restart, self-check and SD status were OK, communication IDLE,
+  drop count 0. No NF55G command or product power operation was performed.
+  A new NF55 RAW CSV and real-hardware communication timing remain unverified.
+
+## 2026-11-07 Specified 2026-04-01 SC and D0 readback
+
+- Operator requested `2026-04-01 00:00:00`. Preflight self-check and SD OK,
+  communication IDLE, drop count 0. `TEST_START=OK`, then `RTC_DATETIME?`
+  returned `20261107_155758`. Pico RTC was not changed.
+- Sent `CLOCK_SYNC 260401000000` once; ATE returned `OK`. Then
+  `STATUS_REFRESH=OK`, `DATA_REFRESH=OK`, and `NF55_DATETIME?` returned
+  `20260401_000000`, zero seconds from the specified time at that acquisition.
+  The subsequent Pico RTC read remained `20261107_155758`. All replies had CRLF.
+- The prior SC test had set NF55G to November 2026. r1 says past timestamps
+  receive PME, but NF55G time immediately before this SC and any intervening
+  DUT power-cycle history were not checked in this test. Accordingly whether
+  this was a past-time acceptance contrary to r1 is undetermined. Clock shift
+  may affect AC OFF time calculations; no product PASS/FAIL is assigned.
+- `TEST_END=OK`; SD OK, protocol IDLE, drop count 0. Read back
+  `/sd/BANK_A/20261107_155758.csv` and copied it to
+  `temp/20261107_155758_sc_20260401.csv`. Both SHA-256 values were
+  `0b63384b232e9a89b049e3ed5c7b02a0601c678c999b87742c398ee90905bf14`.
+  SC TX and D0 RX TIME fields were `1A0401000000`; SC RX DATA length 0,
+  D1 RX length 15 and D0 RX length 327. All SC/D1/D0 frame BCCs matched;
+  command and response retries were 0, ambiguous False, elapsed 21/27/214 ms.
+  The RAW rows contained `raw_ascii` as well as `raw_hex`.
+- ATE service resumed without SD reinitialization; self-check and SD OK,
+  protocol IDLE, drop count 0. Long-term and AC-off time retention, waveform
+  timing and OI-03 remain unverified. No D2, FU, CLEAR, or other control was
+  sent, and no DUT power-cycle operation was performed during this sequence.
+
+## 2026-11-07 D2 Logger-backed hardware check
+
+- After the preceding SC setting and D0 readback, the operator reported no
+  state change and no power off/on. Preflight self-check and SD were OK,
+  communication IDLE, drop count 0, cached `PS_ON?=1`. The previously sent SC
+  returned OK and its time was observed in D0; the D2-PS-01 specification
+  interpretation remains Open and is not settled by this test.
+- `TEST_START=OK`; one `STATUS_REFRESH=OK` followed by `PS_ON?=1`; one
+  `D2_REFRESH=OK`. `RETRY_COUNT?=OK:cmd=0,rsp=0`. Cache-only
+  `NF55_DATETIME?=ERR:CACHE_INVALID` after D2, consistent with DATA invalidation.
+  All ATE replies were CRLF-terminated. `TEST_END=OK`; SD OK, protocol IDLE,
+  drop count 0. No D0, SC, control, SET/CLEAR or FU was sent in this sequence.
+- Read back `/sd/BANK_A/20261107_160445.csv` and copied it to
+  `temp/20261107_160445_d1_d2.csv`; both SHA-256 values were
+  `95bf3a73e8d2e0c2af6a87df8129c5ddc7ce8d0355ff61b521f7fef80084f212`.
+  D2 TX DATA length 0, RX DATA length 30, DATA
+  `041000000000000000000000000000`; received/calculated BCC `70`.
+  All D1/D2 frame BCCs matched. D1/D2 transaction summaries were OK with
+  command and response retries 0, ambiguous False, elapsed 27/36 ms.
+  The CSV includes `raw_ascii` and `raw_hex`.
+- Read D2 Cache from the same app while the loop was stopped: VALID, source D2;
+  `AC_OFF_HOUR=104.0`, `PS_OFF_HOUR=0.0`, `AVE_OFF_TEMP=0`,
+  `OFF_CHARGE_HOUR=0.0`, `AVE_CHARGE_TEMP=0`, `OFF_CHARGE=0`,
+  `OFF_BATT_DEG=0.0`. DATA Cache remained invalid. These are observed values;
+  the influence of prior SC or power history is not established, and Pico
+  does not assign a product PASS/FAIL.
+- Resumed the same app; self-check and SD OK, communication IDLE, drop count 0.
+  Host/Mock tests were not rerun for this hardware-only check. Physical waveform
+  timing and the D2 acceptance-condition interpretation remain open.
+
+## 2026-11-07 PS_ON off-state observation
+
+- On the operator's request to check OFF, preflight self-check and SD were OK,
+  communication IDLE and drop count 0. `TEST_START=OK`, one explicit
+  `STATUS_REFRESH=OK`, then `PS_ON?=0` (ATE TX `50535F4F4E3F0D0A`, RX
+  `300D0A`, complete CRLF). This is the STATUS observation at D1 acquisition;
+  it does not independently establish external supply or load voltage.
+- `TEST_END=OK`; SD remained OK, communication IDLE, drop count 0. The SD CSV
+  `/sd/BANK_A/20261107_161411.csv` was copied to
+  `temp/20261107_161411_ps_off_d1.csv`; SHA-256 matched
+  `9fbdaf7e59a09e8db940657556ddc80e06a3ff67ee1d814863e206c3993b3914`.
+  D1 DATA was `010100000002000` (15 characters), BCC received/calculated `44`,
+  command and response retries 0, elapsed 26 ms, ambiguous False.
+- The app was resumed; SD OK, communication IDLE, drop count 0. No control,
+  SC, D0, D2 or FU command was sent in this check. D2-PS-01 remains Open;
+  no product PASS/FAIL was assigned. Host/Mock was not rerun for this
+  hardware-only measurement.
+
+## 2026-11-07 CHARGE_ON hardware check
+
+- Operator requested CHARGE_ON first and physical confirmation by tester;
+  reported battery disconnected, AC ON, output present and no load. Operator
+  acknowledged the abnormal-stop preparation instruction. Actual tester
+  reading and independent charging-current measurement were not yet provided.
+- Preflight self-check and SD OK, communication IDLE, drop count 0.
+  `TEST_START=OK`, then `STATUS_REFRESH=OK`. Pre-control cached values:
+  `PS_ON=1`, `CHARGE_ON_STATUS=0`, `CHARGE_OFF_STATUS=0`, `BATT_P_FAIL=1`,
+  `BATT_MCN=0`, `BATT_DCN=0`. The PS_ON observation differs from the earlier
+  OFF check; the intervening physical operation or transition time is not
+  recorded here. Do not equate any single status flag with an r1 diagnosis.
+- One `CHARGE_ON` request (CN DATA `1`) returned `OK`. Immediate cache-only
+  `CHARGE_ON_STATUS?=ERR:CACHE_INVALID`, then explicit `STATUS_REFRESH=OK`.
+  Post-control values: `PS_ON=1`, `CHARGE_ON_STATUS=1`, `CHARGE_OFF_STATUS=0`,
+  `CHARGER_ON=0`, `CHARGE_READY=0`. `TEST_END=OK`; SD OK, protocol IDLE,
+  drop count 0. The status/OK do not establish actual current, voltage, or
+  product PASS/FAIL. No automatic stop or other charging control was sent.
+- Copied `/sd/BANK_A/20261107_162303.csv` to
+  `temp/20261107_162303_charge_on.csv`; SHA-256 matched
+  `ce0cbb7be7d2294ac290866fab80b3ddef026ce9fa9f9683ac0a5a592b501b75`.
+  CN TX and RX both DATA `1`, BCC received/calculated `3F`; the preceding and
+  following D1 responses had 15 DATA characters and matching BCC `42`/`43`.
+  CN transaction: OK, command retry 0, response retry 0, 19 ms, ambiguous False.
+- Resumed the same app; SD OK, communication IDLE, drop count 0. Wait for the
+  operator's physical observation before a further charging command. No FU,
+  SC, D0 or other control was sent. Host/Mock was not rerun for this
+  hardware-only check; no Open Issue was closed.
+
+## 2026-11-07 Charge command sequence without battery
+
+- Operator requested continuing command checks and deferring electrical checks
+  because no battery is connected. Earlier operator-reported setup: AC ON,
+  output present, no load, battery disconnected. No measured voltage/current
+  was supplied; product behavior and electrical safety are not inferred from
+  the communication result.
+- Preflight: self-check and SD OK, communication IDLE, drop count 0. Logger
+  started; initial `STATUS_REFRESH=OK` yielded `PS_ON=1`,
+  `CHARGE_ON_STATUS=1`, `CHARGE_OFF_STATUS=0`, `CHARGER_ON=0`.
+- `CHARGE_ON_STOP` (CN DATA `0`) returned OK; after explicit D1,
+  `CHARGE_ON_STATUS=0`, `CHARGE_OFF_STATUS=0`, `CHARGER_ON=0`.
+  `CHARGE_OFF` (CF DATA `1`) returned OK; after D1, ON status 0, OFF status 1,
+  charger 0. `CHARGE_OFF_CLEAR` (CF DATA `0`) returned OK; after D1, ON status
+  0, OFF status 0, charger 0. PS_ON was 1 at each acquisition. Each control
+  invalidated STATUS before the explicit D1, confirmed by cache-only
+  `CHARGE_ON_STATUS?=ERR:CACHE_INVALID` after each operation.
+- `TEST_END=OK`; SD OK, communication IDLE, drop count 0. Copied
+  `/sd/BANK_A/20261107_162742.csv` to
+  `temp/20261107_162742_charge_sequence.csv`; SHA-256 matched
+  `13030f5d516bd6858730663c6f1b391c5dcb79201ed866b34c36e4cf1925f5ea`.
+  CN `0`, CF `1`, CF `0` TX/RX DATA matched, all CN/CF/D1 frame BCCs matched;
+  all transaction summaries were OK with command/response retries 0 and
+  ambiguous False. CN elapsed 20 ms, CF operations 19 ms each.
+- The app was resumed; SD OK, communication IDLE, drop count 0. No D0, D2,
+  SC or FU was sent in this sequence. Protocol OK and status flags do not
+  establish charging or cessation of current; external electrical checks are
+  pending. Host/Mock was not rerun for this hardware-only measurement, and no
+  Open Issue was closed.

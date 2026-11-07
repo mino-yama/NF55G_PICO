@@ -78,6 +78,14 @@ Revision: Rev.0
 | AD_<TYPE>_<POINT>_<VALUE> | AD | 10 chars | Open Issue | DATA/AR | AR_REFRESH |
 | FW_UPDATE | FU | BLOCKED | - | none | ERR:FU_DISABLED |
 
+### CLOCK_SYNC Host実装（2026-11-07）
+
+- `CLOCK_SYNC YYMMDDHHMMSS`（または `CLOCK_SYNC=YYMMDDHHMMSS`）はATEが明示する10進日時を使用する。PicoのRTCを変更・自動参照しない。
+- 年・月・日・時・分・秒の各10進値を2桁ASCII HEXへ変換し、SC DATAに格納する。例: `260102030405` -> `1A0102030405`。正常応答DATAは0文字、T2=100ms。
+- 日時の構文と暦を検証する。成功時または成否不明時はDATA/STATUSをINVALIDにし、Control応答をCacheへ昇格しない。自動Refreshは行わない。
+- SCは時刻のずれをAC OFF時間として計算する。過去時刻は製品側でパラメータエラーとなる仕様のため、実機送信時刻と影響を担当者が確認する。
+- Host/Mock検証対象。Picoへの配置およびSC実機送信は未実施。
+
 ## 4. DATA Cache Query
 - NF55_DATE?
 - NF55_TIME?

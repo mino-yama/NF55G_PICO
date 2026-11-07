@@ -19,6 +19,18 @@ class LoggerSDTests(unittest.TestCase):
         logger = Logger(sd_sink=sink, clock=clock, queue_limit=queue_limit)
         return logger, sink, clock
 
+    def test_nf_raw_ascii_is_rendered_after_queueing(self):
+        logger, sink, _clock = self.make_logger()
+        self.assertTrue(logger.test_start())
+        filename = logger.current_filename
+        logger.log(category="NF55", direction="TX", event="RAW", raw_hex="025343033133")
+        logger.log(category="NF55", direction="RX", event="RAW", raw_hex="06")
+        self.assertEqual(logger.queue[0][5], "")
+        self.assertTrue(logger.test_end())
+        self.assertEqual(sink.files[filename][0][5], r"\x02SC\x0313")
+        self.assertEqual(sink.files[filename][0][6], "025343033133")
+        self.assertEqual(sink.files[filename][1][5], r"\x06")
+
     def test_test_start_creates_one_csv_session(self):
         logger, sink, _clock = self.make_logger()
 

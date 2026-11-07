@@ -7,6 +7,11 @@ Decode functions return dictionaries only. They never update cache and never
 perform NF55G communication.
 """
 
+try:
+    from .rtc_driver import RTCDateTime, RTCError
+except ImportError:  # pragma: no cover
+    from rtc_driver import RTCDateTime, RTCError
+
 
 class DecodeError(ValueError):
     pass
@@ -26,10 +31,9 @@ def _require_len(text, length, label):
 
 
 def _num(text):
-    try:
-        return int(text, 16)
-    except ValueError:
+    if not text or any(char not in "0123456789ABCDEFabcdef" for char in text):
         raise DecodeError("not ASCII HEX: {}".format(text))
+    return int(text, 16)
 
 
 def _signed8(text):
@@ -54,17 +58,23 @@ def decode_time(data):
     _require_len(text, 12, "TIME")
     for char in text:
         _num(char)
-    year = "20" + text[0:2]
+    values = [_num(text[index:index + 2]) for index in range(0, 12, 2)]
+    try:
+        timestamp = RTCDateTime(2000 + values[0], *values[1:])
+    except RTCError as exc:
+        raise DecodeError("invalid TIME: {}".format(exc))
+    fields = ["{:02d}".format(value) for value in values]
+    year = "20" + fields[0]
     return {
-        "YEAR2": text[0:2],
-        "MONTH2": text[2:4],
-        "DAY2": text[4:6],
-        "HOUR2": text[6:8],
-        "MIN2": text[8:10],
-        "SEC2": text[10:12],
-        "DATE": year + text[2:6],
-        "TIME": text[6:12],
-        "DATETIME": year + text[2:6] + "_" + text[6:12],
+        "YEAR2": fields[0],
+        "MONTH2": fields[1],
+        "DAY2": fields[2],
+        "HOUR2": fields[3],
+        "MIN2": fields[4],
+        "SEC2": fields[5],
+        "DATE": year + fields[1] + fields[2],
+        "TIME": "".join(fields[3:]),
+        "DATETIME": year + fields[1] + fields[2] + "_" + "".join(fields[3:]),
     }
 
 
@@ -74,10 +84,10 @@ def decode_realtime(data):
     return {
         "VOUT12": _fixed(_slice(text, 0, 4), 1000),
         "IOUT12": _fixed(_slice(text, 4, 4), 1000),
-        "BATT_VOLT": _num(_slice(text, 8, 4)),
-        "CHG_VOLT": _num(_slice(text, 12, 4)),
-        "CHG_CURR": _num(_slice(text, 16, 4)),
-        "BATT_CURR": _num(_slice(text, 20, 4)),
+        "BATT_VOLT": _fixed(_slice(text, 8, 4), 1000),
+        "CHG_VOLT": _fixed(_slice(text, 12, 4), 1000),
+        "CHG_CURR": _fixed(_slice(text, 16, 4), 1000),
+        "BATT_CURR": _fixed(_slice(text, 20, 4), 1000),
         "BATT_SOC_WH": _signed8(_slice(text, 24, 2)),
         "BATT_SOC_MAH": _signed8(_slice(text, 26, 2)),
         "BATT_TEMP": _signed8(_slice(text, 28, 2)),

@@ -20,6 +20,7 @@ from src.pico_clock import SystemClock
 from src.rtc_driver import DS3231RTC, FakeRTCDevice
 from src.sd_card import SDCard
 from src.sd_sink import FileSDSink, csv_line
+from tests.test_decoder_complete import d0_payload
 
 
 class BytePort:
@@ -62,6 +63,31 @@ class RuntimeIntegrationTests(unittest.TestCase):
         clock = clock or FakeClock()
         uart = MockUART(clock, MockNF55GScenario(steps))
         return NF55Protocol(uart, clock=clock), uart
+
+    def test_trace_ascii_csv_preserves_control_bytes_and_csv_fields(self):
+        protocol, _ = self.protocol()
+        app = FixtureApp(protocol=protocol)
+        self.assertTrue(app.logger.test_start())
+        filename = app.logger.current_filename
+        raw = b'\x02D1,"\\\r\n\xff\x03'
+        app._trace_nf('RX', raw)
+        self.assertEqual(app.logger.queue[0][5], '')
+        self.assertTrue(app.logger.test_end())
+        row = app.logger.sd_sink.files[filename][0]
+        parsed = next(csv.reader(io.StringIO(csv_line(row))))
+        self.assertEqual(parsed[5], r'\x02D1,"\\\x0D\x0A\xFF\x03')
+        self.assertEqual(parsed[6], raw.hex())
+        self.assertEqual(len(parsed), 14)
+
+    def test_ascii_conversion_rechecks_busy_before_write(self):
+        clock = FakeClock()
+        sink = MemorySDSink()
+        checks = iter((False, False, True))
+        logger = Logger(sd_sink=sink, clock=clock, busy=lambda: next(checks, True))
+        logger.log(category='NF55', event='RAW', raw_hex='025343033133')
+        self.assertEqual(logger.force_drain(), 0)
+        self.assertEqual(len(logger.queue), 1)
+        self.assertEqual(sink.write_count, 0)
 
     def test_pico_ticks_wrap_and_protocol_timeout(self):
         class Timer:
@@ -218,6 +244,18 @@ class RuntimeIntegrationTests(unittest.TestCase):
         for _ in range(60):
             app.service_once()
         self.assertEqual(bytes(ate.tx), b'NF55G_PICO_FIXTURE,Rev.0\r\nERR:FU_DISABLED\r\n')
+
+    def test_d0_through_fragmented_ate_uart_and_cached_queries(self):
+        protocol, nf = self.protocol([ScenarioStep.ack_response('D0', d0_payload())])
+        ate = BytePort(b'DATA_', max_write=2)
+        app = FixtureApp(ate_uart=ate, protocol=protocol)
+        app.service_once()
+        self.assertEqual(bytes(ate.tx), b'')
+        ate.rx.extend(b'REFRESH\r\nBATT_VOLT?\r\nCHG_CURR?\r\n')
+        for _ in range(60):
+            app.service_once()
+        self.assertEqual(bytes(ate.tx), b'OK\r\n6.0\r\n0.1\r\n')
+        self.assertEqual(len([tx for tx in nf.tx_log if tx.startswith(b'\x02')]), 1)
 
     def test_overlength_and_non_ascii_recover_at_crlf(self):
         ate = BytePort(b'A' * 513 + b'\r\n\xff\r\n*IDN?\r\n')

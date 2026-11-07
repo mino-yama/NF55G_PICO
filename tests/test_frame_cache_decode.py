@@ -89,7 +89,7 @@ class DecodeTests(unittest.TestCase):
 
     def test_d0_keeps_status_and_info_raw_only(self):
         payload = (
-            "260901123456"
+            "1A09010C2238"
             + "0" * 50
             + "0" * 30
             + "0" * 20

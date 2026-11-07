@@ -13,13 +13,14 @@ from src.main import FixtureApp
 from src.mock_nf55g import FakeClock, MockNF55GScenario, MockUART, ScenarioStep
 from src.nf55_command import DATA_QUERY_FIELDS, STATUS_QUERY_FIELDS, INFO_QUERY_FIELDS
 from src.nf55_protocol import NF55Protocol
+from tests.test_decoder_complete import d0_payload
 
 
 MFG_VALUES = ("010203", "0001", "0026", "000123", "0002", "0027", "000234",
               "0003", "0028", "000345")
 D5 = "".join(MFG_VALUES) + "00" + "F" * 50
 D2 = "000A000BFE00AFD06400A" + "0" * 9
-D0 = "260901123456" + "0" * 315
+D0 = "1A09010C2238" + "0" * 315
 
 
 class ReadCacheIntegrationTests(unittest.TestCase):
@@ -95,6 +96,67 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.assertIsNone(app.cache.get("DATA"))
         self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
         self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_battery_voltage_and_current_queries_use_volts_and_amperes(self):
+        app, uart = self.make_app([ScenarioStep.ack_response("D0", d0_payload())])
+        self.assertEqual(app.execute_ate_line("DATA_REFRESH"), "OK")
+        tx_before = list(uart.tx_log)
+        expected = {"BATT_VOLT?": "6.0", "CHG_VOLT?": "6.144",
+                    "CHG_CURR?": "0.1", "BATT_CURR?": "0.016"}
+        for query, value in expected.items():
+            with self.subTest(query=query):
+                self.assertEqual(app.execute_ate_line(query), value)
+        self.assertEqual(uart.tx_log, tx_before)
+
+    def test_d0_all_queries_return_expected_golden_values_without_transmit(self):
+        app, uart = self.make_app([ScenarioStep.ack_response("D0", d0_payload())])
+        self.seed(app)
+        self.assertEqual(app.execute_ate_line("DATA_REFRESH"), "OK")
+        expected = {
+            "NF55_DATE?": "20260901", "NF55_TIME?": "123456",
+            "NF55_DATETIME?": "20260901_123456", "VOUT12?": "12.0",
+            "IOUT12?": "1.0", "BATT_VOLT?": "6.0", "CHG_VOLT?": "6.144",
+            "CHG_CURR?": "0.1", "BATT_CURR?": "0.016", "BATT_SOC_WH?": "100",
+            "BATT_SOC_MAH?": "-2", "BATT_TEMP?": "25", "ADU_TEMP?": "-10",
+            "BBU_TEMP?": "0", "FAN_RPM?": "1234", "FAN_LEVEL?": "5",
+            "AC_OFF_HOUR?": "1.0", "PS_OFF_HOUR?": "2.0", "AVE_OFF_TEMP?": "-10",
+            "OFF_CHARGE_HOUR?": "1.5", "AVE_CHARGE_TEMP?": "25", "OFF_CHARGE?": "100",
+            "OFF_BATT_DEG?": "12.3", "CHARGE_DATA?": "1", "CHARGE_END?": "0",
+            "LIFE_BATT_CHARGE?": "100", "LIFE_BATT_TEMP?": "-10", "LIFE_BATT_DEG?": "12.3",
+            "TOTAL_ADU_TEMP?": "1", "TOTAL_ADU_HOUR?": "2", "AC_FAIL_COUNT?": "3",
+            "AC_LOW_COUNT?": "4", "BACKUP_COUNT?": "5", "BATT_DEG_TOTAL?": "12.3",
+            "TOTAL_BATT_HOUR?": "6", "BATT_DISCHARGE_COUNT?": "7", "BATT_CHARGE_COUNT?": "8",
+            "BATT_TTL_DISCHARGE?": "9", "BATT_TTL_CHARGE?": "10", "TOTAL_BATT_TEMP?": "11",
+            "BATT_TEMP_AVE?": "-10", "BATT_TEMP_MAX?": "25", "BATT_TEMP_MIN?": "-128",
+        }
+        self.assertEqual(set(expected), set(DATA_QUERY_FIELDS))
+        tx_before = list(uart.tx_log)
+        for query, value in expected.items():
+            with self.subTest(query=query):
+                self.assertEqual(app.execute_ate_line(query), value)
+        self.assertEqual(uart.tx_log, tx_before)
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_rejects_non_hex_numeric_fields_without_validating_cache(self):
+        for invalid_field in (" 001", "+001", "0x01"):
+            with self.subTest(field=invalid_field):
+                invalid_d0 = D0[:12] + invalid_field + D0[16:]
+                app, uart = self.make_app([ScenarioStep.ack_response("D0", invalid_d0)])
+                self.seed(app)
+                self.assertEqual(app.execute_ate_line("DATA_REFRESH"), "ERR:DECODE")
+                self.assertFalse(app.cache.is_valid("DATA"))
+                self.assertEqual(app.execute_ate_line("VOUT12?"), "ERR:CACHE_INVALID")
+                self.assertEqual(uart.tx_log[-1], b"\x06")
+
+    def test_d0_rejects_out_of_range_time_fields(self):
+        for invalid_time in ("6409010C2238", "1A00010C2238", "1A0D010C2238",
+                             "1A09000C2238", "1A09200C2238", "1A0901182238",
+                             "1A09010C3C38", "1A09010C223C"):
+            with self.subTest(time=invalid_time):
+                app, _ = self.make_app([ScenarioStep.ack_response("D0", invalid_time + D0[12:])])
+                self.assertEqual(app.execute_ate_line("DATA_REFRESH"), "ERR:DECODE")
+                self.assertFalse(app.cache.is_valid("DATA"))
 
     def test_ambiguous_d0_refresh_leaves_data_invalid(self):
         app, _ = self.make_app([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()])

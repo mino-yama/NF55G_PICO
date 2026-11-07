@@ -88,6 +88,13 @@ Priority:
 ## Suggested CSV fields
 timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail
 
+### NF55 RAWの可読表記
+
+- `raw_hex`は従来どおり受信・送信バイトの正本とする。
+- `raw_ascii`は印字可能なASCIIを表示し、バックスラッシュは `\\`、それ以外のバイトは `\xHH`（大文字HEX）とする。例: `025343033133` は `\x02SC\x0313`、ACK `06` は `\x06`。
+- CSVの引用符やカンマは通常のCSV引用規則で保存する。過去CSVは自動変更しない。
+- 通信中のトレースは従来どおりRAM Queueへの追加のみ。ASCII変換は通信が落ち着いた後の書出し時に行い、変換後にも通信状態を確認する。Pico実機の遅延・量産Timingは別途検証する。
+
 
 ## 2026-09-10: SD startup diagnostics
 

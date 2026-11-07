@@ -91,6 +91,14 @@ compare against D0 only with acquisition-time separation recorded and OI-03
 resolved by the responsible design authority. Pico does not judge returned
 values or product PASS/FAIL.
 
+### CLOCK_SYNC and TIME numeric encoding (2026-11-07)
+
+Host/Mock tests cover decimal ATE datetime to six ASCII HEX SC fields, invalid
+input with no transmission, zero-length SC response, ambiguous invalidation,
+and D0/D4 TIME field conversion back to decimal. Hardware SC/D2 and time
+retention remain unverified. SC can affect AC OFF time calculations; select
+the test time with the operator and do not infer acceptance from the Pico RTC.
+
 ### Protocol
 - normal ACK/response/ACK
 - NAK30-36 then one command retry recovery
@@ -147,6 +155,10 @@ Run as a separate debug/HIL check after SD hardware arrives. Do not treat host
 - Card removal
 - Write error
 - Reinitialization
+
+NF55 RAWの`raw_ascii`はRAM Queueの書出し時に生成する。ASCII印字可能文字、
+制御文字・非ASCII、バックスラッシュ、CSVのカンマ・引用符、および変換後に
+通信がbusyになった場合の書込み待避をHost/Mockで検証する。`raw_hex`は変更しない。
 
 Current SD status:
 - PASS: mount, CSV creation, write, flush, close, continuous/logger queue logging, 2000-record load, card removal detection, reinsert/remount recovery.
