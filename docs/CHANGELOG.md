@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-07 D3/D4 Refresh Host実装
+
+- `D3_REFRESH`と`D4_MAINT_READ`を共通Parser/Dispatcherへ接続し、仕様既定のNF CMD、T2、応答長でDecode後に各CacheをVALID化。
+- D3/D4成功時とambiguous failure時にDATA Cacheを無効化する契約を統合テストで確認。Decode失敗時も対象CacheをINVALIDのまま維持。
+- Host/Mock全183件成功。ATE個別Query名は未定義のため追加せず、Pico配置・実機HILは未実施。
+
 ## 2026-11-07 NF55 RAWのASCII表示
 
 - NF55送受信RAWの `raw_ascii` をRAM Queueの書出し時に生成。印字可能文字を表示し、制御文字・非ASCIIを `\xHH`、バックスラッシュを `\\` として保持する。`raw_hex`や過去CSVは変更しない。

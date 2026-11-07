@@ -53,6 +53,13 @@ Revision: Rev.0
 - D2個別QueryのATE名・応答契約は本Masterで未定義。既存DATA QueryをD2 Cache参照へ流用せず、正式名が決まるまで追加しない。
 - Host/Mock検証はD2フレーム、DATA長、T2、Cache invalidation、Decode/ambiguous failureを対象とする。実機HILはコード同期・配置後に別途行い、結果値による製品PASS/FAIL判定はしない。
 
+### D3_REFRESH / D4_MAINT_READ Host実装状況（2026-11-07）
+
+- `D3_REFRESH` はNF CMD `D3`、T2=200ms、応答DATA 21文字、`D4_MAINT_READ` はNF CMD `D4`、T2=100ms、応答DATA 212文字として共通Dispatcherへ実装。
+- Refresh開始時に各対象CacheをINVALIDにし、完全Decode成功後のみD3/D4 CacheをVALIDにする。D3/D4のSUCCESSまたはambiguous failureでは仕様表どおりDATA CacheをINVALIDにする。
+- D3/D4専用のATE個別Query名・応答契約は未定義のため追加しない。D3のLIFE_CALC clear、D4のAC_FAIL_COUNT clear副作用を前提に、必要時のみ明示Refreshする。
+- Host/MockでATE入口、NF CMD、T2、応答長、Decode、Cache invalidation、Decode/ambiguous failureを検証。Pico配置および実機HILは未実施。
+
 ## 3. Control / Set
 | ATE | NF CMD | NF DATA | T2 | Success invalidation | Post check |
 |---|---|---|---:|---|---|

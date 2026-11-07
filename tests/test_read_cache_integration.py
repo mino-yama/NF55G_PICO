@@ -241,6 +241,68 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.assertIsNone(app.cache.get("D2"))
         self.assertIsNone(app.cache.get("DATA"))
 
+    def test_d3_d4_refresh_follow_declared_read_contracts(self):
+        d3_payload = "1064FE007" + "0" * 11 + "A"
+        d4_payload = "1A09010C2238" + "0" * 50 + "0" * 30 + "0" * 70 + "".join(MFG_VALUES) + "00"
+        cases = (
+            ("D3_REFRESH", "D3", "D3", 200, 21, d3_payload, "D3"),
+            ("D4_MAINT_READ", "D4", "D4", 100, 212, d4_payload, "D4"),
+        )
+        for ate_name, nf_cmd, target, t2_ms, length, payload, source in cases:
+            with self.subTest(command=ate_name):
+                app, uart = self.make_app([ScenarioStep.ack_response(nf_cmd, payload)])
+                self.seed(app)
+                app.cache.validate(target, {"old": target}, "OLD")
+                original = app.protocol.transact
+
+                def checked(command, **kwargs):
+                    self.assertFalse(app.cache.is_valid(target))
+                    self.assertEqual((command, kwargs),
+                                     (nf_cmd, dict(data=b"", t2_ms=t2_ms,
+                                                   expected_length=length)))
+                    return original(command, **kwargs)
+
+                app.protocol.transact = checked
+
+                result = app.execute_ate_line(ate_name)
+
+                self.assertEqual(result, "OK")
+                self.assertEqual(app.cache.metadata(target)["source_cmd"], source)
+                self.assertNotEqual(app.cache.get(target), {"old": target})
+                self.assertIsNone(app.cache.get("DATA"))
+                self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+                self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+                self.assertEqual(parse_frame(uart.tx_log[0]).cmd, nf_cmd)
+                self.assertEqual(parse_frame(uart.tx_log[0]).data, b"")
+                self.assertEqual(len(app.protocol.last_result.response_data), length)
+
+    def test_d3_d4_decode_and_ambiguous_failures_keep_caches_invalid(self):
+        d3_payload = "1064FE007" + "0" * 11 + "A"
+        d4_payload = "1A09010C2238" + "0" * 50 + "0" * 30 + "0" * 70 + "".join(MFG_VALUES) + "00"
+        cases = (
+            ("D3_REFRESH", "D3", "Z" + d3_payload[1:], "DECODE", False),
+            ("D4_MAINT_READ", "D4", "Z" + d4_payload[1:], "DECODE", False),
+            ("D3_REFRESH", "D3", None, "ACK_TIMEOUT", True),
+            ("D4_MAINT_READ", "D4", None, "ACK_TIMEOUT", True),
+        )
+        for ate_name, nf_cmd, payload, error, ambiguous in cases:
+            with self.subTest(command=ate_name, error=error):
+                steps = ([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()]
+                         if ambiguous else [ScenarioStep.ack_response(nf_cmd, payload)])
+                app, _ = self.make_app(steps)
+                self.seed(app)
+                app.cache.validate(nf_cmd, {"old": nf_cmd}, "OLD")
+
+                result = app.dispatcher.execute_refresh(ate_name)
+
+                self.assertEqual(result.error, error)
+                if ambiguous:
+                    self.assertTrue(result.transaction.ambiguous)
+                self.assertIsNone(app.cache.get(nf_cmd))
+                self.assertIsNone(app.cache.get("DATA"))
+                self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+                self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
     def test_invalid_queries_never_transmit(self):
         app, uart = self.make_app()
         for field in STATUS_QUERY_FIELDS + INFO_QUERY_FIELDS:
@@ -302,6 +364,17 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         with patch("src.command_dispatcher.decode_d5", return_value={"FW_REV": "000123"}):
             self.assertEqual(app.execute_ate_line("INFO_REFRESH"), "ERR:DECODE")
         self.assertFalse(app.cache.is_valid("INFO"))
+
+        for ate_name, nf_cmd, payload, decoder_name, partial in (
+            ("D2_REFRESH", "D2", "0" * 30, "decode_d2", {"AC_OFF_HOUR": 0}),
+            ("D3_REFRESH", "D3", "0" * 21, "decode_d3", {"CHARGE_DATA": 0}),
+            ("D4_MAINT_READ", "D4", "0" * 212, "decode_d4", {"DATE": "20260901"}),
+        ):
+            with self.subTest(command=ate_name):
+                app, _ = self.make_app([ScenarioStep.ack_response(nf_cmd, payload)])
+                with patch("src.command_dispatcher." + decoder_name, return_value=partial):
+                    self.assertEqual(app.execute_ate_line(ate_name), "ERR:DECODE")
+                self.assertFalse(app.cache.is_valid(nf_cmd))
 
     def test_protocol_failures_leave_target_invalid(self):
         scenarios = (

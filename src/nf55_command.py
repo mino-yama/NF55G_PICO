@@ -1,5 +1,5 @@
 # ATE名とNF55Gコマンド・DATA・応答条件・Cache操作の対応表。
-# RefreshはD0（DATA）、D1（STATUS）、D2（OFF_PERIOD）、D5（INFO）を実装。
+# RefreshはD0-D5のうち定義済みの読出しコマンドを実装。
 
 """NF55G command definitions and wire DATA builders."""
 
@@ -22,6 +22,8 @@ READ_REFRESH_COMMANDS = {
     "STATUS_REFRESH": ("D1", "STATUS", 100, 15),
     "INFO_REFRESH": ("D5", "INFO", 100, 100),
     "D2_REFRESH": ("D2", "D2", 100, 30),
+    "D3_REFRESH": ("D3", "D3", 200, 21),
+    "D4_MAINT_READ": ("D4", "D4", 100, 212),
 }
 DATA_QUERY_FIELDS = {
     "NF55_DATE?": "DATE",
@@ -92,6 +94,29 @@ for _command, _field in DATA_QUERY_FIELDS.items():
 for _cache, _fields in (("STATUS", STATUS_QUERY_FIELDS), ("INFO", INFO_QUERY_FIELDS)):
     for _field in _fields:
         CACHE_QUERY_COMMANDS[_field + "?"] = (_cache, _field)
+
+REFRESH_REQUIRED_FIELDS = {
+    "D2": (
+        "AC_OFF_HOUR", "PS_OFF_HOUR", "AVE_OFF_TEMP", "OFF_CHARGE_HOUR",
+        "AVE_CHARGE_TEMP", "OFF_CHARGE", "OFF_BATT_DEG",
+    ),
+    "D3": (
+        "CHARGE_DATA", "CHARGE_END", "LIFE_BATT_CHARGE", "LIFE_BATT_TEMP",
+        "LIFE_BATT_DEG", "EVENT_LOST",
+    ),
+    "D4": (
+        "YEAR2", "MONTH2", "DAY2", "HOUR2", "MIN2", "SEC2", "DATE", "TIME",
+        "DATETIME", "VOUT12", "IOUT12", "BATT_VOLT", "CHG_VOLT", "CHG_CURR",
+        "BATT_CURR", "BATT_SOC_WH", "BATT_SOC_MAH", "BATT_TEMP", "ADU_TEMP",
+        "BBU_TEMP", "FAN_RPM", "FAN_LEVEL", "MODE", "V1", "V2", "I1", "I2",
+        "TEMP", "SOC", "IR", "TOTAL_ADU_TEMP", "TOTAL_ADU_HOUR", "AC_FAIL_COUNT",
+        "AC_LOW_COUNT", "BACKUP_COUNT", "BATT_DEG_TOTAL", "TOTAL_BATT_HOUR",
+        "BATT_DISCHARGE_COUNT", "BATT_CHARGE_COUNT", "BATT_TTL_DISCHARGE",
+        "BATT_TTL_CHARGE", "TOTAL_BATT_TEMP", "BATT_TEMP_AVE", "BATT_TEMP_MAX",
+        "BATT_TEMP_MIN", "FW_REV", "UNIT_REV", "UNIT_LOT", "UNIT_SERIAL", "ADU_REV",
+        "ADU_LOT", "ADU_SERIAL", "BBU_REV", "BBU_LOT", "BBU_SERIAL",
+    ),
+}
 
 
 class NF55CommandSpec:

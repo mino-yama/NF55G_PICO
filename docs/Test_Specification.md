@@ -91,6 +91,17 @@ compare against D0 only with acquisition-time separation recorded and OI-03
 resolved by the responsible design authority. Pico does not judge returned
 values or product PASS/FAIL.
 
+### D3_REFRESH and D4_MAINT_READ
+
+`tests/test_read_cache_integration.py` covers the documented D3/D4 read routes:
+- D3 command, empty DATA, T2=200ms, exact 21-character response; D4 command, empty DATA, T2=100ms, exact 212-character response.
+- ATE parser/dispatcher routing, target Cache invalidation before transaction, full Decode before validation, and DATA invalidation on success.
+- Decode failure leaves the target Cache INVALID; ambiguous transaction failure leaves both the target and DATA Cache INVALID.
+- No individual D3/D4 Query names are defined or inferred. These reads have LIFE_CALC/AC_FAIL_COUNT clear side effects and must only be issued explicitly.
+
+Pico deployment and product HIL remain required. Protocol success does not confirm
+product behavior or test PASS/FAIL.
+
 ### CLOCK_SYNC and TIME numeric encoding (2026-11-07)
 
 Host/Mock tests cover decimal ATE datetime to six ASCII HEX SC fields, invalid

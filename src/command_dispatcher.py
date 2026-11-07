@@ -5,14 +5,14 @@
 
 try:
     from .nf55_command import CommandError, build_control_command
-    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
-    from .nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d5
+    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from .nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
     from .models import TransactionResult
     from .logger import LoggerError
 except ImportError:  # pragma: no cover
     from nf55_command import CommandError, build_control_command
-    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
-    from nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d5
+    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
     from models import TransactionResult
     from logger import LoggerError
 
@@ -61,11 +61,21 @@ class CommandDispatcher:
             return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
         self.cache.apply_success_invalidation(cmd)
         try:
-            decoder = {"D0": decode_d0, "D1": decode_d1, "D2": decode_d2, "D5": decode_d5}[cmd]
+            decoder = {
+                "D0": decode_d0,
+                "D1": decode_d1,
+                "D2": decode_d2,
+                "D3": decode_d3,
+                "D4": decode_d4,
+                "D5": decode_d5,
+            }[cmd]
             decoded = decoder(tx.response_data)
+            required_fields = set(REFRESH_REQUIRED_FIELDS.get(cmd, ()))
             for cache_name, field in CACHE_QUERY_COMMANDS.values():
-                if cache_name == target and field not in decoded:
-                    raise DecodeError("incomplete decoded cache")
+                if cache_name == target:
+                    required_fields.add(field)
+            if not required_fields.issubset(decoded):
+                raise DecodeError("incomplete decoded cache")
         except (ValueError, UnicodeError):
             return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
         # 全Query対象フィールドのDecode完了を確認できたときだけ、対象Cacheを有効化する。
