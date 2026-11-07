@@ -56,11 +56,14 @@ bounded buffers, UART errors/short writes, CRLF ATE receive/partial transmit,
 SD scheduling/deferred flush/fault recovery, RTC CSV names and filesystem readback.
 See `Runtime_Integration.md` for evidence and remaining real timing/SD HIL requirements.
 
-### D1/D5 common command path (2026-09-10)
+### D0/D1/D5 common command path (2026-11-07)
 
 `tests/test_read_cache_integration.py` covers the Host/Mock path through FixtureApp,
 parser, dispatcher, protocol, decoder, and cache:
-- D1/D5 command ID, empty DATA, 100ms T2 and exact response length.
+- D0/D1/D5 command IDs, empty DATA, D0=600ms provisional/327 chars, D1=100ms/15 chars, and D5=100ms/100 chars.
+- D0 decoder validates TIME as ASCII HEX, keeps embedded STATUS/INFO raw-only, and populates only DATA Cache.
+- All 43 DATA, 37 STATUS, and 26 INFO queries read cache without additional NF55G transmission.
+- D0 protocol/decode failure leaves DATA INVALID; OI-03 product-side CHARGE_END behavior remains unresolved and is not emulated by Host code.
 - All 37 STATUS and 26 INFO queries; flags 0/1, decimal values, leading-zero text.
 - Invalidation before transmission; no invalid-query TX or automatic Refresh.
 - No unrelated cache updates; missing hardware invalidates the requested target.

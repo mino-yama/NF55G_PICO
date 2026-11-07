@@ -11,7 +11,7 @@ from src.cache_manager import CacheManager
 from src.frame import parse_frame
 from src.main import FixtureApp
 from src.mock_nf55g import FakeClock, MockNF55GScenario, MockUART, ScenarioStep
-from src.nf55_command import STATUS_QUERY_FIELDS, INFO_QUERY_FIELDS
+from src.nf55_command import DATA_QUERY_FIELDS, STATUS_QUERY_FIELDS, INFO_QUERY_FIELDS
 from src.nf55_protocol import NF55Protocol
 
 
@@ -19,6 +19,7 @@ MFG_VALUES = ("010203", "0001", "0026", "000123", "0002", "0027", "000234",
               "0003", "0028", "000345")
 D5 = "".join(MFG_VALUES) + "00" + "F" * 50
 D2 = "000A000BFE00AFD06400A" + "0" * 9
+D0 = "260901123456" + "0" * 315
 
 
 class ReadCacheIntegrationTests(unittest.TestCase):
@@ -54,6 +55,57 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.assertEqual(app.execute_ate_line("STATUS_REFRESH"), "OK")
         for field in STATUS_QUERY_FIELDS:
             self.assertEqual(app.execute_ate_line(field + "?"), "0")
+
+    def test_d0_refresh_uses_provisional_t2_and_populates_data_only(self):
+        app, uart = self.make_app([ScenarioStep.ack_response("D0", D0)])
+        self.seed(app)
+        original = app.protocol.transact
+
+        def checked(command, **kwargs):
+            self.assertFalse(app.cache.is_valid("DATA"))
+            self.assertEqual((command, kwargs),
+                             ("D0", dict(data=b"", t2_ms=600, expected_length=327)))
+            return original(command, **kwargs)
+
+        app.protocol.transact = checked
+        self.assertEqual(app.execute_ate_line("DATA_REFRESH"), "OK")
+        self.assertEqual(parse_frame(uart.tx_log[0]).cmd, "D0")
+        self.assertEqual(parse_frame(uart.tx_log[0]).data, b"")
+        self.assertEqual(len(DATA_QUERY_FIELDS), 43)
+        tx_after_refresh = list(uart.tx_log)
+        self.assertEqual(app.execute_ate_line("NF55_DATETIME?"), "20260901_123456")
+        self.assertEqual(app.execute_ate_line("CHARGE_END?"), "0")
+        for query in DATA_QUERY_FIELDS:
+            self.assertNotEqual(app.execute_ate_line(query), "ERR:CACHE_INVALID", query)
+        self.assertEqual(uart.tx_log, tx_after_refresh)
+        self.assertEqual(app.cache.metadata("DATA")["source_cmd"], "D0")
+        self.assertNotIn("PS_ON", app.cache.get("DATA"))
+        self.assertNotIn("FW_REV", app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_decode_failure_leaves_data_invalid(self):
+        invalid_d0 = "Z" + D0[1:]
+        app, _ = self.make_app([ScenarioStep.ack_response("D0", invalid_d0)])
+        self.seed(app)
+
+        result = app.dispatcher.execute_refresh("DATA_REFRESH")
+
+        self.assertEqual(result.ate_response, "ERR:DECODE")
+        self.assertIsNone(app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_ambiguous_d0_refresh_leaves_data_invalid(self):
+        app, _ = self.make_app([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()])
+        self.seed(app)
+
+        result = app.dispatcher.execute_refresh("DATA_REFRESH")
+
+        self.assertEqual(result.ate_response, "ERR:ACK_TIMEOUT")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertIsNone(app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
 
     def test_d5_all_queries_preserve_text_and_convert_hex_to_decimal(self):
         app, uart = self.make_app([ScenarioStep.ack_response("D5", D5)])
@@ -162,7 +214,7 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.seed(app)
         for command in ("STATUS_REFRESH extra", "INFO_REFRESH=", "PS_ON?=1", "FW_REV? x"):
             self.assertEqual(app.execute_ate_line(command), "ERR:UNEXPECTED_PAYLOAD")
-        for command in ("R0_3?", "R13_0?", "UNKNOWN?", "DATA_REFRESH"):
+        for command in ("R0_3?", "R13_0?", "UNKNOWN?"):
             self.assertEqual(app.execute_ate_line(command), "ERR:UNKNOWN_CMD")
         self.assertEqual(uart.tx_log, [])
         for name in ("DATA", "STATUS", "INFO", "BC"):

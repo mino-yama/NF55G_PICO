@@ -1815,10 +1815,116 @@ Keep the NF55G unpowered and do not send product commands during this check.
 - `RETRY_COUNT?` -> `OK:cmd=0,rsp=0`
   (TX `52455452595F434F554E543F0D0A`): no retries reported for the last
   transaction. These are local diagnostics and do not send NF55G frames.
-- No further NF55G command was sent in this step. The current dispatcher only
-  implements `STATUS_REFRESH` (D1) and `INFO_REFRESH` (D5); D0/D2/D3/D4 and
-  other refresh paths are not available through this ATE implementation. D0
-  side-effect interpretation remains OI-03; D2/D3/D4 and control/clear tests
-  require their specified implementation and separate procedure. Continue to
+- No further NF55G command was sent in this step. At the time of this entry,
+  D0/D2/D3/D4 and other refresh paths were not available through the deployed
+  implementation; D0 side-effect interpretation remains OI-03. Subsequent D2
+  implementation and HIL deployment attempt are recorded below. Continue to
   keep FU prohibited. Physical UART1 waveform capture remains deferred per the
   operator's decision.
+
+## 2026-11-07 D2-enabled firmware deployment; Logger gate blocked HIL
+
+- Repository baseline: commit `612bad8` (`feat: add D2 refresh support for
+  off-period data`), `main` synchronized with `origin/main`, worktree clean
+  before hardware inspection. Pico: RP2350 / MicroPython v1.28.0, unique ID
+  `2d35a1e11ac125e3` on COM14. ATE adapter: COM19 Elecom, 115200 bps 8N1.
+- Before opening REPL, COM19 local diagnostics reported
+  `PICO_SELF_CHECK?=OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK`,
+  `COMM_STATUS?=OK:state=IDLE`, `SD_STATUS?=OK`, and `LOG_DROP_COUNT?=0`.
+- Backed up the pre-deployment Pico `/src/` (23 files) and `/main.py` outside
+  the repository at `NF55G_Pico_pico_backup_612bad8_20261107/`. SHA-256 for the
+  old `/main.py`, `/src/nf55_command.py`, and `/src/command_dispatcher.py`
+  matched device-side hashes before deployment.
+- Deployed all 24 current `src/*.py` files and `firmware/main.py` to Pico
+  `/src/` and `/main.py`. All 25 deployed files SHA-256-matched commit `612bad8`.
+  Existing unrelated root QR/diagnostic files and the SD card contents were
+  retained. Started the deployed application with `mpremote ... resume run`;
+  no reset or product command was requested by the deployment itself.
+- After app start, ATE local checks: `*IDN?` returned
+  `NF55G_PICO_FIXTURE,Rev.0`; `PICO_SELF_CHECK?` returned
+  `NG:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=MOUNT_ERR`; `SD_STATUS?` returned
+  `MOUNT_ERR`; `COMM_STATUS?` was `IDLE`; `LOG_DROP_COUNT?` was `0`.
+- One local `SD_REINIT` attempt returned `ERR:MOUNT_ERR`. No `TEST_START`,
+  `D2_REFRESH`, or `TEST_END` was sent. Therefore no D2 transaction was
+  requested and the Logger-backed D2 HIL did not run. Do not infer NF55G D2
+  response behavior or wire-level TX from this attempt.
+- Stop condition: Logger/SD is not ready. Preserve the deployment backup and
+  do not retry SD initialization or send D2 until the SD mount issue is
+  diagnosed and `SD_STATUS?` / `PICO_SELF_CHECK?` report ready. No control,
+  SET/CLEAR, or FU command was sent; no Open Issue was closed.
+- Additional D2 send gate noted from the operator's 2026-11-07 review
+  (`docs/D2_PS_ON_Review_20261107.md`, D2-PS-01 Open): r1 states D2 is not
+  accepted in PS_OFF and is not accepted after PS_ON until NF55G-side SET CLOCK
+  processing completes. After app restart the STATUS Cache was not refreshed;
+  current PS_ON and SC completion were not established. Do not send D2 until
+  those conditions are confirmed by the responsible test/design procedure.
+
+### D2 precondition status read; D2 withheld
+
+- After confirming local app response, queried `STATUS_REFRESH` once without
+  Logger because `SD_STATUS?` remained `MOUNT_ERR`. ATE reply was `OK`
+  (TX `5354415455535F524546524553480D0A`, RX `4F4B0D0A`). Then queried the
+  refreshed STATUS Cache: `PS_ON?` -> `1` (TX `50535F4F4E3F0D0A`, RX `310D0A`).
+- This establishes the observed PS_ON flag at this acquisition only. Since SD
+  Logger was unavailable, no raw NF55G frame/BCC/ACK/retry record was saved to
+  SD; the observation is limited to the ATE responses above.
+- No evidence was available that NF55G-side SET CLOCK processing had completed
+  after PS_ON. D2-PS-01 also remains Open regarding the r1 general-vs-D2-specific
+  reception wording. `D2_REFRESH` was therefore not sent. No SC, power-state
+  change, SET LIFE, control, CLEAR, or FU command was sent in this step.
+- Resume D2 only after SD Logger is healthy and the responsible test/design
+  procedure confirms the D2 acceptance condition, including SC completion.
+
+### D2 precondition STATUS recheck
+
+- On the operator's request, queried `STATUS_REFRESH` once over COM19 at
+  115200 bps 8N1 with CRLF. TX `5354415455535F524546524553480D0A`, RX
+  `4F4B0D0A` (`OK`). Then queried `PS_ON?`: TX `50535F4F4E3F0D0A`, RX
+  `310D0A` (`1`). Both ATE replies had complete CRLF.
+- This confirms PS_ON=1 at this STATUS acquisition only. The SD Logger remained
+  unavailable (`MOUNT_ERR` from the preceding check), so no SD raw/BCC/ACK/
+  retry trace was saved. No D2_REFRESH, SC, SET LIFE, control, CLEAR, or FU
+  command was sent. D2-PS-01 remains Open; SET CLOCK completion is still not
+  evidenced. Do not treat this STATUS result alone as D2 authorization.
+
+## 2026-11-07 CHARGE_OFF control request and STATUS check
+
+- Operator-reported Sample condition before request: battery disconnected,
+  AC ON, output/load present. External charging-current measurement and an
+  abnormal-stop procedure were reported as prepared. COM19 ATE UART settings:
+  115200 bps, 8N1, CRLF, no flow control.
+- Precondition `COMM_STATUS?` -> `OK:state=IDLE`
+  (TX `434F4D4D5F5354415455533F0D0A`, RX
+  `4F4B3A73746174653D49444C450D0A`).
+- Sent `CHARGE_OFF` once (ATE mapping NF CMD `CF`, DATA `1`): TX
+  `4348415247455F4F46460D0A`, RX `4F4B0D0A` (`OK`, complete CRLF).
+  This is protocol transaction success only, not confirmation of current decay.
+- Follow-up `STATUS_REFRESH` once: TX `5354415455535F524546524553480D0A`,
+  RX `4F4B0D0A` (`OK`). Then `CHARGE_OFF_STATUS?`: TX
+  `4348415247455F4F46465F5354415455533F0D0A`, RX `310D0A` (`1`).
+- Per the cache invalidation rule, prior DATA/STATUS cache was invalidated on
+  successful CF; the STATUS value above is from the explicit post-control D1.
+- SD Logger remained `MOUNT_ERR`, so no SD trace, NF55G raw/BCC/ACK/retry/
+  elapsed record was saved. External current measurement result was not supplied
+  in this interaction. Do not claim product charging stopped or assign
+  PASS/FAIL from the protocol `OK` or status flag alone. No additional control,
+  CLEAR, SET, or FU command was sent. Physical waveform capture remains deferred.
+
+## 2026-11-07 DATA_REFRESH (D0) Host implementation checkpoint
+
+- Added the ATE `DATA_REFRESH` path for NF CMD D0 using provisional T2=600ms,
+  expected DATA length 327, existing `decode_d0`, and DATA-only Cache update.
+  The specified DATA Cache Query allowlist is wired to cache-only reads; D0's
+  embedded STATUS, Manufacturing, and Parameter remain raw and are not promoted
+  to their separate caches.
+- Added ASCII-HEX validation for the 12-character D0 TIME field. D0 decode
+  failure leaves DATA INVALID. OI-03 remains OPEN; no behavior was added to
+  emulate or suppress any possible product-side CHARGE_END effect after D0 ACK.
+- Host/Mock verification: `tests.test_read_cache_integration` plus
+  `tests.test_decoder_complete` passed 34 focused tests; full Host/Mock suite
+  passed 167 tests. Pylance reported no errors in touched Python files and
+  `git diff --check` passed.
+- Real D0 HIL was NOT run. The previously deployed Pico reported SD
+  `MOUNT_ERR` after startup and `SD_REINIT` returned `ERR:MOUNT_ERR`, so Logger
+  could not be enabled. D0 HIL also remains subject to OI-03 review. No D0 frame
+  or other NF55G command was sent for this implementation checkpoint.

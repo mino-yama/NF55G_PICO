@@ -35,6 +35,13 @@
 - D2 Protocol SUCCESS時にDATA Cacheを無効化し、ambiguous failure時もD2/DATAを安全側で無効化。D2専用ATE Query名は未定義のため追加せず。
 - 成功Decode、T2/長さ、Cache invalidation、Decode失敗、ambiguous timeoutを含む全Host/Mock 164件が合格。Pico未配置・実機D2 HIL未実施。
 
+## 2026-11-07 DATA_REFRESH (D0) Host実装
+
+- `DATA_REFRESH`をNF CMD D0、T2=600ms暫定、応答DATA 327文字で実装。全DATA QueryはCacheのみ参照し、自動Refreshしない。
+- D0内STATUS/Manufacturing/ParameterをDATA以外のCacheへ昇格しない。TIMEのASCII HEX検証を追加し、Decode不完全時にDATAをVALIDにしない。
+- OI-03は未解決のまま維持。D0 ACK後のCHARGE_END挙動をPico側で補正しない。D0実機HILは未実施。
+- 全Host/Mock 164件合格後、D0 integration/decoder focused 34件合格。Pico配置および実機D0通信は未実施。
+
 ## 2026-09-28 実機デバッグ前のコード説明コメント
 
 - `src/`の24 Pythonファイルと`firmware/main.py`、`firmware/sd_startup_probe.py`に日本語の概要コメントを追加。各モジュールの役割と、ATE受信から通信・Decode・Cache更新・ログ保存までの流れを説明。

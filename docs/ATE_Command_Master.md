@@ -27,11 +27,15 @@ Revision: Rev.0
 | EL_REFRESH_01/09/17/25 | EL | 100ms | EL block | 8 records/block |
 | OL_REFRESH_01/09/17/25/33/41/49/57 | OL | 100ms | OL block | 8 records/block |
 
-### D1/D5 Host実装状況（2026-09-10）
+### D0/D1/D5 Host実装状況（2026-11-07）
 
-- `STATUS_REFRESH` / `INFO_REFRESH` と第5節・第6節の全個別Queryを共通Command Coreに実装済み。
+- `DATA_REFRESH`（D0）、`STATUS_REFRESH`（D1）、`INFO_REFRESH`（D5）と、第4節～第6節の個別Queryを共通Command Coreに実装済み。
+- D0はNF CMD `D0`、DATAなし、T2=600ms暫定、応答DATA 327文字。完全Decode後にDATA CacheのみをVALIDにする。
+  D0内STATUSはraw保持、Manufacturing/Parameterもraw保持とし、STATUS/INFO Cacheへ昇格しない。
+- D0の各DATA QueryはDATA Cacheのみ参照し、自動Refreshしない。未取得・INVALID時は`ERR:CACHE_INVALID`。
+- OI-03は未解決。PicoはD0後のCHARGE_END等の製品側副作用を推測・抑止・補正しない。ATE/設計側がr1/final FWとの整合を確認する。
 - 引数なし。余分な引数・`=`指定は `ERR:UNEXPECTED_PAYLOAD`（Cache変更・送信なし）。
-- Refreshは対象Cacheを先にINVALIDにし、D1=15文字 / D5=100文字、T2=100msで通信する。
+- Refreshは対象Cacheを先にINVALIDにし、D0=327文字/T2=600ms暫定、D1=15文字/T2=100ms、D5=100文字/T2=100msで通信する。
   完全Decode後のみ対象CacheをVALIDにし `OK` を返す。失敗時に旧値は復元しない。
 - 個別QueryはCacheのみ参照。INVALID時は `ERR:CACHE_INVALID`。
   STATUSは `0`/`1`、INFOの数値は10進数、製造ASCII textは先頭ゼロを保持する。

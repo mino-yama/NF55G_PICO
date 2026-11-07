@@ -104,11 +104,15 @@ CN24のピン番号・ハーネス接続は原典の結線表を実物と照合�
 | 6 | `FW_REV?` 等のINFO個別Query | rawとdecodeの対応、追加NF55G送信なし |
 
 2026-11-07: D1/D5とSTATUS 37件・INFO 26件のATE経路、およびLogger開始から
-終了までのATE応答を実機確認。次の追加読み取り候補として`D2_REFRESH`をHost実装し、
-T2=100ms・DATA長30・OFF_PERIOD Decode・DATA Cache無効化をHost/Mockで検証した。
-実機D2は未実施。Picoの稼働イメージへ配置し、Git同期条件を満たした後に1回だけ実施する。
-D2の個別Query名は未定義なので作らない。r1ではOFF_PERIODはPS_OFF期間中に更新されるため、
+終了までのATE応答を実機確認。後続の`D2_REFRESH`（T2=100ms・DATA長30）はHost実装済みだが、
+実機送信は受付条件確認待ち。`DATA_REFRESH`（D0、T2=600ms暫定・DATA長327）はHost実装し、
+全43 DATA Queryを含むHost/Mock経路を検証した。D0はPico未配置・実機未実施。
+D0個別Query名は仕様どおり追加済み。r1ではOFF_PERIODはPS_OFF期間中に更新されるため、
 現在値は取得時刻と製品状態を添えて観測値として記録し、Pico側の合否判定に使わない。
+D0実機前にOI-03のCHARGE_END副作用解釈とSD Logger使用可否を確認する。
+D2実機送信前にD2-PS-01を確認する。r1 p.17/p.32のPS_OFF・PS_ON後SC未完了時の受付条件に従い、
+現在のPS_ON状態とNF55G側SC処理完了をATE/設計担当が確認する。PicoのRTC設定はNF55GへのSCを意味しない。
+条件が確認できない場合はD2を送信しない。SCや電源状態の切替えを本D2読取スモークへ含めない。
 
 T1は200ms暫定（OI-01）。製品応答差・timeoutをPico側の独断補正で吸収しない。
 最終エラーになった時点で次の試験コマンドを停止してrawを保存する。

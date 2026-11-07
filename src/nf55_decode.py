@@ -52,6 +52,8 @@ def _slice(text, start, length):
 def decode_time(data):
     text = _ascii(data)
     _require_len(text, 12, "TIME")
+    for char in text:
+        _num(char)
     year = "20" + text[0:2]
     return {
         "YEAR2": text[0:2],
