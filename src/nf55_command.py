@@ -1,5 +1,5 @@
 # ATE名とNF55Gコマンド・DATA・応答条件・Cache操作の対応表。
-# 現在のRefresh実装はD1（STATUS）とD5（INFO）。表の存在と未実装機能を混同しない。
+# 現在のRefresh実装はD1（STATUS）、D2（OFF_PERIOD）、D5（INFO）。未実装機能と混同しない。
 
 """NF55G command definitions and wire DATA builders."""
 
@@ -18,6 +18,7 @@ class CommandError(ValueError):
 READ_REFRESH_COMMANDS = {
     "STATUS_REFRESH": ("D1", "STATUS", 100, 15),
     "INFO_REFRESH": ("D5", "INFO", 100, 100),
+    "D2_REFRESH": ("D2", "D2", 100, 30),
 }
 STATUS_QUERY_FIELDS = (
     "PS_ON", "BURST_ON", "BURST", "PS_OFF_CHARGE", "RESTART_READY",

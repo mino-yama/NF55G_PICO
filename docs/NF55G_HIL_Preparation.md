@@ -103,6 +103,13 @@ CN24のピン番号・ハーネス接続は原典の結線表を実物と照合�
 | 5 | `INFO_REFRESH`（D5）を1件 | DATA 100文字、T2 100ms、INFOのみ更新 |
 | 6 | `FW_REV?` 等のINFO個別Query | rawとdecodeの対応、追加NF55G送信なし |
 
+2026-11-07: D1/D5とSTATUS 37件・INFO 26件のATE経路、およびLogger開始から
+終了までのATE応答を実機確認。次の追加読み取り候補として`D2_REFRESH`をHost実装し、
+T2=100ms・DATA長30・OFF_PERIOD Decode・DATA Cache無効化をHost/Mockで検証した。
+実機D2は未実施。Picoの稼働イメージへ配置し、Git同期条件を満たした後に1回だけ実施する。
+D2の個別Query名は未定義なので作らない。r1ではOFF_PERIODはPS_OFF期間中に更新されるため、
+現在値は取得時刻と製品状態を添えて観測値として記録し、Pico側の合否判定に使わない。
+
 T1は200ms暫定（OI-01）。製品応答差・timeoutをPico側の独断補正で吸収しない。
 最終エラーになった時点で次の試験コマンドを停止してrawを保存する。
 内部Command Retryは既存仕様どおり最大1回、Response Retryとは別管理し、手動の連打はしない。

@@ -29,6 +29,12 @@
 - 基板抵抗に関する実装者の報告、依存版、実レポート形式と量産安定性をRP2350-QR-01/02としてOpen Issuesへ追記。今回基板の改造要否は未確定。
 - 検証はソース比較、保存ファイルのハッシュ照合、文書差分チェック。実装変更なし。ビルド・Host/Mock再実行・実機試験は未実施。
 
+## 2026-11-07 D2_REFRESH Host実装
+
+- `D2_REFRESH`（NF CMD D2、T2=100ms、DATA 30文字）を共通Dispatcherへ追加し、OFF_PERIODをD2 Cacheへ保存。
+- D2 Protocol SUCCESS時にDATA Cacheを無効化し、ambiguous failure時もD2/DATAを安全側で無効化。D2専用ATE Query名は未定義のため追加せず。
+- 成功Decode、T2/長さ、Cache invalidation、Decode失敗、ambiguous timeoutを含む全Host/Mock 164件が合格。Pico未配置・実機D2 HIL未実施。
+
 ## 2026-09-28 実機デバッグ前のコード説明コメント
 
 - `src/`の24 Pythonファイルと`firmware/main.py`、`firmware/sd_startup_probe.py`に日本語の概要コメントを追加。各モジュールの役割と、ATE受信から通信・Decode・Cache更新・ログ保存までの流れを説明。

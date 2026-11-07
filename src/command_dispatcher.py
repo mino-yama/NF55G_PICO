@@ -6,13 +6,13 @@
 try:
     from .nf55_command import CommandError, build_control_command
     from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
-    from .nf55_decode import DecodeError, decode_d1, decode_d5
+    from .nf55_decode import DecodeError, decode_d1, decode_d2, decode_d5
     from .models import TransactionResult
     from .logger import LoggerError
 except ImportError:  # pragma: no cover
     from nf55_command import CommandError, build_control_command
     from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
-    from nf55_decode import DecodeError, decode_d1, decode_d5
+    from nf55_decode import DecodeError, decode_d1, decode_d2, decode_d5
     from models import TransactionResult
     from logger import LoggerError
 
@@ -54,11 +54,15 @@ class CommandDispatcher:
                                    elapsed_ms=None, command_retry_count=None,
                                    response_retry_count=None)
         if not tx.ok:
+            if tx.ambiguous:
+                self.cache.apply_ambiguous_invalidation(cmd)
             if tx.error == "HWE":
                 self.cache.invalidate_many(("DATA", "STATUS"))
             return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
+        self.cache.apply_success_invalidation(cmd)
         try:
-            decoded = (decode_d1 if cmd == "D1" else decode_d5)(tx.response_data)
+            decoder = {"D1": decode_d1, "D2": decode_d2, "D5": decode_d5}[cmd]
+            decoded = decoder(tx.response_data)
             for cache_name, field in CACHE_QUERY_COMMANDS.values():
                 if cache_name == target and field not in decoded:
                     raise DecodeError("incomplete decoded cache")

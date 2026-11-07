@@ -18,6 +18,7 @@ from src.nf55_protocol import NF55Protocol
 MFG_VALUES = ("010203", "0001", "0026", "000123", "0002", "0027", "000234",
               "0003", "0028", "000345")
 D5 = "".join(MFG_VALUES) + "00" + "F" * 50
+D2 = "000A000BFE00AFD06400A" + "0" * 9
 
 
 class ReadCacheIntegrationTests(unittest.TestCase):
@@ -71,6 +72,60 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.assertEqual(app.cache.metadata("INFO")["source_cmd"], "D5")
         for name in ("DATA", "STATUS", "BC"):
             self.assertEqual(app.cache.get(name), {"old": name})
+
+    def test_d2_refresh_decodes_off_period_and_invalidates_data(self):
+        app, uart = self.make_app([ScenarioStep.ack_response("D2", D2)])
+        self.seed(app)
+        app.cache.validate("D2", {"old": "D2"}, "OLD")
+        original = app.protocol.transact
+
+        def checked(command, **kwargs):
+            self.assertFalse(app.cache.is_valid("D2"))
+            self.assertEqual((command, kwargs),
+                             ("D2", dict(data=b"", t2_ms=100, expected_length=30)))
+            return original(command, **kwargs)
+
+        app.protocol.transact = checked
+        self.assertEqual(app.execute_ate_line("D2_REFRESH"), "OK")
+        self.assertEqual(parse_frame(uart.tx_log[0]).cmd, "D2")
+        self.assertEqual(parse_frame(uart.tx_log[0]).data, b"")
+        self.assertEqual(app.cache.get("D2"), {
+            "AC_OFF_HOUR": 1.0,
+            "PS_OFF_HOUR": 1.1,
+            "AVE_OFF_TEMP": -2,
+            "OFF_CHARGE_HOUR": 1.0,
+            "AVE_CHARGE_TEMP": -3,
+            "OFF_CHARGE": 100,
+            "OFF_BATT_DEG": 1.0,
+        })
+        self.assertIsNone(app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_ambiguous_d2_refresh_invalidates_d2_and_data(self):
+        app, _ = self.make_app([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()])
+        self.seed(app)
+        app.cache.validate("D2", {"old": "D2"}, "OLD")
+
+        result = app.dispatcher.execute_refresh("D2_REFRESH")
+
+        self.assertEqual(result.ate_response, "ERR:ACK_TIMEOUT")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertIsNone(app.cache.get("D2"))
+        self.assertIsNone(app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+
+    def test_d2_decode_failure_keeps_d2_invalid_and_invalidates_data(self):
+        invalid_d2 = "Z" + D2[1:]
+        app, _ = self.make_app([ScenarioStep.ack_response("D2", invalid_d2)])
+        self.seed(app)
+        app.cache.validate("D2", {"old": "D2"}, "OLD")
+
+        result = app.dispatcher.execute_refresh("D2_REFRESH")
+
+        self.assertEqual(result.ate_response, "ERR:DECODE")
+        self.assertIsNone(app.cache.get("D2"))
+        self.assertIsNone(app.cache.get("DATA"))
 
     def test_invalid_queries_never_transmit(self):
         app, uart = self.make_app()

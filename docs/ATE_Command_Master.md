@@ -40,6 +40,15 @@ Revision: Rev.0
 - ATE受信ループ、Pico時計、EB、実SD統合コードはHost/Mockで検証済み。
   最終firmware経由の実機検証は別途必要。実機送信Gateは変更しない。
 
+### D2_REFRESH Host実装状況（2026-11-07）
+
+- `D2_REFRESH` は引数なしでNF CMD `D2`、T2=100ms、応答DATA 30文字として実装。
+- 開始時にD2 CacheをINVALIDにし、完全なOFF_PERIOD Decode成功後だけD2 CacheをVALIDにする。
+  D2のProtocol SUCCESS時はCache Masterに従いDATA CacheをINVALIDにする。ambiguous failure時もD2/DATAをINVALIDにする。
+- `decode_d2` はr1 §13.5.1(1)のPS_OFF期間更新条件をそのまま適用し、値の補完・更新推測をしない。
+- D2個別QueryのATE名・応答契約は本Masterで未定義。既存DATA QueryをD2 Cache参照へ流用せず、正式名が決まるまで追加しない。
+- Host/Mock検証はD2フレーム、DATA長、T2、Cache invalidation、Decode/ambiguous failureを対象とする。実機HILはコード同期・配置後に別途行い、結果値による製品PASS/FAIL判定はしない。
+
 ## 3. Control / Set
 | ATE | NF CMD | NF DATA | T2 | Success invalidation | Post check |
 |---|---|---|---:|---|---|

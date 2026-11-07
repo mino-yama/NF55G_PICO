@@ -72,6 +72,22 @@ parser, dispatcher, protocol, decoder, and cache:
 Host/Mock total: 105 tests pass (14 added). This does not complete EB, scheduler,
 Pico clock, SD integration, or final-firmware HIL gates.
 
+### D2_REFRESH read path (2026-11-07)
+
+`tests/test_read_cache_integration.py` covers the D2 path through FixtureApp,
+dispatcher, protocol, decoder, and cache:
+- D2 command ID, empty DATA, T2=100ms, exact 30-character response.
+- D2 Cache invalidation before transmit and validation only after complete Decode.
+- Successful D2 invalidates DATA per Cache_Master; unrelated STATUS/INFO remain unchanged.
+- Ambiguous and malformed-response paths leave D2 INVALID and invalidate DATA when the D2 transaction may have completed.
+- No D2 ATE individual-Query command is defined or inferred by this implementation.
+
+Product HIL must execute D2 only through the supported `D2_REFRESH` entry after
+the tested firmware is deployed. r1 says OFF_PERIOD is updated during PS_OFF;
+compare against D0 only with acquisition-time separation recorded and OI-03
+resolved by the responsible design authority. Pico does not judge returned
+values or product PASS/FAIL.
+
 ### Protocol
 - normal ACK/response/ACK
 - NAK30-36 then one command retry recovery
