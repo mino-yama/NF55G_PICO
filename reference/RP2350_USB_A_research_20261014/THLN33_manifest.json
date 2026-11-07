@@ -1,0 +1,42 @@
+[
+  {
+    "path": "README.md",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/README.md",
+    "sha256": "982573EC3FEBC1A4E22F491928CBC439A9DE8472018C79E3BF86E7D06A007061"
+  },
+  {
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/LICENSE",
+    "sha256": "552320D7937C0EF4BDE067B2905D6331E3DD9BBA1FF726B2D34D8EDCDC9DBC76"
+  },
+  {
+    "path": "CMakeLists.txt",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/CMakeLists.txt",
+    "sha256": "FEF6672DEF30614280BAED069E4A4377C613AA6BE83BF0468077AE7EDBBF1D6E"
+  },
+  {
+    "path": "examples/host_hid_to_fpga/CMakeLists.txt",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/examples/host_hid_to_fpga/CMakeLists.txt",
+    "sha256": "352B9709B3E700244632F0BA13B434464C9C677FB3DD870639EDAD6BA3E50027"
+  },
+  {
+    "path": "examples/host_hid_to_fpga/host_hid_to_fpga.c",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/examples/host_hid_to_fpga/host_hid_to_fpga.c",
+    "sha256": "2C59CD1E04B801CC94D57FA794E7B748DBC7ED17D6A1360A97C60B2E6C957913"
+  },
+  {
+    "path": "examples/host_hid_to_fpga/tusb_config.h",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/examples/host_hid_to_fpga/tusb_config.h",
+    "sha256": "367517C0544691895C5FC662B28595B2070058885E0C6B6EE1AF6EF4C0F80C44"
+  },
+  {
+    "path": "examples/host_hid_to_fpga/usb_descriptors.c",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/examples/host_hid_to_fpga/usb_descriptors.c",
+    "sha256": "5FEB58EF72DCA18B57F02FDE39265297F36043E7139F5C7BB66EAE11F956131D"
+  },
+  {
+    "path": "examples/host_hid_to_fpga/ws2812.pio",
+    "url": "https://raw.githubusercontent.com/THLN33/RP2350-USB-A/735aef9c6bfd286ca0ca6bdccabfdebc72610bbb/examples/host_hid_to_fpga/ws2812.pio",
+    "sha256": "1F9A98A5E122F0C257314F7C2AC7A791D0D091782F3939A93634754C4189DA8F"
+  }
+]

@@ -23,5 +23,7 @@
   "terminal.integrated.automationProfile.windows": {
     "path": "${env:windir}\\System32\\cmd.exe",
     "args": []
-  }
+  },
+  "cmake.sourceDirectory": "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/reference/RP2350_USB_A_research_20261014/THLN33",
+  "cmake.autoDetectSourceDirectory": false
 }

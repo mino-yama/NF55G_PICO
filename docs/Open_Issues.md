@@ -1,8 +1,8 @@
 # Open Issues
+
 Revision: Rev.0
 Codex must NOT close these by inference.
 
-通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 ## 外部測定値による補正の追加要求 2026-11-04
 
 - CAL-EXT-03（Open）: ユーザー指示により7355の通信仕様・アドレス設定を仕様化対象へ追加。採用GPIBアドレス、設定／保持／照合方法、ADC／SCPI選択、正確なコマンド、終端／EOI、応答表現、測定・timeout設定、異常復帰を確定する。メーカー製品ページではGPIBが+01オプション、ADC／SCPI対応と確認したが、実機搭載・マニュアル本文は未確認。値を推測で設定しない。GPIB制御経路はCAL-EXT-01と併せて確認。
@@ -11,6 +11,15 @@ Codex must NOT close these by inference.
 - CAL-EXT-02（Open）: 2026-11-04ユーザー確認により①DISCHG_I／充電、②BATT_CHG／放電は記載どおりで確定。取得と書込みは別コマンドとし、読取値を一旦ATEへ返して判定した後、ATEが改めて書込みコマンド＋数値を送る。取得による自動書込みは行わない。残事項はA/BとP1/P2対応、シャント換算の担当・符号・丸め、返却値の形式・単位、測定の鮮度、正式コマンド／応答／失敗時動作。既存AD/ARのOI-04/OI-05/OI-16～OI-21はOpenを維持する。
 - 詳細: [追加要求記録](Calibration_External_Measurement_Requirements_20261104.md)。要求整理のみ。実装・機器仕様確認・実機試験は未実施。
 
+## RP2350-USB-A QR入力経路の調査 2026-10-14
+
+- RP2350-QR-01（Open）: THLN33のHID→ASCII/UART公開実装とWaveshare公式HID→ASCII/USB CDCデモを取得・ソース確認。THLN33は13byteバイナリ出力・AZERTY有効のため既存35文字＋LF受信とは互換でない。文字列UART出力への変更、リーダ配列・レポート形式、依存版の整合を確認する。ビルド・実機試験は未実施。
+- RP2350-QR-02（Open）: 実装者からR13除去とD+/D-各15kΩプルダウン追加の報告あり。今回基板の版・回路・実装との一致は未確認。改造要否を推測で確定しない。電源容量・再接続・電源再投入の安定性も評価する。
+- 詳細: [RP2350-USB-Aサンプル調査](RP2350_USB_A_HID_UART_Research_20261014.md)。OI-14/OI-23およびCH9350評価課題はOpenを維持する。
+
+## 既存の未確定事項
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 過去のAD/ARレビューにあるD6参照は当時の比較記録として保持する。r1への基準切替は既存Issueの解決・Closeを意味しない。
 
 | ID | Issue | Rev.0 implementation |

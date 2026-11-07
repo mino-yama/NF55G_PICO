@@ -1649,3 +1649,47 @@ CALLBACK: dev[0] @16, is_attach=1
 ユーザーがキーボード経由でD2点灯したL-46XでQRを1回読取。COM14で受信開始後473064～473158msに@16 KeyEvtのDown/Upを連続観測。冒頭D02,D18,U02/U18、続いてD02,D16等、末尾D1e,U1e,D28,U28。HOST_DEBUG LOSS表示なし。
 これにより現在の接続状態ではL-46Xの読取に対応した入力をHOSTがキーイベントへ変換していることを確認。D2表示だけの確認から進展した。ただし今回の診断はTX0のみで、TX1の35文字本文・QR Cache・ATE応答は監視していない。今回の結果をQR受信試験全体の合格や電源再投入後の認識改善とは扱わない。
 Report解析ログが無いのにキーボード経由で登録/入力処理できるという観測は、前機器Usage残留の仮説と整合するが、実機FW一致とReport取得失敗理由は未確定。恒久対策は未実施。診断受信は継続中。
+
+## 2026-11-07 ATE UART0 retest after cable correction
+
+- Operator reported the cable had been corrected. pySerial enumerated COM19 as
+  Elecom USB-Serial Converter (VID:PID 056E:5004); COM14 remained the Pico USB
+  REPL. The Windows serial-port inventory did not list COM19, but pySerial did.
+- Opened COM19 at 115200 bps, 8N1, no flow control; DTR/RTS disabled. No bytes
+  were pending before the test.
+- Sent one local `*IDN?` request, TX=`2A49444E3F0D0A`. No response bytes arrived
+  within 2 seconds. Stopped immediately; RTC_CHECK?, SD_STATUS?, and FW_UPDATE
+  were not sent.
+- Result: physical ATE UART0 response NOT VERIFIED after cable correction.
+  The cause is undetermined; cable routing, Pico runtime state, and UART0
+  receive/transmit wiring remain to be checked. No NF55G refresh, control, or
+  FU command was requested. NF55G UART1 wire activity was not independently
+  monitored. Pico power/runtime state and product wiring state were not
+  re-inspected during this test.
+- A preceding Python invocation failed in PowerShell argument parsing before
+  opening COM19; it transmitted no data. The successful COM19 open and single
+  request above were performed with the PowerShell SerialPort API.
+- No source or device files were changed. Host/Mock tests passed 161/161 in
+  this session. No Open Issue was closed.
+
+Next: confirm that Pico normal runtime is active and verify the adapter's
+RS232 path to UART0 GP0/GP1 against the harness drawing before another request.
+Keep the NF55G unpowered and do not send product commands during this check.
+
+## 2026-11-07 ATE UART0 local retest after UART0/1 correction
+
+- Operator reported UART0/1 wiring was corrected. pySerial enumerated COM19 as
+  Elecom USB-Serial Converter (VID:PID 056E:5004); COM14 was the Pico USB REPL.
+- COM19 settings: 115200 bps, 8N1, no flow control; DTR/RTS disabled. No bytes
+  were pending before the test. Each request and response used CRLF.
+- `*IDN?` -> `NF55G_PICO_FIXTURE,Rev.0` (TX `2A49444E3F0D0A`, RX
+  `4E463535475F5049434F5F464958545552452C5265762E300D0A`): PASS.
+- `RTC_CHECK?` -> `OK` (TX `5254435F434845434B3F0D0A`, RX `4F4B0D0A`): PASS.
+- `SD_STATUS?` -> `OK` (TX `53445F5354415455533F0D0A`, RX `4F4B0D0A`): PASS.
+- `FW_UPDATE` -> `ERR:FU_DISABLED` (TX `46575F5550444154450D0A`, RX
+  `4552523A46555F44495341424C45440D0A`): PASS for local FU blocking.
+- This verifies the COM19-to-Pico UART0 local request/response path for these
+  commands. No NF55G Refresh, control, or FU frame was requested. NF55G UART1
+  wire activity was not independently monitored; no product communication
+  result is claimed. Product D1/D5 testing was not run in this step.
+- No source/device files changed. No Open Issue was closed.
