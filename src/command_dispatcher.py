@@ -107,7 +107,7 @@ class CommandDispatcher:
             spec.nf_cmd,
             data=spec.data,
             t2_ms=spec.t2_ms,
-            expected_length=0 if spec.nf_cmd == "SC" else None,
+            expected_length=0 if spec.nf_cmd in ("SC", "CD", "CL") else None,
         )
 
         # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。
@@ -133,11 +133,33 @@ class CommandDispatcher:
             return CommandResult(False, "ERR:LOGGER_UNAVAILABLE", error="LOGGER_UNAVAILABLE")
 
         if ate_name == "TEST_START":
-            ok = self.logger.test_start()
-            return self._logger_command_result(ok)
+            if self.logger.test_running or self.logger.active or self.logger.busy():
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            self.logger.test_start()
+            if not self.logger.test_running:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            if self.diagnostics is not None:
+                self.diagnostics.last_test_self_check = None
+            # 試験受付とログ保存状態を分離し、SD異常は自己診断で報告する。
+            return CommandResult(True, "OK")
         if ate_name == "TEST_END":
-            ok = self.logger.test_end()
-            return self._logger_command_result(ok)
+            if self.logger.busy():
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            self.logger.check_sd()
+            if self.diagnostics is not None and self.logger.test_running:
+                check = self.diagnostics.pico_self_check()
+                self.logger.log(category="FIXTURE", event="SELF_CHECK", result=check.ate_text(),
+                                detail="before log flush/close; final result available via PICO_SELF_CHECK?")
+            ending_test = self.logger.test_running
+            if ending_test:
+                self.logger.log(category="ATE", event="END_REQUEST",
+                                detail="TEST_END pending flush/close; final outcome via ATE and self-check")
+            self.logger.test_end()
+            if self.logger.test_running or self.logger.active:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            if ending_test and self.diagnostics is not None:
+                self.diagnostics.last_test_self_check = self.diagnostics.pico_self_check()
+            return CommandResult(True, "OK")
         if ate_name == "LOG_CONT_START":
             ok = self.logger.log_cont_start()
             return self._logger_command_result(ok)
@@ -155,6 +177,8 @@ class CommandDispatcher:
         if ate_name == "LOG_DROP_COUNT?":
             return CommandResult(True, str(self.logger.drop_count))
         if ate_name == "SD_REINIT":
+            if self.logger.test_running or self.logger.active:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
             return self._logger_command_result(self.logger.reinit())
         return CommandResult(False, "ERR:UNKNOWN_LOGGER_CMD", error="UNKNOWN_LOGGER_CMD")
 

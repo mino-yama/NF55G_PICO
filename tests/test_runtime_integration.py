@@ -320,7 +320,10 @@ class RuntimeIntegrationTests(unittest.TestCase):
             app.service_once()
         self.assertEqual(bytes(ate.tx), b'OK\r\n0\r\n')
         sink.flush_blocked = False
-        self.assertEqual(app.execute_ate_line('SD_REINIT'), 'OK')
+        self.assertEqual(app.execute_ate_line('SD_REINIT'), 'ERR:BUSY')
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        app.service_once()
+        self.assertEqual(logger.status(), 'OK')
         self.assertFalse(logger.active)
         self.assertTrue(logger.test_start())
 
@@ -406,7 +409,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(logger.force_drain(), 0)
             self.assertEqual(logger.status(), 'WRITE_ERR')
             self.assertEqual(logger.drop_count, 1)
-            self.assertTrue(logger.reinit())
+            self.assertFalse(logger.reinit())
+            self.assertFalse(logger.test_end())
+            self.assertTrue(logger.service_recovery())
             self.assertEqual(logger.status(), 'OK')
 
     def test_sd_csd_capacity_and_ioctl(self):
@@ -493,7 +498,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         logger.log(detail='fault')
         app.service_once()
         self.assertEqual(logger.status(), 'WRITE_ERR')
-        self.assertEqual(app.execute_ate_line('TEST_END'), 'ERR:WRITE_ERR')
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
         self.assertEqual(app.execute_ate_line('*IDN?'), 'NF55G_PICO_FIXTURE,Rev.0')
 
     def test_ate_busy_does_not_service_sd(self):
@@ -537,6 +542,161 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertTrue(logger.test_end())
             with open(second, newline='') as stream:
                 self.assertEqual(list(csv.reader(stream))[1][-1], 'new file')
+
+    def test_sd_recovery_waits_for_test_end_reply_and_ate_pending_work(self):
+        sink = MemorySDSink()
+        logger = Logger(sink, clock=FakeClock())
+        ate = BytePort(b'TEST_START\r\nTEST_END\r\n*IDN?\r\n', max_write=0)
+        app = FixtureApp(ate_uart=ate, logger=logger)
+        app.service_once()
+        self.assertEqual(sink.reinit_count, 0)
+        ate.max_write = 100
+        for _ in range(8):
+            app.service_once()
+        self.assertEqual(bytes(ate.tx), b'OK\r\nOK\r\nNF55G_PICO_FIXTURE,Rev.0\r\n')
+        self.assertEqual(sink.reinit_count, 1)
+
+    def test_no_card_test_session_allows_nf_but_blocks_recovery(self):
+        protocol, _ = self.protocol([ScenarioStep.ack_response('D1', '0' * 15)])
+        sink = MemorySDSink()
+        sink.status = 'NO_CARD'
+        logger = Logger(sink, clock=protocol.clock)
+        app = FixtureApp(protocol=protocol, logger=logger)
+        self.assertEqual(app.execute_ate_line('TEST_START'), 'OK')
+        self.assertEqual(app.execute_ate_line('SD_REINIT'), 'ERR:BUSY')
+        self.assertEqual(app.execute_ate_line('STATUS_REFRESH'), 'OK')
+        self.assertEqual(sink.reinit_count, 0)
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        app.service_once()
+        self.assertEqual(sink.reinit_count, 1)
+
+    def test_qr_after_start_renames_real_csv_and_records_ate_and_self_check(self):
+        with tempfile.TemporaryDirectory() as folder:
+            sink = FileSDSink(folder, fs=HostFS())
+            sink.mount()
+            logger = Logger(sink, clock=FakeClock(), rtc=DS3231RTC(FakeRTCDevice()))
+            app = FixtureApp(logger=logger)
+            self.assertEqual(app.execute_ate_line('TEST_START'), 'OK')
+            original = sink.open_filename
+            app.qr_reader.start(0)
+            app.qr_reader.feed(b'US250A-CGXE-009491-10101A2623000001\n', 1)
+            self.assertEqual(app.execute_ate_line('*IDN?'), 'NF55G_PICO_FIXTURE,Rev.0')
+            self.assertEqual(app.execute_ate_line('FW_UPDATE'), 'ERR:FU_DISABLED')
+            self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+            path = Path(sink.open_filename)
+            self.assertEqual(path.name, '000001_20260901_000000.csv')
+            self.assertFalse(Path(original).exists())
+            with path.open(newline='') as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertTrue(any(r['event'] == 'SELF_CHECK' for r in rows))
+            self.assertTrue(any(r['result'] == 'ERR:FU_DISABLED' for r in rows))
+            self.assertTrue(any(r['event'] == 'END_REQUEST' and 'TEST_END' in r['detail'] for r in rows))
+            self.assertEqual(logger.timestamp_snapshot, '20260901_000000')
+            restarted = FileSDSink(folder, fs=HostFS())
+            restarted.mount()
+            self.assertEqual(restarted.bank_bytes['BANK_A'], path.stat().st_size)
+
+    def test_qr_missing_or_invalid_serial_keeps_date_filename_and_no_stale_serial(self):
+        logger = Logger(MemorySDSink(), clock=FakeClock(), rtc=DS3231RTC(FakeRTCDevice()))
+        app = FixtureApp(logger=logger)
+        self.assertFalse(app.accept_qr('US250A-CGXE-009491-10101A2623000001'))
+        app.execute_ate_line('TEST_START')
+        self.assertTrue(app.accept_qr('US250A-CGXE-009491-10101A2623000001'))
+        app.execute_ate_line('TEST_END')
+        self.assertEqual(logger.last_test_filename, '000001_20260901_000000.csv')
+        app.execute_ate_line('TEST_START')
+        self.assertFalse(app.accept_qr('US250A-CGXE-009491-10101A2623ABCDEF'))
+        app.execute_ate_line('TEST_END')
+        self.assertEqual(logger.last_test_filename, '20260901_000000.csv')
+
+    def test_serial_rename_collision_preserves_both_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            sink = FileSDSink(folder, fs=HostFS())
+            sink.mount()
+            existing = Path(folder, 'BANK_A', '000001_20260901_000000.csv')
+            existing.write_text('preserve')
+            logger = Logger(sink, clock=FakeClock(), rtc=DS3231RTC(FakeRTCDevice()))
+            logger.test_start()
+            logger.set_serial('000001')
+            logger.log(detail='new test')
+            original = Path(sink.open_filename)
+            self.assertFalse(logger.test_end())
+            self.assertEqual(existing.read_text(), 'preserve')
+            self.assertTrue(original.exists())
+            self.assertEqual(logger.last_test_sd_status, 'FILE_EXISTS')
+
+    def test_final_self_check_retains_fault_after_recovery_without_product_judgement(self):
+        sink = MemorySDSink()
+        sink.status = 'NO_CARD'
+        app = FixtureApp(logger=Logger(sink, clock=FakeClock()))
+        self.assertEqual(app.execute_ate_line('TEST_START'), 'OK')
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        final = app.diagnostics.last_test_self_check
+        self.assertFalse(final.ok)
+        self.assertIn('TEST_LOGGER=NO_CARD', final.ate_text())
+        app.service_once()
+        self.assertEqual(app.logger.status(), 'OK')
+        result = app.execute_ate_line('PICO_SELF_CHECK?')
+        self.assertIn('LOGGER=OK', result)
+        self.assertIn('TEST_LOGGER=NO_CARD', result)
+        self.assertNotIn('PASS', result)
+        self.assertNotIn('FAIL', result)
+
+    def test_final_self_check_detects_removed_card_without_recovery_in_test(self):
+        sink = MemorySDSink()
+        app = FixtureApp(logger=Logger(sink, clock=FakeClock()))
+        app.execute_ate_line('TEST_START')
+        def absent():
+            raise LoggerError('MOUNT_ERR')
+        sink.usage = absent
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        self.assertIn('TEST_LOGGER=MOUNT_ERR', app.diagnostics.last_test_self_check.ate_text())
+        self.assertEqual(sink.reinit_count, 0)
+
+    def test_end_close_failure_is_part_of_final_self_check(self):
+        class BrokenClose(MemorySDSink):
+            def close(self):
+                super().close()
+                raise LoggerError('WRITE_ERR')
+        app = FixtureApp(logger=Logger(BrokenClose(), clock=FakeClock()))
+        app.execute_ate_line('TEST_START')
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        self.assertIn('TEST_LOGGER=WRITE_ERR', app.diagnostics.last_test_self_check.ate_text())
+
+    def test_ate_transport_rejection_is_recorded_during_test(self):
+        ate = BytePort()
+        app = FixtureApp(ate_uart=ate)
+        app.execute_ate_line('TEST_START')
+        filename = app.logger.current_filename
+        ate.rx.extend(b'\xff\r\n')
+        app.service_once()
+        self.assertEqual(bytes(ate.tx), b'ERR:ASCII\r\n')
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        rows = app.logger.sd_sink.files[filename]
+        self.assertTrue(any(row[4] == 'RECEIVE_ERROR' and row[12] == 'ERR:ASCII' for row in rows))
+
+    def test_deferred_test_end_does_not_log_false_success(self):
+        app = FixtureApp()
+        app.execute_ate_line('TEST_START')
+        app.logger.test_end = lambda: False
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'ERR:BUSY')
+        outcomes = [row[12] for row in app.logger.queue
+                    if row[4] == 'RESULT' and row[13] == 'TEST_END']
+        self.assertEqual(outcomes, ['ERR:BUSY'])
+        self.assertTrue(app.logger.test_running)
+
+    def test_partial_response_at_deadline_remains_in_raw_trace(self):
+        protocol, _ = self.protocol()
+        reads = iter((b'\x02', b'D'))
+        def read(deadline):
+            value = next(reads)
+            protocol.clock.advance_ms(1)
+            return value
+        protocol._read_byte_until = read
+        traces = []
+        protocol.trace_hook = lambda direction, raw: traces.append((direction, raw))
+        self.assertIsNone(protocol._read_frame_until(1))
+        self.assertEqual(traces, [('RX', b'\x02D')])
 
 
 if __name__ == '__main__':

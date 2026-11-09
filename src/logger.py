@@ -1,5 +1,6 @@
 # 通信中の記録はRAM Queueに積み、待機中に件数・時間条件で保存先へ書き出す。
 # TEST/CONTの記録期間、保存エラー、破棄件数を管理する。MemorySDSinkはHost試験用。
+# SD失敗でも試験期間を維持し、終了後の待機時だけ再認識する。
 
 """Non-blocking logger core and SD sink abstraction."""
 
@@ -81,12 +82,21 @@ class MemorySDSink:
     def close(self):
         if self.open_filename is not None:
             self.close_count += 1
+        self.closed_filename = self.open_filename
         self.open_filename = None
 
     def reinit(self):
         self.status = SD_OK
         self.open_filename = None
         self.reinit_count += 1
+
+    def rename_closed(self, filename):
+        if self.open_filename is not None:
+            raise LoggerError('OPEN_ERR')
+        if filename in self.files:
+            raise LoggerError('FILE_EXISTS')
+        self.files[filename] = self.files.pop(self.closed_filename)
+        self.closed_filename = filename
 
     def usage(self):
         used = 0
@@ -120,6 +130,13 @@ class Logger:
         self.queue = []
         self.drop_count = 0
         self.active = False
+        self.test_running = False
+        self.last_test_sd_status = None
+        self.session_serial = None
+        self.last_test_filename = None
+        self.test_drop_start = 0
+        self.last_test_drop_count = None
+        self.recovery_pending = False
         self.mode = None
         self.current_filename = None
         self.records_since_flush = 0
@@ -127,21 +144,62 @@ class Logger:
         self.sd_status = getattr(self.sd_sink, 'status', SD_OK)
 
     def test_start(self):
-        return self._start("TEST")
+        if self.busy() or self.test_running or self.active:
+            return False
+        self.last_test_sd_status = None
+        self.session_serial = None
+        self.last_test_filename = None
+        self.last_test_drop_count = None
+        self.test_drop_start = self.drop_count
+        ok = self._start("TEST")
+        # ログ開始失敗と試験期間は分離する。途中の再認識で試験を中断しない。
+        self.test_running = True
+        return ok
+
+    def set_serial(self, serial):
+        # 完了した当該試験のQRだけを受け付け、先頭ゼロを文字列のまま保持する。
+        if not self.test_running:
+            return False
+        self.session_serial = None
+        if not isinstance(serial, str) or len(serial) != 6 or not all('0' <= c <= '9' for c in serial):
+            return False
+        self.session_serial = serial
+        return True
 
     def test_end(self, protocol_busy=False):
         if protocol_busy or self.busy():
             return False
-        self.force_drain()
+        ending_test = self.test_running
+        ending_session = self.test_running or self.active
+        if self.active and self.sd_status == SD_OK:
+            self.force_drain()
         if self.busy():
             return False
         try:
             self.sd_sink.close()
         except LoggerError as exc:
             self.sd_status = str(exc)
+        if ending_test and self.current_filename is not None:
+            if self.session_serial is not None and self.sd_status == SD_OK:
+                filename = self.session_serial + '_' + self.current_filename
+                try:
+                    self.sd_sink.rename_closed(filename)
+                    self.current_filename = filename
+                except (LoggerError, OSError) as exc:
+                    self.sd_status = str(exc) if isinstance(exc, LoggerError) else SD_WRITE_ERR
+            self.last_test_filename = self.current_filename
         self.active = False
+        self.test_running = False
         self.mode = None
         self.current_filename = None
+        self.drop_count += len(self.queue)
+        self.queue = []
+        self.records_since_flush = 0
+        if ending_test:
+            self.check_sd()
+            self.last_test_sd_status = self.sd_status
+            self.last_test_drop_count = self.drop_count - self.test_drop_start
+        self.recovery_pending = self.recovery_pending or ending_session
         return self.sd_status == SD_OK
 
     def log_cont_start(self):
@@ -152,6 +210,9 @@ class Logger:
 
     # 通信中にも呼ばれる入口。ここではRAMへの追加だけを行い、SDアクセスはしない。
     def log(self, timestamp="", category="", direction="", cmd="", event="", raw_ascii="", raw_hex="", bcc_rx="", bcc_calc="", bcc_ok="", cmd_retry="", rsp_retry="", result="", detail=""):
+        if (self.test_running or self.active) and self.sd_status != SD_OK:
+            self.drop_count += 1
+            return False
         row = (
             str(timestamp or self.timestamp_snapshot),
             str(category),
@@ -175,7 +236,7 @@ class Logger:
         return True
 
     def service(self, protocol_busy=False):
-        if protocol_busy or self.busy() or not self.active or (not self.queue and not self.records_since_flush):
+        if protocol_busy or self.busy() or not self.active or self.sd_status != SD_OK or (not self.queue and not self.records_since_flush):
             return 0
         now = self._ticks_ms()
         due_by_count = len(self.queue) + self.records_since_flush >= self.flush_record_count
@@ -197,21 +258,41 @@ class Logger:
         return self._drain(flush=True)
 
     def force_drain(self):
-        if self.busy():
+        if self.busy() or self.sd_status != SD_OK:
             return 0
         return self._drain(flush=True, all_records=True)
 
     def status(self):
         return self.sd_status
 
+    def check_sd(self):
+        # 認識確認だけを行い、試験中の再マウントやフォーマットは行わない。
+        if self.busy():
+            return False
+        if self.sd_status == SD_OK:
+            try:
+                self.sd_sink.usage()
+            except (LoggerError, OSError) as exc:
+                self.sd_status = str(exc) if isinstance(exc, LoggerError) else SD_MOUNT_ERR
+        return self.sd_status == SD_OK
+
     def usage(self):
         return self.sd_sink.usage()
 
-    def reinit(self):
-        if self.busy():
+    # 復帰は試験・連続記録の外だけ。周期的な自動再試行は行わない。
+    def service_recovery(self):
+        if not self.recovery_pending or self.busy() or self.test_running or self.active:
             return False
+        return self.reinit()
+
+    def reinit(self):
+        if self.busy() or self.test_running or self.active:
+            return False
+        self.recovery_pending = False
         self.drop_count += len(self.queue)
         self.queue = []
+        self.records_since_flush = 0
+        self.mode = None
         self.active = False
         self.current_filename = None
         try:
@@ -223,17 +304,15 @@ class Logger:
             return False
 
     def _start(self, mode):
-        if self.busy():
+        if self.busy() or self.test_running or self.active:
             return False
-        if self.active:
-            if not self.test_end():
-                return False
         try:
             filename = self._filename()
             self.sd_sink.open(filename)
         except (LoggerError, ValueError, OSError) as exc:
             self.sd_status = str(exc)
             return False
+        self.recovery_pending = False
         self.current_filename = filename
         if self.rtc is not None:
             self.timestamp_snapshot = filename[:-4]

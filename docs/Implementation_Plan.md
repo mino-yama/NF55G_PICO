@@ -461,3 +461,7 @@ Gate 条件:
 - Module Version を持たせる対象ファイルが決まっている。
 - Module Version 更新条件が決まっている。
 - `docs/CHANGELOG.md` と release artifact の対応が確認できる。
+
+## 2026-11-09 D4運用とCLEAR試験
+
+D4は副作用のため量産では使用しない。D4-TIM-01は未解決のまま保守課題として保持し、CLEAR試験を優先する。CLEAR_ALL／POWER／BATTはCDのDATA0／1／2、T2=500ms。CLEAR_LOGはCLのDATAなし、T2=1000ms。r1 p.35に従い正常応答はどちらもDATA0文字。成功と成否不明時は既存Cache規則に従い無効化し、応答から昇格しない。CDで満充電情報等が初期化され初期充電が動作し得るため、今回ユーザー確認済みのバッテリ未接続条件で通信試験する。

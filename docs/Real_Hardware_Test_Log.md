@@ -2369,3 +2369,188 @@ Keep the NF55G unpowered and do not send product commands during this check.
   establish charging or cessation of current; external electrical checks are
   pending. Host/Mock was not rerun for this hardware-only measurement, and no
   Open Issue was closed.
+
+## 2026-11-07 Commit 38a5648 deployment and ATE UART0 identity check
+
+- After the operator's Pico power cycle, the deployed files were checked against
+  commit `38a5648`. Initial inventory found three stale files; only
+  `/src/command_dispatcher.py`, `/src/nf55_command.py`, and `/src/nf55_decode.py`
+  were copied. Final SHA-256 comparison matched all 25 application files:
+  `/main.py` and 24 `/src/*.py` files. Existing auxiliary files were retained.
+- Sent one local identity query through COM19 (ATE): TX `*IDN?\r\n`, raw HEX
+  `2A49444E3F0D0A`. Received raw HEX
+  `4E463535475F5049434F5F464958545552452C5265762E300D0A`, decoded Ans
+  `NF55G_PICO_FIXTURE,Rev.0\r\n`.
+- This confirms the UART0 ATE request/response path and running fixture identity.
+  No NF55G read, control, SC, D0, D2, D3, D4, or FU command was requested;
+  product behavior and electrical PASS/FAIL were not assessed. Host/Mock was
+  not rerun for this hardware-only check, and no Open Issue was closed.
+
+## 2026-11-07 DATA Cache Query invalid-cache check
+
+- Sent all 43 DATA Cache Query commands individually through COM19 at 115200
+  bps, 8N1, each terminated by CRLF. No pending RX bytes were present before
+  the run. `DATA_REFRESH` was not sent, so this checks query routing and the
+  required invalid-cache behavior, not decoded product values.
+- All 43 responses were complete CRLF lines with the same Ans:
+  `ERR:CACHE_INVALID` (RX HEX `4552523A43414348455F494E56414C49440D0A`).
+  There were 0 `ERR:UNKNOWN_CMD`, 0 timeouts, and 43 responses for 43 requests.
+  Query commands reference Cache only; no NF55G command was requested.
+
+| No. | ATE Query | Ans |
+|---:|---|---|
+| 1 | `NF55_DATE?` | `ERR:CACHE_INVALID` |
+| 2 | `NF55_TIME?` | `ERR:CACHE_INVALID` |
+| 3 | `NF55_DATETIME?` | `ERR:CACHE_INVALID` |
+| 4 | `VOUT12?` | `ERR:CACHE_INVALID` |
+| 5 | `IOUT12?` | `ERR:CACHE_INVALID` |
+| 6 | `BATT_VOLT?` | `ERR:CACHE_INVALID` |
+| 7 | `CHG_VOLT?` | `ERR:CACHE_INVALID` |
+| 8 | `CHG_CURR?` | `ERR:CACHE_INVALID` |
+| 9 | `BATT_CURR?` | `ERR:CACHE_INVALID` |
+| 10 | `BATT_SOC_WH?` | `ERR:CACHE_INVALID` |
+| 11 | `BATT_SOC_MAH?` | `ERR:CACHE_INVALID` |
+| 12 | `BATT_TEMP?` | `ERR:CACHE_INVALID` |
+| 13 | `ADU_TEMP?` | `ERR:CACHE_INVALID` |
+| 14 | `BBU_TEMP?` | `ERR:CACHE_INVALID` |
+| 15 | `FAN_RPM?` | `ERR:CACHE_INVALID` |
+| 16 | `FAN_LEVEL?` | `ERR:CACHE_INVALID` |
+| 17 | `AC_OFF_HOUR?` | `ERR:CACHE_INVALID` |
+| 18 | `PS_OFF_HOUR?` | `ERR:CACHE_INVALID` |
+| 19 | `AVE_OFF_TEMP?` | `ERR:CACHE_INVALID` |
+| 20 | `OFF_CHARGE_HOUR?` | `ERR:CACHE_INVALID` |
+| 21 | `AVE_CHARGE_TEMP?` | `ERR:CACHE_INVALID` |
+| 22 | `OFF_CHARGE?` | `ERR:CACHE_INVALID` |
+| 23 | `OFF_BATT_DEG?` | `ERR:CACHE_INVALID` |
+| 24 | `CHARGE_DATA?` | `ERR:CACHE_INVALID` |
+| 25 | `CHARGE_END?` | `ERR:CACHE_INVALID` |
+| 26 | `LIFE_BATT_CHARGE?` | `ERR:CACHE_INVALID` |
+| 27 | `LIFE_BATT_TEMP?` | `ERR:CACHE_INVALID` |
+| 28 | `LIFE_BATT_DEG?` | `ERR:CACHE_INVALID` |
+| 29 | `TOTAL_ADU_TEMP?` | `ERR:CACHE_INVALID` |
+| 30 | `TOTAL_ADU_HOUR?` | `ERR:CACHE_INVALID` |
+| 31 | `AC_FAIL_COUNT?` | `ERR:CACHE_INVALID` |
+| 32 | `AC_LOW_COUNT?` | `ERR:CACHE_INVALID` |
+| 33 | `BACKUP_COUNT?` | `ERR:CACHE_INVALID` |
+| 34 | `BATT_DEG_TOTAL?` | `ERR:CACHE_INVALID` |
+| 35 | `TOTAL_BATT_HOUR?` | `ERR:CACHE_INVALID` |
+| 36 | `BATT_DISCHARGE_COUNT?` | `ERR:CACHE_INVALID` |
+| 37 | `BATT_CHARGE_COUNT?` | `ERR:CACHE_INVALID` |
+| 38 | `BATT_TTL_DISCHARGE?` | `ERR:CACHE_INVALID` |
+| 39 | `BATT_TTL_CHARGE?` | `ERR:CACHE_INVALID` |
+| 40 | `TOTAL_BATT_TEMP?` | `ERR:CACHE_INVALID` |
+| 41 | `BATT_TEMP_AVE?` | `ERR:CACHE_INVALID` |
+| 42 | `BATT_TEMP_MAX?` | `ERR:CACHE_INVALID` |
+| 43 | `BATT_TEMP_MIN?` | `ERR:CACHE_INVALID` |
+
+- This result is consistent with the Cache starting INVALID after power-on.
+  To exercise value formatting and decoded values, an explicit `DATA_REFRESH`
+  is required. OI-03 (D0/CHARGE_END side effect) remains open, so D0 was not
+  sent as part of this query-only check. No Open Issue was closed.
+
+## 2026-11-07 DATA_REFRESH and all DATA Cache Queries (COM19)
+
+- The operator explicitly authorized D0 transmission. `TEST_START` returned
+  `OK`, `DATA_REFRESH` returned `OK`, all 43 DATA Cache Queries returned a
+  complete CRLF response, and `TEST_END` returned `OK`. No query timed out.
+- D0 transaction: T2=600ms provisional, transaction result `OK`, command retry
+  0, response retry 0, elapsed 238ms, ambiguous False. The D0 NF55G timestamp
+  decoded as `20260401_021253`; this is the received product data, not an
+  independently verified current time. Logger filename timestamp was
+  `20261107_181051`.
+- Host transcript with TEST_START, D0, every query and Ans, and TEST_END:
+  [temp/20261107_181100_data_cache_ate.csv](../temp/20261107_181100_data_cache_ate.csv)
+  (46 data rows, 4,250 bytes, SHA-256
+  `2c76ae9bddf818daf892e239dc52c2364e0062f7a3fd4c181bfb0e76e00a4107`).
+- Retrieved Pico SD logger CSV with D0 raw TX/RX and transaction row:
+  [temp/20261107_181051_pico_sd.csv](../temp/20261107_181051_pico_sd.csv)
+  (1,447 bytes, SHA-256
+  `4adfc452a16dc4825a955e1fb07314a3c975cfe0e1894ae450730eb87e3a4664`).
+- The 43 ATE Query Ans are preserved in the host transcript; the SD logger
+  records NF55G raw frames and transaction metadata, not ATE Query lines.
+  OI-03 remains Open despite this explicitly authorized test; no product
+  PASS/FAIL was assigned and no other control, SC, D2, D3, D4, or FU command
+  was sent.
+- After copying the SD CSV, Pico was reset to restart `/main.py`. A final COM19
+  `*IDN?` returned `NF55G_PICO_FIXTURE,Rev.0\r\n`, confirming ATE service
+  resumed.
+
+## 2026-11-09 通信ポート変更・ローカル応答確認
+
+- ユーザー指定により、以後の本案件の接続はATE側COM20、Pico 2 USB保守側COM14とする。過去のCOM19等は当時の記録として維持する。
+- 08:40 JSTのpySerial列挙: COM20=Elecom USB-Serial Converter（VID:PID 056E:5004）、COM14=Pico USB（VID:PID 2E8A:0005、SER 2D35A1E11AC125E3）。
+- COM20: 115200bps／8N1／フロー制御なし、DTR・RTS無効。*IDN? → NF55G_PICO_FIXTURE,Rev.0、COMM_STATUS? → OK:state=IDLE、SD_STATUS? → OK。全応答CRLF完結。ATE↔Pico UART0の要求・応答を確認。
+- COM14は開放状態でopen/read/close成功。受信0byte。実行中アプリを維持するため送信・Ctrl-C・REPL割込み・resetは行わず、USB REPLの双方向応答自体は今回未確認。
+- ポートはいずれもclose済み。Picoへの配置、TEST_START／TEST_END、SD復帰、NF55GへのRefresh／Control／FU送信は実施していない。搭載FWと今回変更済みHostソースの一致は未確認。
+- 実測原本: [通信確認JSON](../temp/serial_port_check_20261109.json)。再現用: [確認スクリプト](../temp/serial_port_check_20261109.py)。ハードウェア通信確認のためHost／Mock再実行なし。製品PASS/FAILは判定していない。
+
+## 2026-11-09 変更レビュー・SD抜き差し・D3/D4実機確認
+
+### 前提・配置・修正
+- ユーザーが実機サンプル接続と電源ONを確認。ATE=COM20、Pico USB=COM14。QR/DMMはマイコン入手後の別開発・結合試験とする。
+- Pico2/RP2350、MicroPython v1.28.0、unique ID 2d35a1e11ac125e3を確認。既存25ファイルを退避し、変更ソースを配置・読戻し一致確認。追加修正後も全25ファイル一致。[最終hash一覧](../temp/hil_20261109_run01/final_deployment_manifest.json)、[退避先](../temp/hil_20261109_run01/pico_before/)。作業ツリーの開発版でありcommit 38a5648と同一とは扱わない。
+- レビューでATE受信層の拒否ログ漏れをRECEIVE_ERRORで補正。実機でTEST_ENDがBUSYなのに先行OKが残る問題を発見しEND_REQUESTへ修正。応答期限境界の部分RAW・ACK待ち異常byteも記録。T1/T2・再送・ACK/NAK・Cache昇格方針は変更していない。
+- Host Unit Test／Mock NF55G Test全198件成功、git diff --check合格。配置時にsoft resetを2回実施。物理電源切入・フォーマット・既存ログ削除はしていない。
+
+### 確認できた事実
+- 日時ログ: TEST_START=OK、試験中SD_REINIT=ERR:BUSY、TEST_END=OK、最終Self Check正常・破棄0。[通常CSV](../temp/hil_20261109_run01/20261109_084638.csv)は9行（ATE要求・結果・終了前Self Check）。
+- ユーザーのSD抜去完了後、WRITE_ERRを検出してもATE ID／RTC応答を継続。SD_REINITはERR:BUSY。同じカードの再挿入後も試験中はWRITE_ERRを保持。TEST_END後にSD OKへ復帰したが、Self CheckはLOGGER=OK;TEST_LOGGER=WRITE_ERR;TEST_LOG_DROP=19を保持。故障セッションCSVは開始部分のみ217byteであり、全ログ保存とは扱わない。
+- 復帰後の次試験でログ作成を再開。正常な後続試験のTEST_LOG_DROPはOK。累積19件と各試験の破棄0件を区別。
+- D3を1回実行しOK。DATA21文字、TX BCC74／RX BCC4C一致、cmd/rsp retry=0/0、elapsed31ms、ambiguous=False。D3 Cache VALID/source D3。LIFE_BATT_TEMP=25、CHARGE_DATA／CHARGE_END／LIFE_BATT_CHARGE／LIFE_BATT_DEG／EVENT_LOSTは0。DATA INVALID（開始前からINVALIDのためVALIDからの遷移の実機証明ではない）。[D3 CSV](../temp/hil_20261109_run01/20261109_084843.csv)。
+- D4は2回のATE要求で確認（各要求に規定Command Retry1回）。両方ACK_TIMEOUT、ambiguous=True、elapsed114/115ms、D4とDATA Cache INVALID。後続完全フレームはDATA212文字・BCC一致。再確認ではACKから約102ms後に170byteの部分RAW、直後の再送ACK待ちで0x20を記録。[初回D4 CSV](../temp/hil_20261109_run01/20261109_084905.csv)、[再確認D4 CSV](../temp/hil_20261109_run01/20261109_085333.csv)。
+- 初回D4後のTEST_ENDはERR:BUSYとなり、通信待機後の再要求で正常終了。初回CSVの先行OKは上記修正対象の原本として維持。[修正後通常CSV](../temp/hil_20261109_run01/20261109_085254.csv)ではEND_REQUESTと最終Self Checkを確認。
+- 全CSV6本を回収。[SHA-256一覧](../temp/hil_20261109_run01/sd_file_manifest.json)、[ATEとPicoの実測原本](../temp/hil_20261109_run01/events.jsonl)。
+- 最終状態: TEST終了、app.run稼働、COM20 ID応答正常、通信IDLE、SD OK、最終Self Check OK。PC側COM14/COM20はclose済み。最終配置時のsoft resetにより以前のCacheと累積drop countは初期化。過去の試験結果はPC記録に保持。
+
+### 推測・未確認事項
+- D4 Timingの根本原因は未確定。製品送出とPico受信負荷の切分けが必要。Pico上のPython Mock再生もRESP_TIMEOUTになったが、Mockの計算負荷を含むため実UARTの代替証拠ではない。Open Issue D4-TIM-01を追加。
+- D3のLIFE_CALC clear、D4のAC_FAIL_COUNT clear副作用を踏まえて実施したが、前後比較での副作用検証はしていない。遅延D4をVALID Cacheへ昇格していない。
+- SDなし電源投入／新規TEST_START、別カード交換、冷間CMD0、量産波形Timing、QR/DMM結合は未確認。製品PASS/FAILは判定していない。
+- NF55Gへ送信した今回の試験対象はD3/D4のみ。SC・充電制御・D0・FU・追加CLEAR等は送っていない。D4内の製品時刻とPico/PCの現在時刻を混同しない。
+
+## 2026-11-09 CLEAR4種の実装・実機確認
+
+### 前提・変更
+- ユーザー指定によりD4は副作用のため量産では使用しない。D4-TIM-01は未解決のまま保持し、今回はD4を送信していない。
+- ユーザーがバッテリ未接続での通信テストを指定。COM20=ATE、COM14=Pico USB。r1 p.35のCDによる満充電情報等の消去・初期充電への影響を説明して確認した。
+- Parser／BuilderへCLEAR_POWER（CD/1）、CLEAR_BATT（CD/2）、CLEAR_ALL（CD/0）、CLEAR_LOG（CL/DATAなし）を追加。CD T2=500ms、CL T2=1000ms、正常応答DATA0文字を適用。関連Cacheは成功／ambiguous時に無効化し、応答からCacheへ昇格しない。
+- Host Unit Test／Mock NF55G Test全203件合格。正常、T2、Cache、SQE、不正引数の無送信、異常応答へのplain NAKを検証。
+- 変更3ファイルを[退避](../temp/hil_clear_20261109_run01/pico_before_clear/)して配置、全25ファイルを読戻し一致確認。[配置hash](../temp/hil_clear_20261109_run01/final_deployment_manifest.json)。soft reset後のappを用いた。
+
+### 確認できた事実
+- CLEAR_POWER: CD DATA1、OK、19ms。電源稼働時間6→0、瞬断数350→0、バックアップ数74→0。バッテリ側接続時間6・放電回数269・積算放電量14604・積算充電量998等は維持。TOTAL_ADU_TEMPは161のまま（r1 p.41ではCD初期化不可）。
+- CLEAR_BATT: CD DATA2、OK、19ms。接続時間6→0、放電回数269→0、積算放電量14604→0、積算充電量998→0、積算温度150→0、平均温度25→0。最高温度127→25、最低温度9→25。温度を含め全項目0とは扱わない。
+- CLEAR_ALL: CD DATA0、OK、20ms。電源・バッテリの対象積算値は0を維持、TOTAL_ADU_TEMPは161、最高／最低バッテリ温度は25。先行POWER／BATTで対象値が既に0だったため、ALL単独で非ゼロ値を全消去する検証とは区別する。
+- CD3種の直後、DATAのNF55_DATETIME?とSTATUSのPS_ON?はいずれもERR:CACHE_INVALID。その後、明示DATA_REFRESH（D0）／STATUS_REFRESH（D1）で再取得し前後を記録。Queryから自動Refreshしていない。
+- CLEAR_LOG: CL DATAなし、OK、19ms。消去前にEL32件／OL64件を全12ブロック退避。直後は全EL／OL Cache INVALIDを確認し、再取得後に96件全て日時00000000・ID FFを確認。
+- EL／OL取得は今回の診断スクリプトから共通Protocolを直接使用した。正式ATEのEL_REFRESH／OL_REFRESH入口を今回新規実装したことにはならない。履歴Noはr1ルール②に従い数値17→ASCII 11、25→19等で送信し、応答開始番号も照合。取得データから一旦VALID化してCL直後の無効化を確認し、その後の明示再取得でVALID化。
+- CD／CLは全て正常応答DATA0文字、BCC一致、command retry0、response retry0、ambiguous=False。SD CSV4本の全NF55フレームもBCC一致。各試験のSelf Check正常、SD OK、ログ破棄0、通信IDLE。CLEAR_LOGは製品内部ログの消去であり、SDの試験CSVは保持した。
+
+### 記録と未確認事項
+- [前後値・時間・CSV hash集計](../temp/hil_clear_20261109_run01/clear_summary.json)、[ATE/Pico実測原本](../temp/hil_clear_20261109_run01/events.jsonl)、[消去前の製品ログ](../temp/hil_clear_20261109_run01/product_logs_before_clear.json)、[消去後](../temp/hil_clear_20261109_run01/product_logs_after_clear.json)。
+- 実CSV: [POWER](../temp/hil_clear_20261109_run01/20261109_092553.csv)、[BATT](../temp/hil_clear_20261109_run01/20261109_092620.csv)、[ALL](../temp/hil_clear_20261109_run01/20261109_092639.csv)、[LOG](../temp/hil_clear_20261109_run01/20261109_092804.csv)。
+- 電源切入後の保持、接続バッテリでの充電動作・保持情報・CHARGE_OK信号、CLEAR_ALL単独の非ゼロ値消去、異常状態での実機SQE／PMEは未確認。製品PASS/FAILは判定していない。
+- D0のCHARGE_END副作用（OI-03）は未解決のまま。CD前後の状態保存・再取得としてD0を明示実行した。D4・SC・FU・充電制御・SDフォーマットは実施していない。
+
+## 2026-11-09 Pico RTC ATEコマンド確認（製品コマンド送信なし）
+
+- ユーザー指定: 製品に影響しないPico側コマンドから確認し、ログをtempへ順次コピーする。製品動作・出力に関わる今後の試験では、送信時に確認項目を伝え、ユーザーの実測結果を受け取る。
+- COM20経由、115200bps/8N1/CRLF。RTC_DATE? → 20261109、RTC_TIME? → 094508。RTC_DATETIME?も20261109_094508、RTC_CHECK?はOK。PCの同時刻は約09:45:18 JSTで、設定前のRTCは約10秒遅れていたという観測。
+- PC現在日本時間をもとにRTC_SET_20261109_094520を送信しOK。直後のRTC_DATETIME?=20261109_094520、RTC_DATE?=20261109、RTC_TIME?=094520、RTC_CHECK?=OK。設定指定値との秒差0、読戻し受信完了のPC時刻との差-1.260秒。秒分解能・逐次取得の比較であり、精密同期や長期精度の検証ではない。
+- 読出し試験・設定試験を別のTEST_START/TEST_ENDで記録し、終了ごとにSDログをCOM14から回収してtemp直下へコピー・内容一致確認。日時ファイル名は各試験開始時のRTC値のため、設定試験のファイル名も設定前の時刻を保持。
+- [読出しCSV](../temp/20261109_094507.csv): 13行、969byte、SHA256 11bca3a951c69cb591b00bf89f693196649d7727080b8d432eb3bdb4aa16cbea。
+- [設定CSV](../temp/20261109_094510.csv): 15行、1098byte、SHA256 2a5d9f69cc69bbf0b764567043ec889016877d375cfa2984149ead92dff8bec3。
+- [結果JSON](../temp/RTC_Test_Result_20261109_094516.json)、[TX/RXとPC時刻の原本](../temp/hil_rtc_20261109_094516/events.jsonl)。両CSVのNF55Gコマンド送信RAWは0件。NF55GのSC/CLOCK_SYNC・Refresh・制御は送信していない。
+- 各試験のSelf Check正常、ログ破棄0、最終通信IDLE・SD OK。app.runを再開し、PC側COM14/COM20はclose済み。ファームウェア変更なし、Host/Mockの再実行なし（直前203件合格）。
+- 未確認: 今回設定後の物理電源切入・バックアップ保持、長期RTC精度。過去のRTC電源保持試験と今回のATE設定試験は区別する。
+
+## 2026-11-09 LOG_CONT_START／LOG_CONT_STOP実機確認
+
+- ユーザー了承によりPico側の連続ログを確認。COM20=ATE、COM14=保守。NF55Gへコマンドを送らない条件で、RTC_DATE?／RTC_TIME?を繰り返した。ファームウェア変更なし、Host／Mock再実行なし。
+- 1回目: LOG_CONT_START=OK、二重開始=ERR:BUSY、記録中SD_REINIT=ERR:BUSY。RTC日付・時刻を4組取得し、1秒間隔を置いて記録。停止前はactive=True、mode=CONT、test_running=False、queue=0、file_open=True、ファイルサイズ1297byteを確認。
+- LOG_CONT_STOP=OK後、active=False、mode=None、queue=0、file_open=False、1351byteを確認。開始／RTC要求・結果／停止要求を含む23行を読戻し。[1回目CSV](../temp/20261109_095446.csv)、SHA256 7d298cb680231f227418ccf1c6831c08df6c0e2ae6c85ddc6ca12ba2b91c0621。
+- 2回目: 再開始=OK、別の日時名ファイルを作成。RTCを2組取得、停止前649byte・queue0、LOG_CONT_STOP=OK後703byte・close済みを確認。[2回目CSV](../temp/20261109_095455.csv)は11行、SHA256 4e4335af297bf093719e0b9f05df7a3b60042566f1d352966474cc9f5b54848b。
+- 各停止後にSDからPCへ回収し、temp直下へ順次コピー・内容一致確認。停止応答OKの原本はホストのTX/RX記録に保存する。CSVは停止要求までの記録であり、close後の応答を同じファイルへ追記していない。
+- 2本ともNF55Gコマンド送信RAW0件、ログ破棄は開始前0→終了後0。最終COMM_STATUS=IDLE、SD_STATUS=OK、PICO_SELF_CHECK正常。Self CheckのTEST_LOGGER項目は直前のTESTセッション由来であり、今回CONT専用の最終履歴とは扱わない。
+- 証跡: [TX/RX・Pico状態原本](../temp/hil_log_cont_20261109_095446/events.jsonl)、[結果JSON](../temp/hil_log_cont_20261109_095446/log_cont_result.json)。同一app.runを再開し、PC側の両ポートはclose済み。
+- 確認範囲は短時間の開始・定期保存・停止・再開始。長時間記録、100MBロールオーバー、電源断保持、連続記録中の実カード抜去は今回未確認。

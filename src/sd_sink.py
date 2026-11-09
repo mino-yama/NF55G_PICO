@@ -53,8 +53,10 @@ class FileSDSink:
 
     @staticmethod
     def _log_name(name):
+        if len(name) == 26 and name[6] == '_' and all('0' <= c <= '9' for c in name[:6]):
+            name = name[7:]
         return (len(name) == 19 and name[8] == '_' and name.endswith('.csv')
-                and (name[:8] + name[9:15]).isdigit())
+                and all('0' <= c <= '9' for c in name[:8] + name[9:15]))
 
     # 所有マーカーと使用中BANKの記録を照合し、既存ログのある不明な領域は引き継がない。
     def _prepare_banks(self):
@@ -190,6 +192,28 @@ class FileSDSink:
         try:
             if file is not None:
                 file.close()
+        except OSError as exc:
+            self._error('WRITE_ERR', exc)
+
+    def rename_closed(self, filename):
+        # close後に同じBANK内で命名を確定する。既存ファイルを置換しない。
+        self._guard()
+        if self.file is not None or self.open_filename is None:
+            raise LoggerError('OPEN_ERR')
+        if not self._log_name(filename):
+            raise LoggerError('FILENAME')
+        target = self.root + '/' + self.bank + '/' + filename
+        try:
+            try:
+                self.fs.stat(target)
+            except OSError as exc:
+                if getattr(exc, 'errno', exc.args[0] if exc.args else None) != 2:
+                    raise
+            else:
+                raise LoggerError('FILE_EXISTS')
+            self._guard()
+            self.fs.rename(self.open_filename, target)
+            self.open_filename = target
         except OSError as exc:
             self._error('WRITE_ERR', exc)
 

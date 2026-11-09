@@ -116,3 +116,10 @@ src/qr_reader.py: GPIO非依存の固定位置分割・受信状態・試作用A
 scripts/pico_qr_receive_test.py: 外部から渡したATE/QR受信ポートをポーリングし、受信結果をUSB REPLへ表示。import時のGPIO初期化/自動起動なし。NF55G/SD/本番dispatcherへ接続しない。
 
 2026-09-26: qr_pio_rx.pyを追加。PIO0/SM0、GP9 RX、GP8 idle High。pico_qr_receive_test.start()でUART0と独立PIO受信を起動し、終了時に解放。UART1は初期化しない。
+
+## 2026-11-09 試験ログ・QR S/N・最終診断
+
+- FixtureApp.accept_qr(raw): 当該試験中の完全な35文字QRを検証し、末尾6桁のASCII数字をLoggerへ渡す。SDアクセス・NF55G送信なし。FixtureApp.qr_readerはQRReceiver(on_ready=accept_qr)。物理入力の接続は別工程。
+- Logger.set_serial(serial): 試験期間内のみ受理し、S/Nを試験単位で保持。test_startで前回値を消す。test_endのclose後に命名を確定し、last_test_filename／last_test_sd_status／last_test_drop_countを保持。
+- FileSDSink.rename_closed(filename): close済みのログを同じBANK内で変更する。既存先を上書きしない。S/N名も再起動時の容量集計・ローテーション対象。
+- TEST_ENDはSelf Checkを最終段で実行し、FixtureDiagnostics.last_test_self_checkへRAM保持。PICO_SELF_CHECK?で現在LOGGERと直前TEST_LOGGER／TEST_LOG_DROPを別項目で返す。SD復帰はこの後の待機時に行う。

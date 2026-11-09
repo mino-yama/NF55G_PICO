@@ -1,5 +1,6 @@
 # QR単独試作用の受信状態管理。開始指示後の35文字を検証し、固定位置で6項目へ分割する。
-# READYは受信形式の確認完了を示す。本番Cache・NF55GのSS書込み・製品判定とは未連携。
+# READYは受信形式の確認完了を示す。任意callbackで試験ログのS/Nへ渡せる。
+# NF55GのSS書込み・製品判定・USBホストの選定とは分離する。
 
 """Isolated QR receive prototype; no NF55G/SS or production cache dependency."""
 
@@ -28,11 +29,12 @@ class QRReceiver:
     Temporary field names only; valid means receive/format success, not product
     PASS or SS-ready. LF/CRLF framing is a test setting, not scanner discovery.
     """
-    def __init__(self, timeout_ms=10000, allow_hyphen=True):
+    def __init__(self, timeout_ms=10000, allow_hyphen=True, on_ready=None):
         if timeout_ms <= 0:
             raise ValueError("timeout_ms")
         self.timeout_ms = timeout_ms
         self.allow_hyphen = allow_hyphen
+        self.on_ready = on_ready
         self.state = "IDLE"
         self.raw = ""
         self.fields = None
@@ -76,6 +78,8 @@ class QRReceiver:
                 try:
                     self.fields = decode_qr(self.raw, self.allow_hyphen)
                     self.state = "READY"
+                    if self.on_ready is not None:
+                        self.on_ready(self.raw)
                 except ValueError as exc:
                     self.fail(str(exc))
             elif self._cr:

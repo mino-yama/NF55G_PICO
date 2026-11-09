@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 2026-11-09 試験ログ・QR S/N命名・最終Self Check
+
+- ATE要求と実行結果を既存NF55G RAW／transactionログへ追加。TEST_START後のQR末尾6桁をRAM連携し、終了時にS/N＋開始日時へ変更。未取得・不正時は日時名を維持し、命名衝突は既存ログを上書きしない。
+- TEST_START／TEST_ENDはSD異常でも試験受付・終了のOKを返し、装置異常は最終Self Checkへ分離。TEST_LOGGER／TEST_LOG_DROPを保持し、終了後の復帰で直前試験の保存異常を消さない。
+- Logger／ATE／Interface／Runtime／QR要件／Test仕様とOpen Issuesの確定済み部分を追記。IssueはCloseしない。Host／Mock全195件合格。Pico配置、新QR物理入力、実カードのrename・抜き差し・Timingは未実施。
+
+## 2026-11-09 SD抜き差し・試験終了後復帰
+
+- SDログ開始失敗時も試験期間を保持し、試験中・連続記録中のSD_REINITをERR:BUSYで拒否。SD異常は保持し、再挿入だけで記録を再開しない。
+- TEST_END／LOG_CONT_STOP後、ATE応答・待ち要求とNF55G通信を優先し、待機時に1回だけ再認識。電源投入時の既存FATマウント、フォーマット禁止、SD異常でも通信継続を維持。
+- 未保存Queueの持越しを防ぎ、破棄件数を計上。SD異常時の既存ATE応答形式は維持。Logger／ATE／Runtime／Test仕様を更新。
+- Host／Mock全189件合格。Pico配置・実カード抜き差し・冷間起動・Timing検証は未実施。既存CMD0不具合とOpen Issuesは未解決。
+
+## 2026-11-09 CH9350によるQR・測定器制御の変更意向
+
+- 提示画像2点を原本コピー保存し、QRリーダーをBCR-TC2D1BKと記録。メーカー公式のUSB HID／Type-C／動作時230mAを確認し、QR要件と共通化案に反映。Type-C下流接続・給電・HID形式・7355との共存は未検証。コード変更・実機試験なし。
+- 最新指摘によりQRとDMMをWaveshare側へ共通化する方針へ修正。RP2350-USB-A＋USBハブでHID／CDCを扱う案、機器識別・同時接続・片側切断等の確認項目を変更要求に反映。直前のQR用CH9350を残す案は経緯として扱う。資料上の対応と実機未検証を区別し、コード・試験結果は変更していない。
+- 7355用追加マイコンをWaveshare製とするユーザー指定を記録。RP2350-USB-Aを第一候補に、CDCホスト用C/C++実装、R13等の現物照合、単体通信から治具連携へ進む開発案を追記。型番確定・実装・基板改造・実機試験は未実施。
+- 追加回答により測定器をADCMT 7355、接続をUSBと確定。保存済み取扱説明書§6.4でUSBTMC／CDCを確認し、HID用CH9350では対応しないとの資料上の判断、別USBホスト構成案と残確認事項を追記。従来外部測定要求に変更案への参照を追加。構成採用・実装・実機試験は未実施。
+- CH9350でQR読取とマルチメーター制御の両方を行う意向を別文書に記録。HID用途と測定器USB制御の互換性は未確認としてCH9350-06を追加。
+- 要求記録のみ。コード・正式接続仕様は変更せず、Host／Mock／実機試験は未実施。
+
 ## 2026-11-07 D3/D4 Refresh Host実装
 
 - `D3_REFRESH`と`D4_MAINT_READ`を共通Parser/Dispatcherへ接続し、仕様既定のNF CMD、T2、応答長でDecode後に各CacheをVALID化。
@@ -658,3 +680,11 @@ Sample 1 D1/D5 entry readiness; no product transaction or Open Issue closure.
 - 量産候補Profileを同じ論理のPROD-CH9350-STATE2として分離し、実機評価合格までは未承認と明記。状態0は互換性比較用で、状態2の試験結果と混在させない。
 - 販売基板のDIP番号・ON/OFFとIC論理の対応は未確認のため、現物の導通・電圧測定欄、評価記録、量産固定記録を追加。DIP変更は電源OFFで行い、再投入後に確認する手順とした。
 - 評価基板の詳細資料がなく、販売ホームページの記載を基にユーザーが提供した基板情報であることを追記。ホームページ画面・記載日時・DIP設定表原文は未保存とし、ICデータシート確認事項および現物測定結果と区別した。
+
+2026-11-09 実機前レビュー: ATE transportで拒否したASCII／FRAME／LINE_TOO_LONGも、試験中はRECEIVE_ERRORとしてRAM記録する。保存できるのは受信層が保持したprefixであり、入力全体のRAW取得とは扱わない。Host／Mock回帰試験を追加。
+
+2026-11-09 実機確認: 日時ログ、SD抜去時のWRITE_ERR・試験継続、再挿入中の復帰禁止、TEST_END後の復帰と異常履歴保持、次試験のログ再開を確認。D3正常（31ms・再送0）、D4はD4-TIM-01として継続。TEST_ENDの先行OKをEND_REQUESTに修正し、期限境界の部分RAW／ACK待ち異常byteも記録。Host／Mock全198件成功。詳細はReal_Hardware_Test_Log.md。
+
+2026-11-09: D4量産不使用をユーザー指定として記録。r1 p.35に基づきCLEAR4種をParser／Builderへ接続し、CD／CL正常応答DATA0文字を検証。Host／Mockでは送信形式、T2、成功／ambiguous時のCache無効化、SQE、不正引数の無送信、異常応答へのplain NAKを試験する。実機結果はReal_Hardware_Test_Log.mdへ記録。
+
+2026-11-09 CLEAR実機結果: POWER／BATT／ALL／LOGの4種がOK、19／19／20／19ms、再送0、BCC一致。CD後のDATA／STATUS無効化、CL後の全EL／OL無効化と96件の空ログ表現を確認。CLEAR_ALLは先行個別消去後の0維持を確認したもので、単独非ゼロ値消去は未検証。Host／Mock全203件合格。詳細・制限はReal_Hardware_Test_Log.md。

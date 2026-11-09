@@ -26,6 +26,7 @@ class FixtureDiagnostics:
         self.logger = logger
         self.ate_uart = ate_uart
         self.nf55_uart = nf55_uart
+        self.last_test_self_check = None
 
     def pico_self_check(self):
         results = [
@@ -34,6 +35,11 @@ class FixtureDiagnostics:
             self._check_rtc(),
             self._check_logger(),
         ]
+        if self.logger is not None and self.logger.last_test_sd_status is not None:
+            status = self.logger.last_test_sd_status
+            results.append(DiagnosticResult("TEST_LOGGER", status == "OK", status))
+            drops = self.logger.last_test_drop_count
+            results.append(DiagnosticResult("TEST_LOG_DROP", drops == 0, str(drops)))
         ok = all(item.ok for item in results)
         detail = ";".join("{}={}".format(item.name, "OK" if item.ok else item.detail or "NG") for item in results)
         return DiagnosticResult("PICO_SELF_CHECK", ok, detail)

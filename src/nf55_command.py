@@ -131,6 +131,11 @@ class NF55CommandSpec:
 
 
 CONTROL_COMMANDS = {
+    # CLEARはr1 p.35の既定データとT2を使用し、送信後に関連Cacheを無効化する。
+    "CLEAR_ALL": NF55CommandSpec("CLEAR_ALL", "CD", b"0", 500, "CD"),
+    "CLEAR_POWER": NF55CommandSpec("CLEAR_POWER", "CD", b"1", 500, "CD"),
+    "CLEAR_BATT": NF55CommandSpec("CLEAR_BATT", "CD", b"2", 500, "CD"),
+    "CLEAR_LOG": NF55CommandSpec("CLEAR_LOG", "CL", b"", 1000, "CL"),
     "CHARGE_ON": NF55CommandSpec("CHARGE_ON", "CN", b"1", cache_action="CN"),
     "CHARGE_ON_STOP": NF55CommandSpec("CHARGE_ON_STOP", "CN", b"0", cache_action="CN"),
     "CHARGE_OFF": NF55CommandSpec("CHARGE_OFF", "CF", b"1", cache_action="CF"),

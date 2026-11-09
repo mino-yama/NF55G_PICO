@@ -97,3 +97,5 @@ EB is asynchronous.
 | WAIT_RESPONSE_RETRY | final fail | FAILED |
 | TX_RESPONSE_ACK | sent | SUCCESS |
 | SUCCESS/FAILED | result returned | IDLE |
+
+2026-11-09: 期限境界の部分フレームとACK待ち異常byteもRAM RAWへ記録する。期限・再送・Cache方針は変更しない。D4実機TimingはOpen IssuesのD4-TIM-01で継続管理。

@@ -8,7 +8,7 @@ if ROOT not in sys.path:
 
 from src.cache_manager import CacheManager
 from src.command_dispatcher import CommandDispatcher
-from src.logger import Logger, MemorySDSink, SD_NO_CARD, SD_OK, SD_WRITE_ERR
+from src.logger import Logger, MemorySDSink, LoggerError, SD_NO_CARD, SD_OK, SD_WRITE_ERR
 from src.mock_nf55g import FakeClock
 
 
@@ -152,6 +152,63 @@ class LoggerSDTests(unittest.TestCase):
         self.assertEqual(logger.status(), SD_WRITE_ERR)
         self.assertEqual(logger.drop_count, 2)
         self.assertEqual(len(logger.queue), 0)
+
+    def test_failed_start_keeps_test_guard_until_end_and_recovers_once(self):
+        logger, sink, _ = self.make_logger()
+        sink.status = SD_NO_CARD
+        self.assertFalse(logger.test_start())
+        self.assertTrue(logger.test_running)
+        self.assertFalse(logger.reinit())
+        self.assertFalse(logger.service_recovery())
+        self.assertEqual(sink.reinit_count, 0)
+        self.assertFalse(logger.test_end())
+        self.assertFalse(logger.test_running)
+        self.assertTrue(logger.service_recovery())
+        self.assertEqual(sink.reinit_count, 1)
+        self.assertFalse(logger.service_recovery())
+        self.assertTrue(logger.test_start())
+
+    def test_removal_and_reinsertion_do_not_recover_inside_test(self):
+        logger, sink, clock = self.make_logger()
+        self.assertTrue(logger.test_start())
+        sink.status = SD_NO_CARD
+        logger.log(detail='removed')
+        clock.advance_ms(1000)
+        logger.service()
+        self.assertEqual(logger.status(), SD_NO_CARD)
+        sink.status = SD_OK
+        logger.log(detail='reinserted')
+        self.assertFalse(logger.reinit())
+        self.assertFalse(logger.service_recovery())
+        logger.service()
+        self.assertEqual(sink.write_count, 0)
+        self.assertEqual(sink.reinit_count, 0)
+        self.assertEqual(logger.drop_count, 2)
+        self.assertFalse(logger.test_end())
+        self.assertTrue(logger.service_recovery())
+        self.assertEqual(logger.status(), SD_OK)
+
+    def test_failed_post_test_recovery_is_not_polled_repeatedly(self):
+        logger, sink, _ = self.make_logger()
+        def missing():
+            sink.reinit_count += 1
+            raise LoggerError(SD_NO_CARD)
+        sink.reinit = missing
+        logger.test_start()
+        logger.test_end()
+        self.assertFalse(logger.service_recovery())
+        self.assertFalse(logger.service_recovery())
+        self.assertEqual(sink.reinit_count, 1)
+
+    def test_pending_recovery_waits_for_communication(self):
+        logger, sink, _ = self.make_logger()
+        logger.test_start()
+        logger.test_end()
+        logger.busy = lambda: True
+        self.assertFalse(logger.service_recovery())
+        self.assertTrue(logger.recovery_pending)
+        logger.busy = lambda: False
+        self.assertTrue(logger.service_recovery())
 
 
 if __name__ == "__main__":

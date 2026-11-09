@@ -72,8 +72,11 @@ The block driver uses individual sector commands even for multi-sector requests.
   the implementation does not claim power-fail atomicity for FAT.
 - SD operation entry points and Logger draining check NF55G busy/pending receive state.
   Interrupted draining retains unsent rows and resumes deferred flushes after communication.
-- SD write/flush/close errors latch status. SD_REINIT ends the current Logger session, counts queued records
-  as dropped, closes best-effort, remounts, and requires a new TEST_START/LOG_CONT_START.
+- SD write/flush/close errors latch status. SD_REINIT is rejected with ERR:BUSY throughout
+  TEST_START–TEST_END (even if log opening failed) and continuous logging. After TEST_END/LOG_CONT_STOP,
+  one recovery attempt runs only after pending ATE replies/requests and NF55G communication are idle.
+  No periodic recovery or formatting is performed. Recovery requires a new TEST_START/LOG_CONT_START
+  to resume recording. Startup attempts the existing FAT mount once; failures do not stop communication.
 - There is no card-detect input: absent-card and initialization failures may both appear as MOUNT_ERR.
 
 ## Host/Mock verification
@@ -126,3 +129,9 @@ inspect diagnostics and verify zero NF55G command TX, then test the scheduler wi
 Only install the automatic root entry point after startup/stop/recovery behavior is verified.
 
 Reference checked for the block-device contract: [MicroPython VFS documentation](https://docs.micropython.org/en/latest/library/vfs.html#block-devices).
+
+## 2026-11-09 Trial logging and final fixture diagnostics
+
+TEST_START/TEST_END acknowledge the test lifecycle with OK even when SD is unavailable. ATE requests/results and QR raw data join NF55G RAW/transaction records in the RAM queue. At TEST_END, SD recognition is checked without remount, pending data is flushed/closed, an acquired six-digit QR serial is prepended to the original timestamp filename, and final fixture diagnostics are retained in RAM. PICO_SELF_CHECK? reports TEST_LOGGER/TEST_LOG_DROP independently from current LOGGER state; post-test recovery cannot erase the previous trial's fault. Product judgement remains with ATE.
+
+FixtureApp.qr_reader has a completion callback to accept_qr(raw); the callback performs RAM operations only. The physical QR host/receive loop and formal QR commands remain pending OI-23/CH9350 decisions. No new GPIO or USB host initialization is introduced. Date names are used until TEST_END and when no valid serial was received. Rename collisions preserve both existing and new logs and report a fixture fault.

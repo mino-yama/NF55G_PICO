@@ -230,6 +230,8 @@ class NF55Protocol:
                 raw = self._read_frame_until(deadline_ms, first)
                 if raw is not None and self._handle_eb(raw):
                     continue
+            elif first:
+                self._trace("RX", first)
             break
         return "TIMEOUT", None
 
@@ -261,6 +263,9 @@ class NF55Protocol:
             if len(raw) >= 512:
                 self._trace("RX", raw)
                 return raw
+        # 期限直前に受けた最終byteでループを抜けても、未完フレームを記録する。
+        if raw:
+            self._trace("RX", raw)
         return None
 
     # EBは独立して検証・記録・ACK/NAKする。STATUS/INFO Cacheには反映しない。

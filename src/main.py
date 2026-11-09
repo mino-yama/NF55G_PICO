@@ -22,6 +22,7 @@ try:
     from .pico_clock import SystemClock
     from .ate_server import ATEServer
     from .sd_sink import PicoSDSink
+    from .qr_reader import QRReceiver, decode_qr
 except ImportError:  # pragma: no cover
     from ate_uart import create_ate_uart
     from cache_manager import CacheManager
@@ -35,6 +36,7 @@ except ImportError:  # pragma: no cover
     from pico_clock import SystemClock
     from ate_server import ATEServer
     from sd_sink import PicoSDSink
+    from qr_reader import QRReceiver, decode_qr
 
 
 class FixtureApp:
@@ -46,6 +48,7 @@ class FixtureApp:
         self.cache = cache or CacheManager(clock_ms=self.clock.ticks_ms)
         self.logger = logger or Logger(clock=self.clock, rtc=rtc)
         self.rtc = rtc
+        self.qr_reader = QRReceiver(on_ready=self.accept_qr)
         self.server = ATEServer(ate_uart) if ate_uart is not None else None
         self.running = False
         self._last_rtc_sample = -1000
@@ -59,6 +62,19 @@ class FixtureApp:
             self.protocol.trace_hook = self._trace_nf
         self.diagnostics = FixtureDiagnostics(rtc=self.rtc, logger=self.logger, ate_uart=self.ate_uart, nf55_uart=self.nf55_uart)
         self.dispatcher = CommandDispatcher(self.protocol, self.cache, logger=self.logger, rtc=self.rtc, diagnostics=self.diagnostics)
+
+    def accept_qr(self, raw):
+        # QR受信完了からのRAM連携口。NF55G書込みやSDアクセスは行わない。
+        if not self.logger.test_running:
+            return False
+        try:
+            fields = decode_qr(raw)
+        except ValueError:
+            self.logger.set_serial(None)
+            return False
+        accepted = self.logger.set_serial(fields['serial'])
+        self.logger.log(category='QR', event='RECEIVED', result='OK' if accepted else 'INVALID_SN', detail=raw)
+        return accepted
 
     def _comm_busy(self):
         if self.protocol is None:
@@ -101,7 +117,15 @@ class FixtureApp:
                 self.server.flush_reply()
                 if not self.server.tx and self.server.pending and not self._comm_busy():
                     line, error = self.server.pending.pop(0)
-                    response = 'ERR:' + error if error else self.execute_ate_line(line)
+                    if error:
+                        response = 'ERR:' + error
+                        # Parserへ渡せない受信異常も、試験中はRAM経由で記録する。
+                        if self.logger.active or self.logger.test_running:
+                            self.logger.log(category='ATE', direction='RX', event='RECEIVE_ERROR',
+                                            raw_hex=binascii.hexlify(line).decode('ascii'), result=response,
+                                            detail='retained prefix only; rejected by ATE transport')
+                    else:
+                        response = self.execute_ate_line(line)
                     self.server.reply(response)
                     self.server.flush_reply()
                     return
@@ -119,6 +143,8 @@ class FixtureApp:
             except (ValueError, OSError):
                 self.logger.timestamp_snapshot = ''
             self._last_rtc_sample = now
+        # TEST_END応答とATE待ち要求を処理した後に、一度だけSDを再認識する。
+        self.logger.service_recovery()
         self.logger.service(protocol_busy=self._comm_busy())
 
     def run(self):
@@ -138,6 +164,19 @@ class FixtureApp:
 
     # 共通コマンド入口。分類ごとに担当へ渡し、NF55Gへ送らないローカル要求もここで分岐する。
     def execute_ate_line(self, line):
+        # ATEの論理要求・実行結果をRAM記録する。TXはUART送信完了の意味ではない。
+        was_recording = self.logger.active or self.logger.test_running
+        text = line.decode('ascii') if isinstance(line, bytes) and all(b < 128 for b in line) else str(line)
+        if was_recording:
+            self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
+        response = self._execute_ate_line(line)
+        if not was_recording and (self.logger.active or self.logger.test_running):
+            self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
+        if self.logger.active or self.logger.test_running:
+            self.logger.log(category='ATE', direction='TX', event='RESULT', result=response, detail=text)
+        return response
+
+    def _execute_ate_line(self, line):
         try:
             parsed = parse_ate_command(line)
         except (ParseError, UnicodeError) as exc:

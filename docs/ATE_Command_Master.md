@@ -21,7 +21,7 @@ Revision: Rev.0
 | INFO_REFRESH | D5 | 100ms | INFO | MFG50 + PARAM50 |
 | D2_REFRESH | D2 | 100ms | D2 | 量産原則未使用 |
 | D3_REFRESH | D3 | 200ms | D3 | LIFE_CALC clear 副作用 |
-| D4_MAINT_READ | D4 | 100ms | D4 | AC_FAIL_COUNT clear 副作用 |
+| D4_MAINT_READ | D4 | 100ms | D4 | 量産では使用しない（2026-11-09ユーザー指定）。AC_FAIL_COUNT clear 副作用 |
 | AR_REFRESH | AR | Open Issue | AR | FW 独自 |
 | FD_READ_xxxxxx | FD | 100ms | FD | 6 hex address |
 | EL_REFRESH_01/09/17/25 | EL | 100ms | EL block | 8 records/block |
@@ -252,3 +252,19 @@ QRのREVは製品REVで、SSのUNIT_REVに対応する。FW_REVISIONとの照合
 ## 2026-09-26 QR単独受信試験（正式APIとは別）
 今回の試験ではQR_SCANでPico受信を開始し、35文字+LF/CRLFを受信後に自動分割して試作用RAM CacheとREPLへ出力する。以前のQR_PARSE工程分離案の本番採否は保留。
 試作用コマンド: QR_SCAN、QR_STATUS?、QR_GET、QR_DATA、QR_CANCEL。ATE終端はCRLF。詳細は[試験手順](QR_Receive_Test.md)。本番dispatcherには未登録。NF55Gコマンド送信機能なし。
+
+## SD復帰の試験期間制約（2026-11-09）
+
+TEST_START～TEST_END（ログ開始失敗時を含む）および連続記録中のSD_REINITはERR:BUSYを返す。TEST_END／LOG_CONT_STOP後、ATE応答・待ち要求を優先した通信待機時に1回だけ再認識する。2026-11-09②③要求によりTEST_START／TEST_ENDはSD異常でも試験受付・終了のOKを返す。保存異常はTEST_END最終段のSelf CheckとPICO_SELF_CHECK?で報告し、NF55G通信は継続可能。復帰結果はSD_STATUS?で確認する。フォーマットは実行しない。詳細は[Logger / SD仕様](Logger_SD_Spec.md)を参照。
+
+## 試験終了時の装置自己診断（2026-11-09）
+
+TEST_START後にQRを読み、試験終了のTEST_ENDで最終Self Checkを実行する。PICO_SELF_CHECK?には既存のATE_UART／NF55_UART／RTC／LOGGERに加え、試験終了後はTEST_LOGGER（その試験のSD保存状態）、TEST_LOG_DROP（OKまたは破棄件数）を含める。NGは装置異常であり製品FAILではない。復帰後も直前試験の異常を保持し、次のTEST_STARTで初期化する。TEST_START／TEST_ENDのOKはログ保存成功や製品PASSの意味ではない。
+
+ログ名は日時を基本とし、試験中に取得したQRの末尾6桁の数字S/Nを終了時に付加する。正式QR取得コマンド・物理入力はOI-23で引き続き管理し、今回新設しない。
+
+## 2026-11-09 D4運用とCLEAR試験
+
+D4は副作用のため量産では使用しない。D4-TIM-01は未解決のまま保守課題として保持し、CLEAR試験を優先する。CLEAR_ALL／POWER／BATTはCDのDATA0／1／2、T2=500ms。CLEAR_LOGはCLのDATAなし、T2=1000ms。r1 p.35に従い正常応答はどちらもDATA0文字。成功と成否不明時は既存Cache規則に従い無効化し、応答から昇格しない。CDで満充電情報等が初期化され初期充電が動作し得るため、今回ユーザー確認済みのバッテリ未接続条件で通信試験する。
+
+2026-11-09 CLEAR実機結果: POWER／BATT／ALL／LOGの4種がOK、19／19／20／19ms、再送0、BCC一致。CD後のDATA／STATUS無効化、CL後の全EL／OL無効化と96件の空ログ表現を確認。CLEAR_ALLは先行個別消去後の0維持を確認したもので、単独非ゼロ値消去は未検証。Host／Mock全203件合格。詳細・制限はReal_Hardware_Test_Log.md。

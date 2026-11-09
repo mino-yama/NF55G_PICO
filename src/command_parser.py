@@ -45,6 +45,10 @@ CONTROL_COMMANDS = (
     "BACKUP_OFF",
     "OUTPUT_RESTART",
     "PARAM_RESET",
+    "CLEAR_ALL",
+    "CLEAR_POWER",
+    "CLEAR_BATT",
+    "CLEAR_LOG",
     "PARAM_SET",
     "CLOCK_SYNC",
 )

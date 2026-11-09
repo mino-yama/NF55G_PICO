@@ -338,3 +338,27 @@ ATE開始後、QR_TEST READING → QR_TEST READYを確認。
 確認範囲はATE受付→QR経路からの受信→形式検証/分割→一時Cache/REPL表示。SS送信・CSV記録・量産Timing・全入力パターンを含むHIL完了ではない。L-46X認識が改善した要因は未特定のまま。
 
 2026-09-26 HOST TX0診断: Host/Mock全161件合格、git diff --check合格（既存ファイルの改行警告のみ）。COM14への転送は接続不可で未完了。serial.tools.list_portsではCOM10のみ列挙、COM14は認識されていない。診断受信開始・230400bps実受信・ログ比較は未実施。Pico USB再接続後に転送から再開する。
+
+## SD抜き差し・終了後復帰（2026-11-09）
+
+Host／Mock: SD未認識のTEST_START後もD1取得が成功し、試験中のSD_REINITがERR:BUSYとなること。抜去検出後に再挿入しても試験中に再認識・書込みを再開しないこと。TEST_END後のATE応答と待ち要求を優先して1回だけ復帰し、失敗時の周期再試行がないこと。通信busy中の復帰は待機し、次のTEST_STARTで記録を再開すること。
+
+実機未実施: SDなし電源投入→試験継続、記録中の抜去→通信継続、試験中の再挿入→復帰なし、TEST_END後の再認識→次回ログ作成、未挿入での終了、別カードへの交換、close／unmount失敗、既存ファイル保持、フォーマットが行われないことを確認する。ATE応答時間・NF55G通信TimingとLOG_DROP_COUNTも記録する。
+
+## 2026-11-09 試験ログ・QR命名・最終Self Check
+
+Host／Mock: 試験開始後のQR受信callbackから末尾6桁を取得し、実ファイルをS/N＋開始日時名へ変更すること。先頭ゼロ、未取得／不正値の日時維持、試験外／前回S/N不使用、命名衝突時の既存／新規ログ保持、再mount後のS/Nファイル容量集計を検証する。ATE要求・Query結果・拒否結果・QR原文・終了前Self Check行をCSVで確認する。SDなしでもTEST_START／TEST_ENDがOK、NF55G通信継続、最終Self Checkが装置NGを報告し、復帰成功でもTEST_LOGGER異常を保持すること。終了時の認識確認失敗とclose失敗も検証する。
+
+実機未実施: 新QR入力との接続、開始後の光学読取り、最終S/Nファイルの存在とCSV内容、SDなし／試験中抜去／再挿入、最終Self CheckのATE表示と製品判定分離、flush／close／rename失敗、通信Timingを確認する。
+
+2026-11-09 実機前レビュー: ATE transportで拒否したASCII／FRAME／LINE_TOO_LONGも、試験中はRECEIVE_ERRORとしてRAM記録する。保存できるのは受信層が保持したprefixであり、入力全体のRAW取得とは扱わない。Host／Mock回帰試験を追加。
+
+2026-11-09 実機確認: 日時ログ、SD抜去時のWRITE_ERR・試験継続、再挿入中の復帰禁止、TEST_END後の復帰と異常履歴保持、次試験のログ再開を確認。D3正常（31ms・再送0）、D4はD4-TIM-01として継続。TEST_ENDの先行OKをEND_REQUESTに修正し、期限境界の部分RAW／ACK待ち異常byteも記録。Host／Mock全198件成功。詳細はReal_Hardware_Test_Log.md。
+
+2026-11-09: D4量産不使用をユーザー指定として記録。r1 p.35に基づきCLEAR4種をParser／Builderへ接続し、CD／CL正常応答DATA0文字を検証。Host／Mockでは送信形式、T2、成功／ambiguous時のCache無効化、SQE、不正引数の無送信、異常応答へのplain NAKを試験する。実機結果はReal_Hardware_Test_Log.mdへ記録。
+
+2026-11-09 CLEAR実機結果: POWER／BATT／ALL／LOGの4種がOK、19／19／20／19ms、再送0、BCC一致。CD後のDATA／STATUS無効化、CL後の全EL／OL無効化と96件の空ログ表現を確認。CLEAR_ALLは先行個別消去後の0維持を確認したもので、単独非ゼロ値消去は未検証。Host／Mock全203件合格。詳細・制限はReal_Hardware_Test_Log.md。
+
+2026-11-09実機: ATE経由RTC_DATE?／RTC_TIME?とPC現在JSTによるRTC_SET_YYYYMMDD_HHMMSS・読戻しを確認。設定値との秒差0、直後PCとの差-1.260秒。RTCコマンドはPico専用でSCへ連動しない。詳細とログはReal_Hardware_Test_Log.md。今後、製品動作／出力の確認を伴う送信時はユーザーへ観測項目を伝え、実測結果を受け取る。
+
+2026-11-09実機: LOG_CONT_START／STOPを2回確認。CONT状態、停止前の定期保存、二重開始・SD_REINITのBUSY拒否、停止時closeとQueue0、日時別ファイルでの再開始、ログ破棄0を確認。RTC要求・応答を記録し、CSVをtempへ順次コピー。長時間／100MBロールオーバーは未確認。詳細はReal_Hardware_Test_Log.md。
