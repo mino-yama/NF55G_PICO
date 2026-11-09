@@ -1,5 +1,12 @@
 # Open Issues
 
+## BE-ACCEPT-01: 非バックアップ状態でのBE受付（2026-11-09、Open）
+
+- 確認事実: r1 p.17はBEの受付をPS_OFF=不可、バックアップ中=可と記載。今回D1でPS_ON=1／BATT_ON=0を確認後、10:29:53 JSTにBACKUP_ENABLEを1回送信したところ、SQEでなく正常応答DATA15文字・OK（26ms、再送0、BCC一致）だった。前後のD1全フィールドは一致し、BACKUP_READY=1を維持。バッテリ未接続はユーザー報告。元PARAMはPS_ON_BACKUP=1。
+- ユーザー観測: 出力変化・瞬断・再起動なし。電圧数値・波形は未提示。
+- 未確認: 受付条件とPS_ON／BATT_ONの対応、r1 p.23の待機状態説明およびp.43の装置動作例との解釈、今回FWと最終仕様との整合。設計担当者の回答が必要。今回だけで製品FW不具合とは断定しない。
+- 方針: PicoでOKをSQEへ置換せず、実応答を保持する。BF・OR・停電操作を追加して辻褄を合わせない。バックアップ中のBE正常動作・実放電は未確認。詳細は[実機記録](Real_Hardware_Test_Log.md)、[証跡](../temp/hil_backup_enable_20261109_run01/result_summary.json)。
+
 Revision: Rev.0
 Codex must NOT close these by inference.
 

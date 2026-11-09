@@ -159,6 +159,75 @@ class ControlCacheIntegrationTests(unittest.TestCase):
         self.assertFalse(cache.is_valid("INFO"))
         self.assertTrue(cache.is_valid("BC"))
 
+    def test_param_reset_empty_response_and_t2_invalidates(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.ack_response("RP", "", response_delay_ms=99)])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_RESET")
+        self.assertEqual(result.ate_response, "OK")
+        self.assert_frame_tx(uart, "RP", b"")
+        for name in ("DATA", "STATUS", "INFO"):
+            self.assertFalse(cache.is_valid(name))
+        self.assertTrue(cache.is_valid("BC"))
+
+    def test_param_reset_nonempty_response_is_ambiguous(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.ack_response("RP", "0")])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_RESET")
+        self.assertEqual(result.ate_response, "ERR:FINAL_BCC_FRAME")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(uart.tx_log[-1], b"\x15")
+        for name in ("DATA", "STATUS", "INFO"):
+            self.assertFalse(cache.is_valid(name))
+
+    def test_param_reset_timeout_invalidates(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_RESET")
+        self.assertEqual(result.ate_response, "ERR:ACK_TIMEOUT")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(result.transaction.command_retry_count, 1)
+        for name in ("DATA", "STATUS", "INFO"):
+            self.assertFalse(cache.is_valid(name))
+
+    def test_param_reset_sequence_error_preserves_cache(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.error("SQE")])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_RESET")
+        self.assertEqual(result.ate_response, "ERR:SQE")
+        self.assertFalse(result.transaction.ambiguous)
+        for name in ("DATA", "STATUS", "INFO", "BC"):
+            self.assertTrue(cache.is_valid(name))
+
+    def test_param_set_nonempty_response_is_ambiguous_and_invalidates(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.ack_response("SP", "0")])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_SET", "0" * 50)
+        self.assertEqual(result.ate_response, "ERR:FINAL_BCC_FRAME")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(uart.tx_log[-1], b"\x15")
+        for name in ("DATA", "STATUS", "INFO"):
+            self.assertFalse(cache.is_valid(name))
+        self.assertTrue(cache.is_valid("BC"))
+
+    def test_param_set_sequence_error_preserves_all_cached_values(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.error("SQE")])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_SET", "0" * 50)
+        self.assertEqual(result.ate_response, "ERR:SQE")
+        self.assertFalse(result.transaction.ambiguous)
+        for name in ("DATA", "STATUS", "INFO", "BC"):
+            self.assertTrue(cache.is_valid(name))
+
+    def test_param_set_timeout_is_ambiguous_and_invalidates(self):
+        dispatcher, cache, uart = self.make_dispatcher([ScenarioStep.ack_timeout(), ScenarioStep.ack_timeout()])
+        self.seed_cache(cache)
+        result = dispatcher.execute_control("PARAM_SET", "0" * 50)
+        self.assertEqual(result.ate_response, "ERR:ACK_TIMEOUT")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(result.transaction.command_retry_count, 1)
+        for name in ("DATA", "STATUS", "INFO"):
+            self.assertFalse(cache.is_valid(name))
+
     def test_param_set_rejects_wrong_length_without_nf55_tx_or_cache_change(self):
         dispatcher, cache, uart = self.make_dispatcher([])
         self.seed_cache(cache)

@@ -107,7 +107,7 @@ class CommandDispatcher:
             spec.nf_cmd,
             data=spec.data,
             t2_ms=spec.t2_ms,
-            expected_length=0 if spec.nf_cmd in ("SC", "CD", "CL") else None,
+            expected_length=0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP") else None,
         )
 
         # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。

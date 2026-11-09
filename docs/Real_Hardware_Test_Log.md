@@ -2554,3 +2554,52 @@ Keep the NF55G unpowered and do not send product commands during this check.
 - 2本ともNF55Gコマンド送信RAW0件、ログ破棄は開始前0→終了後0。最終COMM_STATUS=IDLE、SD_STATUS=OK、PICO_SELF_CHECK正常。Self CheckのTEST_LOGGER項目は直前のTESTセッション由来であり、今回CONT専用の最終履歴とは扱わない。
 - 証跡: [TX/RX・Pico状態原本](../temp/hil_log_cont_20261109_095446/events.jsonl)、[結果JSON](../temp/hil_log_cont_20261109_095446/log_cont_result.json)。同一app.runを再開し、PC側の両ポートはclose済み。
 - 確認範囲は短時間の開始・定期保存・停止・再開始。長時間記録、100MBロールオーバー、電源断保持、連続記録中の実カード抜去は今回未確認。
+
+## 2026-11-09 PARAM_SET同一値書戻し実機確認
+
+- ユーザーが試験を了承し、バッテリ未接続・出力監視準備完了を確認。COM20=ATE、COM14=USB保守。
+- DispatcherのSP正常応答DATA長を0文字に厳密化し、非空応答／SQE／timeoutとCacheの回帰試験を追加。Host／Mock全206件成功、git diff --check合格。旧Dispatcherをtemp/hil_param_20261109_run01/pico_before_paramへ退避、配置後全25ファイルの読戻し一致を確認。[配置hash](../temp/hil_param_20261109_run01/final_deployment_manifest.json)。
+- 送信前D5 DATA100文字の後半PARAMETER50文字をreserve込みで退避し、符号化と設定範囲を確認。送信値は102000F0F32132424000415055550267000000000000000000。製造情報前半50文字も保存した。
+- 送信直前に12V電圧・瞬断・再起動の監視を依頼し、10:06:48 JSTにPARAM_SETをATEから1回送信。正常応答DATA0文字、BCC一致、command retry0、response retry0、elapsed72ms、ambiguous=False。
+- 直後にFW_REV?、PS_ON?、NF55_DATETIME?はいずれもERR:CACHE_INVALID。INFO／STATUSは直前D5/D1でVALIDだったため無効化遷移を確認。DATAは配置時からINVALIDでありVALIDからの遷移の実機証明ではない。
+- ユーザーから「出力に変化なし・瞬断／再起動なし」と報告。電圧の数値は提示されていないため、数値一致や瞬断波形の精密評価とは扱わない。結果待ちの間は追加製品コマンドを送らず、送信段階のCSVを閉じてtempへ回収した。
+- 報告受領後にINFO_REFRESH／STATUS_REFRESHを明示実行。D5の設定後半50文字と製造前半50文字が送信前に完全一致。Queryによる自動Refreshや応答からのSTATUS昇格は行っていない。ユーザー観測はOPERATOR/OBSERVATIONとして出典を明記してCSVへ保存。
+- 各段階のSelf Check正常、SD OK、ログ破棄0、最終通信IDLE。app.runを再開し、PC側COM14／COM20をclose。NF55Gへ送信したのはD5／D1／SPであり、D0・D4・RP・SC・FU・充電／出力制御は送信していない。
+- [送信前ログ](../temp/20261109_100614.csv)、[SP送信ログ](../temp/20261109_100647.csv)、[読戻し・観測結果ログ](../temp/20261109_100741.csv)を各段階でtemp直下へコピー・内容一致確認。全フレームBCC一致。
+- [設定前後比較](../temp/hil_param_20261109_run01/param_comparison.json)、[設定原本](../temp/hil_param_20261109_run01/before_info.json)、[TX/RX実測](../temp/hil_param_20261109_run01/events.jsonl)。
+- 確認範囲は同一値設定の通信・Cache無効化・読戻し一致。設定の実変更、電源切入保持、RP、保護動作は未確認。Picoは製品PASS/FAILを判定していない。
+
+## 2026-11-09 PARAM_RESET・元設定復元の実機確認
+
+- ユーザー指示により、現在のPARAMを退避してRESET・読戻し・書戻しを実施。バッテリ未接続、COM20=ATE、COM14=Pico保守。r1 p.21のRP正常応答DATA0文字をDispatcherで厳密検証する修正と回帰試験を追加し、Host／Mock全210件成功。旧モジュールを退避して配置後、全25ファイルの読戻し一致を確認した。
+- D5設定RAW50文字を予約領域込みで[退避](../temp/hil_param_reset_20261109_run01/before_info.json)。元値は `102000F0F32132424000415055550267000000000000000000`。製造情報50文字も保存。
+- 10:13:05 JSTの最初のPARAM_RESETはOK、57ms。読戻しはr1初期値に一致したが、元から初期値だったため、この段階だけでは値が消去された差分は実証できない。
+- 差分確認としてEVENT_ENABLEのみ0→1に設定（10:14:29、SP=OK、72ms）。D5で変更箇所がEVENTだけであることを確認。出力制御・保護しきい値は変更していない。
+- 10:16:30にPARAM_RESETを送信（OK、56ms）。D5でEVENT_ENABLEが1→0へ戻り、全16設定がr1初期値に一致した。RESETは全項目を数値0にする操作ではない。他項目の非初期値からの個別初期化を今回実証したことにはならない。
+- 10:17:15に退避した元RAW50文字をPARAM_SETで書戻し（OK、73ms）。その後のD5で、設定50文字および製造情報50文字が元データに完全一致。EVENT_ENABLE=0へ復元済み。
+- RP／SP正常応答は全てDATA0文字、再送0、ambiguous=False、BCC一致。各操作後のFW_REV?／PS_ON?／NF55_DATETIME?はERR:CACHE_INVALIDで、その後INFO_REFRESH／STATUS_REFRESHを明示実行。DATAは元からINVALIDであり、VALIDからの無効化遷移の実機証明とは扱わない。
+- 4回とも送信時に出力監視を依頼し、ユーザーから「出力変化・瞬断・再起動なし」と報告。[観測記録](../temp/hil_param_reset_20261109_run01/operator_observations.json)。電圧数値・波形は提示されていない。
+- 各試験のSelf Check正常、SD OK、ログ破棄0、最終通信IDLE。各終了後にSDからtemp直下へコピーし、内容一致とSHA256を確認。app.run再開済み、PCの両ポートclose済み。
+- CSV: [退避](../temp/20261109_101237.csv)、[最初のRESET](../temp/20261109_101303.csv)、[EVENT変更](../temp/20261109_101427.csv)、[差分RESET](../temp/20261109_101628.csv)、[元値書戻し](../temp/20261109_101713.csv)。全CSVのNF55フレームBCC一致。
+- [結果集計](../temp/hil_param_reset_20261109_run01/result_summary.json)、[復元読戻し](../temp/hil_param_reset_20261109_run01/restore_info.json)、[TX/RX原本](../temp/hil_param_reset_20261109_run01/events.jsonl)、[CSV解析](../temp/hil_param_reset_20261109_run01/csv_analysis.json)。物理電源切入後の保持、保護動作、EVENT以外の非初期値からの初期化は未確認。製品PASS/FAILは判定していない。
+
+## 2026-11-09 Pico診断・不正要求拒否の実機確認
+
+- コマンド試験継続のユーザー指示により、製品へ送信しない診断・拒否動作を確認。COM20=ATE、COM14=ログ回収。10:25:43頃にTEST_STARTし、13項目を逐次送信、TEST_END後にCSVをtemp直下へコピーした。ソース変更・ファームウェア配置なし。Host／Mock再実行なし（直前210件成功）。
+- `*IDN?` → `NF55G_PICO_FIXTURE,Rev.0`、`COMM_STATUS?` → `OK:state=IDLE`、`RETRY_COUNT?` → `OK:cmd=0,rsp=0`。Retry値は直前のTransaction由来であり、今回NF55Gへ通信したことを示さない。
+- `SD_STATUS?` → `OK`、`SD_USAGE?` → `3604480/15910043648/0.023%`、`LOG_DROP_COUNT?` → `0`。SD使用量は報告時点の値で、使用率の計算・表示精度と範囲を照合した。
+- `FW_UPDATE` → `ERR:FU_DISABLED`。FUをNF55Gへ送らず、ATE入口で禁止することを確認。
+- `PARAM_SET`、`PARAM_SET 1234` → `ERR:PARAM_SET payload must be exactly 50 ASCII chars`。`PARAM_RESET EXTRA` → `ERR:PARAM_RESET does not accept payload`。`INFO_REFRESH EXTRA`、`FW_REV? EXTRA` → `ERR:UNEXPECTED_PAYLOAD`。`COMMAND_TEST_UNKNOWN` → `ERR:UNKNOWN_CMD`。この範囲の不正要求7項目は全て想定応答と一致した。
+- [CSV](../temp/20261109_102543.csv)は2212byte、SHA256 `43fb98ed4353384137cffcfd7be11544d8cc878bef8ac374db7c170cd0a1b903`。NF55カテゴリのTX行は0件。送信を伴うRefresh／Controlは実行していない。
+- 送信時に監視を依頼し、ユーザーから「出力変化・瞬断・再起動なし」と報告。電圧数値・波形は未提示。最終Self Check正常、SD OK、ログ破棄0、通信IDLE。同一app.run再開・PC両ポートclose済み。
+- [応答・観測・ログ集計](../temp/hil_local_guard_20261109_run01/result_summary.json)、[TX/RXとホスト時刻](../temp/hil_local_guard_20261109_run01/events.jsonl)。全ての不正入力の網羅、通信線上の波形確認、製品PASS/FAIL判定を行ったことにはならない。
+
+## 2026-11-09 BACKUP_ENABLE 非バックアップ状態の受付確認
+
+- ユーザーのコマンド試験継続指示によりBEを選定。r1 p.17の受付表では非バックアップ状態でSQEを想定。p.23の要求DATAなし・応答状態情報15文字、T2=100msを照合。バッテリ未接続の既報条件を引き継ぎ、AC断・配線変更は行わなかった。
+- TEST_START後にSTATUS_REFRESHを明示実行し、PS_ON=1、BATT_ON=0、BACKUP_READY=1、通信IDLEを確認。10:29:53 JSTにBACKUP_ENABLEを1回だけ送信した。
+- 実応答はSQEでなくOK。BE応答DATA15文字、elapsed26ms、command retry0／response retry0、ambiguous=False、BCC一致。期待と異なる受付をBE-ACCEPT-01としてOpen Issuesへ記録。Picoによる仕様差の吸収や応答置換は行わない。
+- 直後STATUS CacheがINVALID、INFOはVALIDを維持。DATAは送信前からINVALIDのため遷移の実証ではない。Control応答からSTATUSへ昇格せず、続く明示STATUS_REFRESHで再取得。D1全フィールドが前後一致し、PS_ON=1、BATT_ON=0、BACKUP_READY=1のまま。BACKUP_READYは元から1のため、今回のBEによる0→1遷移は未確認。
+- 送信時に出力監視を依頼し、[ユーザー報告](../temp/hil_backup_enable_20261109_run01/operator_observation.json)は「出力変化・瞬断・再起動なし」。数値電圧・波形は未提示。Protocol OKはバックアップ動作成立や製品PASSを意味しない。
+- TEST_END後のSelf Check正常、SD OK、ログ破棄0、通信IDLE。[CSV](../temp/20261109_102951.csv)をtemp直下へ回収し内容一致確認。2063byte、SHA256 `44c2fdbf248513b7309abe4c79c744aa5967237ed765fbdc4c8f44b2b86069bd`。全フレームBCC一致。[実応答・前後値](../temp/hil_backup_enable_20261109_run01/result_summary.json)、[TX/RX原本](../temp/hil_backup_enable_20261109_run01/events.jsonl)。
+- 送信した製品コマンドはD1／BE／D1のみ。BF・OR・D0・D4・FUは送信していない。同一app.run再開、PC両ポートclose済み。ソース変更・配置なし、Host／Mock再実行なし（直前210件成功）。バックアップ中の受付・実放電・停止動作は未確認。

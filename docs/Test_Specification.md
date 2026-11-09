@@ -362,3 +362,36 @@ Host／Mock: 試験開始後のQR受信callbackから末尾6桁を取得し、�
 2026-11-09実機: ATE経由RTC_DATE?／RTC_TIME?とPC現在JSTによるRTC_SET_YYYYMMDD_HHMMSS・読戻しを確認。設定値との秒差0、直後PCとの差-1.260秒。RTCコマンドはPico専用でSCへ連動しない。詳細とログはReal_Hardware_Test_Log.md。今後、製品動作／出力の確認を伴う送信時はユーザーへ観測項目を伝え、実測結果を受け取る。
 
 2026-11-09実機: LOG_CONT_START／STOPを2回確認。CONT状態、停止前の定期保存、二重開始・SD_REINITのBUSY拒否、停止時closeとQueue0、日時別ファイルでの再開始、ログ破棄0を確認。RTC要求・応答を記録し、CSVをtempへ順次コピー。長時間／100MBロールオーバーは未確認。詳細はReal_Hardware_Test_Log.md。
+
+## 2026-11-09 次試験計画：PARAM_SET同一値書戻し（未実施）
+
+### 選定と範囲
+- 次対象は既存ATEコマンドPARAM_SET（NF SP）。r1 p.19の50文字設定DATAと、p.38のD5読出し値を使う。現行値をそのまま送り、設定通信・Cache無効化・読戻し一致を先に確認する。設定変更動作そのものの検証とは区別する。
+- PARAM_RESET（RP）は初期値への変更を伴うため次段階に分離。D4は量産不使用として今回送信しない。保護しきい値・自動充電等を別値へ変更しない。
+
+### 実機前の準備
+1. SP正常応答DATA0文字の厳密検証を追加する。現行DispatcherはSC/CD/CLのみexpected_length=0であり、SPは長さ未指定。Code／Host Test／Docs／CHANGELOGを合わせ、異常DATA長・SQE・不正引数・ambiguousとCache規則を検証してから配置する。RPにも同じ原典上の0文字応答契約があるが、その対応・実機試験は別段階とする。
+2. 現行Picoソースを退避して配置・全ファイルhash照合。COM20=ATE、COM14=USB保守を使用し、SD正常・通信IDLEを確認する。
+3. ユーザーにAC／バッテリ／負荷／出力の現状態と電圧観測方法を確認する。出力変化の許容値は設計またはユーザーの条件を使い、Picoで製品PASS/FAILを決めない。
+
+### 試験手順
+1. *IDN?、COMM_STATUS?、SD_STATUS?、PICO_SELF_CHECK?を確認後、TEST_START。
+2. INFO_REFRESH（D5）とSTATUS_REFRESH（D1）を明示実行。D5 DATA100文字・BCCを検証し、後半50文字のPARAMETERをreserve18文字も含めRAW保存する。製造情報前半50文字も保存。表示用10進Queryから送信文字列を再構成しない。
+3. 読出しRAWの桁数・文字種・項目範囲を原典r1と照合し、符号化不明・範囲外等があれば送信前に停止してIssueへ記録。前値と送信候補50文字の一致を照合する。
+4. 送信直前にユーザーへ「現行設定と同値のPARAM_SETを送信する。12V出力電圧、出力断・再起動の有無を監視し、結果を返してほしい」と通知し、監視準備後にPARAM_SET <取得した50文字>を1回送信する。仕様のCommand Retry最大1回は別管理し、ATEから反復送信しない。
+5. Protocol結果、ACK、BCC、応答DATA0文字、T2=100ms、cmd/rsp retry、elapsed、ambiguousを保存。OKを製品動作成立とは扱わない。
+6. RefreshせずFW_REV?（INFO）とPS_ON?（STATUS）がERR:CACHE_INVALIDであることを確認。NF55_DATETIME?（DATA）もINVALIDを確認するが、送信前からINVALIDの場合はVALIDからの遷移を証明したとは扱わない。
+7. ユーザーから送信時の実機観測結果を受け取る。異常があれば後続操作を止め、実測値・時刻・現状態を記録する。
+8. 異常がなければINFO_REFRESH／STATUS_REFRESHを明示実行し、D5後半50文字が送信前と完全一致、製造前半50文字が変わっていないこと、STATUS変化を確認する。個別QueryはCacheのみ参照する。
+9. TEST_END→PICO_SELF_CHECK?／SD_STATUS?／LOG_DROP_COUNT?。SD CSVとATE送受信・設定前後RAW・ユーザー実測結果をtemp直下へ順次コピーし、hash一致を確認。アプリ稼働・通信IDLEとポート解放を確認する。
+
+### 中断・復旧・残確認
+- timeout／FRAME／BCC最終異常では実行成否不明として扱い、DATA／STATUS／INFOのINVALIDを保持。盲目的な再書込み・PARAM_RESET・製品電源切入は行わない。
+- 読戻し不一致時は原本・受信値・実測を保存して原因確認。元設定の復元が必要なら、保存済みRAWと回復した通信状態を確認して別の明示操作として行う。推測で値を補完しない。
+- 本試験は同一値書戻しであり、設定値の実変更・電源切入保持・保護動作・PARAM_RESETは未確認のまま。計画作成のみで実機送信・コード修正は今回行っていない。
+
+2026-11-09 PARAM_SET実機前準備: r1 p.19のSP正常応答DATA0文字をDispatcherで厳密検証する。非空応答のplain NAK・最終FRAME異常、SQE、ACK_TIMEOUTとDATA/STATUS/INFOの無効化／保持をHost試験へ追加。今回の試験はD5の現行設定RAW50文字を同値で書き戻す。RPは別段階。
+
+2026-11-09 PARAM_SET同値書戻し実機結果: 現行D5の設定RAW50文字をreserve込みで退避・同値送信し、SP正常応答DATA0文字、72ms、BCC一致、再送0を確認。INFO/STATUS無効化と再取得後の設定・製造情報の完全一致を確認。ユーザー報告は出力変化・瞬断・再起動なし（電圧数値未提示）。ログ3本をtemp直下へ順次コピー。Host／Mock全206件成功。設定の実変更・保持・RPは未確認。詳細はReal_Hardware_Test_Log.md。
+
+2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。

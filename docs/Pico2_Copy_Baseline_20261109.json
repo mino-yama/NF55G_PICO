@@ -1,0 +1,173 @@
+{
+  "baseline_date_jst": "2026-11-09",
+  "source_device_unique_id": "2d35a1e11ac125e3",
+  "runtime_reported": "MicroPython v1.28.0; Raspberry Pi Pico 2 / RP2350 (prior deployment record)",
+  "provenance": "Repository application files matched against the 25-file hardware readback SHA256 manifest from PARAM_RESET deployment. COM14 absent at copy preparation; no new device snapshot obtained.",
+  "verified_file_count": 25,
+  "files": [
+    {
+      "path": "/src/__init__.py",
+      "sha256": "e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3",
+      "repository_path": "src/__init__.py",
+      "bytes": 173
+    },
+    {
+      "path": "/src/ate_server.py",
+      "sha256": "d6eb2856ac793d52995810192b97de440143bf8d48eed9ee6c2548906fc9ecec",
+      "repository_path": "src/ate_server.py",
+      "bytes": 2247
+    },
+    {
+      "path": "/src/ate_uart.py",
+      "sha256": "b2ee951103d8f0b95d785a39e78a32c97457d0858f134d92c86f62f02d2825f6",
+      "repository_path": "src/ate_uart.py",
+      "bytes": 1468
+    },
+    {
+      "path": "/src/cache_manager.py",
+      "sha256": "316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea",
+      "repository_path": "src/cache_manager.py",
+      "bytes": 2456
+    },
+    {
+      "path": "/src/command_dispatcher.py",
+      "sha256": "20b3683fc60d4b57128c46c82dc323f3234a8f91ffe915d95f39bb45deb57b82",
+      "repository_path": "src/command_dispatcher.py",
+      "bytes": 11473
+    },
+    {
+      "path": "/src/command_parser.py",
+      "sha256": "7673f0e01250a7bd9740e1c107ad23f3c8fff552aa16f42b71bb559b913c3db9",
+      "repository_path": "src/command_parser.py",
+      "bytes": 3029
+    },
+    {
+      "path": "/src/config.py",
+      "sha256": "4024dc1f13d5e433ad55b7c7b7dc86412b14dde75c0b588c795e25130be5c1f5",
+      "repository_path": "src/config.py",
+      "bytes": 1991
+    },
+    {
+      "path": "/src/diagnostic.py",
+      "sha256": "79f68255eb028de5505c066946a46c235851cd1612e70d3a9e1c93f1e27e01b6",
+      "repository_path": "src/diagnostic.py",
+      "bytes": 3231
+    },
+    {
+      "path": "/src/frame.py",
+      "sha256": "1d5beff86867c79c8fffe6054f349ba471fab7474b7ea5cd4b8959e99792790a",
+      "repository_path": "src/frame.py",
+      "bytes": 2467
+    },
+    {
+      "path": "/src/logger.py",
+      "sha256": "b5cf1bca8efbb4d4956117a8cb28f3dde2231a40ebbef5112642f175e583e500",
+      "repository_path": "src/logger.py",
+      "bytes": 13124
+    },
+    {
+      "path": "/src/main.py",
+      "sha256": "33900e6bd4b8a660b8856cf06f2b9146341ae11d103e0636335036f44339ba86",
+      "repository_path": "src/main.py",
+      "bytes": 11049
+    },
+    {
+      "path": "/src/mock_nf55g.py",
+      "sha256": "8194d5580d93c7f67c8206fe9c684e7a2fd111da4294f1a093f25a719f50f5e5",
+      "repository_path": "src/mock_nf55g.py",
+      "bytes": 6911
+    },
+    {
+      "path": "/src/models.py",
+      "sha256": "abbc80b2cc065a3d96236e458b61e29bcbd7a732f3e2081dbc0bfb37a21a96b6",
+      "repository_path": "src/models.py",
+      "bytes": 2512
+    },
+    {
+      "path": "/src/nf55_command.py",
+      "sha256": "37fcb79cd8628385d7dd19bfc7eadd2b4e7f3271ed70fca38cebc2dc235ff329",
+      "repository_path": "src/nf55_command.py",
+      "bytes": 8112
+    },
+    {
+      "path": "/src/nf55_decode.py",
+      "sha256": "c0502df03df5ff5606583ccec0450858282652e7b37d44f8922f0daf924b7810",
+      "repository_path": "src/nf55_decode.py",
+      "bytes": 11486
+    },
+    {
+      "path": "/src/nf55_event.py",
+      "sha256": "affc06a1f8ee27a9459f95cb25cf59ad4bb2b4aedd0481fda8bd113352bce3d0",
+      "repository_path": "src/nf55_event.py",
+      "bytes": 916
+    },
+    {
+      "path": "/src/nf55_protocol.py",
+      "sha256": "efaa78b33a49a1f9590d5a9408af77f39cc306ca74e6729ccd5dfe5743754fcd",
+      "repository_path": "src/nf55_protocol.py",
+      "bytes": 15936
+    },
+    {
+      "path": "/src/nf55_uart.py",
+      "sha256": "1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b",
+      "repository_path": "src/nf55_uart.py",
+      "bytes": 1846
+    },
+    {
+      "path": "/src/pico_clock.py",
+      "sha256": "f8bc5096c18871d8e6a5ddffde8e8b27bd9a248f32b027438664737ee3c7278d",
+      "repository_path": "src/pico_clock.py",
+      "bytes": 956
+    },
+    {
+      "path": "/src/qr_pio_rx.py",
+      "sha256": "0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38",
+      "repository_path": "src/qr_pio_rx.py",
+      "bytes": 3134
+    },
+    {
+      "path": "/src/qr_reader.py",
+      "sha256": "9129adfbb657f83e1317a08209b5d6d1b3dc8a5188915964397053afbb1fd906",
+      "repository_path": "src/qr_reader.py",
+      "bytes": 4390
+    },
+    {
+      "path": "/src/rtc_driver.py",
+      "sha256": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254",
+      "repository_path": "src/rtc_driver.py",
+      "bytes": 6792
+    },
+    {
+      "path": "/src/sd_card.py",
+      "sha256": "d2b87a15f89ca40c28de2ebf8cbcbae4a24a388671641d6b988aee94b1ce9f56",
+      "repository_path": "src/sd_card.py",
+      "bytes": 8607
+    },
+    {
+      "path": "/src/sd_sink.py",
+      "sha256": "70ea0c79e807859ac6e0e0a529e9be34d358e5329a01ac59f9dac491765c5501",
+      "repository_path": "src/sd_sink.py",
+      "bytes": 11040
+    },
+    {
+      "path": "/main.py",
+      "sha256": "b0b2a60bdabebe7f7f576039755b6e135be3731f9a2470d991b95ca540a21b93",
+      "repository_path": "firmware/main.py",
+      "bytes": 230
+    }
+  ],
+  "archive": {
+    "path": "temp/pico2_copy_package_20261109_run01/pico2_application_20261109.zip",
+    "bytes": 46282,
+    "sha256": "ba42e3556d3cfd83aef36cc10d3453354e075a0d32c93c8b07acc872aa5a1cae"
+  },
+  "excluded": [
+    "MicroPython UF2/flash image",
+    "Internal files outside the 25-file application manifest",
+    "SD card contents",
+    "RTC time",
+    "RAM/cache/test-session state",
+    "NF55G product settings and firmware"
+  ],
+  "host_mock_tests": "210 tests OK"
+}

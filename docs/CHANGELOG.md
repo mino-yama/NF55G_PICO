@@ -688,3 +688,15 @@ Sample 1 D1/D5 entry readiness; no product transaction or Open Issue closure.
 2026-11-09: D4量産不使用をユーザー指定として記録。r1 p.35に基づきCLEAR4種をParser／Builderへ接続し、CD／CL正常応答DATA0文字を検証。Host／Mockでは送信形式、T2、成功／ambiguous時のCache無効化、SQE、不正引数の無送信、異常応答へのplain NAKを試験する。実機結果はReal_Hardware_Test_Log.mdへ記録。
 
 2026-11-09 CLEAR実機結果: POWER／BATT／ALL／LOGの4種がOK、19／19／20／19ms、再送0、BCC一致。CD後のDATA／STATUS無効化、CL後の全EL／OL無効化と96件の空ログ表現を確認。CLEAR_ALLは先行個別消去後の0維持を確認したもので、単独非ゼロ値消去は未検証。Host／Mock全203件合格。詳細・制限はReal_Hardware_Test_Log.md。
+
+2026-11-09 PARAM_SET実機前準備: r1 p.19のSP正常応答DATA0文字をDispatcherで厳密検証する。非空応答のplain NAK・最終FRAME異常、SQE、ACK_TIMEOUTとDATA/STATUS/INFOの無効化／保持をHost試験へ追加。今回の試験はD5の現行設定RAW50文字を同値で書き戻す。RPは別段階。
+
+2026-11-09 PARAM_SET同値書戻し実機結果: 現行D5の設定RAW50文字をreserve込みで退避・同値送信し、SP正常応答DATA0文字、72ms、BCC一致、再送0を確認。INFO/STATUS無効化と再取得後の設定・製造情報の完全一致を確認。ユーザー報告は出力変化・瞬断・再起動なし（電圧数値未提示）。ログ3本をtemp直下へ順次コピー。Host／Mock全206件成功。設定の実変更・保持・RPは未確認。詳細はReal_Hardware_Test_Log.md。
+
+2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。
+
+2026-11-09 PARAM_RESET実機結果: 元値が初期値だった最初のRPと、EVENT_ENABLEを0→1へ一時変更後にRPで1→0へ戻した差分確認を区別して記録。退避RAW50文字をSPで復元し、設定・製造情報の全100文字一致を確認。RP 57／56ms、SP 72／73ms、再送0、BCC一致。全4操作でユーザー報告は出力変化・瞬断・再起動なし。CSV5本をtemp直下へ回収。Host／Mock全210件成功。電源切入保持とEVENT以外の非初期値からの初期化は未確認。詳細はReal_Hardware_Test_Log.md。
+
+2026-11-09 追加コマンド実機確認: Pico診断・不正要求拒否13項目を確認し、NF55G送信0件。続くBEは非バックアップ状態で想定SQEに対してOK（26ms）となり、BE-ACCEPT-01をOpenで追加。前後D1一致、ユーザー報告は出力変化・瞬断・再起動なし。実応答を保持し、Picoによる差異吸収は行わない。
+
+2026-11-09 Pico 2追加機コピー準備: 実ATE／Sample環境と2台目開発機の構築に向け、実機読戻しマニフェストと一致する25ファイルのZIPをtempへ保存し、基準SHA256一覧とコピー手順を追加。準備時COM14は未列挙であり、新規本体バックアップではない。UF2、SD内容、RTC、追加内部ファイルの確認はハード完成後に行う。コミット前Host／Mock全210件再確認。
