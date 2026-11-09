@@ -239,7 +239,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         self.assertEqual(ate.tx, b'')
         ate.rx.extend(b'N?\r')
         app.service_once()
-        self.assertEqual(ate.tx, b'')
+        self.assertEqual(ate.tx, b'NF')  # CRで確定し、応答は分割送信される。
         ate.rx.extend(b'\nFW_UPDATE\r\n')
         for _ in range(60):
             app.service_once()

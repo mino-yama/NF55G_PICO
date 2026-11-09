@@ -1,7 +1,8 @@
-# 分割到着するATE入力をCRLF単位で組み立て、実行待ちQueueへ格納する。
+# 分割到着するATE入力をCR/LFで区切り、実行待ちQueueへ格納する。
+# CRLFのLFと空行は無視する。CR待ちを残さず、定期CRでSD処理を妨げない。
 # 受信処理だけではコマンドを実行せず、応答の未送信部分も保持する。
 
-"""Bounded CRLF ATE transport; receive pumping never executes commands."""
+"""Bounded CR/LF ATE receiver with CRLF replies; pumping never executes commands."""
 
 
 class ATEServer:
@@ -12,7 +13,6 @@ class ATEServer:
         self.pending = []
         self.line = bytearray()
         self.error = None
-        self.saw_cr = False
         self.tx = b''
 
     def pump(self, budget=64):
@@ -23,17 +23,11 @@ class ATEServer:
             if not raw:
                 break
             value = raw[0]
-            if self.saw_cr:
-                self.saw_cr = False
-                if value == 10:
-                    if self.line or self.error:
-                        self.pending.append((bytes(self.line), self.error))
-                    self.line = bytearray()
-                    self.error = None
-                    continue
-                self.error = 'FRAME'
-            if value == 13:
-                self.saw_cr = True
+            if value in (13, 10):
+                if self.line or self.error:
+                    self.pending.append((bytes(self.line), self.error))
+                self.line = bytearray()
+                self.error = None
             elif value < 32 or value > 126:
                 self.error = 'ASCII' if value > 126 else 'FRAME'
             elif not self.error:
@@ -56,4 +50,4 @@ class ATEServer:
                 self.tx = self.tx[written:]
 
     def has_work(self):
-        return bool(self.pending or self.line or self.saw_cr or self.error or self.tx or self.transport.any())
+        return bool(self.pending or self.line or self.error or self.tx or self.transport.any())

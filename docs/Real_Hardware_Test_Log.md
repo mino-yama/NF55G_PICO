@@ -1,6 +1,19 @@
 # Real Hardware Test Log
 Revision: Rev.0-draft
 
+## 2026-11-10 ATE終端修正後の実機確認
+
+- ユーザー指定によりCR／LF／CRLF受理・空CR無視を実装。Host／Mock273件成功後、COM6でate_server.pyのみ開発機へ配置し、読戻し一致を確認。
+- COM20で全3終端のDATA_REFRESH正常、定期CR10回無応答・直後のD0正常、分割CRLF二重応答なし。最短送信間隔115.549ms、終了時IDLE／SD・自己診断OK、retry0、破棄0。両ポート解放済み。
+- [変更内容と証跡](ATE_Line_Ending_Fix_20261110.md)。ATE-EOL-01は人間確認待ちでOpen。
+
+## 2026-11-10 D0要求・ATE終端の実機確認
+
+- COM20でDATA_REFRESHのCR／LF／CRLF、CR単独10回、空CRLF、分割CRLFを確認。CR／LF単独の後続正常要求1件がERR:FRAMEとなることを再現。CRLFは正常。
+- 最短送信間隔113.966ms。終了時IDLE、retry cmd/rsp=0、破棄0、SD・自己診断OK。コード・配置変更なし、COM20解放済み。ATE-EOL-01はOpen。
+- [詳細・処置案・送受信証跡](ATE_D0_Line_Ending_Hardware_Test_20261110.md)。
+
+
 ## 2026-09-16 Pico 2 SD / RTC / RS232C communication test
 
 ### Scope

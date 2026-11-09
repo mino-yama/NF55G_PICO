@@ -4,6 +4,8 @@
 Revision: Rev.1-draft
 
 ## Goal
+
+2026-11-10 ATE終端変更: CR／LF／CRLF各終端でD0要求が1回だけ実行されること、定期CR単独で応答・受信待ち状態が残らず次の要求が正常なこと、分割CRLF・空行混在・Queue上限・ASCII／FRAME／長さ異常から各終端で復帰することをHost／Mockで確認する。応答はCRLFを維持する。
 Before real NF55G connection, verify parser, protocol, decoder, cache, command integration and safety rules on host PC.
 
 ## Test levels

@@ -1,5 +1,17 @@
 # Open Issues
 
+## ATE-EOL-01: CR単独受信の残留と後続コマンドへの影響（Open、2026-11-10）
+
+2026-11-10方針確定: ユーザーが「要求はCR／LF／CRLFをすべて受理、定期CR単独は無視」と指定。旧CRLF限定方針を変更し、空行を無応答で破棄する受信処理へ修正した。応答はCRLFを維持。以下の未確定記述・旧実機結果は修正前の履歴。修正後の検証・配置は[対応記録](ATE_Line_Ending_Fix_20261110.md)を参照。人間確認前のためOpenを維持する。
+
+- ユーザー指定確認項目: INFOのCR／LF／CRLF終端、コマンドなしCR定期送信の無視可否と後続正常コマンドへの影響。
+- ホスト確認事実: CR単独は空コマンドとして実行されないが受信状態に残り、後続の正常CRLFコマンド1件がERR:FRAMEとなる。空CRLFは無視される。INFO単体は未登録でERR:UNKNOWN_CMD。
+- 未確認・未確定: COM20実機での定期CR送信、SD処理への実際の影響、CRLF限定仕様とCR単独無視要求の扱い。実装変更・実機配置なし。独断でCloseしない。
+- 詳細: [ATE終端文字・CR単独の確認](ATE_Line_Ending_Check_20261110.md)。
+
+ATE-EOL-01追記（2026-11-10、Open継続）: COM20実機でD0入口DATA_REFRESHのCR／LF／CRLFを確認。CR／LF単独とCR単独10回定期送信後は、後続DATA_REFRESHが1回ERR:FRAME、次はOK。CRLF・空CRLF後・分割CRLFは正常。最短送信間隔113.966ms、終了時通信IDLE／SD・自己診断OK、破棄0。上記の定期CR実機確認は実施済みとなるが、SD滞留の実測と処置方針は未確定。コード変更なし。[実機結果と処置案](ATE_D0_Line_Ending_Hardware_Test_20261110.md)。
+
+
 ## BE-ACCEPT-01: 非バックアップ状態でのBE受付（2026-11-09、Open）
 
 - 確認事実: r1 p.17はBEの受付をPS_OFF=不可、バックアップ中=可と記載。今回D1でPS_ON=1／BATT_ON=0を確認後、10:29:53 JSTにBACKUP_ENABLEを1回送信したところ、SQEでなく正常応答DATA15文字・OK（26ms、再送0、BCC一致）だった。前後のD1全フィールドは一致し、BACKUP_READY=1を維持。バッテリ未接続はユーザー報告。元PARAMはPS_ON_BACKUP=1。
