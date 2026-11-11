@@ -1,0 +1,27 @@
+{
+  "date_jst": "2026-11-11",
+  "source": "Get-CimInstance Win32_SerialPort; Get-PnpDevice -PresentOnly; Get-PnpDeviceProperty",
+  "serial_ports_returned": [],
+  "detected": {
+    "friendly_name": "USB UART-LPT",
+    "instance_id": "USB\\VID_1A86&PID_5512\\6&3A944CE5&0&2",
+    "status": "Error",
+    "problem_code": 28,
+    "hardware_ids": [
+      "USB\\VID_1A86&PID_5512&REV_0304",
+      "USB\\VID_1A86&PID_5512"
+    ],
+    "bus_reported_description": "USB UART-LPT"
+  },
+  "interpretation": {
+    "com_port_confirmed": false,
+    "driver_selected_for_current_device": false,
+    "physical_uart_mode": "Awaiting user verification; not inferred from LED remotely",
+    "identity_note": "WCH device detected; physical association/mode to be confirmed"
+  },
+  "actions": {
+    "com_opened": false,
+    "device_written": false,
+    "driver_installed": false
+  }
+}

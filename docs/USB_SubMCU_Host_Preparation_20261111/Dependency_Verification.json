@@ -1,0 +1,13 @@
+{
+  "vendor_files_verified": 14,
+  "tinyusb_usbh_matches_pinned_upstream_normalized_newlines": true,
+  "tinyusb_usbh_raw_sha256": "eeb692225f34e3ea9fbd195e0b4b80a5fb5f1d36b092a42a78d6b88a37574ec0",
+  "pioasm_package": {
+    "url": "https://github.com/raspberrypi/pico-sdk-tools/releases/download/v2.2.0-4/pico-sdk-tools-2.2.0-x64-win.zip",
+    "sha256": "be536f01d01c66309a492291a22de4f82120c07e74c12d2dcbd0f70a35846888"
+  },
+  "original_upstream_files_verified": 14,
+  "derived_files_changed": [
+    "src/usb_rx.pio"
+  ]
+}

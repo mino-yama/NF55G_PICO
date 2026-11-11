@@ -1,0 +1,13 @@
+{
+  "port": "COM6",
+  "mode": "passive_no_tx",
+  "baudrate": 115200,
+  "baudrate_note": "USB CDC capture setting, not an accepted inter-MCU UART baud",
+  "dtr": false,
+  "rts": false,
+  "duration_s": 4,
+  "tx_hex": "",
+  "chunks": [],
+  "rx_bytes": 0,
+  "status": "captured"
+}

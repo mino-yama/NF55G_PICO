@@ -1,0 +1,19 @@
+test_data_length_overflow (test_usb_submcu_probe_log.ProbeLogTests.test_data_length_overflow) ... ok
+test_error_not_success (test_usb_submcu_probe_log.ProbeLogTests.test_error_not_success) ... ok
+test_full_log_rejected (test_usb_submcu_probe_log.ProbeLogTests.test_full_log_rejected) ... ok
+test_header_corrupt (test_usb_submcu_probe_log.ProbeLogTests.test_header_corrupt) ... ok
+test_missing_descriptor (test_usb_submcu_probe_log.ProbeLogTests.test_missing_descriptor) ... ok
+test_ram_overflow_rejected (test_usb_submcu_probe_log.ProbeLogTests.test_ram_overflow_rejected) ... ok
+test_ram_raw_only (test_usb_submcu_probe_log.ProbeLogTests.test_ram_raw_only) ... ok
+test_report_without_mount (test_usb_submcu_probe_log.ProbeLogTests.test_report_without_mount) ... ok
+test_sequence_gap (test_usb_submcu_probe_log.ProbeLogTests.test_sequence_gap) ... ok
+test_short_ram (test_usb_submcu_probe_log.ProbeLogTests.test_short_ram) ... ok
+test_uart_raw_only (test_usb_submcu_probe_log.ProbeLogTests.test_uart_raw_only) ... ok
+test_uart_truncated (test_usb_submcu_probe_log.ProbeLogTests.test_uart_truncated) ... ok
+test_unknown_kind (test_usb_submcu_probe_log.ProbeLogTests.test_unknown_kind) ... ok
+test_zero_descriptor_rejected (test_usb_submcu_probe_log.ProbeLogTests.test_zero_descriptor_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.003s
+
+OK

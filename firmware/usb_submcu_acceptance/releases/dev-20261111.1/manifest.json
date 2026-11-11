@@ -1,0 +1,71 @@
+{
+  "version": "dev-20261111.1",
+  "build_id": "583b3b6ba99e14bf",
+  "date_jst": "2026-11-11",
+  "release_status": "development_only_not_production",
+  "target_usb_serial": "A06FEA01012EC137",
+  "platform": "rp2350-arm-s",
+  "board": "waveshare_rp2350_usb_c_acceptance",
+  "flash_size": 2097152,
+  "sdk": {
+    "version": "2.2.0",
+    "commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+    "tinyusb_commit": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47"
+  },
+  "tools": {
+    "gcc": "14.3.0 (pqt-gcc 4.1.0-1aec55e)",
+    "cmake": "3.31.6",
+    "ninja": "1.11.1.4",
+    "picotool": "2.2.0-a4; pico-sdk-tools v2.2.0-4",
+    "picotool_zip_sha256": "42cd263ed17dd3987d0830fa239424b3958ec0407afd6985bfbf83a5fc5a55f2"
+  },
+  "artifacts": [
+    {
+      "file": "usb_submcu_acceptance.uf2",
+      "bytes": 61440,
+      "sha256": "a95639a6062cd69ca670741bbd34a15e3465a7f75da2bd3dd0f993281c668c37"
+    },
+    {
+      "file": "usb_submcu_acceptance.elf",
+      "bytes": 631880,
+      "sha256": "063a99a43fffa0dda0dc94634709384c18ee87b3733730d5e28b828e42f2bc01"
+    },
+    {
+      "file": "usb_submcu_acceptance.bin",
+      "bytes": 30280,
+      "sha256": "9a29922ea958b885ee24ab75337af8c72b8e82485dcb7c53e0f3331016396c7d"
+    }
+  ],
+  "sources": [
+    {
+      "file": "firmware/usb_submcu_acceptance/main.cpp",
+      "bytes": 3111,
+      "sha256": "583b3b6ba99e14bf006edce19d46309280dde761d1f44e566a5086f7ce8ad975"
+    },
+    {
+      "file": "firmware/usb_submcu_acceptance/CMakeLists.txt",
+      "bytes": 1610,
+      "sha256": "9df78a4c5a851cfaacd37375b33dcf0b812109bb3c332a77a831f8bbabc49a31"
+    },
+    {
+      "file": "firmware/usb_submcu_acceptance/boards/waveshare_rp2350_usb_c_acceptance.h",
+      "bytes": 514,
+      "sha256": "5ea743ed06dc0f4b8f0b28efe7ab08b0ec9d4df7c288d247e8e5b3a3b2dc67d5"
+    },
+    {
+      "file": "firmware/usb_submcu_acceptance/requirements-build.txt",
+      "bytes": 30,
+      "sha256": "ce5d6b58e0ba18eafe36a6d7a8f4f46f41be2f85fe242e456b7f718394ad148d"
+    },
+    {
+      "file": "scripts/build_usb_submcu_acceptance.ps1",
+      "bytes": 900,
+      "sha256": "f871ee0394c819d83444cbb8b19ea6eb01d9d5f7a4698333161db679b99892d3"
+    },
+    {
+      "file": "scripts/usb_submcu_acceptance_hil.py",
+      "bytes": 5055,
+      "sha256": "ec21a60e8b876acf6db896b48286c7e501073897064d1ee39b543b7f6f87ec3d"
+    }
+  ]
+}

@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 启用极速模式(webkit) 911-->
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta name="keywords" content="SH-U05A,usb spi,usb iic,usb spi iic ch341,  EEPROM programmer ,spi flash">
+<meta name="description" content="USB to IIC:Supports programming of IIC EEPROMs, such as the AT24C01. 4 speeds adjustable: 20K, 100K, 400K, 750K
+USB to SPI:Supports memory programming for SPI interfaces, e.g. WINBOND\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'s W25Q40BV. fixed rate of 2Mbps is not adjustable.
+USB to TTL UART:Supports communication baud rate 50bps～2Mbps;Lead PIN:TX,RX,GND,VCC">
+<title>SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper - DSD TECH official website</title>
+<link rel="shortcut icon" type="image/x-icon" href="img/upimages/favicon.ico" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TKWW7B44');</script>
+<!-- End Google Tag Manager -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name='apple-touch-fullscreen' content='yes' />
+<meta name="full-screen" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" id="headScreen" />
+
+<!-- SEO友好提示1 -->
+<meta name="applicable-device" content="pc,mobile">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/js/comm/html5shiv.js"></script>
+<script type="text/javascript" src="/js/comm/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="js/comm/jquery.min.js"></script>
+<script type="text/javascript" src="js/comm/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="js/comm/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="js/comm/ubox.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/comm/wow.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/comm/alert_en.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/0813067.js?1791863602" charset="utf-8"></script>
+<script type="text/javascript" src="js/comm/comm.js?11" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="css/comm/font/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/comm/animate.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/comm/box.css"/>
+<link rel="stylesheet" type="text/css" href="css/comm/alert.css"/>
+<link rel="stylesheet" type="text/css" href="css/comm/comm.css?1791863602"/>
+<link rel="stylesheet" type="text/css" href="css/0813067.css?1791863602"/>
+<link rel="stylesheet" type="text/css" href="css/comm/iconfont.css?1"/>
+
+<script>
+	var batchArr = [];
+	var checkLoad = 0;//判断是否是回调完成的
+</script>
+<script>
+    var isOpenMobie = 2;
+    var isOpenPad = 1;
+    if(isOpenMobie == 1){
+        if(isOpenPad == 1){
+            $("body").css("width","auto");
+        }else{
+            //是否手机端判断
+            var ua = navigator.userAgent;
+            var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+                isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+                isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+                isMobile = isIphone || isAndroid;
+            if(isMobile){
+                // ?
+                // $("body").css("width","1280px");
+                // $("body").css("zoom", $(window).width() / 1280);
+                var scale = window.screen.width / 1280; 
+                $("head").append("<meta id='headScreen' class='c6x' content='width=1280, initial-scale="+scale+", maximum-scale="+scale+", user-scalable=no' name='viewport' />");
+            }else{
+                $("body").css("width","auto");
+            }
+        }
+    }else{
+        $("body").css("width","auto");
+        $("head").append("<meta id='headScreen' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' />");
+    }
+
+    //手机屏幕尺寸兼容 purewinter 2019-03-26
+    $(window).on('load',function(){
+        bodyScale();
+    });
+    function bodyScale(){
+        var windowWidth = $(window).width();
+        $("#bodyScale").remove();
+        if(windowWidth < 680){
+            var scale = windowWidth / 375;
+            $("#headScreen").remove();
+            $("head").append("<meta id='headScreen' content='width=375, initial-scale="+scale+", maximum-scale="+scale+", user-scalable=no' name='viewport' />");
+        }else if(windowWidth < 960){
+            var scale = windowWidth / 960;
+            $("#headScreen").remove();
+            $("head").append("<meta id='headScreen' content='width=960, initial-scale="+scale+", maximum-scale="+scale+", user-scalable=no' name='viewport' />");
+        }
+        $("body").css('visibility','visible');
+    }
+    
+</script>
+
+<script>
+
+String.prototype.replaceAll= function(s1,s2){
+    return this.replace(new RegExp(s1,"gm"),s2);
+}
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+var FIDUser = getQueryVariable('FIDUser');
+var param = "idweb=57145&langid=2&UPermission=all&FIDUser=" + FIDUser;
+document.getElementsByTagName('head')[0].appendChild(document. createElement('script')).src="https://s143js.nicebox.cn/exusers/login_html_v9_diy.php?" + param;
+// 字体大小限制不跟随系统
+$(document).ready(function(){
+    if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+        handleFontSize();
+    } else {
+        document.addEventListener("WeixinJSBridgeReady", handleFontSize, false);
+    }
+    function handleFontSize() {
+        // 设置网页字体为默认大小
+        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+        // 重写设置网页字体大小的事件
+        WeixinJSBridge.on('menu:setfont', function() {
+            WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+        });
+    }
+})
+
+const screenZoom = 1;		
+//制作屏幕缩放导致错乱的，不过还有问题，暂时屏蔽5个文件	20230625
+// const screenZoom = 100 / Number(detectZoom());
+// document.body.style.zoom = screenZoom;
+// function detectZoom(){	//获取屏幕放大比例
+// 	//是否手机端判断
+// 	var ua = navigator.userAgent;
+// 	var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+// 	    isIphone =!ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+// 	    isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+// 	    isMobile = isIphone || isAndroid;
+// 	if(ipad || isMobile){ return 100; }		//如果是ipad或手机真机/模拟机，不用调整
+// 	let ratio = 0;
+// 	if (window.devicePixelRatio !== undefined) {
+// 		ratio = window.devicePixelRatio;
+// 		console.log('ratio::'+ratio);
+// 	}
+// 	if (ratio) {
+// 		ratio = Math.round(ratio * 100);
+// 	}
+// 	return ratio;	//返回电脑系统的放大比例
+// }
+$(window).on('load',function(){
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        setTimeout(function(){
+            new WOW().init()
+        },150)
+    };
+});
+var DIY_WEBSITE_ID = "57145";
+var DIY_JS_SERVER = "s143js.nicebox.cn";
+var DIY_SCHEME = "https:";
+var DIY_PROD_ID = 1663317;
+</script>
+            <script src="https://s143js.nicebox.cn/exusers/login_html_v9_diy.php?idweb=57145&langid=2&UPermission=all"></script>
+    </head>
+<body>
+
+<!--这里专门处理百度分享文章显示缩略图不正确的问题，因为百度分享读取的是第一张图片，缩略图尽量在400x400,但是至好宽高都要大于400，前提是具有微信分享功能，图片地址通过jq传入 $(".baiduImg").attr("src",shareImg);-->
+<div class="baiduImgSet" style="display: none;">
+    <img src=""  alt="SH-C31B"  class="baiduImg" >
+</div>
+
+<script type="text/javascript">var Default_isFT = 0;</script>
+            <div id="comm_layout_header" class="layout  scrollToTop_pc  scrollView" >
+                                <div class="view_contents ">
+                                <div id="dh_style_28_1562668763083" class="view style_28 dh  lockHeightView " >
+                
+                                <div names="dh" class="view_contents " >
+                    
+<div id="menu" class="menu menuStyle_28">
+	<div class="menuLayout">
+		<ul class="miniMenu columnSet showmobile">
+			<li class="leftBox">
+				<div class="nav"></div>
+				<div class="sidebar icoMenuSet"><i class="fa fa-navicon" onclick="setDhListen('style_01',this)"></i></div>
+				<div class="menuScroll">
+					<ul class="menuUlCopy">
+						
+							
+							
+							<li class="rflex" pageid="813059" showmobile=""><a class="mainMenuSet" href="index.html">
+								
+
+								
+
+								HOME</a>
+								
+								
+								
+							</li>
+							
+						
+							
+							
+							<li class="rflex" pageid="813061" showmobile=""><a class="mainMenuSet" href="PRODUCTS.html">
+								
+
+								
+
+								PRODUCTS</a>
+								
+								
+								<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+								<ul class="menuUlCopy">
+									
+										
+										<li pageid="813073" showmobile="">
+											
+											<a class="subMenuSet" href="Serial.html">Serial</a>
+											
+											
+												<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+												<ul class="menuUlCopy">
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="TTL-Series.html">TTL Series</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="RS485-Series.html">RS485 Series</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="RS232-Series.html">RS232 Series</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="OtherUSB.html">Other USB</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="CANBUS.html">CAN BUS</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="IICSPISeries.html">IIC/SPI Series </a></li>
+														
+												
+												</ul>
+											
+										</li>
+										
+									
+										
+										<li pageid="813075" showmobile="">
+											
+											<a class="subMenuSet" href="Wireless.html">Wireless</a>
+											
+											
+												<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+												<ul class="menuUlCopy">
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="Bluetooth-Module.html">Bluetooth Module</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="Bluetooth-Relay.html">Bluetooth Relay</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="Bluetooth-Adatper.html">Bluetooth Adapter</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="WIFIModule.html">WIFI Module</a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="WIFItoSerialAdapter.html">WIFI to Serial Adapter </a></li>
+														
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="Lora.html">Lora</a></li>
+														
+												
+												</ul>
+											
+										</li>
+										
+									
+										
+										<li pageid="813077" showmobile="">
+											
+											<a class="subMenuSet" href="Industry.html">Industry</a>
+											
+											
+												<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+												<ul class="menuUlCopy">
+												
+													 
+														
+														<li class="thrMenuSet">
+														
+														<a href="copy_Lora.html">USB Isolator</a></li>
+														
+												
+												</ul>
+											
+										</li>
+										
+									
+										
+										<li pageid="813089" showmobile="">
+											
+											<a class="subMenuSet" href="OpenSource.html">OpenSource </a>
+											
+											
+										</li>
+										
+									
+										
+										<li pageid="813091" showmobile="">
+											
+											<a class="subMenuSet" href="MagicConn.html">MagicConn</a>
+											
+											
+										</li>
+										
+									
+										
+										<li pageid="813113" showmobile="">
+											
+											<a class="subMenuSet" href="Audio.html">Audio</a>
+											
+											
+										</li>
+										
+									
+								</ul>
+								
+								
+							</li>
+							
+						
+							
+							
+							<li class="rflex" pageid="813063" showmobile=""><a class="mainMenuSet" href="NEWS.html">
+								
+
+								
+
+								NEWS</a>
+								
+								
+								
+							</li>
+							
+						
+							
+							
+							<li class="rflex" pageid="813071" showmobile=""><a class="mainMenuSet" href="SUPPORT.html">
+								
+
+								
+
+								SUPPORT</a>
+								
+								
+								
+							</li>
+							
+						
+							
+							
+							<li class="rflex" pageid="813065" showmobile=""><a class="mainMenuSet" href="COMPANY.html">
+								
+
+								
+
+								COMPANY</a>
+								
+								
+								<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+								<ul class="menuUlCopy">
+									
+										
+										<li pageid="813095" showmobile="">
+											
+											<a class="subMenuSet" href="About-DSDTECH.html">About DSD TECH</a>
+											
+											
+										</li>
+										
+									
+										
+										<li pageid="1052077" showmobile="">
+											
+											<a class="subMenuSet" href="Contact-Us.html">Contact US</a>
+											
+											
+										</li>
+										
+									
+										
+									
+								</ul>
+								
+								
+							</li>
+							
+						
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<div class="menuUl_box columnSet dhAreaSet showpc">
+			<ul class="menuUl dflex maxWidth ">
+				
+					
+					
+					
+					<li class="rflex isLi" pageid="813059" showpc="">
+						
+						
+
+						
+						
+							<a class="mainMenuSet Nosub" href="index.html">
+								
+								
+								HOME
+								
+								
+							</a>
+							
+							
+							
+					</li>
+					
+				
+					
+					
+					
+					<li class="rflex isLi" pageid="813061" showpc="">
+						
+						
+
+						
+						
+						<a class="mainMenuSet Onsub" href="PRODUCTS.html">
+							
+								
+								PRODUCTS
+								
+								<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+								
+								
+							</a>
+							
+							
+							<ul class="menuUl02 subminSet">
+								
+									
+									
+										
+									<li class="subMenu02 arrow subMenuSet" pageid="813073" showpc="">
+										
+										
+										<a href="Serial.html">
+											Serial
+											
+											<i class="fa fa-angle-right" onclick="navSwtich(this,event)"></i>
+											
+										</a>
+										
+										<ul class="menuUl03 thrminSet">
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="TTL-Series.html">TTL Series</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="RS485-Series.html">RS485 Series</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="RS232-Series.html">RS232 Series</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="OtherUSB.html">Other USB</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="CANBUS.html">CAN BUS</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="IICSPISeries.html">IIC/SPI Series </a></li>
+												
+												
+											
+										</ul>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 arrow subMenuSet" pageid="813075" showpc="">
+										
+										
+										<a href="Wireless.html">
+											Wireless
+											
+											<i class="fa fa-angle-right" onclick="navSwtich(this,event)"></i>
+											
+										</a>
+										
+										<ul class="menuUl03 thrminSet">
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="Bluetooth-Module.html">Bluetooth Module</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="Bluetooth-Relay.html">Bluetooth Relay</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="Bluetooth-Adatper.html">Bluetooth Adapter</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="WIFIModule.html">WIFI Module</a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="WIFItoSerialAdapter.html">WIFI to Serial Adapter </a></li>
+												
+												
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="Lora.html">Lora</a></li>
+												
+												
+											
+										</ul>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 arrow subMenuSet" pageid="813077" showpc="">
+										
+										
+										<a href="Industry.html">
+											Industry
+											
+											<i class="fa fa-angle-right" onclick="navSwtich(this,event)"></i>
+											
+										</a>
+										
+										<ul class="menuUl03 thrminSet">
+											
+												
+												
+												<li class="subMenu03"><a class="thrMenuSet" href="copy_Lora.html">USB Isolator</a></li>
+												
+												
+											
+										</ul>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 subMenuSet" pageid="813089" showpc="">
+										
+										
+										<a href="OpenSource.html">
+											OpenSource 
+											
+										</a>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 subMenuSet" pageid="813091" showpc="">
+										
+										
+										<a href="MagicConn.html">
+											MagicConn
+											
+										</a>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 subMenuSet" pageid="813113" showpc="">
+										
+										
+										<a href="Audio.html">
+											Audio
+											
+										</a>
+										
+									</li>
+									
+								
+							</ul>
+							
+							
+					</li>
+					
+				
+					
+					
+					
+					<li class="rflex isLi" pageid="813063" showpc="">
+						
+						
+
+						
+						
+							<a class="mainMenuSet Nosub" href="NEWS.html">
+								
+								
+								NEWS
+								
+								
+							</a>
+							
+							
+							
+					</li>
+					
+				
+					
+					
+					
+					<li class="rflex isLi" pageid="813071" showpc="">
+						
+						
+
+						
+						
+							<a class="mainMenuSet Nosub" href="SUPPORT.html">
+								
+								
+								SUPPORT
+								
+								
+							</a>
+							
+							
+							
+					</li>
+					
+				
+					
+					
+					
+					<li class="rflex isLi" pageid="813065" showpc="">
+						
+						
+
+						
+						
+						<a class="mainMenuSet Onsub" href="COMPANY.html">
+							
+								
+								COMPANY
+								
+								<i class="fa fa-angle-down" onclick="navSwtich(this,event)"></i>
+								
+								
+							</a>
+							
+							
+							<ul class="menuUl02 subminSet">
+								
+									
+									
+										
+									<li class="subMenu02 subMenuSet" pageid="813095" showpc="">
+										
+										
+										<a href="About-DSDTECH.html">
+											About DSD TECH
+											
+										</a>
+										
+									</li>
+									
+								
+									
+									
+										
+									<li class="subMenu02 subMenuSet" pageid="1052077" showpc="">
+										
+										
+										<a href="Contact-Us.html">
+											Contact US
+											
+										</a>
+										
+									</li>
+									
+								
+									
+								
+							</ul>
+							
+							
+					</li>
+					
+				
+				
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<!-- 导航栏目有下级时禁止跳转 -->
+
+
+<!-- 二级菜单宽度自适应 -->
+
+<!-- 二级菜单图片宽度 -->
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+                        <div id="searchbox_style_03_1675991227279" class="view style_05 searchbox  lockHeightView " >
+                
+                                <div names="searchbox" class="view_contents " >
+                    <div class="searchStyle_5">
+	<form  onsubmit="return goSearch(this);" target="_blank">
+		<div class="searchForm modSet">
+            
+            <input class="inputSet search_input" name='pkeyword' id="pkeyword" placeholder="  Enter keywords to search" />
+            <button type="button" class="search-btn btnaSet" attrhref="PRODUCTS.html" ><i class="fa fa-search"></i></button>
+		</div>
+	</form>
+	
+</div>
+
+
+
+
+                </div>
+            </div>
+                        <div id="text_html_new_1691657247990" class="view html_new text  " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><div class="diyStyle html_style_new"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKWW7B44" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --></div>                </div>
+            </div>
+                        <div id="text_html_new_1692253298217" class="view html_new text  " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><div class="diyStyle html_style_new"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKWW7B44" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) --></div>                </div>
+            </div>
+                        <div id="image_style_01_1779757757560" class="view style_01 image  " >
+                
+                                <div names="image" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><div class="imgStyle CompatibleImg picSet" >
+	
+			<img class="link-type- " src="https://cdn.yun.sooce.cn/6/57145/png/177975789988768033c2163c229207eaf835f463ce2af.png?version=0" title="" alt="描述" id="imageModeShow" style="border-radius: inherit;"/>
+	
+</div>
+
+
+
+
+
+<!-- 新加的js  -->
+
+
+
+
+                </div>
+            </div>
+                        <div id="lang_style_12_1779954558773" class="view style_12 lang  lockHeightView " >
+                
+                                <div names="lang" class="view_contents " >
+                    <div class="lang-list langStyle02 ">
+    <div class="lang_main">
+        <div class="top_box"><div class="text titleSet">Language</div><div class="arrow arrowDown"></div></div>
+        <div class="lang_content modSet">
+            
+                
+                <a class="lang-item textSet" href="index.html?chlang=&langid=2">
+                    
+                    <span>English</span>
+                </a>
+            
+
+            
+            </span><span id="currentlang" style="display:none"></span>
+
+            
+            
+        </div>
+    </div>
+    
+</div>
+
+                </div>
+            </div>
+                            </div>
+            </div>
+                        <div id="layout_1498113507863" class="layout   scrollView" >
+                                <div class="view_contents ">
+                                    </div>
+            </div>
+                        <div id="layout_1496303516196" class="layout   scrollView" >
+                                <div class="view_contents ">
+                                <div id="prodPic_style_02_1482461252881" class="view style_02 prodPic  " >
+                
+                                <div names="prodPic" class="view_contents " >
+                    <script>if (typeof change_prod_spec_img_style_02 != "function") {
+    function change_prod_spec_img_style_02(spec_img) {
+		var view_id2 = $('.style_02.prodPic').attr('id');
+		window.clearInterval(window.timer);
+		
+		// 电脑端
+		var first_li =  $('.style_02.prodPic .diy_moreImg .diyproImgBox ul');
+		var proImgBox =  $('.style_02.prodPic .diy_moreImg .diyproImgBox');
+		var img_str =  $('.style_02.prodPic .diy_proImg #CurShowProImg');
+		if (first_li.length > 0) {
+			if (typeof  spec_img == "string") spec_img = spec_img.split(',');
+			proImgBox.empty();
+			var temp_str = '<ul class="diy_qbox" style="width: 440px;!important;">';
+			img_str.attr('src',spec_img[0]);
+			img_str.attr('rel',spec_img[0]);
+			$.each(spec_img, function () {
+				temp_str += '<li style=""><img  src';
+				temp_str += '="'+this+'" urlsrc';
+				temp_str += '="'+this+'" onmouseover="ChangeCurProImg'+view_id2+'(this);" /></li>';
+			})
+			temp_str += '</ul>';
+			proImgBox.append(temp_str);
+		} else {
+			img_str.attr('src',spec_img);
+			img_str.attr('rel',spec_img);
+		}
+		setTimeout(function(){
+		    if($('#'+view_id2+' .diy_qbox li').length>4){
+				$('#'+view_id2+' #spec-list').jdMarquee({
+					deriction: 'left',
+					height: 78,
+					step: 1,
+					speed: 4,
+					delay: 5,
+					control: true,
+					_front: '#spec-right'+view_id2,
+					_back: '#spec-left'+view_id2,
+				});
+			}
+		},50);
+		$('#'+view_id2+' #CurShowProImg').imagezoom({xzoom: $('#'+view_id2+' #diyProBox').width(), yzoom: $('#'+view_id2+' #diyProBox').height()});
+		
+		// 手机端
+		var mfirst_li =  $('.style_02.prodPic .diyproImgBox_moblie .main_image ul');
+		if (mfirst_li) {
+			var flicking_con =  $('.style_02.prodPic .diyproImgBox_moblie .flicking_con');
+			if (typeof  spec_img == "string")spec_img = spec_img.split(',');
+			mfirst_li.empty();
+			flicking_con.empty();
+			$.each(spec_img, function (i) {
+				mfirst_li.append("<li><span  class='img_"+i+"' style='background:url("+this+") center top no-repeat'></span></li>");
+				flicking_con.append('<a href="#" class="'+(i==0 ? 'on' : '')+'">'+i+'</a>');
+			});
+		}
+		var mfirst_main = $('.style_02.prodPic .diyproImgBox_moblie .main_image').clone();
+		$('.style_02.prodPic .diyproImgBox_moblie .main_image').empty();
+		$('.style_02.prodPic .diyproImgBox_moblie .main_image').append(mfirst_main.html());
+		$('.style_02.prodPic').each(function () {
+		    var view_id = $(this).attr('id');
+		    var name_str = view_id+'startProdPic();';
+		    eval(name_str);
+		});
+		
+    }
+}</script>
+
+<div class="prodPicStyle_1 modSet">
+	<!--pc端-->
+	<div class="diyProbox diyProbox_test">
+		<!--大图-->
+		<div class="diy_proImg picSet" id="diyProBox">
+			<img id="CurShowProImg" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155390fddbbfcd2d5725d9.jpg?version=0" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" style="object-fit: scale-down;" rel="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155390fddbbfcd2d5725d9.jpg?version=0" alt="">
+			<video id="CurShowProVideo" height="100%" style="display: none;" width="100%" src="" autoplay="autoplay" controls="controls" muted>
+			您的浏览器不支持 video 标签。
+			</video>
+		</div>
+
+		<!--缩略图-->
+        
+            <div class="diy_moreImg">
+        
+                <div class="diy_pIcon diy_preIcon">
+                    <img src="img/prodPic/style_02/diy_preIcon.png" align="absmiddle" id="spec-leftprodPic_style_02_1482461252881">
+                </div>
+                <div class="diyproImgBox" id="spec-list">
+                    <ul class="diy_qbox" style="width: 440px;!important;">
+                        <!--↓↓↓ 这图片是用于防止图标丢失的，貌似详情页的需要一拉出来存在该本地图片链接,静态发布才会显示该图片 ↓↓↓-->
+                        <img class="hide_image" src="img/prodPic/style_02/videoCover.png">
+                        <!--↑↑↑ 这图片是用于防止图标丢失的 ↑↑↑-->
+                        
+                        <li style="">
+                            
+                            <img class="hotImg pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155390fddbbfcd2d5725d9.jpg?version=0" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155390fddbbfcd2d5725d9.jpg?version=0">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392b64978858ca16fcc.jpg?version=1668580158" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392b64978858ca16fcc.jpg?version=1668580158">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553921d32ba26a4ebe06c.jpg?version=1668580157" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553921d32ba26a4ebe06c.jpg?version=1668580157">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539229b8e8d368e5b7a9.jpg?version=1668580157" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539229b8e8d368e5b7a9.jpg?version=1668580157">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392daffc78c678c3f6e.jpg?version=1668580157" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392daffc78c678c3f6e.jpg?version=1668580157">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539298f36e9f50360764.jpg?version=1668580157" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539298f36e9f50360764.jpg?version=1668580157">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155393da54d68134fb3531.jpg?version=1668580160" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155393da54d68134fb3531.jpg?version=1668580160">
+                            
+                            
+                        </li>
+                        
+                        <li style="">
+                            
+                            <img class="pro_image tabItemSet" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553932506356ca831ee41.jpg?version=1668580160" alt="SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper" urlsrc="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553932506356ca831ee41.jpg?version=1668580160">
+                            
+                            
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="diy_pIcon diy_nextIcon">
+                    <img src="img/prodPic/style_02/diy_nextIcon.png" align="absmiddle" id="spec-rightprodPic_style_02_1482461252881">
+                </div>
+            </div>
+	</div>
+
+
+	<!--手机端-->
+	<div class="diyproImgBox_moblie picSet">
+		<div class="main_visual">
+            
+                <div class="flicking_con">
+                    
+                    
+                    <a href="#" class="on">0</a>
+                    
+                    
+                    
+                    <a href="#">1</a>
+                    
+                    
+                    
+                    <a href="#">2</a>
+                    
+                    
+                    
+                    <a href="#">3</a>
+                    
+                    
+                    
+                    <a href="#">4</a>
+                    
+                    
+                    
+                    <a href="#">5</a>
+                    
+                    
+                    
+                    <a href="#">6</a>
+                    
+                    
+                    
+                    <a href="#">7</a>
+                    
+                    
+                </div>
+			
+			<div class="main_image">
+				<ul id="diyproImgBox_moblie">
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_0"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155390fddbbfcd2d5725d9.jpg?version=0') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_1"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392b64978858ca16fcc.jpg?version=1668580158') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_2"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553921d32ba26a4ebe06c.jpg?version=1668580157') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_3"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539229b8e8d368e5b7a9.jpg?version=1668580157') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_4"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155392daffc78c678c3f6e.jpg?version=1668580157') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_5"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539298f36e9f50360764.jpg?version=1668580157') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_6"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/1668580155393da54d68134fb3531.jpg?version=1668580160') center top no-repeat"></span>
+						
+						
+					</li>
+				
+					<li>
+						
+							<span id="CurShowImg" class="img_7"
+							style="background:url('https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553932506356ca831ee41.jpg?version=1668580160') center top no-repeat"></span>
+						
+						
+					</li>
+				
+				</ul>
+                
+                    <a href="javascript:;" id="btn_prev"></a>
+                    <a href="javascript:;" id="btn_next"></a>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="res/prodPic/style_02/jquery.event.drag-1.5.min.js"></script>
+<script type="text/javascript" src="res/prodPic/style_02/jquery.touchSlider.js"></script>
+<script type="text/javascript" src="res/prodPic/style_02/jdMarquee.js"></script>
+
+    <script type="text/javascript" src="res/prodPic/style_02/imagezoom.min.js"></script>
+
+<!--pc端-->
+<script>
+    initprodPic_style_02_1482461252881();
+    function initprodPic_style_02_1482461252881(){
+    	var dom = $('#prodPic_style_02_1482461252881 .diy_qbox li img').eq(0);
+    	ChangeCurProImgprodPic_style_02_1482461252881(dom);
+    }
+	function ChangeCurProImgprodPic_style_02_1482461252881(imgObj) {
+		$('#prodPic_style_02_1482461252881 .diy_qbox li img').each(function () {
+			$(this).removeClass('hotImg');
+		});
+		var FileExtend = getFileExtend($(imgObj).attr('urlsrc'));
+		FileExtend = FileExtend.split('?')[0].toLowerCase();
+		if(['mp4','m4v','mov','webmv','ogv','flv'].indexOf(FileExtend)>-1){
+			if($(imgObj).attr('urlsrc')!=$('#prodPic_style_02_1482461252881 #CurShowProVideo').attr('src')||$('#prodPic_style_02_1482461252881 #CurShowProVideo').is(":hidden")){
+				$('#prodPic_style_02_1482461252881 #CurShowProVideo').show();
+				$('#prodPic_style_02_1482461252881 #CurShowProImg').hide();
+				$('#prodPic_style_02_1482461252881 #CurShowProVideo').attr('src', $(imgObj).attr('urlsrc'));
+			}
+		}else{
+			if($(imgObj).attr('urlsrc')!=$('#prodPic_style_02_1482461252881 #CurShowProImg').attr('src')||$('#prodPic_style_02_1482461252881 #CurShowProImg').is(":hidden")){
+				$('#prodPic_style_02_1482461252881 #CurShowProVideo').hide();
+				$('#prodPic_style_02_1482461252881 #CurShowProImg').show();
+				$('#prodPic_style_02_1482461252881 #CurShowProImg').attr('src', $(imgObj).attr('urlsrc'));
+				$('#prodPic_style_02_1482461252881 #CurShowProImg').attr('rel', $(imgObj).attr('urlsrc'));
+			}
+		}
+		$(imgObj).addClass('hotImg');
+	}
+	function getFileExtend(fileName) {
+        if (fileName) {
+            return fileName.replace(/.+\./,"");;
+        } else {
+            return '';
+        }
+    }
+		//window.onload = function(){
+    setTimeout(function(){
+        if($('#prodPic_style_02_1482461252881 .diy_qbox li').length>4){
+			$('#prodPic_style_02_1482461252881 #spec-list').jdMarquee({
+				deriction: 'left',
+				height: 78,
+				step: 1,
+				speed: 4,
+				delay: 5,
+				control: true,
+				_front: '#spec-rightprodPic_style_02_1482461252881',
+				_back: '#spec-leftprodPic_style_02_1482461252881',
+			});
+			setTimeout(function(){
+				$('.prodPicStyle_1 .diy_moreImg .diyproImgBox ul li .pro_image').mouseover(function(){
+					ChangeCurProImgprodPic_style_02_1482461252881(this);
+				})
+			},100)
+		}else{
+			$('.prodPicStyle_1 .diy_moreImg .diyproImgBox ul li .pro_image').mouseover(function(){
+				ChangeCurProImgprodPic_style_02_1482461252881(this);
+			})
+		}
+	},50);
+            $('#prodPic_style_02_1482461252881 #CurShowProImg').imagezoom({xzoom: $('#prodPic_style_02_1482461252881 #diyProBox').width(), yzoom: $('#prodPic_style_02_1482461252881 #diyProBox').height()});
+    	
+</script>
+<!--手机端轮播-->
+<script type="text/javascript">
+    var hasVideoprodPic_style_02_1482461252881 = false;
+    var dom0prodPic_style_02_1482461252881 = $('#prodPic_style_02_1482461252881 .diy_qbox li img').eq(0);
+    var FileExtend0prodPic_style_02_1482461252881 = getFileExtend(dom0prodPic_style_02_1482461252881.attr('urlsrc'));
+		FileExtend0prodPic_style_02_1482461252881 = FileExtend0prodPic_style_02_1482461252881.split('?')[0].toLowerCase();
+		hasVideoprodPic_style_02_1482461252881 = (['mp4','m4v','mov','webmv','ogv','flv'].indexOf(FileExtend0prodPic_style_02_1482461252881)>-1);
+ setTimeout(function(){prodPic_style_02_1482461252881startProdPic();},50);
+function prodPic_style_02_1482461252881startProdPic(){
+    var obj=$("#prodPic_style_02_1482461252881");
+    var father=obj.find(".diyproImgBox_moblie .main_image ul");
+    var Ulen = father.children("li").length;
+	
+	
+	$('#prodPic_style_02_1482461252881 .prodPicStyle_1 .diy_moreImg .diyproImgBox ul li img').eq(0).addClass('hotImg');
+    if (Ulen<=1) {//单张不轮播
+        return false;
+    }
+	$("#prodPic_style_02_1482461252881 .main_visual").hover(function(){
+        $("#prodPic_style_02_1482461252881 #btn_prev,#prodPic_style_02_1482461252881 #btn_next").fadeIn()
+    },function(){
+        $("#btn_prev,#btn_next").fadeOut()
+    });
+	$dragBln = false;
+	$("#prodPic_style_02_1482461252881 .main_image").touchSlider({
+		flexible : true,
+		speed : 200,
+		btn_prev : $("#prodPic_style_02_1482461252881 #btn_prev"),
+		btn_next : $("#prodPic_style_02_1482461252881 #btn_next"),
+		paging : $("#prodPic_style_02_1482461252881 .flicking_con a"),
+		counter : function (e){
+			$("#prodPic_style_02_1482461252881 .flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+		}
+	});
+	$("#prodPic_style_02_1482461252881 .main_image").bind("mousedown", function() {
+		$dragBln = false;
+	});
+	$("#prodPic_style_02_1482461252881 .main_image").bind("dragstart", function() {
+		$dragBln = true;
+	});
+	$("#prodPic_style_02_1482461252881 .main_image a").click(function(){
+		if($dragBln) {
+			return false;
+		}
+	});
+	if(!hasVideoprodPic_style_02_1482461252881){
+		timer = setInterval(function(){
+			$("#prodPic_style_02_1482461252881 #btn_next").click();
+		}, 5000);
+
+	}
+}
+if(!hasVideoprodPic_style_02_1482461252881){
+	$("#prodPic_style_02_1482461252881 .main_visual").hover(function(){
+		clearInterval(timer);
+	},function(){
+		timer = setInterval(function(){
+			$("#prodPic_style_02_1482461252881 #btn_next").click();
+		},5000);
+	});
+	$("#prodPic_style_02_1482461252881 .main_image").bind("touchstart",function(){
+		clearInterval(timer);
+	}).bind("touchend", function(){
+		timer = setInterval(function(){
+			$("#prodPic_style_02_1482461252881 #btn_next").click();
+		}, 5000);
+	});
+}
+</script>
+<script>
+        if (typeof change_prod_spec_img != "function") {
+        function change_prod_spec_img(spec_img) {
+            if (spec_img) {
+                if (typeof change_prod_spec_img_style_01 == "function") {
+                    change_prod_spec_img_style_01(spec_img);
+                }
+                if (typeof change_prod_spec_img_style_02 == "function") {
+                    change_prod_spec_img_style_02(spec_img);
+                }
+                if (typeof change_prod_spec_img_style_03 == "function") {
+                    change_prod_spec_img_style_03(spec_img);
+                }
+                if (typeof change_prod_spec_img_style_04 == "function") {
+                    change_prod_spec_img_style_04(spec_img);
+                }
+            }
+        }
+    }
+</script>                </div>
+            </div>
+                        <div id="div_includeBlock_1498112599746" class="view includeBlock div  includeView " >
+                
+                                <div names="div" class="view_contents " >
+                                <div id="text_style_02_1498112616373" class="view style_02 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script>perhaps                </div>
+            </div>
+                        <div id="div_blank_1498112669544" class="view blank div  " >
+                
+                                <div names="div" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><!-- 
+	<a href="javascript:;" style="display:block;width:100%;height:100%;" id="divnet"></a>
+ -->
+
+
+
+                </div>
+            </div>
+                        <div id="productList_style_05_1498112766363" class="view style_05 productList  lockHeightView " >
+                
+                                <div names="productList" class="view_contents " >
+                    <!-- protypeSet pageSet pagecurSet-->
+<div class="prod_default5">
+	<ul id="prod_Ulist">
+		
+			<li class="prod_Item prod modSet">
+				<div class="relative">
+					
+					<!-- 产品图片 -->
+					<div class="prodImg_box imgSet">
+						<div class="prod_img"><a href="product-details_SH-RJ45P.html" target="_blank"><img class="pro_img vertical" src="https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166183008871327d37736c686340d.jpg?version=0" alt="SH-RJ45P USB to RJ45 Console Cable"/><span></span></a></div>
+						<div class="dummy" style="margin-top:150%"></div>
+					</div>
+					<!-- 内容 -->
+					<div class="prod_info twoBgSet">	
+						
+							<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a href="product-details_SH-RJ45P.html" target="_blank">SH-RJ45P...</a></div>
+							<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a href="product-details_SH-RJ45P.html" target="_blank">SH-RJ45P U...</a></div>
+							<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a href="product-details_SH-RJ45P.html" target="_blank">SH-RJ45P U...</a></div>
+						
+
+						
+							<div class="p_detail detailSet pc" style="-webkit-line-clamp:;">Through this USB...</div>
+							<div class="p_detail detailSet pad" style="-webkit-line-clamp:;">Through this USB...</div>
+							<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;">Through this USB...</div>
+						
+						<div class="p_line">
+							
+							
+								
+
+								
+								
+								
+							
+						</div>	
+						
+						<!-- 促销 -->
+						
+						<div class="p_line">
+							
+							
+							
+							
+							
+							
+				</div>
+			</li>
+		
+			<li class="prod_Item prod modSet">
+				<div class="relative">
+					
+					<!-- 产品图片 -->
+					<div class="prodImg_box imgSet">
+						<div class="prod_img"><a href="product-details_SH-C30A.html" target="_blank"><img class="pro_img vertical" src="https://cdn.yun.sooce.cn/6/57145/jpg/1788166698841694b0969f940248610c18d61dba2e71c.jpg?version=1788166701" alt="SH-C30A USB to CAN Bus Adapter"/><span></span></a></div>
+						<div class="dummy" style="margin-top:150%"></div>
+					</div>
+					<!-- 内容 -->
+					<div class="prod_info twoBgSet">	
+						
+							<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a href="product-details_SH-C30A.html" target="_blank">SH-C30A ...</a></div>
+							<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a href="product-details_SH-C30A.html" target="_blank">SH-C30A US...</a></div>
+							<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a href="product-details_SH-C30A.html" target="_blank">SH-C30A US...</a></div>
+						
+
+						
+							<div class="p_detail detailSet pc" style="-webkit-line-clamp:;">Open Source Hard...</div>
+							<div class="p_detail detailSet pad" style="-webkit-line-clamp:;">Open Source Hard...</div>
+							<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;">Open Source Hard...</div>
+						
+						<div class="p_line">
+							
+							
+								
+
+								
+								
+								
+							
+						</div>	
+						
+						<!-- 促销 -->
+						
+						<div class="p_line">
+							
+							
+							
+							
+							
+							
+				</div>
+			</li>
+		
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	
+</div>
+
+
+
+
+
+
+
+
+	
+
+                </div>
+            </div>
+                            </div>
+            </div>
+                        <div id="prodInfor_style_04_1562750282746" class="view style_04 prodInfor  lockHeightView " >
+                
+                                <div names="prodInfor" class="view_contents " >
+                    <script>var SpecDebug = false;
+/**
+  * @Content:获取某个区域(div id="#spec_{s_Hash}")所选择的各个规格所选中的
+  * @Author:zhaogh
+  * @Version:10.0.0
+  * @Param:s_Hash varchar 区域特征
+  * @Return:[{DataIndex:0,DataVal:'#FFFFF'}]
+  */
+ $.ajaxSetup({ cache: false });
+function SpecCurSelect(s_Hash){
+	var arrReturn = [];
+	var curArea = $("#spec_"+s_Hash);
+	$(".sys_item_spec .sys_item_specpara",curArea).each(function(){
+		$("li",$(this)).each(function(){
+			if($(this).hasClass('selected')){
+				var curData = {
+					'DataIndex' :	$(this).data('index'),
+					'DataVal'	:	$(this).data('aid'),
+				};
+				arrReturn.push(curData);
+			}
+		});
+	});
+	return arrReturn;
+}
+
+function SpecGetAttrPrice(s_Hash,is_int){//是否取整
+	if(typeof(is_int)=="undefined") var is_int = 0;
+	var curArea = $("#spec_"+s_Hash);
+	var defaultstats=true;
+	
+	var _val='';
+	var _resp={
+		mktprice:".sys_item_mktprice",
+		price:".sys_item_price"
+	}
+	
+	$(".sys_item_spec .sys_item_specpara",curArea).each(function(){
+		var i=$(this);
+		
+		var v=i.attr("data-attrval");
+		if(!v){
+			defaultstats=false;
+		}else{
+			_val+=_val!=""?"_":"";
+			_val+=v;
+		}
+	});
+
+	var curResult = {};
+	
+	if(!!defaultstats){
+		if (!sys_item.hasOwnProperty('sys_attrprice') || !sys_item['sys_attrprice'].hasOwnProperty(s_Hash) || !sys_item['sys_attrprice'][s_Hash].hasOwnProperty(_val)) {
+			return false;
+		}
+		var curResult = sys_item['sys_attrprice'][s_Hash][_val];
+		_price = curResult['price'];
+		var backprice = _price;
+		//_price = sys_item['sys_attrprice'][s_Hash][_val]['price'];
+		SpecIDSpecPriceSet(s_Hash,sys_item['sys_attrprice'][s_Hash][_val]['IDSpecPrice']);
+		SpecIDSpecStockSet(s_Hash,sys_item['sys_attrnum'][s_Hash][_val]['num']);
+
+		if(sys_item['sys_attrnum'][s_Hash][_val]['num']>0){//不是不限库存的
+			var curNum = parseInt($("#"+s_Hash+"_ProdNum").val());
+			if(!curNum || curNum<1)curNum = 1;
+
+			var diffNum = sys_item['sys_attrnum'][s_Hash][_val]['num']-sys_item['sys_attrnum'][s_Hash][_val]['nums'];
+			$("#"+s_Hash+"_ProdNum").attr('data-maxnum',diffNum);
+			CheckStock(s_Hash);
+		}
+        //更改图片
+        if (typeof change_prod_spec_img == "function") change_prod_spec_img(sys_item['sys_attrprice'][s_Hash][_val]['spec_img']);
+	}else{
+		
+		var curResult = false;
+		var allNum = 0;
+		$.each(sys_item['sys_attrnum'][s_Hash],function(i,item){
+			allNum = allNum+parseInt(item.num);
+		});
+		SpecIDSpecStockSet(s_Hash,allNum);
+		//var curResult = sys_item['price'][s_Hash];
+		//_price = curResult['price'];
+		//_mktprice = sys_item['mktprice'];
+		_price = sys_item['price'][s_Hash];
+		var backprice = _price;
+	}
+
+	_price = price_format(_price);
+
+	//输出价格
+	var newPriceObj = $("#"+sys_item['price_id'][s_Hash]['HTMLPriceNewID']);
+	if(newPriceObj){
+		if(is_int==1){
+			if(typeof(_price)=='string') _price = _price.replace(/,/g, "");
+			_price = parseFloat(_price);
+			_price = Math.round(_price);
+		} 
+		newPriceObj.text(_price);
+	}
+	if (sys_item['price_id'][s_Hash]['HTMLPriceOldID']) var oldPriceObj = $("#"+sys_item['price_id'][s_Hash]['HTMLPriceOldID']);
+	if(oldPriceObj){
+		if(is_int==1){
+			var oldprice = sys_item['price_old'][s_Hash];
+			if(typeof(oldprice)=='string') sys_item['price_old'][s_Hash] = oldprice.replace(/,/g, "");
+			sys_item['price_old'][s_Hash] = parseFloat(sys_item['price_old'][s_Hash]);
+			sys_item['price_old'][s_Hash] = Math.round(sys_item['price_old'][s_Hash]);
+		} 
+		oldPriceObj.text(sys_item['price_old'][s_Hash]);
+	}
+    var packagePriceObj = $("#"+sys_item['price_id'][s_Hash]['HTMLPricePID']);
+    if(packagePriceObj && curResult){
+        var resPrice = 0;
+        var resPriceFormat = 0.00;
+        if(curResult['price']) {
+            resPrice = curResult['price'];
+            resPriceFormat = curResult['price_format'];
+            $(".packageTips").css("display","none");
+        }
+        if (curResult['mprice']){
+            resPrice = curResult['mprice'];
+            resPriceFormat = curResult['mprice_format'];
+            $(".packageTips").css("display","none");
+        }
+        if(curResult['PackagePrice']) {
+            resPrice = curResult['PackagePrice'];
+            resPriceFormat = curResult['PackagePrice_format'];
+            $(".packageTips").css("display","block");
+        }
+        if(resPrice){
+            if(is_int==1){
+                if(typeof(resPrice)=='string') resPrice = resPrice.replace(/,/g, "");
+                resPrice = parseFloat(resPrice);
+                resPrice = Math.round(resPrice);//是否取整
+                packagePriceObj.text(resPrice);
+            }
+            else{
+                packagePriceObj.text(resPriceFormat);
+            }
+        }else{
+            packagePriceObj.text("无");
+        }
+    }
+
+	// var memberPriceObj = $("#"+sys_item['price_id'][s_Hash]['HTMLPriceMID']);
+	// if(memberPriceObj && curResult && curResult["mprice"]){
+	// 	if(curResult['mprice']){
+	// 		if(is_int==1){
+	// 			var mprice = curResult['mprice'];
+	// 			if(typeof(mprice)=='string') curResult['mprice'] = mprice.replace(/,/g, "");
+	// 			curResult['mprice'] = parseFloat(curResult['mprice']);
+	// 			curResult['mprice'] = Math.round(curResult['mprice']);//是否取整
+	// 		}
+	// 		curResult['mprice'] = price_format(curResult['mprice']);
+    //
+	// 		memberPriceObj.text(curResult['mprice']);
+	// 	}else{
+	// 		memberPriceObj.text("无");
+	// 	}
+	// }
+    //
+	// //上面那个mprice有什么用的，俊杰看看，我先重写一个让多规格能够正常使用先 by zhaobin
+    //
+	// var PriceObj = $("#"+sys_item['price_id'][s_Hash]['HTMLPricePID']);
+	// if(PriceObj && curResult && curResult["price"] && !curResult['PackagePrice']){
+	// 	if(curResult['price']){
+	// 		if(is_int==1) {
+	// 			var price = curResult['price'];
+	// 			if(typeof(price)=='string') curResult['price'] = price.replace(/,/g, "");
+    //
+	// 			curResult['price'] = parseFloat(curResult['price']);
+	// 			curResult['price'] = Math.round(curResult['price']);//是否取整
+	// 		}
+    //
+	// 		curResult['price'] = price_format(curResult['price']);
+	//
+	// 		PriceObj.text(curResult['price']);
+	// 	}else{
+	// 		PriceObj.text("无");
+	// 	}
+	// }
+}
+
+function CheckStock(s_Hash){
+	var prodnumObj = $("#"+s_Hash+"_ProdNum");
+	var curNum = parseInt(prodnumObj.val());
+	var maxNum = parseInt(prodnumObj.data('maxnum'));
+	if(!curNum || curNum<1)curNum = 1;
+    var tipStr = '';
+    if(lang == 2){
+        tipStr = 'INV:';
+    }else if(lang == 0 || lang == 1){
+        tipStr = '剩余库存:';
+    }else{
+        tipStr = remaining_inventory+':';
+        //return;
+    }
+	if(maxNum<curNum){
+		$("#"+s_Hash+"_ErrMsg").html(tipStr+maxNum);
+		prodnumObj.val(maxNum);
+	}else{
+		$("#"+s_Hash+"_ErrMsg").html("");
+	}
+}
+
+function SpecIDSpecPriceGet(s_Hash){
+	return $("#IDSpecPrice_"+s_Hash).val();
+}
+
+function SpecIDSpecPriceSet(s_Hash,i_IDSpecPrice){
+	return $("#IDSpecPrice_"+s_Hash).val(parseInt(i_IDSpecPrice));
+}
+
+function SpecIDSpecStockGet(s_Hash){
+	return $("#IDSpecStock_"+s_Hash).html();
+}
+
+function SpecIDSpecStockSet(s_Hash,SpecStock){
+	if($("#IDSpecStock_"+s_Hash)) return $("#IDSpecStock_"+s_Hash).html(parseInt(SpecStock));
+}
+
+//首次进入页面会执行这个函数
+function SpecRequestNum(s_Hash,i_IDProduct,i_IDPackage,is_int){
+	if(typeof(is_int)=="undefined") var is_int = 0;
+	var postUrl = s_SpecServer+"/include/spectools.ajax.php?callback=?";
+	var postData = {
+		'Action'	:	'SpecRequestNum',
+		'IDWebSite'	:	i_IDWebSite,
+		'IDProduct'	:	i_IDProduct,
+		'IDPackage'	:	i_IDPackage,
+	};
+	$.getJSON(postUrl,postData,function(resultInfo){
+		if(!sys_item['sys_attrnum'][s_Hash])sys_item['sys_attrnum'][s_Hash] = {};
+		
+		sys_item['sys_attrnum'][s_Hash] = resultInfo;
+		AjaxCountRequest(s_Hash,is_int);
+	});
+}
+
+function AjaxCountRequest(s_Hash,is_int){
+	if(typeof(is_int)=="undefined") var is_int = 0;
+	if(typeof NeedShowDefault=="underfined")return false;
+	i_AjaxCount+= 1;
+	if(i_AjaxCount==2){
+		SpecGetAttrPrice(s_Hash,is_int);
+	}
+}
+
+
+function SpecRequestPrice(s_Hash,i_IDProduct,i_IDPackage){
+	var postUrl = s_SpecServer+'/include/spectools.ajax.php?callback=?&timestamp=' + new Date().getTime();
+	var postData = {
+		'Action'	:	'SpecRequestPrice',
+		'IDWebSite'	:	i_IDWebSite,
+		'IDProduct'	:	i_IDProduct,
+		'IDPackage'	:	i_IDPackage,
+	};
+
+	$.getJSON(postUrl,postData,function(resultInfo){
+		if(!sys_item['sys_attrprice'][s_Hash])sys_item['sys_attrprice'][s_Hash] = {};//初始化
+		
+		sys_item['sys_attrprice'][s_Hash] = resultInfo;
+		AjaxCountRequest(s_Hash,0);
+	});
+}
+
+function SpecRequestAttr(s_Hash,i_IDProduct,i_IDPackage){
+	var curArea = $("#spec_"+s_Hash);
+	var curSelect = SpecCurSelect(s_Hash);
+	SpecIDSpecPriceSet(s_Hash,0);
+
+	var postUrl = s_SpecServer+'/include/spectools.ajax.php?callback=?';
+	var postData = {'Action':'SpecRequestAttr','IDWebSite':i_IDWebSite,'IDProduct':i_IDProduct,'IDPackage':i_IDPackage};
+	if(curSelect){
+		postData["CurSelect"] = curSelect;
+	}
+	
+	$.getJSON(postUrl,postData,function(attrInfo){
+		for(var i_Index in attrInfo){
+			var curAttrList = attrInfo[i_Index];
+			var divArea = $("#spec_"+s_Hash);
+			$("li[data-index='"+i_Index+"']",divArea).each(function(){
+				var curLi = $(this);
+				var canSelect = false;
+				for(var j=0;j<curAttrList.length;j++){
+					if(curLi.data('aid')==curAttrList[j]){
+						canSelect = true;break;
+					}
+				}
+				curLi.removeClass('noallowselect');
+				if(!canSelect){
+					//curLi.addClass('noallowselect');//临时屏蔽，咸良说不要灰化
+				}
+				
+				//如果是选中了，但不能被选，则取消选中
+				if(curLi.hasClass('selected') && !canSelect){
+					curLi.removeClass('selected');
+				}
+			});
+		}
+	});
+}</script><div class="proInfoStyle04">
+	<!--标题/简介-->
+	<div class="proInfo_title">
+		
+		<h1 class="prodName titProSet">SH-U05A USB to SPI IIC I2C UART 3-IN-1 Adatper</h1>
+		
+		
+		<p class="proBrief defProSet">USB to IIC:Supports programming of IIC EEPROMs, such as the AT24C01. 4 speeds adjustable: 20K, 100K, 400K, 750K&#10;USB to SPI:Supports memory programming for SPI interfaces, e.g. WINBOND\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'s W25Q40BV. fixed rate of 2Mbps is not adjustable.&#10;USB to TTL UART:Supports communication baud rate 50bps～2Mbps;Lead PIN:TX,RX,GND,VCC</p>
+		
+		 
+	</div>
+
+	<!--规格 colorPorSet-->
+	
+
+	<!--资讯-->
+	<div class="probuy">
+		
+		
+		
+	</div>
+
+</div><script>//--
+				$(function(){
+					var viewid="prodInfor_style_04_1562750282746";
+					var sys_url="viewid=prodInfor_style_04_1562750282746&name=prodInfor&style=style_04&langid=2&pageid=813067&viewCtrl=default&pid=1663317";
+					var moreParams='';
+					if(typeof(history.pushState) != 'undefined'){
+						var hstate=JSON.stringify(history.state);
+						if(hstate!='null'&& hstate!=null){
+							eval('var hjson = ' + hstate);
+							moreParams=hjson.moreParamsprodInfor_style_04_1562750282746;
+						}
+					}
+					RequestURL(viewid,sys_url,moreParams);
+				});
+			//--</script>
+	
+
+<script type="text/javascript">
+    	loadExtentFile('https://s143js.nicebox.cn/js/countdown_en.js?'+1791863612,'js');
+	</script>
+<script type="text/javascript">
+	var PurchaseList_spec_list = 0;
+	var viewClassStyle05 = '';
+var title_suffix = "";
+
+//回调的时候重新加载关键字
+var title = $('.prodName.titProSet:first').text();
+if (!title) title = $('.titProSet:first').text();
+title = (title.indexOf('-') == -1) ? title + title_suffix : title;
+if (title != '产品标题') $("title").text(title);
+
+var wid=57145;
+var lang=2;
+var remaining_inventory='INV';
+
+//loadExtentFile('//s143js.nicebox.cn/js/spectools.js','js');
+function addred(obj){
+	if($(obj).attr("class")=='red'){
+		$(obj).removeClass("red");
+	}else{
+		$(obj).addClass("red");
+	}
+}
+function is_mobile(){
+    return window.screen.width<767 || ($('body').width() > 0 && $('body').width() < 767);
+}
+function Pt_AddCart(Pt_ID){
+	var s_PtCartUrl = "https://s143js.nicebox.cn//diyTools/?mod=ptCart&idweb=57145&Pt_ID="+Pt_ID+"&lang=";
+	if(is_mobile()) window.location = s_PtCartUrl+"&ismobile=1";
+	else{
+		document.getElementById("boxName").innerHTML = "购物车";
+		if(document.getElementById("boxClose"))document.getElementById("boxClose").innserHTML = "关闭";
+		document.getElementById("showiframe").src = s_PtCartUrl+"&ismobile=0";
+		box.Show({width:"900px",height:"500px"});
+	}
+}
+if(typeof ModProdNum_prodInfor_style_04_1562750282746 ==='undefined'){
+	function ModProdNum_prodInfor_style_04_1562750282746(curHash,i_ActionType){
+					viewClassStyle05 = '';
+				i_ActionType = i_ActionType==2?2:1;
+		
+		var obj_ProdNum = $(viewClassStyle05+" input[name = '"+curHash+"_ProdNum']");
+		var obj_ProdNum1 = $(viewClassStyle05 +"#prodInfor_style_04_1562750282746 .mobile_prodnum");
+		var i_NewNum = obj_ProdNum.val();
+		i_NewNum = parseInt(i_NewNum);
+		if(i_ActionType==1){
+			i_NewNum-= 1;
+			if(i_NewNum<1)i_NewNum = 1;
+		}else{
+			i_NewNum+= 1;
+		}
+		obj_ProdNum.val(i_NewNum);
+		obj_ProdNum1.val(i_NewNum);
+		// CheckStock(curHash);
+	}
+}
+
+
+    function onAddcart() {
+        addcart('1663317',57145,0,"s143js.nicebox.cn");
+    }
+    if(is_mobile()){
+        $('#prodInfor_style_04_1562750282746 .probuy_1 input:nth-child(2)').attr('onclick','').unbind('click').click(onAddcart);
+    }
+
+	var dispatching = $("#prodInfor_style_04_1562750282746 .proInfoStyle01 .diy_farebox select").attr("value")
+    var shopCartBaseUrl = "https://s143js.nicebox.cn/exusers/u_cart.php?idweb=57145&idpackage="+"&dispatching="+dispatching;
+    if(typeof ProdDetailAddCart === 'undefined'){
+					viewClassStyle05 = '';
+		        function ProdDetailAddCart(s_Hash,i_IDProduct,i_GoBuy,Allspec,view_ID){
+			if(typeof reGetCart == 'function'){ 
+				setTimeout(function(){
+					reGetCart();	//重新获取购物车模块数量
+				},1000); 
+			}
+        	if(typeof Allspec=="undefined") Allspec=0;
+			var IDSpecPriceObj = $(view_ID+" input[id ^= 'IDSpecPrice']");
+			if(IDSpecPriceObj.length>1){
+				
+				if($(view_ID + '.showInMobile').css('display') == 'none'){	
+					// 电脑端
+					var i_IDSpecPrice = $(view_ID+" .showInPc input[id ^= 'IDSpecPrice']").val();
+					var i_ProdNum = $(view_ID+" .showInPc input[id $= 'ProdNum']").val();
+				}else{
+					// 手机端
+					var i_IDSpecPrice = $(view_ID+" .showInMobile input[id ^= 'IDSpecPrice']").val();
+					var i_ProdNum = $(view_ID+" .showInMobile input[id $= 'ProdNum']").val();
+				}
+			}else{
+				var i_IDSpecPrice = IDSpecPriceObj.val();
+				var i_ProdNum = $(view_ID+" input[id $= 'ProdNum']").val();
+			}
+            var pid = i_IDProduct;
+
+			lang=2;
+			if(lang == '0'){
+				lang = Default_isFT;
+				if(BodyIsFt == '0'){
+					lang = BodyIsFt;
+				}else if(BodyIsFt == '1'){
+					lang = BodyIsFt;
+				}
+			}
+            i_ProdNum = parseInt(i_ProdNum);
+            if(!i_ProdNum || i_ProdNum<1) i_ProdNum = 1;
+
+            i_GoBuy = parseInt(i_GoBuy);
+            i_GoBuy = i_GoBuy==1?1:0;
+            i_IDSpecPrice = parseInt(i_IDSpecPrice);
+			if(i_IDSpecPrice==0){
+				alert("Please select the specifications");
+				return;
+			}
+
+            var shopCartUrl = shopCartBaseUrl;
+            shopCartUrl+= "&lang="+lang;
+            shopCartUrl+= "&act=add";
+            shopCartUrl+= "&pid="+i_IDProduct;
+            shopCartUrl+= "&num="+i_ProdNum;
+            if(!isNaN(i_IDSpecPrice) && i_IDSpecPrice>0){
+                shopCartUrl+= "&IDSpecPrice["+i_IDProduct+"]="+i_IDSpecPrice;
+            }
+
+            shopCartUrl+= "&GoBuy="+i_GoBuy;
+            shopCartUrl+= "&ismobile="+(is_mobile()?1:0);
+
+            var issafariBrowser = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
+           if(is_mobile() || issafariBrowser){
+				var res = "0";
+				var is_virtual = "0";
+				if(res == '1' && is_virtual == 0){ //不弹出购物车
+					shopCartUrl+= "&use_ajax=1&callback=?";
+					$.getJSON(shopCartUrl,function(ret){
+						if(ret.i_AddFlag){
+							$.alerts.dialogClass  = 'success';
+							alert(ret.message);
+						}
+					});
+				}else{
+					window.location =  shopCartUrl;//有很多大客户需求的，不要随意开启这个或者关闭上面那个 2017/5/31
+				}
+
+           }else{
+
+
+
+                document.getElementById("boxName").innerHTML="View Shopping Cart";
+                if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+                document.getElementById("showiframe").src = shopCartUrl;
+                box.Show({width:"880px",height:"500px"});
+           }
+        }
+        function prodShowIntent(id,pid,lang){
+			var boxName = "";
+			var boxTitle = "";
+			var boxbotton = "";
+            var notMustUsername = "0";
+            var notMustContact = "0";
+            var notMustAbout = "0";
+			if(typeof lang=='undefined') lang=2;
+			if(lang == '0'){
+				lang = Default_isFT
+				if(BodyIsFt == '0'){
+					lang = BodyIsFt;
+				}else if(BodyIsFt == '1'){
+					lang = BodyIsFt;
+				}
+			}
+			var prodIntentUrl = 'https://s143js.nicebox.cn/product/proshowintent.php?id='+id+'&pid='+pid+'&lang='+lang+'&boxName='+boxName+'&boxTitle='+boxTitle+'&boxbotton='+boxbotton+'&notMustUsername='+notMustUsername+'&notMustContact='+notMustContact+'&notMustAbout='+notMustAbout+'&idweb=57145';
+			if(is_mobile()){
+				window.location =  prodIntentUrl+'&ismobile=1';
+			}else{
+				document.getElementById("boxName").innerHTML="Opinion sheet";
+				if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+				document.getElementById("showiframe").src = prodIntentUrl;
+				box.Show({width:"450px",height:"320px"}); 
+			}
+        }
+
+        function checkExuser(cb) {
+            $.ajax({
+                type : "GET",
+                dataType : 'jsonp',
+                jsonp:"jsoncallback",
+                url : "https://s143js.nicebox.cn/exusers/ajax/check_exuser.php?idweb=57145",
+                data : '',
+                success:function(data){
+                    if (data.code == 200) {
+                        if (typeof cb  == 'function') {
+                            cb(data['data']);
+                        }
+                    }else{
+                        alert("请先登录");
+                    }
+                },
+                error:function(){
+                    console.log('error');
+                }
+            });
+        }
+
+
+    }
+
+	if (typeof prodShowRemind === 'undefined') {
+		function prodShowRemind(id,pid,lang,a) {
+			var boxName = "";
+			if(typeof lang=='undefined') lang=2;
+			if(lang == '0'){
+				lang = Default_isFT
+				if(BodyIsFt == '0'){
+					lang = BodyIsFt;
+				}else if(BodyIsFt == '1'){
+					lang = BodyIsFt; 
+				}
+			}
+			var spec = $(a).attr('specid');
+			var prodIntentUrl = 'https://s143js.nicebox.cn/product/proshowremind.php?id='+id+'&pid='+pid+'&lang='+lang+'&boxName='+boxName+'&spec='+spec;
+
+			if(is_mobile()){
+				window.location =  prodIntentUrl+'&ismobile=1';
+			}else{
+				document.getElementById("boxName").innerHTML="";
+				if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+				document.getElementById("showiframe").src = prodIntentUrl;
+				box.Show({width:"500px",height:"240px"});
+			}
+		}
+	}
+
+    if(typeof Pt_AddCart !== 'function'){
+        function Pt_AddCart(Pt_ID){
+            var s_PtCartUrl = "https://s143js.nicebox.cn//diyTools/?mod=ptCart&idweb=57145&Pt_ID="+Pt_ID+"{shareOrd}&lang=2";
+            if(is_mobile()){
+            window.location = s_PtCartUrl+"ismobile=1";
+            }else{
+            document.getElementById("boxName").innerHTML = "View Shopping Cart";
+            if(document.getElementById("boxClose"))document.getElementById("boxClose").innserHTML = "×";
+            document.getElementById("showiframe").src = s_PtCartUrl;
+            box.Show({width:"900px",height:"500px"});
+            }
+        }
+    }
+
+    if(typeof Group_AddCart !== 'function'){
+        function Group_AddCart(i_IDProduct,i_IDPackage,isTrade,i_GoBuy,view_ID){
+							viewClassStyle05 = '';
+						lang=2;
+			if(lang == '0'){
+				lang = Default_isFT
+				if(BodyIsFt == '0'){
+					lang = BodyIsFt;
+				}else if(BodyIsFt == '1'){
+					lang = BodyIsFt;
+				}
+			}
+			var dispatching = $(view_ID+' '+viewClassStyle05+" .diy_farebox select").attr("value");
+			var IDSpecPriceObj = $(view_ID+" input[id ^= 'IDSpecPrice']");
+			if(IDSpecPriceObj.length>1){
+				if($(view_ID + '.showInMobile').css('display') == 'none'){	
+					// 电脑端
+					var i_IDSpecPrice = $(view_ID+" .showInPc input[id ^= 'IDSpecPrice']").val();
+					var i_ProdNum = $(view_ID+" .showInPc input[id $= 'ProdNum']").val();
+				}else{
+					// 手机端
+					var i_IDSpecPrice = $(view_ID+" .showInMobile input[id ^= 'IDSpecPrice']").val();
+					var i_ProdNum = $(view_ID+" .showInMobile input[id $= 'ProdNum']").val();
+				}
+			}else{
+				var i_IDSpecPrice = IDSpecPriceObj.val();
+				var i_ProdNum = $(view_ID+" input[id $= 'ProdNum']").val();
+			}
+            i_ProdNum = parseInt(i_ProdNum);
+            var isTrade = parseInt(isTrade);
+            isTrade = (isNaN(isTrade) || isTrade<1) ? 0:isTrade;
+			i_GoBuy = parseInt(i_GoBuy);
+		    i_GoBuy = i_GoBuy==1?1:0;
+
+            var s_ShopCartUrl = "https://s143js.nicebox.cn/exusers/u_cart.php?idweb=57145&pid="+i_IDProduct+"&num="+i_ProdNum+"&idpackage="+i_IDPackage+"&act=add&lang="+lang+"&dispatching="+dispatching;
+
+			console.log('s_ShopCartUrl::',s_ShopCartUrl);
+            i_IDSpecPrice = parseInt(i_IDSpecPrice);
+			if(i_IDSpecPrice==0){
+				alert("Please select the specifications");
+				return;
+			}
+            if(!isNaN(i_IDSpecPrice) && i_IDSpecPrice>0){
+                s_ShopCartUrl+= "&IDSpecPrice["+i_IDProduct+"]="+i_IDSpecPrice;
+            }
+            s_ShopCartUrl+= "&GoBuy="+i_GoBuy;
+           // console.log(s_ShopCartUrl);
+
+            //兼容苹果浏览器safaricookie,session问题
+            var issafariBrowser = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
+           if(is_mobile() || issafariBrowser){
+				window.location = s_ShopCartUrl+"&ismobile=1"+"&dispatching="+dispatching;
+            }else{
+				document.getElementById("boxName").innerHTML = "Buy";
+				if(document.getElementById("boxClose"))document.getElementById("boxClose").innserHTML = "×";
+				if(isTrade==0){
+					document.getElementById("showiframe").src = s_ShopCartUrl+"&dispatching="+dispatching;
+					box.Show({width:"900px",height:"500px"});
+				}else{
+					document.getElementById("showiframe").src = "https://s143js.nicebox.cn/product/iframe_product.php?pid="+i_IDProduct+"&wid=57145&lang="+lang+"&idpackage="+i_IDPackage+"&dispatching="+dispatching;
+					box.Show({width:"800px",height:"420px"});
+				}
+            }
+        }
+    }
+
+	if(typeof addcart !== 'function'){
+		function addcart(pid,idweb,lang,jsbbxserver){
+			if(typeof reGetCart == 'function'){ 
+				setTimeout(function(){
+					reGetCart();	//重新获取购物车模块数量
+				},1000); 
+			}	
+				console.log('rrrrrr::');
+            var idweb = idweb?idweb:'57145';
+            var jsbbxserver = jsbbxserver?jsbbxserver:'s143js.nicebox.cn';
+            var lang = lang||lang==0?lang:'2';
+			var dispatching = $("#prodInfor_style_04_1562750282746 "+viewClassStyle05+".proInfoStyle01 .diy_farebox select").attr("value")
+			var i_ProdNum = $(viewClassStyle05+"#bee705944fa7fa7fa481e3eb06945b92_ProdNum").val();
+			if(is_mobile()){
+				var locationUrl = "https://"+jsbbxserver+"/exusers/u_cart.php?idweb="+idweb+"&lang="+lang+"&pid="+pid+"&act=add&ismobile=1&num="+i_ProdNum+"&dispatching="+dispatching ;
+				window.location = locationUrl;
+				console.log('locationUrl::',locationUrl);
+			}else{
+				document.getElementById("boxName").innerHTML="View Shopping Cart";
+				if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+				document.getElementById("showiframe").src="https://"+jsbbxserver+"/exusers/u_cart.php?idweb="+idweb+"&pid="+pid+"&act=add&lang="+lang+"&ispc=1"+"&dispatching="+dispatching;
+				console.log('rrrrrr3333::');
+				box.Show({width:"920px",height:"500px"});
+			}
+		}
+	}
+
+	function getThisId(lang,Default_isFT) {
+        if(typeof lang=='undefined') lang=0;
+        if(lang == '0'){
+            lang = Default_isFT
+            if(BodyIsFt == '0'){
+                lang = BodyIsFt;
+            }else if(BodyIsFt == '1'){
+                lang = BodyIsFt;
+            }
+        }
+        return lang;
+    }
+
+if(typeof InteScore_AddCart !== 'function'){
+	function InteScore_AddCart(url){
+        lang = getThisId(lang,Default_isFT);
+		var s_InteScoreUrl = "https://s143js.nicebox.cn/"+url+"";
+		if(is_mobile()){
+			window.location = s_InteScoreUrl+"&ismobile=1&lang=" + lang;
+		}else{
+			document.getElementById("boxName").innerHTML = "Integral Exchange";
+			if(document.getElementById("boxClose"))document.getElementById("boxClose").innserHTML = "×";
+			document.getElementById("showiframe").src = s_InteScoreUrl + "&lang=" + lang;
+			box.Show({width:"900px",height:"500px"});
+		}
+	}
+}
+
+
+
+
+
+function BuyPurchase(gid,head_lid) {
+    if (!head_lid) head_lid = 0;
+	var i_IDSpecPrice = $("#IDSpecPrice_bee705944fa7fa7fa481e3eb06945b92").val();
+	if(i_IDSpecPrice == 0){
+		alert('请选择规格！');
+		return;
+	}
+	var i_ProdNum = $("#bee705944fa7fa7fa481e3eb06945b92_ProdNum").val();
+	i_ProdNum = parseInt(i_ProdNum);
+	var url = "gid="+gid+"&head_lid="+head_lid+"&spec_id="+i_IDSpecPrice+"&buy_num="+i_ProdNum;
+	if(is_mobile()){
+		window.location.href="https://s143js.nicebox.cn/exusers/purchase_checkout.php?isCenter=1&"+url;
+	}else{
+		document.getElementById("boxName").innerHTML="我要开团 - 拼购活动";
+		if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+		document.getElementById("showiframe").src="https://s143js.nicebox.cn/exusers/purchase_checkout.php?isCenter=1&"+url;
+		box.Show({width:"920px",height:"500px"});
+	}
+}
+
+function getCoupons(id){
+	addwxCard(id,null,'Coupons Receive','2','prodInfo');
+}
+
+//风格5
+function counplistKfun(){
+	$('#prodInfor_style_04_1562750282746 .counplistK').toggle();
+	if($('#prodInfor_style_04_1562750282746 .counplistK').is(':hidden')){
+		$('body,html').css({overflow:'auto'},{height:'auto'});
+		$('#prodInfor_style_04_1562750282746 .black').hide();
+	}else{
+		$('#prodInfor_style_04_1562750282746 .black').show();
+		$('body,html').css({overflow:'hidden'},{height:'100%'});
+	}
+	if($('#prodInfor_style_04_1562750282746 .choseK').is(':hidden')){
+	}else{
+		$('#prodInfor_style_04_1562750282746 .choseK').hide();
+	}
+}
+function choseKfun(){
+	$('#prodInfor_style_04_1562750282746 .choseK').toggle();
+
+	if($('#prodInfor_style_04_1562750282746 .choseK').is(':hidden')){
+		$('body,html').css({overflow:'auto'},{height:'auto'});
+		$('#prodInfor_style_04_1562750282746 .black').hide();
+	}else{
+		$('body,html').css({overflow:'hidden'},{height:'100%'});
+		$('#prodInfor_style_04_1562750282746 .black').show();
+	}
+
+	if($('#prodInfor_style_04_1562750282746 .counplistK').is(':hidden')){
+	}else{
+		$('#prodInfor_style_04_1562750282746 .counplistK').hide();
+	}
+}
+</script>
+                </div>
+            </div>
+                            </div>
+            </div>
+                        <div id="layout_1498179784493" class="layout   scrollView" >
+                                <div class="view_contents ">
+                                    </div>
+            </div>
+                        <div id="layout_1498112236160" class="layout   scrollView" >
+                                <div class="view_contents ">
+                                <div id="div_includeBlock_1498112116405" class="view includeBlock div  includeView " >
+                
+                                <div names="div" class="view_contents " >
+                                <div id="div_blank_1498112164925" class="view blank div  " >
+                
+                                <div names="div" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><!-- 
+	<a href="javascript:;" style="display:block;width:100%;height:100%;" id="divnet"></a>
+ -->
+
+
+
+                </div>
+            </div>
+                        <div id="text_style_02_1498112395606" class="view style_02 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script>Recommend                </div>
+            </div>
+                        <div id="productList_style_04_1498112543032" class="view style_04 productList  lockHeightView " >
+                
+                                <div names="productList" class="view_contents " >
+                    <!-- protypeSet pageSet pagecurSet-->
+<div class="prod_default4">
+	<ul id="prod_Ulist">
+		
+			<li class="prod_Item mia_li_cont">
+				<div class="mia_li_item modSet">
+					<div class="relative">
+						<!-- 拼购图标 -->
+						
+						<!-- 产品图片 -->
+						
+							<div class="prodImg_box imgSet">
+								<div class="prod_img"><a href="product-details_SH-C31B.html" target="_blank"><img class="pro_img horizontal" src="https://cdn.yun.sooce.cn/6/57145/jpg/17907400419570ededb9f43bc607b08e3ce330e798cc7.jpg?version=1790740045" alt="SH-C31B USB to CAN Bus FD Adapter, slcan Serial Port, 5 Mbit/s"/></a></div>
+								<div class="dummy" style="margin-top:100%"></div>
+							</div>
+						
+						<!-- 内容 -->
+						<div class="prod_info prod_infos contentAreaSet">
+							
+								<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-C31B.html" target="_blank">SH-C31B US...</a></div>
+								<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-C31B.html" target="_blank">SH-C31B US...</a></div>
+								<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-C31B.html" target="_blank">SH-C31B US...</a></div>
+							
+							
+								<div class="p_detail detailSet pc" style="-webkit-line-clamp:;"><div class="overhide">It Is Just a COM...</div></div>
+								<div class="p_detail detailSet pad" style="-webkit-line-clamp:;"><div class="overhide">It Is Just a COM...</div></div>
+								<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;"><div class="overhide">It Is Just a COM...</div></div>
+							
+							
+							
+
+							
+								<div class="p_line">
+									<!-- 折扣价 -->
+									
+									
+									
+									
+								</div>
+								<div class="p_line">
+									
+								</div>
+
+								<div class="p_line">
+									
+									
+								</div>
+							
+							<!-- 促销 -->
+							
+							
+								<div class="p_line">
+									
+								</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+		
+			<li class="prod_Item mia_li_cont">
+				<div class="mia_li_item modSet">
+					<div class="relative">
+						<!-- 拼购图标 -->
+						
+						<!-- 产品图片 -->
+						
+							<div class="prodImg_box imgSet">
+								<div class="prod_img"><a href="product-details_diLogger.html" target="_blank"><img class="pro_img horizontal" src="https://cdn.yun.sooce.cn/6/57145/jpg/178701347509180e71c06711a650bb03237ff7953aceb.jpg?version=1787013478" alt="diLogger Serial Data Logger"/></a></div>
+								<div class="dummy" style="margin-top:100%"></div>
+							</div>
+						
+						<!-- 内容 -->
+						<div class="prod_info prod_infos contentAreaSet">
+							
+								<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_diLogger.html" target="_blank">diLogger S...</a></div>
+								<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_diLogger.html" target="_blank">diLogger S...</a></div>
+								<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_diLogger.html" target="_blank">diLogger S...</a></div>
+							
+							
+								<div class="p_detail detailSet pc" style="-webkit-line-clamp:;"><div class="overhide">RS485, RS232 & T...</div></div>
+								<div class="p_detail detailSet pad" style="-webkit-line-clamp:;"><div class="overhide">RS485, RS232 & T...</div></div>
+								<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;"><div class="overhide">RS485, RS232 & T...</div></div>
+							
+							
+							
+
+							
+								<div class="p_line">
+									<!-- 折扣价 -->
+									
+									
+									
+									
+								</div>
+								<div class="p_line">
+									
+								</div>
+
+								<div class="p_line">
+									
+									
+								</div>
+							
+							<!-- 促销 -->
+							
+							
+								<div class="p_line">
+									
+								</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+		
+			<li class="prod_Item mia_li_cont">
+				<div class="mia_li_item modSet">
+					<div class="relative">
+						<!-- 拼购图标 -->
+						
+						<!-- 产品图片 -->
+						
+							<div class="prodImg_box imgSet">
+								<div class="prod_img"><a href="product-details_SH-N20C.html" target="_blank"><img class="pro_img horizontal" src="https://cdn.yun.sooce.cn/6/57145/jpg/178609330955036ba62bd0c2b3e23e87efe61b172756a.jpg?version=1786093313" alt="SH-N20C USB 3.0 C to RJ45 Ethernet Cable"/></a></div>
+								<div class="dummy" style="margin-top:100%"></div>
+							</div>
+						
+						<!-- 内容 -->
+						<div class="prod_info prod_infos contentAreaSet">
+							
+								<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20C.html" target="_blank">SH-N20C US...</a></div>
+								<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20C.html" target="_blank">SH-N20C US...</a></div>
+								<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20C.html" target="_blank">SH-N20C US...</a></div>
+							
+							
+								<div class="p_detail detailSet pc" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+								<div class="p_detail detailSet pad" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+								<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+							
+							
+							
+
+							
+								<div class="p_line">
+									<!-- 折扣价 -->
+									
+									
+									
+									
+								</div>
+								<div class="p_line">
+									
+								</div>
+
+								<div class="p_line">
+									
+									
+								</div>
+							
+							<!-- 促销 -->
+							
+							
+								<div class="p_line">
+									
+								</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+		
+			<li class="prod_Item mia_li_cont">
+				<div class="mia_li_item modSet">
+					<div class="relative">
+						<!-- 拼购图标 -->
+						
+						<!-- 产品图片 -->
+						
+							<div class="prodImg_box imgSet">
+								<div class="prod_img"><a href="product-details_SH-AU21A.html" target="_blank"><img class="pro_img horizontal" src="https://cdn.yun.sooce.cn/6/57145/jpg/1785483272749eff17ea3dbacf1516ee0e54e7a31efd2.jpg?version=1785483276" alt="SH-AU21A USB to XLR Cable for Dynamic Microphones such as Shure(5.9FT)"/></a></div>
+								<div class="dummy" style="margin-top:100%"></div>
+							</div>
+						
+						<!-- 内容 -->
+						<div class="prod_info prod_infos contentAreaSet">
+							
+								<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-AU21A.html" target="_blank">SH-AU21A U...</a></div>
+								<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-AU21A.html" target="_blank">SH-AU21A U...</a></div>
+								<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-AU21A.html" target="_blank">SH-AU21A U...</a></div>
+							
+							
+								<div class="p_detail detailSet pc" style="-webkit-line-clamp:;"><div class="overhide">USB to XLR Audio...</div></div>
+								<div class="p_detail detailSet pad" style="-webkit-line-clamp:;"><div class="overhide">USB to XLR Audio...</div></div>
+								<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;"><div class="overhide">USB to XLR Audio...</div></div>
+							
+							
+							
+
+							
+								<div class="p_line">
+									<!-- 折扣价 -->
+									
+									
+									
+									
+								</div>
+								<div class="p_line">
+									
+								</div>
+
+								<div class="p_line">
+									
+									
+								</div>
+							
+							<!-- 促销 -->
+							
+							
+								<div class="p_line">
+									
+								</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+		
+			<li class="prod_Item mia_li_cont">
+				<div class="mia_li_item modSet">
+					<div class="relative">
+						<!-- 拼购图标 -->
+						
+						<!-- 产品图片 -->
+						
+							<div class="prodImg_box imgSet">
+								<div class="prod_img"><a href="product-details_SH-N20A.html" target="_blank"><img class="pro_img horizontal" src="https://cdn.yun.sooce.cn/6/57145/jpg/178168602868463c6d4b6223bbeed2b9b2292061c5176.jpg?version=1781686031" alt="SH-N20A USB 3.0 to RJ45 Ethernet Cable"/></a></div>
+								<div class="dummy" style="margin-top:100%"></div>
+							</div>
+						
+						<!-- 内容 -->
+						<div class="prod_info prod_infos contentAreaSet">
+							
+								<div class="p_name titleSet pc" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20A.html" target="_blank">SH-N20A US...</a></div>
+								<div class="p_name titleSet pad" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20A.html" target="_blank">SH-N20A US...</a></div>
+								<div class="p_name titleSet mobile" style="-webkit-line-clamp:;"><a class="overhide" href="product-details_SH-N20A.html" target="_blank">SH-N20A US...</a></div>
+							
+							
+								<div class="p_detail detailSet pc" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+								<div class="p_detail detailSet pad" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+								<div class="p_detail detailSet mobile" style="-webkit-line-clamp:;"><div class="overhide">GIGABIT SPEED, Z...</div></div>
+							
+							
+							
+
+							
+								<div class="p_line">
+									<!-- 折扣价 -->
+									
+									
+									
+									
+								</div>
+								<div class="p_line">
+									
+								</div>
+
+								<div class="p_line">
+									
+									
+								</div>
+							
+							<!-- 促销 -->
+							
+							
+								<div class="p_line">
+									
+								</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+		
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	
+</div>
+
+
+
+
+
+
+
+
+	
+
+                </div>
+            </div>
+                            </div>
+            </div>
+                        <div id="customDetail_style_prodDetail_02_1482461270622" class="view style_prodDetail_02 customDetail  lockHeightView " >
+                
+                                <div names="customDetail" class="view_contents " >
+                    <script type="text/javascript">
+loadExtentFile('//s143js.nicebox.cn/js/jquery.tabs.js','js');
+loadExtentFile('//s143js.nicebox.cn/js/jquery.commentImg.js','js');
+var ajaxServer = '//s143js.nicebox.cn';
+var upPicServer = 'http://img.nicebox.cn';
+var curIDWebSite = 57145;
+</script>
+<!-- tabItemSet tabCurItem parameTabSet -->
+<div class="proDetailStyle_1" id="0936885cacd45eaf98462ce185e5cbab" val="customDetail_style_prodDetail_02_1482461270622">
+    <div class="commonWidth" id="0936885cacd45eaf98462ce185e5cbab_prodinfo_other">
+		 
+		<div class="proDetailTab ">
+            <div class="tabber tabmainSet">
+                <ul class="detailTabUl" id="proDetailTabUl" pid="1663317" curhash='0936885cacd45eaf98462ce185e5cbab' types="1">
+					
+                    <li class=" act tabItemSet tabCurItem" events="reloadHeight" onclick="reloadHeight('0936885cacd45eaf98462ce185e5cbab')">About this</li>
+					
+					
+					
+					
+					
+                </ul>
+            </div>
+            <div id="proDetailContent" class="bgareaSet detailContentView">
+                <ul>
+
+					
+					<li name="prodDetail_2" >
+
+						<div class="pcAbout detailContent"  >
+							<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><span style="margin: 0px; padding: 0px; outline: none !important; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;"><strong style="margin: 0px; padding: 0px; outline: none !important;">Technical Support &amp; File：</strong></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><br style="margin: 0px; padding: 0px; outline: none !important;"/><a href="https://docs.qq.com/doc/DUE1ZaGVua2VKUE9F?" target="_self" style="margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(0, 176, 240); outline: none !important; text-decoration: underline;"><span style="margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(0, 176, 240); outline: none !important;">1,Support document</span></a><span style="margin: 0px; padding: 0px; color: rgb(0, 176, 240); outline: none !important;"><span style="color: rgb(0, 176, 240); margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; outline: none !important;"></span><strong style="margin: 0px; padding: 0px; outline: none !important;"><span style="color: rgb(0, 176, 240); margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; outline: none !important;"><br style="margin: 0px; padding: 0px; outline: none !important;"/></span></strong></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://www.deshide.com/News-detail.html?newsid=307766&_t=1668667370" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">2.Driver </span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/zip/16687513389572e697bf9f7ff43ed.zip" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">3.CH341A Programmer （Software just for Window）</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/rar/168188481320419feb612b96782e7.rar" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">4.AsProgrammer</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/zip/1699950195758876f1ab4b57a802e219496ecb0cc689e.zip" target="_blank" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">5.CH341-I2C-UART-driver</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The SH-U05A is the first product we have launched that supports both IIC, SPI and UART. The DSD TECH team has designed and released more than 30 different serial adapters. We are the world&#39;s most comprehensive supplier of serial adapters. Any of your serial adapter needs can be met here.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;"><br/></span></strong></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Specification:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Model: SH-U05A</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Main chip: WCH CH341F</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">IIC/I2C Interface: SCL; SDA</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">SPI Interface: MISO;MISI;SCK;CS2;CS1;CS0;</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">UART Interface: TX,RX,GND;3V3;5V</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">TTL Level: 3.3V</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">USB interface: 2.0</span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">About indicator LED:</span></strong></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">IIC/SPI LED: </span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">When operating in IIC/SPI mode, this LED will be solid on.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">UART LED: </span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">When operating in UART Serial mode, this LED will be solid on.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">RXD LED:</span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The data transmission indicator flashes when there is data from the USB UART port.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">TXD LED:</span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The data receiving indicator flashes when the USB UART port receives data.</span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">List of supported systems:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1,Windows xp,7,8,10,11</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">2,Linux</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">3,Mac OS</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">You can download the driver directly from WCH&#39;s website </span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Packing list:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X SH-U05A USB to SPI/IIC/TTL UART Adapter</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X User Manual</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X 6 PIN DuPont cable</span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><br style="margin: 0px; padding: 0px; white-space: normal; outline: none !important;"/></p><p><br/></p>
+						</div>
+						<div class="mobileAbout detailContent" >
+							<p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><span style="margin: 0px; padding: 0px; outline: none !important; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;"><strong style="margin: 0px; padding: 0px; outline: none !important;">Technical Support &amp; File：</strong></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><br style="margin: 0px; padding: 0px; outline: none !important;"/><a href="https://docs.qq.com/doc/DUE1ZaGVua2VKUE9F?" target="_self" style="margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(0, 176, 240); outline: none !important; text-decoration: underline;"><span style="margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; color: rgb(0, 176, 240); outline: none !important;">1,Support document</span></a><span style="margin: 0px; padding: 0px; color: rgb(0, 176, 240); outline: none !important;"><span style="color: rgb(0, 176, 240); margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; outline: none !important;"></span><strong style="margin: 0px; padding: 0px; outline: none !important;"><span style="color: rgb(0, 176, 240); margin: 0px; padding: 0px; font-family: 微软雅黑, &quot;Microsoft YaHei&quot;; outline: none !important;"><br style="margin: 0px; padding: 0px; outline: none !important;"/></span></strong></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://www.deshide.com/News-detail.html?newsid=307766&_t=1668667370" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">2.Driver </span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/zip/16687513389572e697bf9f7ff43ed.zip" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">3.CH341A Programmer （Software just for Window）</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/rar/168188481320419feb612b96782e7.rar" target="_self" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">4.AsProgrammer</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><a href="https://wds-service-1258344699.file.myqcloud.com/20/12636/zip/1699950195758876f1ab4b57a802e219496ecb0cc689e.zip" target="_blank" style="color: rgb(0, 176, 240); text-decoration: underline;"><span style="color: rgb(0, 176, 240);">5.CH341-I2C-UART-driver</span></a></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The SH-U05A is the first product we have launched that supports both IIC, SPI and UART. The DSD TECH team has designed and released more than 30 different serial adapters. We are the world&#39;s most comprehensive supplier of serial adapters. Any of your serial adapter needs can be met here.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;"><br/></span></strong></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Specification:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Model: SH-U05A</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Main chip: WCH CH341F</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">IIC/I2C Interface: SCL; SDA</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">SPI Interface: MISO;MISI;SCK;CS2;CS1;CS0;</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">UART Interface: TX,RX,GND;3V3;5V</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">TTL Level: 3.3V</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">USB interface: 2.0</span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">About indicator LED:</span></strong></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">IIC/SPI LED: </span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">When operating in IIC/SPI mode, this LED will be solid on.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">UART LED: </span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">When operating in UART Serial mode, this LED will be solid on.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">RXD LED:</span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The data transmission indicator flashes when there is data from the USB UART port.</span></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">TXD LED:</span></strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">The data receiving indicator flashes when the USB UART port receives data.</span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">List of supported systems:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1,Windows xp,7,8,10,11</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">2,Linux</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">3,Mac OS</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">You can download the driver directly from WCH&#39;s website </span></p><p><br/></p><p><strong><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">Packing list:</span></strong></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X SH-U05A USB to SPI/IIC/TTL UART Adapter</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X User Manual</span></p><p><span style="font-family: 微软雅黑, &quot;Microsoft YaHei&quot;;">1 X 6 PIN DuPont cable</span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; outline: none 0px; list-style-type: none; font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal; line-height: 1.5; font-family: tahoma, arial, &quot;Microsoft YaHei&quot;; color: rgb(51, 51, 51);"><br style="margin: 0px; padding: 0px; white-space: normal; outline: none !important;"/></p><p><br/></p>
+						</div>
+					</li>
+					
+					
+					
+					
+					
+                </ul>
+            </div>
+        </div>
+		
+    </div>
+</div>
+<script type="text/javascript">
+	$(function () {
+		if(isMobile()){
+			$(".mobileAbout").css("display","block");
+			$(".pcAbout").remove();
+		}else{
+			$(".mobileAbout").remove();
+			$(".pcAbout").css("display","block");
+		}
+		function isMobile(){
+			return window.screen.width<767 || ($('body').width() > 0 && $('body').width() < 767);
+		}
+	});
+
+</script>
+
+            <script type="text/javascript" src="//s143js.nicebox.cn/js/prodinfoV9_en.js?20230206"></script>
+    
+    <script type="text/javascript">
+
+        $(function(){
+            let modelObj = $('#customDetail_style_prodDetail_02_1482461270622');
+            tabclass("#proDetailTabUl", "li", "#proDetailContent", "[name='prodDetail_2']");
+            findObj('#proDetailTabUl li:first-child').addClass('act');
+            findObj('#proDetailContent li:first-child').removeClass('hide');
+            let eventsName = findObj("#proDetailTabUl li:first-child").attr('events');
+            ajax_load(eventsName);
+            
+            function ajax_load(eventsName){
+                let CurHash=findObj("#proDetailTabUl").attr('curhash');
+                let Pid=findObj("#proDetailTabUl").attr('pid');
+                let types=findObj("#proDetailTabUl").attr('types');
+                //累计评论
+                if(eventsName=='ajax_load_comments_list'){
+                    ajax_load_comments_list(CurHash,Pid,types,'customDetail_style_prodDetail_02_1482461270622');
+                    //成交记录
+                }else if(eventsName =='ajax_load_exchange_list'){
+                    ajax_load_exchange_list(CurHash,Pid,1,'customDetail_style_prodDetail_02_1482461270622');
+                }
+            }
+            
+            function findObj(dom){
+                return modelObj.find(dom);
+            }
+            
+            function tabclass(tab_t, tab_t_tag, tab_c, tag_c_tag) {
+                // let tab_t = findObj(tab_t);
+                let tab_t_li_obj = findObj('.detailTabUl '+tab_t_tag);
+                // let tab_c = findObj(tab_c);
+                let tab_c_li_obj = findObj(tag_c_tag);
+                tab_t_li_obj.addClass('tabItemSet');
+                tab_t_li_obj.eq(0).addClass('act tabCurItem');
+                tab_c_li_obj.not(':first').addClass('hide');
+                var len = tab_t_li_obj.length;
+                for (let i = 0; i < len; i++) {
+                    let tab_t_li = tab_t_li_obj.eq(i);
+                    let tab_c_li = tab_c_li_obj.eq(i);
+                    let eventsName = tab_t_li.attr("events");
+                    ajax_load(eventsName);
+                    diyAutoHeight(modelObj);
+                    tab_t_li.attr('index',i);
+                    tab_t_li.click(function(){
+                        tab_t_li.addClass('act tabCurItem').siblings().removeClass('act tabCurItem');
+                        tab_c_li.removeClass('hide').siblings().addClass('hide');
+                        diyAutoHeight(modelObj);
+                        basedLang();
+                    });
+                }
+            }
+            // 不知道是用来干嘛的？？！！
+            function basedLang(){
+                let based_Obj= document.getElementById("based");
+                let currentlang_Obj= document.getElementById("currentlang");//当前语言
+                if (based_Obj){
+                    let JF_cn="ft"+self.location.hostname.toString().replace(/\./g,"");
+                    let isNeedDisFt2Jt = 0;
+                    switch( Request('chlang') ){
+                        case "cn-tw":
+                            BodyIsFt= getCookie(JF_cn)=="1"? 0 : 1;
+                            isNeedDisFt2Jt = 1;
+                            delCookie(JF_cn);
+                            SetCookie(JF_cn, BodyIsFt, 7);
+                            break;
+                        case "cn":
+                        case "en":
+                            BodyIsFt= 0;
+                            isNeedDisFt2Jt = 1;
+                            delCookie(JF_cn);
+                            SetCookie(JF_cn, 0, 7);
+                            currentlang_Obj.innerHTML = "简体中文";
+                            break;
+                        case "tw":
+                            BodyIsFt= 1;
+                            delCookie(JF_cn);
+                            SetCookie(JF_cn, 1, 7);
+                            currentlang_Obj.innerHTML = "繁體中文"; //因为是繁体 你写简体也会被转化成繁体  所以这儿只能写繁体 2015-1-16
+                            break;
+                        default:
+                            if (typeof Default_isFT!='undefined' && Default_isFT){ //如果默认繁体
+                                if(getCookie(JF_cn)==null){
+                                    isNeedDisFt2Jt = 1;
+                                    BodyIsFt= 1;
+                                    SetCookie(JF_cn, 1, 7);
+                                    break;
+                                }
+                            }
+                            BodyIsFt= parseInt(getCookie(JF_cn));
+                    }
+                    if(BodyIsFt===1){
+                        StranBody();
+                        document.title = StranText(document.title);
+                    } else if (isNeedDisFt2Jt == 1) {
+                        StranBodyce();
+                        document.title = StranTextce(document.title);
+                    }
+                }else{
+                    let JF_cn="ft"+self.location.hostname.toString().replace(/\./g,"");
+                    if(Default_isFT){
+                        BodyIsFt= 1;
+                        delCookie(JF_cn);
+                        SetCookie(JF_cn, 1, 7);
+                        StranBody();
+                        document.title = StranText(document.title);
+                    }else{
+                        BodyIsFt= 0;
+                        delCookie(JF_cn);
+                        SetCookie(JF_cn, 0, 7);
+                        StranBodyce();
+                        document.title = StranTextce(document.title);
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
+<script type="text/javascript">
+    if(typeof is_mobile ==='undefined'){
+        function is_mobile(){
+            return window.screen.width<767 || ($('body').width() > 0 && $('body').width() < 767);
+        }
+    }
+    function joinPurchaseTeam(head_lid=0) {
+        if(is_mobile()){
+            window.location.href="https://s143js.nicebox.cn/exusers/purchase_orderdetail.php?isCenter=1&lid="+head_lid;
+        }else{
+            document.getElementById("boxName").innerHTML="我要参团 - 拼购活动";
+            if(document.getElementById("boxClose")) document.getElementById("boxClose").innerHTML="×";
+            document.getElementById("showiframe").src="https://s143js.nicebox.cn/exusers/purchase_orderdetail.php?isCenter=1&lid="+head_lid;
+            box.Show({width:"920px",height:"500px"});
+        }
+    }
+
+    </script>
+
+
+
+
+
+    
+    <script>
+        $('#customDetail_style_prodDetail_02_1482461270622 .proListShow .listLi').addClass("modSet");
+        detailHeightAuto("customDetail_style_prodDetail_02_1482461270622", "Loading...");
+        setTimeout(function(){
+            $("#customDetail_style_prodDetail_02_1482461270622 .proListShow .listUl").css("display","flex");
+        },800);
+        // 循环调用diyAutoHeight函数，直到高度不再变化或超过25次循环
+        $(function(){
+            let time=0;
+            let timer = setInterval(()=>{
+                time++;
+                if(time>=25){
+                    clearInterval(timer);
+                }
+                diyAutoHeight($('#customDetail_style_prodDetail_02_1482461270622'));
+            },300);
+        });
+    </script>
+                </div>
+            </div>
+                            </div>
+            </div>
+                        <div id="comm_layout_footer" class="layout   scrollView" >
+                                <div class="view_contents ">
+                                <div id="text_style_01_1562749344037" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script>Support Email: dsd_tech@outlook.com                </div>
+            </div>
+                        <div id="text_style_01_1562749568380" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><a href="index.html?pageid=813059" target='_self' style='color:inherit' class='editor-view-extend link-type-1-'>HOME&nbsp; &nbsp; |</a>                </div>
+            </div>
+                        <div id="text_style_01_1562749606580" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><a href="PRODUCTS.html?pageid=813061" target='_self' style='color:inherit' class='editor-view-extend link-type-1-'>PRODUCT</a>                </div>
+            </div>
+                        <div id="text_style_01_1562749669000" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><a href="About-DSDTECH.html?pageid=813095" target='_self' style='color:inherit' class='editor-view-extend link-type-1-'>|&nbsp; &nbsp; About DSD TECH</a>                </div>
+            </div>
+                        <div id="text_style_01_1661936591501" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank' style='color:inherit' class='editor-view-extend link-type-3-'><br></a>                </div>
+            </div>
+                        <div id="text_style_01_1725864654788" class="view style_01 text  lockHeightView " >
+                
+                                <div names="text" class="view_contents " >
+                    
+<script class="editor-view-extend">
+    </script><a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002006647" target='_self' style='color:inherit' class='editor-view-extend link-type-3-'><br></a>                </div>
+            </div>
+                            </div>
+            </div>
+            <script type="text/javascript" src="js/0813067_model.js?1791863602" charset="utf-8"></script>
+<script>
+	$(function(){
+		sendBatch(batchArr);
+	});
+</script>
+<script type="text/javascript" src="js/0813067_user.js?1791863602" charset="utf-8"></script>
+<script type="text/javascript" src="js/comm_user.js?1791863602" charset="utf-8"></script>
+<script type="text/javascript" src="https://s143js.nicebox.cn/webapp/UserPanel/share/js.js?2" charset="utf-8"></script>
+
+<script>var _paq = _paq || [];_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);window.onload = function(){var u=(("https:" == document.location.protocol) ? "https" : "http") + "://tj.nicebox.cn//";_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setSiteId", 25420]);var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";g.defer=true; g.async=true; g.src=u+"website.js"; s.parentNode.insertBefore(g,s);}</script></body>
+<script>
+            if (window.location.href.indexOf('turnModel') != -1) {
+            let resStr = window.location.href.split('turnModel=')[1];
+            let modelId = resStr.split('&')[0];
+            let time = 0;
+            let timer = setInterval(function(){
+                scrollToElement(modelId);
+                time++;
+                if(time >= 3){
+                    clearInterval(timer);
+                }
+            },600);
+        }
+        function scrollToElement(modelId,type) {
+        type = type || 'scrollIntoView'; // 默认使用 scrollIntoView
+        var element = document.getElementById(modelId);
+        var elementPos = element.getBoundingClientRect().top + window.scrollY - document.documentElement.clientTop;
+        var startY = window.scrollY || document.documentElement.scrollTop;
+        // 检查浏览器是否支持 smooth 滚动  
+        var supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style && document.documentElement.style.scrollBehavior !== 'auto';
+        if (supportsSmoothScroll && type== 'scrollIntoView' && !is360Browser() && false) {
+            // 使用 scrollIntoView 进行平滑滚动  (360浏览器不支持)
+            // ↓↓↓↓↓↓↓↓↓  临时屏蔽  因为scrollIntoView貌似在某些电脑系统下判断进入了，但是滚动的位置不对，所以暂时屏蔽 20250822 ↓↓↓↓↓↓↓↓↓
+            // element.scrollIntoView({ behavior: 'smooth', block: 'start' });   
+            // setTimeout(() => {
+            //     let trueY = window.scrollY || document.documentElement.scrollTop;
+            //     if(startY == trueY){
+            //         scrollToElement(modelId,'animate'); // 如果没有滚动成功，使用动画函数进行滚动
+            //     }else{
+            //         element.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+            //     }
+            // }, 100);
+            // ↑↑↑↑↑↑↑↑↑  临时屏蔽  因为scrollIntoView貌似在某些电脑系统下判断进入了，但是滚动的位置不对，所以暂时屏蔽 20250822 ↑↑↑↑↑↑↑↑
+        } else {
+            // 使用动画函数进行基本滚动  
+            function easeInOutQuad(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+            function scroll() {  
+                var currentTime = new Date().getTime();  
+                var timeElapsed = currentTime - startTime;  
+                var run = easeInOutQuad(timeElapsed / duration);  
+                window.scrollTo(0, startY + (elementPos - startY) * run);  
+                if (timeElapsed < duration) requestAnimationFrame(scroll);  
+            }
+            var startTime = new Date().getTime();  
+            var duration = 600; // 动画持续时间（毫秒）  
+            requestAnimationFrame(scroll);  
+        }  
+    }
+
+    function is360Browser() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        return userAgent.includes('360se') || userAgent.includes('360ee');
+    }
+</script>
+<script type="text/javascript" src="js/comm/mouseInteractive.js?250609a"></script>
+</html>

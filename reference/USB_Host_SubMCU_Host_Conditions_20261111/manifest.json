@@ -1,0 +1,98 @@
+{
+  "retrieval_date_jst": "2026-11-11",
+  "waveshare_commit": "774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b",
+  "sources": [
+    {
+      "file": "Waveshare_USB_C_FAQ_pullup.webp",
+      "url": "https://docs.waveshare.com/assets/images/RP2350-USB-C-FAQ-1-a3dd893bc8866307bd27481cee0afdcb.webp",
+      "bytes": 36748,
+      "sha256": "8f6ba7b874d69a07ef23fcee5623c91a20d06ee4578dd26ba4767ea35f91dfdb"
+    },
+    {
+      "file": "Waveshare_FAQ.html",
+      "url": "https://docs.waveshare.com/RP2350-USB-C/FAQ",
+      "bytes": 24716,
+      "sha256": "2179839fd539630000467ea5b9f6a40ef243b407a0b5b2daac7088522ec2cf8c"
+    },
+    {
+      "file": "Waveshare_C_examples.html",
+      "url": "https://docs.waveshare.com/RP2350-USB-C/C",
+      "bytes": 33250,
+      "sha256": "a57c38aa023a6218cd8ba50643b50dd9a391a7a9a94c2c6453a03017c99dfff7"
+    },
+    {
+      "file": "Microchip_CC.html",
+      "url": "https://developerhelp.microchip.com/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/",
+      "bytes": 58363,
+      "sha256": "320beeaaf3456e7ba5ef9755f461cf6e8d82cb416de8b40f32917cf485521731"
+    },
+    {
+      "file": "pio_usb_configuration.h",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_configuration.h",
+      "bytes": 2868,
+      "sha256": "6856bbeac5cdcabb66468b881fb8457974891ad58dd2ccfe2ed969c3d735664b"
+    },
+    {
+      "file": "host_hid_to_device_cdc.c",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/examples/host_hid_to_device_cdc/host_hid_to_device_cdc.c",
+      "bytes": 8694,
+      "sha256": "84b4c1e4cc97e71832924f009f6c77d24c598e758274b91df0da154ac446e7fe"
+    },
+    {
+      "file": "pio_usb_host.c",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_host.c",
+      "bytes": 44389,
+      "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3"
+    },
+    {
+      "file": "pio_usb.c",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb.c",
+      "bytes": 15372,
+      "sha256": "29a1f890928f85c25beab644f55b2152bec53bb1d0cc12e1893fed45a6d364d6"
+    },
+    {
+      "file": "sdk_2.2.0_stdio_usb_descriptors.c",
+      "origin": "local pinned Pico SDK 2.2.0 a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+      "bytes": 6692,
+      "sha256": "15241887ea4ac02d38a357cd94fbf76d3c79e5710d50dc4c9c12b861e71c6807"
+    },
+    {
+      "file": "usb_tx.pio",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_tx.pio",
+      "bytes": 6243,
+      "sha256": "802ab5a326108f029a7aa0145750d19bc036243a78c25d4b93567f962721c921"
+    },
+    {
+      "file": "usb_rx.pio",
+      "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_rx.pio",
+      "bytes": 6400,
+      "sha256": "ce52be19f93eb73c6754743882cf324aa23a9f748519459a40d70e3f13a59c37"
+    },
+    {
+      "file": "Richtek_AN056.html",
+      "url": "https://www.richtek.com/en/design-support/application-notes/an056",
+      "bytes": 103136,
+      "sha256": "8365cde6d1b65ffe0953f4d18105573ec5c52bac02d86031dda3117957129e1f"
+    },
+    {
+      "file": "TI_TPS25821.html",
+      "url": "https://www.ti.com/product/TPS25821",
+      "bytes": 292795,
+      "sha256": "bc6b5e258dc9a2ba91f036668a29f09acde8269f667c0faa1c1d38d9fba8f4f2"
+    }
+  ],
+  "user_power_policy": {
+    "debug": "PC -> Type_C1; external power disconnected",
+    "functional": "External 5V adapter -> Expander branch -> SubMCU; PC disconnected",
+    "available_branch_current_A": 1,
+    "basis": "User statement; load/current protection not yet measured"
+  },
+  "generated": [
+    {
+      "file": "Type_C2_schematic_zoom.png",
+      "origin": "Render crop of unchanged saved schematic PDF, page 1",
+      "bytes": 95558,
+      "sha256": "ac300faecb4d943e46a00e279f231a1753661c82a60daea61c2f23d31073e32d"
+    }
+  ]
+}

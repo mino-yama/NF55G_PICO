@@ -1,0 +1,31 @@
+{
+  "scope": "SH-U05A physical TXD-RXD loopback only",
+  "user_authorized": true,
+  "port_inventory": [
+    {
+      "device": "COM21",
+      "description": "USB シリアル デバイス (COM21)",
+      "vid": 11914,
+      "pid": 9,
+      "location": "1-1:x.0",
+      "hwid": "USB VID:PID=2E8A:0009 SER=A06FEA01012EC137 LOCATION=1-1:x.0"
+    },
+    {
+      "device": "COM22",
+      "description": "USB-SERIAL CH341 (COM22)",
+      "vid": 6790,
+      "pid": 21795,
+      "location": "1-4.3:x.0",
+      "hwid": "USB VID:PID=1A86:5523 SER= LOCATION=1-4.3:x.0"
+    }
+  ],
+  "cases": [],
+  "success": false,
+  "total_written": 0,
+  "total_received": 0,
+  "closed": true,
+  "error": "RuntimeError('COM22 / 1A86:5523 / location 1-4.3 not uniquely matched; no port opened')",
+  "elapsed_seconds": 0.0,
+  "planned_cases": 112,
+  "passed_cases": 0
+}

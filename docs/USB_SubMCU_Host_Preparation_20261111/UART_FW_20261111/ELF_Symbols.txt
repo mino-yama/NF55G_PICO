@@ -1,0 +1,545 @@
+20001b5c t .udivsi3_skip_div0_test
+100070a0 00000008 t ____aeabi_uidiv_veneer
+10007088 00000008 t ____aeabi_uldivmod_veneer
+20001b04 00000002 W __aeabi_idiv0
+20001b04 00000002 W __aeabi_ldiv0
+20001b5c T __aeabi_uidiv
+20001c68 00000008 T __aeabi_uidivmod
+2000192c 0000003e T __aeabi_uldivmod
+20001cd8 00000008 t __best_effort_wfe_or_timeout_veneer
+100075cc 0000000c r __bi_12
+100075c0 0000000c r __bi_14
+1000763c 0000000c r __bi_26
+10007630 0000000c r __bi_34
+10007624 0000000c r __bi_42
+10007618 0000000c r __bi_48
+1000760c 0000000c r __bi_54
+10007600 0000000c r __bi_60
+100075f4 0000000c r __bi_78
+100075e8 0000000c r __bi_84
+1000783c 00000004 r __bi_ptr12
+10007838 00000004 r __bi_ptr14
+1000785c 00000004 r __bi_ptr26
+10007858 00000004 r __bi_ptr34
+10007854 00000004 r __bi_ptr42
+10007850 00000004 r __bi_ptr48
+1000784c 00000004 r __bi_ptr54
+10007848 00000004 r __bi_ptr60
+10007844 00000004 r __bi_ptr78
+10007840 00000004 r __bi_ptr84
+10007860 R __binary_info_end
+10000138 T __binary_info_header_end
+10007838 R __binary_info_start
+10007118 R __boot2_end__
+10007118 R __boot2_start__
+20008618 B __bss_end__
+200021b0 B __bss_start__
+20001c88 00000008 t __calc_usb_crc16_veneer
+20001c98 00000008 t __clock_get_hz_veneer
+20001b44 T __clzdi2
+20001b08 0000003c T __clzsi2
+200021b0 T __data_end__
+20000110 T __data_start__
+10000124 T __default_isrs_end
+10000110 T __default_isrs_start
+10000230 t __do_global_dtors_aux
+10007118 t __EH_FRAME_BEGIN__
+1000014c T __embedded_block_end
+20008618 B __end__
+10006f5c 00000008 T __errno
+10007860 A __etext
+10007838 R __exidx_end
+10007830 R __exidx_start
+10007118 t __fini_array_end
+10007118 t __fini_array_start
+10009914 R __flash_binary_end
+10000000 T __flash_binary_start
+10007114 t __frame_dummy_init_array_entry
+100066f0 0000000c T __getreent
+20001c80 00000008 t __gpio_set_function_veneer
+20001cc8 00000008 t __gpio_set_inover_veneer
+20001cb0 00000008 t __gpio_set_pulls_veneer
+20080000 B __HeapLimit
+10007118 t __init_array_end
+10007110 t __init_array_start
+10007098 00000008 t __initialize_host_programs_veneer
+10000000 T __logical_binary_start
+20001d40 00000408 T __malloc_av_
+200024f8 00000028 B __malloc_current_mallinfo
+10000934 0000000c T __malloc_lock
+20002520 00000004 B __malloc_max_sbrked_mem
+20002524 00000004 B __malloc_max_total_mem
+20001d38 00000004 T __malloc_sbrk_base
+200024f4 00000004 B __malloc_top_pad
+20001d3c 00000004 T __malloc_trim_threshold
+10000940 0000000c T __malloc_unlock
+20001c90 00000008 t __memcpy_veneer
+200021b0 t __mutex_array_end
+20002198 t __mutex_array_start
+100070a8 00000008 t __mutex_enter_blocking_veneer
+10007080 00000008 t __mutex_enter_timeout_ms_veneer
+10007090 00000008 t __mutex_exit_veneer
+100070b8 00000008 t __mutex_try_enter_block_until_veneer
+20001ca8 00000008 t __pio_add_program_veneer
+20001ca0 00000008 t __pio_sm_init_veneer
+20001c78 00000008 t __pio_sm_set_consecutive_pindirs_veneer
+20001cc0 00000008 t __pio_sm_set_pindirs_with_mask_veneer
+20001c70 00000008 t __pio_sm_set_pins_with_mask_veneer
+100070b0 00000008 t __pio_usb_ll_configure_endpoint_veneer
+10007078 00000008 t __pio_usb_ll_transfer_start_veneer
+100070fc 00000004 T __pre_init_first_per_core_initializer
+100070e4 00000004 T __pre_init_runtime_init_boot_locks_reset
+100070ec 00000004 T __pre_init_runtime_init_bootrom_locking_enable
+100070d0 00000004 T __pre_init_runtime_init_bootrom_reset
+100070dc 00000004 T __pre_init_runtime_init_clocks
+100070f8 00000004 T __pre_init_runtime_init_default_alarm_pool
+100070d4 00000004 T __pre_init_runtime_init_early_resets
+100070f4 00000004 T __pre_init_runtime_init_install_ram_vector_table
+100070f0 00000004 T __pre_init_runtime_init_mutex
+10007100 00000004 T __pre_init_runtime_init_per_core_bootrom_reset
+10007104 00000004 T __pre_init_runtime_init_per_core_enable_coprocessors
+1000710c 00000004 T __pre_init_runtime_init_per_core_irq_priorities
+100070e0 00000004 T __pre_init_runtime_init_post_clock_resets
+100070e8 00000004 T __pre_init_runtime_init_spin_locks_reset
+100070d8 00000004 T __pre_init_runtime_init_usb_power_down
+10007108 00000004 T __pre_init_spinlock_set_extexclall
+10007110 t __preinit_array_end
+100070d0 t __preinit_array_start
+100070c8 00000008 t __recursive_mutex_enter_blocking_veneer
+100070c0 00000008 t __recursive_mutex_exit_veneer
+20080000 ? __scratch_x_end__
+10009900 A __scratch_x_source__
+20080000 ? __scratch_x_start__
+20081000 ? __scratch_y_end__
+10009900 A __scratch_y_source__
+20081000 ? __scratch_y_start__
+200021b8 00000150 B __sf
+20082000 A __stack
+20081800 A __StackBottom
+20080000 R __StackLimit
+20080800 A __StackOneBottom
+20081000 R __StackOneTop
+20082000 R __StackTop
+200021b0 00000004 B __stdio_exit_handler
+200021b0 B __tbss_end
+200021b0 D __tdata_end
+20001cd0 00000008 t __time_us_64_veneer
+200021b0 B __tls_base
+200021b0 B __tls_end
+200021b0 T __TMC_END__
+20001ce0 00000008 t __tu_fifo_write_veneer
+20001cb8 00000008 t __tuh_event_hook_cb_veneer
+2000196c 00000198 T __udivmoddi4
+20001b5c 0000010a T __udivsi3
+10000110 T __unhandled_user_irq
+10000000 T __VECTOR_TABLE
+10000000 T __vectors
+10000110 T __vectors_end
+100021e4 T __wrap___aeabi_d2iz
+10002208 T __wrap___aeabi_d2uiz
+10002064 T __wrap___aeabi_dadd
+100022a0 T __wrap___aeabi_dcmpge
+100022c8 T __wrap___aeabi_dcmpgt
+10002278 T __wrap___aeabi_dcmple
+10002250 T __wrap___aeabi_dcmplt
+1000222c T __wrap___aeabi_dcmpun
+10002100 T __wrap___aeabi_ddiv
+100020b4 T __wrap___aeabi_dmul
+1000208c T __wrap___aeabi_dsub
+1000219c T __wrap___aeabi_i2d
+100021c0 T __wrap___aeabi_ui2d
+10002320 00000040 T __wrap_calloc
+100022e8 00000038 T __wrap_malloc
+10003e3c 0000001c T __wrap_printf
+10003cb8 00000084 T __wrap_putchar
+10003d3c 0000003c T __wrap_puts
+10003d78 000000c4 T __wrap_vprintf
+2000252c 00000004 b _alarm_pool
+20002530 00000004 b _app_driver
+20008612 00000001 b _app_driver_count
+1000664c 000000a4 T _calloc_r
+2000860c 00000002 b _claimed
+1000400c 00000008 t _control_blocking_complete_cb
+20002534 00000010 b _ctrl_xfer
+20002544 00000004 b _dev0
+10000150 t _enter_vtable_in_r0
+1000014c T _entry_point
+10002aa8 00000574 t _etoa
+10003a58 00000004 W _exit
+10007070 T _fini
+10006d6c 000001f0 T _free_r
+100025e8 000004bc t _ftoa
+20008613 00000001 b _hidh_default_protocol
+20002548 00000200 b _hidh_epbuf
+20002308 00000038 b _hidh_itf
+2000214c 0000004c T _impure_data
+20002148 00000004 T _impure_ptr
+100001e4 T _init
+100066fc 000005bc T _malloc_r
+10006cb8 000000b4 T _malloc_trim_r
+10002400 000001d4 t _ntoa_format
+100025d4 00000008 t _out_char
+100025dc 0000000a t _out_fct
+10002360 00000002 t _out_null
+10002364 0000009c t _out_rev
+1000015c t _reset_handler
+10003e58 00000030 t _retrieve_unique_id_on_boot
+10003a5c 0000002c W _sbrk
+10006f84 00000024 T _sbrk_r
+20002748 00000020 B _sw_spin_locks
+20001d20 00000001 t _usbh_controller
+20002768 00000056 b _usbh_devices
+200027c0 00000208 b _usbh_epbuf
+200029c8 00000004 b _usbh_mutex
+200029cc 00000008 b _usbh_mutexdef
+200029d4 00000004 b _usbh_q
+20001d04 0000001c T _usbh_qdef
+200029d8 000000c0 B _usbh_qdef_buf
+20002a98 0000000c b _used_instruction_space
+1000301c 000009e4 t _vsnprintf
+100011f8 000000c6 T alarm_pool_add_alarm_at_force_in_context
+100014f0 00000120 T alarm_pool_add_repeating_timer_us
+100012c0 0000007e T alarm_pool_cancel_alarm
+10001144 000000b4 T alarm_pool_create_on_timer
+10001610 00000008 T alarm_pool_get_default_timer
+10000d48 000002fc t alarm_pool_irq_handler
+1000141c 000000d4 T best_effort_wfe_or_timeout
+10000124 t binary_info_header
+10000180 t bss_fill_loop
+10000182 t bss_fill_test
+100016bc 00000088 T busy_wait_ms
+10001744 00000024 T busy_wait_until
+10001660 0000005c T busy_wait_us
+1000617c 00000034 T calc_usb_crc16
+200016e0 0000002c T calc_usb_crc5
+10006638 00000014 T calloc
+10001b3c 0000019c T check_sys_clock_khz
+20002aa4 00000004 b claimed
+20002aac 00000002 b claimed
+20002aa8 00000002 b claimed
+100018dc 000000d0 T clock_configure_undivided
+100019ac 0000000c T clock_get_hz
+200024d8 00000001 b completed.1
+20001074 000000a2 t configure_fullspeed_host
+20001118 000000a2 t configure_lowspeed_host
+200012e8 00000014 t configure_root_port.constprop.0
+20002ab0 00000028 b configured_freq
+200011bc 000000a0 t connection_check
+20080000 00000800 b core1_stack
+2000170c 00000200 T crc16_tbl
+2000190c 00000020 T crc5_tbl
+10000cec 0000001c T critical_section_init
+10007698 00000002 r crlf_str.0
+1000019a t data_cpy
+10000196 t data_cpy_loop
+100001a0 t data_cpy_table
+20001cec 00000018 t default_alarm_pool
+20002340 00000180 b default_alarm_pool_entries
+100001e8 t deregister_tm_clones
+100061b0 00000034 T dma_claim_mask
+100021e4 T double2int_z
+100021ea t double2int_z_entry
+10002208 T double2uint
+10002208 T double2uint_z
+1000220e t double2uint_z_entry
+20002ad8 00000004 b drivers
+10000138 t embedded_block
+1000014c t embedded_block_end
+10009900 r embedded_end_block
+10009914 r embedded_end_block_end
+20008618 B end
+10004590 0000008c t enum_new_device.part.0
+20002528 00000004 B errno
+10003a88 00000006 T exit
+20008614 00000001 b failed_count.0
+20002adc 00000004 b filter
+10001df4 00000002 t first_per_core_initializer
+1000025c t frame_dummy
+10006f74 00000010 T free
+20002ae0 00004c14 B g_probe
+10002040 t generic_restore_state
+10002020 t generic_save_state
+100009ec 00000020 T gpio_set_drive_strength
+1000094c 0000003c T gpio_set_function
+100009b0 0000001e T gpio_set_inover
+10000988 00000028 T gpio_set_pulls
+100009d0 0000001c T gpio_set_slew_rate
+20000444 00000074 t handle_endpoint_irq.isra.0
+10001df8 0000000c W hard_assertion_failure
+10005758 00000024 T hcd_configure
+10005804 00000008 T hcd_device_close
+10004ebc 00000030 T hcd_devtree_get_info
+1000585c 00000008 T hcd_edpt_abort_xfer
+10005810 00000036 T hcd_edpt_open
+10005848 00000014 T hcd_edpt_xfer
+200003b4 00000090 T hcd_event_handler
+1000577c 00000010 T hcd_init
+1000580c 00000002 T hcd_int_enable
+1000579c 0000004c T hcd_port_connect_status
+1000578c 00000008 T hcd_port_reset
+10005794 00000008 T hcd_port_reset_end
+100057e8 0000001c T hcd_port_speed_get
+10005864 00000008 T hcd_setup_send
+200076f4 00000004 b heap_end.0
+00000800 a HeapSize
+100075ac 00000011 r hex.0
+100054f8 0000009c T hidh_close
+10005430 00000004 T hidh_deinit
+1000541c 00000014 T hidh_init
+10005594 00000118 T hidh_open
+100056ac 000000ac T hidh_set_config
+10005434 000000c4 T hidh_xfer_cb
+10000164 t hold_non_core0_in_bootrom
+10000a3c 00000024 T hw_claim_lock
+10000a74 00000058 T hw_claim_or_assert
+10000a60 00000014 T hw_claim_unlock
+10000acc 00000080 T hw_claim_unused_from_range
+200006fc 00000472 t initialize_host_programs
+1000219c T int2double
+10000bec 0000002c T irq_set_enabled
+10000c18 00000060 T irq_set_exclusive_handler
+10000110 W isr_busfault
+10000110 W isr_debugmonitor
+1000011c W isr_hardfault
+10000118 W isr_invalid
+10000110 W isr_irq0
+10000110 W isr_irq1
+10000110 W isr_irq10
+10000110 W isr_irq11
+10000110 W isr_irq12
+10000110 W isr_irq13
+10000110 W isr_irq14
+10000110 W isr_irq15
+10000110 W isr_irq16
+10000110 W isr_irq17
+10000110 W isr_irq18
+10000110 W isr_irq19
+10000110 W isr_irq2
+10000110 W isr_irq20
+10000110 W isr_irq21
+10000110 W isr_irq22
+10000110 W isr_irq23
+10000110 W isr_irq24
+10000110 W isr_irq25
+10000110 W isr_irq26
+10000110 W isr_irq27
+10000110 W isr_irq28
+10000110 W isr_irq29
+10000110 W isr_irq3
+10000110 W isr_irq30
+10000110 W isr_irq31
+10000110 W isr_irq32
+10000110 W isr_irq33
+10000110 W isr_irq34
+10000110 W isr_irq35
+10000110 W isr_irq36
+10000110 W isr_irq37
+10000110 W isr_irq38
+10000110 W isr_irq39
+10000110 W isr_irq4
+10000110 W isr_irq40
+10000110 W isr_irq41
+10000110 W isr_irq42
+10000110 W isr_irq43
+10000110 W isr_irq44
+10000110 W isr_irq45
+10000110 W isr_irq46
+10000110 W isr_irq47
+10000110 W isr_irq48
+10000110 W isr_irq49
+10000110 W isr_irq5
+10000110 W isr_irq50
+10000110 W isr_irq51
+10000110 W isr_irq6
+10000110 W isr_irq7
+10000110 W isr_irq8
+10000110 W isr_irq9
+10000110 W isr_memmanage
+1000011a W isr_nmi
+10000120 W isr_pendsv
+10000110 W isr_securefault
+1000011e W isr_svcall
+10000122 W isr_systick
+10000110 W isr_usagefault
+200076f8 00000004 b lazy_vsnprintf
+10000c78 0000000c T lock_init
+100007ec 00000148 T main
+10006f64 00000010 T malloc
+200021a0 00000008 t malloc_mutex
+10006fa8 000000aa T memcpy
+10006548 00000092 T memset
+2000021c 0000006a T mutex_enter_block_until
+20000110 0000007e T mutex_enter_blocking
+200002f0 00000036 T mutex_enter_timeout_ms
+20000328 0000003a T mutex_exit
+10000cd0 0000001a T mutex_init
+20000288 00000066 T mutex_try_enter_block_until
+10000b4c 00000018 T next_striped_spin_lock_num
+200024dc 00000018 b object.0
+2000102c 00000046 t override_pio_program
+10000a0c 00000030 T panic
+10003e88 00000184 T pico_get_unique_board_id_string
+1000622c 00000114 T pio_add_program
+20001d24 00000010 t pio_host_cfg
+200076fc 000000d4 B pio_port
+100061e4 00000048 T pio_sm_claim
+100064a0 000000a8 T pio_sm_init
+10006414 0000008a T pio_sm_set_consecutive_pindirs
+100063a8 0000006a T pio_sm_set_pindirs_with_mask
+10006340 00000066 T pio_sm_set_pins_with_mask
+10005b90 00000114 T pio_usb_bus_init
+20000c78 00000048 T pio_usb_bus_prepare_receive
+20000d3c 000000e8 T pio_usb_bus_receive_packet_and_handshake
+20000bb0 0000004c T pio_usb_bus_send_handshake
+20000bfc 0000007a T pio_usb_bus_send_token
+20000cc0 00000014 T pio_usb_bus_start_receive
+20000b70 00000040 T pio_usb_bus_usb_transfer
+20000cd4 00000066 T pio_usb_bus_wait_handshake
+200077d0 00000130 B pio_usb_device
+20007900 00000b80 B pio_usb_ep_pool
+10005f30 00000040 T pio_usb_host_close_device
+100060c8 000000b4 T pio_usb_host_endpoint_abort_transfer
+10005f70 00000050 T pio_usb_host_endpoint_open
+10006024 000000a4 T pio_usb_host_endpoint_transfer
+2000148c 00000248 T pio_usb_host_frame
+10005ca4 000001e4 T pio_usb_host_init
+200004b8 00000094 T pio_usb_host_irq_handler
+10005ee8 00000048 T pio_usb_host_port_reset_end
+10005e88 00000060 T pio_usb_host_port_reset_start
+10005fc0 00000064 T pio_usb_host_send_setup
+20000e24 00000018 T pio_usb_ll_configure_endpoint
+20000ea8 00000074 T pio_usb_ll_transfer_complete
+20000f1c 00000084 T pio_usb_ll_transfer_continue
+20000e3c 0000006c T pio_usb_ll_transfer_start
+20008480 00000050 B pio_usb_root_port
+10000186 t platform_entry
+10001cd8 0000008c T pll_init
+200084d0 00000020 b pools
+10007648 00000050 r pow10.0
+200021a8 00000008 t print_mutex
+20002198 00000008 t probe_newlib_malloc_mutex
+100048bc 000004d0 t process_enumeration
+10004014 000000dc t process_removing_device
+10005178 000001c0 t process_set_config
+10000280 000000d8 t pump_uart
+20000000 00000110 B ram_vector_table
+10000358 000000c8 t record
+20000190 0000008c T recursive_mutex_enter_blocking
+20000364 0000004e T recursive_mutex_exit
+10000208 t register_tm_clones
+2000125c 0000008c t restore_fs_bus.constprop.0
+200084f0 00000008 b retrieved_id
+10001d7c 00000016 T rom_func_lookup
+10003a90 00000024 T runtime_init
+10001da8 0000001c W runtime_init_boot_locks_reset
+10001d94 00000014 W runtime_init_bootrom_locking_enable
+10001eb0 00000014 W runtime_init_bootrom_reset
+10001f44 000000dc W runtime_init_clocks
+10001044 00000100 W runtime_init_default_alarm_pool
+10001e24 00000034 W runtime_init_early_resets
+10001edc 00000068 T runtime_init_install_ram_vector_table
+10000c84 0000004c W runtime_init_mutex
+10001ec4 00000014 W runtime_init_per_core_bootrom_reset
+10001e74 0000001c W runtime_init_per_core_enable_coprocessors
+10000bac 00000040 W runtime_init_per_core_irq_priorities
+10001e90 00000020 W runtime_init_post_clock_resets
+10001ed8 00000004 W runtime_init_spin_locks_reset
+10001e58 0000001c W runtime_init_usb_power_down
+10001e04 00000020 T runtime_run_initializers
+200005d8 00000122 t send_pre
+200084f8 00000004 b sequence
+100019b8 00000184 T set_sys_clock_pll
+10001340 000000dc T sleep_ms
+200084fc 00000004 b sleep_notifier
+10000d08 0000003c t sleep_until_callback
+20008500 00000004 b sof_count
+20001d34 00000004 t sof_packet.0
+200024c0 00000018 b sof_rt
+200016d4 0000000a t sof_timer
+10000b64 00000020 T spin_lock_claim_unused
+10000b94 00000018 T spin_locks_reset
+10000b84 0000000e t spinlock_set_extexclall
+00000800 a StackSize
+10003b6c 00000060 t stdio_buffered_printer
+10003abc 000000b0 t stdio_out_chars_crlf
+10003ab4 00000008 t stdio_out_chars_no_crlf
+10003e3c 0000001c T stdio_printf
+10003bcc 000000ec T stdio_put_string
+10003cb8 00000084 T stdio_putchar
+10003d3c 0000003c T stdio_puts
+10003d78 000000c4 T stdio_vprintf
+20001ce8 00000001 t striped_spin_lock_num
+100065dc 0000005c T strlen
+10007054 0000001a T sysconf
+10001d64 00000016 T tick_start
+1000164c 00000014 T time_us_64
+20008615 00000001 b timer_active
+10001618 00000024 T timer_hardware_alarm_claim
+1000163c 00000010 T timer_time_us_64
+100059b4 00000056 T tu_desc_get_interface_total_len
+1000595c 00000056 T tu_edpt_bind_driver
+10005870 00000052 T tu_edpt_claim
+100058c4 00000036 T tu_edpt_release
+100058fc 0000005e T tu_edpt_validate
+10005b58 00000036 T tu_fifo_clear
+10005a0c 00000012 T tu_fifo_empty
+10005a20 00000094 T tu_fifo_read
+10005ab4 000000a2 T tu_fifo_write
+10004344 00000008 T tuh_configure
+10004464 0000012c T tuh_control_xfer
+10004eec 0000014c T tuh_descriptor_get_hid_report
+10004e6c 00000050 T tuh_edpt_open
+10004300 00000002 W tuh_event_hook_cb
+1000536c 00000034 T tuh_hid_get_protocol
+10005338 00000034 T tuh_hid_interface_protocol
+10000560 00000134 W tuh_hid_mount_cb
+100053a0 0000007c T tuh_hid_receive_report
+10000718 000000d4 T tuh_hid_report_received_cb
+10000694 00000084 W tuh_hid_umount_cb
+10000420 000000c0 W tuh_mount_cb
+1000434c 00000118 T tuh_rhport_init
+100048a8 00000014 T tuh_task_ext
+1000461c 0000028c t tuh_task_ext.part.0
+100004e0 00000080 W tuh_umount_cb
+10004304 00000040 T tuh_vid_pid_get
+1000586c 00000004 W tusb_time_delay_ms_api
+20008504 00000100 b tx
+2000860e 00000002 b tx_length
+20008610 00000002 b tx_offset
+20008604 00000004 B uart_char_to_line_feed
+20008608 00000004 b uart_cursor
+10001768 00000104 T uart_init
+1000186c 00000070 T uart_set_format
+100021c0 T uint2double
+10000116 T unhandled_user_irq_num_in_r0
+10007708 00000008 r usb_edge_detector_debug_program
+10007710 00000022 r usb_edge_detector_debug_program_instructions
+10007734 00000008 r usb_edge_detector_program
+1000773c 00000022 r usb_edge_detector_program_instructions
+20001390 00000090 t usb_in_transaction.constprop.0.isra.0
+100076b8 00000008 r usb_nrzi_decoder_debug_program
+100076c0 0000001e r usb_nrzi_decoder_debug_program_instructions
+100076e0 00000008 r usb_nrzi_decoder_program
+100076e8 0000001e r usb_nrzi_decoder_program_instructions
+200012fc 00000094 t usb_out_transaction.constprop.0.isra.0
+20001420 0000006c t usb_setup_transaction.constprop.0.isra.0
+20000fa0 0000008c t usb_tx_configure_pins
+2000054c 0000008c t usb_tx_configure_pins
+10007794 00000008 r usb_tx_dmdp_program
+1000779c 0000002c r usb_tx_dmdp_program_instructions
+100077fc 00000008 r usb_tx_dpdm_program
+10007804 0000002c r usb_tx_dpdm_program_instructions
+10007760 00000008 r usb_tx_pre_dmdp_program
+10007768 0000002c r usb_tx_pre_dmdp_program_instructions
+100077c8 00000008 r usb_tx_pre_dpdm_program
+100077d0 0000002c r usb_tx_pre_dpdm_program_instructions
+1000769c 0000001c r usbh_class_drivers
+100040f0 00000210 t usbh_control_xfer_cb.isra.0
+10005038 00000140 T usbh_driver_set_config_complete
+10004d94 0000003c T usbh_edpt_claim
+10004dd0 00000030 T usbh_edpt_release
+10004e00 0000006c T usbh_edpt_xfer_with_callback
+10004d8c 00000008 T usbh_get_enum_buf
+10003a00 00000028 T vfctprintf
+10003a28 00000030 T weak_raw_vprintf
+10001dc4 00000030 T xosc_init

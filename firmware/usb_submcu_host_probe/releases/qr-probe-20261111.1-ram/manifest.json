@@ -1,0 +1,228 @@
+{
+  "date_jst": "2026-11-11",
+  "version": "qr-probe-20261111.1",
+  "profile": "RAM only; UART disabled; PIO Host Type_C2 only",
+  "deployment": "NOT FLASHED; hardware acceptance NOT RUN",
+  "target_usb_serial": "A06FEA01012EC137",
+  "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+  "tinyusb_commit": "86ad6e56c1700e85f1c5678607a762cfe3aa2f47",
+  "waveshare_commit": "774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b",
+  "compatibility": "vendor/SDK_2_2_0_Compatibility.md; newlib_malloc_lock.c",
+  "files": [
+    {
+      "file": "source/boards/waveshare_rp2350_usb_c_acceptance.h",
+      "bytes": 514,
+      "sha256": "5ea743ed06dc0f4b8f0b28efe7ab08b0ec9d4df7c288d247e8e5b3a3b2dc67d5"
+    },
+    {
+      "file": "source/build_usb_submcu_host_probe.ps1",
+      "bytes": 1132,
+      "sha256": "18cf8627b045964d508f6806cd9fece38fc1c8dea299f5fa7073e18b72aa3f03"
+    },
+    {
+      "file": "source/CMakeLists.txt",
+      "bytes": 1617,
+      "sha256": "507e8aa138e11fb114bc4f75a7702f982e19c3a1e3b90ed10f5e7d60908623c0"
+    },
+    {
+      "file": "source/main.c",
+      "bytes": 4055,
+      "sha256": "bc252dc0f3719de73b51b08825286fd818b457c516cab3843dabf93bad27664c"
+    },
+    {
+      "file": "source/newlib_malloc_lock.c",
+      "bytes": 508,
+      "sha256": "fc63c9d4e9995a217842c2956db1fe0d72c45076a3e460c65e69a2fad00d1824"
+    },
+    {
+      "file": "source/README.md",
+      "bytes": 613,
+      "sha256": "d63f22959d175a8fd6e5fac1b40b46a93a98b7960306a976ba3c7193ab4d9cb7"
+    },
+    {
+      "file": "source/tusb_config.h",
+      "bytes": 428,
+      "sha256": "ddf00ab90af0bebd79649b5c0d5e3ac25d7080b3def98544387d204556dff474"
+    },
+    {
+      "file": "source/usb_submcu_probe_capture.py",
+      "bytes": 1031,
+      "sha256": "73f8859744b091f715aae574f8b95c06a58431d0e4fc0891d571467b34b88b61"
+    },
+    {
+      "file": "source/usb_submcu_probe_log.py",
+      "bytes": 4319,
+      "sha256": "5a81f8ee431cb689cf84f1dcd1d15bbc5ba83d4fb6ea60358fb95a42f52ea8d7"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/CMakeLists.txt",
+      "bytes": 608,
+      "sha256": "fef6672def30614280baed069e4a4377c613aa6be83bf0468077ae7edbbf1d6e"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/LICENSE",
+      "bytes": 1071,
+      "sha256": "552320d7937c0ef4bde067b2905d6331e3dd9bba1ff726b2d34d8edcdc9dbc76"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/manifest.json",
+      "bytes": 5376,
+      "sha256": "97c479676d84a564cde2a106efe9f59435d386e94e32ea6be991ace0b2d5c3bd"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/README.md",
+      "bytes": 1814,
+      "sha256": "acc7316f710c91127c89da1572e691776d8fe9f5521979fbdef00b504519b997"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb.c",
+      "bytes": 15372,
+      "sha256": "29a1f890928f85c25beab644f55b2152bec53bb1d0cc12e1893fed45a6d364d6"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb.h",
+      "bytes": 962,
+      "sha256": "8c1f21d2a81da8acfa4717ca6bb44be9d5e1c5d73285fa2cf6dc7a51a772ade8"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb_configuration.h",
+      "bytes": 2868,
+      "sha256": "6856bbeac5cdcabb66468b881fb8457974891ad58dd2ccfe2ed969c3d735664b"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb_device.c",
+      "bytes": 15580,
+      "sha256": "4298b8d434d2fa3b5c2a8fe698e8ff7f2ff58c32550d7862bbbd30d7421f5a0a"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb_host.c",
+      "bytes": 44389,
+      "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/pio_usb_ll.h",
+      "bytes": 6850,
+      "sha256": "b96c4a6d09bb615c48ed2adffbea026461f8b334321fc32b182ec198eec42d98"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/usb_crc.c",
+      "bytes": 3047,
+      "sha256": "a64362222038c41a6a54f5194ad95465a2ab98603c164ab6a5242cf022de09b3"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/usb_crc.h",
+      "bytes": 415,
+      "sha256": "3d762983af3ea1a7d8b9e32c8524c03c1453336095b20e8a56ef69e9a82b9b33"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/usb_definitions.h",
+      "bytes": 8502,
+      "sha256": "1d043588d52c99711a2b60a4347adfcf8421988783d33a0c73b77190028d89f6"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/usb_rx.pio",
+      "bytes": 6250,
+      "sha256": "092adef4200e12f490020557ad0ec58ad040793b309119412730d7112a1f6644"
+    },
+    {
+      "file": "source/vendor/pico-pio-usb/src/usb_tx.pio",
+      "bytes": 6243,
+      "sha256": "802ab5a326108f029a7aa0145750d19bc036243a78c25d4b93567f962721c921"
+    },
+    {
+      "file": "source/vendor/SDK_2_2_0_Compatibility.md",
+      "bytes": 1186,
+      "sha256": "ce093df41d7788d3241f6ab50d3ad38ba46470c8da73f3f95a7f8adccc515010"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/CMakeLists.txt",
+      "bytes": 608,
+      "sha256": "fef6672def30614280baed069e4a4377c613aa6be83bf0468077ae7edbbf1d6e"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/LICENSE",
+      "bytes": 1071,
+      "sha256": "552320d7937c0ef4bde067b2905d6331e3dd9bba1ff726b2d34d8edcdc9dbc76"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/manifest.json",
+      "bytes": 3800,
+      "sha256": "d05eb4e255ee9641b304eb3456c6b0b8bafa0e5a3cb951595aec737b8d1b639e"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/README.md",
+      "bytes": 1814,
+      "sha256": "acc7316f710c91127c89da1572e691776d8fe9f5521979fbdef00b504519b997"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb.c",
+      "bytes": 15372,
+      "sha256": "29a1f890928f85c25beab644f55b2152bec53bb1d0cc12e1893fed45a6d364d6"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb.h",
+      "bytes": 962,
+      "sha256": "8c1f21d2a81da8acfa4717ca6bb44be9d5e1c5d73285fa2cf6dc7a51a772ade8"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb_configuration.h",
+      "bytes": 2868,
+      "sha256": "6856bbeac5cdcabb66468b881fb8457974891ad58dd2ccfe2ed969c3d735664b"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb_device.c",
+      "bytes": 15580,
+      "sha256": "4298b8d434d2fa3b5c2a8fe698e8ff7f2ff58c32550d7862bbbd30d7421f5a0a"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb_host.c",
+      "bytes": 44389,
+      "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/pio_usb_ll.h",
+      "bytes": 6850,
+      "sha256": "b96c4a6d09bb615c48ed2adffbea026461f8b334321fc32b182ec198eec42d98"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/usb_crc.c",
+      "bytes": 3047,
+      "sha256": "a64362222038c41a6a54f5194ad95465a2ab98603c164ab6a5242cf022de09b3"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/usb_crc.h",
+      "bytes": 415,
+      "sha256": "3d762983af3ea1a7d8b9e32c8524c03c1453336095b20e8a56ef69e9a82b9b33"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/usb_definitions.h",
+      "bytes": 8502,
+      "sha256": "1d043588d52c99711a2b60a4347adfcf8421988783d33a0c73b77190028d89f6"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/usb_rx.pio",
+      "bytes": 6400,
+      "sha256": "ce52be19f93eb73c6754743882cf324aa23a9f748519459a40d70e3f13a59c37"
+    },
+    {
+      "file": "source/vendor/upstream-774cbb1/src/usb_tx.pio",
+      "bytes": 6243,
+      "sha256": "802ab5a326108f029a7aa0145750d19bc036243a78c25d4b93567f962721c921"
+    },
+    {
+      "file": "usb_submcu_host_probe.bin",
+      "bytes": 38396,
+      "sha256": "af4d366d52f518c88211783563446f4f591e79e934e069804d11317cb9295b1e"
+    },
+    {
+      "file": "usb_submcu_host_probe.elf",
+      "bytes": 919244,
+      "sha256": "b4c7b7afaadd8eae13d7c47c2feaafa052a15ef7ea97bd5cfe3379d402fc8e95"
+    },
+    {
+      "file": "usb_submcu_host_probe.uf2",
+      "bytes": 77312,
+      "sha256": "5cc267ff10eea15a6c3507a5a74cf317ec44517e7ff304873f3ef91369da8018"
+    }
+  ]
+}

@@ -4,3 +4,11 @@ __pycache__/
 .venv/
 runtime_logs/
 temp/
+
+# USB SubMCU local SDK and build intermediates
+tools/usb_submcu/
+firmware/usb_submcu_acceptance/build/
+
+# QR host probe build intermediates
+firmware/usb_submcu_host_probe/build/
+firmware/usb_submcu_host_probe/build_uart_gp0/

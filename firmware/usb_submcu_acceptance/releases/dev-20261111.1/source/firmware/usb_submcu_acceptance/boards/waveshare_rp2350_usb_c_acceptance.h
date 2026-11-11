@@ -1,0 +1,12 @@
+// RP2350-USB-C単体確認専用。外部GPIOや周辺機器の既定割当ては設けない。
+#ifndef USB_SUBMCU_ACCEPTANCE_BOARD_H
+#define USB_SUBMCU_ACCEPTANCE_BOARD_H
+pico_board_cmake_set(PICO_PLATFORM, rp2350)
+pico_board_cmake_set_default(PICO_FLASH_SIZE_BYTES, 2097152)
+#define PICO_RP2350A 1
+#define PICO_FLASH_SIZE_BYTES 2097152
+#define PICO_BOOT_STAGE2_CHOOSE_W25Q080 1
+#define PICO_FLASH_SPI_CLKDIV 4
+pico_board_cmake_set_default(PICO_RP2350_A2_SUPPORTED, 1)
+#define PICO_RP2350_A2_SUPPORTED 1
+#endif

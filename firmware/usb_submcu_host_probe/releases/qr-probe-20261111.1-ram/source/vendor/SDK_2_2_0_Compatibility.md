@@ -1,0 +1,7 @@
+# SDK2.2.0互換差分
+
+upstream-774cbb1/にメーカー原文14ファイルと取得manifestを保持。pico-pio-usb/はビルド用派生コピー。差分はsrc/usb_rx.pioの独自pio_sm_set_jmp_pin定義を削除し、hardware/pio.hのSDK提供関数を使用する1箇所のみ。SDKの実装は同じJMP_PINフィールド更新に引数検査とGPIO base処理を加えたもの。GP12／13はPIO GPIO base0で扱う。PIO命令、分周、pull-down、return、公開APIの型を変更しない。
+
+原文SHA-256: ce52be19f93eb73c6754743882cf324aa23a9f748519459a40d70e3f13a59c37。ビルド用派生SHA-256: 092adef4200e12f490020557ad0ec58ad040793b309119412730d7112a1f6644。
+
+アプリ側newlib_malloc_lock.cは既存Arduino GCC14.3のnewlib malloc hookをSDK再帰mutexへ接続する。新libcのretarget lock未解決をno-opで消す代わりに、公開__malloc_lock／__malloc_unlockを実装する。SDKのmalloc wrapperは保持。Host初期化のalarm_pool_createに伴うheap確保がリンクへ入るため、USB Device単体FWでは表面化しなかったツールチェーン条件が今回必要になった。原典・SDK・toolchain自体は変更しない。

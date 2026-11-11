@@ -1,0 +1,23 @@
+{
+  "retrieved_jst": "2026-11-11",
+  "sources": [
+    {
+      "file": "Product.html",
+      "url": "https://www.deshide.com/product-details_1663317.html",
+      "bytes": 121241,
+      "sha256": "baefca5dd707701fce898f176e15b461ba55b7df720668736502af7234f33548"
+    },
+    {
+      "file": "Manufacturer_03.jpg",
+      "url": "https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/16685801553921d32ba26a4ebe06c.jpg?version=1668580157",
+      "bytes": 412968,
+      "sha256": "ef9f628d5dd7cde1de083ab6d5b8ace6ad8ff35d9d37d0348db1ca8b70cf12e1"
+    },
+    {
+      "file": "Manufacturer_04.jpg",
+      "url": "https://wds-service-1258344699.file.myqcloud.com/20/12636/jpg/166858015539229b8e8d368e5b7a9.jpg?version=1668580157",
+      "bytes": 501712,
+      "sha256": "63d34f285ae3dea779f4098593e33b59042e410dd24dd29f33559fcf80cd2ad2"
+    }
+  ]
+}

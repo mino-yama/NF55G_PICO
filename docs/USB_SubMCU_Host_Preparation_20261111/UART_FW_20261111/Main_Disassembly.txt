@@ -1,0 +1,133 @@
+
+./firmware/usb_submcu_host_probe/releases/qr-uart-20261111.1/usb_submcu_qr_uart_probe.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+100007ec <main>:
+100007ec:	b580      	push	{r7, lr}
+100007ee:	4c45      	ldr	r4, [pc, #276]	@ (10000904 <main+0x118>)
+100007f0:	b08e      	sub	sp, #56	@ 0x38
+100007f2:	f644 4214 	movw	r2, #19476	@ 0x4c14
+100007f6:	2100      	movs	r1, #0
+100007f8:	4620      	mov	r0, r4
+100007fa:	f005 fea5 	bl	10006548 <memset>
+100007fe:	2501      	movs	r5, #1
+10000800:	2200      	movs	r2, #0
+10000802:	2112      	movs	r1, #18
+10000804:	4840      	ldr	r0, [pc, #256]	@ (10000908 <main+0x11c>)
+10000806:	4b41      	ldr	r3, [pc, #260]	@ (1000090c <main+0x120>)
+10000808:	6020      	str	r0, [r4, #0]
+1000080a:	9100      	str	r1, [sp, #0]
+1000080c:	4628      	mov	r0, r5
+1000080e:	4611      	mov	r1, r2
+10000810:	6065      	str	r5, [r4, #4]
+10000812:	f7ff fda1 	bl	10000358 <record>
+10000816:	2111      	movs	r1, #17
+10000818:	a809      	add	r0, sp, #36	@ 0x24
+1000081a:	f003 fb35 	bl	10003e88 <pico_get_unique_board_id_string>
+1000081e:	a809      	add	r0, sp, #36	@ 0x24
+10000820:	f005 fedc 	bl	100065dc <strlen>
+10000824:	4601      	mov	r1, r0
+10000826:	2200      	movs	r2, #0
+10000828:	b289      	uxth	r1, r1
+1000082a:	200b      	movs	r0, #11
+1000082c:	ab09      	add	r3, sp, #36	@ 0x24
+1000082e:	9100      	str	r1, [sp, #0]
+10000830:	4611      	mov	r1, r2
+10000832:	f7ff fd91 	bl	10000358 <record>
+10000836:	4836      	ldr	r0, [pc, #216]	@ (10000910 <main+0x124>)
+10000838:	ab05      	add	r3, sp, #20
+1000083a:	aa04      	add	r2, sp, #16
+1000083c:	a903      	add	r1, sp, #12
+1000083e:	f001 f97d 	bl	10001b3c <check_sys_clock_khz>
+10000842:	b918      	cbnz	r0, 1000084c <main+0x60>
+10000844:	4932      	ldr	r1, [pc, #200]	@ (10000910 <main+0x124>)
+10000846:	4833      	ldr	r0, [pc, #204]	@ (10000914 <main+0x128>)
+10000848:	f000 f8e0 	bl	10000a0c <panic>
+1000084c:	4e32      	ldr	r6, [pc, #200]	@ (10000918 <main+0x12c>)
+1000084e:	e9dd 1204 	ldrd	r1, r2, [sp, #16]
+10000852:	9803      	ldr	r0, [sp, #12]
+10000854:	f001 f8b0 	bl	100019b8 <set_sys_clock_pll>
+10000858:	f44f 31e1 	mov.w	r1, #115200	@ 0x1c200
+1000085c:	4630      	mov	r0, r6
+1000085e:	f000 ff83 	bl	10001768 <uart_init>
+10000862:	462a      	mov	r2, r5
+10000864:	4630      	mov	r0, r6
+10000866:	2300      	movs	r3, #0
+10000868:	2108      	movs	r1, #8
+1000086a:	f000 ffff 	bl	1000186c <uart_set_format>
+1000086e:	6b33      	ldr	r3, [r6, #48]	@ 0x30
+10000870:	4a2a      	ldr	r2, [pc, #168]	@ (1000091c <main+0x130>)
+10000872:	f403 4340 	and.w	r3, r3, #49152	@ 0xc000
+10000876:	2102      	movs	r1, #2
+10000878:	2000      	movs	r0, #0
+1000087a:	6313      	str	r3, [r2, #48]	@ 0x30
+1000087c:	f000 f866 	bl	1000094c <gpio_set_function>
+10000880:	4d27      	ldr	r5, [pc, #156]	@ (10000920 <main+0x134>)
+10000882:	4f28      	ldr	r7, [pc, #160]	@ (10000924 <main+0x138>)
+10000884:	4e28      	ldr	r6, [pc, #160]	@ (10000928 <main+0x13c>)
+10000886:	e001      	b.n	1000088c <main+0xa0>
+10000888:	f7ff fcfa 	bl	10000280 <pump_uart>
+1000088c:	68a2      	ldr	r2, [r4, #8]
+1000088e:	682b      	ldr	r3, [r5, #0]
+10000890:	429a      	cmp	r2, r3
+10000892:	d8f9      	bhi.n	10000888 <main+0x9c>
+10000894:	883a      	ldrh	r2, [r7, #0]
+10000896:	8833      	ldrh	r3, [r6, #0]
+10000898:	429a      	cmp	r2, r3
+1000089a:	d3f5      	bcc.n	10000888 <main+0x9c>
+1000089c:	4b23      	ldr	r3, [pc, #140]	@ (1000092c <main+0x140>)
+1000089e:	ad05      	add	r5, sp, #20
+100008a0:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
+100008a2:	e885 000f 	stmia.w	r5, {r0, r1, r2, r3}
+100008a6:	462a      	mov	r2, r5
+100008a8:	2164      	movs	r1, #100	@ 0x64
+100008aa:	2001      	movs	r0, #1
+100008ac:	f003 fd4a 	bl	10004344 <tuh_configure>
+100008b0:	b1f0      	cbz	r0, 100008f0 <main+0x104>
+100008b2:	2302      	movs	r3, #2
+100008b4:	2001      	movs	r0, #1
+100008b6:	a904      	add	r1, sp, #16
+100008b8:	f8ad 3010 	strh.w	r3, [sp, #16]
+100008bc:	f003 fd46 	bl	1000434c <tuh_rhport_init>
+100008c0:	b1b0      	cbz	r0, 100008f0 <main+0x104>
+100008c2:	4d1b      	ldr	r5, [pc, #108]	@ (10000930 <main+0x144>)
+100008c4:	e007      	b.n	100008d6 <main+0xea>
+100008c6:	f44f 727a 	mov.w	r2, #1000	@ 0x3e8
+100008ca:	2300      	movs	r3, #0
+100008cc:	f006 fbdc 	bl	10007088 <____aeabi_uldivmod_veneer>
+100008d0:	6120      	str	r0, [r4, #16]
+100008d2:	f7ff fcd5 	bl	10000280 <pump_uart>
+100008d6:	2100      	movs	r1, #0
+100008d8:	4608      	mov	r0, r1
+100008da:	f003 ffe5 	bl	100048a8 <tuh_task_ext>
+100008de:	f000 feb5 	bl	1000164c <time_us_64>
+100008e2:	4603      	mov	r3, r0
+100008e4:	2900      	cmp	r1, #0
+100008e6:	d1ee      	bne.n	100008c6 <main+0xda>
+100008e8:	fba5 3003 	umull	r3, r0, r5, r3
+100008ec:	0980      	lsrs	r0, r0, #6
+100008ee:	e7ef      	b.n	100008d0 <main+0xe4>
+100008f0:	2300      	movs	r3, #0
+100008f2:	200a      	movs	r0, #10
+100008f4:	461a      	mov	r2, r3
+100008f6:	4619      	mov	r1, r3
+100008f8:	9300      	str	r3, [sp, #0]
+100008fa:	f7ff fd2d 	bl	10000358 <record>
+100008fe:	f7ff fcbf 	bl	10000280 <pump_uart>
+10000902:	e7fc      	b.n	100008fe <main+0x112>
+10000904:	20002ae0 	.word	0x20002ae0
+10000908:	51525042 	.word	0x51525042
+1000090c:	10007118 	.word	0x10007118
+10000910:	0001d4c0 	.word	0x0001d4c0
+10000914:	10007130 	.word	0x10007130
+10000918:	40070000 	.word	0x40070000
+1000091c:	40071000 	.word	0x40071000
+10000920:	20008608 	.word	0x20008608
+10000924:	20008610 	.word	0x20008610
+10000928:	2000860e 	.word	0x2000860e
+1000092c:	100075d8 	.word	0x100075d8
+10000930:	10624dd3 	.word	0x10624dd3
+
+Disassembly of section .data:

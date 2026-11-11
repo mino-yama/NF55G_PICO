@@ -1,0 +1,23 @@
+{
+  "target_usb_serial": "A06FEA01012EC137",
+  "date_jst": "2026-11-11",
+  "original_program": "usb_device",
+  "original_sdk": "2.2.0",
+  "original_board_setting": "pico2",
+  "original_binary_range": [
+    "0x10000000",
+    "0x10009dec"
+  ],
+  "flash_size": 2097152,
+  "file": "original_flash_2MB.bin",
+  "bytes": 2097152,
+  "sha256": "1b90c7066b977f42d163b59d115742dbb56ba618f5e76862f91f2a490733b474",
+  "save_tool": "picotool 2.0.0 (existing Arduino package)",
+  "verify": {
+    "tool": "picotool 2.0.0",
+    "method": "verify whole saved binary against target flash",
+    "exit_code": 0,
+    "result": "OK"
+  },
+  "new_tools": "Official picotool 2.2.0-a4 used for subsequent operations"
+}

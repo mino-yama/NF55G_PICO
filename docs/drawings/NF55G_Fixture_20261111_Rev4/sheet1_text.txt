@@ -1,0 +1,59 @@
+NF55G 試験治具 接続・GPIO割付図
+01  全体接続図：USBポートを回路名で固定割当て
+NF55G-FIX-001 / Rev.4
+2026-11-11  |  A4横  |  1/5
+実機確認直前に改造を案内 / 今は未施工 / 現物照合・給電保護確認後に実施
+Rev.4   1/5
+ATE
+試験工程・測定条件
+製品PASS/FAIL判定
+PIA5100
+GPIB - RS232C
+変換（既存経路）
+RS232C → CH0
+NF55G
+CN24 : DF11-4DS-2C
+端子番号・線順は別途照合
+GPIB
+Pico-Quad-Expander
+4基板の共通ベース / GPIOを共有
+Pico-2CH-RS232
+CH0 : ATE / 115200 / 8N1
+CH1 : NF55G / 38400 / 8E1
+RS232C / CH0
+RS232C / CH1
+Raspberry Pi Pico 2
+UART0 : GP0 TX / GP1 RX
+UART1 : GP4 TX / GP5 RX
+3.3V UART × 2CH
+RTC : Pico-RTC-DS3231
+GP20 SDA / GP21 SCL
+I2C0 / 0x68 / 100kHz
+Expanderヘッダー経由
+I2C
+SD : ADA-5703 PiCowbell
+GP16 MISO / GP17 CS
+GP18 SCK / GP19 MOSI / SPI0
+GP4/GP5はSD基板から分離 ※1
+SPI
+追加 : RP2350-USB-C
+Type_C1 : DMM 7355
+Type_C2 : QR BCR-TC2D1BK
+下位UARTピン : 未確定
+GP8 TX / GP9 RX / GND
+PIO双方向UART案 / 115200 8N1候補
+QRリーダー
+BCR-TC2D1BK
+Type_C2 / PIO HID
+DMM : 7355
+USB Type-B
+Type_C1 / USB Host
+Type_C2 / PIO-USB
+Type_C1 / Native USB
+電源・保守（系統は詳細設計）
+デバッグ : PC → Type_C1のみ
+QR / DMM : Expander分岐5V / 最大1A
+PCとExpanderの同時給電は禁止
+機器接続時はPCを外す / GND共通
+青：現行のExpander経由接続   緑破線：追加案   ※スロット位置・積層順・電源配線は示していない。
+※1 ADA-5703内蔵RTC / STEMMAのGP4/GP5を分離。詳細は2・3枚目。Type_C2改造・手順は4・5枚目。

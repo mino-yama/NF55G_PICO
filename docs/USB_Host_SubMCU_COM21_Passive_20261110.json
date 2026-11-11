@@ -1,0 +1,14 @@
+{
+  "port": "COM21",
+  "mode": "USB_CDC_passive_no_tx",
+  "baudrate": 115200,
+  "baudrate_note": "USB CDC host setting, not an accepted inter-MCU UART setting",
+  "dtr": true,
+  "rts": false,
+  "duration_s": 6,
+  "tx_hex": "",
+  "usb_serial": "A06FEA01012EC137",
+  "chunks": [],
+  "rx_bytes": 0,
+  "status": "captured"
+}

@@ -1,0 +1,38 @@
+{
+  "FriendlyName": "USB-SERIAL CH341 (COM22)",
+  "InstanceId": "USB\\VID_1A86&PID_5523\\6&3A944CE5&0&3",
+  "Status": "OK",
+  "Properties": [
+    {
+      "KeyName": "DEVPKEY_Device_HardwareIds",
+      "Data": [
+        "USB\\VID_1A86&PID_5523&REV_0304",
+        "USB\\VID_1A86&PID_5523"
+      ]
+    },
+    {
+      "KeyName": "DEVPKEY_Device_Service",
+      "Data": "CH341SER_A64"
+    },
+    {
+      "KeyName": "DEVPKEY_Device_ProblemCode",
+      "Data": 0
+    },
+    {
+      "KeyName": "DEVPKEY_Device_DriverDate",
+      "Data": "2024-09-16T09:00:00+09:00"
+    },
+    {
+      "KeyName": "DEVPKEY_Device_DriverVersion",
+      "Data": "3.9.2024.9"
+    },
+    {
+      "KeyName": "DEVPKEY_Device_DriverInfPath",
+      "Data": "oem218.inf"
+    },
+    {
+      "KeyName": "DEVPKEY_Device_DriverProvider",
+      "Data": "wch.cn"
+    }
+  ]
+}

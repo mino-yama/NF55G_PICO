@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-10",
+  "user_report": {
+    "CC1": {
+      "position_0": "populated",
+      "position_1": "not_populated"
+    },
+    "CC2": {
+      "position_0": "populated",
+      "position_1": "not_populated"
+    },
+    "note": "0 and 1 are silkscreen selection positions, not measured ohms"
+  },
+  "files": [
+    {
+      "source": "C:/Users/m_yamada/Desktop/IMG_4899.jpeg",
+      "file": "IMG_4899.jpeg",
+      "bytes": 830272,
+      "sha256": "e2c20fef5a6a9e946effb6837d0bc5f1448ea996a26a4e7740553d4c20b5151f"
+    },
+    {
+      "source": "C:/Users/m_yamada/Desktop/IMG_4900.jpeg",
+      "file": "IMG_4900.jpeg",
+      "bytes": 1095701,
+      "sha256": "d15188cd69a7a01fa8b54075c4276f1465ccf5b9137c007591cf7e7b2ddfda15"
+    }
+  ]
+}

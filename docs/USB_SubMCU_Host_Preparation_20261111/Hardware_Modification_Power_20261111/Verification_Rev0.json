@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-11",
+  "local_links": [
+    {
+      "link": "../../drawings/NF55G_Fixture_20261111_Rev4/README.md",
+      "exists": true
+    },
+    {
+      "link": "../../../reference/USB_Host_SubMCU_Host_Conditions_20261111/Waveshare_USB_C_FAQ_pullup.webp",
+      "exists": true
+    },
+    {
+      "link": "../../../reference/USB_Host_SubMCU_20261110/actual_board_20261110/IMG_4899.jpeg",
+      "exists": true
+    },
+    {
+      "link": "../../USB_Host_SubMCU_Host_Circuit_Conditions_Rev0_20261111.md",
+      "exists": true
+    },
+    {
+      "link": "../UART_FW_20261111/Result_Rev0.md",
+      "exists": true
+    }
+  ],
+  "hardware_modified": false,
+  "post_modification_power_test": false,
+  "software_changed": false
+}

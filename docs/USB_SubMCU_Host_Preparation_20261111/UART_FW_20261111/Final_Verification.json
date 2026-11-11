@@ -1,0 +1,9 @@
+{
+  "release_files_verified": 45,
+  "local_links_verified": 17,
+  "build_exit": 0,
+  "unit_tests": 301,
+  "all_tests_passed": true,
+  "flashed": false,
+  "hardware_uart_tested": false
+}

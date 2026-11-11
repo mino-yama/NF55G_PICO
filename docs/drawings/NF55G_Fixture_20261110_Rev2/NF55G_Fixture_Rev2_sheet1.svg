@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 842 595">
+<rect width="842" height="595" fill="white"/>
+<text x="24" y="29" font-size="18" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G 試験治具 接続・GPIO割付図</text>
+<text x="24" y="50" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">01  全体接続図：既存設備を維持し、USB HOST機能を追加する構成案</text>
+<text x="600" y="27" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G-FIX-001 / Rev.2</text>
+<text x="600" y="44" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">2026-11-10  |  A4横  |  1/3</text>
+<polyline points="24,63 818,63" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="24,565 818,565" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="24" y="581" font-size="9" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">説明・検討用 / 縮尺なし / 製造・加工前に現物・結線・電源条件を照合すること</text>
+<text x="741" y="581" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Rev.2   1/3</text>
+<rect x="24" y="98" width="106" height="80" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="34" y="117" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">ATE</text>
+<text x="34" y="135" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">試験工程・測定条件</text>
+<text x="34" y="149" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">製品PASS/FAIL判定</text>
+<rect x="158" y="98" width="130" height="80" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="168" y="117" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">PIA5100</text>
+<text x="168" y="135" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GPIB - RS232C</text>
+<text x="168" y="149" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">変換（既存経路）</text>
+<text x="168" y="163" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">RS232C → CH0</text>
+<rect x="650" y="98" width="168" height="80" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="660" y="117" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G</text>
+<text x="660" y="135" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CN24 : DF11-4DS-2C</text>
+<text x="660" y="149" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">端子番号・線順は別途照合</text>
+<polyline points="130,136 158,136" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="158,136 152.59731738588394,138.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="158,136 152.59731738588394,133.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="130,136 135.40268261411606,133.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="130,136 135.40268261411606,138.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="131" y="92" font-size="8" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GPIB</text>
+<rect x="14" y="199" width="814" height="172" stroke="#245b83" fill="#f5f8fb" stroke-width="1"/>
+<text x="28" y="218" font-size="12" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Pico-Quad-Expander</text>
+<text x="28" y="234" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">4基板の共通ベース / GPIOを共有</text>
+<rect x="310" y="210" width="220" height="64" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="320" y="229" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Pico-2CH-RS232</text>
+<text x="320" y="247" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CH0 : ATE / 115200 / 8N1</text>
+<text x="320" y="261" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CH1 : NF55G / 38400 / 8E1</text>
+<polyline points="288,136 299,136 299,242 310,242" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="310,242 304.5973173858839,244.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="310,242 304.5973173858839,239.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="288,136 293.4026826141161,133.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="288,136 293.4026826141161,138.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="310" y="185" font-size="8" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">RS232C / CH0</text>
+<polyline points="650,136 556,136 556,242 530,242" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="530,242 535.4026826141161,239.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="530,242 535.4026826141161,244.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="650,136 644.5973173858839,138.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="650,136 644.5973173858839,133.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="565" y="125" font-size="8" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">RS232C / CH1</text>
+<rect x="310" y="300" width="220" height="63" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="320" y="319" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Raspberry Pi Pico 2</text>
+<text x="320" y="337" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">UART0 : GP0 TX / GP1 RX</text>
+<text x="320" y="351" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">UART1 : GP4 TX / GP5 RX</text>
+<polyline points="420,274 420,300" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="420,300 417.39020679533263,294.5973173858839" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="420,300 422.60979320466737,294.5973173858839" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="420,274 422.60979320466737,279.4026826141161" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="420,274 417.39020679533263,279.4026826141161" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="433" y="290" font-size="8" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">3.3V UART × 2CH</text>
+<rect x="28" y="253" width="230" height="100" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="38" y="272" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">RTC : Pico-RTC-DS3231</text>
+<text x="38" y="290" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GP20 SDA / GP21 SCL</text>
+<text x="38" y="304" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">I2C0 / 0x68 / 100kHz</text>
+<text x="38" y="318" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Expanderヘッダー経由</text>
+<polyline points="258,330 310,330" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="310,330 304.5973173858839,332.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="310,330 304.5973173858839,327.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="258,330 263.4026826141161,327.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="258,330 263.4026826141161,332.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="270" y="321" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">I2C</text>
+<rect x="584" y="253" width="230" height="100" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="594" y="272" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">SD : ADA-5703 PiCowbell</text>
+<text x="594" y="290" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GP16 MISO / GP17 CS</text>
+<text x="594" y="304" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GP18 SCK / GP19 MOSI / SPI0</text>
+<text x="594" y="318" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GP4/GP5はSD基板から分離 ※1</text>
+<polyline points="530,330 584,330" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="584,330 578.5973173858839,332.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="584,330 578.5973173858839,327.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="530,330 535.4026826141161,327.39020679533263" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="530,330 535.4026826141161,332.60979320466737" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="546" y="321" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">SPI</text>
+<rect x="320" y="415" width="200" height="85" stroke="#287a60" fill="#f0f8f4" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="330" y="434" font-size="11" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">追加 : RP2350-USB-C</text>
+<text x="330" y="452" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QR HID + DMM CDC（方式案）</text>
+<text x="330" y="466" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">下位UARTピン : 未確定</text>
+<text x="330" y="480" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">ホスト用USBポートは現物照合</text>
+<polyline points="420,363 420,415" fill="none" stroke="#287a60" stroke-width="1.3" stroke-dasharray="5 3"/>
+<polyline points="420,415 417.39020679533263,409.5973173858839" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="420,415 422.60979320466737,409.5973173858839" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="420,363 422.60979320466737,368.4026826141161" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="420,363 417.39020679533263,368.4026826141161" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<text x="430" y="387" font-size="9" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GP8 TX / GP9 RX / GND</text>
+<text x="430" y="401" font-size="8" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">PIO双方向UART案 / 115200 8N1候補</text>
+<rect x="580" y="420" width="90" height="75" stroke="#287a60" fill="#f0f8f4" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="590" y="439" font-size="11" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">USBハブ</text>
+<text x="590" y="457" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">機種未定</text>
+<text x="590" y="471" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">給電要確認</text>
+<polyline points="520,456 580,456" fill="none" stroke="#287a60" stroke-width="1.3" stroke-dasharray="5 3"/>
+<polyline points="580,456 574.5973173858839,458.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="580,456 574.5973173858839,453.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="520,456 525.4026826141161,453.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="520,456 525.4026826141161,458.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<text x="532" y="445" font-size="9" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">USB</text>
+<rect x="702" y="380" width="116" height="71" stroke="#287a60" fill="#f0f8f4" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="712" y="399" font-size="11" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QRリーダー</text>
+<text x="712" y="417" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">BCR-TC2D1BK</text>
+<text x="712" y="431" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Type-C / HID</text>
+<rect x="702" y="473" width="116" height="71" stroke="#287a60" fill="#f0f8f4" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="712" y="492" font-size="11" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">DMM : 7355</text>
+<text x="712" y="510" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">USB Type-B</text>
+<text x="712" y="524" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CDC設定を検討</text>
+<polyline points="670,440 686,440 686,406 702,406" fill="none" stroke="#287a60" stroke-width="1.3" stroke-dasharray="5 3"/>
+<polyline points="702,406 696.5973173858839,408.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="702,406 696.5973173858839,403.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="670,440 675.4026826141161,437.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="670,440 675.4026826141161,442.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="670,476 686,476 686,508 702,508" fill="none" stroke="#287a60" stroke-width="1.3" stroke-dasharray="5 3"/>
+<polyline points="702,508 696.5973173858839,510.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="702,508 696.5973173858839,505.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="670,476 675.4026826141161,473.39020679533263" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<polyline points="670,476 675.4026826141161,478.60979320466737" fill="none" stroke="#287a60" stroke-width="1.3"/>
+<rect x="24" y="400" width="239" height="100" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="34" y="419" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">電源・保守（系統は詳細設計）</text>
+<text x="34" y="437" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">既存 : 外部5V、Pico用USB保守</text>
+<text x="34" y="451" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">追加 : HOST / ハブ / QRの5V給電</text>
+<text x="34" y="465" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">給電容量・逆流防止・GNDを確認</text>
+<text x="34" y="479" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">USB保守口とホスト口を区別</text>
+<text x="24" y="520" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">青：現行のExpander経由接続   緑破線：追加案   ※スロット位置・積層順・電源配線は示していない。</text>
+<text x="24" y="539" font-size="9" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">※1 ADA-5703内蔵RTC / STEMMAのGP4/GP5を分離。詳細は2・3枚目。USBハブ・給電・加工は未確定。</text>
+</svg>

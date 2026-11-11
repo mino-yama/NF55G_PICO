@@ -1,0 +1,119 @@
+{
+  "date_jst": "2026-11-11",
+  "drawing_revision": "Rev.4",
+  "pages": 5,
+  "format": "A4 landscape",
+  "status": "Drawing prepared; physical modification deferred until pre-HIL guidance",
+  "generator": {
+    "file": "scripts/build_fixture_connection_drawing_rev4.py",
+    "sha256": "14108d6edf8d52543b16749e7edafd0600f00a0db6eaa044965a15effc84496d"
+  },
+  "dependencies": {
+    "python": "3.12",
+    "pdf": "PyMuPDF",
+    "image_format_conversion": "Pillow 11.3.0",
+    "font": "Windows MS Gothic"
+  },
+  "host_mock": {
+    "tests": 287,
+    "result": "OK",
+    "elapsed_seconds": 6.399
+  },
+  "files": [
+    {
+      "file": "Host_Mock_20261111.txt",
+      "bytes": 42452,
+      "sha256": "e8f075b63d9a380a0ffba7bcbdbebc52e32920e2cb0591bc876b65faf088d12c"
+    },
+    {
+      "file": "NF55G_Fixture_Connection_GPIO_Rev4_20261111.pdf",
+      "bytes": 760589,
+      "sha256": "942ab8248aefa6da814c3272f23a07f072ab69cb23f6baf4a5eb2ace0122b5ac"
+    },
+    {
+      "file": "NF55G_Fixture_Rev4_sheet1.svg",
+      "bytes": 14896,
+      "sha256": "41907c312bf3b252e2c8371ef0ba15b66d4ae4b91789b34fbb6ae813eecea595"
+    },
+    {
+      "file": "NF55G_Fixture_Rev4_sheet2.svg",
+      "bytes": 23963,
+      "sha256": "e6722e8fd7c3c532b1b5a8b692bfdd1200ecf7dc6c223fb025980b2ca85aa733"
+    },
+    {
+      "file": "NF55G_Fixture_Rev4_sheet3.svg",
+      "bytes": 10869,
+      "sha256": "379047fa85b0678bd07791490b5e55513f2fe095be72715bd516200a4a73f777"
+    },
+    {
+      "file": "NF55G_Fixture_Rev4_sheet4.svg",
+      "bytes": 556440,
+      "sha256": "997ac40025cdd63c63ea2280d2b71065eb0eee6af2c8e5ae0998fdf46db89730"
+    },
+    {
+      "file": "NF55G_Fixture_Rev4_sheet5.svg",
+      "bytes": 11637,
+      "sha256": "acc90f859d0b78ed4c12ef97a524b1bc3076ee54ee97b95305543b487bab5381"
+    },
+    {
+      "file": "preview_sheet1.png",
+      "bytes": 164747,
+      "sha256": "e67f0c33b516420871621edd1bdbf5bf2c55a34f035d4014b9bbed86da38f08f"
+    },
+    {
+      "file": "preview_sheet2.png",
+      "bytes": 187338,
+      "sha256": "113995990b41519e6da2216e1ed2af0d4eb3a53c6e1383f9b510737a4919c811"
+    },
+    {
+      "file": "preview_sheet3.png",
+      "bytes": 203457,
+      "sha256": "1f8addd5880e3e9606979e1d5fdb5e5fcab496b8266ed6490acf9ed8bff1988b"
+    },
+    {
+      "file": "preview_sheet4.png",
+      "bytes": 355713,
+      "sha256": "0e27cbcf3c44a77e2a02edcd831a149b8ba80b3a83baadc617e72e2d45075964"
+    },
+    {
+      "file": "preview_sheet5.png",
+      "bytes": 197898,
+      "sha256": "b068049749162745af3b0a030257cdd2a9db223bc63dbef4c323c8f617d6fce8"
+    },
+    {
+      "file": "README.md",
+      "bytes": 3724,
+      "sha256": "8514c26752ba19d7937d1ddb40d7ee401a4949c28d99f1e53a330fe83538739e"
+    },
+    {
+      "file": "sheet1_text.txt",
+      "bytes": 1689,
+      "sha256": "0cffa4a14e42ee52acf21513ee4a32f07d7b65a2f8b76d319836d4c6573ad81b"
+    },
+    {
+      "file": "sheet2_text.txt",
+      "bytes": 2262,
+      "sha256": "29da1da7e2be1ef46142b60b612ab9c07ae70829992781acd6b6dfc65bceeb9f"
+    },
+    {
+      "file": "sheet3_text.txt",
+      "bytes": 2646,
+      "sha256": "2a9d055fe03caad6592607f75745ce642e1e2f67c7efb2ca216df67ff22bd06f"
+    },
+    {
+      "file": "sheet4_text.txt",
+      "bytes": 1528,
+      "sha256": "e4b2ae94985f71afda9ae4e476c0e30d62ff290cec369e2c8809772a951d6329"
+    },
+    {
+      "file": "sheet5_text.txt",
+      "bytes": 2650,
+      "sha256": "e1d50021bbc0443751d21ec9bce32d0c88c25f399691d7abdecd1d5732e104c7"
+    },
+    {
+      "file": "verification.json",
+      "bytes": 1153,
+      "sha256": "488914a8ee797628a860ea062a53d767ced9f9b78e2ef550674a3a83e1b997d4"
+    }
+  ]
+}

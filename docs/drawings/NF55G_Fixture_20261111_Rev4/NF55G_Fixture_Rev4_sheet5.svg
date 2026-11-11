@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 842 595">
+<rect width="842" height="595" fill="white"/>
+<text x="24" y="29" font-size="18" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G 試験治具 接続・GPIO割付図</text>
+<text x="24" y="50" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">05  実機確認直前の改造・受入手順：案内前に施工しない / 作業結果を記録する</text>
+<text x="600" y="27" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G-FIX-001 / Rev.4</text>
+<text x="600" y="44" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">2026-11-11  |  A4横  |  5/5</text>
+<polyline points="24,63 818,63" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="24,565 818,565" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="24" y="581" font-size="9" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">実機確認直前に改造を案内 / 今は未施工 / 現物照合・給電保護確認後に実施</text>
+<text x="741" y="581" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Rev.4   5/5</text>
+<rect x="24" y="82" width="387" height="85" stroke="#245b83" fill="#eef3f7" stroke-width="1"/>
+<text x="34" y="101" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">デバッグ時：PC給電</text>
+<text x="34" y="119" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">PC → Type_C1 / Type_C2は空</text>
+<text x="34" y="133" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Expanderの外部5Vは切り離す</text>
+<text x="34" y="147" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">PCと外部5Vの同時直結はしない</text>
+<rect x="431" y="82" width="387" height="85" stroke="#287a60" fill="#f0f8f4" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="441" y="101" font-size="11" fill="#287a60" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">機器使用時：外部アダプタ給電</text>
+<text x="441" y="119" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">外部5V → Expander分岐 → 下位基板5V / GND</text>
+<text x="441" y="133" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">最大1Aはユーザー申告。保護・実負荷は確認待ち</text>
+<text x="441" y="147" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Type_C1に7355、Type_C2にQR。PCは外す</text>
+<rect x="24" y="185" width="30" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="30" y="199" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">順</text>
+<rect x="54" y="185" width="610" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="60" y="199" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">作業と判定点</text>
+<rect x="664" y="185" width="154" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="670" y="199" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">記録欄</text>
+<rect x="24" y="208" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="222" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">0</text>
+<rect x="54" y="208" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="222" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Host用FW・ログ経路・分岐の保護条件を準備。実機確認前に改造を案内する。</text>
+<text x="60" y="235" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">現物と4枚目の部品位置、56kΩ部品サイズ・値を照合してから着手。</text>
+<rect x="664" y="208" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="222" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">案内 / 作業者 / 部品確認</text>
+<text x="670" y="235" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="251" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="265" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">1</text>
+<rect x="54" y="251" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="265" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">PC USB・外部アダプタ・QR・7355・治具UARTを全て外して無給電にする。</text>
+<text x="60" y="278" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Type_C1とExpanderの給電切替えは、必ず電源OFFで行う。</text>
+<rect x="664" y="251" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="265" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">無給電確認</text>
+<text x="670" y="278" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="294" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="308" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">2</text>
+<rect x="54" y="294" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="308" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">変更前の写真を保存。4枚目のメーカー赤丸と現物を照合し、R13を取り外す。</text>
+<text x="60" y="321" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">位置が一致しなければ中断。別の抵抗を推定して除去しない。</text>
+<rect x="664" y="294" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="308" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">R13 / 写真</text>
+<text x="670" y="321" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="337" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="351" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">3</text>
+<rect x="54" y="337" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="351" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CC1=R19、CC2=R18の0側抵抗を外す。1側R21 / R20へ各56kΩ・1%を実装。</text>
+<text x="60" y="364" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">5.1kΩの移設・0Ω短絡・0側と1側の両側実装はしない。</text>
+<rect x="664" y="337" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="351" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">CC1 / CC2</text>
+<text x="670" y="364" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="380" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="394" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">4</text>
+<rect x="54" y="380" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="394" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">R11 / R12とType_C1側は維持。はんだブリッジ・剥離・残片を目視確認。</text>
+<text x="60" y="407" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">変更後写真を保存。DB_N / DN1の微細端子プロービングは要求しない。</text>
+<rect x="664" y="380" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="394" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">外観 / 写真</text>
+<text x="670" y="407" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="423" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="437" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">5</text>
+<rect x="54" y="423" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="437" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QR / 7355なし、1系統だけで給電し、5V / 3V3と異常消費・リセットを確認。</text>
+<text x="60" y="450" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">既に測れる電源端子・ブレークアウトを使用。異常なら電源OFFして中断。</text>
+<rect x="664" y="423" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="437" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">5V / 3V3 / 電流</text>
+<text x="670" y="450" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<rect x="24" y="466" width="30" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="480" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">6</text>
+<rect x="54" y="466" width="610" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="60" y="480" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QR試験はPCを外し、無給電でType_C2にQRを接続後、保護したExpander 5Vを投入。</text>
+<text x="60" y="493" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Host FW版・列挙・読取・電流を記録。別工程で7355をType_C1へ接続する。</text>
+<rect x="664" y="466" width="154" height="43" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="670" y="480" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">FW版 / 結果</text>
+<text x="670" y="493" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">____________________</text>
+<text x="24" y="526" font-size="9" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">注意：両VBUSはVSYS直結。初期は固定機器・無給電で配線し、活線挿抜や汎用Sourceの合格としない。</text>
+<text x="24" y="543" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">最大1Aは保護の実測ではない。供給能力・過電流・逆流、USB Hostの同時動作は別途受入。</text>
+<text x="24" y="557" font-size="8" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">参照：USB_Host_SubMCU_Host_Circuit_Conditions_Rev0_20261111.md / USB-SUB-01・02はOpen継続</text>
+</svg>

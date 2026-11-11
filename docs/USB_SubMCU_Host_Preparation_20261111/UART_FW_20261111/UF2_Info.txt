@@ -1,0 +1,34 @@
+File ./firmware/usb_submcu_host_probe/releases/qr-uart-20261111.1/usb_submcu_qr_uart_probe.uf2 family ID 'rp2350-arm-s':
+
+Program Information
+ name:                usb_submcu_qr_uart_probe
+ version:             qr-uart-20261111.1
+ binary start:        0x10000000
+ binary end:          0x10009914
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Fixed Pin Information
+ 0:                   Diagnostic UART0
+                      TX 115200 8N1
+ 12:                  Type_C2 D+
+ 13:                  Type_C2 D-
+
+Build Information
+ sdk version:         2.2.0
+ pico_board:          waveshare_rp2350_usb_c_acceptance
+ boot2_name:          boot2_w25q080
+ build date:          Nov 11 2026
+ build attributes:    Release
+
+Metadata Block 1
+ address:             0x10000138
+ next block address:  0x10009900
+ block type:          image def
+ target chip:         RP2350
+ image type:          ARM Secure
+
+Metadata Block 2
+ address:             0x10009900
+ next block address:  0x10000138
+ block type:          ignored

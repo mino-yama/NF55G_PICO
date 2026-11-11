@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-10",
+  "source": "Windows Get-PnpDevice, Get-Volume, INFO_UF2.TXT and serial.tools.list_ports observations",
+  "user_action": "Changed to a USB data cable; later pressed RUN/RST without BOOT",
+  "boot": {
+    "usb_vid": "2E8A",
+    "usb_pid": "000F",
+    "usb_serial": "A06FEA01012EC137",
+    "pnp_status": "OK",
+    "drive": "E:",
+    "volume_label": "RP2350",
+    "filesystem": "FAT",
+    "info_uf2": "UF2 Bootloader v1.1\r\nModel: Raspberry Pi RP2350\r\nBoard-ID: RP2350\r\n",
+    "files": [
+      {
+        "name": "INDEX.HTM",
+        "bytes": 241
+      },
+      {
+        "name": "INFO_UF2.TXT",
+        "bytes": 64
+      }
+    ]
+  },
+  "normal": {
+    "usb_vid": "2E8A",
+    "usb_pid": "0009",
+    "usb_serial": "A06FEA01012EC137",
+    "port": "COM21",
+    "product": "Pico",
+    "pnp_status": "OK",
+    "boot_volume_present": false,
+    "firmware_name": null,
+    "firmware_version": null,
+    "passive_capture": "USB_Host_SubMCU_COM21_Passive_20261110.json"
+  },
+  "not_tested": [
+    "UF2 write and readback",
+    "flash backup",
+    "electrical CC/VBUS acceptance",
+    "QR HID",
+    "ADCMT 7355 host",
+    "dual USB host",
+    "inter-MCU UART",
+    "ATE/NF55G coexistence timing"
+  ],
+  "assessment": {
+    "usb_enumeration": "confirmed in boot and normal modes",
+    "board_model": "user identifies physical board as Waveshare RP2350-USB-C; USB strings alone do not prove board model or revision",
+    "old_cable_cause": "suspected; old cable not tested directly"
+  }
+}

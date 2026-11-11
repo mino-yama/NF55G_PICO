@@ -1,0 +1,108 @@
+NF55G 試験治具 接続・GPIO割付図
+02  Pico 2 GPIO割付・基板間信号：物理ピン番号はPico 2の40ピンヘッダー基準
+NF55G-FIX-001 / Rev.4
+2026-11-11  |  A4横  |  2/5
+実機確認直前に改造を案内 / 今は未施工 / 現物照合・給電保護確認後に実施
+Rev.4   2/5
+用途
+Pico GPIO
+物理pin
+方向 ※2
+接続先・条件
+区分
+ATE UART0
+GP0 / GP1
+1 / 2
+TX / RX
+RS232 CH0 → PIA5100 / 115200 8N1
+現行
+NF55G UART1
+GP4 / GP5
+6 / 7
+TX / RX
+RS232 CH1 → NF55G / 38400 8E1
+現行
+RTC I2C0
+GP20
+26
+双方向
+DS3231 SDA / address 0x68
+現行
+RTC I2C0
+GP21
+27
+出力
+DS3231 SCL / 100kHz
+現行
+SD SPI0
+GP16
+21
+入力
+ADA-5703 MISO
+現行
+SD SPI0
+GP17
+22
+出力
+ADA-5703 CS
+現行
+SD SPI0
+GP18
+24
+出力
+ADA-5703 SCK
+現行
+SD SPI0
+GP19
+25
+出力
+ADA-5703 MOSI
+現行
+追加HOST UART
+GP8
+11
+TX出力
+→ HOST UART RX（下位GPIO未定）
+候補
+追加HOST UART
+GP9
+12
+RX入力
+← HOST UART TX（下位GPIO未定）
+候補
+追加HOST GND
+GND
+13（候補）
+基準
+HOST GND / 絶縁要否は配線条件で確認
+候補
+Pico電源
+VSYS
+39
+電源
+治具の既存給電 / 追加側はExpander 5V分岐
+要照合
+USB電源
+VBUS
+40
+電源
+USB 5V系 / 外部5Vとの逆流防止を設計
+要照合
+3.3V電源
+3V3(OUT)
+36
+電源
+周辺回路用 / USBの5V給電には使わない
+端子参照
+電源GND
+GND
+38（例）
+基準
+複数GNDあり / 実ハーネスで端子確定
+端子参照
+※2 方向はPico 2から見た信号方向。TX同士・RX同士では接続しない。3.3V UARTとRS232Cを区別する。
+重要：GP8/GP9のハードUART機能もUART1。NF55G用UART1と独立しないため、追加側はPIO方式を検討。
+現行QR試作はGP9受信のみ、GP8はHigh固定。双方向化には送信処理・PIO資源・本番統合の追加設計が必要。
+GP4/GP5はNF55G専用。ADA-5703の内蔵PCF8523 / STEMMA QTは使用しない。分離箇所・導通を検査する。
+各基板はPico-Quad-Expander経由。全スロットで同じGPIOを共有するため、割付と競合条件は変わらない。
+固定USB割当て：RP2350-USB-C回路図 Type_C1 → 7355 / Type_C2 → BCR-TC2D1BK。

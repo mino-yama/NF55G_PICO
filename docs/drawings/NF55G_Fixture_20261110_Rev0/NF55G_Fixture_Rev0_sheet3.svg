@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 842 595">
+<rect width="842" height="595" fill="white"/>
+<text x="24" y="29" font-size="18" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G 試験治具 接続・GPIO割付図</text>
+<text x="24" y="50" font-size="11" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">03  追加発注・改造範囲の説明：既存接続と候補を分け、加工承認前に現物で確定する</text>
+<text x="600" y="27" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G-FIX-001 / Rev.0</text>
+<text x="600" y="44" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">2026-11-10  |  A4横  |  3/3</text>
+<polyline points="24,63 818,63" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<polyline points="24,565 818,565" fill="none" stroke="#245b83" stroke-width="1.3"/>
+<text x="24" y="581" font-size="9" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">説明・検討用 / 縮尺なし / 製造・加工前に現物・結線・電源条件を照合すること</text>
+<text x="741" y="581" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Rev.0   3/3</text>
+<rect x="24" y="80" width="146" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="30" y="94" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">対象</text>
+<rect x="170" y="80" width="352" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="176" y="94" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">説明・追加する作業</text>
+<rect x="522" y="80" width="296" height="23" stroke="#b9c8d3" fill="#eef3f7" stroke-width="1"/>
+<text x="528" y="94" font-size="9" fill="#245b83" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">確定度 / 発注前の確認</text>
+<rect x="24" y="103" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="117" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">既存RS232 / RTC / SD</text>
+<rect x="170" y="103" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="117" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">既存構成・GPIOを維持。基板を積層・分岐して接続。</text>
+<text x="176" y="130" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">NF55G CN24とPIA5100側は既存ハーネスを照合。</text>
+<rect x="522" y="103" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="117" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">現行構成</text>
+<text x="528" y="130" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">コネクタ極性・端子番号は本図で未確定</text>
+<rect x="24" y="149" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="163" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">A : SD基板の分離</text>
+<rect x="170" y="149" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="163" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">ADA-5703のGP4/GP5をPicoバスから物理分離。</text>
+<text x="176" y="176" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">内蔵RTC / STEMMAをNF55G UARTへ接続しない。</text>
+<rect x="522" y="149" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="163" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">既存治具は分離済み申告あり</text>
+<text x="528" y="176" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">再発注品にも処置・導通検査が必要</text>
+<rect x="24" y="195" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="209" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">B : HOSTの追加配線</text>
+<rect x="170" y="195" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="209" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Pico GP8 / GP9 / GNDをHOSTのRX / TX / GNDへ。</text>
+<text x="176" y="222" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">基板固定・信号引出し・配線保持を追加。</text>
+<rect x="522" y="195" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="209" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">GPIO・PIO・下位側ピンは設計候補</text>
+<text x="528" y="222" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">基板間コネクタ新設 / 半田配線の要否を確認</text>
+<rect x="24" y="241" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="255" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">C : USBデータ接続</text>
+<rect x="170" y="241" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="255" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">HOST → USBハブ → QR(Type-C) / 7355(Type-B)。</text>
+<text x="176" y="268" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">まず既製データケーブル・適合ハブで成立を確認。</text>
+<rect x="522" y="241" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="255" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QR用Type-Cは下流データ用であること</text>
+<text x="528" y="268" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">電源専用 / 上流専用ポートと取り違えない</text>
+<rect x="24" y="287" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="301" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">D : USBホスト条件</text>
+<rect x="170" y="287" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="301" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">RP2350-USB-Cのホスト用ポート・CC抵抗設定と</text>
+<text x="176" y="314" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">VBUS出力経路を回路図・基板版で照合。</text>
+<rect x="522" y="287" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="301" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">設定変更 / 基板加工の要否は未確定</text>
+<text x="528" y="314" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">USB-A向けR13除去指示を転用しない</text>
+<rect x="24" y="333" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="347" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">E : 5V給電の追加</text>
+<rect x="170" y="333" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="347" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">HOST・ハブ・QRの消費電流と突入を考慮し給電。</text>
+<text x="176" y="360" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">QR動作時230mA。逆流・過電流保護を確認。</text>
+<rect x="522" y="333" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="347" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">電源容量・分岐・GND・絶縁要否を設計</text>
+<text x="528" y="360" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">Pico VBUSからの無条件給電は指示しない</text>
+<rect x="24" y="379" width="146" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="30" y="393" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">F : 筐体・保守接続</text>
+<rect x="170" y="379" width="352" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="176" y="393" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">HOST固定、USBケーブル保持、保守用USBアクセス、</text>
+<text x="176" y="406" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">必要に応じパネル中継・内部ハーネスを追加。</text>
+<rect x="522" y="379" width="296" height="46" stroke="#b9c8d3" fill="#ffffff" stroke-width="1"/>
+<text x="528" y="393" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">基板寸法・取り付け・コネクタ位置を実測</text>
+<text x="528" y="406" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">加工図・部品型番・数量は後続で確定</text>
+<rect x="24" y="437" width="794" height="77" stroke="#aa650b" fill="#fff8ed" stroke-width="1"/>
+<text x="34" y="455" font-size="10" fill="#aa650b" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">発注説明：追加するのは「USB HOST基板・双方向UART配線・USB接続部品・電源／固定部品」。</text>
+<text x="34" y="474" font-size="10" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">コネクタの撤去やUSB信号線の直付けが必要とは、現時点では確定していない。</text>
+<text x="34" y="493" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">必要な場合は、対象端子・加工箇所・配線表・検査方法を追記した製造用Rev.を作成してから加工する。</text>
+<text x="24" y="535" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">残確認：HOST現物・回路図、USBハブと給電、下位UARTピン、CN24 / RS232端子配列、SD分離方法・検査記録。</text>
+<text x="24" y="551" font-size="9" fill="#203243" font-family="MS Gothic, Noto Sans CJK JP, sans-serif">管理：HW-01 / USB-SUB-01をOpen維持。今回の図面作成では機器への接続・改造・プログラム配置を行っていない。</text>
+</svg>

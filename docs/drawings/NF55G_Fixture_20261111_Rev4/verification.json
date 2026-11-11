@@ -1,0 +1,57 @@
+{
+  "pdf": "NF55G_Fixture_Connection_GPIO_Rev4_20261111.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "size_pt": [
+        842.0,
+        595.0
+      ],
+      "text_characters": 1129,
+      "outside_margin": [],
+      "svg_xml": "OK"
+    },
+    {
+      "page": 2,
+      "size_pt": [
+        842.0,
+        595.0
+      ],
+      "text_characters": 1296,
+      "outside_margin": [],
+      "svg_xml": "OK"
+    },
+    {
+      "page": 3,
+      "size_pt": [
+        842.0,
+        595.0
+      ],
+      "text_characters": 1207,
+      "outside_margin": [],
+      "svg_xml": "OK"
+    },
+    {
+      "page": 4,
+      "size_pt": [
+        842.0,
+        595.0
+      ],
+      "text_characters": 868,
+      "outside_margin": [],
+      "svg_xml": "OK"
+    },
+    {
+      "page": 5,
+      "size_pt": [
+        842.0,
+        595.0
+      ],
+      "text_characters": 1319,
+      "outside_margin": [],
+      "svg_xml": "OK"
+    }
+  ],
+  "visual_review": "All 5 page previews inspected; page 4 spacing corrected and re-inspected",
+  "scope": "Drawing/document generation only; hardware modification not performed"
+}

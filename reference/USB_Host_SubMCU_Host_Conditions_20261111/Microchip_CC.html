@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+                                    
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" data-xwiki-paged-media="screen" data-xwiki-reference="xwiki:applications.usb.typec-features.cc-vconn-signals.WebHome" data-xwiki-document="applications.usb.typec-features.cc-vconn-signals.WebHome" data-xwiki-wiki="xwiki" data-xwiki-space="applications.usb.typec-features.cc-vconn-signals" data-xwiki-page="WebHome" data-xwiki-isnew="false" data-xwiki-version="14.2" data-xwiki-rest-url="/xwiki/rest/wikis/xwiki/spaces/applications/spaces/usb/spaces/typec-features/spaces/cc-vconn-signals/pages/WebHome" data-xwiki-locale="" data-xwiki-real-locale="en" data-xwiki-form-token="nb9xxuNDAB2sh26zCBBPRQ" data-xwiki-user-advanced="false" data-xwiki-action="view" data-xwiki-date-format="yyyy/MM/dd HH:mm">
+  <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    <title>Type-C™ CC and VCONN Signals - Developer Help</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/xwiki/bin/skin/XWiki/DefaultSkin/icons.xwiki.favicon16.png" type="image/png" />
+        <link rel="icon" href="/xwiki/bin/skin/XWiki/DefaultSkin/icons.xwiki.favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/xwiki/bin/skin/XWiki/DefaultSkin/icons.xwiki.favicon144.png" />
+                      <link rel="alternate" type="application/x-wiki" title="Edit" href="/xwiki/bin/edit/applications/usb/typec-features/cc-vconn-signals/WebHome" />
+                    <link rel="canonical" href="/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/" />
+                                  <meta name="google-site-verification" content="_qnchqI4zFQqvfYPdEcExAIoYioGmPfi4OCluWzaKhU" />
+<meta name="revisit-after" content="7 days" />
+<meta name="description" content="Type-C™ CC and VCONN Signals" />
+<meta name="keywords" content="wiki" />
+<meta name="rating" content="General" />
+<meta name="author" content="Rob Ostapiuk" />
+  <script type="importmap">{"imports":{"fuse":"/xwiki/webjars/wiki%3Axwiki/fuse.js/7.5.0/dist/fuse.basic.min.mjs","xwiki-platform-localization-webjar":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-localization-webjar/18.9.0/index.es.js?r=1","vue-i18n":"/xwiki/webjars/wiki%3Axwiki/vue-i18n/11.4.12/dist/vue-i18n.esm-browser.prod.js?r=1","@xwiki/platform-livedata-ui":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-livedata-node-ui/18.9.0/index.es.js?r=1","@xwiki/platform-livedata-componentstore":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-livedata-node-componentstore/18.9.0/index.es.js?r=1","@xwiki/platform-collaboration-toolbar":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-realtime-toolbar-webjar/18.9.0/index.es.js?r=1","vue":"/xwiki/webjars/wiki%3Axwiki/vue/3.5.44/dist/vue.runtime.esm-browser.prod.js?r=1"}}</script>
+  <script src="/xwiki/bin/jsx/assets/extensions/hooks/onSave" defer="defer"></script>
+<link href="/xwiki/bin/ssx/assets/styles/color-filters" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/styles/text-formatting" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/macros/junction/" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/macros/xcode" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/styles/tables" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/css/layout" type="text/css" rel="stylesheet">
+<link rel="alternate" type="application/rss+xml" title="Wiki Feed RSS" href="/xwiki/bin/view/Main/WebRss?xpage=rdf" />
+<link rel="alternate" type="application/rss+xml" title="Blog RSS Feed" href="/xwiki/bin/view/Blog/GlobalBlogRss?xpage=plain" />
+<!-- Google tag (gtag.js) -->
+<script async src=https://www.googletagmanager.com/gtag/js?id=G-CF7TX3R8LR></script>
+<script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-CF7TX3R8LR'); </script>
+                    <script type="importmap">{"imports":{"fuse":"/xwiki/webjars/wiki%3Axwiki/fuse.js/7.5.0/dist/fuse.basic.min.mjs","xwiki-platform-localization-webjar":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-localization-webjar/18.9.0/index.es.js?r=1","vue-i18n":"/xwiki/webjars/wiki%3Axwiki/vue-i18n/11.4.12/dist/vue-i18n.esm-browser.prod.js?r=1","@xwiki/platform-livedata-ui":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-livedata-node-ui/18.9.0/index.es.js?r=1","@xwiki/platform-livedata-componentstore":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-livedata-node-componentstore/18.9.0/index.es.js?r=1","@xwiki/platform-collaboration-toolbar":"/xwiki/webjars/wiki%3Axwiki/xwiki-platform-realtime-toolbar-webjar/18.9.0/index.es.js?r=1","vue":"/xwiki/webjars/wiki%3Axwiki/vue/3.5.44/dist/vue.runtime.esm-browser.prod.js?r=1"}}</script><script src="/xwiki/bin/jsx/assets/extensions/hooks/onSave" defer="defer"></script>
+<link href="/xwiki/bin/ssx/assets/styles/color-filters" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/styles/text-formatting" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/macros/junction/" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/macros/xcode" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/styles/tables" type="text/css" rel="stylesheet">
+<link href="/xwiki/bin/ssx/assets/css/layout" type="text/css" rel="stylesheet">
+                <link href="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-search-webjar/18.9.0/searchSuggest.min.css" type='text/css' rel='stylesheet'/>
+<link href="/xwiki/webjars/wiki%3Axwiki/font-awesome/7.3.0/css/all.min.css" rel='stylesheet'/>
+<link href="/xwiki/webjars/wiki%3Axwiki/font-awesome/7.3.0/css/v4-shims.min.css" rel='stylesheet'/>
+<link href="/xwiki/webjars/wiki%3Axwiki/webjar-blueimp-gallery/3.4.0/css/blueimp-gallery.min.css" type='text/css' rel='stylesheet'/>
+<link href="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-image-lightbox-webjar/18.9.0/lightbox.css" type='text/css' rel='stylesheet'/>
+<link href="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-tree-webjar/18.9.0/tree.min.css?evaluate=true" type='text/css' rel='stylesheet'/>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel='stylesheet'/>
+
+                
+                                                                                                                    
+
+
+
+<link href="/xwiki/bin/skin/skins/flamingo/cssVariablesInit.min.css?cache-version=1793020100000&#38;skin=XWiki.DefaultSkin&#38;colorTheme=xwiki%3AFlamingoThemes.Iceberg&#38;colorThemeVersion=10.1" rel="stylesheet" type="text/css" media="all" />
+<link href="/xwiki/bin/skin/skins/flamingo/style.min.css?cache-version=1793020100000&#38;skin=XWiki.DefaultSkin&#38;colorTheme=xwiki%3AFlamingoThemes.Iceberg&#38;colorThemeVersion=10.1" rel="stylesheet" type="text/css" media="all" />
+<link href="/xwiki/bin/skin/skins/flamingo/print.min.css?cache-version=1793020100000&#38;skin=XWiki.DefaultSkin&#38;colorTheme=xwiki%3AFlamingoThemes.Iceberg&#38;colorThemeVersion=10.1" rel="stylesheet" type="text/css" media="print" />
+            <link rel='stylesheet' type='text/css' href='/xwiki/bin/ssx/Main/WebHome?resource=toc.css'/>
+
+    <link rel='stylesheet' type='text/css' href='/xwiki/bin/skin/resources/css/xwiki.bundle.min.css?cache-version=1793020100000&#38;colorTheme=FlamingoThemes.Iceberg&#38;language=en'/>
+<link rel='stylesheet' type='text/css' href='/xwiki/bin/skin/resources/uicomponents/viewers/tags.min.css?cache-version=1793020100000&#38;colorTheme=FlamingoThemes.Iceberg'/>
+
+    <link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/css/global?language=en&#38;docVersion=22.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/AnnotationCode/Style?language=en&#38;docVersion=7.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/Macros/Expandable/WebHome?language=en&#38;docVersion=1.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/page-titles?language=en&#38;docVersion=13.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/panels/WebHome?language=en&#38;docVersion=44.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/XWiki/Mentions/MentionsMacro?language=en&#38;docVersion=10.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/Card-Container/WebHome?language=en&#38;docVersion=31.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/Image/Style/Code/DefaultImageStyleStyleSheet?language=en&#38;docVersion=3.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/css/formatting/headingicon?language=en&#38;docVersion=2.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/filter-generator?language=en&#38;docVersion=2.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/css/formatting/tables?language=en&#38;docVersion=6.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/TourCode/TourJS?language=en&#38;docVersion=7.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/error?language=en&#38;docVersion=20.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/AnnotationCode/Settings?language=en&#38;docVersion=4.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/Refactoring/Code/RefactoringConfiguration?language=en&#38;docVersion=1.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/boxes/WebHome?language=en&#38;docVersion=75.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/css/formatting/details-summary?language=en&#38;docVersion=2.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/Tour/HomepageTour/WebHome?language=en&#38;docVersion=2.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/junction/WebHome?language=en&#38;docVersion=8.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/resources?language=en&#38;docVersion=5.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/macros/TLSQuiz/CSS/WebHome?language=en&#38;docVersion=14.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/Status-Selector?language=en&#38;docVersion=15.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/extensions/drawer/WebHome?language=en&#38;docVersion=21.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/XWiki/Realtime/Configuration?language=en&#38;docVersion=8.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/extensions/sequential-navigation?language=en&#38;docVersion=12.1" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/XWiki/Like/LikeUIX?language=en&#38;docVersion=6.1&#38;theme=FlamingoThemes.Iceberg" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/assets/styles/panels/m-toc-panel?language=en&#38;docVersion=7.2" />
+<link rel="stylesheet" type="text/css" href="/xwiki/bin/ssx/XWiki/FontAwesomeIcons?language=en&#38;docVersion=5.1" />
+
+
+    <script src="/xwiki/webjars/wiki%3Axwiki/requirejs/2.3.7/require.min.js?r=1" data-wysiwyg="true"></script>
+<script src="/xwiki/resources/uicomponents/tools/pageReady.min.js?cache-version=1793020100000" data-wysiwyg="true"></script>
+<script src="/xwiki/resources/js/xwiki/prototypeJSPatches.min.js?cache-version=1793020100000"></script>
+<script src="/xwiki/webjars/wiki%3Axwiki/prototype/1.7.3.0/prototype.js?r=1"></script>
+<script type="module"
+        src="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-localization-webjar/18.9.0/l10n.es.js?r=1"></script>
+<script data-wysiwyg="true">
+// <![CDATA[
+          var jQuery = {};
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        require.config({"packages":[{"name":"scriptaculous","location":"\/xwiki\/webjars\/wiki%3Axwiki\/scriptaculous\/1.9.0","main":"scriptaculous"},{"name":"moment","location":"\/xwiki\/webjars\/wiki%3Axwiki\/moment\/2.31.0","main":"min\/moment.min"}],"paths":{"await":"\/xwiki\/resources\/uicomponents\/require\/await.min.js?cache-version=1793020100000","bootstrap":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-bootstrap\/18.9.0\/js\/xwiki-bootstrap.min.js?r=1","css":"\/xwiki\/resources\/uicomponents\/require\/css.min.js?cache-version=1793020100000","deferred":"\/xwiki\/resources\/uicomponents\/require\/deferred.min.js?cache-version=1793020100000","node-module":"\/xwiki\/resources\/uicomponents\/require\/node-module.min.js?cache-version=1793020100000","es-module":"\/xwiki\/resources\/uicomponents\/require\/es-module.js?cache-version=1793020100000","iscroll":"\/xwiki\/webjars\/wiki%3Axwiki\/iscroll\/5.2.0\/build\/iscroll-lite.js?r=1","jquery":"\/xwiki\/webjars\/wiki%3Axwiki\/jquery\/4.0.0\/jquery.min.js?r=1","jquery-migrate":"\/xwiki\/webjars\/wiki%3Axwiki\/jquery-migrate\/4.0.2\/dist\/jquery-migrate.min.js?r=1","jquery-ui":"\/xwiki\/webjars\/wiki%3Axwiki\/jquery-ui\/1.14.2\/jquery-ui.min.js?r=1","jquery-ui-touch-punch":"\/xwiki\/webjars\/wiki%3Axwiki\/jquery-ui-touch-punch\/0.2.3\/jquery.ui.touch-punch.min.js?r=1","jsTree":"\/xwiki\/webjars\/wiki%3Axwiki\/jstree\/3.3.16\/jstree.min.js?r=1","moment-jdateformatparser":"\/xwiki\/webjars\/wiki%3Axwiki\/moment-jdateformatparser\/1.2.1\/moment-jdateformatparser.min","moment-timezone":"\/xwiki\/webjars\/wiki%3Axwiki\/moment-timezone\/0.6.3\/builds\/moment-timezone-with-data.min","prototype":"\/xwiki\/webjars\/wiki%3Axwiki\/prototype\/1.7.3.0\/prototype.js?r=1","tom-select":"\/xwiki\/webjars\/wiki%3Axwiki\/tom-select\/2.6.2\/dist\/js\/tom-select.complete.min.js?r=1","xwiki-attachments-icon":"\/xwiki\/bin\/skin\/resources\/uicomponents\/attachments\/icons.min.js?cache-version=1793020100000","xwiki-autosave":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-web-webjar\/18.9.0\/autosave.min.js?r=1","xwiki-document":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-web-webjar\/18.9.0\/document.min.js?r=1","xwiki-document-lock":"\/xwiki\/resources\/uicomponents\/lock\/lock.min.js?cache-version=1793020100000","xwiki-events-bridge":"\/xwiki\/resources\/js\/xwiki\/eventsBridge.min.js?cache-version=1793020100000","xwiki-form-validation-async":"\/xwiki\/resources\/uicomponents\/tools\/formAsyncValidation.min.js?cache-version=1793020100000","xwiki-icon":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-icon-webjar\/18.9.0\/icon.min.js?r=1","xwiki-job-runner":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-job-webjar\/18.9.0\/jobRunner.min.js?r=1","xwiki-locale-picker":"\/xwiki\/bin\/skin\/skins\/flamingo\/localePicker.min.js?cache-version=1793020100000","xwiki-meta":"\/xwiki\/resources\/js\/xwiki\/meta.min.js?cache-version=1793020100000","xwiki-selectize":"\/xwiki\/resources\/uicomponents\/suggest\/xwiki.selectize.min.js?cache-version=1793020100000","xwiki-suggestAttachments-bundle":"\/xwiki\/resources\/uicomponents\/suggest\/suggestAttachments.min.js?cache-version=1793020100000","xwiki-tree-finder":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-tree-webjar\/18.9.0\/finder.min.js?r=1","xwiki-tree":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-tree-webjar\/18.9.0\/tree.min.js?r=1","xwiki-edit-confirmation":"\/xwiki\/resources\/uicomponents\/edit\/editConfirmation.min.js?cache-version=1793020100000","blueimp-gallery-bundle":"\/xwiki\/webjars\/wiki%3Axwiki\/webjar-blueimp-gallery\/3.4.0\/js\/blueimp-gallery-bundle.min","xwiki-lightbox":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-image-lightbox-webjar\/18.9.0\/lightbox.min.js?r=1","xwiki-ckeditor-inline":"\/xwiki\/bin\/jsx\/CKEditor\/InlineEditor?v=18.9.0&xwiki-version=18.9.0","xwiki-ckeditor":"\/xwiki\/bin\/jsx\/CKEditor\/EditSheet?v=18.9.0&xwiki-version=18.9.0&fast-diff-version=","fast-diff":"\/xwiki\/webjars\/wiki%3Axwiki\/fast-diff\/1.3.0\/diff","ckeditor":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-ckeditor-webjar\/18.9.0\/ckeditor","xwiki-ckeditor-plugins":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-ckeditor-plugins\/18.9.0\/webjar.bundle.min","chainpad":"\/xwiki\/webjars\/wiki%3Axwiki\/chainpad-webjar\/5.3.0\/chainpad.dist.min.js?r=1","chainpad-netflux":"\/xwiki\/webjars\/wiki%3Axwiki\/chainpad-netflux-webjar\/1.3.1-1\/chainpad-netflux.min.js?r=1","netflux-client":"\/xwiki\/webjars\/wiki%3Axwiki\/netflux-websocket\/1.3.2\/netflux-client.js?r=1","xwiki-realtime":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-realtime-webjar\/18.9.0\/webjar.bundle.min.js?r=1","json.sortify":"\/xwiki\/webjars\/wiki%3Axwiki\/json.sortify\/2.2.2\/dist\/JSON.sortify.js?r=1","nacl-fast":"\/xwiki\/webjars\/wiki%3Axwiki\/tweetnacl\/1.0.3\/nacl-fast.min.js?r=1","nacl-util":"\/xwiki\/webjars\/wiki%3Axwiki\/tweetnacl-util\/0.15.1\/nacl-util.min.js?r=1","bootstrap-switch":"\/xwiki\/webjars\/wiki%3Axwiki\/bootstrap-switch\/3.3.4\/js\/bootstrap-switch.min.js?r=1","xwiki-bootstrap-switch":"\/xwiki\/bin\/jsx\/XWiki\/Notifications\/Code\/BootstrapSwitch?minify=true","xwiki-realtime-wysiwyg-bundle":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-realtime-wysiwyg-webjar\/18.9.0\/webjar.bundle.min.js?r=1","hyper-json":"\/xwiki\/webjars\/wiki%3Axwiki\/hyper-json\/1.5.0\/hyperjson.js?r=1","diff-dom":"\/xwiki\/webjars\/wiki%3Axwiki\/diff-dom\/5.2.1\/browser\/diffDOM.js?r=1","xwiki-platform-notifications-webjar":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-notifications-webjar\/18.9.0\/main.es.js?r=1","paged-polyfill":"\/xwiki\/webjars\/wiki%3Axwiki\/pagedjs\/0.4.3\/dist\/paged.polyfill.js?r=1","xwiki-attachment-picker":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-attachment-picker-webjar\/18.9.0\/attachmentGalleryPicker.min","xwiki-attachment-picker-solr-search":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-attachment-picker-webjar\/18.9.0\/solrSearch.min","xwiki-wysiwyg-bundle":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-wysiwyg-webjar\/18.9.0\/webjar.bundle.min","xwiki-wysiwyg-css":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-wysiwyg-webjar\/18.9.0\/webjar.bundle.min.css","scriptaculous-accordion":"\/xwiki\/resources\/js\/xwiki\/accordion\/accordion.min.js?cache-version=1793020100000"},"shim":{"bootstrap":["jquery"],"jquery-ui-touch-punch":["jquery-ui"],"prototype":{"exports":"$"},"scriptaculous\/dragdrop":["scriptaculous\/effects"],"xwiki-document-lock":{"exports":"XWiki.DocumentLock"},"ckeditor":{"exports":"CKEDITOR"},"xwiki-ckeditor-plugins":{"deps":["jquery","ckeditor"]},"diff-dom":{"exports":"diffDOM"},"scriptaculous-accordion":{"deps":["scriptaculous\/effects"]}},"bundles":{"xwiki-suggestAttachments-bundle":["xwiki-attachments-store","xwiki-attachments-filter","xwiki-file-picker","xwiki-suggestAttachments-messages","xwiki-suggestAttachments","xwiki-attachmentResourcePicker"],"blueimp-gallery-bundle":["blueimp-gallery","blueimp-helper","blueimp-gallery-fullscreen","blueimp-gallery-indicator","blueimp-gallery-video","blueimp-gallery-vimeo","blueimp-gallery-youtube"],"xwiki-realtime":["xwiki-realtime-config","xwiki-realtime-crypto","xwiki-realtime-document","xwiki-realtime-history","xwiki-realtime-interface","xwiki-realtime-loader","xwiki-realtime-messages","xwiki-realtime-saver","xwiki-realtime-toolbar","xwiki-realtime-toolbar-promise","xwiki-realtime-transformers","xwiki-realtime-typingTests","xwiki-realtime-userData"],"xwiki-realtime-wysiwyg-bundle":["xwiki-realtime-wysiwyg","xwiki-realtime-wysiwyg-editHistory","xwiki-realtime-wysiwyg-editor","xwiki-realtime-wysiwyg-patches","xwiki-realtime-wysiwyg-selection"],"xwiki-wysiwyg-bundle":["xwiki-wysiwyg-attachment-service","xwiki-wysiwyg-entity-resource-picker","xwiki-wysiwyg-entity-resource-suggester","xwiki-wysiwyg-icon-service","xwiki-wysiwyg-image-style-client","xwiki-wysiwyg-image-wizard","xwiki-wysiwyg-macro-selector-translation-keys","xwiki-wysiwyg-macro-service","xwiki-wysiwyg-macro-wizard","xwiki-wysiwyg-modal","xwiki-wysiwyg-resource","xwiki-wysiwyg-resource-picker-bundle"]},"config":{"xwiki-selectize":{"css":["\/xwiki\/webjars\/wiki%3Axwiki\/tom-select\/2.6.2\/dist\/css\/tom-select.bootstrap4.min.css","\/xwiki\/resources\/uicomponents\/suggest\/xwiki.selectize.min.css?cache-version=1793020100000"]}},"map":{"*":{"jquery":"jquery-migrate","jquery-ui":"jquery-ui-touch-punch","moment\/moment":"moment"},"jQueryNoConflict":{"jquery":"jquery"},"jquery-migrate":{"jquery":"jQueryNoConflict"},"jquery-ui-touch-punch":{"jquery-ui":"jquery-ui"}}});
+define('jQueryNoConflict', ['jquery'], function($) {
+  return $.noConflict();
+});
+(function () {
+  const originalCreateNode = require.createNode;
+  require.createNode = function(config, moduleName, stringURL) {
+    const scriptElement = originalCreateNode.apply(this, arguments);
+    const url = new URL(stringURL, window.location.href);
+    if (url.pathname.endsWith('.es.js')) {
+      scriptElement.type = 'module';
+    }
+    return scriptElement;
+  };
+}());
+if (window.Prototype && Prototype.BrowserFeatures.ElementExtensions) {
+  require(['jquery', 'bootstrap'], function ($) {
+    // Fix incompatibilities between BootStrap and Prototype
+    var disablePrototypeJS = function (method, pluginsToDisable) {
+      var handler = function (event) {
+        event.target[method] = undefined;
+        setTimeout(function () {
+            delete event.target[method];
+        }, 0);
+      };
+      pluginsToDisable.each(function (plugin) { 
+          $(window).on(method + '.bs.' + plugin, handler); 
+      });
+    },
+    pluginsToDisable = ['collapse', 'dropdown', 'modal', 'tooltip', 'tab', 'popover'];
+    disablePrototypeJS('show', pluginsToDisable);
+    disablePrototypeJS('hide', pluginsToDisable);
+  });
+}
+window.XWiki = window.XWiki || {};
+XWiki.webapppath = "xwiki/";
+XWiki.servletpath = "bin/";
+XWiki.contextPath = "/xwiki";
+XWiki.mainWiki = "xwiki";
+// Deprecated: replaced by meta data in the HTML element
+XWiki.currentWiki = "xwiki";
+XWiki.currentSpace = "applications.usb.typec-features.cc-vconn-signals";
+XWiki.currentPage = "WebHome";
+XWiki.editor = "";
+XWiki.viewer = "";
+XWiki.contextaction = "view";
+XWiki.skin = 'XWiki.DefaultSkin';
+XWiki.docisnew = false;
+XWiki.docsyntax = "xwiki/2.1";
+XWiki.docvariant = "";
+XWiki.hasEdit = false;
+XWiki.hasProgramming = false;
+XWiki.hasBackupPackImportRights = false;
+XWiki.hasRenderer = true;
+window.docviewurl = "/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/";
+window.docediturl = "/xwiki/bin/edit/applications/usb/typec-features/cc-vconn-signals/WebHome";
+window.docsaveurl = "/xwiki/bin/save/applications/usb/typec-features/cc-vconn-signals/WebHome";
+window.docgeturl = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome";
+// ]]>
+</script>
+<script src="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-web-webjar/18.9.0/entityReference.min.js?r=1"></script>                  <script src="/xwiki/webjars/wiki%3Axwiki/xwiki-platform-search-webjar/18.9.0/searchSuggest.min.js?r=1" defer="defer"></script>        <script type="application/json" id="trusted-domains-configuration">
+{
+  "trustedDomains": ["www.microchip.com"],
+  "allowedUrls": [],
+  "frontendUrlCheckPolicy": "COMMENTS"
+}
+</script>
+      
+    <script src='/xwiki/bin/skin/resources/js/xwiki/xwiki.bundle.min.js?cache-version=1793020100000&#38;defer=false&#38;language=en'></script>
+<script src='/xwiki/bin/skin/skins/flamingo/flamingo.min.js?cache-version=1793020100000&#38;language=en' defer='defer'></script>
+<script src='/xwiki/bin/skin/resources/uicomponents/async/async.min.js?cache-version=1793020100000&#38;wysiwyg=true' defer='defer'></script>
+<script src='/xwiki/resources/uicomponents/link/link-protection.min.js?cache-version=1793020100000' defer='defer'></script>
+<script src='/xwiki/bin/skin/resources/uicomponents/hierarchy/hierarchy.min.js?cache-version=1793020100000' defer='defer'></script>
+<script src='/xwiki/bin/skin/resources/uicomponents/widgets/tree.min.js?cache-version=1793020100000&#38;wysiwyg=true' defer='defer'></script>
+<script src='/xwiki/bin/skin/resources/uicomponents/viewers/tags.min.js?cache-version=1793020100000' defer='defer'></script>
+
+    <script src='/xwiki/bin/jsx/AnnotationCode/Settings?language=en&#38;docVersion=4.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/Macros/Expandable/WebHome?language=en&#38;docVersion=1.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/XWiki/Attachment/Validation/Code/MimetypeValidation?language=en&#38;docVersion=3.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/XWiki/Mentions/MentionsMacro?language=en&#38;docVersion=10.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/AnnotationCode/Script?language=en&#38;docVersion=11.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/assets/macros/TLSQuiz/JS/WebHome?language=en&#38;docVersion=51.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/XWiki/Attachment/Validation/Code/FileSizeValidation?language=en&#38;docVersion=3.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/TourCode/TourJS?language=en&#38;docVersion=7.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/XWiki/Lightbox/WebHome?language=en&#38;docVersion=3.1' defer='defer'></script>
+<script src='/xwiki/bin/jsx/XWiki/Like/LikeUIX?language=en&#38;docVersion=6.1' defer='defer'></script>
+
+
+<script src="/xwiki/resources/js/xwiki/compatibility.min.js?cache-version=1793020100000" defer="defer"></script>
+<script src="/xwiki/resources/js/xwiki/markerScript.min.js?cache-version=1793020100000" defer="defer"></script>
+
+  </head>
+    <body id="body" class="skin-flamingo wiki-xwiki viewbody panel-left-width-Medium panel-right-width-Medium drawer drawer--right preference-underlining-only-inline-links
+   space-applications.usb.typec-features.cc-vconn-signals       content">
+<div id="xwikimaincontainer">
+<div id="xwikimaincontainerinner">
+
+<div class="skip-nav">
+          <a class="btn btn-default" href="#xwikicontent">Skip to Content</a>
+</div>
+
+  <div id="menuview">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <header class="navbar navbar-default actionmenu"
+  aria-label="Wiki main menu ">
+    <div class="container-fluid">
+            <div class="navbar-header">
+                  <div id="companylogo">
+  <a href="/xwiki/bin/view/Main/" rel="home"     title="Home"     class="navbar-brand">    <span class="sr-only">Home</span>
+    <img src="/xwiki/bin/download/FlamingoThemes/Iceberg/logo.svg?rev=1.2"       alt="Logo of the wiki"/>  </a>
+</div>
+
+              </div>
+            <div id="xwikimainmenu">
+
+          <ul class='nav navbar-nav navbar-left'>
+                                             <div style="font-weight: bold; font-size: 28px; color: white; margin-top: 4px;">
+Developer Help
+</div>
+            </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+                                              
+                                                  <li>
+    <a
+      id="tmLogin"
+      href="/xwiki/bin/login/XWiki/XWikiLogin?xredirect=%2Fxwiki%2Fbin%2Fview%2Fapplications%2Fusb%2Ftypec-features%2Fcc-vconn-signals%2F&loginLink=1"
+      rel="nofollow"
+    >Log-in</a>
+  </li>
+
+                                         
+                                           
+                                        
+              <li>
+    <button type="button" id="tmDrawerActivator" class="btn btn-link icon-navbar drawer-opener" aria-controls="tmDrawer"
+      aria-expanded="false" title="Drawer"
+      ><span class="sr-only">Toggle navigation</span
+      ><span class="fa fa-bars" aria-hidden="true"></span></button>
+    
+
+
+
+
+
+<dialog class="drawer-nav" id="tmDrawer"
+aria-label="Top drawer menu">
+  <ul class="drawer-menu">
+                <li class="drawer-brand clearfix">
+                                                                                                                                                      <span class="user" data-reference="xwiki:XWiki.XWikiGuest"><a class="user-name" href="/xwiki/bin/view/XWiki/XWikiGuest"><img class="user-avatar large-avatar circle-avatar icon-only" title="XWikiGuest" aria-hidden="true" src="/xwiki/bin/skin/resources/icons/xwiki/noavatar.png?cache-version=1793020100000" alt="" /><span class="sr-only">View the profile of XWikiGuest</span></a></span>
+      <div class="brand-links">
+                                                                            <span style="color: white; font-size: 80%;">Microchip Employees Only</span>
+                        </div>
+      <button class="btn btn-primary drawer-close" title="Close the drawer"><span class="fa fa-times" aria-hidden="true"></span></button>
+    </li>
+                                  <li class="drawer-category-header"><hr class="hidden"/>Developer Help</li>
+                                                             
+                                                    
+                                
+                                
+                                        <li class="drawer-category-header"><hr class="hidden"/>Global</li>
+                              
+                                                          
+
+
+
+
+
+  <li>
+    <a class="drawer-menu-item" href="/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/?xpage=whatsnew">
+      <span class="drawer-menu-item-icon">
+        <span class="fa fa-question-circle" aria-hidden="true"></span>
+      </span>
+      <span class="drawer-menu-item-text">What&#39;s New</span>
+    </a>
+  </li>
+                                          <li class="drawer-menuseparator"></li>
+            
+
+
+
+
+
+                                              
+      </ul>
+</dialog>
+
+
+
+  </li>
+      </ul>
+
+          </div>    </div>   </header>
+
+
+  </div>
+ <div id="headerglobal">
+  <div id="globallinks">
+  </div>   <div class="clearfloats"></div>
+  <script id="lightbox-config" type="application/json">{"HTMLTemplate":"\u003C!-- The Gallery lightbox dialog. -->\n\u003Cdiv\nid=\"blueimp-gallery\"\nclass=\"blueimp-gallery blueimp-gallery-controls\"\naria-label=\"Image gallery\"\naria-modal=\"true\"\nrole=\"dialog\"\n>\n\u003Cdiv class=\"slides\" aria-live=\"polite\">\u003C\/div>\n\u003Ca\nclass=\"prev\" aria-controls=\"blueimp-gallery\"\naria-label=\"Previous image\"\ntitle=\"Previous image\"\naria-keyshortcuts=\"ArrowLeft\"\n>\u003C\/a>\n\u003Ca\nclass=\"next\" aria-controls=\"blueimp-gallery\"\naria-label=\"Next image\"\ntitle=\"Next image\"\naria-keyshortcuts=\"ArrowRight\"\n>\u003C\/a>\n\u003Cdiv class=\"controls btn-group\">\n\u003Ca\nclass=\"btn action fullscreen\" id=\"lightboxFullscreen\" aria-controls=\"blueimp-gallery\"\naria-label=\"Fullscreen\"\ntitle=\"Fullscreen\"\naria-keyshortcuts=\"F11\"\n>\u003Cspan class=\"fa fa-arrows-alt\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Ca\nclass=\"btn action download\" id=\"lightboxDownload\" aria-controls=\"blueimp-gallery\" target=\"_blank\"\naria-label=\"Download\"\ntitle=\"Download\"\n>\u003Cspan class=\"fa fa-download\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Cspan class=\"btn\" title=\"Copy image ID\">\n\u003Ca class=\"action copyImageId\" aria-controls=\"blueimp-gallery\" aria-label=\"Copy image ID\" data-original-title=\"Copied to clipboard\" data-toggle=\"tooltip\"\ndata-placement=\"bottom\" data-trigger=\"manual\"\n>\u003Cspan class=\"fa fa-anchor\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003C\/span>\n\u003Ca\nclass=\"btn action autoPlay\" aria-controls=\"blueimp-gallery\"\naria-label=\"Slideshow\"\ntitle=\"Slideshow\"\naria-keyshortcuts=\"Space\" aria-pressed=\"false\"\n>\u003Cspan class=\"fa fa-play\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Ca\nclass=\"btn action escape\" aria-controls=\"blueimp-gallery\"\naria-label=\"Escape\"\ntitle=\"Escape\"\naria-keyshortcuts=\"Escape\"\n>\u003Cspan class=\"fa fa-times\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003C\/div>\n\u003Cdiv class=\"lightboxDescription\">\n\u003Cdiv class=\"caption\"\naria-label=\"Caption\">\u003C\/div>\n\u003Cdiv class=\"descriptionMetadata\">\n\u003Cspan class=\"title\"\naria-label=\"File name\">\u003C\/span>\n\u003Cdiv class=\"descriptionRow\">\n\u003Cspan class=\"publisher\"\naria-label=\"Image publisher\">\u003C\/span>\n\u003Cspan class=\"date\" data-date-format=\"yyyy\/MM\/dd HH:mm\" \ndata-user-time-zone=\"America\/Phoenix\"\naria-label=\"Date\">\u003C\/span>\n\u003C\/div>\n\u003C\/div>\n\u003C\/div>\n\u003Col class=\"indicator\">\u003C\/ol>\n\u003C\/div>\n\u003C!-- The image toolbar popover template. -->\n\u003Cdiv id=\"imageToolbarTemplate\">\n\u003Cdiv class=\"btn-group imageToolbar\" hidden>\n\u003Ca class=\"openLightbox\" href=\"\"\ntitle=\"Image gallery\"\n>\u003Cspan class=\"fa fa-arrows-alt\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Ca class=\"imageDownload\" target=\"_blank\"\ntitle=\"Download\"\n>\u003Cspan class=\"fa fa-download\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Ca class=\"permalink hidden\"\ntitle=\"Permalink\"\n>\u003Cspan class=\"fa fa-link\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003Cspan class=\"hidden\" title=\"Copy image ID\">\n\u003Ca class=\"copyImageId\" href=\"\" data-original-title=\"Copied to clipboard\"\ndata-toggle=\"tooltip\" data-placement=\"bottom\" data-trigger=\"manual\"\n>\u003Cspan class=\"fa fa-anchor\" aria-hidden=\"true\">\u003C\/span>\u003C\/a>\n\u003C\/span>\n\u003C\/div>\n\u003C\/div>\n\u003Cdiv id='imagePopoverContainer'>\u003C\/div>\n","togglerTemplate":"\u003Cbutton class='lightbox-toggle btn btn-xs sr-only'\naria-label=\"Open the image actions\">\n\u003Cspan class=\"fa fa-ellipsis-v\" aria-hidden=\"true\">\u003C\/span>\n\u003C\/button>\n"}
+</script><script type='application/json' id='attachment-validation-filesize-configuration'>{"maxFileSize":107374182400}</script>        <script id="realtime-config" type="application/json">{"webSocketURL":"wss:\/\/developerhelp.microchip.com\/xwiki\/websocket\/xwiki\/netflux","user":{"name":"XWikiGuest","avatarURL":"\/xwiki\/bin\/skin\/resources\/icons\/xwiki\/noavatar.png?cache-version=1793020100000"},"document":{"modified":1699545341000}}</script>
+
+<template id="realtime-warning">
+<button
+type="button"
+class="btn btn-link realtime-warning realtime-warning-connected"
+data-toggle="popover"
+data-placement="top"
+title="Concurrent editing warning"
+data-content="Someone is editing this page outside the realtime collaboration session. Their changes could cause merge conflicts on save."
+>
+<span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
+</button>
+<button
+type="button"
+class="btn btn-link realtime-warning realtime-warning-disconnected"
+data-toggle="popover"
+data-placement="top"
+title="Concurrent editing warning"
+data-content="You&#39;re editing outside the realtime collaboration session. Your changes can cause merge conflicts on save."
+>
+<span class="fa fa-exclamation-triangle" aria-hidden="true"></span>
+</button>
+</template><div class="hidden">
+<input id="defaultImageStylesRestURL" name="defaultImageStylesRestURL" type="hidden" value="/rest/wikis/xwiki/imageStyles/default" />
+<input id="imageStylesRestURL" name="imageStylesRestURL" type="hidden" value="/rest/wikis/xwiki/imageStyles" />
+</div><script id="attachment-move-config" type="application/json">{"treeWebjar":"\/xwiki\/webjars\/wiki%3Axwiki\/xwiki-platform-tree-webjar\/18.9.0\/require-config.min.js?evaluate=true"}</script><script type='application/json' id='attachment-validation-mimetypes-configuration'>{"allowedMimetypes":["*"],"blockerMimetypes":[]}</script>
+</div> 
+
+
+<div class="content" id="contentcontainer">
+  <div id="contentcolumn"> 
+
+        
+  <div class="main">
+  
+   <nav id="hierarchy_breadcrumb" aria-label="Breadcrumb">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <ol id="hierarchy" class="breadcrumb breadcrumb-expandable" data-entity='applications.usb.typec-features.cc-vconn-signals.WebHome' data-id='hierarchy' data-limit='5' data-treenavigation='true' data-entities='&#123;Space xwiki:applications.usb.typec-features.cc-vconn-signals=applications.usb.typec-features.cc-vconn-signals.WebHome}'><li
+                  
+                                
+        
+        
+                                          class="wiki dropdown"><a href="/xwiki/bin/view/Main/"
+              title="Home"
+            ><span class="fa fa-home" aria-hidden="true"></span></a><button class='dropdown-toggle' type='button' data-toggle='dropdown'><span class='sr-only'>Toggle the parent tree of Type-C™ CC and VCONN Signals. </span><span class="fa fa-caret-down" aria-hidden="true"></span></button><div class='dropdown-menu'>                                                                                                                                                                                            <div                                                                                                                         class = "breadcrumb-tree"              data-responsive = "true"              data-url = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome?outputSyntax=plain&#38;sheet=XWiki.DocumentTree&#38;showTranslations=false&#38;limit=10"              data-root = "&#123;}"              data-dragAndDrop = "false"              data-contextMenu = "false"              data-icons = "true"              data-edges = "true"              data-checkboxes = "false"              data-openTo = "document:xwiki:applications.usb.typec-features.cc-vconn-signals.WebHome"              data-finder = "false"  ></div>
+</div></li><li                  
+                      
+                        
+        
+                                    class="space dropdown"><a href="/xwiki/bin/view/applications/"
+            >Learn Applications Solutions at Microchip</a><button class='dropdown-toggle' type='button' data-toggle='dropdown'><span class='sr-only'>Toggle the hierarchy tree under Learn Applications Solutions at Microchip. </span><span class="fa fa-caret-down" aria-hidden="true"></span></button><div class='dropdown-menu'>                                                                                                                                                                                                          <div                                                                                                                               class = "breadcrumb-tree"              data-responsive = "true"              data-url = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome?outputSyntax=plain&#38;sheet=XWiki.DocumentTree&#38;showTranslations=false&#38;limit=10&#38;root=wiki%3Axwiki"              data-root = "&#123;&#34;type&#34;:&#34;wiki&#34;,&#34;id&#34;:&#34;xwiki&#34;}"              data-dragAndDrop = "false"              data-contextMenu = "false"              data-icons = "true"              data-edges = "true"              data-checkboxes = "false"              data-openTo = "document:xwiki:applications.WebHome"              data-finder = "false"  ></div>
+</div></li><li                  
+                      
+                                      
+        
+                                    class="space dropdown"><a href="/xwiki/bin/view/applications/usb/"
+            >Learn how to implement USB on Microchip MCUs</a><button class='dropdown-toggle' type='button' data-toggle='dropdown'><span class='sr-only'>Toggle the hierarchy tree under Learn how to implement USB on Microchip MCUs. </span><span class="fa fa-caret-down" aria-hidden="true"></span></button><div class='dropdown-menu'>                                                                                                                                                                                                          <div                                                                                                                               class = "breadcrumb-tree"              data-responsive = "true"              data-url = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome?outputSyntax=plain&#38;sheet=XWiki.DocumentTree&#38;showTranslations=false&#38;limit=10&#38;root=document%3Axwiki%3Aapplications.WebHome"              data-root = "&#123;&#34;type&#34;:&#34;document&#34;,&#34;id&#34;:&#34;xwiki:applications.WebHome&#34;}"              data-dragAndDrop = "false"              data-contextMenu = "false"              data-icons = "true"              data-edges = "true"              data-checkboxes = "false"              data-openTo = "document:xwiki:applications.usb.WebHome"              data-finder = "false"  ></div>
+</div></li><li                  
+                      
+                                      
+        
+                                    class="space dropdown"><a href="/xwiki/bin/view/applications/usb/typec-features/"
+            >USB Type-C® Nomenclature and Features</a><button class='dropdown-toggle' type='button' data-toggle='dropdown'><span class='sr-only'>Toggle the hierarchy tree under USB Type-C® Nomenclature and Features. </span><span class="fa fa-caret-down" aria-hidden="true"></span></button><div class='dropdown-menu'>                                                                                                                                                                                                          <div                                                                                                                               class = "breadcrumb-tree"              data-responsive = "true"              data-url = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome?outputSyntax=plain&#38;sheet=XWiki.DocumentTree&#38;showTranslations=false&#38;limit=10&#38;root=document%3Axwiki%3Aapplications.usb.WebHome"              data-root = "&#123;&#34;type&#34;:&#34;document&#34;,&#34;id&#34;:&#34;xwiki:applications.usb.WebHome&#34;}"              data-dragAndDrop = "false"              data-contextMenu = "false"              data-icons = "true"              data-edges = "true"              data-checkboxes = "false"              data-openTo = "document:xwiki:applications.usb.typec-features.WebHome"              data-finder = "false"  ></div>
+</div></li><li                  
+                      
+                                      
+        
+                                                          class="active space dropdown"><a href="/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/"
+            >Type-C™ CC and VCONN Signals</a><button class='dropdown-toggle' type='button' data-toggle='dropdown'><span class='sr-only'>Toggle the hierarchy tree under Type-C™ CC and VCONN Signals. </span><span class="fa fa-caret-down" aria-hidden="true"></span></button><div class='dropdown-menu'>                                                                                                                                                                                                          <div                                                                                                                               class = "breadcrumb-tree"              data-responsive = "true"              data-url = "/xwiki/bin/get/applications/usb/typec-features/cc-vconn-signals/WebHome?outputSyntax=plain&#38;sheet=XWiki.DocumentTree&#38;showTranslations=false&#38;limit=10&#38;root=document%3Axwiki%3Aapplications.usb.typec-features.WebHome"              data-root = "&#123;&#34;type&#34;:&#34;document&#34;,&#34;id&#34;:&#34;xwiki:applications.usb.typec-features.WebHome&#34;}"              data-dragAndDrop = "false"              data-contextMenu = "false"              data-icons = "true"              data-edges = "true"              data-checkboxes = "false"              data-openTo = "document:xwiki:applications.usb.typec-features.cc-vconn-signals.WebHome"              data-finder = "false"  ></div>
+</div>      </li></ol>
+      </nav>
+
+      
+
+
+    
+
+
+
+
+
+
+
+<main id="mainContentArea" class="xcontent">
+  <div class="row document-header">
+  <section class="document-info col-xs-12 col-md-7"
+    aria-label="Page header">
+                      
+          
+        <div id="document-title"><h1>Type-C™ CC and VCONN Signals</h1></div>
+                            <div class="xdocLastModification">
+                  Last modified by Microchip on 2023/11/09 08:55
+              </div>
+      </section>
+  </div>
+<hr/>
+  
+          
+        <div class="row">
+    <div id="xwikicontent" class="col-xs-12">
+              <p>Upstream Facing Port (UFPs) and Downstream Facing Port (DFPs) each have a CC1 and a CC2 pin. These pins connect to the CC and VCONN lines of the Type-C™ cable. Both CC1 and CC2 must be able to support both the CC and the VCONN functions.</p><h2 id="HCC1andCC2" class="wikigeneratedid"><span>CC1 and CC2</span></h2><p>Resistors are attached to these signals in various configurations depending upon the usage. Pull-up and Pull-down resistors are used on UFP and DFP elements, as well as within electronically marked active cables (see <span class="wikilink"><a href="/xwiki/bin/view/applications/usb/typec-features/cable-connector/">Type-C Cable</a></span> page for details)</p><p>The attached resistors allow the CC pins to perform the following functions:</p><ul><li>Detection of cable attachment</li><li>Detect the orientation of the attached cable</li><li>Advertisement of the power capabilities of the DFP</li></ul><p>Upstream Facing Ports (UFPs) are connected with the pull-down resistor (R<sub>d</sub>) on CC1 and CC2. Type-C cables are populated with only one CC line. By monitoring both CC1 and CC2, the Downstream Facing Port (DFP) can determine if a cable is connected and the orientation of the cable.</p><div class="wikimodel-emptyline"></div><p><img src="/xwiki/bin/download/applications/usb/typec-features/cc-vconn-signals/WebHome/usb-orientation-mrt347682.png?width=600&amp;height=377&amp;rev=1.1" alt="USB Orientation" data-xwiki-image-style-alignment="center" height="377" width="600" id="Iusb-orientation-mrt347682.png" class="wikigeneratedid"/></p><div class="wikimodel-emptyline"></div><p>Powered Type-C cables, both electronically marked and managed active cables, have pull-down resistors (R<sub>a</sub>) connected to the non-CC line. Monitoring R<sub>a</sub> allows the DFP to recognize the existence and orientation of a powered Type-C cable.</p><div class="wikimodel-emptyline"></div><p><img src="/xwiki/bin/download/applications/usb/typec-features/cc-vconn-signals/WebHome/usb-powered-cable-mrt347685.png?width=300&amp;height=184&amp;rev=1.1" alt="USB Powered Cable" data-xwiki-image-style-alignment="center" height="184" width="300" id="Iusb-powered-cable-mrt347685.png" class="wikigeneratedid"/></p><div class="wikimodel-emptyline"></div><h2 id="HCableConnectionState" class="wikigeneratedid"><span>Cable Connection State</span></h2><table><tr><th colspan="1" rowspan="1" scope="col">CC1</th><th colspan="1" rowspan="1" scope="col">CC2</th><th colspan="1" rowspan="1" scope="col">Status</th><th colspan="1" rowspan="1" scope="col">Orientation</th></tr><tr><td>—</td><td>—</td><td>Nothing connected</td><td>n/a</td></tr><tr><td>R<sub>d</sub></td><td>—</td><td>UFP connected</td><td>Normal</td></tr><tr><td>—</td><td>R<sub>d</sub></td><td>UFP connected</td><td>Flipped</td></tr><tr><td>—</td><td>R<sub>a</sub></td><td>Power Cable, no UFP connection</td><td>Normal</td></tr><tr><td>R<sub>a</sub></td><td>—</td><td>Power Cable, no UFP connection</td><td>Flipped</td></tr><tr><td>R<sub>d</sub></td><td>R<sub>a</sub></td><td>Power Cable with UFP connection</td><td>Normal</td></tr><tr><td>R<sub>a</sub></td><td>R<sub>d</sub></td><td>Power Cable with UFP connection</td><td>Flipped</td></tr></table><h2 id="HHowMuchPowerCantheDFPSupply3F" class="wikigeneratedid"><span>How Much Power Can the DFP Supply?</span></h2><p>The value of the pull-up resistors (R<sub>p</sub>) attached to CC1 and CC2 advertise the current supplying capabilities of the DFP. R<sub>p</sub> can be tied to a 3.3 V, 5V, or current source signal. The following table shows the values of R<sub>p</sub> used to advertise current:</p><h2 id="HUSBType-C2122CCandVCONNSignals" class="wikigeneratedid"><span>USB Type-C™ CC and VCONN Signals</span></h2><table><tr><th colspan="1" rowspan="1" scope="col">DFP Capability</th><th colspan="1" rowspan="1" scope="col">R<sub>d</sub> for 5 V signal</th><th colspan="1" rowspan="1" scope="col">R<sub>d</sub> for 3.3 V</th><th colspan="1" rowspan="1" scope="col">Current source</th></tr><tr><td>USB 2.0 Default<br/>500 mA</td><td>56 kΩ</td><td>36 kΩ</td><td>80 μA</td></tr><tr><td>USB 3.x Default<br/>900 mA</td><td>56 kΩ</td><td>36 kΩ</td><td>80 μA</td></tr><tr><td>1.5 A @ 5V</td><td>22 kΩ</td><td>12 kΩ</td><td>180 μA</td></tr><tr><td>3.0 A @ 5V</td><td>10 kΩ</td><td>4.7 kΩ</td><td>330 μA</td></tr></table><h2 id="HVCONN" class="wikigeneratedid"><span>VCONN</span></h2><p>VCONN is a 5V 1W power supply used to power the Integrated Circuit (IC) within an electronically marked Type-C cable. The DFP will supply the VCONN power upon start-up.</p><p>If two Dual Role ports are connected, and they both support the Power Delivery Protocol, the responsibility for supplying VCONN can be passed to the UFP with negotiation. See the <span class="wikilink"><a href="/xwiki/bin/view/applications/usb/power-delivery/">Power Delivery Protocol</a></span> page for implementation details.</p><p><img src="/xwiki/bin/download/applications/usb/typec-features/cc-vconn-signals/WebHome/usb-vconn-mrt347689.png?width=600&amp;height=230&amp;rev=1.1" alt="USB VCONN" data-xwiki-image-style-alignment="center" height="230" width="600" id="Iusb-vconn-mrt347689.png" class="wikigeneratedid"/></p><div class="wikimodel-emptyline"></div><p>VCONN can be supplied in one of two ways:</p><ol><li>If a valid R<sub>p</sub>/R<sub>d</sub> connection is detected on one of the CC pins, VCONN can be connected to the other pin.</li><li>After a valid R<sub>p</sub>/R<sub>d</sub> connection is detected on one CC pin, the other pin is monitored for a valid R<sub>a</sub> before connecting VCONN.</li></ol><div class="box infomessage"><p>Because of the reversibility of the cable, both the CC1 and CC2 pins must be capable of assuming the roles of CC and VCONN.</p></div>
+          </div>
+  </div>
+  </main>
+
+
+
+
+
+    <div class="clearfloats"></div>
+                        <aside id="xdocFooter" aria-label="Content footer">
+                          
+                  <div class="like-container">
+<input id="is-liked" type="hidden" value="false" />
+<button class="like-button btn btn-default"
+ disabled title="You cannot interact with likes on this page.">
+<span class="fa fa-heart-o" aria-hidden="true"></span>
+</button>
+<span class="like-number" data-like-count="0">
+<a href="/xwiki/bin/view/applications/usb/typec-features/cc-vconn-signals/?viewer=likers" 
+title="Number of likes on this page: 0. Click to see who liked this page.">
+0 Likes
+</a>
+</span>
+</div>
+                  
+         <div class="doc-tags" id="xdocTags">
+                    </div>
+    
+              </aside>
+      <aside id="disclaimer" aria-label="disclaimer">
+                  <div style="font-size: 85%; color: #8f8f8f; padding: 1em 0;">
+Information contained on this site regarding device applications and the like is provided only for your convenience and may be superseded by updates. It is your responsibility to ensure that your application meets with your specifications. MICROCHIP MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND WHETHER EXPRESS OR IMPLIED, WRITTEN OR ORAL, STATUTORY OR OTHERWISE, RELATED TO THE INFORMATION, INCLUDING BUT NOT LIMITED TO ITS CONDITION, QUALITY, PERFORMANCE, MERCHANTABILITY OR FITNESS FOR PURPOSE. Microchip disclaims all liability arising from this information and its use. Use of Microchip devices in life support and/or safety applications is entirely at the buyer's risk, and the buyer agrees to defend, indemnify and hold harmless Microchip from any and all damages, claims, suits, or expenses resulting from such use. No licenses are conveyed, implicitly or otherwise, under any Microchip intellectual property rights.
+</div>
+              </aside>
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<aside id="xwikidata" aria-label="Additional information about this page">
+</aside>  
+        </div>  </div>  <button id="leftPanelsToggle" class="btn btn-default" title="Toggle the left panel column.">
+    <span class="fa fa-caret-right" aria-hidden="true"></span>
+    <span class="sr-only">Toggle the left panel column.</span>
+  </button>
+<div id="leftPanels" class="panels left panel-width-Medium">
+      <div role="complementary" class="panel
+expanded PanelsMMenu MMenu" aria-label="Menu"><h2 class="xwikipaneltitle">Menu</h2><div class="xwikipanelcontents"><div class="xtree" data-responsive="true" data-url="/xwiki/bin/get/api/Menu/home?outputSyntax=plain" data-dragAndDrop="false" data-contextMenu="false" data-icons="false" data-edges="false" data-checkboxes="false" data-openTo="applications.usb.typec-features.cc-vconn-signals.WebHome" data-finder="false"></div><div class="xtree" data-responsive="true" data-url="/xwiki/bin/get/api/Menu/applications?outputSyntax=plain" data-dragAndDrop="false" data-contextMenu="false" data-icons="false" data-edges="false" data-checkboxes="false" data-openTo="applications.usb.typec-features.cc-vconn-signals.WebHome" data-finder="false"></div><div class="xtree" data-responsive="true" data-url="/xwiki/bin/get/api/Menu/products?outputSyntax=plain" data-dragAndDrop="false" data-contextMenu="false" data-icons="false" data-edges="false" data-checkboxes="false" data-openTo="applications.usb.typec-features.cc-vconn-signals.WebHome" data-finder="false"></div><div class="xtree" data-responsive="true" data-url="/xwiki/bin/get/api/Menu/tools?outputSyntax=plain" data-dragAndDrop="false" data-contextMenu="false" data-icons="false" data-edges="false" data-checkboxes="false" data-openTo="applications.usb.typec-features.cc-vconn-signals.WebHome" data-finder="false"></div><div class="xtree" data-responsive="true" data-url="/xwiki/bin/get/api/Menu/info?outputSyntax=plain" data-dragAndDrop="false" data-contextMenu="false" data-icons="false" data-edges="false" data-checkboxes="false" data-openTo="applications.usb.typec-features.cc-vconn-signals.WebHome" data-finder="false"></div></div></div>
+  <div role="button" tabindex="0" class="ui-resizable-handle ui-resizable-e"
+  title="Drag this handle to resize the left panel column."></div> 
+</div>
+
+
+  <button id="rightPanelsToggle" class="btn btn-default" title="Toggle the right panel column.">
+    <span class="fa fa-caret-right" aria-hidden="true"></span>
+    <span class="sr-only">Toggle the right panel column.</span>
+  </button>
+<div id="rightPanels" class="panels right panel-width-Medium">
+      
+        <!--<a style="width: 100%; max-width: 350px; display: block; margin: 0 auto;" href="https://events.microchip.com/event/1954260d-15f6-463d-92ea-f336f7c24453/summary"><img src="/xwiki/wiki/graphics/download/banners/WebHome/masters26.png"></a>-->
+        <div role="complementary" class="panel
+expanded PanelsMTableofContents MTableofContents" aria-label="On This Page"><h2 class="xwikipaneltitle">On This Page</h2><div class="xwikipanelcontents"><ul class="wikitoc"><li><span class="wikilink"><a href="#HCC1andCC2">CC1 and CC2</a></span></li><li><span class="wikilink"><a href="#HCableConnectionState">Cable Connection State</a></span></li><li><span class="wikilink"><a href="#HHowMuchPowerCantheDFPSupply3F">How Much Power Can the DFP Supply?</a></span></li><li><span class="wikilink"><a href="#HUSBType-C2122CCandVCONNSignals">USB Type-C™ CC and VCONN Signals</a></span></li><li><span class="wikilink"><a href="#HVCONN">VCONN</a></span></li></ul></div></div>
+        <div role="complementary" class="panel
+expanded PanelsMicrochipSupport MicrochipSupport" aria-label="Microchip Support"><h2 class="xwikipaneltitle">Microchip Support</h2><div class="xwikipanelcontents"><p>Query Microchip Forums and get your questions answered by our community:</p><p><span class="fa fa-comments  " title="">&nbsp;</span>&nbsp;<span class="wikiexternallink"><a href="https://forum.microchip.com/">Microchip Forums</a></span><br/><span class="fa fa-comments-o  " title="">&nbsp;</span> <span class="wikiexternallink"><a href="https://www.avrfreaks.net/">AVR Freaks Forums</a></span></p><p>If you need to work with Microchip Support staff directly, you can submit a technical support case. Keep in mind that many questions can be answered through our self-help resources, so this may not be your speediest option.</p><p><span class="fa fa-question-circle-o  " title="">&nbsp;</span>&nbsp;<span class="wikiexternallink"><a href="https://microchip.my.site.com/s/">Technical Support Portal</a></span></p></div></div>
+  <div role="button" tabindex="0" class="ui-resizable-handle ui-resizable-w"
+  title="Drag this handle to resize the right panel column."></div>
+</div>
+
+</div><footer id="footerglobal">
+  <div id="xwikilicence">© 2026 Microchip Technology, Inc.</div>
+      <div id="xwikiplatformversion">
+          XWiki 18.9.0      </div>
+</footer>
+
+</div></div></body>
+</html>

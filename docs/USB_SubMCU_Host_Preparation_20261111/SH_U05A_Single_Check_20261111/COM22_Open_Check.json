@@ -1,0 +1,34 @@
+{
+  "ports": [
+    {
+      "device": "COM22",
+      "description": "USB-SERIAL CH341 (COM22)",
+      "vid": 6790,
+      "pid": 21795,
+      "serial_number": "",
+      "location": "1-4.3",
+      "hwid": "USB VID:PID=1A86:5523 SER= LOCATION=1-4.3"
+    }
+  ],
+  "target": "COM22",
+  "expected_vid": "1A86",
+  "expected_pid": "5523",
+  "transmitted_bytes": 0,
+  "open_ok": true,
+  "settings": {
+    "baudrate": 115200,
+    "bytesize": 8,
+    "parity": "N",
+    "stopbits": 1,
+    "xonxoff": false,
+    "dsrdtr": false,
+    "rtscts": false,
+    "timeout": 0.1,
+    "write_timeout": null,
+    "inter_byte_timeout": null
+  },
+  "dtr": false,
+  "rts": false,
+  "received_bytes": 0,
+  "closed": true
+}
