@@ -1,0 +1,37 @@
+{
+  "started_jst": "2026-11-11T11:12:24.710571+09:00",
+  "ports": [
+    {
+      "device": "COM6",
+      "vid": 11914,
+      "pid": 5,
+      "serial_number": "69F7D45962CFDFAD",
+      "hwid": "USB VID:PID=2E8A:0005 SER=69F7D45962CFDFAD LOCATION=1-3:x.0"
+    },
+    {
+      "device": "COM20",
+      "vid": 1390,
+      "pid": 20484,
+      "serial_number": "",
+      "hwid": "USB VID:PID=056E:5004 SER= LOCATION=1-4.3:x.0"
+    },
+    {
+      "device": "COM21",
+      "vid": 11914,
+      "pid": 9,
+      "serial_number": "A06FEA01012EC137",
+      "hwid": "USB VID:PID=2E8A:0009 SER=A06FEA01012EC137 LOCATION=1-4.2:x.0"
+    }
+  ],
+  "commands": [
+    {
+      "command": "*IDN?",
+      "response": "",
+      "raw_hex": "",
+      "elapsed_ms": 3063.0114000232425
+    }
+  ],
+  "completed": false,
+  "unsolicited_before_hex": "",
+  "error": "AssertionError('Incomplete reply')"
+}

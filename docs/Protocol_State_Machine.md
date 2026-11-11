@@ -1,6 +1,6 @@
 # Error Handling / Retry / Protocol State Machine
 
-通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0
 
 ## Purpose
@@ -45,7 +45,7 @@ If NF55G response BCC/frame is invalid:
 - RuntimeはSystemClockでPico ticks周回を吸収。EB処理中も元のdeadlineを保持。
 - Pico T1 = 200 ms provisional.
 - T2 starts after valid ACK.
-- D0 T2 = 600 ms provisional.
+- D0 T2 = 300 ms（2026-11-11ユーザー指定、通信r2事前確認版p.17／28）。有効ACK受信後から監視する。
 - BC T2 = 6000 ms.
 - Use deadline/ticks calculation, not decrementing sleeps.
 

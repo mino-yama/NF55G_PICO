@@ -1,0 +1,37 @@
+{
+  "port": "COM20",
+  "baudrate": 115200,
+  "commands": [
+    {
+      "command": "*IDN?",
+      "response": "NF55G_PICO_FIXTURE,Rev.0",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d0a"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "response": "OK:state=IDLE",
+      "raw_hex": "4f4b3a73746174653d49444c450d0a"
+    },
+    {
+      "command": "RTC_DATETIME?",
+      "response": "20261111_111425",
+      "raw_hex": "32303236313131315f3131313432350d0a"
+    },
+    {
+      "command": "SD_STATUS?",
+      "response": "OK",
+      "raw_hex": "4f4b0d0a"
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK",
+      "raw_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b0d0a"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "response": "0",
+      "raw_hex": "300d0a"
+    }
+  ],
+  "completed": true
+}

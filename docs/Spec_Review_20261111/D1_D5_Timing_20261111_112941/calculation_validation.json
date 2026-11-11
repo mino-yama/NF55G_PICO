@@ -1,0 +1,77 @@
+[
+  {
+    "cmd": "D1",
+    "count": 10,
+    "independent_sums": [
+      65,
+      140,
+      205
+    ],
+    "mean_ms": [
+      6.5,
+      14.0,
+      20.5
+    ],
+    "matches": true
+  },
+  {
+    "cmd": "D2",
+    "count": 10,
+    "independent_sums": [
+      62,
+      220,
+      282
+    ],
+    "mean_ms": [
+      6.2,
+      22.0,
+      28.2
+    ],
+    "matches": true
+  },
+  {
+    "cmd": "D3",
+    "count": 10,
+    "independent_sums": [
+      68,
+      186,
+      254
+    ],
+    "mean_ms": [
+      6.8,
+      18.6,
+      25.4
+    ],
+    "matches": true
+  },
+  {
+    "cmd": "D4",
+    "count": 10,
+    "independent_sums": [
+      61,
+      1160,
+      1221
+    ],
+    "mean_ms": [
+      6.1,
+      116.0,
+      122.1
+    ],
+    "matches": true
+  },
+  {
+    "cmd": "D5",
+    "count": 10,
+    "independent_sums": [
+      61,
+      589,
+      650
+    ],
+    "mean_ms": [
+      6.1,
+      58.9,
+      65.0
+    ],
+    "matches": true
+  }
+]

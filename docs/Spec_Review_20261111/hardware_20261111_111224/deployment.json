@@ -1,0 +1,9 @@
+{
+  "started_jst": "2026-11-11T11:13:57.428331+09:00",
+  "target": "/src/config.py",
+  "before_sha256": "4024dc1f13d5e433ad55b7c7b7dc86412b14dde75c0b588c795e25130be5c1f5",
+  "workspace_sha256": "e20defbba549d9f79161f6cc265bdc8f782a556249392381e6e2681b3eaf7384",
+  "deployed": true,
+  "restored_after_failure": false,
+  "after_sha256": "e20defbba549d9f79161f6cc265bdc8f782a556249392381e6e2681b3eaf7384"
+}

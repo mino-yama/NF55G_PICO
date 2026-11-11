@@ -1,6 +1,6 @@
 # ATE Command Master
 
-通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0
 
 ## 1. 共通原則
@@ -16,7 +16,7 @@ Revision: Rev.0
 ## 2. Refresh / Read
 | ATE | NF CMD | T2 | Cache | 備考 |
 |---|---|---:|---|---|
-| DATA_REFRESH | D0 | 600ms provisional | DATA | D0 327 chars |
+| DATA_REFRESH | D0 | 300ms | DATA | D0 327 chars、2026-11-11ユーザー指定によりr2を部分採用 |
 | STATUS_REFRESH | D1 | 100ms | STATUS | Status 15 chars |
 | INFO_REFRESH | D5 | 100ms | INFO | MFG50 + PARAM50 |
 | D2_REFRESH | D2 | 100ms | D2 | 量産原則未使用 |
@@ -30,12 +30,12 @@ Revision: Rev.0
 ### D0/D1/D5 Host実装状況（2026-11-07）
 
 - `DATA_REFRESH`（D0）、`STATUS_REFRESH`（D1）、`INFO_REFRESH`（D5）と、第4節～第6節の個別Queryを共通Command Coreに実装済み。
-- D0はNF CMD `D0`、DATAなし、T2=600ms暫定、応答DATA 327文字。完全Decode後にDATA CacheのみをVALIDにする。
+- D0はNF CMD `D0`、DATAなし、T2=300ms（2026-11-11改訂）、応答DATA 327文字。完全Decode後にDATA CacheのみをVALIDにする。
   D0内STATUSはraw保持、Manufacturing/Parameterもraw保持とし、STATUS/INFO Cacheへ昇格しない。
 - D0の各DATA QueryはDATA Cacheのみ参照し、自動Refreshしない。未取得・INVALID時は`ERR:CACHE_INVALID`。
 - OI-03は未解決。PicoはD0後のCHARGE_END等の製品側副作用を推測・抑止・補正しない。ATE/設計側がr1/final FWとの整合を確認する。
 - 引数なし。余分な引数・`=`指定は `ERR:UNEXPECTED_PAYLOAD`（Cache変更・送信なし）。
-- Refreshは対象Cacheを先にINVALIDにし、D0=327文字/T2=600ms暫定、D1=15文字/T2=100ms、D5=100文字/T2=100msで通信する。
+- Refreshは対象Cacheを先にINVALIDにし、D0=327文字/T2=300ms、D1=15文字/T2=100ms、D5=100文字/T2=100msで通信する。
   完全Decode後のみ対象CacheをVALIDにし `OK` を返す。失敗時に旧値は復元しない。
 - 個別QueryはCacheのみ参照。INVALID時は `ERR:CACHE_INVALID`。
   STATUSは `0`/`1`、INFOの数値は10進数、製造ASCII textは先頭ゼロを保持する。
@@ -65,7 +65,10 @@ Revision: Rev.0
 |---|---|---|---:|---|---|
 | PARAM_<ITEM>_<VALUE> | SP | 50 chars | 100 | DATA/STATUS/INFO | INFO_REFRESH |
 | PARAM_RESET | RP | none | 100 | DATA/STATUS/INFO | INFO_REFRESH |
-| ERP_SET_0_0 etc. | SE | BURST+PS_OFF_CHARGE+00 | 100 | DATA/STATUS | STATUS_REFRESH |
+| ERP_SET_1_0 | SE | 1000 (BURST=1, PS_OFF_CHARGE=0, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
+| ERP_SET_0_0 | SE | 0000 (BURST=0, PS_OFF_CHARGE=0, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
+| ERP_SET_0_1 | SE | 0100 (BURST=0, PS_OFF_CHARGE=1, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
+| ERP_SET_1_1 | SE | 1100 (BURST=1, PS_OFF_CHARGE=1, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
 | CLOCK_SYNC | SC | YYMMDDHHMMSS | 100 | DATA/STATUS | DATA_REFRESH |
 | SERIAL_<ITEM>_<VALUE> | SS | 50 chars | 100 | DATA/INFO | INFO_REFRESH |
 | LIFE_SET_<VALUE> | SL | 3 chars + reserve | 100 | DATA | DATA_REFRESH |
@@ -238,7 +241,6 @@ TEST_START, TEST_END, LOG_CONT_START, LOG_CONT_STOP
 - 直前完了試行のTEST_LOGGER／TEST_LOG_DROPは新STARTでも保持し、次の試行完了時に更新する。logger.last_test_idとRAM履歴で試行を対応付ける。
 - Host／Mock284件成功。修正版のPico配置・実機Timingは未確認。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。SS開発は保留。
 SD_STATUS?, SD_USAGE?, LOG_DROP_COUNT?, SD_REINIT
-SD_STATUS?, SD_USAGE?, LOG_DROP_COUNT?, SD_REINIT
 
 ## QR読取の追加要件（2026-09-18、未実装）
 - ATEが発行する読取開始はPico専用コマンドとする。正式コマンド名・引数・応答・待ち時間はOI-23で管理する。
@@ -284,3 +286,99 @@ D4は副作用のため量産では使用しない。D4-TIM-01は未解決のま
 2026-11-09 PARAM_SET同値書戻し実機結果: 現行D5の設定RAW50文字をreserve込みで退避・同値送信し、SP正常応答DATA0文字、72ms、BCC一致、再送0を確認。INFO/STATUS無効化と再取得後の設定・製造情報の完全一致を確認。ユーザー報告は出力変化・瞬断・再起動なし（電圧数値未提示）。ログ3本をtemp直下へ順次コピー。Host／Mock全206件成功。設定の実変更・保持・RPは未確認。詳細はReal_Hardware_Test_Log.md。
 
 2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。
+
+## 2026-11-09 SET ERP Host実装
+
+- r1 p.21のSET ERPに基づき、ATE入口は `ERP_SET_0_0`／`ERP_SET_1_0`／`ERP_SET_0_1`／`ERP_SET_1_1` の全4種を実装。いずれも引数なし。前の数字がBURST、後ろの数字がPS_OFF_CHARGEで、毎回両設定を指定する。
+- NF CMDはSE、DATAはASCII 4文字の0000／1000／0100／1100、T2=100ms。正常応答DATAは状態情報15文字として厳密に長さを確認する。
+- 正常終了またはambiguous時はDATA／STATUSだけをINVALIDにする。SE応答の状態情報をSTATUSへ昇格せず、自動Refreshしない。SQE／PMEでは既存Cacheを保持する。
+- OKはProtocol Transaction成功のみ。設定確認は明示STATUS_REFRESH後のBURST?／PS_OFF_CHARGE?で行う。BURST_ON?はBURST入力信号の受信状態で、実際のバースト有無に依存しない（r1 p.30）。実動作成立は外部測定で確認し、製品PASS／FAILはATE側で判断する。
+- Host／Mock専用試験はtests/test_erp_commands.py。Picoへの配置およびSample併用の実機試験は未実施。
+
+### ERP DATA各桁と追加条件の原典照合（2026-11-09）
+
+確認事実（r1 p.5、§8.3 p.21）:
+
+| 左からの位置 | 項目 | 意味 |
+|---|---|---|
+| 1文字目 | BURST | 0=バースト動作無効、1=有効 |
+| 2文字目 | PS_OFF_CHARGE | 0=PS_OFF時の充電無効、1=有効 |
+| 3～4文字目 | RESERVE | 00を送る。動作設定項目ではない |
+
+- 4文字はASCII（ルール①）。1000は31h 30h 30h 30h、0000は30h 30h 30h 30h。整数の桁・上位下位や、1バイトの4ビットを表す0000とは異なる。配列は仕様表の順序に従う。予約領域へデータがあっても製品は無視する仕様だが、治具は規定どおり00を送る。
+- 1000はBURST=1・PS_OFF_CHARGE=0であり、p.21の低消費電力設定条件を同時に指定する。0000は両方を無効にし、PS_OFF充電を有効へ戻す操作ではない。
+- 仕様上の組合せは0000／0100／1000／1100。p.21の初期値欄はBURST=1、PS_OFF_CHARGE=1（組合せ1100）。現在の実値を初期値と推定してはならない。ユーザーの追加実装指示により、ATE実装は0000／1000／0100／1100の全4組合せに対応。
+
+追加設定・動作確認（確認事実）:
+
+- r1 p.21は低消費電力状態にする設定としてBURST有効・PS_OFF_CHARGE無効を指定。p.43（RW11動作概要・参考）にも、DeepsleepをEnableとして消費電流を抑える場合はPS_OFF_CHARGE無効とする記載がある。2文字目は今回の1000へ既に含まれるため、これを別のSPコマンドで設定する必要を示す記載はない。
+- p.17のSEはPS_OFF受付可、バックアップ中受付不可、T2=100ms。p.18ではバックアップ中のSQEと設定値のPMEを規定。SEの前にSC／RP／CN／CFを必須送信する記載は確認できない。p.17のSC完了待ち注記はD2の条件であり、SEへ流用しない。
+- p.29～30ではBURSTは有効設定、PS_OFF_CHARGEは有効設定、BURST_ONは外部BURST信号の受信状態。BURST_ON=1だけで実際のバースト動作成立と判定しない。
+
+推測・未確認:
+
+- 低消費の実動作には外部信号・PS_ON／PS_OFF・負荷などの条件が関係し得るが、今回確認した通信仕様ではBURST入力の必要論理・極性、負荷しきい値、遷移時間、消費電力の合否値を確定できない。最終NF55G製品仕様とSampleの試験条件を設計側に確認する（ERP-CONDITION-01）。
+- 元設定のPS_OFF_CHARGE=1を復元する場合や充電許可の比較にはERP_SET_0_1／ERP_SET_1_1を使用できる。充電許可は実際の充電開始を保証せず、CHARGE_OFFの解除にもならない。復元は保存したBURST／PS_OFF_CHARGEに対応するコマンドをATEが明示実行する。実機送信は未実施。
+- ソフトウェアの1000／0000／0100／1100配置は原典と一致する。実機低消費動作・設定保持・Sample比較は未確認。
+
+## 2026-11-09 EL／OL／FD Host実装と実機デバッグ予定
+
+ユーザー指示により読出しを優先実装。Pico配置と実機デバッグは後日ERP全4種とまとめて実施する。今回はHost／Mockのみで、製品への送信は行っていない。
+
+- EL_REFRESH_01／09／17／25、OL_REFRESH_01／09／17／25／33／41／49／57を正式ATE入口へ実装。引数なし。ATE名の開始番号は10進（17）で、NF DATAはルール②のASCII HEX（11）に変換。T2=100ms、応答82文字、START_NO一致を検証する。
+- EL_01～32／OL_01～64のDATEHOUR?／ID?は対応する8件ブロックCacheだけを参照。日時は各欄のHEXを10進YYMMDDHHへ変換し、IDは10進。空履歴は00000000／255。別ブロックを自動取得しない。製品の閏日記録や時刻誤差をPicoが補正しない。
+- FD_READ_xxxxxxは6桁ASCII HEXアドレスをそのままFDへ送信。T2=100ms、応答64文字を全桁HEX検証。FD_DATA?はFD Cacheの64文字を大文字小文字・先頭ゼロを含め保持して返す。FD Cacheは最新の1回分で、開始時に旧値をINVALIDにする。
+- FD_DATA?を正式Queryとして本Masterへ追記。FUへの連携、アドレス丸め・範囲外のFF補完・自動Refreshは行わない。FDの範囲外挙動はOI-10継続。原典のFD／F0表記不一致はREAD-FD-01へ記録し、設計確認前の実機送信を保留する。
+- Refresh開始時に対象のみINVALID。完全Decode後のみ対象をVALIDにし、失敗時は旧値を戻さない。HWEではDATA／STATUSもINVALID。CLの成功／ambiguousでは全EL／OL CacheをINVALIDにする既存処理を共用する。
+- AR_REFRESH／AR QueryはOI-04／12／20等の仕様確定待ちで未実装を維持する。D2／D3／D4専用Queryは未定義のまま追加しない。
+- Host／Mock全233件合格。詳細: tests/test_log_fd_read_commands.py、temp/read_commands_host_mock_20261109_run01.log。実機結果とは区別する。
+
+## 2026-11-09 項目別PARAM設定のHost実装
+
+形式: PARAM_<ITEM>_<VALUE>。VALUEは符号なしASCII 10進整数で、コマンド名内に指定する。追加引数・=指定・小数・符号・HEX表記は拒否する。先頭ゼロは許容する。
+
+| ITEM | VALUEの範囲（10進整数） | 意味・単位 |
+|---|---|---|
+| `PS_ON_BACKUP` | 0～1 | 0=無効、1=有効 |
+| `AC_LINK` | 0～1 | 0=無効、1=有効 |
+| `AUTO_CHARGE` | 0～3 | 0=無効、1～3=有効レベル |
+| `EVENT_ENABLE` | 0～1 | 0=無効、1=有効。原典EVENTのATE名 |
+| `MAX_BACKUP_TIME` | 0～14 | 分。0=無制限 |
+| `MIN_BACKUP_TIME` | 0～254 | 秒 |
+| `RESTART_TIME` | 0～254 | 秒 |
+| `BATT_LOW_THD` | 0～100 | ％。0=電源初期値 |
+| `BATT_CAP_MAH` | 0～65534 | mAh。0=電源初期値 |
+| `BATT_CAP_WH` | 0～254 | Wh。0=電源初期値 |
+
+- 例: PARAM_AUTO_CHARGE_2、PARAM_MIN_BACKUP_TIME_15、PARAM_BATT_CAP_MAH_4900。原典EVENTは既存INFO Query名と同じEVENT_ENABLEを使用し、PARAM_EVENT_1という別名は追加しない。
+- r1 p.19に基づき、指定項目だけを規定幅のASCII HEXへ変換し、未指定16項目領域を各欄最大値F～FFFF（変更なし）、予約18文字を0として合計50文字のSP DATAを作る。現在値を読み出して再構成せず、Cache未取得でも実行可能。自動D5は送らない。
+- T2=100ms、正常応答DATA0文字、成功／ambiguous時にDATA／STATUS／INFOをINVALID化。明示INFO_REFRESH後、<ITEM>?で設定値を確認する。INFOの再取得だけではDATA／STATUSを更新しない。
+- 仕様上の保護設定BATT_WNG_THD／BATT_ALM_THD／ADU_TEMP_THD／BBU_TEMP_THD／FAN_WNG_THDは項目別入口でERR:PARAMETER_PROTECTEDとして無送信拒否。CHG_IR_THDはPARAM-IR-01確認待ちでERR:PARAMETER_UNCONFIRMED。通常10項目以外は追加しない。
+- 範囲外はERR:PARAMETER_RANGE、整数形式不正はERR:PARAMETER_VALUE、未知項目はERR:PARAMETER_UNKNOWN_ITEM、項目形式不正はERR:PARAMETER_FORMAT、余分な引数はERR:UNEXPECTED_PAYLOAD。いずれもCache変更・送信なし。
+- 原典0の特別意味を別値へ置換せずそのまま送る。例えばBATT_LOW_THD=0を50へ自動変換しない。保護・充電・バックアップの製品動作成立をPicoで判定しない。
+- 既存PARAM_SETの50文字一括方式とPARAM_RESETの契約は変更しない。項目別設定のHost／Mockを確認済み、Pico配置・実機送信は未実施。
+
+2026-11-10実機結果追記: 通常10項目について各1代表値への変更→明示D5読戻し→元値復元を確認。設定試験の実行日時は11月9日18:08～18:09 JST、翌日の継続作業でログ解析・現在値再照合まで完了。対象欄以外のRAWを維持し、各復元後D5全100文字が一致。SP20件・D5 21件は正常、再送0、ログ破棄0。ATE最短間隔101.0453ms。上記「実機送信未実施」は実装時点の履歴であり、本追記で代表値試験まで確認済み。全境界値、実動作、電源切入保持は未確認。[項目別PARAM実機記録](Parameter_Item_Hardware_Test_20261110.md)。
+
+## 2026-11-09 バッテリ診断BC Host実装
+
+- r1 p.26の評価用コマンド。BATT_CHECK_STARTはBC DATA1、BATT_CHECK_STOPはBC DATA0。両方T2=6000ms、正常応答DATA30文字を検証する。STOPの空応答を受理する暫定FW吸収は行わない（OI-06継続）。
+- STARTは送信前・未接続エラー前に旧BCをINVALIDにし、失敗しても戻さない。正常Transaction後にDATA／STATUSをINVALID、全30文字HEX検証と8結果項目のDecode完了後のみBCをVALIDとする。Decode失敗でもDATA／STATUSはINVALIDを保持。
+- STOP成功／ambiguousはBC／DATA／STATUSをINVALID。STOP応答の診断データは完全性を検証するがBC CacheをVALIDにしない。SQE／PME／CME等の明確な拒否では、STARTのBC以外のCacheを保持し、STOPは従前Cacheを保持する。
+- BC_MODE?／BC_V1?／BC_V2?／BC_I1?／BC_I2?／BC_TEMP?／BC_SOC?／BC_IR?はBC Cacheのみ参照し、自動Refreshも自動STARTも行わない。D0の寿命診断欄をBC Cacheへ昇格しない。
+- MODEは受信1桁HEXを10進へ変換。0=データなし、1／2=充電測定、3=BC測定、11／12／13=各取得エラー（r1 p.40）。MODE13の詳細はOI-07継続。PicoはMODEで製品PASS／FAILを判定せず、受信した非ゼロ値を0へ補正しない。MODE取得エラーでもProtocol成功ならOKを返す。
+- V1／V2はV、I1／I2はA（各RAW整数を1000で除算）、TEMPはsigned ℃、SOCはsigned ％、IRはmΩ。値や範囲をPicoで合否判定しない。
+- 放電中・充電中等の受付条件はr1 p.17／18／26で規定。PicoでCacheから製品受付可否を推測せず、NF55GのSQE／PMEを返す。AUTO_CHARGE無効でもBCは実行される仕様なので、事前設定変更やCN／CFの自動送信をしない。
+- Transactionは常に1件。STOPは処理中のSTARTへ割り込む緊急停止機能ではなく、通信完了後の別要求として扱う。ATEは応答完了後に次を送信し、6秒T2と規定再送を考慮したATE側timeoutを設定する。
+- 全256件Host／Mock成功。Pico配置・実機送信・バッテリ接続評価は未実施。実機前の条件確認とOI-06／07の設計確認を残す。
+
+## 2026-11-09 寿命情報設定SLの正式実装
+
+2026-11-10実機確認: LIFE_SET_123による12.3％設定と、LIFE_SET_RAW=00000000による元値0.0％復元を、新規D0積算RAW000→07B→000で確認。SL正常応答DATA0文字、各46ms、cmd/rsp retry0、DATA無効化、STATUS／INFO維持、CSVのSD/PC SHA-256一致を確認。OFF期間欄はSLで変化し、寿命値の復元後も元に戻らない。通常値1点の確認であり、範囲外・不正RAW・4095・電源保持・製品動作は未確認。OI-08はOpen継続。[実機結果](Life_Set_Hardware_Test_20261110.md)。以降の未配置・未送信表記は実装時点の履歴。
+
+- LIFE_SET_<VALUE>: 符号付き10進整数（0.1％単位）→最小3桁大文字HEX＋予約00000。0～4095検査・4095禁止・丸め・切捨てなし。123→07B00000、4095→FFF00000、4096→100000000（9文字）、-1→-0100000。不正数値書式と余分な引数は拒否する。
+- LIFE_SET_RAW=<ASCII>: DATAを直接指定し、値・HEX・長さ・予約を検査しない。明示=の空DATAも送る。制御文字／非ASCIIはATE行・NFフレーム区切り維持のため拒否。共通ATE行長上限と行前後のstripは既存のまま。RAW内部空白は=形式で保持する。試験ロック・量産使用モード制限なし。
+- 両入口ともSL、T2=100ms、正常応答DATA0文字。成功／ambiguousは既定どおりDATAだけINVALID、PME／SQE／CMEはCache維持。自動Refresh・値のCache反映・製品PASS／FAIL判定を行わない。
+- r1 p.41の積算BATT_DEGを明示DATA_REFRESH→BATT_DEG_TOTAL?で確認。表示はRAW整数÷10、FFFは409.5。受理・PMEのどちらでも新規D0を読戻しに使う。設定値の根拠はD0積算欄で、LIFE_BATT_DEG?とは区別する。
+- r1 p.23／32／39のOFF期間クリア条件を実機手順へ記載。元寿命値を戻してもOFF期間データは復元されない。試験準備でSC／D2／D3／D4を自動送信しない。
+- OI-08継続、量産使用未確定。今回Pico追加配置・実製品送信なし。[実機試験手順](Life_Set_Hardware_Test_Procedure_20261109.md)を参照。

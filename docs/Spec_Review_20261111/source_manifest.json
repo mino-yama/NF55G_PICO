@@ -1,0 +1,86 @@
+{
+  "review_date_jst": "2026-11-11",
+  "status": "preliminary_review_no_baseline_change",
+  "sources": [
+    {
+      "path": "reference/RW11用電源通信仕様書r1.pdf",
+      "bytes": 1728081,
+      "sha256": "47e7f2eebae819829bf4fc5a12ea39379663e6cf882698e8a829c2146e804884",
+      "pages": 43,
+      "metadata": {
+        "format": "PDF 1.7",
+        "title": "RW11電源通信仕様書",
+        "author": "mita",
+        "subject": "",
+        "keywords": "",
+        "creator": "Microsoft® Word for Microsoft 365",
+        "producer": "Microsoft® Word for Microsoft 365",
+        "creationDate": "D:20260904082329+09'00'",
+        "modDate": "D:20260904082329+09'00'",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "reference/RW11用電源通信仕様書r2事前確認.pdf",
+      "bytes": 1740198,
+      "sha256": "b9bd8cbbf5645659097a23552efab673552db1f2531afa01137b06b304788a84",
+      "pages": 43,
+      "metadata": {
+        "format": "PDF 1.7",
+        "title": "RW11電源通信仕様書",
+        "author": "mita",
+        "subject": "",
+        "keywords": "",
+        "creator": "Microsoft® Word for Microsoft 365",
+        "producer": "Microsoft® Word for Microsoft 365",
+        "creationDate": "D:20261019152830+09'00'",
+        "modDate": "D:20261019152830+09'00'",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "reference/RW11用電源購入仕様書2版事前確認用5.pdf",
+      "bytes": 2701165,
+      "sha256": "72b7149dbef7f27f44b8c6b1d068c1989d68dbaf60edf725a8cda9f012f7234f",
+      "pages": 51,
+      "metadata": {
+        "format": "PDF 1.7",
+        "title": "RW11電源ユニット購入仕様書",
+        "author": "mita",
+        "subject": "",
+        "keywords": "",
+        "creator": "Microsoft® Word for Microsoft 365",
+        "producer": "Microsoft® Word for Microsoft 365",
+        "creationDate": "D:20261019163329+09'00'",
+        "modDate": "D:20261019163329+09'00'",
+        "trapped": "",
+        "encryption": null
+      }
+    }
+  ],
+  "external_reference": {
+    "title": "DENSO WAVE QR Code versions 1-10 capacity",
+    "url": "https://www.qrcode.com/en/about/versionPage/versionPage1_10.html",
+    "accessed_date_jst": "2026-11-11",
+    "relevant_values": {
+      "version_1_M": {
+        "numeric": 34,
+        "alphanumeric": 20,
+        "binary_bytes": 14
+      },
+      "version_2_M": {
+        "alphanumeric": 38
+      }
+    }
+  },
+  "verification": {
+    "host_mock_command": "python -B -m unittest discover -s tests -v",
+    "tests": 284,
+    "result": "OK",
+    "seconds": 2.721,
+    "hardware_test_this_review": false,
+    "source_code_changed_this_review": false
+  }
+}

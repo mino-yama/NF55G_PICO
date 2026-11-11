@@ -73,3 +73,15 @@ ATEは原文取得/解析値取得の各指示で内容を確認する。QR情�
 ## 2026-09-26 QR単独試験のRAM Cache
 QRReceiverのraw/fields/stateは試験専用で、正式Cache名の確定ではない。開始時に旧値を無効化し、35文字+終端の完全受信・文字種確認後に6項目を同時公開する。
 開始前/完了後の入力は破棄。失敗後は旧VALIDへ戻さない。文字列の先頭ゼロを維持。SS/INFOへの転用なし。
+
+## 2026-11-09 EL／OL／FD読出し入口
+
+EL／OLは開始番号に対応する1ブロックだけを開始時にINVALIDにし、START_NO一致と全8件Decode成功後にVALIDへ更新する。Queryは該当ブロックだけを参照し、他ブロックのVALIDを取得済みとは扱わない。FDは最新1回分の64文字を保持し、次のFD_READ開始時に旧値をINVALIDにする。通信失敗・Decode失敗後に旧値を復元しない。不正要求はCache変更前に拒否する。Queryから通信しない。CL後は全履歴がINVALIDとなり、必要ブロックを明示再取得する。ERPと併せた実機確認は後日、今回未実施。
+
+2026-11-09 項目別PARAM: SPの既存無効化規則を共用し、成功／ambiguousでDATA／STATUS／INFOをINVALIDにする。PME／SQE／CME等の明確な拒否とParser拒否ではCacheを保持する。未指定項目は原典の最大値による変更なし指定で送り、INFO Cacheからの自動読出し・自動Refresh・旧値補完は行わない。
+
+2026-11-09 BC実装: STARTは結果更新を伴うため旧BCを処理開始時にINVALID化する。START成功でDATA／STATUSをINVALID、全30文字・8項目Decode成功時だけBCをVALIDにする。STARTのSQE等でも旧BCを戻さない。STOP成功／ambiguousでBC／DATA／STATUSをINVALIDにし、STOP応答からBCを有効化しない。明確なSTOP拒否ではCache保持。BC Queryは保存済み結果のみ。D0結果やControl内Statusからの昇格なし。
+
+## 2026-11-09 SL正式入口のCache契約
+
+LIFE_SET_<VALUE>／LIFE_SET_RAWは既存SL規則を使用する。成功／ambiguous時はDATAだけINVALID。明確なPME／SQE／CMEでは旧Cacheを保持する。SL応答や指定値からCacheをVALIDにしない。後日の範囲外試験では、拒否時も明示DATA_REFRESHを行ってBATT_DEG_TOTAL?を取得し、旧Cacheを実読戻しと扱わない。他Cacheの規則変更なし。

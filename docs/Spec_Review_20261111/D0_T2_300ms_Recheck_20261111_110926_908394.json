@@ -1,0 +1,22 @@
+{
+  "started_at_jst": "2026-11-11T11:09:26.908394+09:00",
+  "finished_at_jst": "2026-11-11T11:09:32.507110+09:00",
+  "command": [
+    "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "test_count": 287,
+  "duration_seconds": 4.128,
+  "result": "OK",
+  "log": "docs/Spec_Review_20261111/D0_T2_300ms_Recheck_20261111_110926_908394.txt",
+  "hardware_test": false,
+  "source_changes": false,
+  "config_sha256": "e20defbba549d9f79161f6cc265bdc8f782a556249392381e6e2681b3eaf7384"
+}

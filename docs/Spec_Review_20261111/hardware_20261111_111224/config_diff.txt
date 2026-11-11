@@ -1,0 +1,18 @@
+--- pico_before
++++ workspace_300ms
+@@ -1,5 +1,5 @@
+ # 通信条件、再送上限、Cache名、操作後の無効化対象を集約する。
+-# T1=200msとD0のT2=600msは暫定値。確定状況はdocs/Open_Issues.mdを参照。
++# D0のT2はr2に基づき300ms（2026-11-11ユーザー指定）。T1=200msは暫定値。
+ 
+ """Project-wide constants for the NF55G Pico fixture."""
+ 
+@@ -15,7 +15,7 @@
+ 
+ T1_ACK_TIMEOUT_MS = 200
+ T2_DEFAULT_MS = 100
+-T2_D0_MS = 600
++T2_D0_MS = 300
+ T2_BC_MS = 6000
+ 
+ MAX_COMMAND_RETRY = 1

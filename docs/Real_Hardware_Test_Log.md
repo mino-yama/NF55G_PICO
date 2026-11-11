@@ -1,5 +1,19 @@
 # Real Hardware Test Log
 
+## 2026-11-11 D1～D5各10回の時間測定
+
+- COM6／unique_id=69f7d45962cfdfad、ATE COM20、製品S1.13、PS_ON=1／BATT_ON=0。D1／D2／D3／D5は通常ATE経路で各10回OK・再送0。ACK後完全応答平均／最大は14.0／15、22.0／23、18.6／34、58.9／74ms。D2前に日本時間のSC1回を明示実行し、測定母数へ含めていない。
+- D4は既知の再送競合を避け、製品用設定を変えずにRAMだけの単発送信・最長1000ms観測で10回取得。DATA212文字・BCC正常、再送0、CacheをVALIDにしない。CSV時刻でACK後平均116.0ms、最大133ms、最小113ms、現行100ms以内0／10。通常D4 Transactionの成功や製品FW単独の違反とは扱わない。
+- T000005／6のCSVは25195／10841byte、全14列、送受信計102フレームBCC一致、256byte分割回収・SD／PC SHA-256一致。別計算でも50標本の平均・最大が一致。試験終了時保存診断正常・破棄0、回収後通常待受・IDLE・SD正常を確認しCOM6／COM20解放済み。
+- D3／D4の消去副作用を伴う測定。SL／その他SET・CLEAR・SS／FU、電源・負荷・バッテリ操作は行っていない。製品ソース・T2設定は変更なし。D4-TIM-01ほかOIはOpen継続。[結果・原本・スクリプト](Spec_Review_20261111/D1_D5_Timing_20261111_112941/Timing_Result_Rev0.md)。
+
+## 2026-11-11 D0 T2 300msの配置と正常系10回
+
+- COM6／unique_id=69f7d45962cfdfadの25ファイルを退避し、PCとの差分がconfig.pyだけであることを確認。config.pyのみ配置しSHA-256一致、読込済みD0 T2=300ms／期待327文字を確認した。Host／Mockは同日再実行287件成功済み。
+- COM20／115200bps、製品FWはS1.13（末尾空白あり）、明示D1でPS_ON=1／BATT_ON=0。TEST_START→D1／D5→D0とDATA Queryを10回→TEST_END。D0全10回OK、ACK後完全応答180～182ms・平均180.8ms、Transaction194～195ms、cmd／rsp retry0、ambiguous=False。ソフトウェア時刻の実測であり、外部波形や製品PASS／FAILではない。
+- T000004のCSV22229byte・201データ行は全14列、送受信24フレームBCC一致。256byte分割回収・SD／PC SHA-256一致。終了時TEST_LOGGER／DROP正常・破棄0・SD正常・IDLE、回収後も通常起動と診断正常を確認しCOM6／COM20を解放した。
+- 開始時はATE ID応答なし。製品操作へ進まず、個体確認・退避・配置後の通常起動で応答復帰。初期無応答の原因は未確定。SC／SET／CLEAR／BC／SS／FU、負荷／電源操作は行っていない。量産全条件・実機異常系は未確認、OI-02はOpen継続。[実機結果・全証跡](Spec_Review_20261111/Hardware_D0_T2_300ms_Result_20261111.md)。
+
 ## 2026-11-11 再TEST_START修正版の配置・3試行ログ分離
 
 - 事前に手順を提示後、COM6の治具IDを照合し、旧25ファイルを退避。logger／sd_sink／command_dispatcher／mainの4ファイルを配置してPC／Pico SHA-256一致を確認。その他srcの比較対象も配置前hash一致。Host／Mock284件成功。
@@ -7,6 +21,28 @@
 - T000001～3のCSV3本、前2本NEXT_TEST_START・最終TEST_END、各試行のTransactionと全行14列、全8フレームBCC、SD／PCのhash一致を確認。最終Self Check正常・TEST_LOGGER／DROP正常・累積破棄0・通信IDLE。通常待受復帰とCOM解放済み。
 - QR／SS・SD異常系・量産Timing全般は未確認。TEST-SESSION-01はOpen継続。[詳細・配置台帳・CSV](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。
 
+## 2026-11-10 RTC電源切断・再投入後の保持成立
+
+- ユーザーの電源切断・再投入完了連絡後、時刻を再設定せず読取り、09:59:58→10:00:01 JSTを確認。初期日時戻りなし、3秒進行、PC日本時間との差5秒以内。Pico ID照合、I2C 0x68、control=0x1C／status=0x08／EOSC=0／OSF=0。
+- RTC／SD／自己診断正常、drop0、通信IDLE。今回1回の保持は成立、実際の切断時間・電池電圧・長時間保持は未測定。NF55G送信・時計再設定・コード変更なし。通常起動復帰・両COM解放。DEV-RTC-01はOpen継続。[結果と証跡](RTC_Acceptance_Recheck_20261110.md)。
+
+## 2026-11-10 RTC接続向き修正後の受入再確認
+
+- COM6／69f7d45962cfdfad、I2C0 GP20/GP21で0x68検出。設定前20000101_000125、control=0x1C／status=0x88。RTC_SET_20261110_095635でOK、6回読出しで10秒進行、設定後status=0x08／OSF=0。RTC／SD／Self Check正常、drop0、通信IDLE。
+- 通電中機能は確認済み。電池保持は通常電源の30秒切断・再投入をユーザーへ依頼中。DEV-RTC-01 Open継続。NF55G送信・コード変更なし、通常起動へ復帰・COM解放。[結果と証跡](RTC_Acceptance_Recheck_20261110.md)。
+
+## 2026-11-10 LIFE_SET通常値書込み・読戻し・元値復元
+
+- 物理条件はユーザー回答でバッテリ／負荷未接続、Sampleクリア許容。COM6／ID69f7d45962cfdfad、ATE COM20、NF55G S1.13／号機000832。
+- LIFE_SET_123→OK→明示D0 RAW07B／12.3％、LIFE_SET_RAW=00000000→OK→明示D0 RAW000／0.0％。SL2回は正常応答DATA0文字、各46ms、再送0、ambiguous=False。各SL後はDATA QueryがCACHE_INVALID、STATUS／INFO維持。
+- OFF期間欄はSL後に変更され、寿命元値復元でも元の欄には戻らなかった。製品値・復元範囲を区別。CSV9220byte／91行14列、SD/PC SHA-256一致、BCC確認済み。最終Self Check正常、SD OK、drop0、通信IDLE。待受復帰・両COM解放。
+- [実機結果・証跡](Life_Set_Hardware_Test_20261110.md)。範囲外・不正RAW・保守識別値は未送信。外部動作・保持・製品PASS/FAILは未確認。OI-08 Open継続。次節のSL未送信は準備時点の履歴。
+
+## 2026-11-10 LIFE_SET用ソース配置・元値退避（SL未送信）
+
+- ユーザーがSampleのデータクリア許容を回答。COM6／ID69f7d45962cfdfadへSL差分3ファイルを退避・配置し、24ソースのcompile／SHA-256一致を確認。Host／Mock273件成功。
+- COM20でD5／D1／D0を取得。FW S1.13、UNIT_SERIAL 000832、PS_ON=1、BATT_ON=0、BC非実行、積算寿命RAW000／0.0％。D0全体・OFF期間を退避、CSV分割回収とSD/PC SHA-256一致を確認。最終Self Check正常、SD OK、drop0、通信IDLE、両COM解放。
+- SLは物理バッテリ・負荷接続状態の回答待ちで未送信。正常値書込み・復元・範囲外結果は未確認。詳細・証跡は[SL準備記録](Life_Set_Hardware_Test_20261110.md)。OI-08はOpen継続。
 Revision: Rev.0-draft
 
 ## 2026-11-10 ATE終端修正後の実機確認
@@ -20,7 +56,6 @@ Revision: Rev.0-draft
 - COM20でDATA_REFRESHのCR／LF／CRLF、CR単独10回、空CRLF、分割CRLFを確認。CR／LF単独の後続正常要求1件がERR:FRAMEとなることを再現。CRLFは正常。
 - 最短送信間隔113.966ms。終了時IDLE、retry cmd/rsp=0、破棄0、SD・自己診断OK。コード・配置変更なし、COM20解放済み。ATE-EOL-01はOpen。
 - [詳細・処置案・送受信証跡](ATE_D0_Line_Ending_Hardware_Test_20261110.md)。
-
 
 ## 2026-09-16 Pico 2 SD / RTC / RS232C communication test
 
@@ -2624,3 +2659,74 @@ Keep the NF55G unpowered and do not send product commands during this check.
 - 送信時に出力監視を依頼し、[ユーザー報告](../temp/hil_backup_enable_20261109_run01/operator_observation.json)は「出力変化・瞬断・再起動なし」。数値電圧・波形は未提示。Protocol OKはバックアップ動作成立や製品PASSを意味しない。
 - TEST_END後のSelf Check正常、SD OK、ログ破棄0、通信IDLE。[CSV](../temp/20261109_102951.csv)をtemp直下へ回収し内容一致確認。2063byte、SHA256 `44c2fdbf248513b7309abe4c79c744aa5967237ed765fbdc4c8f44b2b86069bd`。全フレームBCC一致。[実応答・前後値](../temp/hil_backup_enable_20261109_run01/result_summary.json)、[TX/RX原本](../temp/hil_backup_enable_20261109_run01/events.jsonl)。
 - 送信した製品コマンドはD1／BE／D1のみ。BF・OR・D0・D4・FUは送信していない。同一app.run再開、PC両ポートclose済み。ソース変更・配置なし、Host／Mock再実行なし（直前210件成功）。バックアップ中の受付・実放電・停止動作は未確認。
+
+## 2026-11-09 13:12 Pico 2 COM14へ変更ソース配置・実機デバッグ準備
+
+- ユーザーの書込み指示によりCOM14へ配置。固有IDは2d35a1e11ac125e3、MicroPython v1.28.0（2026-04-06）、Raspberry Pi Pico 2 / RP2350。配置前の内部31ファイルを退避し、SDマウント配下は対象外とした。UF2更新・SD初期化・RTC時刻設定は実施していない。
+- 変更5ファイルはsrc/command_dispatcher.py、command_parser.py、main.py、nf55_command.py、nf55_decode.py。ERP全4種、EL／OL／FD読出し、通常10項目のPARAM設定、BC開始・停止・結果Queryを含む。各変更を一時ファイルへ転送・照合後に置換し、/main.pyを含む配置対象25ファイルすべての読戻しSHA256がPCソースに一致した。
+- Pico上で25ファイルのcompileに成功。RAM内MockでERP4、EL／OL12ブロック、FD1、PARAM10、BC開始／停止2、MODE13、ローカル拒否の計31ケースが成功。実UART・SDを使わないMock確認であり、製品の実動作確認ではない。初回MockではACKと応答を同時刻にした際の並び順差でRESP_TIMEOUTとなった。試験スクリプトだけをACK後1msの応答へ修正して再実行し、初回記録も保存。製品コード・通信仕様は変更していない。
+- 実ハード構成のcreate_fixture_appでローカル要求を直接確認。Self CheckはATE_UART／NF55_UART／RTC／LOGGERすべてOK、RTC_CHECK=OK、SD_STATUS=OK、COMM_STATUS=IDLE、LOG_DROP_COUNT=0。SDはmounted=True、stage=READY。UARTのOKは初期化状態であり、ATE物理往復・NF55G通信成立を示さない。
+- このローカル確認中はNF55G UART送信をガードし、送信試行0、Transactionなしを確認。FW_UPDATEはERR:FU_DISABLED、範囲外PARAMはERR:PARAMETER_RANGE、BC／履歴／FD／ERP等の未取得QueryはERR:CACHE_INVALID。全CacheはINVALID、TEST／連続Loggerは停止状態。配置前の実行状態は取得できておらず、配置前から停止状態だったとは判断しない。
+- 確認後に送信ガードを解除し、RAM上でapp.runを開始。実サービス処理5周期後のPICO_DEBUG_RUNTIME_RUNNINGを受信し、COM14をcloseして待受を継続。通常起動用/main.pyは配置照合済みだが、今回の電源再投入試験は未実施。
+- 最終コードの既存Host／Mockは256件成功（7.088秒、battery_check_host_mock_20261109_run02.log）。今回、製品へERP／読出し／PARAM／BC等は送信していない。Sample併用の実動作、ATE物理往復、設定読戻し・外部観測は今後の実機デバッグ対象。READ-FD-01、PARAM-IR-01、OI-06／07等のOpen Issueは未解決のまま。
+- 証跡: [配置SHA256](../temp/pico_debug_deploy_20261109_run01/deployment_manifest.json)、[退避一覧](../temp/pico_debug_deploy_20261109_run01/backup_manifest.json)、[Pico Mock結果](../temp/pico_debug_deploy_20261109_run01/pico_mock_smoke.stdout.txt)、[ローカル確認](../temp/pico_debug_deploy_20261109_run01/local_check.json)、[待受起動・COM解放](../temp/pico_debug_deploy_20261109_run01/runtime_result.json)。退避実体は同フォルダのpico_before配下。
+
+## 2026-11-09 COM6 開発用Pico 2 クリーン配置
+
+- ユーザー指示によりCOM6の開発用Pico 2へ配置。unique_id=69f7d45962cfdfad、MicroPython v1.27.0（2025-12-09）、RP2350。COM14の既存機とは別個体。UF2は更新していない。
+- 既存内部ファイルは/Main.pyのみ。13009byteをpico_before/Main.pyへ退避し、SHA256を照合後に当該ファイルを削除。ルートが空になったことを確認して/srcの24ファイルと通常起動用/main.pyを最後に配置した。再帰削除・SD初期化は実施していない。
+- 全25ファイルの読戻しSHA256が現行PCソースに一致し、直前のCOM14配置マニフェストとも一致。MicroPython v1.27.0上でcompile25件、RAM Mock31ケース成功。製品コマンド送信なし。
+- ユーザーの追加指示前の初期化確認ではRTC_CHECK=NG、SD_STATUS=MOUNT_ERR（CARD_INIT、CMD0 failed: -1）、自己診断はRTC=NG／LOGGER=MOUNT_ERR。これは確認時の応答であり、部品未装着・配線・カード等の原因は未確認。正常のCOM14機と混同しない。
+- app.runのサービス5周期を確認してCOM6を解放済み。今回の電源再投入試験は未実施。Cacheは全INVALID、Logger／TESTは停止、確認区間のNF55G送信試行0。
+- 最終指示「PICO書込みまでとして、RTC・SDはハード組立後にチェック」に従い、今回は書込み完了で終了する。RTC・SDの再試験／原因調査、ATE／NF55G物理疎通は行わず、ハード組立後へ引き継ぐ。製品PASS／FAIL判定は行っていない。
+- 証跡: [配置照合](../temp/pico_dev_com6_20261109_run01/deployment_manifest.json)、[旧ファイル退避一覧](../temp/pico_dev_com6_20261109_run01/backup_manifest.json)、[Pico Mock](../temp/pico_dev_com6_20261109_run01/pico_mock_smoke.stdout.txt)、[初期化時の記録](../temp/pico_dev_com6_20261109_run01/local_check.json)、[待受起動](../temp/pico_dev_com6_20261109_run01/runtime_result.json)。
+
+## 2026-11-09 開発用COM6機 RTC・SD装着後の受入確認
+
+- ユーザーがPico 2・RTC・SD装着を報告し受入確認を指示。COM6、unique_id=69f7d45962cfdfad、MicroPython v1.27.0を照合。配置25ファイルは13:18の配置マニフェストと全件一致。照合時のPCソースとは3ファイルに差分があるが、今回の受入では再配置していない。COM14既存機・COM20にはアクセスしていない。
+- RTCは0x68を認識し、20261109_165650の設定・同値読戻し、2.1秒後165652への進行を確認。status=0x88→0x08。製品SCは送信せずPico側RTCだけを設定した。
+- SDはカード初期化成功後、VFS_MOUNTでOSError(19)、MOUNT_ERR。先頭セクタEXFAT署名、241745920セクタ（123773911040byte）を読取確認。ユーザーの「現在のSDカードのFAT32初期化を許可する（全データ消去）」を受領後、対象固有ID・容量・既存署名・未マウント・試験停止を再照合してVfsFat.mkfsを実行。97897msで完了しSD_REINIT=OK、READY。最終はMBR type0x0C、LBA63のFAT32署名を確認した。他のカード・元機は初期化していない。
+- USB REPLから共通Command Coreを直接実行しTEST_START / END=OK、試験中SD_REINIT=ERR:BUSY、専用マーカー64件を各1回保存・読戻し。CSVは全73データ行、5177byte、drop累積0・試験0。終了後の再マウントで全内容一致、Self CheckはRTC / LOGGER / TEST_LOGGER / TEST_LOG_DROPを含めOK。ATE物理UARTの往復試験ではない。
+- ユーザーが約30秒の全給電断・再接続を2回実施と報告。SDは起動329ms / 543msでREADYとなり、CSVのSHA-256は再マウント・電源断前後とも204666d0fa7ecbbfc8f3c8427534b76cf92c382b1ddcf8a6031100d7d9a17bf2で一致した。
+- RTCは電源断後、1回目20000101_000028、再設定後の2回目も20000101_000013へ戻りstatus=0x88。再設定時のcontrol=0x1C（EOSC=0）・status=0x08・時刻進行は正常。ユーザーの「新しいRTCなので設定が必要」に従って再設定・再試験したが保持不成立。電池・VBAT・接触等の実測はなく原因未確定。DEV-RTC-01をOpenで追加し、総合受入は保留とした。RTC_CHECKのOKは保持試験の合格ではない。
+- 最終は通電中利用のため20261109_170706へ再設定。SD OK、通信IDLE、TEST / Logger停止、破棄0を確認後、同じ開発機のapp.runを再開し5周期の起動マーカーを受信してCOM6を解放。受入のRTC・ログ確認区間はNF55G UART送信をガードし試行0、Transaction=None。製品コマンド・FU送信なし。コード変更・Host / Mock再実行・製品PASS / FAIL判定なし。
+- [受入記録](Development_Unit_Acceptance_20261109.md)、[実機証跡一式](../temp/dev_acceptance_20261109_run01/)、[回収CSV](../temp/dev_acceptance_20261109_run01/20261109_170035.csv)、[最終状態](../temp/dev_acceptance_20261109_run01/final.json)。長時間記録・全容量書込み・カード抜去・量産Timing・実ATE / NF55G結合は未確認。
+
+## 2026-11-09 開発機COM6／ATE COM20でのNF55G接続確認
+
+- ユーザーがNF55Gと治具の通信ケーブル接続済み・NF55G電源ONと回答。開発機COM6（固有ID 69f7d45962cfdfad）、ATE COM20で確認。COM20は115200bps／8N1／CRLF。ローカルの`*IDN?`=`NF55G_PICO_FIXTURE,Rev.0`、`RTC_DATETIME?`=`20261109_173249`、`COMM_STATUS?`=`OK:state=IDLE`、`SD_STATUS?`=`OK`。
+- 製品への読出しを1回ずつ実施。`STATUS_REFRESH`（D1）=`OK`、続くCache Query `PS_ON?`=`1`、`RETRY_COUNT?`=`OK:cmd=0,rsp=0`。`INFO_REFRESH`（D5）=`OK`、続く`FW_REV?`=`S1.13`、再送0、通信IDLE。プロトコル上の正常応答であり製品PASS判定ではない。
+- COM20がCOM6の開発機につながることを確認するため、COM6をraw REPLで停止し固有IDを読んだ間のCOM20 `*IDN?`は無応答。COM6の通常起動を再開した後のCOM20 `*IDN?`は正常応答。COM6／COM20は解放済み。
+- NF55Gへ送信したのはD1/D5のみ。制御・設定・CLEAR・FU送信なし。製品出力・量産Timing・RTC電源断保持は未確認。詳細応答は[D1結果](../temp/dev_acceptance_20261109_run01/nf55_link_status.json)と[D5結果](../temp/dev_acceptance_20261109_run01/nf55_link_info.json)。
+
+## 2026-11-09 開発機の実装済みATEコマンド実機デバッグ
+
+- COM6開発機／COM20 ATE／FW S1.13、ユーザー申告でバッテリ・負荷なし。D0/D1/D5、EL全4ブロック、OL全8ブロックを取得し、DATA43・STATUS37・INFO26項目と各履歴Queryを照合。代表CSVのD0/D1/D5/EL/OL応答長327/15/100/82/82、BCC一致、再送0。
+- D2はSC前に2回ERR:SQE。CLOCK_SYNC 261109174156=OK後はD2=OK・DATA30文字、再送0。NF55G日時は事前20260401_042601、設定後20261109_174156。受付条件の解釈はD2-PS-01でOpen継続。
+- ERP4組合せを順に送信し、各SE後のSTATUS無効化と明示D1後のBURST/PS_OFF_CHARGE読戻し一致を確認。元の0/0へ復元。BURST_ON=0のままで外部バースト動作は未測定。
+- 現行D5のParameter RAW50文字をPARAM_SETで同値書戻し、EVENT_ENABLE現値0を項目別SPで同値設定。各SP後INFO無効化、D5全26項目と100文字RAWが前・中・後で一致。両SP正常応答DATA0文字。項目別SPの送信RAW CSV行1件に列欠けがありLOGGER-CSV-01をOpenで追加。
+- FW_UPDATE等のローカル拒否を確認し、拒否試験CSVにはNF55フレーム0。339応答の無間隔区間で試験ログ391件破棄・Self Check NG。75ms間隔の106 Queryおよび以後の区間は当該試験のdrop0。LOGGER-BURST-01をOpenで追加。
+- 最終はPS_ON=1、BATT_ON=0、BURST/PS_OFF_CHARGE=0/0、SD OK、通信IDLE、累積drop0。製品PASS判定なし。コード・Pico配置変更なし。詳細は[開発機コマンド実機デバッグ](Development_Unit_Command_Debug_20261109.md)。
+
+## 2026-11-09 CSV列欠けの再現確認・前報訂正
+
+- ユーザー指定のATE速度は0.1秒に1コマンド送受信程度、それ以上速くしない。最終試験は高分解能時計で送信間隔101ms以上を確保し、前応答完了を待った。117コマンド、実測最短101.0623ms、ログ破棄0、Self Check OK。14499 byteのCSVは全239行14列、SD/PC SHA-256一致。
+- 元のPARAM CSVをSD上で直接ハッシュ計算し分割回収したところ、SDは12657 byte、旧PCコピーは12561 byte。欠けていた96 byteはSD原本に存在し、全201行14列、SP/D5全10フレームBCC一致。ERPもSD8835 byteに対し旧PCコピー32 byte不足。SD保存時の列欠けとした前報を訂正する。
+- 同じPARAM原本の一括REPL HEX出力は3回ともPC回収時に64/64/32 byte欠落が再現。256 byte分割＋長さ・SD/PC SHA-256確認へ試験用回収方法を変更。旧PCコピーは保持し正常回収版を別保存。FW・製品設定変更なし、今回SP送信なし。
+- 通常アプリを再開しCOM20 ID応答を確認、COM6/COM20解放。LOGGER-CSV-01／LOGGER-BURST-01は追加証拠を記載しOpen継続。詳細・証跡は[CSV回収再確認](CSV_Log_Recovery_Recheck_20261109.md)。
+
+## 2026-11-10 項目別PARAM実変更・復元の継続確認
+
+- 前日18:08～18:09 JSTに通常10項目を1つずつ代表値へ変更し、明示D5で読戻した後、各項目を元値へ復元済み。608 ATE要求、最短送信間隔101.0453ms、終了時drop0・Self Check OK。継続時にプロセス完了と保存結果を確認した。
+- SDの20261109_180800.csvを256 byte分割回収。88307 byte・1405行14列、SD/PC SHA-256一致。SP20件・D5 21件が正常、再送0、82フレームBCC一致。変更時は対象欄のみ変化、各復元後D5全100文字が一致。
+- 08:02 JSTの現在値再確認でもINFO全26項目が元値と一致。Self Check/SD正常、通信IDLE、COM6/COM20解放。コード変更・再配置なし。実動作・電源切入保持・RTC電池保持は未確認。詳細は[項目別PARAM実機記録](Parameter_Item_Hardware_Test_20261110.md)。
+
+## 2026-11-10 BURST／PS_OFF_CHARGE 継続準備
+
+- Host／Mock全273件成功。COM20のローカル診断で通信IDLE、自己診断／RTC／SD正常、ログ破棄0を確認しポート解放。NF55G指令・設定変更・配置は今回未実施。
+- ERP全4組合せの通信・読戻し・復元は前回確認済み。今回の外部BURST動作とPS_OFF充電比較は、電源・バッテリ／負荷・信号操作条件をユーザーへ確認中。実動作成立は未確認、ERP-CONDITION-01はOpen継続。
+- 証跡・次の試験は[ERP継続準備](ERP_Precheck_20261110.md)。変更は記録とローカル診断スクリプトのみ。
+
+- 再開後、ユーザーがCOM6／COM20、NF55G電源ON・通信接続、バッテリ／負荷なし、BURST・PS_ON操作可能と回答。12:23 JSTの明示D1はPS_ON=1、BATT_ON=0、BURST_ON=0、BURST／PS_OFF_CHARGE=0/0、BC実行なし、再送0。TEST_END後自己診断／SD正常、破棄0、IDLE。外部BURST反転を依頼し操作回答待ち。設定変更なし。詳細・証跡は上記ERP継続準備へ追記。
+- 12:25 JST、ユーザー申告BURST OFFで明示D1のBURST_ON=0を確認。PS_ON=1、ERP設定0/0、再送・破棄0、自己診断／SD正常、IDLE。操作前も0のため切替検出とは扱わず、次のBURST ON操作を依頼。設定変更なし。証跡は[ERP継続記録](ERP_Precheck_20261110.md)。
+- 12:27～12:28 JST、BURST ON申告後もD1のBURST_ON=0。ERP_SET_1_0→明示D1で設定1/0、入力0を確認し、ERP_SET_0_0→D1で元値復元済み。終了時自己診断／SD正常、再送・破棄0、IDLE。ユーザー説明はONでGND接続。ユーザー側で開放／閉路とON/OFFを整理して試験するため操作待機。端子実測と原因は未確認、CSV回収・BCC照合は未完了。詳細・ATE JSONは[ERP継続記録](ERP_Precheck_20261110.md)。

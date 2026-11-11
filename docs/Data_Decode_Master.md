@@ -179,3 +179,13 @@ AR REF final wire format is Open Issue.
 ## 16. FD
 Logical 32 bytes -> Wire 64 ASCII HEX.
 ATE returns 64 ASCII HEX unchanged.
+
+## 2026-11-09 EL／OL日時のATE表記
+
+r1 p.34のルール②に従い、各日時欄のASCII HEXを10進2桁へ変換してDATEHOURへ格納する。例: RAW 1A0B0910→26110916。DATEHOUR_RAWには元の8文字も保持する。日時の全桁HEX・暦・時を検証し、不正値を含む8件ブロックをVALIDへ採用しない。全ゼロ日時は空履歴表記00000000を保持し、ID FFは255へ変換する。製品仕様の2/29→3/1記録やSC前の時刻誤差は補正しない。FDは64 ASCII HEX全桁検証後、FD_RAWをそのまま返す。
+
+2026-11-09 BC専用Decode: decode_bcは予約6文字を含む全30文字のASCII HEXを検証し、既存LIFE_DIAGの8項目をBC_接頭辞付きで返す。MODEのHEX B／C／Dは10進11／12／13。MODEに基づくゼロ補完やPASS／FAIL判定をしない。予約領域をQueryへ追加せず、受信値の0以外を別FW形式へ置換しない。
+
+## 2026-11-09 SL設定値の読戻し
+
+SLの設定後はD0の積算データBATT_DEGを使用する（r1 p.41: SET LIFEでセットされた値）。現行名BATT_DEG_TOTAL?、D0 DATAの0始まり162～164文字、3桁HEX整数÷10％。FFFは409.5として既存変換のまま返し、保守用電源識別値であることをATEにて区別する。LIFE_BATT_DEG?は別の寿命計算欄であり、SL設定値の主読戻しと混同しない。不正HEX読戻しは既存DECODE失敗とし、旧Cache復活や値補正をしない。Decoder仕様自体は変更なし。

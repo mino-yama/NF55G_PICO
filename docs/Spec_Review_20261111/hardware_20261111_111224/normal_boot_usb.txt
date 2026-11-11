@@ -1,0 +1,5 @@
+>
+MicroPython v1.27.0 on 2025-12-09; Raspberry Pi Pico2 with RP2350
+Type "help()" for more information.
+>>> 
+MPY: soft reboot

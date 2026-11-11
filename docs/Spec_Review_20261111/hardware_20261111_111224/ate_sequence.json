@@ -1,0 +1,726 @@
+{
+  "started_jst": "2026-11-11T11:15:12.509787+09:00",
+  "port": "COM20",
+  "baudrate": 115200,
+  "commands": [
+    {
+      "command": "*IDN?",
+      "sent_jst": "2026-11-11T11:15:12.841444+09:00",
+      "sent_elapsed_s": 0.3313209000043571,
+      "response": "NF55G_PICO_FIXTURE,Rev.0",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d0a",
+      "received_elapsed_s": 0.3385530000086874,
+      "response_ms": 7.233999989693984
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T11:15:13.015642+09:00",
+      "sent_elapsed_s": 0.504883699992206,
+      "response": "OK:state=IDLE",
+      "raw_hex": "4f4b3a73746174653d49444c450d0a",
+      "received_elapsed_s": 0.5117313000082504,
+      "response_ms": 6.848599994555116
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T11:15:13.190111+09:00",
+      "sent_elapsed_s": 0.6796635999926366,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 0.6844230999995489,
+      "response_ms": 4.760000010719523
+    },
+    {
+      "command": "RTC_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:13.361935+09:00",
+      "sent_elapsed_s": 0.8512298999994528,
+      "response": "20261111_111513",
+      "raw_hex": "32303236313131315f3131313531330d0a",
+      "received_elapsed_s": 0.8600158999906853,
+      "response_ms": 8.786399994278327
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:13.549303+09:00",
+      "sent_elapsed_s": 1.037897600006545,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 1.047664799989434,
+      "response_ms": 9.767899988219142
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T11:15:13.735456+09:00",
+      "sent_elapsed_s": 1.2247501999954693,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 1.4087200000067241,
+      "response_ms": 183.97020001430064
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:14.086849+09:00",
+      "sent_elapsed_s": 1.5762726999819279,
+      "response": "ERR:CACHE_INVALID",
+      "raw_hex": "4552523a43414348455f494e56414c49440d0a",
+      "received_elapsed_s": 1.5829232999822125,
+      "response_ms": 6.652300013229251
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:15:14.268445+09:00",
+      "sent_elapsed_s": 1.7578442000085488,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 1.8046240999829024,
+      "response_ms": 46.78049997892231
+    },
+    {
+      "command": "PS_ON?",
+      "sent_jst": "2026-11-11T11:15:14.483840+09:00",
+      "sent_elapsed_s": 1.9732987000024877,
+      "response": "1",
+      "raw_hex": "310d0a",
+      "received_elapsed_s": 1.9791242000064813,
+      "response_ms": 5.826199980219826
+    },
+    {
+      "command": "BATT_ON?",
+      "sent_jst": "2026-11-11T11:15:14.668524+09:00",
+      "sent_elapsed_s": 2.1583158999856096,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 2.164382699993439,
+      "response_ms": 6.067300011636689
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:15:14.872994+09:00",
+      "sent_elapsed_s": 2.3628904999932274,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 2.453504899982363,
+      "response_ms": 90.61519999522716
+    },
+    {
+      "command": "FW_REV?",
+      "sent_jst": "2026-11-11T11:15:15.134393+09:00",
+      "sent_elapsed_s": 2.6253312999906484,
+      "response": "S1.13 ",
+      "raw_hex": "53312e3133200d0a",
+      "received_elapsed_s": 2.633744499995373,
+      "response_ms": 8.413800009293482
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:15.339212+09:00",
+      "sent_elapsed_s": 2.828765199985355,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 3.0732637000037357,
+      "response_ms": 244.49900002218783,
+      "sample_number": 1
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:15.751701+09:00",
+      "sent_elapsed_s": 3.2409373999980744,
+      "response": "20261111_111515",
+      "raw_hex": "32303236313131315f3131313531350d0a",
+      "received_elapsed_s": 3.2500999000039883,
+      "response_ms": 9.163100010482594
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:15.926232+09:00",
+      "sent_elapsed_s": 3.4158387999923434,
+      "response": "12.01",
+      "raw_hex": "31322e30310d0a",
+      "received_elapsed_s": 3.424743599985959,
+      "response_ms": 8.905399998184294
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:16.104834+09:00",
+      "sent_elapsed_s": 3.594103899988113,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 3.688069399999222,
+      "response_ms": 93.96620001643896
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:16.372267+09:00",
+      "sent_elapsed_s": 3.8615107999939937,
+      "response": "0.003",
+      "raw_hex": "302e3030330d0a",
+      "received_elapsed_s": 3.868449100002181,
+      "response_ms": 6.938700011232868
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:16.548872+09:00",
+      "sent_elapsed_s": 4.0383996999880765,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 4.046015600004466,
+      "response_ms": 7.6163000194355845
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:16.728497+09:00",
+      "sent_elapsed_s": 4.218817899993155,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 4.463730199990096,
+      "response_ms": 244.91280000074767,
+      "sample_number": 2
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:17.149710+09:00",
+      "sent_elapsed_s": 4.639162799983751,
+      "response": "20261111_111516",
+      "raw_hex": "32303236313131315f3131313531360d0a",
+      "received_elapsed_s": 4.648611899989191,
+      "response_ms": 9.44960000924766
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:17.330922+09:00",
+      "sent_elapsed_s": 4.820142999989912,
+      "response": "11.994",
+      "raw_hex": "31312e3939340d0a",
+      "received_elapsed_s": 4.8279995000048075,
+      "response_ms": 7.85700001870282
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:17.506627+09:00",
+      "sent_elapsed_s": 4.995843799988506,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 5.002566099981777,
+      "response_ms": 6.723099999362603
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:17.681771+09:00",
+      "sent_elapsed_s": 5.171455000003334,
+      "response": "0.003",
+      "raw_hex": "302e3030330d0a",
+      "received_elapsed_s": 5.180507299985038,
+      "response_ms": 9.052899986272678
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:17.862087+09:00",
+      "sent_elapsed_s": 5.3513914000068326,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 5.361026200000197,
+      "response_ms": 9.635299997171387
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:18.044563+09:00",
+      "sent_elapsed_s": 5.534583000000566,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 5.780254099983722,
+      "response_ms": 245.67149998620152,
+      "sample_number": 3
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:18.459336+09:00",
+      "sent_elapsed_s": 5.948689299984835,
+      "response": "20261111_111518",
+      "raw_hex": "32303236313131315f3131313531380d0a",
+      "received_elapsed_s": 5.957423399988329,
+      "response_ms": 8.734700008062646
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:18.635497+09:00",
+      "sent_elapsed_s": 6.124706700007664,
+      "response": "12.01",
+      "raw_hex": "31322e30310d0a",
+      "received_elapsed_s": 6.130610099993646,
+      "response_ms": 5.903999990550801
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:18.812961+09:00",
+      "sent_elapsed_s": 6.302204400009941,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 6.307780900009675,
+      "response_ms": 5.577099975198507
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:19.011747+09:00",
+      "sent_elapsed_s": 6.501929299993208,
+      "response": "0.006",
+      "raw_hex": "302e3030360d0a",
+      "received_elapsed_s": 6.509447499993257,
+      "response_ms": 7.518700003856793
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:19.219139+09:00",
+      "sent_elapsed_s": 6.710053199989488,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 6.7171194999828,
+      "response_ms": 7.066899997880682
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:19.398585+09:00",
+      "sent_elapsed_s": 6.8877751999825705,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 7.133603800000856,
+      "response_ms": 245.8298000274226,
+      "sample_number": 4
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:20.008419+09:00",
+      "sent_elapsed_s": 7.4977686000056565,
+      "response": "20261111_111519",
+      "raw_hex": "32303236313131315f3131313531390d0a",
+      "received_elapsed_s": 7.507784999994328,
+      "response_ms": 10.016899992479011
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:20.251407+09:00",
+      "sent_elapsed_s": 7.7410854999907315,
+      "response": "12.014",
+      "raw_hex": "31322e3031340d0a",
+      "received_elapsed_s": 7.749270300002536,
+      "response_ms": 8.185500017134473
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:20.451716+09:00",
+      "sent_elapsed_s": 7.940887800010387,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 7.948300799995195,
+      "response_ms": 7.4136999901384115
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:20.630641+09:00",
+      "sent_elapsed_s": 8.120268900005613,
+      "response": "0.003",
+      "raw_hex": "302e3030330d0a",
+      "received_elapsed_s": 8.12780990000465,
+      "response_ms": 7.541999977547675
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:20.818196+09:00",
+      "sent_elapsed_s": 8.307660999998916,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 8.343307000002824,
+      "response_ms": 35.646500007715076
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:21.029967+09:00",
+      "sent_elapsed_s": 8.519951299997047,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 8.764888999983668,
+      "response_ms": 244.93819999042898,
+      "sample_number": 5
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:21.447550+09:00",
+      "sent_elapsed_s": 8.936719699995592,
+      "response": "20261111_111521",
+      "raw_hex": "32303236313131315f3131313532310d0a",
+      "received_elapsed_s": 8.945754299988039,
+      "response_ms": 9.035099996253848
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:21.633884+09:00",
+      "sent_elapsed_s": 9.12303739998606,
+      "response": "12.014",
+      "raw_hex": "31322e3031340d0a",
+      "received_elapsed_s": 9.132351899985224,
+      "response_ms": 9.315100003732368
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:21.812590+09:00",
+      "sent_elapsed_s": 9.30174649998662,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 9.30953359999694,
+      "response_ms": 7.787600014125928
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:21.988509+09:00",
+      "sent_elapsed_s": 9.4776683000091,
+      "response": "0.006",
+      "raw_hex": "302e3030360d0a",
+      "received_elapsed_s": 9.486079199996311,
+      "response_ms": 8.411699993303046
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:22.162926+09:00",
+      "sent_elapsed_s": 9.652081400010502,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 9.66116299998248,
+      "response_ms": 9.082399978069589
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:22.343047+09:00",
+      "sent_elapsed_s": 9.832369299983839,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 10.076265000010608,
+      "response_ms": 243.89630000223406,
+      "sample_number": 6
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:22.830805+09:00",
+      "sent_elapsed_s": 10.321766699984437,
+      "response": "20261111_111522",
+      "raw_hex": "32303236313131315f3131313532320d0a",
+      "received_elapsed_s": 10.33278669998981,
+      "response_ms": 11.020800011465326
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:23.100973+09:00",
+      "sent_elapsed_s": 10.59191409999039,
+      "response": "12.002",
+      "raw_hex": "31322e3030320d0a",
+      "received_elapsed_s": 10.602017299999716,
+      "response_ms": 10.103600012371317
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:23.303064+09:00",
+      "sent_elapsed_s": 10.792420899990248,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 10.802826700004516,
+      "response_ms": 10.407299996586516
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:23.487617+09:00",
+      "sent_elapsed_s": 10.97723039999255,
+      "response": "0.006",
+      "raw_hex": "302e3030360d0a",
+      "received_elapsed_s": 10.985077099991031,
+      "response_ms": 7.847200002288446
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:23.682237+09:00",
+      "sent_elapsed_s": 11.17203069999232,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 11.180459600000177,
+      "response_ms": 8.429500012425706
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:23.864715+09:00",
+      "sent_elapsed_s": 11.35386559998733,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 11.598405400000047,
+      "response_ms": 244.54030001652427,
+      "sample_number": 7
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:24.331684+09:00",
+      "sent_elapsed_s": 11.821231499983696,
+      "response": "20261111_111523",
+      "raw_hex": "32303236313131315f3131313532330d0a",
+      "received_elapsed_s": 11.830384300003061,
+      "response_ms": 9.1534000239335
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:24.517717+09:00",
+      "sent_elapsed_s": 12.006974399992032,
+      "response": "12.01",
+      "raw_hex": "31322e30310d0a",
+      "received_elapsed_s": 12.013297400000738,
+      "response_ms": 6.323400011751801
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:24.729980+09:00",
+      "sent_elapsed_s": 12.21982259998913,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 12.22708009998314,
+      "response_ms": 7.258199999341741
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:25.037080+09:00",
+      "sent_elapsed_s": 12.526353099994594,
+      "response": "0.003",
+      "raw_hex": "302e3030330d0a",
+      "received_elapsed_s": 12.533339199988404,
+      "response_ms": 6.986699998378754
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:25.279856+09:00",
+      "sent_elapsed_s": 12.769548599986592,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 12.778124700009357,
+      "response_ms": 8.576699998229742
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:25.535437+09:00",
+      "sent_elapsed_s": 13.02488749998156,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 13.268035699991742,
+      "response_ms": 243.14870001398958,
+      "sample_number": 8
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:26.048286+09:00",
+      "sent_elapsed_s": 13.537419100000989,
+      "response": "20261111_111525",
+      "raw_hex": "32303236313131315f3131313532350d0a",
+      "received_elapsed_s": 13.546262499992736,
+      "response_ms": 8.843899995554239
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:26.235043+09:00",
+      "sent_elapsed_s": 13.724911199999042,
+      "response": "12.021",
+      "raw_hex": "31322e3032310d0a",
+      "received_elapsed_s": 13.733730200008722,
+      "response_ms": 8.81999998819083
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:26.437158+09:00",
+      "sent_elapsed_s": 13.926628299988806,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 13.936234900000272,
+      "response_ms": 9.607500018319115
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:26.780417+09:00",
+      "sent_elapsed_s": 14.2694319000002,
+      "response": "0.006",
+      "raw_hex": "302e3030360d0a",
+      "received_elapsed_s": 14.282033700001193,
+      "response_ms": 12.602300004800782
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:27.046120+09:00",
+      "sent_elapsed_s": 14.535767399996985,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 14.545402399991872,
+      "response_ms": 9.635499998694286
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:27.302976+09:00",
+      "sent_elapsed_s": 14.792197300004773,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 15.036657399992691,
+      "response_ms": 244.46059999172576,
+      "sample_number": 9
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:27.723479+09:00",
+      "sent_elapsed_s": 15.213187999994261,
+      "response": "20261111_111527",
+      "raw_hex": "32303236313131315f3131313532370d0a",
+      "received_elapsed_s": 15.221593099995516,
+      "response_ms": 8.405800006585196
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:27.948022+09:00",
+      "sent_elapsed_s": 15.43770609999774,
+      "response": "12.002",
+      "raw_hex": "31322e3030320d0a",
+      "received_elapsed_s": 15.44425629999023,
+      "response_ms": 6.550799997057766
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:28.208981+09:00",
+      "sent_elapsed_s": 15.698013099987293,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 15.704876000003424,
+      "response_ms": 6.863700022222474
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:28.513184+09:00",
+      "sent_elapsed_s": 16.00291219999781,
+      "response": "0.003",
+      "raw_hex": "302e3030330d0a",
+      "received_elapsed_s": 16.01046220000717,
+      "response_ms": 7.550599984824657
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:28.713092+09:00",
+      "sent_elapsed_s": 16.20218870000099,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 16.2107493999938,
+      "response_ms": 8.561199996620417
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T11:15:29.080218+09:00",
+      "sent_elapsed_s": 16.56980949998251,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 16.81532279998646,
+      "response_ms": 245.5138000077568,
+      "sample_number": 10
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T11:15:29.543794+09:00",
+      "sent_elapsed_s": 17.0335536999919,
+      "response": "20261111_111529",
+      "raw_hex": "32303236313131315f3131313532390d0a",
+      "received_elapsed_s": 17.044459500000812,
+      "response_ms": 10.906400013482198
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T11:15:29.994299+09:00",
+      "sent_elapsed_s": 17.483748800004832,
+      "response": "11.99",
+      "raw_hex": "31312e39390d0a",
+      "received_elapsed_s": 17.49201990000438,
+      "response_ms": 8.271600003354251
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T11:15:30.202379+09:00",
+      "sent_elapsed_s": 17.691834299999755,
+      "response": "0.056",
+      "raw_hex": "302e3035360d0a",
+      "received_elapsed_s": 17.70023950000177,
+      "response_ms": 8.406100008869544
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T11:15:30.495730+09:00",
+      "sent_elapsed_s": 17.984778599988203,
+      "response": "0.006",
+      "raw_hex": "302e3030360d0a",
+      "received_elapsed_s": 17.99381970000104,
+      "response_ms": 9.041600016644225
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:30.682644+09:00",
+      "sent_elapsed_s": 18.172420299990335,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 18.182232599996496,
+      "response_ms": 9.81270000920631
+    },
+    {
+      "command": "FW_REV?",
+      "sent_jst": "2026-11-11T11:15:30.993474+09:00",
+      "sent_elapsed_s": 18.480278700008057,
+      "response": "S1.13 ",
+      "raw_hex": "53312e3133200d0a",
+      "received_elapsed_s": 18.490759599982994,
+      "response_ms": 10.481799981789663
+    },
+    {
+      "command": "TEST_END",
+      "sent_jst": "2026-11-11T11:15:31.185954+09:00",
+      "sent_elapsed_s": 18.675338300003204,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 18.808545100007905,
+      "response_ms": 133.20739998016506
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T11:15:31.582798+09:00",
+      "sent_elapsed_s": 19.07197809999343,
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK",
+      "raw_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b3b544553545f4c4f474745523d4f4b3b544553545f4c4f475f44524f503d4f4b0d0a",
+      "received_elapsed_s": 19.349330900004134,
+      "response_ms": 277.3534000152722
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T11:15:32.537708+09:00",
+      "sent_elapsed_s": 20.026791999989655,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "received_elapsed_s": 20.034485999989556,
+      "response_ms": 7.6951000082772225
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:15:32.953592+09:00",
+      "sent_elapsed_s": 20.442642200010596,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "received_elapsed_s": 20.449626999994507,
+      "response_ms": 6.985199986957014
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T11:15:33.134623+09:00",
+      "sent_elapsed_s": 20.62357090000296,
+      "response": "OK:state=IDLE",
+      "raw_hex": "4f4b3a73746174653d49444c450d0a",
+      "received_elapsed_s": 20.633646600006614,
+      "response_ms": 10.07639997988008
+    }
+  ],
+  "completed": true,
+  "scope": "D1/D5 read, D0 ten times; no SC/SET/CLEAR/FU",
+  "rtc_before": "20261111_111513",
+  "ps_on": "1",
+  "batt_on": "0",
+  "product_fw": "S1.13 ",
+  "finished_jst": "2026-11-11T11:15:33.163183+09:00"
+}

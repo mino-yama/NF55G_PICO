@@ -1,6 +1,6 @@
 # NF55G Pico 2 試験治具
 
-通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0  
 Date: 2026-09-01
 
@@ -25,7 +25,7 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 
 ## Hardware baseline
 - MCU: Raspberry Pi Pico 2
-- Base board: SeeedStudio 103030397 (GPIO EXPANDER QUAD RASPBERRY PI PICO)
+- Base board: Pico-Quad-Expander（2026-11-10ユーザー指定。RTC／SD／RS232C各基板を同基板経由で接続。従来記録の識別名はSeeedStudio 103030397 / GPIO EXPANDER QUAD RASPBERRY PI PICO。現物のメーカー・品番表記の照合は未実施）
 - RS232: Waveshare Pico-2CH-RS232
   - ATE: GP0/GP1
   - NF55G: GP4/GP5
@@ -48,7 +48,7 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 - BCC: CMD ID から ETX まで XOR、STX は除外
 - Pico Command Retry: max 1
 - Pico T1: 200 ms provisional
-- D0 T2: 600 ms provisional
+- D0 T2: 300 ms（2026-11-11ユーザー指定、r2事前確認版p.17／28を部分採用）
 
 ## Development order
 Windows の環境導入手順と導入状況: [Development Environment](docs/Development_Environment.md)
@@ -89,3 +89,7 @@ NF55G_Pico/
 ## Important
 Do not start by implementing control commands against real hardware.
 First complete Host Unit Tests and Mock NF55G tests.
+
+## 最新の治具接続・改造図（2026-11-11）
+
+[治具図Rev.4：接続・GPIO・Type_C2改造箇所と手順、A4横5枚](docs/drawings/NF55G_Fixture_20261111_Rev4/README.md)。改造は実機確認の直前に案内し、現在は未施工。旧Rev.3以前とメーカー原典は保持。

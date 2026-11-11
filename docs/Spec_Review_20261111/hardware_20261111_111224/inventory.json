@@ -1,0 +1,218 @@
+{
+  "started_jst": "2026-11-11T11:13:09.869848+09:00",
+  "files": [
+    {
+      "path": "main.py",
+      "bytes": 230,
+      "pico_sha256": "b0b2a60bdabebe7f7f576039755b6e135be3731f9a2470d991b95ca540a21b93"
+    },
+    {
+      "path": "src/__init__.py",
+      "bytes": 173,
+      "pico_sha256": "e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3",
+      "workspace_sha256": "e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/ate_server.py",
+      "bytes": 2098,
+      "pico_sha256": "9f3546f9e2eb9f41656bcd8d5f18fcb7903743d92f98d9f16f5cea3f3b073940",
+      "workspace_sha256": "9f3546f9e2eb9f41656bcd8d5f18fcb7903743d92f98d9f16f5cea3f3b073940",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/ate_uart.py",
+      "bytes": 1468,
+      "pico_sha256": "b2ee951103d8f0b95d785a39e78a32c97457d0858f134d92c86f62f02d2825f6",
+      "workspace_sha256": "b2ee951103d8f0b95d785a39e78a32c97457d0858f134d92c86f62f02d2825f6",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/cache_manager.py",
+      "bytes": 2456,
+      "pico_sha256": "316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea",
+      "workspace_sha256": "316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/command_dispatcher.py",
+      "bytes": 14884,
+      "pico_sha256": "09da9ea2be4af0fe708814de3e93760ff6e920fa2038d95211f073cc11dcc5e9",
+      "workspace_sha256": "09da9ea2be4af0fe708814de3e93760ff6e920fa2038d95211f073cc11dcc5e9",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/command_parser.py",
+      "bytes": 4230,
+      "pico_sha256": "2aa51a0b8d3d2502ce17726669b8583c1ceef5f7c055254090d6ca5e75c2ea3a",
+      "workspace_sha256": "2aa51a0b8d3d2502ce17726669b8583c1ceef5f7c055254090d6ca5e75c2ea3a",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/config.py",
+      "bytes": 1991,
+      "pico_sha256": "4024dc1f13d5e433ad55b7c7b7dc86412b14dde75c0b588c795e25130be5c1f5",
+      "workspace_sha256": "e20defbba549d9f79161f6cc265bdc8f782a556249392381e6e2681b3eaf7384",
+      "matches_workspace": false
+    },
+    {
+      "path": "src/diagnostic.py",
+      "bytes": 3231,
+      "pico_sha256": "79f68255eb028de5505c066946a46c235851cd1612e70d3a9e1c93f1e27e01b6",
+      "workspace_sha256": "79f68255eb028de5505c066946a46c235851cd1612e70d3a9e1c93f1e27e01b6",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/frame.py",
+      "bytes": 2467,
+      "pico_sha256": "1d5beff86867c79c8fffe6054f349ba471fab7474b7ea5cd4b8959e99792790a",
+      "workspace_sha256": "1d5beff86867c79c8fffe6054f349ba471fab7474b7ea5cd4b8959e99792790a",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/logger.py",
+      "bytes": 14999,
+      "pico_sha256": "00ca3c61771ba1188c143e310f1382b10aa4f97efa607159808e2879b5ee7d0d",
+      "workspace_sha256": "00ca3c61771ba1188c143e310f1382b10aa4f97efa607159808e2879b5ee7d0d",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/main.py",
+      "bytes": 11333,
+      "pico_sha256": "4412586616cde0583c149a579a8777a5520d65d38e1e9e8ce4fddbe5320b60a0",
+      "workspace_sha256": "4412586616cde0583c149a579a8777a5520d65d38e1e9e8ce4fddbe5320b60a0",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/mock_nf55g.py",
+      "bytes": 6911,
+      "pico_sha256": "8194d5580d93c7f67c8206fe9c684e7a2fd111da4294f1a093f25a719f50f5e5",
+      "workspace_sha256": "8194d5580d93c7f67c8206fe9c684e7a2fd111da4294f1a093f25a719f50f5e5",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/models.py",
+      "bytes": 2512,
+      "pico_sha256": "abbc80b2cc065a3d96236e458b61e29bcbd7a732f3e2081dbc0bfb37a21a96b6",
+      "workspace_sha256": "abbc80b2cc065a3d96236e458b61e29bcbd7a732f3e2081dbc0bfb37a21a96b6",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/nf55_command.py",
+      "bytes": 13822,
+      "pico_sha256": "f900d3a11bb0e540faecb46cfb96e5d1104d3024f605e787c32bd742a42059eb",
+      "workspace_sha256": "f900d3a11bb0e540faecb46cfb96e5d1104d3024f605e787c32bd742a42059eb",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/nf55_decode.py",
+      "bytes": 12279,
+      "pico_sha256": "1998f4d762b273172961535338b7c8434dba097e906e77c6a86d0d43a899182b",
+      "workspace_sha256": "1998f4d762b273172961535338b7c8434dba097e906e77c6a86d0d43a899182b",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/nf55_event.py",
+      "bytes": 916,
+      "pico_sha256": "affc06a1f8ee27a9459f95cb25cf59ad4bb2b4aedd0481fda8bd113352bce3d0",
+      "workspace_sha256": "affc06a1f8ee27a9459f95cb25cf59ad4bb2b4aedd0481fda8bd113352bce3d0",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/nf55_protocol.py",
+      "bytes": 15936,
+      "pico_sha256": "efaa78b33a49a1f9590d5a9408af77f39cc306ca74e6729ccd5dfe5743754fcd",
+      "workspace_sha256": "efaa78b33a49a1f9590d5a9408af77f39cc306ca74e6729ccd5dfe5743754fcd",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/nf55_uart.py",
+      "bytes": 1846,
+      "pico_sha256": "1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b",
+      "workspace_sha256": "1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/pico_clock.py",
+      "bytes": 956,
+      "pico_sha256": "f8bc5096c18871d8e6a5ddffde8e8b27bd9a248f32b027438664737ee3c7278d",
+      "workspace_sha256": "f8bc5096c18871d8e6a5ddffde8e8b27bd9a248f32b027438664737ee3c7278d",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/qr_pio_rx.py",
+      "bytes": 3134,
+      "pico_sha256": "0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38",
+      "workspace_sha256": "0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/qr_reader.py",
+      "bytes": 4390,
+      "pico_sha256": "9129adfbb657f83e1317a08209b5d6d1b3dc8a5188915964397053afbb1fd906",
+      "workspace_sha256": "9129adfbb657f83e1317a08209b5d6d1b3dc8a5188915964397053afbb1fd906",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/rtc_driver.py",
+      "bytes": 6792,
+      "pico_sha256": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254",
+      "workspace_sha256": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/sd_card.py",
+      "bytes": 8607,
+      "pico_sha256": "d2b87a15f89ca40c28de2ebf8cbcbae4a24a388671641d6b988aee94b1ce9f56",
+      "workspace_sha256": "d2b87a15f89ca40c28de2ebf8cbcbae4a24a388671641d6b988aee94b1ce9f56",
+      "matches_workspace": true
+    },
+    {
+      "path": "src/sd_sink.py",
+      "bytes": 11837,
+      "pico_sha256": "5f58adf307a4134da640c1273826e27e770665fc45105976040479b387de6eb5",
+      "workspace_sha256": "5f58adf307a4134da640c1273826e27e770665fc45105976040479b387de6eb5",
+      "matches_workspace": true
+    }
+  ],
+  "inspection_completed": true,
+  "uid": "69f7d45962cfdfad",
+  "globals": [
+    "__file__",
+    "__name__",
+    "__thonny_helper",
+    "machine",
+    "main",
+    "rp2"
+  ],
+  "modules": [
+    "rp2",
+    "src",
+    "src.ate_server",
+    "src.ate_uart",
+    "src.cache_manager",
+    "src.command_dispatcher",
+    "src.command_parser",
+    "src.config",
+    "src.diagnostic",
+    "src.frame",
+    "src.logger",
+    "src.main",
+    "src.models",
+    "src.nf55_command",
+    "src.nf55_decode",
+    "src.nf55_event",
+    "src.nf55_protocol",
+    "src.nf55_uart",
+    "src.pico_clock",
+    "src.qr_reader",
+    "src.rtc_driver",
+    "src.sd_card",
+    "src.sd_sink"
+  ],
+  "root_names": [
+    "sd",
+    "main.py",
+    "src"
+  ]
+}

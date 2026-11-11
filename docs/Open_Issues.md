@@ -1,5 +1,44 @@
 # Open Issues
 
+## 2026-11-11 D1～D5各10回の受信時間比較（D4-TIM-01、Open継続）
+
+S1.13・PS_ON=1／BATT_ON=0、COM6／COM20でD1／D2／D3／D5を各10回測定。ACK後完全応答の平均／最大はD1=14.0／15ms、D2=22.0／23ms、D3=18.6／34ms、D5=58.9／74msで、現行T2内。通常40回は再送0・Protocol OK。D2準備のSC1回は母数から除外。
+
+D4は再送なし・Cache非採用のRAM観測で10回の完全応答を取得。CSV時刻の平均116.0ms・最大133ms、全回100ms超過（最小113ms）。1000msの測定窓は製品用T2への採用ではなく、現行D4=100ms、ソース、量産不使用方針を維持する。D4の通常Transaction10回成功とは扱わない。線上送出時刻・Pico受信負荷の寄与と最終仕様を確認し、D4-TIM-01はCloseしない。
+
+両CSVのSD／PC SHA-256、全102フレームBCC、全14列、標本数と平均の独立再検算が一致。ログ破棄0、通常待受復帰・COM解放済み。[結果・各回データ・方式の区別](Spec_Review_20261111/D1_D5_Timing_20261111_112941/Timing_Result_Rev0.md)。D2-PS-01、OI-01／03、他FW・動作状態・長時間・実機異常系は未解決。
+
+## 2026-11-11 D0 T2の300ms採用（OI-02、Open継続）
+
+同日実機追記: 開発機COM6／unique_id=69f7d45962cfdfadへconfig.pyだけを配置しhash一致、読込済みT2=300msを確認。製品S1.13・PS_ON=1／BATT_ON=0でD0を10回取得し、ACK後完全応答180～182ms、再送0、DATA327文字・BCC一致。CSVのSD／PC hash一致・破棄0、通常待受復帰・COM解放済み。下記の実機配置未確認は追記前の状態。長時間・異常系・EB競合・量産全条件を未確認としてOpen継続。[実機結果](Spec_Review_20261111/Hardware_D0_T2_300ms_Result_20261111.md)。
+
+- ユーザーが通信r2事前確認版p.17／28のD0 T2=300msの先行反映を指示。今回D0だけを採用し、T1や他のr2変更は従来どおり管理する。
+- src/config.py、D0送信契約、関連Master・テストを300msへ同期。下記の600ms暫定・変更候補は本指示前の履歴。
+- OI-02の一覧／個別説明の値の不一致はr2で統一され、採用値も300msへ変更。本改訂後の実機配置・応答最長時間・量産Timingは未確認のため、Issueは独断でCloseしない。OI-01、OI-03と他Issueの状態は変更しない。
+- [変更・検証記録](Spec_Review_20261111/D0_T2_300ms_Implementation_20261111.md)を参照。
+
+## 2026-11-11 RW11改訂仕様の事前確認（Open継続）
+
+対象は通信r2事前確認（2026/10/19）と購入仕様2d5（同日）。現行r1基準・実装は変更せず、以下を設計確認対象として追加する。[影響確認Rev.0](Spec_Review_20261111/Review_Rev0.md)の第3～6節に原典ページ、確認事実、見立て、質問を記載。購入旧版との厳密差分は未実施。既存IssueをCloseしない。
+
+既存OIへの追加根拠: OI-02は通信r2 p.17／28と購入p.42がD0 T2=300msで一致し、文書上の不一致解消候補。PARAM-IR-01は購入p.36が0=検出停止と明記するが、通信r2 p.19の初期値／停止併記は残る。ERP-CONDITION-01は購入p.14～15でGRP=101の信号非依存・SE制御・負荷／時間条件を具体化。OI-23は購入p.46で35文字・6項目が裏付けられるが、容量・REV／LOT変換・SS対応は未確定。OI-07は購入p.25～26で500mA以下の取得エラーと測定条件を具体化。OI-22は通信r2 p.37でUSER書換え前後の説明が整理された。いずれも適用FW・設計承認・必要な実機確認前の回答候補として扱う。
+
+READ-FD-01は通信r2 p.38でもFD見出しと46h 30hの不一致が残る。OL応答見出しはp.34でOLへ修正されたため、OLの表記改善とFD未解決を分ける。D2-PS-01、BE-ACCEPT-01、D4-TIM-01、AD／AR関連OIは未解決。SS開発保留・FU禁止・Picoで製品判定しない方針を維持する。
+
+| 新規ID | 確認事実と設計確認事項 | 状態 |
+|---|---|---|
+| SPEC-R2-01 | D4長: 通信r2 p.27／32～33は積算70・合計212、購入p.42は積算100・合計242。正式長／順序・適用FWと訂正対象を確認。治具は212を維持し自動吸収しない。D4-TIM-01とは別問題 | Open |
+| SPEC-R2-02 | 警告設定: BBUは通信r2 p.19が85℃／60～95℃、購入p.34設定表が90℃／60～100℃。購入同頁のADU／BBU保護表と設定表で解除温度も不一致。FAN無効化65534rpm対254℃、D1 ADU_TEMP_WNG非送信とEB／保護表の適用範囲を確認。保護設定拒否は維持 | Open |
+| SPEC-R2-03 | QR容量: 購入p.46のVersion1／21セル／Mと35文字は両立しない。DENSO WAVE公式表でVersion1／Mは数字34桁・英数字20文字。版／内容の訂正、印字・余白・実Sampleを確認。35文字受信を短縮しない。OI-23関連 | Open |
+| SPEC-R2-04 | REV／SS: 購入p.5はQR欄が―、A09以降の通信末尾ピリオド指定とA01.～A06.の表が併存。p.46はQR REV3桁。通信r2 p.22のUNIT_REV4文字への変換、ADU／BBUの0応答とREV管理説明、LOT・年週・予約・FW_REV非更新を含むSS対応を確認。末尾文字・ゼロを推測補完しない。OI-23関連 | Open |
+| SPEC-R2-05 | 補正: 購入p.26本文のPS_OFF／7.8Vと三社方法のPS_ON／5V・10Vが不一致。充電電流点が0.5V／1.85V表記、放電点は空欄。既存ユーザー指定条件との対応、単位・P1/P2・正式AD／AR通信を確認。CAL-EXT-01、OI-04／05／12／16～21関連 | Open |
+| SPEC-R2-06 | OFF消去: 通信r2 p.39・購入p.38はD2後SLでクリア、通信r2 p.32はBATT1,2_DEG除外と途中AC_OFF／PS_OFF例外、p.23はGET DATA後と記載。消去の許可元・対象・タイミングと例外を確認。時刻差によるAC_OFF計算の扱いも確認。OI-08関連 | Open |
+| SPEC-R2-07 | 多重／監視図: 通信r2 p.7は先行処理継続・最終ACK正常受信で終結、p.11図はレスポンス②／ACK①、p.14装置側図はコマンドACK後T1始動。応答ID・順序、T2との関係、ACK欠落・遅延再送・EB競合を確認。装置側T1は未確定、OI-01／11とD4-TIM-01関連 | Open |
+| SPEC-R2-08 | CF／解除／Cache: 購入p.21のCFによるAUTO_CHARGE無効とクリア後復元について、D5が保存値／実効値のどちらを返すか、解除がCF DATA0／CDのどちらか確認。購入p.36～37のバッテリラッチ解除の条件付き再起動と一覧×の関係、CD各DATAの範囲も確認。現行CFのINFO維持・SL後D2等の維持を変更すべきかはCache契約と併せて確認し、独断変更しない | Open |
+| SPEC-R2-09 | 計数／観測: 購入p.11の停電85V以下（設計75～83V）とp.38／通信r2 p.41のAC_FAIL_COUNT 70V以下の対応、短時間瞬断時の放電と通知の区別を確認。通信r2 p.29のBURST_ON=状態とp.30の入力信号・実動作非依存の関係も確認。ERP-CONDITION-01関連 | Open |
+
+検証: 現行Host／Mock284件成功。r2適合・製品実動作を保証する試験ではない。ソース／テストコード／実機配置変更なし。
+
 ## TEST-SESSION-01: 試験中断とTEST_START再受信時のデータ分離（Open、2026-11-11）
 
 2026-11-11完了整理: 再START修正・Pico配置・正常系3試行・ログ回収は完了。懸念事項は継続調査とし、QR実入力／新USB要求相関、実SD異常系、量産Timing全般、START再送識別を残す。SSは保留。temp再回収3本もSD原本hash一致。詳細と完了範囲は[実装記録](Test_Interruption_20261111/Implementation_20261111.md)を参照。IssueはCloseしない。
@@ -18,6 +57,20 @@
 - 残確認事項: START再送の識別方法、最終中断後に次指示がない場合、切替え受付／保存完了応答、ID生成・命名衝突、保存診断履歴、製品Cache失効の具体化、SS空シリアルの判定・エラー詳細。方針採用だけでIssueをCloseせず、QR正式Pico連携の組込み前に修正する推奨時期と未実装状態を維持する。
 - [案件調査と方針案Rev.0](Test_Interruption_20261111/Investigation_and_Policy_Rev0.md)。Host／Mock273件成功。実機未検証、src／tests／firmware変更・配置なし。OI-14／OI-23／USB-SUB-01と関連し、独断でCloseしない。
 
+## USB-SUB-01: QR／7355共通USB下位マイコンと双方向UART（Open、2026-11-10）
+
+2026-11-10図面追記: [追加発注用の接続・GPIO説明図Rev.0](drawings/NF55G_Fixture_20261110_Rev0/README.md)を作成。USBコネクタ撤去／直付け・基板改造の要否は未確定。HOST回路・CC／VBUS、信号引出し、下位GPIO、電源容量・保護、機構固定を現物確認後に確定する。再発注時にはHW-01のSD基板GP4/GP5分離処置・検査も引き継ぐ。今回の説明図を加工確定図としない。
+
+2026-11-10資料収集: Waveshare公式RP2350-USB-C回路図・ピン配置図・RP2350資料、およびSanwa Supply BCR-TC2D1BK取扱説明書を取得し、[資料台帳](../reference/USB_Host_SubMCU_20261110/README.md)に原本、取得元、SHA-256を記録。7355の日本語／英語取扱説明書等と製品銘板図は既存資料を確認した。回路図と実機基板版の一致、USB・給電・ハブ構成、実機のFW／BUS設定・動作、試験用QR等は未確認のため、本IssueはOpenを維持する。
+
+2026-11-10 USBポート割当て固定: 回路図コネクタ名で`Type_C1`をADCMT 7355（ネイティブUSB）、`Type_C2`をBCR-TC2D1BK（PIO-USB）へ割り当て、機器の入替えを行わない。USBハブは標準構成から外す。[治具接続図Rev.3](drawings/NF55G_Fixture_20261110_Rev3/README.md)に回路名付き配線を反映。受入前電源確認、各機器の単体列挙、同時Host動作、UART疎通準備を[初回受入チェックリスト](RP2350_USB_C_First_Acceptance_20261110.md)に記録。Type_C2 CC抵抗の現物設定、両USB Host同時動作、7355の実機USB class／FW／BUSと通信、給電・保護、実基板版との照合は未実施。
+
+- 確定した要求: 今回添付の過去会話で指定されたWaveshare RP2350-USB-Cを使用し、BCR-TC2D1BKと7355のUSB処理を集約。治具Pico 2とUARTでコマンド・データを双方向共有する。ハードが揃ってから開発・デバッグを進める。
+- 従来候補RP2350-USB-A／CH9350は履歴。USB-A向けR13等をUSB-Cへ適用しない。CH9350-06の型番未指定という記述は旧時点の状態であり、実機成立の未確認部分は引き続きOpen。
+- 未確定: USBポート／ハブ・給電・CC条件、7355 CDC実適合・取得手順、下位UARTピン、治具PIO TX／RX資源、通信速度・フレーム・CRC・要求相関・timeout・再送・再起動、正式ATE API／Cache／CSV、シャント換算担当と測定条件。
+- 既存UART0はATE、UART1はNF55G。GP8／GP9でUART1を再初期化せず、PIO双方向UARTを検討する。既存QR用PIO RX／GP8 High固定だけでは指令を送れない。
+- [開発準備資料](USB_Host_SubMCU_Integration_Plan_20261110.md)に役割、データ項目、工程、ハード確認・段階試験を整理。詳細設計時に未確定部分を人間確認する。コード変更・新基板ビルド・実機検証・配置は未実施。CAL-EXT-01、OI-14／OI-23と補正関連Issueも独断でCloseしない。
+
 ## ATE-EOL-01: CR単独受信の残留と後続コマンドへの影響（Open、2026-11-10）
 
 2026-11-10方針確定: ユーザーが「要求はCR／LF／CRLFをすべて受理、定期CR単独は無視」と指定。旧CRLF限定方針を変更し、空行を無応答で破棄する受信処理へ修正した。応答はCRLFを維持。以下の未確定記述・旧実機結果は修正前の履歴。修正後の検証・配置は[対応記録](ATE_Line_Ending_Fix_20261110.md)を参照。人間確認前のためOpenを維持する。
@@ -29,6 +82,38 @@
 
 ATE-EOL-01追記（2026-11-10、Open継続）: COM20実機でD0入口DATA_REFRESHのCR／LF／CRLFを確認。CR／LF単独とCR単独10回定期送信後は、後続DATA_REFRESHが1回ERR:FRAME、次はOK。CRLF・空CRLF後・分割CRLFは正常。最短送信間隔113.966ms、終了時通信IDLE／SD・自己診断OK、破棄0。上記の定期CR実機確認は実施済みとなるが、SD滞留の実測と処置方針は未確定。コード変更なし。[実機結果と処置案](ATE_D0_Line_Ending_Hardware_Test_20261110.md)。
 
+## LOGGER-BURST-01: ATE連続要求時の試験ログ破棄（2026-11-09、Open）
+
+- 追加条件・実測: ユーザー指定のATE速度は0.1秒に1コマンド程度、これ以上の速度は使わない。101ms以上（実測最短101.0623ms）の117コマンドでは破棄0、239行すべて14列、SD/PC SHA-256一致。以後の実機試験条件へ反映する。無間隔時の391件破棄を撤回するものではなく、長時間・異なる構成は未確認。[再確認記録](CSV_Log_Recovery_Recheck_20261109.md)。
+
+- 開発機COM6／ATE COM20の実機試験で339件の応答をほぼ無間隔に取得したところ、通信自体はD0/D1/D5/EL/OL成功、再送0だったが、TEST_END後のTEST_LOG_DROP=391でSelf Check NG。Logger Queue上限256件、ATE優先のservice_once経路を確認。75ms間隔のCache Query106件では当該試験の破棄0・Self Check OK。
+- 量産ATEの要求間隔、記録件数、許容drop数とRAM Queue／SD排出の設計条件を確認する。間隔を空けた結果だけで無間隔の大量要求を許容済みとしない。詳細は[開発機コマンド実機デバッグ](Development_Unit_Command_Debug_20261109.md)。
+
+## LOGGER-CSV-01: PC回収時の欠落による項目別SPのCSV列欠け（2026-11-09、Open）
+
+- `PARAM_EVENT_ENABLE_0`の同値SPは正常応答し、INFOの全26項目とD5の100文字全体は前後一致。SD CSVの当該SP送信RAW行だけ`raw_hex`欄が空で列位置が欠けていた。ログ破棄0。ほかの取得可能なSP/D5フレームはBCC一致。
+- 上記は旧PCコピーの観測。再確認でSD原本12657 byteに対し旧コピー12561 byte（96 byte不足）と判明。原本は全201行14列で、分割回収・SD/PC SHA-256一致後は項目別SP送信原文とBCCも正常。SD保存時の列欠けとした見立てを訂正する。一括HEX回収は3回とも32～64 byte欠落が再現。試験用回収を256 byte分割＋長さ・全体SHA-256照合へ変更した。USB/出力/受信の内部欠落箇所は未確定で、独断でCloseしない。[再確認記録](CSV_Log_Recovery_Recheck_20261109.md)。
+
+## DEV-RTC-01: 開発用COM6機のRTC電源断保持（2026-11-09、Open）
+
+2026-11-10保持再確認追記: ユーザーの電源切断・再投入連絡後、RTC_SETなしで09:59:58→10:00:01 JSTの3秒進行、初期日時への戻りなし、PC日本時間との差5秒以内を確認。status=0x08／OSF=0、control=0x1C／EOSC=0。今回1回の電源切断後の保持は成立。実際の電源断時間・電池／VBAT電圧・長時間保持は未測定で、過去不成立の原因は断定しない。人間確認前のためOpenを維持。[受入結果・証跡](RTC_Acceptance_Recheck_20261110.md)。以下の保持確認待ちは試験前の履歴。
+
+2026-11-10向き修正後の受入: ユーザーが誤方向接続を申告。修正後I2C 0x68検出、09:56:35 JST設定・読戻し、10秒進行、OSF=0を確認。通電中の機能は正常。電池保持は通常電源の30秒切断・再投入を依頼中で未確認、Open継続。電池電圧・潜在損傷の有無は未測定。[受入再確認](RTC_Acceptance_Recheck_20261110.md)。
+
+2026-11-10電池取付け後の再確認: ユーザーがRTC取外し・リセット・電池取付けを申告。時刻設定を試みたがRTC_DATETIME?=ERR:NO_RTC、RTC_SET=EIO、I2C0 GP20/GP21の検出アドレスは空配列。再装着・給電・接触等は未確認で原因を断定しない。時刻設定・読戻し・電源断保持とも未完了。Open継続。[再確認記録](RTC_Battery_Recheck_20261110.md)。
+
+- 追加確認17:12 JST: RTC_SETで20261109_171043を設定・読戻し後、ユーザーが30秒電源断。3回目も20000101_000056→000057、status=0x88、check=True。再設定せず読取り、保持不成立を確認。原因未確定・Open継続。証跡: temp/dev_acceptance_20261109_run01/cold_run03.json。
+
+- 対象はunique_id=69f7d45962cfdfadの開発機。COM14機のRTC保持実績と混同しない。
+- 確認事実: 新規装着後にI2C0の0x68を認識し、PC日本時間設定・読戻し・秒進行は正常。時刻設定後、ユーザーが約30秒の電源断・再接続を実施した2回ともRTCが20000101へ戻りstatus=0x88（OSF再セット）。再設定時のcontrol=0x1C、EOSC=0を確認。設定後status=0x08、2.1秒進行も正常だった。
+- ユーザーから「新しいRTCなので設定が必要」と回答があり再設定したが、2回目も保持不成立。設定不足・電池不良・基板故障等を断定しない。電池の装着・絶縁・向き・接触・電圧、VBAT給電経路の現物確認・実測が必要。
+- RTC_CHECK / Self CheckのRTC=OKはアクセス・日時検証であり保持合格を意味しない。今回は既存ドライバを変更せず、独断でCloseしない。詳細・証跡は[開発機受入記録](Development_Unit_Acceptance_20261109.md)。
+
+## ATEコマンド一覧 Rev.1照合時の確認事項（2026-11-09）
+
+- ATE-CLEAR-01（Open）: ユーザー提示の試験指示書§7.5はCLEAR_DATA / CLEAR_LOGを指定する。現行ATEにはCLEAR_ALL / CLEAR_POWER / CLEAR_BATT / CLEAR_LOGがあり、CLEAR_DATA同名コマンドはない。CLEAR_DATAの消去対象と既存CD DATA0 / 1 / 2との対応、量産での実施条件を確認する。CLEAR_ALLの別名と推測せず、Picoへの自動対応・新規コマンド追加は行わない。
+- OI-23追加確認（Open継続）: 同指示書§7.1の「UNIT_REV～BBU_SRLまで、それ以降は0000」を要求として保持する。「それ以降」の対象画面項目・通信領域・桁数との対応は未確認。一律ゼロ埋めするSSデータを推測生成しない。9項目のSS書込み対象とFW_REVISION照合の既定方針は変更しない。
+- 今回はATE設計者向け一覧への記録であり、通信仕様・実装を変更せず、既存IssueもCloseしない。詳細はATE_Command_List_for_Test_Program_Rev1_20261109.md第14.2 / 14.6節を参照する。
 
 ## BE-ACCEPT-01: 非バックアップ状態でのBE受付（2026-11-09、Open）
 
@@ -59,6 +144,7 @@ Codex must NOT close these by inference.
 ## D2とPS_ON受付条件の確認 2026-11-07
 
 - D2-PS-01（Open）: r1 p.18 §7.2(2)はPS_ON時にシーケンス／パラメータエラーを返さないと記す一方、p.17 §7.1注1はPS_ON後SET CLOCK処理完了までD2を受け付けないと記し、p.32 §10.6.1はSET CLOCK受信前にシーケンスエラーを返すと明記する。総則とD2個別条件の適用関係、SC未完了時の実FW応答を設計確認する。Pico側でSC自動送信や受付条件の補完を追加せず、独断でCloseしない。詳細: [D2とPS_ONの影響確認](D2_PS_ON_Review_20261107.md)。今回実機試験は未実施。
+- 2026-11-09開発機追記: PS_ON=1。SC前のD2は2回ともBCC一致のSQE、現在時刻でCLOCK_SYNC（SC）成功後のD2はOK・DATA30文字、再送0。SC未完了条件との整合があるが、SC前の製品内部状態は未観測であり単独原因とは断定しない。原典p.18総則とp.17/p.32個別条件の整合確認は継続する。[実機記録](Development_Unit_Command_Debug_20261109.md)。
 
 ## 外部測定値による補正の追加要求 2026-11-04
 
@@ -82,13 +168,13 @@ Codex must NOT close these by inference.
 | ID | Issue | Rev.0 implementation |
 |---|---|---|
 | OI-01 | Pico-side T1 final value | 200 ms provisional |
-| OI-02 | D0 T2 list=300ms vs detail=600ms | use 600 ms provisional |
+| OI-02 | r1のD0 T2一覧300ms／個別600msはr2で300msへ統一 | 2026-11-11ユーザー指定により300ms採用・配置済み。S1.13正常系10回はACK後180～182ms・再送0。異常系・長時間・量産全条件は未確認、Open継続。 |
 | OI-03 | Current FW may clear CHARGE_END after D0 ACK | retain existing non-destructive D0 policy; confirm r1/final FW interpretation |
 | OI-04 | AR REF/value8 final wire format and ATE return policy | Fixture draft keeps REF as raw8/open; interim FW appears to use IEEE754 float raw HEX. Decide raw/decode/both before final ATE release. |
 | OI-05 | AD runtime coefficient immediate reflection vs reboot | Interim FW writes EEPROM and computes response-local slope, but runtime coefficient globals may not update immediately. No automatic reboot; confirm final behavior. |
 | OI-06 | BC=0 STOP current FW behavior | implement spec; confirm final FW |
 | OI-07 | BC MODE=13 response details | expose received data; confirm |
-| OI-08 | SL out-of-range PME behavior | spec/FW confirmation |
+| OI-08 | SL out-of-range PME behavior | 2026-11-09: 正式LIFE_SET／RAW入口を実装、範囲外も無補正送信。PMEと読戻しはSample準備後に実機確認。量産使用未確定、Open継続。詳細は下記SL記録。 |
 | OI-09 | OR request while restart already active | current FW SQE; confirm |
 | OI-10 | FD out-of-range address | current FW FF fill; confirm formal behavior |
 | OI-11 | EB timing while command transaction active | keep original deadline; HIL confirm |
@@ -194,3 +280,65 @@ Implementation cautions for AD/AR:
 - CH9350-04（Open）: 評価基本設定をSEL=H/S1=H/S0=L/BAUD1=H/BAUD0=HのEVAL-CH9350-STATE2、量産候補を同論理のPROD-CH9350-STATE2として記録。販売基板DIP番号とON/OFFから各論理への対応は未確認で、現物測定後に確定する。量産候補は連続読取・再接続・電源再投入・電気評価の合格後に承認し、作業者判断で切り替えない。詳細はCH9350/docs/dip_switch_settings.md。
 - CH9350-05（Open）: 評価基板固有の回路図・取扱説明書・DIP設定表は未入手。2026-10-11ユーザーから、販売ホームページ記載内容を基に基板情報をメモした旨の説明あり。DIP搭載、端子表示等はユーザー提供情報として記録し、ホームページ画面・記載日時・DIP設定表原文は未保存。ICデータシート確認事項および現物測定結果と区別し、記録がないことだけで仕様や設定を断定しない。
 - 手順/結果: CH9350/docs/test_environment.md、CH9350/docs/test_results.md。OI-23および旧USBホスト調査はOpenを維持。NF55G既存プログラムとPico main.py/boot.pyは変更・配置していない。
+
+## ERP-CONDITION-01: バースト実動作の外部条件・復元入口（Open、2026-11-09）
+
+- 確認事実: r1 p.21のSE DATAはBURST 1文字＋PS_OFF_CHARGE 1文字＋RESERVE 2文字。低消費電力設定は1000。0000はPS_OFF充電も無効。p.30のBURST_ONはBURST信号の受信状態でバースト有無に依存しない。
+- 確認事実: 実装済みATE入口はERP_SET_1_0／ERP_SET_0_0のみ。p.21の両初期値1に相当する1100や0100は未実装で、元のPS_OFF_CHARGE=1へ今回の2入口だけで復元できない。
+- 未確認: 最終NF55G仕様に基づくBURST入力の論理・極性、PS_ON／PS_OFF・負荷とバースト開始／解除の条件、遷移時間、消費電力判定値、Sample条件。通信仕様から未記載条件を補完しない。
+- 人間確認事項: 実機試験の信号・負荷条件と最終設定／復元方針。充電有効の比較・復元を試験範囲とする場合はERP_SET_0_1／ERP_SET_1_1入口の必要性を確認する。現段階では自動追加・実機送信せず、独断でCloseしない。
+- 詳細: ATE_Command_Master.md「ERP DATA各桁と追加条件の原典照合」、Test_Specification.mdのSample試験手順。
+
+ERP-CONDITION-01追記（2026-11-09、Open継続）: ユーザーが充電有効の2入口の追加を指示。ERP_SET_0_1／ERP_SET_1_1を実装し、全4組合せのHost／Mockを確認したため、上記「復元入口未実装」は過去時点の状態となる。現在は保存済み両設定に対応するコマンドで明示復元可能。実機の信号・負荷・充電条件、最終設定方針、Sample試験と保持は未確認であり、IssueはCloseしない。
+
+## READ-FD-01: r1のFDフレーム表の文字コード不一致（Open、2026-11-09）
+
+- 確認事実: r1 p.37 §12.7は本文・見出しでCMD ID=FDを指定する一方、要求／応答のバイト表は46h 30h（F0）となっている。ATE_Command_Masterと既存decode_fdはFD・64 ASCII HEXを定義する。
+- 実装方針: 本文のIDとMasterに合わせFDを送信し、F0への自動切替や応答置換を行わない。FD READはHost／Mockで確認し、実機送信は設計側のID確認後とする。
+- 未確認: 最終仕様／FWの正式ID、表記の訂正有無。担当者確認を要し、誤記とは断定しない。OI-10（範囲外アドレスの応答）もOpenのまま。ERPと併せた後日の実機デバッグ予定に含めるが、この確認事項を解消した扱いにはしない。
+
+READ-FD-01関連補足: r1 p.34のOL応答もCMD ID欄見出しはCD、本文とバイト列はOL（4Fh 4Ch）となっている。実装は本文・バイト列一致のOLを採用し、CDへの応答置換はしない。原典表記の設計確認対象として記録し、訂正やIssue Closeは行わない。
+
+## PARAM-IR-01: CHG_IR_THDの値0の意味確認（Open、2026-11-09）
+
+- 確認事実: r1 p.19のCHG_IR_THDは範囲0～4094で、0に「電源初期値」と「検出停止」の両記載がある。初期値欄は0（判定しない）、p.20も初期値では本判定を実行しないと記載。
+- 未確認: 値0が内部既定値参照なのか常時検出停止なのか、最終仕様／FWでの定義と保持・読戻しの意味。将来の内部初期値変更を含めて同一機能と断定しない。設計担当者の確認を要する。
+- 方針: 項目別設定は通常10項目を先行し、CHG_IR_THDは値にかかわらずERR:PARAMETER_UNCONFIRMEDで無送信拒否。他項目の設定時にはCHG_IR_THD欄をFFF（変更なし）にする。原典を変更・補完せず、独断でCloseしない。既存50文字一括PARAM_SETは従来の契約を保持し、今回新しい値を実機へ送信しない。
+
+2026-11-09 OI-06／OI-07追記（Open継続）: BATT_CHECK_START／STOPと8結果Queryをr1に基づき実装。STOPもBC DATA0・応答30文字・T2=6秒として検証し、空応答や暫定FWの実装差をPicoで吸収しない。MODE13は受信値をATEへ公開し、Protocol OKを診断成功へ変換しない。全256件のHost／Mock成功は最終FWのSTOP動作やMODE13詳細の設計回答・実機検証とは異なる。評価用のため、実機前にバッテリ・充放電・負荷条件とOI-06／07を担当者が確認する。今回実機送信なし、IssueはCloseしない。
+
+## OI-08: SL範囲外・不正DATAの実機確認（2026-11-09、Open継続）
+
+2026-11-10通常値実機追記: LIFE_SET_123でRAW07B／12.3％、RAW000書戻しで0.0％へ復元を新規D0で確認。SL正常応答DATA0文字、各46ms、再送0。Sampleクリア許容・バッテリ／負荷未接続。OFF期間欄は元に戻らない実測を記録。範囲外／不正DATA／4095は未送信であり、PME動作や量産使用の設計回答ではない。IssueはOpen継続。[実機結果](Life_Set_Hardware_Test_20261110.md)。
+
+- 原典で確認: r1 p.23のBATT_DEGは3桁HEX、0～4095、0.1％単位。4095は保守用電源識別値。SL受信で条件によりOFF期間データがクリアされる（p.32／39）。p.41の積算BATT_DEGはSET LIFEで設定された値を返す。SL個別説明にPMEの明記はない。
+- ユーザー指示: 正式コマンドとして実装、量産使用は未確定。特に制限を設けず、PMEは実機確認し、範囲外書込みと読戻しで挙動を見る。追加指示によりSampleは後日準備、今回は実装・テスト手順作成まで。
+- 実装: LIFE_SET_<VALUE>とLIFE_SET_RAW=<ASCII>。業務値域・特殊値・RAWの長さ／HEXを制限しない。ATE行とNFフレーム区切りのための書式／ASCII検査のみ。0～4095は3桁HEXの全域なので、4096以上は桁数超過も伴う。数値範囲判定と不正文字／長さの判定を分けて観測する。
+- 未確認: 正式FWの不正長・不正HEX・負数・上限超過に対するPME／受理／切捨て、拒否時の保存値とOFF期間データへの影響、電源再投入保持。Picoは実応答や読戻しを補正せず、Mock結果から製品FW動作を断定しない。
+- Host／Mock268件成功。Picoへの追加配置・製品への送信は未実施。[実機手順](Life_Set_Hardware_Test_Procedure_20261109.md)に元値退避、DATA_REFRESH→BATT_DEG_TOTAL?、範囲外各ケースと復元を記載。OI-08をCloseしない。
+
+## USB-SUB-02: 実機Sink設定とHost用CC／VBUS／D線構成の確認（Open、2026-11-10）
+
+- 現物写真の裏面表は0=Sink／1=Source。ユーザー申告はCC1／CC2とも0位置実装、1位置未実装。Type_C2はSink設定で、QR用Sourceの受入未完了。写真から抵抗値・基板版は確定しない。
+- 原典回路図ではType_C2のRdはR19(CC1)／R18(CC2)各5.1kΩでGND接続、Source側R21(CC1)／R20(CC2)はVSYS接続でNC。Source用の値は原典で指定されていない。5.1kΩの単純移植・短絡は指示しない。Rp値、給電能力・保護・逆流、VBUS電圧／電流、D線プルアップR13／R10の現物・Host適合を設計確認する。
+- 原典では両ポートVBUSがVSYSネットへ直結。CC変更だけで逆流防止・過電流保護や両Host成立を保証しない。
+- 資料不一致: 計画・初回受入・資料台帳はType_C1 CC各5.1kΩをVSYS側と記載するが、原典図はR5／R6でGND接続。原典を変更せず相違として記録。最終構成・改造範囲と資料訂正を人間確認する。Type_C1=7355／Type_C2=QRの固定要求は変更しない。
+- [写真・回路図照合記録](USB_Host_SubMCU_CC_Inspection_20261110.md)。QR／7355接続、改造、電気受入、FW配置は未実施。本IssueとUSB-SUB-01はOpen継続。
+
+USB-SUB-02追記（2026-11-10、Open継続）: ユーザーがType_C2の無負荷VBUS=5Vを実測、抵抗変更なし・LED消灯と回答。CCは従来の両Sink位置実装のまま。VBUSの5V確認だけでSource設定・供給能力・逆流／過電流保護・D線Host適合を確認済みとしない。LEDの対象とブレークアウトの部品構成は未確認。[CC照合・実測記録](USB_Host_SubMCU_CC_Inspection_20261110.md)。
+
+USB-SUB-02追記（2026-11-11、Open継続）: ユーザーからDB_N（DN1）の実物測定は不可能、本体3V3ピンで3.3V確認との回答を受領。DB_N–3V3抵抗測定は中止し、微細端子への追加プロービングを要求しない。3.3Vは電源電圧の情報で、D線プルアップ実装・値の確認とは区別する。測定不可を根拠に部品不存在・異常や除去／改造要否を断定しない。[測定結果・制約](USB_Host_SubMCU_Power_Check_20261111.md)。
+
+USB-SUB-01／USB-SUB-02追記（2026-11-11、Open継続）: Type_C1 USB CDCだけの隔離した確認用開発FW dev-20261111.1を追加基板A06FEA01012EC137へ配置。元FW usb_deviceの全Flash2MBを退避・実機照合後、配布UF2書込み・verify成功。COM21でUSB実機123チェックを再起動前後それぞれ成功、Host／Mock287件成功。QR／DMM用Host・治具UART・CC／D線・給電保護は未確認のままで、今回の診断コマンドは正式ATE／内部リンクとして確定しない。[受入結果・UF2・退避・manifest](USB_SubMCU_FW_Acceptance_20261111/Result.md)。
+
+USB-SUB-02追記（2026-11-11、D線説明訂正・給電方針）: 原典の接続線とメーカーRP2350_USB_C設定を再照合。正しくはD+=GPIO12／R12／DB_P、D−=GPIO13／R11／DB_N、R13はGPIO12側のD+プルアップ。先のD−側との説明は誤りで、原典の矛盾ではない。メーカーUSB-C専用FAQにD+プルアップ撤去と位置写真があり、Host向けR13処置の根拠を確認した。CC変更案はR18／R19を外し、R20／R21を各56kΩ・1%としてDefault USB Powerを広告。部品施工は未実施・人間確認待ち。
+
+ユーザー指定: デバッグはPC給電、QR／DMM使用時は外部5VアダプタをExpanderで分岐し、追加枝で1Aまで供給可能との申告。PCとExpander給電を同時直結せず切り替える。1A定格から過電流／逆流保護や負荷時成立を推定しない。VBUS常時直結の限定評価と、接続検出・電源スイッチを伴う最終Source設計を区別する。[具体的な回路条件・部品変更案Rev.0](USB_Host_SubMCU_Host_Circuit_Conditions_Rev0_20261111.md)。USB-SUB-01／02はOpen継続。DB_N微細測定は引き続き要求しない。
+
+USB-SUB-02追記（2026-11-11、Open継続）: ユーザーが改造は実機確認直前に案内すること、治具回路図へ箇所・手順を明記することを指定。[治具図Rev.4](drawings/NF55G_Fixture_20261111_Rev4/README.md)の4・5枚目へ反映した。部品サイズ・現物照合、給電保護、Host FW／ログ経路を揃えた後に案内する。改造済み・電気受入済みとは扱わず、DB_N微細測定は要求しない。
+
+## USB-SUB-03: 固定TinyUSBの単一Host管理と2 Host構成（Open、2026-11-11）
+
+確認事実: SDK2.2.0内TinyUSB86ad6e5のusbh.cは単一_usbh_controllerを保持し、PIO／ネイティブHCDを設定で選択する。メーカー例はDevice＋HostでありHost＋Hostの証拠ではない。tuh_init(0)と(1)の連続呼出しだけで2 Host実装としない。
+
+未確認: 独立PIOスタックとネイティブHostの共存、または複数HCD管理の実装と列挙・切断・Timing。ハードの不可能とは断定せずType_C1=7355／Type_C2=QR・ハブなしの要求を保持。[実機前準備](USB_SubMCU_Host_Preparation_20261111/Preparation_Rev0.md)。QR単体probeを別開発物として準備し、既存基板への配置・改造は未実施。USB-SUB-01／02もOpen継続。

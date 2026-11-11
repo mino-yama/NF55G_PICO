@@ -1,0 +1,533 @@
+{
+  "started_jst": "2026-11-11T11:30:17.337494+09:00",
+  "commands": [
+    {
+      "command": "*IDN?",
+      "sent_jst": "2026-11-11T11:30:17.703367+09:00",
+      "sent_s": 0.36580500000854954,
+      "response": "NF55G_PICO_FIXTURE,Rev.0",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d0a",
+      "response_ms": 7.252199982758611
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T11:30:17.871495+09:00",
+      "sent_s": 0.532992499996908,
+      "response": "OK:state=IDLE",
+      "raw_hex": "4f4b3a73746174653d49444c450d0a",
+      "response_ms": 8.515800000168383
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T11:30:18.049930+09:00",
+      "sent_s": 0.7114401999861002,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 5.951800005277619
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T11:30:18.217896+09:00",
+      "sent_s": 0.8797200999979395,
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK",
+      "raw_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b0d0a",
+      "response_ms": 52.8354000125546
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:30:18.431066+09:00",
+      "sent_s": 1.09259079999174,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 6.79320000926964
+    },
+    {
+      "command": "RTC_DATETIME?",
+      "sent_jst": "2026-11-11T11:30:18.599215+09:00",
+      "sent_s": 1.2606998999835923,
+      "response": "20261111_113018",
+      "raw_hex": "32303236313131315f3131333031380d0a",
+      "response_ms": 10.800500022014603
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T11:30:18.770715+09:00",
+      "sent_s": 1.432205699995393,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 188.71059999219142
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:19.125513+09:00",
+      "sent_s": 1.7877431999950204,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 45.96519999904558,
+      "sample_number": 1
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:19.341462+09:00",
+      "sent_s": 2.00336669999524,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.736600012285635,
+      "sample_number": 2
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:19.562166+09:00",
+      "sent_s": 2.2243959000043105,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.452099999645725,
+      "sample_number": 3
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:19.774480+09:00",
+      "sent_s": 2.4359599000017624,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 49.46449998533353,
+      "sample_number": 4
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:19.987594+09:00",
+      "sent_s": 2.649081899988232,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 184.45870000869036,
+      "sample_number": 5
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:20.348640+09:00",
+      "sent_s": 3.0108237999957055,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.95410000951961,
+      "sample_number": 6
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:20.559544+09:00",
+      "sent_s": 3.221047600003658,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 46.28959999536164,
+      "sample_number": 7
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:20.770376+09:00",
+      "sent_s": 3.4332010000071023,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 46.01019999245182,
+      "sample_number": 8
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:20.990785+09:00",
+      "sent_s": 3.653674300003331,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 46.21539998333901,
+      "sample_number": 9
+    },
+    {
+      "command": "STATUS_REFRESH",
+      "sent_jst": "2026-11-11T11:30:21.212225+09:00",
+      "sent_s": 3.8749791999871377,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 48.219400021480396,
+      "sample_number": 10
+    },
+    {
+      "command": "PS_ON?",
+      "sent_jst": "2026-11-11T11:30:21.430596+09:00",
+      "sent_s": 4.0921079000108875,
+      "response": "1",
+      "raw_hex": "310d0a",
+      "response_ms": 7.471899996744469
+    },
+    {
+      "command": "BATT_ON?",
+      "sent_jst": "2026-11-11T11:30:21.604509+09:00",
+      "sent_s": 4.265976499998942,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 6.76499999826774
+    },
+    {
+      "command": "RESTART_READY?",
+      "sent_jst": "2026-11-11T11:30:21.777519+09:00",
+      "sent_s": 4.438971199997468,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 7.3201000050175935
+    },
+    {
+      "command": "CLOCK_SYNC 261111113021",
+      "sent_jst": "2026-11-11T11:30:21.948343+09:00",
+      "sent_s": 4.609809499990661,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 38.685500010615215
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:22.154171+09:00",
+      "sent_s": 4.815616200008662,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.903899976518005,
+      "sample_number": 1
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:22.366872+09:00",
+      "sent_s": 5.028332899993984,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 49.54979999456555,
+      "sample_number": 2
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:22.582353+09:00",
+      "sent_s": 5.244767399999546,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 48.39700000593439,
+      "sample_number": 3
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:22.799271+09:00",
+      "sent_s": 5.460715799999889,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 48.730599984992296,
+      "sample_number": 4
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:23.018679+09:00",
+      "sent_s": 5.68100849998882,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 49.619700002949685,
+      "sample_number": 5
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:23.241044+09:00",
+      "sent_s": 5.902827799989609,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 49.58230000920594,
+      "sample_number": 6
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:23.460579+09:00",
+      "sent_s": 6.122045700001763,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 67.83839999116026,
+      "sample_number": 7
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:23.696517+09:00",
+      "sent_s": 6.357956699997885,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.400100011145696,
+      "sample_number": 8
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:23.910117+09:00",
+      "sent_s": 6.571546999999555,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.72279999451712,
+      "sample_number": 9
+    },
+    {
+      "command": "D2_REFRESH",
+      "sent_jst": "2026-11-11T11:30:24.123378+09:00",
+      "sent_s": 6.784811899997294,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 48.712999996496364,
+      "sample_number": 10
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:30:24.333953+09:00",
+      "sent_s": 6.995413500000723,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 7.627699989825487
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:24.504868+09:00",
+      "sent_s": 7.166954199987231,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 45.07930000545457,
+      "sample_number": 1
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:24.715435+09:00",
+      "sent_s": 7.377160999982152,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 42.75130000314675,
+      "sample_number": 2
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:24.926962+09:00",
+      "sent_s": 7.589571199991042,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 44.55370001960546,
+      "sample_number": 3
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:25.139621+09:00",
+      "sent_s": 7.801035499986028,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 42.36920000403188,
+      "sample_number": 4
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:25.347135+09:00",
+      "sent_s": 8.008542299998226,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 42.977700009942055,
+      "sample_number": 5
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:25.553392+09:00",
+      "sent_s": 8.21481330000097,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 46.709699992788956,
+      "sample_number": 6
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:25.765781+09:00",
+      "sent_s": 8.427192000002833,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 45.53719999967143,
+      "sample_number": 7
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:25.976270+09:00",
+      "sent_s": 8.63767789999838,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 61.17420000373386,
+      "sample_number": 8
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:26.201785+09:00",
+      "sent_s": 8.863206399983028,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 42.708000022685155,
+      "sample_number": 9
+    },
+    {
+      "command": "D3_REFRESH",
+      "sent_jst": "2026-11-11T11:30:26.410134+09:00",
+      "sent_s": 9.072226099990075,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 47.16950000147335,
+      "sample_number": 10
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:30:26.637167+09:00",
+      "sent_s": 9.298695200006478,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 7.665899989660829
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:26.811035+09:00",
+      "sent_s": 9.473624500009464,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 89.12109999801032,
+      "sample_number": 1
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:27.066883+09:00",
+      "sent_s": 9.728482500009704,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 91.96529997279868,
+      "sample_number": 2
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:27.328539+09:00",
+      "sent_s": 9.989944300003117,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 90.51569999428466,
+      "sample_number": 3
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:27.583039+09:00",
+      "sent_s": 10.24489539998467,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 100.26050001033582,
+      "sample_number": 4
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:27.848700+09:00",
+      "sent_s": 10.510461199999554,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 90.44400000129826,
+      "sample_number": 5
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:28.101908+09:00",
+      "sent_s": 10.763285099994391,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 108.01150000770576,
+      "sample_number": 6
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:28.373986+09:00",
+      "sent_s": 11.035986200004118,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 92.16899998136796,
+      "sample_number": 7
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:28.692047+09:00",
+      "sent_s": 11.353434399992693,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 156.6519000043627,
+      "sample_number": 8
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:29.017896+09:00",
+      "sent_s": 11.680295800004387,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 90.99019999848679,
+      "sample_number": 9
+    },
+    {
+      "command": "INFO_REFRESH",
+      "sent_jst": "2026-11-11T11:30:29.276185+09:00",
+      "sent_s": 11.937564699997893,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 91.04589998605661,
+      "sample_number": 10
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:30:29.537350+09:00",
+      "sent_s": 12.198716499988222,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 9.335900016594678
+    },
+    {
+      "command": "FW_REV?",
+      "sent_jst": "2026-11-11T11:30:29.712433+09:00",
+      "sent_s": 12.373813299986068,
+      "response": "S1.13 ",
+      "raw_hex": "53312e3133200d0a",
+      "response_ms": 8.377899997867644
+    },
+    {
+      "command": "TEST_END",
+      "sent_jst": "2026-11-11T11:30:29.887520+09:00",
+      "sent_s": 12.548879100009799,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 138.0351999832783
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T11:30:30.191447+09:00",
+      "sent_s": 12.853710099996533,
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK",
+      "raw_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b3b544553545f4c4f474745523d4f4b3b544553545f4c4f475f44524f503d4f4b0d0a",
+      "response_ms": 612.895700003719
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T11:30:30.973645+09:00",
+      "sent_s": 13.63501759999781,
+      "response": "OK",
+      "raw_hex": "4f4b0d0a",
+      "response_ms": 7.416200009174645
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T11:30:31.147441+09:00",
+      "sent_s": 13.809489200008102,
+      "response": "0",
+      "raw_hex": "300d0a",
+      "response_ms": 8.600200002547354
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T11:30:31.323497+09:00",
+      "sent_s": 13.984846500010462,
+      "response": "OK:state=IDLE",
+      "raw_hex": "4f4b3a73746174653d49444c450d0a",
+      "response_ms": 7.872899994254112
+    }
+  ],
+  "completed": true,
+  "note": "D4 is measured separately without automatic command retry or cache validation",
+  "rtc_before": "20261111_113018",
+  "ps_on": "1",
+  "batt_on": "0",
+  "restart_ready": "0",
+  "fw_rev": "S1.13 ",
+  "finished_jst": "2026-11-11T11:30:31.343917+09:00"
+}

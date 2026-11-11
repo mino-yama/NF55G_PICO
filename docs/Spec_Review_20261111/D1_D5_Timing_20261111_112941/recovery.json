@@ -1,0 +1,157 @@
+{
+  "started_jst": "2026-11-11T11:32:27.224850+09:00",
+  "files": [
+    {
+      "kind": "ATE_D1_D2_D3_D5",
+      "sd_path": "/sd/BANK_A/20261111_113018_T000005.csv",
+      "local": "20261111_113018_T000005.csv",
+      "sd_pc_hash_match": true,
+      "size": 25195,
+      "sha256": "c61077efa224b25a7d53a17b44e27d3128f32a5aa995114beeabfaeadf9658de"
+    },
+    {
+      "kind": "RAM_D4_OBSERVATION",
+      "sd_path": "/sd/BANK_A/20261111_113232_T000006.csv",
+      "local": "20261111_113232_T000006.csv",
+      "sd_pc_hash_match": true,
+      "size": 10841,
+      "sha256": "89d291375c9af7b786e4fc0a556497b7b9541e29c63e05b2baa0c045944f31fc"
+    }
+  ],
+  "completed": true,
+  "normal_app_restarted": true,
+  "unique_id": "69f7d45962cfdfad",
+  "read_contracts": {
+    "OL_REFRESH_17": [
+      "OL",
+      "OL_17",
+      100,
+      82
+    ],
+    "OL_REFRESH_41": [
+      "OL",
+      "OL_41",
+      100,
+      82
+    ],
+    "OL_REFRESH_09": [
+      "OL",
+      "OL_09",
+      100,
+      82
+    ],
+    "EL_REFRESH_17": [
+      "EL",
+      "EL_17",
+      100,
+      82
+    ],
+    "D4_MAINT_READ": [
+      "D4",
+      "D4",
+      100,
+      212
+    ],
+    "INFO_REFRESH": [
+      "D5",
+      "INFO",
+      100,
+      100
+    ],
+    "OL_REFRESH_33": [
+      "OL",
+      "OL_33",
+      100,
+      82
+    ],
+    "D2_REFRESH": [
+      "D2",
+      "D2",
+      100,
+      30
+    ],
+    "DATA_REFRESH": [
+      "D0",
+      "DATA",
+      300,
+      327
+    ],
+    "OL_REFRESH_57": [
+      "OL",
+      "OL_57",
+      100,
+      82
+    ],
+    "D3_REFRESH": [
+      "D3",
+      "D3",
+      200,
+      21
+    ],
+    "EL_REFRESH_01": [
+      "EL",
+      "EL_01",
+      100,
+      82
+    ],
+    "OL_REFRESH_01": [
+      "OL",
+      "OL_01",
+      100,
+      82
+    ],
+    "EL_REFRESH_25": [
+      "EL",
+      "EL_25",
+      100,
+      82
+    ],
+    "OL_REFRESH_49": [
+      "OL",
+      "OL_49",
+      100,
+      82
+    ],
+    "OL_REFRESH_25": [
+      "OL",
+      "OL_25",
+      100,
+      82
+    ],
+    "STATUS_REFRESH": [
+      "D1",
+      "STATUS",
+      100,
+      15
+    ],
+    "EL_REFRESH_09": [
+      "EL",
+      "EL_09",
+      100,
+      82
+    ]
+  },
+  "d4_result_sha256": "c58850c40119bcd464d0e5f56f8a46818694a7ca8e8bc80a1c59198c296a2262",
+  "after_restart": [
+    {
+      "command": "*IDN?",
+      "response": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "response": "OK"
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "response": "0"
+    }
+  ]
+}

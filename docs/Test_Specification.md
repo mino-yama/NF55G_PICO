@@ -1,12 +1,32 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-11 D1～D5時間測定: D1／D2／D3／D5各10回の通常ATE取得はすべてOK・再送0、ACK後完全応答平均14.0／22.0／18.6／58.9ms、最大15／23／34／74ms。D4は再送なしのRAM観測で10回、平均116.0ms・最大133ms、全回で現行100ms超過。D4通常Transaction成功とは区別し、Cache非採用・製品用T2／ソース変更なし。全50標本・102フレームBCC、CSV hash・14列と別計算一致、破棄0・通常待受復帰済み。長時間・全動作状態・原因の確定は未実施。[測定結果と方式](Spec_Review_20261111/D1_D5_Timing_20261111_112941/Timing_Result_Rev0.md)。
+
+2026-11-11 D0 T2=300ms実機追記: configのみ配置・hash確認後、S1.13／PS_ON=1／BATT_ON=0でD0正常系10回がOK、ACK後完全応答180～182ms、再送0。DATA327文字、CSV全14列・BCC・SD／PC hash一致、破棄0、通常待受復帰済み。実機の境界・EB競合・異常系と量産全条件は未確認。下記のD0未配置記述は実装時点の履歴。[実機結果](Spec_Review_20261111/Hardware_D0_T2_300ms_Result_20261111.md)。
+
+## 2026-11-11 D0 T2の300ms化
+
+ユーザー指定によりD0のT2だけ通信r2事前確認版p.17／28の300msを採用。tests/test_read_cache_integration.pyの送信契約を300msへ更新し、3件の境界・異常系テストを追加した。
+
+- 有効ACKを7ms遅延させ、ACK後299／300msの完全D0応答を再送なしで受理し、DATAのみVALIDにする。
+- 初回無応答後の最終試行でACK後301msとなる応答は採用せず、RESP_TIMEOUT、command retry=1、response retry=0、ambiguous=True。旧DATAは復元せず、Queryから追加送信しない。
+- ACK後250msのEBを独立ACKし、元の300ms期限を延長しない。再送を含む仮想時計602msで最終RESP_TIMEOUTとし、STATUS／INFOへ昇格しない。
+
+関連29件成功、全Host／Mock287件成功（4.797秒）。Mockのフレームは仮想時刻にまとめて到着するため、実UARTの送出時間・受信処理負荷の保証ではない。Pico配置と実機Timingは未実施。詳細は[変更・検証記録](Spec_Review_20261111/D0_T2_300ms_Implementation_20261111.md)を参照。
+
 ## 2026-11-11 再TEST_STARTの試行分離
 
 Host／Mock284件成功（従来273件＋再START関連11件）。tests/test_trial_restart.pyで、同一秒3試行の実ファイル分離、QR／S/N非継承、前試行の部分QR受信破棄、全Cache失効、SC→D0→Query→10秒→再START、再START時のNF55G無送信、通信中・drain中・close guardの延期、SDなし／close異常時の履歴、CONT競合拒否、8件RAM履歴上限、再mount後の採番、旧／新形式のBANK容量集計・循環対象を確認する。既存QR命名テストの期待値は試行ID付きへ更新し、同名rename衝突で原本と新規ログの保持を継続検証する。
 
 修正版の実機配置は未実施。実機では修正版配置hashを照合し、既存のSC→DATA_REFRESH→Query→10秒→再STARTと3回連続STARTを確認する。期待値は再START=OK、別CSV、旧DATA Query=ERR:CACHE_INVALID。新DATAはATEの明示Refresh後に取得する。保存異常・QR実入力・通信TimingはHost結果だけで合格としない。SSは今回対象外。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。
 
-通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
+2026-11-10 SL通常値実機結果: LIFE_SET_123→D0 RAW07B／12.3％、元値RAW000を明示書戻し→D0 RAW000／0.0％。SL2回は正常応答DATA0文字・46ms・cmd/rsp retry0。各SL後のDATA無効化と明示Refresh、STATUS／INFO維持を確認。OFF期間は元に戻らない実測を記録。CSV91行14列・SD/PC SHA-256一致、終了時自己診断正常・drop0。通常値1点のみ、範囲外・保持・外部動作は未確認。直下の未送信記述は準備時点の履歴。[SL実機記録](Life_Set_Hardware_Test_20261110.md)。
+
+2026-11-10 SL実機準備: Host／Mock273件再確認成功（2.496秒）。COM6へSL用3ファイルを配置、24ソースcompile・hash一致。COM20でD0元値RAW000／BATT_DEG_TOTAL?=0.0とOFF期間を退避し、CSVのSD/PC SHA-256一致を確認。SL自体は物理接続条件の確認待ちで未送信。通常値・復元の合格とは扱わない。[SL準備記録](Life_Set_Hardware_Test_20261110.md)。
+
+2026-11-10追加試験計画（未実施）: QR／7355共通USB下位RP2350-USB-Cの電源・UART単体、QR完全一致、7355単体取得、USBハブ共存、治具PIO双方向UART、ATE／NF55G／Logger併用、取得と書込みの工程分離を順に確認する。遅延応答・重複・取消・切断・再起動・overflow・旧値不採用を含める。[開発準備資料](USB_Host_SubMCU_Integration_Plan_20261110.md)の§7に準備物・確認点・証跡を記載。正式通信仕様確定後にCode／Testを追加し、既存Host／Mock合格を新構成の実機合格に転用しない。
+
+通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.1-draft
 
 ## Goal
@@ -68,7 +88,7 @@ See `Runtime_Integration.md` for evidence and remaining real timing/SD HIL requi
 
 `tests/test_read_cache_integration.py` covers the Host/Mock path through FixtureApp,
 parser, dispatcher, protocol, decoder, and cache:
-- D0/D1/D5 command IDs, empty DATA, D0=600ms provisional/327 chars, D1=100ms/15 chars, and D5=100ms/100 chars.
+- D0/D1/D5 command IDs, empty DATA, D0=300ms/327 chars（2026-11-11改訂）, D1=100ms/15 chars, and D5=100ms/100 chars.
 - D0 decoder validates TIME as ASCII HEX, keeps embedded STATUS/INFO raw-only, and populates only DATA Cache.
 - All 43 DATA, 37 STATUS, and 26 INFO queries read cache without additional NF55G transmission.
 - D0 protocol/decode failure leaves DATA INVALID; OI-03 product-side CHARGE_END behavior remains unresolved and is not emulated by Host code.
@@ -404,6 +424,107 @@ Host／Mock: 試験開始後のQR受信callbackから末尾6桁を取得し、�
 
 2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。
 
+## 2026-11-09 SET ERP実装・Sample併用試験準備
+
+### Host／Mockの確認対象
+
+- ERP_SET_1_0→SE DATA1000、ERP_SET_0_0→SE DATA0000、T2=100ms、正常応答DATA15文字。
+- 成功・ACK／応答timeout・最終BCC／FRAME異常でDATA／STATUSを無効化。他Cacheは保持。SQE／PMEでCache保持。
+- 応答長0／14／16文字の拒否とplain NAK、BCC応答再送とCommand Retryの分離、Command Retry上限1回。
+- 不正名・余分な引数の無送信、Queryの自動Refresh禁止、SE応答からSTATUSへの昇格禁止、明示D1後のBURST?取得。
+- 実行対象: tests/test_erp_commands.py（10テスト、全4コマンドをsubTestで確認）および既存Host／Mock全体。
+
+### Sample併用の実機試験（未実施）
+
+1. 今回の3モジュール（command_parser.py／nf55_command.py／command_dispatcher.py）を含むソースをPicoへ配置し、旧ファイル退避と読戻しhash照合を行う。配置前後のSample識別、NF55G FW版、治具版、AC／PS_ON／バッテリ／負荷条件を記録する。
+2. 出力電圧、瞬断・再起動の観測方法とSampleの比較条件を確認する。製品の低消費動作を検証する場合は、設計条件に基づくPS_OFF条件と入力電力／電流測定を別途準備する。今回の手順で電源断や配線変更を自動実行しない。
+3. TEST_START後、PICO_SELF_CHECK?／COMM_STATUS?／SD_STATUS?を確認。STATUS_REFRESH→BURST?／BURST_ON?／PS_OFF_CHARGE?／PS_ON?で設定前を記録。DATAが開始前からINVALIDなら無効化遷移の実証とは扱わない。
+4. ERP_SET_1_0を1回要求。送信DATA1000、応答DATA15文字・BCC、elapsed、cmd/rsp retry、ambiguousを保存。直後のBURST?／PS_OFF_CHARGE?がERR:CACHE_INVALIDであることを確認する。
+5. 明示STATUS_REFRESH後、BURST?=1／PS_OFF_CHARGE?=0を確認。BURST_ON?と出力電圧・入力電力／電流・瞬断／再起動の観測値をSample条件と対応づけて記録する。BURST_ONはBURST入力信号の受信状態で、仕様上バースト有無に依存しない（r1 p.30）。BURST_ON=1を実際のバースト動作成立の判定に使わず、外部測定で確認する。
+6. 異常がなければERP_SET_0_0を1回要求し、DATA0000と同じ通信／Cache項目を記録。明示STATUS_REFRESH後、BURST?=0／PS_OFF_CHARGE?=0を確認して同条件で外部測定する。
+7. TEST_END→PICO_SELF_CHECK?／SD_STATUS?／LOG_DROP_COUNT?。SD CSVとATE TX/RX、設定前後値、Sample比較値、操作者観測を案件のtempへ保存する。
+8. 終了後の設定はBURST=0／PS_OFF_CHARGE=0となる。設定前が異なる場合の復元方法・最終設定は担当者が確認する。追加実装したERP_SET_0_1／ERP_SET_1_1でPS_OFF_CHARGE=1の保存済み元設定へ復元できる。自動復元せず、BURST／PS_OFF_CHARGEの保存値に対応するコマンドをATEが明示送信し、STATUS_REFRESH後に両設定を確認する。
+
+timeout／最終FRAME／BCC異常では成否不明としてCache INVALIDを保持し、盲目的なATE反復要求をせず記録・状態確認を行う。設定反映と低消費動作成立、Protocol OKと製品PASSを分ける。実機結果はReal_Hardware_Test_Log.mdへ記録する。
+
+2026-11-09 ERP全4組合せ対応: ERP_SET_0_1→SE DATA0100、ERP_SET_1_1→SE DATA1100を追加。既存ERP専用10テストを4組合せへ拡張し、送信形式・T2・D1読戻しの両設定・異常時のCache・再送分離・不正要求無送信を確認。Host／Mock全220件成功（7.416秒）。ログ: temp/erp_all_modes_host_mock_20261109_run01.log。Pico配置・Sample実機試験は未実施。
+
+## 2026-11-09 読出し優先実装とERP同時デバッグの記録
+
+### ユーザー指定
+
+読出しコマンドを優先実装し、実機デバッグはERP全4種と同時に後日実施する。今回はPico配置・実機送信・Sample試験を行わない。既存ERPのHost／Mock確認済み状態と、実機未確認を区別して引き継ぐ。
+
+### Host／Mock結果
+
+tests/test_log_fd_read_commands.pyに13テストを追加し、全233件成功（5.717秒）。全12ブロックと全96履歴の両Query、開始番号10進→HEX、日時HEX→10進、ID FF→255、空履歴、FDアドレスとRAW64文字保持、開始前INVALID、失敗時旧値復元禁止、ブロック独立、CL後全ブロック無効化、異常長・不正HEX・日時異常・START_NO不一致、不正要求の無送信、T2・ACK／応答timeout・再送分離、HWE、未接続を確認。記録: temp/read_commands_host_mock_20261109_run01.log。
+
+### 後日の実機デバッグ対象と順序
+
+1. 現行Picoソース退避、配置ファイルhash照合、Sample／FW／信号・負荷条件を記録。通信IDLE、SD、自己診断を確認する。
+2. TEST_START後、EL4ブロック・OL8ブロックを明示取得。各ブロックの全8件をQueryし、ATE送信・NF RAW・START_NO・日時変換・ID・T2・再送・Cache範囲を照合。読出しで履歴消去や自動CLを行わない。
+3. FDはREAD-FD-01の正式IDと、読出し可能アドレス・OI-10の取扱いを担当者が確認してから実施。FD_READとFD_DATA?の64文字、次取得での置換、失敗時INVALIDを確認。FUは送信しない。
+4. ERPは本書のSample手順に従い全4組合せを確認。BURST／PS_OFF_CHARGEの元値退避、明示D1読戻し、外部測定、終了時の明示復元を行う。BURST_ONだけで実動作成立を判定しない。
+5. TEST_END後、最終Self Check・SD・drop count、通信IDLEを記録。SD CSV、ATE TX/RX、Sample観測、設定前後、ファイルhashを案件tempへ保存。実機結果はReal_Hardware_Test_Log.mdへ追記する。
+
+ARは仕様確認待ちで今回未実装。BC診断開始などの制御追加、未定義Query、CL自動実行、製品PASS／FAIL判定は今回の読出し実装へ追加しない。
+
+## 2026-11-09 項目別PARAM設定
+
+- 通常10項目を実装。tests/test_parameter_item_commands.pyの10テストで、各項目の0／上限、10進→規定幅HEX、他項目Fと予約0、先頭ゼロ、範囲外・未変更sentinel・小数・符号・HEX・未知項目・余分な引数の拒否を確認。
+- 保護5項目と未確定CHG_IR_THDの無送信拒否、INFO未取得でも自動D5なし、成功／ambiguousのDATA／STATUS／INFO無効化、SQE／PME／CMEのCache保持、応答0文字、plain NAK、Command Retry／Response Retry分離、未接続時の構文拒否、明示INFO_REFRESH後のQueryを確認。
+- Host／Mock全243件成功（7.565秒）。記録: temp/parameter_items_host_mock_20261109_run01.log。Pico配置・実機設定は未実施。
+- 後日実機確認では対象項目・変更値・影響と元設定復元方法を担当者と確認し、INFO_REFRESHで元値を保存してから1項目ずつ実行、D5読戻しと非対象項目の保持、外部出力観測、終了時の明示復元を記録する。INFO読戻しで電源初期値指定0が0のまま返る仕様を値の補完で変えない。
+- 先の「ERPと履歴読出しのデバッグは後日まとめて実施」の記録を維持する。今回の項目別設定もHostのみ確認済みとして区別し、実機で確認済みとは扱わない。保護設定は変更せず、CHG_IR_THDはPARAM-IR-01の設計確認後に扱う。
+
+## 2026-11-09 バッテリ診断開始・停止と結果Query
+
+- tests/test_battery_check_commands.pyへ13テスト追加、Host／Mock全256件成功（6.585秒）。記録: temp/battery_check_host_mock_20261109_run01.log。
+- BC開始1／停止0、両方応答30文字・T2=6秒、開始前BC INVALID、完全8項目のみ公開、停止後BC無効と停止応答非採用、Query無送信、MODE13／未解釈MODEの受信値公開、0データ、符号・単位変換、SQE／PME／CMEのCache保持範囲、timeout・最終FRAME・HWEの無効化、NAKと再送分離、不正引数・未接続・BUSYを検証。
+- START成功はDATA／STATUS INVALID、BC VALID。BC Queryは保存結果で、STATUSのBATT_CHECK_RUN?は別Cacheのため必要なら明示STATUS_REFRESHする。D0からBCを自動生成しない。
+- STOP空応答・29／31文字は拒否し、予約領域を含む不正HEXもDECODE失敗とする。Partial DecodeをBCへ保存しない。MODE取得エラーであってもProtocol OKと区別し、Picoによる製品判定・値補正を行わない。
+- 実機試験は未実施。評価用BCで充電DCIR測定が動作するため、接続バッテリ・充放電・負荷・外部観測・復旧手順を確認する。AUTO_CHARGEの設定に関係なくBCが実行される仕様を踏まえ、Picoから事前CN／CF／PARAM変更を自動送信しない。
+- OI-06（STOP現FW）／OI-07（MODE13詳細）はOpen継続。START処理へのSTOP割込みを想定せず、Transaction完了後の別コマンドとして扱う。ATEの応答待ち時間にはT2と規定再送を考慮する。
+- 先のERP／読出しの後日デバッグ予定を保持し、BCも今回Hostのみ確認済みとして記録する。Pico配置・実機確認は別途、条件確認後に行う。
+
+2026-11-09 BC最終回帰: 引数なし契約としてBATT_CHECK_START=／BATT_CHECK_STOP=の空追加指定もERR:UNEXPECTED_PAYLOADで送信前拒否する試験を追加。最終コードのHost／Mock全256件成功（7.088秒）。最終記録: temp/battery_check_host_mock_20261109_run02.log。
+
+## 2026-11-09 13:12 COM14配置後の確認状態
+
+- 先の各実装時点における「Pico配置未実施」は履歴。ユーザー指示により変更5ファイルの配置を完了し、対象25ファイルの読戻しSHA256一致、Pico上compile25件、RAM Mock31ケース成功を確認した。最終Host／Mockは256件成功のまま（製品コード追加変更なし）。
+- 実ハード初期化後のローカル自己診断・RTC・SD・未取得Cache応答・不正要求拒否を確認。NF55G送信をガードした確認区間の送信試行は0。通常app.runを開始しCOM14を解放済み。
+- 製品コマンドの実通信、Sample外部測定、ATE物理往復、電源再投入は今回未確認。ERP／履歴読出しをまとめて後日デバッグする予定と、FD／PARAM／BCに関する既存の条件・Open Issueを維持する。取得前CacheはINVALIDなので、実機試験では明示Refresh／取得を行う。
+- 詳細: [実機記録](Real_Hardware_Test_Log.md)、[配置照合](../temp/pico_debug_deploy_20261109_run01/deployment_manifest.json)、[起動結果](../temp/pico_debug_deploy_20261109_run01/runtime_result.json)。
+
+## 2026-11-09 COM6開発機への配置と組立後の確認引継ぎ
+
+- COM6／unique_id=69f7d45962cfdfadへ現行25ファイルをクリーン配置し、全読戻しSHA256一致。COM14配置済みソースとも同一。MicroPython v1.27.0上のcompile25件・RAM Mock31ケース成功、製品通信未実施。
+- ユーザー指示により作業範囲はPico書込みまで。RTC・SDはハード組立後に確認する。組立前の初期化応答（RTC NG／SD MOUNT_ERR）から原因・故障を断定しない。組立後はRTC_CHECK、SD_STATUS、自己診断と既定のLogger確認を行い、今回の配置確認と区別して実機記録へ追記する。
+- [配置・退避・起動記録](Real_Hardware_Test_Log.md)を参照。
+
+## 2026-11-09 寿命情報設定SL
+
+- tests/test_life_set_commands.pyの12テストを追加。通常値0／1／123／4094／4095、先頭ゼロ、上限超過4096／65535、負数、RAW不正HEX・予約非0・小文字・長さ異常・空DATA・内部空白が指定どおり送信されることを確認。PME／SQE／CMEの無補正とCache保持、ACK／応答timeout・HWEのambiguousとDATA無効化、Command Retry最大1回・Response Retry分離・plain NAK、非空成功応答拒否、構文不正・制御文字・未接続・BUSYを検証。
+- 明示D0後のBATT_DEG_TOTAL?、Query無送信、DATAのみ更新、STATUS／INFO非昇格、範囲外PME／受理後のMock読戻しを確認。模擬の応答と値は実機結果ではない。
+- Host／Mock全268件成功（5.237秒）。記録: temp/life_set_20261109_run01/host_mock.log。量産使用未確定、OI-08継続。ユーザー指定により今回は実装・試験手順作成まで。Pico追加配置・Sample実送信なし。
+- 後日手順: [SL範囲外書込み・読戻し・復元](Life_Set_Hardware_Test_Procedure_20261109.md)。元値退避とOFF期間データ副作用を記録し、明示読戻しで実挙動を確認する。
+
 ## 2026-11-11 再START修正版の実機正常系結果
 
 事前提示手順で対象4ファイルを配置・hash照合。COM20でSC→D0→Query→10秒→再STARTと3試行を確認。再STARTはOK、各開始直後の旧DATA QueryはINVALID、明示Refresh後は新データ取得成功。CSV3本の試行ID・区切り理由・Transaction分離、全行14列、SD／PC hashとNFフレームBCC一致。保存診断正常・破棄0。再STARTのPC往復163.3／200.2ms。QR実入力・SS・実機保存異常系・量産Timing全般は含まない。[実機結果](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。
+
+## 2026-11-11 USB SubMCU単体確認FWの受入
+
+隔離したUSB CDC確認FW dev-20261111.1について、scripts/usb_submcu_acceptance_hil.pyでUSB serial A06FEA01012EC137とBUILD 583b3b6ba99e14bfを照合して試験する。確認項目は識別、CR／LF／CRLF、分割／連結、95文字境界、過長・不正ASCII行の拒否と復帰、空行無応答、100件連番echo、DTR切断／再接続時の部分行失効。書込み後・USB経由再起動後の各123チェック成功、Host／Mock287件成功、元Flash全2MB退避・verifyと配布UF2書込みverifyを確認した。[原文証跡・結果](USB_SubMCU_FW_Acceptance_20261111/Result.md)。物理的な電源再投入・QR／7355 Host・UART・電気保護・併用Timingは試験範囲外。この診断USB仕様を内部リンクの正式仕様へ流用しない。
+
+## 2026-11-11 Type_C2 Host電気受入の具体化案
+
+[Host回路条件Rev.0](USB_Host_SubMCU_Host_Circuit_Conditions_Rev0_20261111.md)のH0〜H5で、部品変更の人間確認・写真、無給電施工、1系統給電、電流保護、電圧・突入・読取時負荷、両向き、QR完全一致、後続7355共存を分けて記録する。D+=GPIO12／R12、D−=GPIO13／R11を期待配線とし、R13のD+プルアップとCC Rd／Rpを照合する。微細DB_Nの測定は必須としない。デバッグPC給電と機器用Expander5V・1A供給枠を切り替え、同時直結しない。VBUS常時直結の固定機器限定評価を、接続検出・給電制御を伴う最終Sourceの合格へ読み替えない。今回は資料照合のみで、改造・Host実機試験は未実施。
+
+## USB SubMCU実機前準備（2026-11-11）
+
+[QR単体Host probe仕様・段階手順](USB_SubMCU_Host_Preparation_20261111/Preparation_Rev0.md)を追加。列挙とHID原文のみ、診断はRAM／任意TX候補で正式UART仕様とは区別。欠落・破損ログを検査し、35文字一致や製品合格に昇格しない。2 Host制約USB-SUB-03を追加。既存ATE／NF55G／Cache契約は変更せず、実機書込み・施工は今回行わない。
+
+## USB SubMCU UART版の準備完了（2026-11-11、実機未受入）
+
+[UART診断仕様](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Specification_Rev0.md)と[ビルド・検証結果](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Result_Rev0.md)を追加。qr-uart-20261111.1は追加基板GP0／115200・8N1のTX専用。既存76byteレコードをHEXで返し、起動版・IDをUSB開始前に送出する。ログは原文取得だけでQR35文字一致・製品合格としない。Host／Mock301件とファイル検証は成功、UART実機・QR・2 Hostは未受入。ATE／NF55Gの契約と正式親子UARTは変更しない。
