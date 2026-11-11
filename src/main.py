@@ -166,11 +166,16 @@ class FixtureApp:
     def execute_ate_line(self, line):
         # ATEの論理要求・実行結果をRAM記録する。TXはUART送信完了の意味ではない。
         was_recording = self.logger.active or self.logger.test_running
+        previous_trial = self.logger.trial_id
         text = line.decode('ascii') if isinstance(line, bytes) and all(b < 128 for b in line) else str(line)
         if was_recording:
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
         response = self._execute_ate_line(line)
-        if not was_recording and (self.logger.active or self.logger.test_running):
+        new_trial = self.logger.trial_id != previous_trial
+        if new_trial:
+            # 前試行の未完QRを次試行の完了データとして使わせない。
+            self.qr_reader.cancel()
+        if (not was_recording or new_trial) and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
         if self.logger.active or self.logger.test_running:
             self.logger.log(category='ATE', direction='TX', event='RESULT', result=response, detail=text)

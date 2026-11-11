@@ -1,0 +1,3 @@
+# SD回収CSVと配置前退避のバイト列を保存し、SHA-256照合を再現可能にする。
+*.csv -text
+deployment_20261111_094958/backup/** -text -diff

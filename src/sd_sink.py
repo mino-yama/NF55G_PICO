@@ -41,6 +41,7 @@ class FileSDSink:
         self.bank_bytes = {"BANK_A": 0, "BANK_B": 0}
         self.capacity_bytes = 0
         self.last_error = None
+        self.trial_high_watermark = 0
 
     def _guard(self):
         if self.busy():
@@ -53,8 +54,14 @@ class FileSDSink:
 
     @staticmethod
     def _log_name(name):
-        if len(name) == 26 and name[6] == '_' and all('0' <= c <= '9' for c in name[:6]):
+        if len(name) >= 26 and name[6] == '_' and all('0' <= c <= '9' for c in name[:6]):
             name = name[7:]
+        # 旧日時名と新試行番号名の両方をBANK容量集計・循環対象にする。
+        if len(name) >= 27 and name[15:17] == '_T' and name.endswith('.csv'):
+            number = name[17:-4]
+            if len(number) < 6 or not all('0' <= c <= '9' for c in number):
+                return False
+            name = name[:15] + '.csv'
         return (len(name) == 19 and name[8] == '_' and name.endswith('.csv')
                 and all('0' <= c <= '9' for c in name[:8] + name[9:15]))
 
@@ -75,6 +82,9 @@ class FileSDSink:
             for name in self.fs.listdir(path):
                 if self._log_name(name):
                     total += self.fs.stat(path + '/' + name)[6]
+                    if '_T' in name:
+                        self.trial_high_watermark = max(self.trial_high_watermark,
+                                                        int(name.rsplit('_T', 1)[1][:-4]))
             self.bank_bytes[bank] = total
         self.capacity_bytes = self.usage()['capacity_bytes']
         if self.capacity_bytes <= 0:
@@ -150,6 +160,9 @@ class FileSDSink:
             if usage['used_percent'] >= 90:
                 raise LoggerError('FULL')
             self.file = self.open_file(path, 'wb')
+            if '_T' in filename:
+                self.trial_high_watermark = max(self.trial_high_watermark,
+                                                int(filename.rsplit('_T', 1)[1][:-4]))
             self.open_filename = path
             self.file_bytes = 0
             self._write(csv_line(CSV_FIELDS))

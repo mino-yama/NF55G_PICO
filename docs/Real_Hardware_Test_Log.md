@@ -1,4 +1,12 @@
 # Real Hardware Test Log
+
+## 2026-11-11 再TEST_START修正版の配置・3試行ログ分離
+
+- 事前に手順を提示後、COM6の治具IDを照合し、旧25ファイルを退避。logger／sd_sink／command_dispatcher／mainの4ファイルを配置してPC／Pico SHA-256一致を確認。その他srcの比較対象も配置前hash一致。Host／Mock284件成功。
+- COM20でSTART→SC→D0→Query→10秒→再START→明示D0→Query→3回目START→明示D0→Query→ENDを実施。再STARTは両方OK（PC往復163.3／200.2ms）、直後の旧DATA QueryはCACHE_INVALID。SCとD0は再送0。
+- T000001～3のCSV3本、前2本NEXT_TEST_START・最終TEST_END、各試行のTransactionと全行14列、全8フレームBCC、SD／PCのhash一致を確認。最終Self Check正常・TEST_LOGGER／DROP正常・累積破棄0・通信IDLE。通常待受復帰とCOM解放済み。
+- QR／SS・SD異常系・量産Timing全般は未確認。TEST-SESSION-01はOpen継続。[詳細・配置台帳・CSV](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。
+
 Revision: Rev.0-draft
 
 ## 2026-11-10 ATE終端修正後の実機確認

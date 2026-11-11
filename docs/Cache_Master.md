@@ -16,6 +16,7 @@ Power-on: all INVALID.
 - Never restore old cache after failed refresh.
 - VALID means last fetch/decode was successful, not that the data is current now.
 - Control response status does not update STATUS cache.
+- 2026-11-11: 受付済みTEST_STARTごとに全製品CacheをINVALIDにする。再STARTでも同じ。拒否されたSTARTでは失効させない。自動Refreshは行わない。QR受信状態とログ用S/Nも新試行へ引き継がない。
 
 ## Master
 | Command | Success VALID | Success INVALID | Post |

@@ -1,0 +1,355 @@
+{
+  "kind": "restart_fix_three_trials",
+  "port": "COM20",
+  "baudrate": 115200,
+  "started_jst": "2026-11-11T09:50:36.643686+09:00",
+  "commands": [
+    {
+      "command": "*IDN?",
+      "sent_jst": "2026-11-11T09:50:37.001486+09:00",
+      "sent_elapsed_s": 0.3568813999881968,
+      "response_hex": "4e463535475f5049434f5f464958545552452c5265762e300d0a",
+      "response": "NF55G_PICO_FIXTURE,Rev.0",
+      "received_elapsed_s": 0.3626577999966685,
+      "response_seconds": 0.005776400008471683
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T09:50:37.167479+09:00",
+      "sent_elapsed_s": 0.5213484999840148,
+      "response_hex": "4f4b3a73746174653d49444c450d0a",
+      "response": "OK:state=IDLE",
+      "received_elapsed_s": 0.5284501999849454,
+      "response_seconds": 0.0071017000009305775
+    },
+    {
+      "command": "RTC_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:37.331965+09:00",
+      "sent_elapsed_s": 0.6857517999887932,
+      "response_hex": "32303236313131315f3039353033370d0a",
+      "response": "20261111_095037",
+      "received_elapsed_s": 0.695215299987467,
+      "response_seconds": 0.009463499998673797
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:50:37.498677+09:00",
+      "sent_elapsed_s": 0.8524506999820005,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 0.8571446999849286,
+      "response_seconds": 0.004694000002928078
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T09:50:37.662867+09:00",
+      "sent_elapsed_s": 1.0169831999810413,
+      "response_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b0d0a",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK",
+      "received_elapsed_s": 1.0691221999877598,
+      "response_seconds": 0.05213900000671856
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:50:37.874791+09:00",
+      "sent_elapsed_s": 1.2285921000002418,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 1.2350723999843467,
+      "response_seconds": 0.006480299984104931
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T09:50:38.044699+09:00",
+      "sent_elapsed_s": 1.398613600002136,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 1.5708725999866147,
+      "response_seconds": 0.17225899998447858
+    },
+    {
+      "command": "CLOCK_SYNC 261111095038",
+      "sent_jst": "2026-11-11T09:50:38.377053+09:00",
+      "sent_elapsed_s": 1.73081199999433,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 1.7690998000034597,
+      "response_seconds": 0.03828780000912957
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T09:50:38.578291+09:00",
+      "sent_elapsed_s": 1.9327325999911409,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 2.1749160999897867,
+      "response_seconds": 0.24218349999864586
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:38.984024+09:00",
+      "sent_elapsed_s": 2.338003899989417,
+      "response_hex": "32303236313131315f3039353033380d0a",
+      "response": "20261111_095038",
+      "received_elapsed_s": 2.347505599987926,
+      "response_seconds": 0.009501699998509139
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:50:39.152388+09:00",
+      "sent_elapsed_s": 2.5061008999764454,
+      "response_hex": "31322e3031340d0a",
+      "response": "12.014",
+      "received_elapsed_s": 2.5140641999896616,
+      "response_seconds": 0.007963300013216212
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T09:50:39.321382+09:00",
+      "sent_elapsed_s": 2.675429399998393,
+      "response_hex": "302e3035360d0a",
+      "response": "0.056",
+      "received_elapsed_s": 2.696499899990158,
+      "response_seconds": 0.021070499991765246
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T09:50:39.505110+09:00",
+      "sent_elapsed_s": 2.859868799976539,
+      "response_hex": "302e3030330d0a",
+      "response": "0.003",
+      "received_elapsed_s": 2.8666231999814045,
+      "response_seconds": 0.006754400004865602
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T09:50:49.676551+09:00",
+      "sent_elapsed_s": 13.030290499998955,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 13.193550900003174,
+      "response_seconds": 0.16326040000421926
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:49.997035+09:00",
+      "sent_elapsed_s": 13.350492700003088,
+      "response_hex": "4552523a43414348455f494e56414c49440d0a",
+      "response": "ERR:CACHE_INVALID",
+      "received_elapsed_s": 13.360916999983601,
+      "response_seconds": 0.010424299980513752
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:50:50.166022+09:00",
+      "sent_elapsed_s": 13.519520599977113,
+      "response_hex": "4552523a43414348455f494e56414c49440d0a",
+      "response": "ERR:CACHE_INVALID",
+      "received_elapsed_s": 13.527051399985794,
+      "response_seconds": 0.0075308000086806715
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T09:50:50.331798+09:00",
+      "sent_elapsed_s": 13.685299099975964,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 13.946379899978638,
+      "response_seconds": 0.26108080000267364
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:50.750574+09:00",
+      "sent_elapsed_s": 14.10405379999429,
+      "response_hex": "32303236313131315f3039353034390d0a",
+      "response": "20261111_095049",
+      "received_elapsed_s": 14.111978300003102,
+      "response_seconds": 0.007924500008812174
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:50:50.917916+09:00",
+      "sent_elapsed_s": 14.27154009998776,
+      "response_hex": "31322e30310d0a",
+      "response": "12.01",
+      "received_elapsed_s": 14.29187539999839,
+      "response_seconds": 0.020335300010629
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T09:50:51.097868+09:00",
+      "sent_elapsed_s": 14.451291199977277,
+      "response_hex": "302e3035360d0a",
+      "response": "0.056",
+      "received_elapsed_s": 14.457300299982307,
+      "response_seconds": 0.006009100005030632
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T09:50:51.265024+09:00",
+      "sent_elapsed_s": 14.61862470000051,
+      "response_hex": "302e3030330d0a",
+      "response": "0.003",
+      "received_elapsed_s": 14.62492229999043,
+      "response_seconds": 0.006297599989920855
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:50:51.461174+09:00",
+      "sent_elapsed_s": 14.815240900003118,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 14.821053499996196,
+      "response_seconds": 0.005812599993078038
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:50:51.639435+09:00",
+      "sent_elapsed_s": 14.992810600000666,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 14.999891699990258,
+      "response_seconds": 0.007081099989591166
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T09:50:51.806535+09:00",
+      "sent_elapsed_s": 15.159920599980978,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 15.360089099995093,
+      "response_seconds": 0.20016850001411512
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:52.167348+09:00",
+      "sent_elapsed_s": 15.52258950000396,
+      "response_hex": "4552523a43414348455f494e56414c49440d0a",
+      "response": "ERR:CACHE_INVALID",
+      "received_elapsed_s": 15.532235399994534,
+      "response_seconds": 0.009645899990573525
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:50:52.337418+09:00",
+      "sent_elapsed_s": 15.690784799982794,
+      "response_hex": "4552523a43414348455f494e56414c49440d0a",
+      "response": "ERR:CACHE_INVALID",
+      "received_elapsed_s": 15.697645899985218,
+      "response_seconds": 0.0068611000024247915
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T09:50:52.504397+09:00",
+      "sent_elapsed_s": 15.857792199996766,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 16.098314100003336,
+      "response_seconds": 0.24052190000656992
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:50:52.904368+09:00",
+      "sent_elapsed_s": 16.25771189999068,
+      "response_hex": "32303236313131315f3039353035320d0a",
+      "response": "20261111_095052",
+      "received_elapsed_s": 16.266027399979066,
+      "response_seconds": 0.008315499988384545
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:50:53.072823+09:00",
+      "sent_elapsed_s": 16.426242699992144,
+      "response_hex": "31322e30310d0a",
+      "response": "12.01",
+      "received_elapsed_s": 16.464054199983366,
+      "response_seconds": 0.03781149999122135
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T09:50:53.270054+09:00",
+      "sent_elapsed_s": 16.62348139999085,
+      "response_hex": "302e3035360d0a",
+      "response": "0.056",
+      "received_elapsed_s": 16.63185259999591,
+      "response_seconds": 0.0083712000050582
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T09:50:53.436382+09:00",
+      "sent_elapsed_s": 16.78976149999653,
+      "response_hex": "302e3030330d0a",
+      "response": "0.003",
+      "received_elapsed_s": 16.79917009998462,
+      "response_seconds": 0.009408599988091737
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:50:53.605576+09:00",
+      "sent_elapsed_s": 16.95898379999562,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 16.9669163999788,
+      "response_seconds": 0.007932599983178079
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:50:53.772275+09:00",
+      "sent_elapsed_s": 17.12612169998465,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 17.13468219997594,
+      "response_seconds": 0.008560499991290271
+    },
+    {
+      "command": "TEST_END",
+      "sent_jst": "2026-11-11T09:50:53.941901+09:00",
+      "sent_elapsed_s": 17.295217599981697,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 17.475431899976684,
+      "response_seconds": 0.1802142999949865
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T09:50:54.281116+09:00",
+      "sent_elapsed_s": 17.634493399993517,
+      "response_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b3b544553545f4c4f474745523d4f4b3b544553545f4c4f475f44524f503d4f4b0d0a",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK",
+      "received_elapsed_s": 18.20914749999065,
+      "response_seconds": 0.574654099997133
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:50:55.011890+09:00",
+      "sent_elapsed_s": 18.365188800002215,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 18.37119839998195,
+      "response_seconds": 0.006009599979734048
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:50:55.175394+09:00",
+      "sent_elapsed_s": 18.52867349999724,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 18.534314599994104,
+      "response_seconds": 0.005641099996864796
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T09:50:55.339645+09:00",
+      "sent_elapsed_s": 18.692922299989732,
+      "response_hex": "4f4b3a73746174653d49444c450d0a",
+      "response": "OK:state=IDLE",
+      "received_elapsed_s": 18.70057019998785,
+      "response_seconds": 0.007647899998119101
+    }
+  ],
+  "wait": {
+    "requested_s": 10,
+    "actual_s": 10.00037369999336
+  },
+  "completed": true
+}

@@ -1,0 +1,147 @@
+{
+  "sequence": "Restart_Fix_Sequence_20261111_095036.json",
+  "files": [
+    {
+      "path": "/sd/BANK_A/20261111_095037_T000001.csv",
+      "local": "20261111_095037_T000001.csv",
+      "trial_id": "T000001",
+      "size": 2802,
+      "sha256": "7653efd78c7eda347d6a02b1ddd5c089c2b6a67f1d64854799b52f87f6f1d60e",
+      "sd_pc_hash_match": true,
+      "data_rows": 27,
+      "column_counts": [
+        14
+      ],
+      "ending": "trial_id=T000001;reason=NEXT_TEST_START",
+      "frames": [
+        {
+          "cmd": "SC",
+          "direction": "TX",
+          "bcc_ok": true
+        },
+        {
+          "cmd": "SC",
+          "direction": "RX",
+          "bcc_ok": true
+        },
+        {
+          "cmd": "D0",
+          "direction": "TX",
+          "bcc_ok": true
+        },
+        {
+          "cmd": "D0",
+          "direction": "RX",
+          "bcc_ok": true
+        }
+      ],
+      "transactions": [
+        {
+          "cmd": "SC",
+          "result": "OK",
+          "cmd_retry": "0",
+          "rsp_retry": "0",
+          "detail": "elapsed_ms=23;ambiguous=False"
+        },
+        {
+          "cmd": "D0",
+          "result": "OK",
+          "cmd_retry": "0",
+          "rsp_retry": "0",
+          "detail": "elapsed_ms=194;ambiguous=False"
+        }
+      ]
+    },
+    {
+      "path": "/sd/BANK_A/20261111_095049_T000002.csv",
+      "local": "20261111_095049_T000002.csv",
+      "trial_id": "T000002",
+      "size": 2742,
+      "sha256": "6119da4cd6b326eb69961cf357296a16e2f14359099da756fc31eb43df470456",
+      "sd_pc_hash_match": true,
+      "data_rows": 28,
+      "column_counts": [
+        14
+      ],
+      "ending": "trial_id=T000002;reason=NEXT_TEST_START",
+      "frames": [
+        {
+          "cmd": "D0",
+          "direction": "TX",
+          "bcc_ok": true
+        },
+        {
+          "cmd": "D0",
+          "direction": "RX",
+          "bcc_ok": true
+        }
+      ],
+      "transactions": [
+        {
+          "cmd": "D0",
+          "result": "OK",
+          "cmd_retry": "0",
+          "rsp_retry": "0",
+          "detail": "elapsed_ms=215;ambiguous=False"
+        }
+      ]
+    },
+    {
+      "path": "/sd/BANK_A/20261111_095051_T000003.csv",
+      "local": "20261111_095051_T000003.csv",
+      "trial_id": "T000003",
+      "size": 3031,
+      "sha256": "ffe8f18f7339be29303e0d44053d7348001f02c8e204a878ec42a11ab0c6994c",
+      "sd_pc_hash_match": true,
+      "data_rows": 30,
+      "column_counts": [
+        14
+      ],
+      "ending": "trial_id=T000003;reason=TEST_END",
+      "frames": [
+        {
+          "cmd": "D0",
+          "direction": "TX",
+          "bcc_ok": true
+        },
+        {
+          "cmd": "D0",
+          "direction": "RX",
+          "bcc_ok": true
+        }
+      ],
+      "transactions": [
+        {
+          "cmd": "D0",
+          "result": "OK",
+          "cmd_retry": "0",
+          "rsp_retry": "0",
+          "detail": "elapsed_ms=192;ambiguous=False"
+        }
+      ]
+    }
+  ],
+  "completed": true,
+  "after_restart": [
+    {
+      "command": "*IDN?",
+      "response": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "response": "OK"
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "response": "0"
+    }
+  ]
+}

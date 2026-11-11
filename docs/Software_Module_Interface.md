@@ -42,6 +42,9 @@ USB CDC detailed implementation is deferred. Architecture should allow a future 
 - models.py: shared data structures.
 
 ## Core interfaces
+
+2026-11-11試行管理: CommandDispatcherが再TEST_STARTを前試行終了→新試行開始として扱う。Logger.test_end(protocol_busy=False, reason='TEST_END')は通信延期時に旧状態を保持。Logger.trial_id／last_test_id／test_history（最新8件）で現試行と完了試行を区別する。FileSDSink.trial_high_watermarkは両BANKの既存試行番号とopen済み番号の最大値。FixtureAppは試行ID変化時にQRReceiver.cancelを呼び、旧受信完了を採用しない。新USB下位UARTの試行／要求ID照合は引き続き未実装。
+Runtime統合の詳細と検証範囲: [Runtime Integration](Runtime_Integration.md)。
 Runtime統合の詳細と検証範囲: [Runtime Integration](Runtime_Integration.md)。
 
 - `SystemClock.ticks_ms()/sleep_ms()` をprotocol/cache/logger/schedulerで共有。

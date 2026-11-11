@@ -15,16 +15,28 @@ Host/Mock検証済み、統合版の実カード・電源断・通信遅延測�
 
 ## Format
 - CSV
-- filename: `YYYYMMDD_HHMMSS.csv`。当該試験のQR末尾6桁を取得できた場合は終了時に`SSSSSS_YYYYMMDD_HHMMSS.csv`へ変更する。
+- 試験filename: `YYYYMMDD_HHMMSS_T000001.csv`。当該試行のQR末尾6桁を取得できた場合は終了時に`SSSSSS_YYYYMMDD_HHMMSS_T000001.csv`へ変更する（2026-11-11更新）。連続ログは従来の日時名。
 - RTC source: Pico-side DS3231
 
 ## Production
+
+2026-11-11更新: 試験中に次のTEST_STARTを受け付けた場合も試行の区切りとする。以下の旧TEST_START～TEST_ENDのみの記述は本更新に従う。
 ATE sends:
 - TEST_START
 - TEST_END
 
 One production test = one CSV file.
 TEST_END performs forced queue drain, flush and close.
+
+### TEST_START再受付（2026-11-11）
+
+- 前試行の保存終了後に新規CSVを開く。再STARTのREQUESTは旧ログに区切りの要求として残し、新ログにもREQUESTとRESULTを記録する。TRIAL_START／TRIAL_END_REQUEST行のdetailに試行IDと区切り理由を記録する。close後の保存結果はRAMに保持し、閉じたCSVへ成功行を追記しない。
+- Logger.test_start自体は記録中の直接再入を拒否する。前試行のtest_end(reason='NEXT_TEST_START')と次のtest_startの順序はCommandDispatcherが管理する。SD処理は同期型で、既存TEST_ENDと同様に待機中に行う。通信検出で延期した場合は新試行を作らずERR:BUSY。実機応答時間は未測定。
+- 試行IDはT＋6桁以上の通し番号。mount時に両BANKの旧／新形式ログを調べ、新形式の既存最大番号とRAM採番の大きい方に1を加える。カード上の既存ログの復旧・継続は行わず、既存ファイルは上書きしない。
+- 新形式名も容量集計とBANK循環削除の対象。旧日時名・旧S/N日時名も従来どおり対象とする。任意ファイルを採用・削除しない。
+- 新試行前の未所属Queueは破棄計上して消去し、新試行へ流さない。旧試行の保存不能行も旧試行の破棄件数として保持する。SD異常の再認識は再START間に割り込ませない。
+- 完了履歴logger.test_historyはRAMで最新8件。ID、終了区分、ファイル名、S/N、保存状態、破棄件数を保持する。超過分は古い順に除去しhistory_drop_countに計上。last_test_idとlast_test_*は最新完了試行を指す。専用ATE履歴Query・永続化は今回追加しない。
+- 製品AC_OFFで試行を分割しない。Pico電源断時の途中データ保持・復旧は保証しない。SD保存失敗時の1試行1CSVは保証できないが、別試行のファイルへの追記は行わない。
 
 ## 試験ログと最終Self Check（2026-11-09）
 
@@ -33,7 +45,7 @@ TEST_END performs forced queue drain, flush and close.
 - 開始時にDS3231の日時名でファイルを作る。開始後に取得した完全な35文字QRの末尾6桁がASCII数字の場合、先頭ゼロを保持し、終了時のflush／close後に同じBANK内でS/N＋開始日時名へ変更する。試験外のQRと前回試験のS/Nは使用しない。
 - S/N未取得・不正時は日時名のまま。途中ではリネームしない。変更先が既存の場合は上書きせず日時名のログを保持し、FILE_EXISTSを装置異常として報告する。SD書込み・close失敗時にも無理にリネームしない。
 - TEST_END最終段でSDの認識確認（再マウントなし）と自己診断を行う。保存可能な場合はclose前のSELF_CHECK行をCSVへ記録し、flush／close／リネーム後の最終診断をRAMのdiagnostics.last_test_self_checkへ保持する。close後の結果は同じ閉じたCSVに追記できないため、PICO_SELF_CHECK?でATEへ報告する。
-- PICO_SELF_CHECK?のLOGGERは現在の状態、TEST_LOGGERは直前試験の最終保存状態、TEST_LOG_DROPはその試験の破棄有無（正常はOK、異常は破棄件数）。終了後のSD復帰が成功しても直前試験の保存異常は保持する。次のTEST_STARTで直前試験の診断を初期化する。これらは検査装置の診断であり製品PASS/FAILではない。
+- PICO_SELF_CHECK?のLOGGERは現在の状態、TEST_LOGGERは直前試験の最終保存状態、TEST_LOG_DROPはその試験の破棄有無（正常はOK、異常は破棄件数）。終了後のSD復帰が成功しても直前試験の保存異常は保持する。次のTEST_STARTでも直前完了試行の診断を保持し、次の試行完了時に更新する（2026-11-11更新）。これらは検査装置の診断であり製品PASS/FAILではない。
 - SD異常時は永続ログを保証できない。保存できない記録は破棄件数で通知し、試験・通信を継続する。S/Nを含むログも従来の所有BANK・容量管理の対象とする。
 - QR受信完了はFixtureApp.qr_readerのon_readyからaccept_qrへ渡す。外部の確定した受信処理からaccept_qr(raw)を呼ぶこともできる。これはRAM連携のみ。新USBホストの選定・GPIO配線・物理受信ループ・正式QR ATEコマンドは未実装で、既存のOI-23／CH9350課題を維持する。
 
@@ -74,7 +86,7 @@ Implement as directories/logical banks on one FAT32 volume, not separate partiti
 - 抜去をI/Oエラーとして検出した後は異常状態を保持し、再挿入だけでは書込みを再開しない。カード検出端子はなく、抜去は次のI/Oまで検出されない場合がある。未保存行はLOG_DROP_COUNTへ計上し、別カードや次の試験へ持ち越さない。
 - TEST_END／LOG_CONT_STOPで保存可能なQueueを排出・flush・closeし、記録期間を終了する。その後、ATE応答の送信と待ち要求を優先し、通信待機中に再認識を1回実行する。失敗しても自動反復しない。次の試験が開始された場合は、その試験の終了後まで復帰を割り込ませない。
 - 終了後の復帰は新しいログファイルを自動作成せず、次のTEST_START／LOG_CONT_STARTで記録を開始する。待機中の明示SD_REINITも利用できる。
-- TEST_START／TEST_ENDは試験の受付・終了を示すOKを返す。SD異常だけを理由にERRを返して試験を停止させない。通信busy／二重開始はERR:BUSY。ログ異常は最終Self Check、現在の復帰状態はSD_STATUS?で報告し、製品不良判定と区別する（②③要求により前項の初期実装から更新）。
+- TEST_START／TEST_ENDは試験の受付・終了を示すOKを返す。SD異常だけを理由にERRを返して試験を停止させない。通信busy／連続ログ中はERR:BUSY。試験中の再STARTは前試行を閉じて新試行へ切り替える（2026-11-11更新）。ログ異常は最終Self Check、現在の復帰状態はSD_STATUS?で報告し、製品不良判定と区別する（②③要求により前項の初期実装から更新）。
 - Host／Mock検証済み。実カード抜去・再挿入、異常close／unmountからの復帰、冷間起動、ATE応答・通信Timingは実機検証が必要。既存CMD0問題の解決を意味しない。
 
 ## SD failure
@@ -219,3 +231,7 @@ QR原文・解析値・NF55G書込み結果をCSVへ記録する。異常停止�
 2026-11-09 実機確認: 日時ログ、SD抜去時のWRITE_ERR・試験継続、再挿入中の復帰禁止、TEST_END後の復帰と異常履歴保持、次試験のログ再開を確認。D3正常（31ms・再送0）、D4はD4-TIM-01として継続。TEST_ENDの先行OKをEND_REQUESTに修正し、期限境界の部分RAW／ACK待ち異常byteも記録。Host／Mock全198件成功。詳細はReal_Hardware_Test_Log.md。
 
 2026-11-09実機結果: 連続ログ開始・停止・再開始をPico側RTC照会で確認。記録中の定期保存、二重開始とSD_REINITの拒否、停止後close・Queue0、CSV読戻しとtempへのコピーを確認。2本で破棄0。長時間／100MBロールオーバーの検証は含まない。
+
+## 2026-11-11 再START実機確認
+
+修正版配置後、SC→D0→取得→10秒→再STARTと3試行の独立CSVを確認。前2本はNEXT_TEST_START、最終TEST_END、SD／PC hash一致・全行14列・破棄0・最終保存診断正常。再STARTのPC往復163.3／200.2ms。QR命名・保存異常系・量産Timing全般の検証ではない。[実機結果](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。

@@ -1,0 +1,205 @@
+{
+  "kind": "hardware_ate_sequence",
+  "port": "COM20",
+  "baudrate": 115200,
+  "started_jst": "2026-11-11T09:36:12.713674+09:00",
+  "commands": [
+    {
+      "command": "*IDN?",
+      "sent_jst": "2026-11-11T09:36:13.075988+09:00",
+      "sent_elapsed_s": 0.35899999999674037,
+      "response_hex": "4e463535475f5049434f5f464958545552452c5265762e300d0a",
+      "response": "NF55G_PICO_FIXTURE,Rev.0",
+      "received_elapsed_s": 0.35899999999674037
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T09:36:13.239302+09:00",
+      "sent_elapsed_s": 0.5309999999881256,
+      "response_hex": "4f4b3a73746174653d49444c450d0a",
+      "response": "OK:state=IDLE",
+      "received_elapsed_s": 0.5309999999881256
+    },
+    {
+      "command": "RTC_DATETIME?",
+      "sent_jst": "2026-11-11T09:36:13.402777+09:00",
+      "sent_elapsed_s": 0.6870000000053551,
+      "response_hex": "32303236313131315f3039333631330d0a",
+      "response": "20261111_093613",
+      "received_elapsed_s": 0.7030000000086147
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:36:13.569923+09:00",
+      "sent_elapsed_s": 0.8589999999967404,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 0.8589999999967404
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T09:36:13.748913+09:00",
+      "sent_elapsed_s": 1.0309999999881256,
+      "response_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b0d0a",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK",
+      "received_elapsed_s": 1.0929999999934807
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:36:13.961768+09:00",
+      "sent_elapsed_s": 1.25,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 1.25
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T09:36:14.127870+09:00",
+      "sent_elapsed_s": 1.4059999999881256,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 1.5780000000086147
+    },
+    {
+      "command": "CLOCK_SYNC 261111093614",
+      "sent_jst": "2026-11-11T09:36:14.454859+09:00",
+      "sent_elapsed_s": 1.7339999999967404,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 1.7809999999881256
+    },
+    {
+      "command": "DATA_REFRESH",
+      "sent_jst": "2026-11-11T09:36:14.651955+09:00",
+      "sent_elapsed_s": 1.937000000005355,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 2.1710000000020955
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:36:15.049040+09:00",
+      "sent_elapsed_s": 2.3280000000086147,
+      "response_hex": "32303236313131315f3039333631340d0a",
+      "response": "20261111_093614",
+      "received_elapsed_s": 2.3429999999934807
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:36:15.221120+09:00",
+      "sent_elapsed_s": 2.5,
+      "response_hex": "31312e3939380d0a",
+      "response": "11.998",
+      "received_elapsed_s": 2.5
+    },
+    {
+      "command": "IOUT12?",
+      "sent_jst": "2026-11-11T09:36:15.387158+09:00",
+      "sent_elapsed_s": 2.6710000000020955,
+      "response_hex": "302e3035360d0a",
+      "response": "0.056",
+      "received_elapsed_s": 2.7030000000086147
+    },
+    {
+      "command": "BATT_VOLT?",
+      "sent_jst": "2026-11-11T09:36:15.578337+09:00",
+      "sent_elapsed_s": 2.8589999999967404,
+      "response_hex": "302e3030330d0a",
+      "response": "0.003",
+      "received_elapsed_s": 2.875
+    },
+    {
+      "command": "TEST_START",
+      "sent_jst": "2026-11-11T09:36:25.745233+09:00",
+      "sent_elapsed_s": 13.030999999988126,
+      "response_hex": "4552523a425553590d0a",
+      "response": "ERR:BUSY",
+      "received_elapsed_s": 13.030999999988126
+    },
+    {
+      "command": "NF55_DATETIME?",
+      "sent_jst": "2026-11-11T09:36:25.914528+09:00",
+      "sent_elapsed_s": 13.203000000008615,
+      "response_hex": "32303236313131315f3039333631340d0a",
+      "response": "20261111_093614",
+      "received_elapsed_s": 13.203000000008615
+    },
+    {
+      "command": "VOUT12?",
+      "sent_jst": "2026-11-11T09:36:26.081402+09:00",
+      "sent_elapsed_s": 13.35899999999674,
+      "response_hex": "31312e3939380d0a",
+      "response": "11.998",
+      "received_elapsed_s": 13.375
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T09:36:26.243821+09:00",
+      "sent_elapsed_s": 13.530999999988126,
+      "response_hex": "4f4b3a73746174653d49444c450d0a",
+      "response": "OK:state=IDLE",
+      "received_elapsed_s": 13.530999999988126
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:36:26.413331+09:00",
+      "sent_elapsed_s": 13.703000000008615,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 13.703000000008615
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:36:26.576820+09:00",
+      "sent_elapsed_s": 13.85899999999674,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 13.85899999999674
+    },
+    {
+      "command": "TEST_END",
+      "sent_jst": "2026-11-11T09:36:26.742096+09:00",
+      "sent_elapsed_s": 14.030999999988126,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 14.171000000002095
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "sent_jst": "2026-11-11T09:36:27.054936+09:00",
+      "sent_elapsed_s": 14.34299999999348,
+      "response_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b3b544553545f4c4f474745523d4f4b3b544553545f4c4f475f44524f503d4f4b0d0a",
+      "response": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK",
+      "received_elapsed_s": 14.64000000001397
+    },
+    {
+      "command": "SD_STATUS?",
+      "sent_jst": "2026-11-11T09:36:27.523852+09:00",
+      "sent_elapsed_s": 14.812000000005355,
+      "response_hex": "4f4b0d0a",
+      "response": "OK",
+      "received_elapsed_s": 14.812000000005355
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "sent_jst": "2026-11-11T09:36:27.690688+09:00",
+      "sent_elapsed_s": 14.96799999999348,
+      "response_hex": "300d0a",
+      "response": "0",
+      "received_elapsed_s": 14.98399999999674
+    },
+    {
+      "command": "COMM_STATUS?",
+      "sent_jst": "2026-11-11T09:36:27.856659+09:00",
+      "sent_elapsed_s": 15.14000000001397,
+      "response_hex": "4f4b3a73746174653d49444c450d0a",
+      "response": "OK:state=IDLE",
+      "received_elapsed_s": 15.14000000001397
+    }
+  ],
+  "wait": {
+    "requested_s": 10,
+    "actual_s": 10.0
+  },
+  "completed": true
+}

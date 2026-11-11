@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 2026-11-11 再START対応の完了整理・懸念事項継続
+
+- 修正・Host／Mock284件・Pico配置・実機正常系3試行・SD／PC hash照合・tempへの再回収を完了として整理。tempの回収コピーはGit管理外とし、案件フォルダ内の正本CSV・解析・配置台帳を保持する。
+- QR実入力／新USB遅延応答、実SD異常系、量産Timing、START再送識別は継続調査。SS開発は保留、TEST-SESSION-01はOpenを維持。[完了範囲と残事項](Test_Interruption_20261111/Implementation_20261111.md)。
+
+## 2026-11-11 再START修正版のPico配置・実機デバッグ
+
+- 事前提示手順でCOM6旧25ファイルを退避し、対象4ファイルの配置・PC／Pico hash一致を確認。Host／Mock284件成功。
+- SC→D0→Query→10秒→再STARTと3試行を実機確認。再STARTはOK（163.3／200.2ms）、旧DATA QueryはINVALID、3本のCSVに試行分離。全CSVのSD／PC hash・14列、SC／D0全8フレームのBCCと再送0を確認。
+- 最終保存診断OK・破棄0・通信IDLE、通常待受復帰・COM解放済み。今回追加の製品ソース修正なし。SS保留、QR／異常系／量産Timing全般は未確認。TEST-SESSION-01はOpen継続。[実機結果](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。
+
+## 2026-11-11 TEST_START再受付：前試行保存と新試行開始
+
+- 試験中の再TEST_STARTを旧試行の排出・flush・close・命名→新試行開始へ変更。通信busy／保存延期／CONT競合はBUSYで新試行を作らない。旧Queueは新ファイルへ流さない。
+- 全試験CSVへT000001等の試行IDを付加。同一秒でも分離し、両BANKの既存最大番号から継続採番する。旧／新名を容量集計・循環対象とし、同名ファイルは上書きしない。
+- 新試行のQR受信・S/Nと全製品Cacheを失効。自動Refresh／SSは追加しない。完了保存診断と最新8件RAM履歴を保持。SD異常時はCSV保証をせず異常・破棄を記録し、再START中の再mountは行わない。
+- Host／Mock284件成功。新規11件と既存ファイル名期待値更新。Code／Test／ATE・Cache・Logger・Interface・Test仕様を同時更新。修正版の実機配置・Timing確認は未実施。SS開発保留、TEST-SESSION-01はOpen継続。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。
+
 ## 2026-11-10 ATE要求のCR／LF／CRLF終端対応
 
 - ユーザー指定により全3終端を受理し、定期CRを含む空行は無応答で無視する。CR待ちを廃止し、後続正常コマンドのERR:FRAMEと空CRによるidle処理阻害を解消。応答はCRLFを維持。

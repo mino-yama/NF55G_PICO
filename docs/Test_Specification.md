@@ -1,5 +1,11 @@
 # Test Specification / Mock NF55G Specification
 
+## 2026-11-11 再TEST_STARTの試行分離
+
+Host／Mock284件成功（従来273件＋再START関連11件）。tests/test_trial_restart.pyで、同一秒3試行の実ファイル分離、QR／S/N非継承、前試行の部分QR受信破棄、全Cache失効、SC→D0→Query→10秒→再START、再START時のNF55G無送信、通信中・drain中・close guardの延期、SDなし／close異常時の履歴、CONT競合拒否、8件RAM履歴上限、再mount後の採番、旧／新形式のBANK容量集計・循環対象を確認する。既存QR命名テストの期待値は試行ID付きへ更新し、同名rename衝突で原本と新規ログの保持を継続検証する。
+
+修正版の実機配置は未実施。実機では修正版配置hashを照合し、既存のSC→DATA_REFRESH→Query→10秒→再STARTと3回連続STARTを確認する。期待値は再START=OK、別CSV、旧DATA Query=ERR:CACHE_INVALID。新DATAはATEの明示Refresh後に取得する。保存異常・QR実入力・通信TimingはHost結果だけで合格としない。SSは今回対象外。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.1-draft
 
@@ -397,3 +403,7 @@ Host／Mock: 試験開始後のQR受信callbackから末尾6桁を取得し、�
 2026-11-09 PARAM_SET同値書戻し実機結果: 現行D5の設定RAW50文字をreserve込みで退避・同値送信し、SP正常応答DATA0文字、72ms、BCC一致、再送0を確認。INFO/STATUS無効化と再取得後の設定・製造情報の完全一致を確認。ユーザー報告は出力変化・瞬断・再起動なし（電圧数値未提示）。ログ3本をtemp直下へ順次コピー。Host／Mock全206件成功。設定の実変更・保持・RPは未確認。詳細はReal_Hardware_Test_Log.md。
 
 2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。
+
+## 2026-11-11 再START修正版の実機正常系結果
+
+事前提示手順で対象4ファイルを配置・hash照合。COM20でSC→D0→Query→10秒→再STARTと3試行を確認。再STARTはOK、各開始直後の旧DATA QueryはINVALID、明示Refresh後は新データ取得成功。CSV3本の試行ID・区切り理由・Transaction分離、全行14列、SD／PC hashとNFフレームBCC一致。保存診断正常・破棄0。再STARTのPC往復163.3／200.2ms。QR実入力・SS・実機保存異常系・量産Timing全般は含まない。[実機結果](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。

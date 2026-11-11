@@ -337,13 +337,15 @@ class RuntimeIntegrationTests(unittest.TestCase):
             logger.log(detail='a,"b"\r\nc')
             self.assertTrue(logger.test_end())
             path = Path(sink.open_filename)
-            self.assertEqual(path.name, '20260901_000000.csv')
+            self.assertEqual(path.name, '20260901_000000_T000001.csv')
             with path.open(newline='') as stream:
                 rows = list(csv.reader(stream))
             self.assertEqual(rows[1][-1], 'a,"b"\r\nc')
-            self.assertFalse(logger.test_start())
-            self.assertEqual(logger.status(), 'FILE_EXISTS')
-            self.assertEqual(len(list(path.parent.glob('*.csv'))), 1)
+            self.assertTrue(logger.test_start())
+            self.assertEqual(logger.status(), 'OK')
+            self.assertEqual(len(list(path.parent.glob('*.csv'))), 2)
+            self.assertEqual(Path(sink.open_filename).name, '20260901_000000_T000002.csv')
+            logger.test_end()
 
     def test_file_sink_busy_guard_blocks_open_write_flush_close_and_reinit(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -584,7 +586,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(app.execute_ate_line('FW_UPDATE'), 'ERR:FU_DISABLED')
             self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
             path = Path(sink.open_filename)
-            self.assertEqual(path.name, '000001_20260901_000000.csv')
+            self.assertEqual(path.name, '000001_20260901_000000_T000001.csv')
             self.assertFalse(Path(original).exists())
             with path.open(newline='') as stream:
                 rows = list(csv.DictReader(stream))
@@ -603,20 +605,20 @@ class RuntimeIntegrationTests(unittest.TestCase):
         app.execute_ate_line('TEST_START')
         self.assertTrue(app.accept_qr('US250A-CGXE-009491-10101A2623000001'))
         app.execute_ate_line('TEST_END')
-        self.assertEqual(logger.last_test_filename, '000001_20260901_000000.csv')
+        self.assertEqual(logger.last_test_filename, '000001_20260901_000000_T000001.csv')
         app.execute_ate_line('TEST_START')
         self.assertFalse(app.accept_qr('US250A-CGXE-009491-10101A2623ABCDEF'))
         app.execute_ate_line('TEST_END')
-        self.assertEqual(logger.last_test_filename, '20260901_000000.csv')
+        self.assertEqual(logger.last_test_filename, '20260901_000000_T000002.csv')
 
     def test_serial_rename_collision_preserves_both_files(self):
         with tempfile.TemporaryDirectory() as folder:
             sink = FileSDSink(folder, fs=HostFS())
             sink.mount()
-            existing = Path(folder, 'BANK_A', '000001_20260901_000000.csv')
-            existing.write_text('preserve')
             logger = Logger(sink, clock=FakeClock(), rtc=DS3231RTC(FakeRTCDevice()))
             logger.test_start()
+            existing = Path(folder, 'BANK_A', '000001_' + logger.current_filename)
+            existing.write_text('preserve')
             logger.set_serial('000001')
             logger.log(detail='new test')
             original = Path(sink.open_filename)

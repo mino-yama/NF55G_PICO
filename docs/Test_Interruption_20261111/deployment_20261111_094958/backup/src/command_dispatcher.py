@@ -1,0 +1,268 @@
+# 分類済みのATE要求を実行し、結果をATE向け文字列にまとめる共通処理。
+# Refreshは通信してCacheを更新、QueryはCache参照のみ、Controlは関連Cacheを無効化する。
+
+"""Command execution core shared by future ATE and USB front ends."""
+
+try:
+    from .nf55_command import CommandError, build_control_command
+    from .nf55_command import resolve_read_command, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from .nf55_command import BC_QUERY_FIELDS
+    from .nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
+    from .nf55_decode import decode_el, decode_ol, decode_fd, decode_bc
+    from .models import TransactionResult
+    from .logger import LoggerError
+except ImportError:  # pragma: no cover
+    from nf55_command import CommandError, build_control_command
+    from nf55_command import resolve_read_command, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from nf55_command import BC_QUERY_FIELDS
+    from nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
+    from nf55_decode import decode_el, decode_ol, decode_fd, decode_bc
+    from models import TransactionResult
+    from logger import LoggerError
+
+
+class CommandResult:
+    __slots__ = ("ok", "ate_response", "transaction", "error")
+
+    def __init__(self, ok, ate_response, transaction=None, error=None):
+        self.ok = bool(ok)
+        self.ate_response = ate_response
+        self.transaction = transaction
+        self.error = error
+
+
+class CommandDispatcher:
+    def __init__(self, protocol, cache, logger=None, rtc=None, diagnostics=None):
+        self.protocol = protocol
+        self.cache = cache
+        self.logger = logger
+        self.rtc = rtc
+        self.diagnostics = diagnostics
+
+    def execute_refresh(self, ate_name, payload=None):
+        try:
+            read_spec = resolve_read_command(ate_name)
+        except CommandError as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error="PARSER")
+        if read_spec is None:
+            return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
+        if payload is not None:
+            return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
+        cmd, target, t2_ms, length, request_data = read_spec
+        # 取得開始時に旧値を無効化する。通信・Decode失敗後も旧VALIDへ戻さない。
+        self.cache.refresh_started(target)
+        if self.protocol is None:
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+        try:
+            tx = self.protocol.transact(cmd, data=request_data, t2_ms=t2_ms, expected_length=length)
+        except OSError:
+            # Transport failed outside the protocol's result path; timing/retries
+            # cannot be reconstructed here. Do not invent measurements.
+            tx = TransactionResult(False, cmd, error="UART", ambiguous=True,
+                                   elapsed_ms=None, command_retry_count=None,
+                                   response_retry_count=None)
+        if not tx.ok:
+            if tx.ambiguous:
+                self.cache.apply_ambiguous_invalidation(cmd)
+            if tx.error == "HWE":
+                self.cache.invalidate_many(("DATA", "STATUS"))
+            return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
+        self.cache.apply_success_invalidation(cmd)
+        try:
+            decoder = {
+                "D0": decode_d0,
+                "D1": decode_d1,
+                "D2": decode_d2,
+                "D3": decode_d3,
+                "D4": decode_d4,
+                "D5": decode_d5,
+                "EL": decode_el,
+                "OL": decode_ol,
+                "FD": decode_fd,
+            }[cmd]
+            if cmd in ("EL", "OL"):
+                start = int(request_data.decode("ascii"), 16)
+                decoded = decoder(tx.response_data, expected_start=start)
+                # 全8件のDecode完了後に、ブロック内の個別Query項目を組み立てる。
+                for index, record in enumerate(decoded["RECORDS"]):
+                    for field in ("DATEHOUR", "ID"):
+                        decoded["{}_{:02d}_{}".format(cmd, start + index, field)] = record[field]
+            else:
+                decoded = decoder(tx.response_data)
+            required_fields = set(REFRESH_REQUIRED_FIELDS.get(cmd, ()))
+            for cache_name, field in CACHE_QUERY_COMMANDS.values():
+                if cache_name == target:
+                    required_fields.add(field)
+            if not required_fields.issubset(decoded):
+                raise DecodeError("incomplete decoded cache")
+        except (ValueError, UnicodeError):
+            return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
+        # 全Query対象フィールドのDecode完了を確認できたときだけ、対象Cacheを有効化する。
+        self.cache.refresh_succeeded(target, decoded, cmd)
+        return CommandResult(True, "OK", transaction=tx)
+
+    # 個別Queryは保存済みの値だけを返す。INVALIDでも自動RefreshやNF55G送信はしない。
+    def execute_query(self, ate_name, payload=None):
+        if ate_name not in CACHE_QUERY_COMMANDS:
+            return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
+        if payload is not None:
+            return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
+        target, field = CACHE_QUERY_COMMANDS[ate_name]
+        data = self.cache.get(target)
+        if data is None or field not in data:
+            return CommandResult(False, "ERR:CACHE_INVALID", error="CACHE_INVALID")
+        value = data[field]
+        if isinstance(value, bool):
+            value = int(value)
+        return CommandResult(True, str(value))
+
+    def execute_control(self, ate_name, payload=None):
+        try:
+            spec = build_control_command(ate_name, payload)
+        except CommandError as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error="PARSER")
+
+        if spec.cache_action == "BC_START":
+            # 新規診断の開始時に旧BCを無効化し、失敗しても旧結果へ戻さない。
+            self.cache.refresh_started("BC")
+        if self.protocol is None:
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+
+        tx = self.protocol.transact(
+            spec.nf_cmd,
+            data=spec.data,
+            t2_ms=spec.t2_ms,
+            # BCは開始・停止とも30文字。SEの状態情報はSTATUSへ転用しない。
+            expected_length=(30 if spec.nf_cmd == "BC" else
+                             15 if spec.nf_cmd == "SE" else
+                             0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP", "SL") else None),
+        )
+
+        # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。
+        if tx.ok:
+            self.cache.apply_success_invalidation(spec.cache_action)
+            if spec.nf_cmd == "BC":
+                try:
+                    decoded = decode_bc(tx.response_data)
+                    if not set(BC_QUERY_FIELDS).issubset(decoded):
+                        raise DecodeError("incomplete BC data")
+                except (ValueError, UnicodeError):
+                    return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
+                # 診断開始の完全応答だけをBCへ採用。停止応答からBCを有効化しない。
+                if spec.cache_action == "BC_START":
+                    self.cache.refresh_succeeded("BC", decoded, "BC")
+            return CommandResult(True, "OK", transaction=tx)
+
+        if tx.ambiguous:
+            self.cache.apply_ambiguous_invalidation(spec.cache_action)
+
+        return CommandResult(False, "ERR:{}".format(tx.error), transaction=tx, error=tx.error)
+
+    def execute_logger(self, ate_name):
+        if self.protocol is not None and getattr(self.protocol, "busy", False):
+            return CommandResult(False, "ERR:BUSY", error="BUSY")
+        try:
+            return self._execute_logger(ate_name)
+        except (ValueError, OSError, LoggerError) as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error=str(exc))
+
+    def _execute_logger(self, ate_name):
+        if self.logger is None:
+            return CommandResult(False, "ERR:LOGGER_UNAVAILABLE", error="LOGGER_UNAVAILABLE")
+
+        if ate_name == "TEST_START":
+            if self.logger.test_running or self.logger.active or self.logger.busy():
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            self.logger.test_start()
+            if not self.logger.test_running:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            if self.diagnostics is not None:
+                self.diagnostics.last_test_self_check = None
+            # 試験受付とログ保存状態を分離し、SD異常は自己診断で報告する。
+            return CommandResult(True, "OK")
+        if ate_name == "TEST_END":
+            if self.logger.busy():
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            self.logger.check_sd()
+            if self.diagnostics is not None and self.logger.test_running:
+                check = self.diagnostics.pico_self_check()
+                self.logger.log(category="FIXTURE", event="SELF_CHECK", result=check.ate_text(),
+                                detail="before log flush/close; final result available via PICO_SELF_CHECK?")
+            ending_test = self.logger.test_running
+            if ending_test:
+                self.logger.log(category="ATE", event="END_REQUEST",
+                                detail="TEST_END pending flush/close; final outcome via ATE and self-check")
+            self.logger.test_end()
+            if self.logger.test_running or self.logger.active:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            if ending_test and self.diagnostics is not None:
+                self.diagnostics.last_test_self_check = self.diagnostics.pico_self_check()
+            return CommandResult(True, "OK")
+        if ate_name == "LOG_CONT_START":
+            ok = self.logger.log_cont_start()
+            return self._logger_command_result(ok)
+        if ate_name == "LOG_CONT_STOP":
+            ok = self.logger.log_cont_stop()
+            return self._logger_command_result(ok)
+        if ate_name == "SD_STATUS?":
+            return CommandResult(True, self.logger.status())
+        if ate_name == "SD_USAGE?":
+            usage = self.logger.usage()
+            return CommandResult(
+                True,
+                "{used_bytes}/{capacity_bytes}/{used_percent:.3f}%".format(**usage),
+            )
+        if ate_name == "LOG_DROP_COUNT?":
+            return CommandResult(True, str(self.logger.drop_count))
+        if ate_name == "SD_REINIT":
+            if self.logger.test_running or self.logger.active:
+                return CommandResult(False, "ERR:BUSY", error="BUSY")
+            return self._logger_command_result(self.logger.reinit())
+        return CommandResult(False, "ERR:UNKNOWN_LOGGER_CMD", error="UNKNOWN_LOGGER_CMD")
+
+    def _logger_command_result(self, ok):
+        if ok:
+            return CommandResult(True, "OK")
+        status = self.logger.status()
+        if status == 'OK':
+            status = 'BUSY'
+        return CommandResult(False, "ERR:{}".format(status), error=status)
+
+    def execute_rtc(self, ate_name):
+        if self.rtc is None:
+            return CommandResult(False, "ERR:RTC_UNAVAILABLE", error="RTC_UNAVAILABLE")
+
+        try:
+            if ate_name == "RTC_DATE?":
+                return CommandResult(True, self.rtc.date())
+            if ate_name == "RTC_TIME?":
+                return CommandResult(True, self.rtc.time())
+            if ate_name == "RTC_DATETIME?":
+                return CommandResult(True, self.rtc.datetime())
+            if ate_name.startswith("RTC_SET_"):
+                self.rtc.set_from_ate(ate_name[len("RTC_SET_") :])
+                return CommandResult(True, "OK")
+            if ate_name == "RTC_CHECK?":
+                return CommandResult(True, "OK" if self.rtc.check() else "NG")
+        except Exception as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error=str(exc))
+
+        return CommandResult(False, "ERR:UNKNOWN_RTC_CMD", error="UNKNOWN_RTC_CMD")
+
+    def execute_diagnostic(self, ate_name):
+        if self.diagnostics is None:
+            return CommandResult(False, "ERR:DIAG_UNAVAILABLE", error="DIAG_UNAVAILABLE")
+        if ate_name == "*IDN?":
+            return CommandResult(True, "NF55G_PICO_FIXTURE,Rev.0")
+        if ate_name == "PICO_SELF_CHECK?":
+            result = self.diagnostics.pico_self_check()
+            return CommandResult(result.ok, result.ate_text(), error=None if result.ok else "SELF_CHECK_NG")
+        if ate_name == "COMM_STATUS?":
+            result = self.diagnostics.comm_status(self.protocol)
+            return CommandResult(result.ok, result.ate_text(), error=None if result.ok else "COMM_STATUS_NG")
+        if ate_name == "RETRY_COUNT?":
+            result = self.diagnostics.retry_count(getattr(self.protocol, 'last_result', None))
+            return CommandResult(True, result.ate_text())
+        if ate_name == "NF_COMM_CHECK?":
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+        return CommandResult(False, "ERR:UNKNOWN_DIAG_CMD", error="UNKNOWN_DIAG_CMD")

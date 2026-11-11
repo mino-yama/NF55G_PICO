@@ -133,13 +133,23 @@ class CommandDispatcher:
             return CommandResult(False, "ERR:LOGGER_UNAVAILABLE", error="LOGGER_UNAVAILABLE")
 
         if ate_name == "TEST_START":
-            if self.logger.test_running or self.logger.active or self.logger.busy():
+            if self.logger.busy() or (self.logger.active and not self.logger.test_running):
                 return CommandResult(False, "ERR:BUSY", error="BUSY")
+            if self.logger.test_running:
+                self.logger.log(category='FIXTURE', event='TRIAL_END_REQUEST',
+                                detail='trial_id={};reason=NEXT_TEST_START'.format(self.logger.trial_id))
+                self.logger.test_end(reason='NEXT_TEST_START')
+                if self.logger.test_running or self.logger.active:
+                    return CommandResult(False, "ERR:BUSY", error="BUSY")
+                if self.diagnostics is not None:
+                    self.diagnostics.last_test_self_check = self.diagnostics.pico_self_check()
             self.logger.test_start()
             if not self.logger.test_running:
                 return CommandResult(False, "ERR:BUSY", error="BUSY")
-            if self.diagnostics is not None:
-                self.diagnostics.last_test_self_check = None
+            self.logger.log(category='FIXTURE', event='TRIAL_START',
+                            detail='trial_id=' + self.logger.trial_id)
+            # 新試行は旧製品のCacheを参照しない。再取得はATEの明示Refreshのみ。
+            self.cache.invalidate_all()
             # 試験受付とログ保存状態を分離し、SD異常は自己診断で報告する。
             return CommandResult(True, "OK")
         if ate_name == "TEST_END":
@@ -152,6 +162,8 @@ class CommandDispatcher:
                                 detail="before log flush/close; final result available via PICO_SELF_CHECK?")
             ending_test = self.logger.test_running
             if ending_test:
+                self.logger.log(category='FIXTURE', event='TRIAL_END_REQUEST',
+                                detail='trial_id={};reason=TEST_END'.format(self.logger.trial_id))
                 self.logger.log(category="ATE", event="END_REQUEST",
                                 detail="TEST_END pending flush/close; final outcome via ATE and self-check")
             self.logger.test_end()

@@ -228,6 +228,16 @@ No log:
 RTC_DATE?, RTC_TIME?, RTC_DATETIME?, RTC_SET_YYYYMMDD_HHMMSS, RTC_CHECK?
 *IDN?, PICO_SELF_CHECK?, NF_COMM_CHECK?, COMM_STATUS?, RETRY_COUNT?
 TEST_START, TEST_END, LOG_CONT_START, LOG_CONT_STOP
+
+### 2026-11-11 TEST_START再受付による試行分離
+
+- 試験中のTEST_STARTは、通信待機時に前試行のQueueを排出・flush・close・命名して新試行を開始する。前試行の終了区分はNEXT_TEST_STARTとし、製品FAILや実際の停止理由を推定しない。
+- 受付ごとにT000001等の試行IDを付け、1試行1CSVとする。引数なしSTARTの再送も新たに受付すれば別試行。通信busy、保存中の通信検出、連続ログ中はERR:BUSY。拒否時は新試行を開始しない。
+- 新試行ではQR受信状態・ログ用S/N・全製品Cacheを失効する。自動Refresh・SSは行わない。QR再取得は当該試行で実施する。
+- OKは試行受付を示し、保存成功を保証しない。SD異常時も試行IDは分けるがCSV作成は保証できない。再START途中の自動SD再認識は行わない。
+- 直前完了試行のTEST_LOGGER／TEST_LOG_DROPは新STARTでも保持し、次の試行完了時に更新する。logger.last_test_idとRAM履歴で試行を対応付ける。
+- Host／Mock284件成功。修正版のPico配置・実機Timingは未確認。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。SS開発は保留。
+SD_STATUS?, SD_USAGE?, LOG_DROP_COUNT?, SD_REINIT
 SD_STATUS?, SD_USAGE?, LOG_DROP_COUNT?, SD_REINIT
 
 ## QR読取の追加要件（2026-09-18、未実装）
@@ -259,7 +269,7 @@ TEST_START～TEST_END（ログ開始失敗時を含む）および連続記録�
 
 ## 試験終了時の装置自己診断（2026-11-09）
 
-TEST_START後にQRを読み、試験終了のTEST_ENDで最終Self Checkを実行する。PICO_SELF_CHECK?には既存のATE_UART／NF55_UART／RTC／LOGGERに加え、試験終了後はTEST_LOGGER（その試験のSD保存状態）、TEST_LOG_DROP（OKまたは破棄件数）を含める。NGは装置異常であり製品FAILではない。復帰後も直前試験の異常を保持し、次のTEST_STARTで初期化する。TEST_START／TEST_ENDのOKはログ保存成功や製品PASSの意味ではない。
+TEST_START後にQRを読み、試験終了のTEST_ENDで最終Self Checkを実行する。PICO_SELF_CHECK?には既存のATE_UART／NF55_UART／RTC／LOGGERに加え、試験終了後はTEST_LOGGER（その試験のSD保存状態）、TEST_LOG_DROP（OKまたは破棄件数）を含める。NGは装置異常であり製品FAILではない。復帰後および次のTEST_STARTでも直前完了試行の異常を保持し、次の試行完了時に更新する（2026-11-11変更）。TEST_START／TEST_ENDのOKはログ保存成功や製品PASSの意味ではない。
 
 ログ名は日時を基本とし、試験中に取得したQRの末尾6桁の数字S/Nを終了時に付加する。正式QR取得コマンド・物理入力はOI-23で引き続き管理し、今回新設しない。
 
