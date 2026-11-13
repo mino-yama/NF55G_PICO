@@ -11,7 +11,7 @@ See [deployment evidence and remaining checks](Pico_Deployment_20260910.md).
 | `pico_clock.py` | SystemClock: CPython monotonic / MicroPython ticks_ms + ticks_diff, accumulated monotonic milliseconds |
 | `nf55_protocol.py` | Single-transaction guard, UART errors/short writes, EB separation, bounded receive frames, trace callbacks, idle receive service |
 | `nf55_event.py` | EB CURRENT/CHANGE raw fields and timestamp; bounded queue of 32, overflow count, no Cache reference |
-| `ate_server.py` | CRLF line assembler and partial response writes; 512-byte line, 8 queued commands |
+| `ate_server.py` | CR/LF request assembler, configurable response terminator and partial writes; 512-byte line, 8 queued commands |
 | `main.py` | ATE receive pumping, command execution, idle EB service, RTC sampling, deferred Logger service |
 | `sd_card.py` | HIL-derived SPI SD block driver: 400kHz initialization, 25MHz data, CSD capacity, OCR addressing, bounded card waits |
 | `sd_sink.py` | FAT mount, CSV escaping, real file I/O, usage, owned BANK_A/B rotation, latched failures |
@@ -20,14 +20,16 @@ See [deployment evidence and remaining checks](Pico_Deployment_20260910.md).
 
 ### ATE wire behavior
 
-The operator confirmed **CRLF** termination on 2026-09-10.
-UART0 remains 115200 bps / 8N1; request and reply end in `\r\n`.
+2026-11-13: ATE UART0 uses 57600 bps / 8N1. Requests accept CR, LF or CRLF.
+Responses use `config.ATE_RESPONSE_TERMINATOR`: `"CR"` (default), `"LF"` or `"CRLF"`.
+The setting is latched when ATEServer is created; restart Pico after editing config.py.
+EOI is a GPIB signal, configured on PIA5100/ATE, and is rejected as a UART terminator.
 The host should send one command and await its complete reply before sending another.
 The bounded pending queue tolerates short bursts; it does not provide unlimited pipelining or hardware flow control.
 
-- Commands may arrive in fragments. LF alone does not execute a command.
-- Empty CRLF lines are ignored.
-- Oversized/invalid-ASCII/malformed lines are discarded through CRLF, then return
+- Commands may arrive in fragments. Either CR or LF completes a nonempty request.
+- Empty CR and LF bytes are ignored, including the LF following a completed CR request.
+- Oversized/invalid-ASCII/malformed lines are discarded through CR or LF, then return
   `ERR:LINE_TOO_LONG`, `ERR:ASCII`, or `ERR:FRAME` respectively.
 - UART0 RX buffer: 4096 bytes; UART1 RX buffer: 2048 bytes. Reads are nonblocking.
 - The NF55G polling hook only collects ATE bytes; it never executes a second transaction.

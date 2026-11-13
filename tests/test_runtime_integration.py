@@ -230,7 +230,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         ate = BytePort(b'*IDN?\r\n')
         app = FixtureApp(protocol=protocol, ate_uart=ate)
         app.service_once()
-        self.assertEqual(bytes(ate.tx), b'NF55G_PICO_FIXTURE,Rev.0\r\n')
+        self.assertEqual(bytes(ate.tx), b'NF55G_PICO_FIXTURE,Rev.0\r')
 
     def test_fragmented_crlf_and_short_ate_writes(self):
         ate = BytePort(b'*ID', max_write=2)
@@ -243,7 +243,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         ate.rx.extend(b'\nFW_UPDATE\r\n')
         for _ in range(60):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'NF55G_PICO_FIXTURE,Rev.0\r\nERR:FU_DISABLED\r\n')
+        self.assertEqual(bytes(ate.tx), b'NF55G_PICO_FIXTURE,Rev.0\rERR:FU_DISABLED\r')
 
     def test_d0_through_fragmented_ate_uart_and_cached_queries(self):
         protocol, nf = self.protocol([ScenarioStep.ack_response('D0', d0_payload())])
@@ -254,7 +254,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         ate.rx.extend(b'REFRESH\r\nBATT_VOLT?\r\nCHG_CURR?\r\n')
         for _ in range(60):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'OK\r\n6.0\r\n0.1\r\n')
+        self.assertEqual(bytes(ate.tx), b'OK\r6.0\r0.1\r')
         self.assertEqual(len([tx for tx in nf.tx_log if tx.startswith(b'\x02')]), 1)
 
     def test_overlength_and_non_ascii_recover_at_crlf(self):
@@ -262,7 +262,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         app = FixtureApp(ate_uart=ate)
         for _ in range(20):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'ERR:LINE_TOO_LONG\r\nERR:ASCII\r\nNF55G_PICO_FIXTURE,Rev.0\r\n')
+        self.assertEqual(bytes(ate.tx), b'ERR:LINE_TOO_LONG\rERR:ASCII\rNF55G_PICO_FIXTURE,Rev.0\r')
 
     def test_command_received_during_transaction_runs_after_response(self):
         protocol, nf = self.protocol([ScenarioStep.ack_response('D1', '0' * 15, response_delay_ms=40)])
@@ -278,7 +278,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         protocol.poll_hook = pump
         for _ in range(5):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'OK\r\n0\r\nERR:FU_DISABLED\r\n')
+        self.assertEqual(bytes(ate.tx), b'OK\r0\rERR:FU_DISABLED\r')
         self.assertEqual(len([x for x in nf.tx_log if x.startswith(b'\x02')]), 1)
 
     def test_sd_never_runs_during_nf_transaction_or_pending_rx(self):
@@ -318,7 +318,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         ate.rx.extend(b'STATUS_REFRESH\r\nPS_ON?\r\n')
         for _ in range(3):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'OK\r\n0\r\n')
+        self.assertEqual(bytes(ate.tx), b'OK\r0\r')
         sink.flush_blocked = False
         self.assertEqual(app.execute_ate_line('SD_REINIT'), 'ERR:BUSY')
         self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
@@ -555,7 +555,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         ate.max_write = 100
         for _ in range(8):
             app.service_once()
-        self.assertEqual(bytes(ate.tx), b'OK\r\nOK\r\nNF55G_PICO_FIXTURE,Rev.0\r\n')
+        self.assertEqual(bytes(ate.tx), b'OK\rOK\rNF55G_PICO_FIXTURE,Rev.0\r')
         self.assertEqual(sink.reinit_count, 1)
 
     def test_no_card_test_session_allows_nf_but_blocks_recovery(self):
@@ -672,7 +672,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         filename = app.logger.current_filename
         ate.rx.extend(b'\xff\r\n')
         app.service_once()
-        self.assertEqual(bytes(ate.tx), b'ERR:ASCII\r\n')
+        self.assertEqual(bytes(ate.tx), b'ERR:ASCII\r')
         self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
         rows = app.logger.sd_sink.files[filename]
         self.assertTrue(any(row[4] == 'RECEIVE_ERROR' and row[12] == 'ERR:ASCII' for row in rows))

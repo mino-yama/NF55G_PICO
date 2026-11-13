@@ -123,8 +123,9 @@ class MemorySDSink:
 
 class Logger:
     def __init__(self, sd_sink=None, clock=None, queue_limit=256, flush_interval_ms=1000, flush_record_count=32,
-                 rtc=None, busy=None, rollover_bytes=100 * 1024 * 1024):
+                 rtc=None, busy=None, rollover_bytes=100 * 1024 * 1024, repl_sink=None):
         self.sd_sink = sd_sink or MemorySDSink()
+        self.repl_sink = repl_sink
         self.clock = clock
         self.rtc = rtc
         self.busy = busy or (lambda: False)
@@ -264,26 +265,32 @@ class Logger:
         return True
 
     def service(self, protocol_busy=False):
-        if protocol_busy or self.busy() or not self.active or self.sd_status != SD_OK or (not self.queue and not self.records_since_flush):
+        if protocol_busy or self.busy():
             return 0
-        now = self._ticks_ms()
-        due_by_count = len(self.queue) + self.records_since_flush >= self.flush_record_count
-        due_by_time = now - self.last_flush_ms >= self.flush_interval_ms
-        if not due_by_count and not due_by_time:
-            return 0
-        if (self.mode == 'CONT' and self.rtc is not None
-                and getattr(self.sd_sink, 'file_bytes', 0) >= self.rollover_bytes):
-            try:
-                filename = self._filename()
-                if filename == self.current_filename:
-                    return 0
-                self.sd_sink.close()
-                self.sd_sink.open(filename)
-                self.current_filename = filename
-            except (LoggerError, ValueError, OSError) as exc:
-                self.sd_status = str(exc)
-                return 0
-        return self._drain(flush=True)
+        written = 0
+        rollover_waiting = False
+        if self.active and self.sd_status == SD_OK and (self.queue or self.records_since_flush):
+            now = self._ticks_ms()
+            due_by_count = len(self.queue) + self.records_since_flush >= self.flush_record_count
+            due_by_time = now - self.last_flush_ms >= self.flush_interval_ms
+            if due_by_count or due_by_time:
+                if (self.mode == 'CONT' and self.rtc is not None
+                        and getattr(self.sd_sink, 'file_bytes', 0) >= self.rollover_bytes):
+                    try:
+                        filename = self._filename()
+                        if filename == self.current_filename:
+                            rollover_waiting = True
+                        else:
+                            self.sd_sink.close()
+                            self.sd_sink.open(filename)
+                            self.current_filename = filename
+                    except (LoggerError, ValueError, OSError) as exc:
+                        self.sd_status = str(exc)
+                if self.sd_status == SD_OK and not rollover_waiting:
+                    written = self._drain(flush=True)
+        if self.repl_sink is not None and not self.busy():
+            self.repl_sink.service()
+        return written
 
     def force_drain(self):
         if self.busy() or self.sd_status != SD_OK:
@@ -354,6 +361,8 @@ class Logger:
         self.records_since_flush = 0
         self.last_flush_ms = self._ticks_ms()
         self.sd_status = SD_OK
+        if self.repl_sink is not None:
+            self.repl_sink.start()
         return True
 
     # 書込みの各段階で通信を再確認する。通信待避なら未送信行と未flush件数を保持する。
@@ -376,6 +385,8 @@ class Logger:
                 self.drop_count += len(self.queue)
                 self.queue = []
                 return written
+            if self.repl_sink is not None:
+                self.repl_sink.write_record(row)
             self.queue.pop(0)
             written += 1
             self.records_since_flush += 1

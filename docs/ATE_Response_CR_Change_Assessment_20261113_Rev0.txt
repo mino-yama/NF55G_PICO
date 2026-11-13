@@ -1,0 +1,43 @@
+ATE応答終端 CR単独への修正可否 判定 Rev.0
+日付: 2026-11-13（JST）
+
+現時点の判定
+技術的にはCR単独へ変更できる。応答末尾はsrc/ate_server.pyのreply()の1箇所へ集約され、正常・エラー応答とも同じ処理を通る。
+ただし、現在のPIA5100／ATE受信条件との適合は未判定。現設定を読めていないため、CR単独への恒久変更・Pico再配置は今回行わない。
+過去CR実装の存在を、現在のTermination Character=0Dという確認事実に置き換えない。
+
+確認事実
+・ユーザー回答: 以前の*IDN?処理はb'\r'付加だったとの情報。ただし現在設定は確定していない。
+・保存されたRB01G参考ソースでも*IDN?応答／通常データ応答はCR単独。
+・現行NF55G_PicoのATE_Command_Masterは応答CRLFを規定。
+・現行reply()は(text + '\r\n').encode('ascii')。送信後の部分write残量はflush_reply()が保持する。
+・直前の実機確認で6応答すべての末尾は0D 0A。本文は初回ERR:ASCIIを含むため正常本文5/6、終端6/6と分ける。
+・今回Windowsの接続一覧で確認できた対象関連ポートはCOM14（Pico、USB VID 2E8A PID0005）とCOM19（Elecom USB–RS232、VID056E PID5004）。PIA5100／KIKUSUI／GPIB等の名前に一致する現在接続デバイスは検出されなかった。
+・これは機器そのものが存在しないという断定ではなく、このPCから現設定を直接読む経路を今回特定できなかったという意味。
+
+変更候補と影響
+変更箇所: ATEServer.reply()内の'\r\n'を'\r'へ変更。
+適用範囲: ATEへ返すすべての正常応答・ERR応答。*IDN?だけを変更するとほかの応答と不統一になる。
+変更しない範囲: Picoが受け付ける要求のCR／LF／CRLF処理、NF55G側frame／ACK／BCC、Cache・Retry仕様、57600／8N1。
+要求終端の種類と応答終端を連動させる必要があるかは別仕様であり、今回は推測で導入しない。
+
+条件付き判定
+1. PIA5100の現Termination Characterが0D、ATE側も対応するCR／EOI条件で受信でき、余剰LFが問題と確認された場合:
+   CR単独への変更は有力な対策。Code／Test／ATE_Command_Master等のDocs／CHANGELOGを同時更新して実機配置する。
+2. PIA5100の現Termination Characterが0AでLFを待つ場合:
+   CR単独に変更すると、応答にLFがなくなり受信完了できなくなる可能性がある。単独変更は適切と判断できない。
+3. ATEがGPIB EOI待ちの場合:
+   UART文字だけの変更で解決するとは限らず、PIA5100の変換後EOIとATEの完了条件を照合する。
+いずれも現在設定の読戻しを優先する。必要なら同一ATE／PIA経路でCR単独とCRLFを一時比較するが、現時点ではその経路へ接続できていない。
+
+確認に必要な情報
+PIA5100カスタム設定のTermination CharacterのHEX値、CUSTOM MODE状態、ATE受信EOS／EOI／固定長条件。
+現在値が不明なら、PIA5100のSERVICE PORTをこのPCへ接続し、対応する設定ツールのReadで読戻す経路が必要。読出し確認前にWrite／Factory Reset／FW更新は行わない。
+ユーザーへTermination Character現在値、またはSERVICE PORT接続可否を照会済み。
+メーカー公開表では終端文字は任意ASCIIを設定可能、工場値0A。ただし工場値を現設定とは扱わない。
+公式根拠: https://global.kikusui.co.jp/spec/pia5100_rs232c-host-tab/
+
+残事項・保存
+ATE-TX-01はOpen継続。現行Picoは今回Stop／reset／書換えせず維持。
+本報告を新規保存。現行ソースのレビューであり、追加のHost／Mock再実行や実機応答再採取は行っていない。
+直前の終端raw証跡: temp/ate_response_eol_20261113_run01/result.json

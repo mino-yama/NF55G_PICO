@@ -1,0 +1,46 @@
+入替えPico 最新FW配置結果 Rev.0
+日付: 2026-11-13（JST）
+対象: 入替え後のCOM6／Pico ID 69f7d45962cfdfad
+前個体: COM14／ID 2d35a1e11ac125e3（今回の配置対象ではない）
+ATE UARTのPC直結: COM19
+
+完了内容
+ユーザー指定の、先ほどまでATEで使用していた入替えPicoをUSB識別情報とmachine.unique_idの双方で照合。
+現行実機26ファイル（src25 Python＋root main.py）を案件フォルダへ退避し、事前hashと退避後hash一致を確認。
+現行PCソースのsrc25 Python＋firmware/main.pyをPicoの/srcと/main.pyへ配置。
+26 PythonのSHA-256はPC配置スナップショットと全件一致、MicroPython compile全件成功。
+実機差分: /src/ate_server.py、/src/ate_uart.py、/src/config.py、/src/main.py、/src/repl_sink.py。
+既存SDログは削除していない。今回試験のT000063／T000064の新規CSVを追加した。
+PCの製品ソース自体に今回新たな修正は加えていない。
+
+設定
+ATE UART0=57600bps／8N1、GP0=TX／GP1=RX。
+ATE_RESPONSE_TERMINATOR=CR。
+REPL_LOG_ENABLED=True。
+NF55G UART1=38400bps／8E1を維持。
+
+テストと結果
+Host Unit／Mock NF55G:315件すべて成功、7.614秒。
+配置直後15件の試験では本文一致13/15。TEST_END直後LOG_DROP_COUNT?が2秒timeoutし、続く自己診断要求の受信では前要求の遅着0＋CRを拾った。これは初回試験の失敗記録として保持し、合格扱いにしない。
+追加のTiming確認では受信待ちを10秒とし、各要求の応答を待ってから次を送った。15/15成功、TEST_END後LOG_DROP_COUNT?=0は3201.859msで受信。自己診断はTEST_LOGGER=OK／TEST_LOG_DROP=OKを含めて正常（63.714ms）。
+T000064終了時SD=OK、Logger drop0、試験drop0。USB stdoutにCSVヘッダー・ATE RX REQUEST／TX RESULT・終了行を実出力し、ミラー最終状態enabled=True／pending=0／drop0を確認。
+実機試験で計測したNF55G送信byte数0。NF55G製品Transactionは行っていない。
+通常/main.py再起動後7/7成功。初回IDNは914.070ms、2回目8.014ms、3回目7.773ms。通信IDLE、SD／RTC／自己診断全項目OK。
+通常起動の初回応答遅延とTEST_END後3.20秒の遅延は別観測。原因やカード／個体の因果は未確定。
+
+終了状態
+COM6の入替え個体が通常/main.pyで常駐待受中。57600／8N1、応答CR、REPLログON。
+COM6／COM19は解放済み。今回の通常起動では初回からIDN本文正常で、ERR:ASCIIは出なかった。
+
+残事項
+TEST_END直後の3.20秒遅延はATE timeout／後処理のTiming課題としてOpenを維持する。受信待ち10秒で成功したことを遅延解消とは扱わない。
+ATE／PIA5100／GPIB実経路、NF55G接続時Timing、物理電源再投入、長時間運転は未確認。SD CSVの独立読戻しは今回未実施。
+初回ASCII異常の原因は本配置だけで解決・Closeとしない。
+
+保存先
+temp/pico_swap_69f7d459_20261113_run01/backup/: 更新前実機26ファイル
+同/source/: 配置した現行ソース
+同/deployment_log.json、before_manifest.json、local_manifest.json、deployment_result.json: Hostテスト、個体照合、退避、配置、hash、compile
+同/validation_result.json: 2秒timeout条件の初回15件（13/15）とUSB出力
+同/normal_boot_result.json: 通常再起動後7件のraw・時間
+temp/pico_swap_69f7d459_20261113_timing_run02/validation_result.json: 待ち10秒の15/15、3.20秒のraw応答・USB出力

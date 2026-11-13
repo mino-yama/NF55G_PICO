@@ -1,0 +1,46 @@
+PC直結 ATE UART 実機テスト結果 Rev.0
+日付: 2026-11-13（JST）
+対象: Pico ID 2d35a1e11ac125e3、USB保守COM14、UART0／RS232 PC直結COM19
+
+結果
+新しいインタプリタ状態で115200bpsとRAM上だけの57600bps／REPL sink OFFを比較し、各9件、合計18件がすべて正常応答。
+確認要求: *IDN?を各5回、COMM_STATUS?、RTC_CHECK?、SD_STATUS?、PICO_SELF_CHECK?を各1回。
+全応答はCRLF終端。両フェーズ終了時は未送信0byte、ate_error=None。NF55G送信0byte。
+COMM_STATUS?=OK:state=IDLE、RTC_CHECK?=OK、SD_STATUS?=OK。
+PICO_SELF_CHECK?=OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK。
+IDN往復時間（PCから計測、各5回）:
+・115200bps: 5.823～6.509ms、平均6.207ms
+・57600bps: 8.435～8.889ms、平均8.575ms
+単発・少数試験の観測値であり、量産最大応答時間の保証ではない。
+
+実機で確定した設定不整合
+/src/config.pyはATE_BAUDRATE=57600、REPL_LOG_ENABLED=False。
+しかし/src/ate_uart.pyはbaudrate=115200固定。実際の初期化直後のmachine.UART表示も115200／8N1だった。
+/src/main.pyはReplDebugSink()を無条件に生成し、Falseを参照していない。起動後logger.repl_sinkはNoneではなかった。
+したがって、現実機ではconfig.pyのみの変更による「57600化」「REPL無効化」はどちらも反映されていない。
+これは推測ではなく、実機ソース・hash・UART表示・sink存在の読戻しによる確認事実。
+ATE／PIA5100側57600／8N1というユーザー回答と実機115200は一致していない。
+
+原因の評価
+速度変更後の通信不成立には上記の不整合が具体的要因となる。
+両端を57600にそろえたPC直結では応答したため、57600bps自体、REPL sink OFF自体でATE戻りが止まる現象は今回再現しなかった。
+速度変更前からのATE／PIA5100／GPIB経路の戻り不良は、今回のPC直結試験だけでは原因未確定。ATE-TX-01はOpen継続。
+REPL ON側はsinkを生成したがTEST_STARTを使わずログ非記録状態。ログ出力中Timingの比較・USB切断試験とは扱わない。
+NF55G Transaction、製品判定、ATE／PIA5100／GPIBの実経路、長時間運転は未試験。
+
+初回試験と再確認
+run01はStop後の既存インタプリタ状態を保持してappを生成。UART応答は18件すべて受信したが、SD= MOUNT_ERR、VFS_MOUNT段階のOSError(1,)だった。
+既存マウント残存の可能性を疑い、ソフトリセットした新規インタプリタからrun02を実行。SD=OK、stage=READY、error=Noneとなり全18件正常。
+この差は既存マウント状態との関係に整合するが、run01での原因そのものは断定しない。SD故障と断定しない。
+run01テストスクリプトはCOMM_STATUS?の期待値をIDLEと略記しており2件をfalse判定した。実装の正しい応答OK:state=IDLEへrun02で修正。run01の元JSONは変更せず保存。run01の14/18という判定は、通信受信数を意味しない。
+
+終了状態と次の対応
+Pico内のファイルは一切書き換えていない。RAM変更だけで比較し、終了時UARTを元の115200／8N1へ戻した。app.running=False、Stop状態。COM14／COM19はテスト終了時に解放済み。
+したがって通常起動しても、現状は115200固定かつREPL sink生成あり。57600／OFFを恒久反映するにはPC側の整合したate_uart.py、config.py、main.py、repl_sink.pyを実機へ配置し、再起動・再試験する必要がある。
+本依頼はテスト実行のため、恒久配置は実施していない。
+
+保存物
+・temp/ate_pc_hil_20261113_run01/: 初回テストスクリプト、raw応答JSON、実機出力
+・temp/ate_pc_hil_20261113_run02/: 初期化状態をそろえたテストスクリプト、raw応答JSON、実機出力
+・本報告
+製品コード・原典資料の変更なし。前段Host／Mockは310件成功済み。今回は実機のみで再検証。

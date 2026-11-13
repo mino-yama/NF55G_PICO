@@ -9,9 +9,11 @@ judgement, or NF55G transmission.
 
 
 try:
-    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+    from .nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
+    from .nf55_command import build_item_parameter_command, build_life_command
 except ImportError:  # pragma: no cover
-    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS
+    from nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
+    from nf55_command import build_item_parameter_command, build_life_command
 
 
 LOGGER_COMMANDS = (
@@ -44,6 +46,8 @@ CONTROL_COMMANDS = (
     "BACKUP_ENABLE",
     "BACKUP_OFF",
     "OUTPUT_RESTART",
+    "BATT_CHECK_START",
+    "BATT_CHECK_STOP",
     "PARAM_RESET",
     "CLEAR_ALL",
     "CLEAR_POWER",
@@ -51,6 +55,10 @@ CONTROL_COMMANDS = (
     "CLEAR_LOG",
     "PARAM_SET",
     "CLOCK_SYNC",
+    "ERP_SET_1_0",
+    "ERP_SET_0_0",
+    "ERP_SET_0_1",
+    "ERP_SET_1_1",
 )
 
 
@@ -77,10 +85,14 @@ def parse_ate_command(line):
 
     if name == "FW_UPDATE":
         return ParsedCommand(text, name, payload=payload, category="FORBIDDEN")
-    if name in READ_REFRESH_COMMANDS or name in CACHE_QUERY_COMMANDS:
+    try:
+        read_spec = resolve_read_command(name)
+    except CommandError as exc:
+        raise ParseError(str(exc))
+    if read_spec is not None or name in CACHE_QUERY_COMMANDS:
         if payload is not None:
             raise ParseError("UNEXPECTED_PAYLOAD")
-        category = "REFRESH" if name in READ_REFRESH_COMMANDS else "QUERY"
+        category = "REFRESH" if read_spec is not None else "QUERY"
         return ParsedCommand(text, name, category=category)
     if name in LOGGER_COMMANDS:
         return ParsedCommand(text, name, payload=payload, category="LOGGER")
@@ -90,6 +102,19 @@ def parse_ate_command(line):
         return ParsedCommand(text, name, payload=payload, category="DIAGNOSTIC")
     if name in CONTROL_COMMANDS:
         return ParsedCommand(text, name, payload=payload, category="CONTROL")
+    if name.startswith("LIFE_SET_"):
+        try:
+            build_life_command(name, payload)
+        except CommandError as exc:
+            raise ParseError(str(exc))
+        return ParsedCommand(text, name, payload=payload, category="CONTROL")
+    if name.startswith("PARAM_"):
+        # 項目・10進値・余分な引数を、Cache操作や接続確認より先に検証する。
+        try:
+            build_item_parameter_command(name, payload)
+        except CommandError as exc:
+            raise ParseError(str(exc))
+        return ParsedCommand(text, name, category="CONTROL")
     return ParsedCommand(text, name, payload=payload, category="UNKNOWN")
 
 
@@ -100,6 +125,9 @@ def _normalize_line(line):
 
 
 def _split_payload(text):
+    # RAWのDATA内の空白を、コマンド名との区切りとして再解釈しない。
+    if text.startswith("LIFE_SET_RAW="):
+        return "LIFE_SET_RAW", text[len("LIFE_SET_RAW="):]
     if " " in text:
         name, payload = text.split(" ", 1)
         return name, payload.strip()

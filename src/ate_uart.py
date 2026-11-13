@@ -1,4 +1,4 @@
-# ATE側UART0（GP0/GP1、115200bps・8N1）のバイト入出力を提供する。
+# ATE側UART0（GP0/GP1、57600bps・8N1）のバイト入出力を提供する。
 # 行の組立てはate_server、コマンドの意味の解釈はparser/dispatcherが担当する。
 
 """ATE-side UART transport helpers.
@@ -47,6 +47,7 @@ def create_ate_uart():
         from machine import Pin, UART
     except ImportError as exc:  # pragma: no cover - host path
         raise UARTTransportError("machine UART unavailable") from exc
-    uart = UART(0, baudrate=115200, bits=8, parity=None, stop=1, tx=Pin(0), rx=Pin(1),
+    uart = UART(0, baudrate=config.ATE_BAUDRATE, bits=config.ATE_BITS,
+                parity=config.ATE_PARITY, stop=config.ATE_STOP_BITS, tx=Pin(0), rx=Pin(1),
                 rxbuf=4096, timeout=0, timeout_char=0)
     return UARTByteTransport(uart)

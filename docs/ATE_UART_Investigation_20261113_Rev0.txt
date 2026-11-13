@@ -1,0 +1,52 @@
+ATE応答未受信・速度変更／REPL無効化の調査 Rev.0
+日付: 2026-11-13（JST）
+案件フォルダ: NF55G_Pico
+
+結論
+速度変更後の悪化には、PCソースとPico配置版の不整合が有力な要因である。
+配置記録のate_uart.py SHA-256は、Git HEADの115200bps固定実装と完全一致した。
+その後の転送記録はconfig.pyのみ。旧ate_uart.pyはATE_BAUDRATEを参照しないため、config.pyを57600に変えて再起動するだけでは57600bpsにならない。
+現在の実機ファイルを直接読んだ結果ではないため、その後の手動変更の有無・現状態は未確認。
+速度変更前からのATE未受信原因まで、この不整合だけで確定はできない。
+
+確認できた事実
+1. 現行PCコード: src/config.pyはATE=57600、8N1、REPL_LOG_ENABLED=False。src/ate_uart.pyはこの設定を参照し、UART0 GP0=TX／GP1=RXを生成する。NF55G UART1は38400／8E1で別設定。
+2. ユーザー回答: ATE／PIA5100は57600 N81。現在PicoはATEから外してPC接続、ThonnyでStopしている。Stop中はATE応答用の常駐ループも停止しているため、現在の応答動作試験は成立しない。Stop前の原因とは区別する。
+3. 配置履歴: docs/Real_Hardware_Test_Log.md冒頭の2026-11-13記録では、COM14／ID 2d35a1e11ac125e3へconfig.pyだけを転送し、Main再起動は保留。
+4. 同ログの一式配置時ate_uart.py hash:
+   b2ee951103d8f0b95d785a39e78a32c97457d0858f134d92c86f62f02d2825f6
+   git show HEAD:src/ate_uart.pyのLF版hashと完全一致。この実装はbaudrate=115200固定。
+   現行PC版のhashは06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9で異なる。
+5. PC版src/main.py・src/repl_sink.pyのhashも、一式配置時に記録されたhashと異なる。REPL無効化はmain.pyが設定を参照してcreate_repl_sinkを呼ぶ構成で初めて成立するため、config.pyのFalse読戻しだけでは機能停止の証明にならない。旧main.py／repl_sink.pyの現物内容は未確認。
+6. 現行コードのREPL無効化はログ用sinkをNoneにする。ATE UARTのwriteやメインループを停止する処理はない。
+7. src/ate_server.pyはCR／LFで要求を確定し、応答にCRLFを付ける。UART.writeが部分受理なら残りを次の巡回へ保持する。0／Noneなら進まず保持し続け、0／Noneだけではate_errorは付かない。
+8. ATE/TX/RESULTは応答生成時点で記録される。UARTドライバ受理、物理送信完了、ATE実受信の証明ではない。
+
+実行した検証
+・.venv/Scripts/python.exe -m unittest discover -s tests -v
+  Host Unit／Mock NF55G 310件すべて成功（15.067秒）。実機Timing／PIA5100／GPIBの試験ではない。
+・temp/ate_uart_investigation_20261113_rev0.py
+  REPL ON／OFFの両方でSDログ有効・2byte分割送信のIDN応答26byteが完全一致。
+  UART受理0で、ATE/TX/RESULTあり・実受理0byte・未送信26byte・ate_error=Noneを再現。
+  write=Noneでも未送信を保持し、受理再開後は欠落・重複なく完全応答。
+  終端なしでは応答せず、CR追加で応答。
+  Git旧版hashと配置記録の一致を検証。
+  詳細結果: temp/ate_uart_investigation_20261113_rev0.json
+
+推測・原因候補
+優先1: 旧115200bps固定ate_uart.pyが実機に残り、相手だけ57600bpsになった。履歴の裏付けがあるが、現在の実機読戻しで最終確認が必要。
+優先2: Thonny Stop／REPL操作後にMainを再開していない。現在Stop中であることは確認済みだが、悪化発生時の実行状態は未確認。
+継続候補: UART送信無受理、UART0→RS232→PIA5100→GPIB経路、ATE timeout／受信終端。速度変更前の未受信原因は未確定。
+
+再開・切り分け手順
+1. Thonnyで現在のPico内/src/ate_uart.py、config.py、main.py、repl_sink.pyを読み、PC版との一致を確認する。まず読戻しで旧固定値・設定参照・factory有無を確認し、現物を退避する。
+2. 現行構成にそろえる場合は、上記4ファイルの整合を確保して配置する。config.pyだけを更新しない。57600／8N1、REPL_LOG_ENABLED=Falseを使用する。
+3. ファイル配置後にインタプリタを再起動し、通常/main.pyからメインループを起動する。実行中のファイル更新や、import済みモジュールの再importだけで反映済みと判断しない。ThonnyのStop後は応答が止まる点に注意する。
+4. PC直結UART0を57600／8N1で確認。*IDN?＋CRLFを1件送信し、NF55G_PICO_FIXTURE,Rev.0＋CRLFのraw受信と時間を保存する。製品制御は不要。
+5. PC直結で応答後、ATE／PIA5100経路へ戻して同じ要求を1件確認。PC成功・ATE失敗なら戻り経路／GPIB終端／ATE timeoutを優先して調べる。PCでも失敗ならMain起動エラーとUART0 TX GP0の波形、送信受理量を確認する。
+6. 8N1の理論上の送出時間は1byteあたり115200で約0.087ms、57600で約0.174ms。26byteのIDN応答は約2.26→4.51msとなる。これは処理待ち、SD、機器転送、GPIB待ちを除いた計算値で、応答timeoutの実測ではない。
+
+変更・残事項
+本調査では製品コード、通信速度設定、原典PDF、Pico実機を変更していない。新規の調査スクリプト・結果JSON・本報告のみ保存。
+Host結果からREPL無効化がATE応答を止める不具合は再現しなかった。実機の旧版混在とMain起動状態をそろえた試験が必要。
+ATE-TX-01は未解決のまま。今回実機接続／転送／reset／製品コマンド送信は行っていない。

@@ -290,7 +290,12 @@ def decode_d5(data):
 
 
 def decode_bc(data):
-    return decode_life_diag(data, prefix="BC_")
+    text = _ascii(data)
+    _require_len(text, 30, "BC")
+    # 予約領域を含め全桁HEXを検証する。MODEによる値の補正や製品判定はしない。
+    for char in text:
+        _num(char)
+    return decode_life_diag(text, prefix="BC_")
 
 
 def decode_eb(data):
@@ -312,9 +317,19 @@ def decode_log_block(data, expected_start=None):
     offset = 2
     for _ in range(8):
         rec = _slice(text, offset, 10)
-        datehour = rec[0:8]
+        raw_datehour = rec[0:8]
+        values = [_num(raw_datehour[i:i + 2]) for i in range(0, 8, 2)]
+        if raw_datehour == "00000000":
+            datehour = "00000000"
+        else:
+            try:
+                RTCDateTime(2000 + values[0], values[1], values[2], values[3], 0, 0)
+            except RTCError as exc:
+                raise DecodeError("invalid log datetime: {}".format(exc))
+            # r1ルール②の各2桁HEXを10進YYMMDDHHへ変換。空履歴のゼロは保持する。
+            datehour = "".join("{:02d}".format(value) for value in values)
         event_id = _num(rec[8:10])
-        records.append({"DATEHOUR": datehour, "ID": event_id})
+        records.append({"DATEHOUR": datehour, "DATEHOUR_RAW": raw_datehour, "ID": event_id})
         offset += 10
     return {"START_NO": start_no, "RECORDS": records}
 

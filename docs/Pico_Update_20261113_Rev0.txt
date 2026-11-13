@@ -1,0 +1,38 @@
+Pico最新化・配置確認 Rev.0
+日付: 2026-11-13（JST）
+対象: COM14 / Pico ID 2d35a1e11ac125e3、PC直結ATE UART COM19
+
+完了内容
+現在のPC作業ツリーのsrc/*.py全25件とfirmware/main.pyをスナップショット化し、Picoの/srcと/main.pyへ配置した。
+変更前27ファイル（srcの.gitkeepとroot main.pyを含む）を案件フォルダへ退避し、実機から取得した事前hashと退避ファイルのhash一致を確認した。
+配置後26 PythonファイルはすべてPCスナップショットとSHA-256が一致し、Pico MicroPythonでcompile成功。
+実機で内容が変わったファイル: /src/ate_uart.py、/src/main.py、/src/repl_sink.py。
+その他のPythonファイルは今回のPC最新版と一致していた。
+PCの製品ソース自体には今回追加変更していない。既存の速度設定／REPL無効化実装を実機へ反映した。
+
+実行テストと結果
+・Host Unit／Mock NF55G: 310件成功、8.267秒。
+・配置後実機: 15件すべて成功。実際のUART表示は57600bps／8N1、GP0=TX・GP1=RX。config.REPL_LOG_ENABLED=False、app.logger.repl_sink is Noneを確認。
+・ローカル試験T000002: TEST_START、IDN、RTC_CHECK、TEST_END、LOG_DROP_COUNT、終了自己診断が正常。SD=OK、drop=0、試験drop=0、NF55G送信0byte。
+・正常起動試験: machine resetで通常の/main.pyから起動後、PC直結57600bpsで7件すべて正常。IDN3回は8.223／8.774／8.079ms。通信IDLE、RTC=OK、SD=OK、自己診断全項目OK。
+・物理的な電源断・再投入は今回未実施。
+
+終了状態
+最新配置を保持したまま、通常/main.pyの常駐ループが動作中。Stop状態ではない。
+ATE UART0: 57600bps・8N1。REPLログミラー: OFF。NF55G UART1: 38400bps・8E1を維持。
+COM14／COM19は操作終了後に解放。ThonnyでStopすると通常応答ループも停止する。
+
+残事項
+・TEST_END直後のLOG_DROP_COUNT?に722.315msを観測（応答0、timeoutせず成功）。TEST_END応答自体は155.649ms、後続自己診断は64.954ms。REPL OFFでも終了直後の遅延が観測されたため、REPLが唯一の原因とは扱えない。SD service_recovery等の後処理との因果は未計測であり断定しない。
+・ATE／PIA5100／GPIB経路での確認は未実施。PC直結成功だけでATE-TX-01をCloseしない。特にATE応答timeoutは上記遅延と照合が必要。
+・NF55G製品Transaction、量産Timing、長時間試験、SD CSVの独立読戻しは今回の確認範囲外。
+
+保存先
+・temp/pico_update_20261113_run01/backup/: 更新前ファイル27件
+・temp/pico_update_20261113_run01/source/: 今回配置したソース一式
+・temp/pico_update_20261113_run01/before_manifest.json: 更新前hash
+・temp/pico_update_20261113_run01/local_manifest.json: 配置元hash
+・temp/pico_update_20261113_run01/deployment_result.json: 実機hash／差分
+・temp/pico_update_20261113_run01/deployment_log.json: Hostテスト・退避・配置・compile出力
+・temp/pico_update_20261113_run01/validation_result.json: 15件のraw応答／時間・実機状態
+・temp/pico_update_20261113_run01/normal_boot_result.json: 通常起動後7件のraw応答／時間

@@ -82,7 +82,7 @@ FU/FW_UPDATEはERR:FU_DISABLED、SS等はERR:UNKNOWN_COMMAND。NF55G通信経路
 
 1. 生産runtimeを停止した専用試験状態にする。NF55G/SD処理と並行起動しない。
 2. qr_reader.py、qr_pio_rx.py、pico_qr_receive_test.pyはCOM14のルートへ配置済み。main.py/boot.pyと既存srcは変更していない。
-3. USB REPLを開く。start()がATE UART0 115200/8N1とQR PIO受信9600/8N1を初期化する。PIO RX FIFO8ワード＋RAMリング256byte（実効255byte）を使用する。
+3. USB REPLを開く。start()がATE UART0 57600/8N1とQR PIO受信9600/8N1を初期化する。PIO RX FIFO8ワード＋RAMリング256byte（実効255byte）を使用する。
 4. REPLで以下を実行する。既存runtimeは停止した専用試験状態とし、PIO0/SM0を他用途で使用しない。
 
 ```python

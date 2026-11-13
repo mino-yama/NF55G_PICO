@@ -31,7 +31,7 @@ Revision: Rev.1-draft
 
 ## Goal
 
-2026-11-10 ATE終端変更: CR／LF／CRLF各終端でD0要求が1回だけ実行されること、定期CR単独で応答・受信待ち状態が残らず次の要求が正常なこと、分割CRLF・空行混在・Queue上限・ASCII／FRAME／長さ異常から各終端で復帰することをHost／Mockで確認する。応答はCRLFを維持する。
+2026-11-10 ATE終端変更: CR／LF／CRLF各終端でD0要求が1回だけ実行されること、定期CR単独で応答・受信待ち状態が残らず次の要求が正常なこと、分割CRLF・空行混在・Queue上限・ASCII／FRAME／長さ異常から各終端で復帰することをHost／Mockで確認する。当時の応答はCRLF。2026-11-13以降は下記の応答終端設定（既定CR）を適用する。
 Before real NF55G connection, verify parser, protocol, decoder, cache, command integration and safety rules on host PC.
 
 ## Test levels
@@ -216,13 +216,13 @@ Current RTC status:
 - VSC+Codex remaining item: final firmware image rerun; do not close OI-13 without human confirmation.
 
 ### UART / RS232C 2ch real-hardware debug
-- UART0 / CH0 init: GP0=TX, GP1=RX, 115200 bps, 8N1.
+- ATE UART0 / CH0 init: GP0=TX, GP1=RX, 57600 bps, 8N1.
 - UART1 / CH1 init: GP4=TX, GP5=RX, 38400 bps, 8E1.
 - RS232C-side TX/RX loopback for CH0.
 - RS232C-side TX/RX loopback for CH1.
 - Channel independence / crosstalk check.
 - Multi-frame stress check.
-- Re-run after final firmware image/stack changes.
+- Re-run after final firmware image/stack changes or UART baud changes. The historical CH0 loopback at 115200 bps does not verify the new 57600 bps setting.
 
 Current UART status:
 - PASS: CH0 and CH1 REPL HIL loopback, 256-byte pattern, no crosstalk, 100-frame stress.
@@ -528,3 +528,9 @@ ARは仕様確認待ちで今回未実装。BC診断開始などの制御追加�
 ## USB SubMCU UART版の準備完了（2026-11-11、実機未受入）
 
 [UART診断仕様](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Specification_Rev0.md)と[ビルド・検証結果](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Result_Rev0.md)を追加。qr-uart-20261111.1は追加基板GP0／115200・8N1のTX専用。既存76byteレコードをHEXで返し、起動版・IDをUSB開始前に送出する。ログは原文取得だけでQR35文字一致・製品合格としない。Host／Mock301件とファイル検証は成功、UART実機・QR・2 Hostは未受入。ATE／NF55Gの契約と正式親子UARTは変更しない。
+
+## 2026-11-13 ATE応答終端の設定化
+
+Host／MockでCR既定、CR／LF／CRLF応答と全3種要求終端の組合せ、正常／UNKNOWN／ASCII／FU拒否の共通終端、1byte部分write・0／None受理、未送信中の二重reply拒否、生成時設定保持、不正値／EOI拒否を確認する。製品frame・Cache・Retry仕様は変更しない。実機は配置hash・compile・通常再起動後のCR末尾raw bytesと余分なLF／NULがないことを確認する。PIA5100経由のEOI／ATE受信はPC直結とは区別する。
+
+実行結果（2026-11-13）: Host／Mock全315件成功、実機CR／LF／CRLF各8件＝24件成功、保存CR設定の通常起動7件成功。26 Pythonの実機hash一致・compile成功、NF55G送信0byte。[設定・検証証跡](ATE_Response_Terminator_Config_20261113_Rev0.txt)。

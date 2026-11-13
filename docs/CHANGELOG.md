@@ -1,5 +1,88 @@
 # CHANGELOG
 
+2026-11-13以前のコミット済み記録は[変更前の履歴](history/CHANGELOG_Before_20261113.md)に保存。現在の記録と併せて参照する。
+
+## 2026-11-13 入替えPico COM6／69f7d45962cfdfadを最新化
+
+- ユーザー指定の元ATE用個体をID照合し、旧26ファイル退避・hash確認後に現行一式を配置。ate_server.py／ate_uart.py／config.py／src main.py／repl_sink.pyの5件が更新。26 Pythonのhash一致・実機compile成功、Host／Mock315件成功。
+- 2秒timeout条件の初回実機は13/15。TEST_END直後に遅着を観測したため、10秒待ちで再確認し15/15成功。LOG_DROP_COUNT?=0は3201.859ms、SD／自己診断OK・drop0・REPL実出力確認・NF55G送信0byte。通常main.py再起動後7件成功。57600／8N1・CR・REPL ONで通常待受中。
+- 終了直後3.20秒遅延と起動後初回914msは原因未確定で残件。ATE／PIA5100／GPIB実経路は未確認。[個体別配置記録・退避先](Pico_Swap_69f7d459_Update_20261113_Rev0.txt)。
+
+
+## 2026-11-13 最新FW再配置・全件一致確認
+
+- ユーザー依頼でCOM14／Pico ID `2d35a1e11ac125e3`の旧27ファイルを退避・hash照合後、現行src25 Python＋root main.pyの配置処理を実施。全26件が既に最新版と一致しておりUp to date、内容差分なし。再照合・実機compileも全件成功。
+- Host／Mock315件成功、通常main.py再起動後のPC直結7件成功。57600／8N1・応答CR・REPL ONで通常待受中。初回ASCII異常・ATE／GPIB経路は未解決のまま。[確認記録](Pico_Latest_Update_20261113_Rev0.txt)。
+
+
+## 2026-11-13 初回IDN ASCII異常の追加確認・PC設定復元
+
+- クレジット追加後の再試験で、Host先行7F／FFは初回ERR:ASCII→次回正常を再現。実機RAMでUART受信前段を4条件・8件観測したが全件正常、不正byteなし。初期化直後要求は約1.04～1.05秒後に応答し、起動待ちを確認したがASCII異常の原因とは断定しない。
+- 意図しないPC側config欠落をユーザー承認でCR／REPL ONへ復元。旧固定OFFテストもON／OFF直接検証へ復元しHost／Mock315件成功。実機FWファイルは変更せず、通常起動後7件成功、57600／8N1・CR・REPL ONで待受中。
+- 実機の初回ASCII異常は今回未再現、原因未確定。物理電源再投入・普段のPCソフトでの再現時rawが残件。[追加確認記録](Startup_First_IDN_ASCII_20261113_Rev1.txt)。
+
+
+## 2026-11-13 REPLミラー既定OFFを開発Picoへ転送
+
+- COM14／Pico ID `2d35a1e11ac125e3`へ`src/config.py`のみ配置。PC／Pico SHA-256一致、`REPL_LOG_ENABLED=False`と`ATE_BAUDRATE=57600`をPico上で読戻し確認。
+- ATE側baud設定が未確認のためMain再起動は保留。COM19の旧115200bps `*IDN?`は無応答で、新57600bpsのATE通信確認とは扱わない。相手側57600bps設定後に再起動・ATE応答確認が必要。[実機記録](Real_Hardware_Test_Log.md)
+
+## 2026-11-13 REPLログミラーの既定OFF
+
+- `src/config.py`の`REPL_LOG_ENABLED`を既定Falseに設定。Falseではsink生成・poll・REPL出力を省略する。Thonnyで確認するときだけTrueへ変更し、config.py配置後に再起動する。
+- OFF既定値とsink factoryをテストで確認。Host/Mock全310件成功。REPL出力ON時のUSB stdout write実機待ち時間と57600bpsでのTimingは未測定。通常Timing/HILはOFFを使う。
+
+## 2026-11-13 ATE UART baudrateを57600bpsへ変更
+
+- ATE UART0（GP0/GP1）のbaudrateを設定値`ATE_BAUDRATE=57600`へ変更。ATE側の8N1・CRLF、NF55G UART1の38400bps／8E1設定は変更しない。
+- UART初期化テストで57600bps／8N1・GP0/GP1を確認。Host/Mock 309件成功。ATE側装置設定との一致およびPico実機配置・loopback/HILは未確認のため、両端を57600bpsへ合わせる前に単独配備しない。
+
+## 2026-11-13 旧デバッグPico 2を現行FWへ更新・ATE再接続後の確認
+
+- COM14／Pico ID `2d35a1e11ac125e3`を照合し、ユーザー指定により旧FWバックアップなしで現行`src/`一式と`firmware/main.py`を配置。PC／Pico hash一致、MicroPython上のsrc 25 modules compile成功。Main起動。
+- COM19再接続後、IDN／IDLE／SD／Self Check正常。ローカルLogger試験T000001でRTC_CHECK、IDN、COMM_STATUSを記録し、REPLミラー出力とTEST_END保存診断OK・drop0を確認。NF55G本体は未接続で製品Transactionなし。
+- TEST_END直後のPICO_SELF_CHECK?は742.86ms、待受復帰後3回は57～59ms。遅延原因は未確定。NF55G接続時HIL／TimingとSD CSV独立読戻しは残件。[実機テストログ](Real_Hardware_Test_Log.md)
+
+## 2026-11-13 開発Pico 2を現行MicroPython FWへ更新
+
+- ユーザー指定により旧FWバックアップなしで書換え。COM14のPico固有ID `2d35a1e11ac125e3`を照合し、現行`src/`一式と`firmware/main.py`を配置。主要ファイルhash一致、MicroPython上でsrc Python 25本のcompile成功。
+- mpremoteからMainを起動。COM19の`*IDN?`は起動前後とも無応答だったため、ATE疎通・起動後診断・Logger HILは未完了。製品指令は送信していない。結果と全配置hashは[実機テストログ](Real_Hardware_Test_Log.md)。
+
+## 2026-11-13 REPL/debugミラーのPico 2実機確認
+
+- 対象Pico ID `69f7d45962cfdfad`へ既存ファイルを退避後、変更3ファイルを配置し、Pico／PC SHA-256一致とMicroPython compileを確認。
+- mpremote監視ではTEST_START→RTC_CHECK?→COMM_STATUS?→TEST_ENDのCSV行を表示し、終了時TEST_LOGGER／TEST_LOG_DROP／SD／drop count正常を確認。続いてユーザーがThonnyでCOM6を開き、`MPY: soft reboot`後のMain起動、T000010のTEST_START／`*IDN?` REQUESTと結果表示を実機確認。
+- NF55G Refresh／Control／FUは未送信。ThonnyでのT000010終了診断、NF55G Transaction中のTiming、SDファイルの独立読戻しは未確認。Thonny／mpremoteのCOM6同時オープンは禁止し、soft rebootは試験停止・再起動を伴う。
+
+## 2026-11-13 TEST_START有無のATEローカル処理時間比較
+
+- COM19でTEST_STARTなし／ありを各6回、150ms間隔で比較。RTC_CHECK?、COMM_STATUS?、SD_STATUS?は全件正常。通常Query中央値は約8～28ms、TEST_START／TEST_ENDは約214／208ms。試験時LoggerとREPL mirrorを有効にしても今回のローカルQueryで大幅な定常遅延は観測されなかった（RTC_CHECK?最大75.84ms）。
+- 今回NF55G本体は未接続。TEST_STARTなしのSTATUS_REFRESHは1回ACK_TIMEOUT（418.41ms、cmd retry=1／rsp retry=0）となり、再試行・後続NF55G Refreshは停止。この結果は未接続時の観測で製品通信試験ではない。NF55G接続時HILを残件とする。最終IDLE／SD／Self Check／drop0を確認。[実機記録](Real_Hardware_Test_Log.md)。
+
+## 2026-11-13 ATE応答の物理配送とACK_TIMEOUTログレビュー
+
+- 提供CSVをコードと照合し、ATE/TX/RESULTは応答生成イベントでUART送信完了を示さないことを確認。過去のCOM19応答実受信記録も反映し、ATE側応答timeoutがPico処理時間より短い可能性を原因未確定の仮説としてATE-TX-01へ追記。timeout値／遅着受信とATE raw RX、Pico UART送信状態の突合が必要。
+- T000053のERP_SET ACK_TIMEOUT後にSE応答frameが遅れて現れるため、設定適用・現状態は未確定。再送・追加Controlを避ける方針を記録。T000053の誤った14桁CLOCK_SYNCと、後続T000054／55の修正済み12桁CLOCK_SYNCを区別。Code／Test変更なし。
+
+## 2026-11-13 COM19 *IDN?応答時間の単発確認
+
+- COM19直結で`*IDN?`を1回送信し、応答を約219msで完全受信。受信待ち15秒の範囲内でCRLF完結を確認した。これはPC直結のシリアル応答測定で、実ATEアプリ／GPIB経路のtimeout検証ではない。ATE-TX-01はOpen継続。
+
+## 2026-11-13 COM19 baudrate比較再試験
+
+- 同一`*IDN?`を57600／115200bpsで各1回送信。57600は3秒無応答、115200は`ERR:ASCII`を約264msで受信し、IDN成功なし。baud/framing/経路不一致の可能性はあるが原因確定せず。ATE-TX-01 Open継続、製品コマンド送信なし。[実機テストログ](Real_Hardware_Test_Log.md)。
+
+## 2026-11-13 ATE→PIA5100受信経路の切り分け継続
+
+- ユーザー観測としてNF55G側UART1波形、RB01G経由、PC serialは正常、ATE→PIA5100→Pico経路のみ未受信との情報を記録。これらをATE UART0の経路試験と混同しない。
+- ATE UART0は57600bps／8N1へ変更済みだがMain再起動後の実速度、PIA5100／ATE側通信設定、GPIB timeoutは未確認。ATE-TX-01をOpen維持し、ローカル`*IDN?`による区間別観測を次段階とする。NF55Gコマンド送信なし。
+
+## 2026-11-13 SDログのREPL/debugミラー
+
+- `ReplDebugSink`を追加し、通常治具起動時にSDへ書き込めたログ行を同じCSV形式でMicroPythonの`sys.stdout`へベストエフォート出力する。USB書込可能poll、4096byte有界Queue、1巡32文字上限を設け、通信busy中は出力しない。満杯・未接続・切断時はREPLコピーだけを破棄する。
+- Loggerに任意sinkを追加し、SD保存後の行だけを複製。既存のSD／ATE drop countと製品通信契約は維持した。
+- Host/Mock 307件成功。MicroPython実機のstdout poll性、Thonny接続時の中断影響、ATE/NF55G同時動作Timingは未確認。Thonny/REPLへ入る操作が動作中アプリを中断し得るため、実機HILで別途確認する。
+
 ## 2026-11-11 D1～D5各10回の実機受信時間測定
 
 - D1／D2／D3／D5は現行T2・通常ATE経路で各10回正常取得。D4は製品用T2を変えず、再送なし・Cache非採用のRAM観測で完全応答10回を取得し、各3区間の平均・最大・T2余裕を集計した。
@@ -99,7 +182,7 @@
 - docs/drawings/NF55G_Fixture_20261110_Rev0へA4横3枚のPDF、編集用SVG、PNGプレビューと資料READMEを作成。生成スクリプトはscripts/build_fixture_connection_drawing.py。
 - 全体接続、Pico物理ピン付きGPIO、追加／改造範囲を整理。RTC／SD／RS232 2CH、ATE–PIA5100、NF55G、追加HOST–USBハブ–QR／7355を記載。現行と候補を線種・色で分離。
 - 再発注時のADA-5703 GP4/GP5分離、追加UART引出し、USBホストCC／VBUS確認と給電・固定を説明。コネクタ撤去やUSB直付けの要否は未確定。端子番号・加工位置を推測しない説明図とし、製造用結線図は後続。
-- PDF全3枚のPNG目視、文字抽出・GPIOと公式pinoutの照合を実施。通信コード変更なし。実機改造・接続・配置なし。HW-01／USB-SUB-01はOpen継続。Host／Mockは本資料作成では再実行せず、前工程273件成功を維持。
+- PDF全3枚のPNG目視、文字抽出・GPIOと公式pinoutの照合を実施。通信コード変更なし。実機改造・接続・配置なし。HW-01／USB-SUB-01はOpen継続。
 
 ## 2026-11-10 QR／DMM共通USB下位マイコン・UART連携の開発準備
 
@@ -593,7 +676,7 @@ CS High before SPI creation with no added wait returned CMD0 failed: 31, CARD_IN
 
 ## 2026-09-10: SD startup comparison completed without improvement
 
-DELAY_AND_CS cold start: CMD0 failed: 31, CARD_INIT, elapsed 627 ms; captured before reset/reinit. Baseline, delay-only, CS-only and combined cases all exhibited the same CMD0 failure. Tested 500 ms wait and CS-before-SPI are not established fixes. Restored normal firmware/main.py to Pico /main.py, retaining diagnostic support. Root cause remains open. No Host tests rerun for hardware measurement and entry restoration; last suite 139 passed. See [full evidence](SD_Startup_Investigation.md).
+DELAY_AND_CS cold start: CMD0 failed: 31, CARD_INIT, elapsed 627 ms; captured before reset/reinit. Baseline, delay-only, CS-only and combined cases all exhibited the same CMD0 failure. Tested 500 ms wait and CS-before-SPI are not established fixes. Restored normal firmware/main.py to Pico /main.py, retaining diagnostic support. Root cause remains open. No Host tests rerun for hardware measurement and entry restoration; last suite 139 passed.
 
 
 ## 2026-09-10: Chat CMD0 diagnostic handoff validated
@@ -646,7 +729,7 @@ Pico warm test injected a software CMD0 error after a real 0x01 reply, confirmed
 constructor-failure object retention, then obtained 0x01 from one same-SPI retry.
 SD remount and existing 65-line CSV readback passed. This injected failure is NOT
 a reproduced cold-power failure and does not establish a fix.
-Evidence: temp/pico_retry_only_warm_injection.log; reproducible script:
+Evidence: temp/pico_cmd0_retry_only_warm_injection.log; reproducible script:
 scripts/pico_cmd0_retry_only_smoke.py. Warm boot evidence:
 temp/pico_retry_only_warm_boot.log.
 
@@ -676,7 +759,7 @@ temp/pico_clocks_only_warm_boot.log. No permanent workaround has been selected.
 Recorded COM14 preserved startup evidence (initial CMD0=31; follow-up=0x7F)
 in Real_Hardware_Test_Log.md and SD_Startup_Investigation.md. This was a re-read,
 not a new physical cold-start trial. Host/Mock 147 passed; firmware unchanged;
-root cause remains open. Device left at friendly REPL.
+root cause remains open.
 
 
 ## 2026-09-10: CLOCKS_ONLY physical power-cycle evidence
@@ -749,214 +832,7 @@ and CMD0 pre-FF enabled. Normal warm mount check passed (333 ms), Host/Mock
 voltage measurement unperformed, clock-only root cause not established.
 
 
-## 2026-09-10: User omits MISO voltage measurement
+## 2026-11-13 REPLミラー既定OFFを開発Picoへ転送
 
-Optional Phase 4 omitted by user decision. Recorded next step: physical ATE
-UART integration on final firmware, followed by T9 entry review and D1/D5
-product communication tests. No firmware changes or tests executed.
-
-
-## 2026-09-17: Physical ATE UART0 verification on COM5
-
-Recorded ID/RTC/SD/FW_UPDATE-rejection, split CRLF and 20/20 repeated ID
-responses over Elecom RS232 at 115200 8N1. Initial ERR:ASCII preserved as an
-unresolved observation; subsequent checks passed. No firmware changes or
-NF55G product transactions; normal runtime left running.
-
-
-## 2026-09-17: NF55G preconnection review
-
-Recorded UART1 loopback removal and NF55G disconnection confirmed by operator.
-Checked port availability and harness reference; physical wiring/power evidence
-remains pending. No product communication or readiness approval.
-
-
-## 2026-09-17: Operator wiring and power inspection recorded
-
-Recorded GP4/GP5 isolation, correct CN24 wiring, harness/path checks and all-OFF
-state as operator reports. Target FW remains unknown; detailed isolation,
-battery state, shutdown method and individual identification remain pending.
-No product communication or Open Issue closure.
-
-
-## 2026-09-17: Sample 1 preconnection details
-
-Recorded operator-provided SD-board GP4/GP5 removal/soldering method, battery
-disconnected and test ID Sample 1. FW unknown; power shutdown method still
-awaiting confirmation. No hardware operations or Open Issue closure.
-
-
-## 2026-09-17: Power shutdown method recorded
-
-Operator confirmed NF54G AC-DC / NF55G DC-DC configuration and NF54G AC switch
-OFF as shutdown operation, with battery disconnected. Completed outstanding
-physical-check response record; no product communication or power operation.
-
-
-## 2026-09-17: T9 entry verification
-
-Host/Mock 147 passed; 23 deployed Python files SHA256 matched. Integrated
-RTC/SD/readback/FU rejection and software NF55 TX count=0 passed. Restored
-normal runtime and verified physical COM5 local responses. Recorded scoped
-Sample 1 D1/D5 entry readiness; no product transaction or Open Issue closure.
-
-- 長押し起動の追加調査: メーカー作成第5版p.22に強制起動中はホストへ読取データを出力しない旨を確認。試験手順・実機ログ・OI-23へ追記。通常起動で再試験する。
-
-## 2026-10-11 HID-UART置換実験の共通TEST準備
-
-- CH9350/README.mdへDesktop原本を複製しSHA256一致を確認。資料原本は変更なし。
-- CH9350/src/ch9350_capture.pyに受信器を外部から渡す時刻付きHEX表示を追加。importでGPIO初期化なし、TX送信なし、終了時解放、受信器の欠落情報をLOSSで明示。
-- 共通受信ログのHost試験5件成功、既存Host/Mock 161件成功、mpremote起動確認成功。
-- CH9350/docs/に手順と新基板の未実施評価表を追加。型番CH9359/CH9350の不一致とGP4/GP5 UART1競合等をOpen Issuesへ追加。
-- IC依存のデコーダ・UART初期化とPico配置/実機評価は型番確認待ち。既存NF55G/ATE/QRソースとPico main.py/boot.pyは変更なし。
-
-## 2026-10-11 CH9350確定・QR試験ポート割当て
-
-- ユーザー訂正により対象ICをCH9350と確定。CH9350状態2/3/4の11byteキーボードフレームについて、分割/連結受信、押下/解放差分、Shift、US英数字・記号・Enter、不正/未完フレーム拒否を実装。
-- NF55G用GP4/GP5を保持し、CH9350試験をGP9=PIO0/SM0受信115200bps/8N1、GP8=送信禁止High固定へ割当て。ハードUART1を使用しないため、NF55G UART設定は変更しない。
-- HEXログ再生ツールと合成ログを追加。正式Cache、SS連携、製品PASS/FAIL、本番runtimeへの統合は対象外。
-- 販売基板のTX電圧、DIP対応、電源容量、RX接続条件、115200bps実受信は未確認。既存NF55G/ATE/QR runtimeとPico main.py/boot.pyは変更なし。
-
-## 2026-10-11 CH9350 DIP設定管理の追加
-
-- 評価基本ProfileをEVAL-CH9350-STATE2（SEL=H、S1=H、S0=L、BAUD1=H、BAUD0=H、115200bps/8N1）として記録。
-- 量産候補Profileを同じ論理のPROD-CH9350-STATE2として分離し、実機評価合格までは未承認と明記。状態0は互換性比較用で、状態2の試験結果と混在させない。
-- 販売基板のDIP番号・ON/OFFとIC論理の対応は未確認のため、現物の導通・電圧測定欄、評価記録、量産固定記録を追加。DIP変更は電源OFFで行い、再投入後に確認する手順とした。
-- 評価基板の詳細資料がなく、販売ホームページの記載を基にユーザーが提供した基板情報であることを追記。ホームページ画面・記載日時・DIP設定表原文は未保存とし、ICデータシート確認事項および現物測定結果と区別した。
-
-2026-11-09 実機前レビュー: ATE transportで拒否したASCII／FRAME／LINE_TOO_LONGも、試験中はRECEIVE_ERRORとしてRAM記録する。保存できるのは受信層が保持したprefixであり、入力全体のRAW取得とは扱わない。Host／Mock回帰試験を追加。
-
-2026-11-09 実機確認: 日時ログ、SD抜去時のWRITE_ERR・試験継続、再挿入中の復帰禁止、TEST_END後の復帰と異常履歴保持、次試験のログ再開を確認。D3正常（31ms・再送0）、D4はD4-TIM-01として継続。TEST_ENDの先行OKをEND_REQUESTに修正し、期限境界の部分RAW／ACK待ち異常byteも記録。Host／Mock全198件成功。詳細はReal_Hardware_Test_Log.md。
-
-2026-11-09: D4量産不使用をユーザー指定として記録。r1 p.35に基づきCLEAR4種をParser／Builderへ接続し、CD／CL正常応答DATA0文字を検証。Host／Mockでは送信形式、T2、成功／ambiguous時のCache無効化、SQE、不正引数の無送信、異常応答へのplain NAKを試験する。実機結果はReal_Hardware_Test_Log.mdへ記録。
-
-2026-11-09 CLEAR実機結果: POWER／BATT／ALL／LOGの4種がOK、19／19／20／19ms、再送0、BCC一致。CD後のDATA／STATUS無効化、CL後の全EL／OL無効化と96件の空ログ表現を確認。CLEAR_ALLは先行個別消去後の0維持を確認したもので、単独非ゼロ値消去は未検証。Host／Mock全203件合格。詳細・制限はReal_Hardware_Test_Log.md。
-
-2026-11-09 PARAM_SET実機前準備: r1 p.19のSP正常応答DATA0文字をDispatcherで厳密検証する。非空応答のplain NAK・最終FRAME異常、SQE、ACK_TIMEOUTとDATA/STATUS/INFOの無効化／保持をHost試験へ追加。今回の試験はD5の現行設定RAW50文字を同値で書き戻す。RPは別段階。
-
-2026-11-09 PARAM_SET同値書戻し実機結果: 現行D5の設定RAW50文字をreserve込みで退避・同値送信し、SP正常応答DATA0文字、72ms、BCC一致、再送0を確認。INFO/STATUS無効化と再取得後の設定・製造情報の完全一致を確認。ユーザー報告は出力変化・瞬断・再起動なし（電圧数値未提示）。ログ3本をtemp直下へ順次コピー。Host／Mock全206件成功。設定の実変更・保持・RPは未確認。詳細はReal_Hardware_Test_Log.md。
-
-2026-11-09 PARAM_RESET準備: r1 p.21に従いRP正常応答DATA0文字をDispatcherで厳密検証。空応答・T2=100ms、非空応答plain NAK、SQE、ACK_TIMEOUTとCache規則を回帰試験に追加。現在のD5 RAW50文字を退避→RP初期値読出し→元RAWをSPで復元→完全一致確認の順で実機試験する。RESETは全項目を数値0にする意味ではなく、電源初期値へ戻す。
-
-2026-11-09 PARAM_RESET実機結果: 元値が初期値だった最初のRPと、EVENT_ENABLEを0→1へ一時変更後にRPで1→0へ戻した差分確認を区別して記録。退避RAW50文字をSPで復元し、設定・製造情報の全100文字一致を確認。RP 57／56ms、SP 72／73ms、再送0、BCC一致。全4操作でユーザー報告は出力変化・瞬断・再起動なし。CSV5本をtemp直下へ回収。Host／Mock全210件成功。電源切入保持とEVENT以外の非初期値からの初期化は未確認。詳細はReal_Hardware_Test_Log.md。
-
-2026-11-09 追加コマンド実機確認: Pico診断・不正要求拒否13項目を確認し、NF55G送信0件。続くBEは非バックアップ状態で想定SQEに対してOK（26ms）となり、BE-ACCEPT-01をOpenで追加。前後D1一致、ユーザー報告は出力変化・瞬断・再起動なし。実応答を保持し、Picoによる差異吸収は行わない。
-
-2026-11-09 Pico 2追加機コピー準備: 実ATE／Sample環境と2台目開発機の構築に向け、実機読戻しマニフェストと一致する25ファイルのZIPをtempへ保存し、基準SHA256一覧とコピー手順を追加。準備時COM14は未列挙であり、新規本体バックアップではない。UF2、SD内容、RTC、追加内部ファイルの確認はハード完成後に行う。コミット前Host／Mock全210件再確認。
-
-## 2026-11-09 SET ERP 2コマンド実装
-
-- ERP_SET_1_0／ERP_SET_0_0をATE Parser・Builderへ追加。SEのDATAはASCII1000／0000、T2=100ms、正常応答DATA15文字をDispatcherで厳密確認。
-- 既存SE Cache規則を利用し、成功／成否不明時にDATA／STATUSだけをINVALID化。Control応答からSTATUSへ昇格せず、Queryから自動Refreshしない。
-- tests/test_erp_commands.pyを追加。正常送信、明示D1確認、不正引数、応答長不正、ACK／応答timeout、最終BCC異常、応答再送の分離、SQE／PMEを確認。専用10件および既存を含むHost／Mock全220件成功（8.182秒）。記録: temp/erp_host_mock_20261109_run01.log。
-- ATE_Command_Master.mdとTest_Specification.mdを更新し、Sample併用の外部測定・前後STATUS・ログ保存・元設定復元の制限を記載。Pico配置／Sample実機試験は未実施。Open Issuesの設計回答やCloseは変更しない。
-
-2026-11-09 ERP原典再照合: r1 p.5／17／18／21／29／30／43からDATAの各桁と追加設定条件を確認。1000／0000の実装は原典に一致。BURST_ONがBURST入力信号の受信状態でバースト有無に依存しない点をCommand MasterとSample手順へ明記。PS_OFF_CHARGE=1の復元入口と実機信号・負荷条件をERP-CONDITION-01としてOpenに記録。コード変更・実機送信なし、Host／Mock再実行なし（直前220件合格）。
-
-## 2026-11-09 ERP充電有効の2入口とRev.1一覧の説明追加
-
-- ERP_SET_0_1（SE DATA0100）／ERP_SET_1_1（SE DATA1100）をParser／Builderへ追加し、日本語コメントを全4組合せへ更新。SE応答15文字／T2=100msと既存Cache規則を共用する。
-- ERP専用10テストを4組合せへ拡張。D1のBURST／PS_OFF_CHARGE両設定、正常・異常通信、不正引数を検証し、Host／Mock全220件成功（7.416秒）。git diff --checkを実行。
-- ATE_Command_Master／Test_Specification／Open_Issuesを更新。ERP-CONDITION-01は実機条件確認のためOpen継続。
-- ユーザー指定のATE_Command_List_for_Test_Program_Rev1_20261109.md／docxを更新。4コマンドを個別掲載し、第14.8節へ数字の意味、用途、読戻し例、元設定復元、充電許可と実充電の違いを追加。変更前一覧はtemp/erp_all_modes_20261109_run01へ退避。
-- Picoへの配置・製品への送信・Sample実機確認は今回行わない。
-
-## 2026-11-09 読出し優先 EL／OL／FDを正式ATEへ実装
-
-- EL4／OL8ブロックのRefreshと全96履歴のDATEHOUR?／ID?、FD_READ_6桁HEX／FD_DATA?をParser・Command定義・Dispatcherへ接続。T2=100ms、応答82／64文字、START_NO一致、全Decode、Cache独立と無効化を検証。
-- ログ日時をr1ルール②のHEXから10進YYMMDDHHへ変換。DATEHOUR_RAWも保持し、不正日時・不正HEXを含むブロックを採用しない。既存Decoder試験の入力を原典のHEXへ修正。
-- Host／Mock13テスト追加、全233件成功（5.717秒）。記録: temp/read_commands_host_mock_20261109_run01.log。
-- ユーザー指示「実機デバッグはERPと一緒に後日」をTest_Specificationへ保存。Pico配置・実機送信は未実施。ARは仕様未確定で保留、FDのID表記不一致をREAD-FD-01としてOpenに追加。Code／Test／Docsを同時更新。
-
-## 2026-11-09 項目別PARAMの通常10項目を実装
-
-- nf55_command.pyへ規定の項目配置・10進範囲検証・未指定項目の変更なしマスク生成を追加。command_parser.pyから共通CONTROLへ接続し、追加引数・未知項目・範囲外をCache操作前に拒否する。
-- 原典の保護5項目は項目別入口を拒否。CHG_IR_THDは値0の意味をPARAM-IR-01としてOpenに残して保留する。既存PARAM_SET／RESETの契約は変更しない。
-- tests/test_parameter_item_commands.pyへ10テストを追加、Host／Mock全243件成功（7.565秒）。関連Master／Cache／Interface／Test仕様を更新。
-- コマンド一覧Rev.1に通常10項目の指定例・範囲・読戻し手順・拒否対象を追記。Pico配置・実機送信は未実施。
-
-## 2026-11-09 バッテリ診断BCの開始・停止・8結果Queryを実装
-
-- nf55_command.py／command_parser.pyへSTART／STOPとBC Queryを追加。DispatcherはBC応答30文字／T2=6秒を検証し、STARTの完全結果だけをBCへ公開。STOPではCacheを無効化する。
-- decode_bcは予約を含む全30文字HEXを検証。未接続時にも旧BCを無効化するため接続確認をmain.pyから共通Control Coreへ移した。関連日本語コメントを更新。
-- tests/test_battery_check_commands.pyの13テストを追加、Host／Mock全256件成功（6.585秒）。Test／Cache／Decode／Interface／Command Masterを更新。
-- OI-06／07はOpen継続。MODE13を製品FAILや通信エラーへ置換せず、STOPの暫定FW差を吸収しない。評価用・実機未送信としてコマンド一覧を更新。
-
-2026-11-09 BC最終確認: 空の=追加指定も無送信拒否し、最終Host／Mock全256件成功（7.088秒、temp/battery_check_host_mock_20261109_run02.log）。git diff --check合格。
-
-## 2026-11-09 Pico 2 COM14へデバッグ用ソース配置
-
-- ERP／読出し／項目別PARAM／BCを含む変更5ファイルを配置。事前に内部31ファイルを退避し、配置対象25ファイルすべての読戻しSHA256一致を確認。
-- Pico上compile25件、RAM Mock31ケース、実ハード構成の自己診断・RTC・SD確認に成功。通常app.runの待受開始を確認し、COM14を解放。製品コマンド送信・Sample実動作試験・電源再投入は未実施。
-- ソース追加変更なし。最終Host／Mock256件成功の記録を継承。詳細と証跡はReal_Hardware_Test_Log.mdの同日13:12項を参照。
-
-## 2026-11-09 COM6開発用Pico 2へクリーン配置
-
-- 旧Main.pyを退避して内部ファイルを空にし、COM14と同一の25ソースを配置・SHA256読戻し照合。Pico上compile25件・RAM Mock31ケース成功。製品コード変更なし。
-- app.run起動、COM6解放。ユーザー指示により書込み完了までで終了し、RTC・SD確認はハード組立後へ延期。詳細はReal_Hardware_Test_Log.md。
-
-## 2026-11-09 寿命情報設定SLを正式ATEコマンドへ追加
-
-- LIFE_SET_<VALUE>を追加し、符号付き10進整数→最小3桁HEX＋予約00000で送信。範囲外を拒否・切捨てしない。LIFE_SET_RAW=<ASCII>で不正値・長さ違い・空DATAも送れるようにした。
-- SL正常応答DATA0文字／T2=100msと既存DATA Cache無効化へ接続。Queryの自動Refresh・製品判定なし。関連日本語コメント、Master・一覧・OI-08・テスト仕様を更新。
-- SL専用12テストを追加、Host／Mock全268件成功（5.237秒）。実機手順に範囲外書込み、PME等の実応答、D0積算寿命の読戻し、元値復元、OFF期間クリアの影響を記載。
-- 量産使用未確定、OI-08 Open継続。Sample後日準備のため今回は実装・手順まで。Pico追加配置・製品送信は未実施。
-
-## 2026-11-10 USB_HOST_SubMCUのPC認識・実機CC照合
-
-- 通信用ケーブル変更後、追加基板をBOOT時E: RP2350／2E8A:000F、通常起動時COM21／2E8A:0009として識別。USB serial一致、UF2識別ファイル読取と送信なしCDC受信を記録。FW書込みは未実施。
-- ユーザー写真を原形・SHA-256付きで保存し、CC1／CC2とも0=Sink位置実装を確認。Type_C2のSource用抵抗・VBUS保護・D線の確認事項、およびType_C1 CCの資料不一致をUSB-SUB-02としてOpenに記録。既存計画の設計回答や改造範囲は独断で確定しない。
-- 検証: 原典回路図1ページを描画・テキスト抽出して照合。通信コード変更なし、Host／Mockは前回273件成功。抵抗実測・改造・QR／7355受入は未実施。詳細: USB_Host_SubMCU_CC_Inspection_20261110.md。
-
-## 2026-11-11 USBサブMCU確認用UF2の作成・配置・単体受入
-
-- firmware/usb_submcu_acceptanceに専用RP2350A／Flash2MB設定とUSB CDCのみの確認FW dev-20261111.1を追加。識別・PING・uptime・ASCII echo、95文字制限、異常行破棄、再接続時の部分行失効を実装。USB Host／PIO／GPIO／UART／LED／SD／RTC・NF55G処理は起動しない。
-- scripts/build_usb_submcu_acceptance.ps1とusb_submcu_acceptance_hil.pyを追加し、SDK2.2.0／指定TinyUSB／GCC14.3.0／CMake3.31.6／Ninja1.11.1.4／picotool2.2.0-a4を固定。案件内ツールとビルド中間物を.gitignoreへ追加。
-- 追加基板A06FEA01012EC137の旧FW usb_deviceを識別し、全Flash2MB退避・verify一致後、UF2書込み・Flash照合成功。COM21のUSB実機123チェックを再起動前後各1回成功。Host／Mock287件成功、コンパイル・公式UF2解析・最終ELFの初期化シンボル確認を実施。
-- 開発UF2／ELF／bin／ソースsnapshot／manifestと復旧記録を保存し、ソフトウェア境界・試験仕様・開発版台帳・Open Issueへ結果を追記。既存治具FW／D0変更作業には触れず、QR／DMM／UART・CC／D線・給電保護と物理電源断試験は未実施。USB-SUB-01／02はOpen継続。[受入結果](USB_SubMCU_FW_Acceptance_20261111/Result.md)。
-
-## 2026-11-11 Type_C2 Host回路条件の一次資料照合・変更案
-
-- メーカーUSB-C専用FAQのD+プルアップ撤去位置と固定commitのPIO-USB設定を保存。原典拡大でD+=GPIO12／R12、D−=GPIO13／R11、R13はD+側と確認し、先のD線説明を訂正。Type_C1 CCのVSYS記載もGNDへ訂正追記。元PDF・過去記録本文は保持。
-- R13撤去、R18／R19を未実装、R20／R21各56kΩ・1%の変更案と給電・受入条件をUSB_Host_SubMCU_Host_Circuit_Conditions_Rev0_20261111.mdへ具体化。デバッグPC給電／QR・DMM使用時は外部5VアダプタのExpander分岐・1A供給可能というユーザー指定を反映。供給源の同時直結を避け、定格と電気保護の確認を区別。
-- 一次資料・原本hash・メーカー写真・サンプルを台帳付き保存。通信コード・配布UF2の変更、機器操作、改造、Host実機試験なし。Code変更なしのためHost／Mock再実行はせず、直前287件／USB123項目×2の実績を別範囲として保持。USB-SUB-01／02はOpen継続。
-
-## 2026-11-11 治具図Rev.4へType_C2改造箇所・手順を追加
-
-- ユーザー指示に従い、改造は今行わず実機確認直前に案内する運用を明記。旧図面・原典を保持してA4横5枚のRev.4 PDF／SVG／PNGを新規作成。
-- 4枚目にR13・CCの撤去／56kΩ実装・維持部品を色分けした回路、USB-C専用のメーカー位置写真・部品表を追加。5枚目に無給電施工・外観／電源確認・QR試験の順序と記録欄、PCとExpander5Vの切替えを追加。
-- scripts/build_fixture_connection_drawing_rev4.pyを追加し、既存Rev.3生成スクリプトは維持。メーカーWebPの形式変換だけにPillow11.3.0を利用し、原図自体は未変更。
-- 検証: 全5ページを描画・目視、注記調整後再描画。ページ寸法・文字領域・改造情報・SVG XMLを確認。Host／Mock287件成功（6.399秒）。FW変更・実機操作・基板改造なし。給電保護・Host／UART・部品現物照合とUSB-SUB-01／02等は残す。[図面・検証](drawings/NF55G_Fixture_20261111_Rev4/README.md)。
-
-## 2026-11-11 USB SubMCU QR単体Hostの実機前準備
-
-- 隔離したqr-probe-20261111.1 RAM版をビルドし、UF2／ELF／bin／ソースsnapshotとhash台帳を保存。Type_C2の列挙・HID原文収集のみで、QR文字列・DMM・正式UART・2 Host完成版とは扱わない。基板改造・書込み・実機通信は未実施。
-- メーカー原文を保持しSDK API重複を派生コピーで修正、newlib malloc hookをSDK再帰mutexへ接続。ログ破損・欠落・満杯を検査するツールと受信専用スクリプト、未実施の実機記録票を追加。Host／Mock含む300件成功、追加後の最終ログ14件成功、任意GP0診断TXは構文検査のみ成功。
-- 固定TinyUSBの単一Host管理をUSB-SUB-03としてOpen登録。親Picoを保持する診断機材3案を比較し、3.3V USB–UART購入を推奨。改造はログ・給電保護・部品の準備後、実機直前に案内する。[結果と成果物](USB_SubMCU_Host_Preparation_20261111/Result.md)。
-
-## 2026-11-11 Hostデバッグ変換器SH-U05Aの指定
-
-ユーザー指定によりSH-U05Aをデバッグ機材に採用。メーカー仕様と端子写真を保存・照合し、3.3V UART／受信専用RXD＋GND、電源端子未接続、UARTモード・COM確認とRAM版FWとの区別を[接続準備](USB_SubMCU_Host_Preparation_20261111/SH_U05A_Debug_Setup_Rev0.md)へ記録。親Pico・基板・FW・テストコードは変更せず、UART版ビルド・実機受入は未実施。
-
-## 2026-11-11 所持済みSH-U05Aの配線・設定手順を統合
-
-- ユーザーがSH-U05A所持済みと回答。端子写真・2線配線・UART設定・COM確認・給電順序・ログ保存／解析・終了と切り分け・実施記録を[手順Rev.1](USB_SubMCU_Host_Preparation_20261111/SH_U05A_Debug_Setup_Rev1.md)へ統合。Rev.0を保持し、準備資料READMEへ最新入口を追記。
-- 単体設定は先に確認可能、追加基板接続は実機直前の改造案内とUART版FW準備後。現RAM版と配置済みUSB診断FWは診断UART出力なしと明記。コード・FW・実機は変更せず、資料／現行スクリプトの照合とリンク存在確認のみ。Host／Mock再実行なし、COM操作・施工・書込みなし。既存Open Issuesを維持。
-
-## 2026-11-11 SH-U05A単体UART・COM確認
-
-- 初期USB UART-LPT／Code28から、ユーザーのUART側ジャンパ設定後にUSB-SERIAL CH341 (COM22)／PnP OK・Code0を確認。WCHドライバ3.9.2024.9を識別した。メーカー配布・署名検証済みドライバは取得のみで、インストーラ起動・導入操作は行っていない。
-- VID1A86／PID5523とCOM22を照合し、115200／8N1・フローなし、DTR／RTS Falseで無送信open/read/close成功、受信0byte、COM解放。LED非点灯のユーザー申告、未実施の端子電圧・ループバック・追加基板通信を区別。[結果・証跡](USB_SubMCU_Host_Preparation_20261111/SH_U05A_Single_Check_20261111/Result_Rev0.md)。製品コード・基板FWは変更せず、Host／Mock再実行なし。
-
-## 2026-11-11 SH-U05A単体ループバック試験
-
-- ユーザー指示でCOM22／VID1A86:5523／物理USB位置を照合し、115200・8N1・フローなしでTXD–RXDループバックを実施。112件、送受信各5113byte完全一致、余分な受信なし、COM解放。ASCII・合成35文字・制御byte・00～FF・8種類の長さ・連番100件を確認。
-- 初回はUSB位置のインターフェース末尾表記で送信前停止（0byte）。表記を正規化して再試験成功、両runの証跡を保持。[結果・HEX原文・試験スクリプト](USB_SubMCU_Host_Preparation_20261111/SH_U05A_Loopback_20261111/Result_Rev0.md)。
-- USBを抜いてTXD–RXD短絡を外す手順を案内、除去済みとはしない。UARTモードは維持。親Pico・追加基板FW・製品コードは変更せず、追加基板通信・Host／Mock再実行なし。
-
-## 2026-11-11 工程② UART版Host調査FWのビルド・配布準備
-
-- GP0診断TX版をqr-uart-20261111.1として版名とbuild_uart_gp0を分離。起動レコードとメタデータの版を共通化、115200／8N1・HWフローなし、GP0／GP12／GP13用途を記録した。USB開始前の版・個体ID出力とHost初期化false時の診断排出を追加し、通常FIFO空き・最大16byte送信は維持。
-- ARMビルド／リンク／UF2生成、メタデータ・UARTシンボル・115200設定の逆アセンブル、UF2ブロック確認成功。Host／Mock・ログ解析301件成功（9.173秒）。旧RAM配布43ファイルとメーカー原文14ファイルのhash一致を確認。
-- UART版UF279360byte、SHA-256 31da5f6f743fe6447fa03c56d223ccd6f12ecb074a8cc92374867e1cee754a70。ソースsnapshot・配布45ファイルのhashを保存。[仕様・結果・配布物](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Result_Rev0.md)。
-- 実機書込み・配線・COM操作・基板改造は今回実施しない。SH-U05Aの短絡除去と改造・給電確認後に次工程へ進む。2 Host／DMM／正式親子UARTは未確定のまま、Open Issuesは維持。
+- COM14／Pico ID `2d35a1e11ac125e3`へ`src/config.py`のみ配置。PC／Pico SHA-256一致、`REPL_LOG_ENABLED=False`と`ATE_BAUDRATE=57600`をPico上で読戻し確認。
+- ATE側baud設定が未確認のためMain再起動は保留。COM19の旧115200bps `*IDN?`は無応答で、新57600bpsのATE通信確認とは扱わない。相手側57600bps設定後に再起動・ATE応答確認が必要。[実機記録](Real_Hardware_Test_Log.md)

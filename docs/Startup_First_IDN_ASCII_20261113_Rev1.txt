@@ -1,0 +1,54 @@
+起動直後・初回IDNのERR:ASCII 追加確認 Rev.1
+日付: 2026-11-13（JST）
+対象: Pico ID 2d35a1e11ac125e3、COM14 USB、COM19 PC直結UART
+
+結論
+クレジット追加後、承認レビュー付きコマンドの実行が可能になり、保留試験を実行した。
+Hostでは先行7F／FF byteにより「初回ERR:ASCII、2回目IDN正常」を再現した。
+実機の今回4条件・計8件ではASCII異常は再現せず、最初からIDN正常、UART受信rawにも不正byteなし。従って実機の実際の発生原因は未確定。
+UART初期化直後の要求は捨てられず、起動処理が終わるまで約1.04～1.05秒待って応答した。この待ち時間はASCII異常とは別の観測であり、因果を混同しない。
+
+Host再現結果
+配置済みソーススナップショットを使い、初回要求より先にbyteを投入した。
+・先行なし: 1回目／2回目とも正常。
+・7F、FF: 1回目ERR:ASCII、2回目正常。
+・00: 1回目ERR:FRAME、2回目正常。
+現在のRECEIVE_ERROR raw_hexには不正byte自体は残らず空prefixとなることも確認。
+この試験は処理機構の確認で、実機へ7F／FFがどこから入ったかの証明ではない。
+
+実機RAM観測の方法・結果
+Picoの永続ファイルは書き換えず、RAM上でATE UART.readをラップし、捨てる前の各受信byteとticks_msを128要素上限で記録した。NF55G製品コマンドは要求しない。
+通常と同じcreate_fixture_appを新規インタプリタで実行。UART生成時点、RTC／SD等の生成完了時点、受信rawを別々に採取。
+・early_default: PC COMを先に開き、UART生成直後にIDN。1回目1042.551ms、2回目10.034ms、両方正常。
+・early_lines_off: 同条件、DTR／RTS=False。1回目1048.762ms、2回目9.327ms、両方正常。
+・late_open_default: アプリ準備完了の500ms後にCOMを開きIDN。9.308／9.771ms、両方正常。
+・late_open_lines_off: 同条件、DTR／RTS=False。11.506／9.400ms、両方正常。
+全4試行のUART生成直後受信待ちbyte数は0。全試行のRX_JOINは2a49444e3f0d2a49444e3f0dで、PCが送信した2件の*IDN?＋CRと一致。0x7F以上や追加byteなし。
+送信byte列と時刻はlive_rx_result.jsonへ保存。
+今回の再起動はmpremoteの新規インタプリタ／UART再初期化による確認。物理的な電源再投入、普段利用するPCターミナルソフトでの同一操作は未再現。観測用USB printによるTiming差もあり、実機異常を否定する試験ではない。
+
+別途見つかったPCファイル不整合と復元
+試験開始時、PCのsrc/config.pyはATE_RESPONSE_TERMINATORが欠落しREPL_LOG_ENABLED=Falseへ戻っており、Hostアプリ生成がAttributeErrorで失敗した。
+Pico内の実設定はCR、REPL=True、57600／8N1で正常。PC側欠落がPicoにも反映されたという状態ではなかった。
+ユーザーが意図した変更ではないと回答しCR復元を承認したため、変更前PCファイルを退避したうえで、直前にユーザーが指定したCR／REPL ONへ復元。内容・byte列とも直前配置スナップショットと一致させた。
+PC側REPLテストも旧固定OFF前提へ戻っていたため、その状態での全315件は1件失敗した。factoryのON／OFFを直接検証する既存の修正を復元し、再実行で315/315成功（3.917秒）。製品仕様や機能をテストへ合わせて変更したものではない。
+変更が戻った原因（エディタ保存・同期等）は調査しておらず推測しない。
+
+終了確認
+RAM観測後にmachine resetし、通常の/main.pyから起動。
+PC直結CR終端の7/7件が正常。初回からIDN正常（8.075／8.001／8.109ms）、COMM IDLE、SD／RTC／自己診断OK。
+通常の57600／8N1・CR終端・REPL ONで常駐待受中。COM14／COM19は解放済み。
+実機FWやUART受信破棄処理を恒久変更していない。無条件drainは追加していない。
+
+残課題・次の確認
+初回ASCII異常はOpen継続。普段使用するPCソフトで再現した瞬間の送信raw／Pico受信rawを対応させる必要がある。
+今回のPython試験とPCソフトのCOM open手順、初期baud／format、送信タイミング、物理電源再投入の差を確認する。不正byteを実採取していない段階で線路ノイズ・USB変換器・未初期化のどれかと断定しない。
+起動中は今回約1秒の処理待ちがあったので、PC／ATEの応答timeoutの別評価も必要。
+
+保存先
+temp/startup_ascii_20261113_run01/
+・pc_config_before_restore.py、test_repl_sink_before_restore.py: 復元前PCファイル
+・replay_deployed_snapshot.py、result.json: Host先行byte再現
+・pico_rx_probe.py、run_live_rx.py、live_rx_result.json: RAM受信観測スクリプト・実raw
+・verify_normal_boot.py、normal_boot_result.json: 通常起動後確認
+過去Rev.0は当時の試験未実行記録として保持。

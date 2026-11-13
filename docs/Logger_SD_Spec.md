@@ -111,6 +111,24 @@ Logger architecture supports:
 - future USB sink
 - REPL/debug sink
 
+### REPL/debug mirror (2026-11-13)
+
+- `src/config.py`の`REPL_LOG_ENABLED`で起動時に切替える。既定値は`False`でREPL sinkを生成せず、poll／USB stdout writeを行わない。デバッグ時に一時的に`True`へ変更して配置・再起動すると、TEST_START／LOG_CONT_START後にSD sinkが受理したCSV行を同じ14列・CSV escape形式でUSB REPL/debug sinkにも出力する。開始時にはCSV headerも出力Queueへ追加する。
+- REPL出力はSD書込み後に複製し、NF55G通信中・ATE処理中は送信しない。`select.poll()`の書込可能通知をtimeout 0で確認し、1回のserviceにつき最大32文字だけ送る。REPL側Queueは4096 UTF-8 byteまでとする。
+- REPL未接続／非pollable、切断、Queue満杯の場合はREPLコピーを破棄する。SD記録とATE/NF55G処理は継続し、SD sinkを記録の正本とする。REPL drop数は`ReplDebugSink.drop_count`に保持し、ATEの`LOG_DROP_COUNT?`には合算しない。
+- USB書込み可能poll後の1回の`sys.stdout.write()`自体がUSB実装により待つ可能性までは排除できない。Timing影響を疑う比較や通常運用では`REPL_LOG_ENABLED=False`として再起動する。57600bps変更後の量産Timingは未測定。
+- USB CDCはMicroPython REPLと共有される。REPLへ接続／`Ctrl+D`を送ると`MPY: soft reboot`が発生し、実行中アプリは再起動される。Thonnyは観察専用に使い、Shellへコマンドを入力しない。NF55G Transaction中のTiming影響は未確認。
+
+### Thonnyでの実機確認手順（2026-11-13）
+
+1. ATE側COM19で必要な試験を終了し、`TEST_END`応答と`COMM_STATUS?`=`OK:state=IDLE`を確認する。TEST_START中の状態でThonny接続／soft rebootを行わない。
+2. COM6を使用しているmpremote等の監視プロセスを終了する。Thonnyとmpremoteから同じCOM6を同時に開かない。
+3. REPL表示試験時だけ`src/config.py`の`REPL_LOG_ENABLED=True`をPicoへ配置し、ThonnyでMicroPython (Raspberry Pi Pico)とCOM6を選んでShellを接続する。Shellに`MPY: soft reboot`が出た場合はMain再起動後の出力を待つ。必要時のsoft rebootはShellにフォーカスしてCtrl+Dを押す。これはMainとMicroPython状態を再起動する操作である。通常運用／Timing比較ではFalseへ戻して配置・再起動する。
+4. 通常起動後、ATE側COM19で`*IDN?`により治具応答を確認する。その後、ローカルな試験であれば`TEST_START`を送り、ATE要求／応答がCSV形式でThonny Shellにも流れることを確認する。個々のATEコマンドは前応答完了後に送信する。
+5. 確認後はATEから`TEST_END`を送り、`PICO_SELF_CHECK?`、`SD_STATUS?`、`LOG_DROP_COUNT?`、`COMM_STATUS?`を確認する。Thonny Shellでは入力やCtrl+C/Ctrl+Dを行わない。
+
+2026-11-13実機: COM6へ接続したThonnyで`MPY: soft reboot`後のMain起動とREPLログ表示を確認。ATE COM19でTEST_STARTと`*IDN?`を実行し、CSVヘッダー、TRIAL_START、ATE REQUEST／RESULTがShellに表示された。NF55G Refresh／Controlは含めていない。
+
 USB logging must be non-blocking and may drop logs rather than delay ATE/NF55G.
 
 Priority:
@@ -118,7 +136,7 @@ Priority:
 2. complete current NF55G transaction safely
 3. mandatory internal processing
 4. SD logger
-5. future USB logger
+5. REPL/debug USB mirror and future USB logger
 
 ## Suggested CSV fields
 timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail

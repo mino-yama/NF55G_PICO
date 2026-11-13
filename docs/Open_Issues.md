@@ -82,6 +82,26 @@ READ-FD-01は通信r2 p.38でもFD見出しと46h 30hの不一致が残る。OL�
 
 ATE-EOL-01追記（2026-11-10、Open継続）: COM20実機でD0入口DATA_REFRESHのCR／LF／CRLFを確認。CR／LF単独とCR単独10回定期送信後は、後続DATA_REFRESHが1回ERR:FRAME、次はOK。CRLF・空CRLF後・分割CRLFは正常。最短送信間隔113.966ms、終了時通信IDLE／SD・自己診断OK、破棄0。上記の定期CR実機確認は実施済みとなるが、SD滞留の実測と処置方針は未確定。コード変更なし。[実機結果と処置案](ATE_D0_Line_Ending_Hardware_Test_20261110.md)。
 
+## ATE-TX-01: ATE応答のUART送信・受信確認とログ表現（Open、2026-11-13）
+
+- 確認事実: `FixtureApp.execute_ate_line`は応答文字列を生成した後、ATEログへ`direction='TX', event='RESULT'`として記録し、その後`ATEServer.reply`／`flush_reply`へ渡す。したがってCSVの`ATE/TX/RESULT`はCommand Coreの論理結果で、UART.writeの実行・受理量・全byte送信完了・ATE側受信を証明しない。ATEServerは短いwriteの残りを保持するが、受理byte数・残量・送信完了・write例外の証跡をLoggerへ残していない。`ATE/RX/REQUEST`も行組立後の論理要求であり、全受信byteの物理RAW記録とは別。
+- 過去の実機事実: COM19で`*IDN?`→`NF55G_PICO_FIXTURE,Rev.0`やATE Query応答を実際に受信した記録がある（`Development_Unit_Command_Debug_20261109.md`、本Real_Hardware_Test_Log内の2026-11-13確認）。したがってPico→ATE経路は少なくとも当該試験時には応答していた。今回の未受信を直ちに恒久的な配線／UART送信故障とは扱わない。ただし過去成功は今回の接続状態を保証しない。
+- 追加ユーザー観測（2026-11-13）: NF55G側UART1ではオシロスコープで波形を確認。過去に作成したRB01G経由は問題なし、PC serial通信も問題なしとの申告。ATE向けUART0（GP0/GP1）とPIA5100／GPIB経路の受信確認とは別経路のため、これらの成功だけではATE経路成立を証明しない。調査対象をPico UART0 TX→RS232変換／配線→PIA5100→GPIB→ATEの各区間へ絞るが、故障箇所は未確定。
+- Baudrate切替状態: 現行PCソースとPico上`/src/config.py`の`ATE_BAUDRATE=57600`は一致確認済み。ただしconfig転送後にMainを57600bps設定で再起動した実測確認は未記録。起動中に初期化済みUART0はconfig.pyのファイル更新だけでは速度変更されない。Main再起動前にATE側装置・PIA5100経路のbaud／format設定を照合する。
+- 2026-11-13再確認: COM19をPCから直接115200bps／8N1で開き、`*IDN?\r\n`を1回送信。受信前残byteなし、`NF55G_PICO_FIXTURE,Rev.0\r\n`を送信後約219msで完全受信した。これはPC→COM19→Picoの直接シリアル経路の単発値であり、実ATEアプリ、GPIB転送、ATE側response timeout／遅着時処理の測定ではない。過去のCOM19正常応答記録と併せ、ATE側timeout仮説を継続確認するが原因確定とはしない。
+- 2026-11-13 baud比較: 同一COM19直結・`*IDN?\r\n`を各速度1回、先行RXをclearして比較。57600bpsでは3秒間responseなし。続く115200bpsでは約264ms後に`ERR:ASCII\r\n`を受信し、IDN応答ではなかった。非ASCII応答はbaud／UART framingまたは経路不整合と整合するが、どの要求に対応するbyteか一回比較だけでは確定できない。両速度ともIDN成功とは扱わず、再送・製品コマンドは行っていない。
+- ATE timeout仮説: Picoはコマンド処理完了後に応答を生成・送信するため、NF55G TransactionやTEST_ENDのSD flush等がATE側応答timeoutを超えれば、ATEアプリが結果待ちを打ち切る可能性がある。NF55G T1/T2、最大1回のCommand Retry、ATE各コマンドの処理時間・SD処理時間を含めたATE timeout設定は本Issueでは未確認。ATEがtimeout後に受信を継続するか、遅着行を次要求の応答として誤対応しないかも確認が必要。これは現時点の仮説であり原因確定ではない。
+- ユーザー観測: 2026-11-13提供CSVではPico側に`ATE/TX/RESULT`がある一方、ATE側で結果を受信できていないとの報告。CSVだけでは実送信・ATE受信・ATE timeoutのどの段階か確定できない。ATE側の実timeout値、送信時刻・timeout時刻・受信raw bytes／CRLF有無と、同一要求のPico側UART処理時刻を突合する。
+- T000053所見: `ERP_SET_1_0`／`ERP_SET_0_0`の一部は`ERR:ACK_TIMEOUT`、cmd_retry=1、rsp_retry=0、ambiguous=True。各再試行付近またはTransaction終了後にSE応答らしいNF55G RX frameが記録される。遅延フレームの帰属先と製品への適用有無は確定不能で、設定状態は不明として扱う。状態を明示読戻しで確認するまでSET再送や追加Controlを行わない。
+- Clock Sync訂正: T000053の`CLOCK_SYNC 20261109120000`は14桁のため、ATE parserが12桁形式エラーとして無送信拒否した。その後のT000054／T000055では修正入力`CLOCK_SYNC 261109120000`（12桁）が記録され、SC transactionはOK。旧不正入力と修正後結果を混同しない。
+- 次の確認: まずATE timeout設定と問題が起きたコマンド名・timeout値を確認し、`*IDN?`等ローカル応答とNF55G Transactionを区別して、ATE送信時刻・timeout時刻・遅着応答の有無を記録する。同時にPico側の要求受付時刻、応答生成時刻、UART.write return値・残byte数・flush完了を採取する。必要ならRS-232側の独立モニターでTX/RXを観測する。UART driver受理はATE受信確認の代替としない。計測自身がTimingを阻害しないことも検証する。
+- `ATE,TX,RESULT`を物理送信完了と扱わない。Logger field／eventの名称変更や送信計測実装は、Code／Test／Docs／CHANGELOGを揃えて別途対応する。ATE未受信原因、短write／無受理／線路／相手機器のどこかを断定せず、IssueはOpenを維持する。
+- 追加確認方針（2026-11-13）: NF55G UART1のオシロ波形、RB01G経由の正常、PC serial正常というユーザー観測はATE UART0経路の合格根拠に転用しない。ATE baud変更後の実行中UART速度（config.py更新だけでは切替わらずMain再起動が必要）、PIA5100 RS232設定とGPIB側のATE timeoutを確認する。安全なローカル`*IDN?`を1件用い、Pico UART0 TX端、RS232／PIA5100区間、ATE側GPIB受信結果を段階的に照合する。NF55G制御は送らない。
+
+- 初回ASCII追記（2026-11-13、Open継続）: ユーザー確認はPC直結・再起動直後。Host先行7F／FFで初回ASCII異常を再現したが、実機RAM受信観測4条件8件は全件正常、混入なし。UART生成後の起動処理約1秒待ちは別途観測。原因未確定のままとし、実際の再現時raw／PCソフト手順・物理起動条件の照合を残す。[追加確認](Startup_First_IDN_ASCII_20261113_Rev1.txt)。
+
+- 入替え個体追記（2026-11-13、Open継続）: COM6／ID69f7d45962cfdfadを現行一式へ更新し、PC直結の通常起動7件は正常。ただしTEST_END後のLOG_DROP_COUNT?に3201.859msを観測。初回2秒待ちではtimeoutし次要求で遅着0を拾った。10秒待ちで15件成功したが遅延は解消しておらず、ATE timeout・遅着対応・後処理Timingを残件とする。初回IDN914.070msは別観測で原因未確定。[配置・Timing記録](Pico_Swap_69f7d459_Update_20261113_Rev0.txt)。
+
 ## LOGGER-BURST-01: ATE連続要求時の試験ログ破棄（2026-11-09、Open）
 
 - 追加条件・実測: ユーザー指定のATE速度は0.1秒に1コマンド程度、これ以上の速度は使わない。101ms以上（実測最短101.0623ms）の117コマンドでは破棄0、239行すべて14列、SD/PC SHA-256一致。以後の実機試験条件へ反映する。無間隔時の391件破棄を撤回するものではなく、長時間・異なる構成は未確認。[再確認記録](CSV_Log_Recovery_Recheck_20261109.md)。

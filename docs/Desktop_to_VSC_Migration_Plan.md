@@ -85,7 +85,7 @@ Desktop 版 Codex から VSC+Codex への移行は可能であり、現計画と
 | DS3231 backup battery | PASS for one power-cycle check | Re-run after final firmware and stack changes |
 | SD on GP16-GP19 | PASS basic I/O + removal recovery | SPI recognition, FAT mount, CSV write/readback, logger queue, 2000-record load, removal/reinsert recovery verified |
 | ADA-5703 GP4/GP5 conflict | OPEN | GP4/GP5 physically isolated during tests; final fixture inspection record still required |
-| ATE UART0 loopback | PASS | RS232C-side loopback; GP0/GP1, 115200 bps, 8N1; 256-byte and 100-frame stress passed |
+| ATE UART0 loopback | PASS, historical baud | RS232C-side loopback; GP0/GP1, 115200 bps, 8N1; 256-byte and 100-frame stress passed before the 2026-11-13 change. Repeat at 57600 bps before accepting the new setting. |
 | NF55G UART1 loopback | PASS | RS232C-side loopback; GP4/GP5, 38400 bps, 8E1; 256-byte and 100-frame stress passed |
 | Real NF55G connection | NOT STARTED | Control commands not executed |
 

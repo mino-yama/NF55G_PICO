@@ -10,6 +10,7 @@ import binascii
 startup_sd_diagnostic = None
 
 try:
+    from . import config
     from .ate_uart import create_ate_uart
     from .cache_manager import CacheManager
     from .command_dispatcher import CommandDispatcher
@@ -22,8 +23,10 @@ try:
     from .pico_clock import SystemClock
     from .ate_server import ATEServer
     from .sd_sink import PicoSDSink
+    from .repl_sink import create_repl_sink
     from .qr_reader import QRReceiver, decode_qr
 except ImportError:  # pragma: no cover
+    import config
     from ate_uart import create_ate_uart
     from cache_manager import CacheManager
     from command_dispatcher import CommandDispatcher
@@ -36,6 +39,7 @@ except ImportError:  # pragma: no cover
     from pico_clock import SystemClock
     from ate_server import ATEServer
     from sd_sink import PicoSDSink
+    from repl_sink import create_repl_sink
     from qr_reader import QRReceiver, decode_qr
 
 
@@ -201,8 +205,7 @@ class FixtureApp:
         if parsed.category == "DIAGNOSTIC":
             return self.dispatcher.execute_diagnostic(parsed.name).ate_response
         if parsed.category == "CONTROL":
-            if self.protocol is None:
-                return "ERR:NF55G_NOT_CONNECTED"
+            # 接続確認とBC開始時の旧結果無効化は共通Command Coreで処理する。
             return self._record_result(self.dispatcher.execute_control(parsed.name, payload=parsed.payload))
         return "ERR:UNKNOWN_CMD"
 
@@ -238,7 +241,8 @@ def create_fixture_app(enable_hardware=True):
                 'cs_before_spi': sink.cs_before_spi,
                 'elapsed_ms': clock.ticks_ms() - startup_started_ms,
             }
-        logger = Logger(sd_sink=sink, clock=clock, rtc=rtc)
+        logger = Logger(sd_sink=sink, clock=clock, rtc=rtc,
+                repl_sink=create_repl_sink(config.REPL_LOG_ENABLED))
     return FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock)
 
 

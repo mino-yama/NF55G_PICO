@@ -5,14 +5,18 @@
 
 try:
     from .nf55_command import CommandError, build_control_command
-    from .nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from .nf55_command import resolve_read_command, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from .nf55_command import BC_QUERY_FIELDS
     from .nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
+    from .nf55_decode import decode_el, decode_ol, decode_fd, decode_bc
     from .models import TransactionResult
     from .logger import LoggerError
 except ImportError:  # pragma: no cover
     from nf55_command import CommandError, build_control_command
-    from nf55_command import READ_REFRESH_COMMANDS, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from nf55_command import resolve_read_command, CACHE_QUERY_COMMANDS, REFRESH_REQUIRED_FIELDS
+    from nf55_command import BC_QUERY_FIELDS
     from nf55_decode import DecodeError, decode_d0, decode_d1, decode_d2, decode_d3, decode_d4, decode_d5
+    from nf55_decode import decode_el, decode_ol, decode_fd, decode_bc
     from models import TransactionResult
     from logger import LoggerError
 
@@ -36,17 +40,21 @@ class CommandDispatcher:
         self.diagnostics = diagnostics
 
     def execute_refresh(self, ate_name, payload=None):
-        if ate_name not in READ_REFRESH_COMMANDS:
+        try:
+            read_spec = resolve_read_command(ate_name)
+        except CommandError as exc:
+            return CommandResult(False, "ERR:{}".format(exc), error="PARSER")
+        if read_spec is None:
             return CommandResult(False, "ERR:UNKNOWN_CMD", error="UNKNOWN_CMD")
         if payload is not None:
             return CommandResult(False, "ERR:UNEXPECTED_PAYLOAD", error="PARSER")
-        cmd, target, t2_ms, length = READ_REFRESH_COMMANDS[ate_name]
+        cmd, target, t2_ms, length, request_data = read_spec
         # 取得開始時に旧値を無効化する。通信・Decode失敗後も旧VALIDへ戻さない。
         self.cache.refresh_started(target)
         if self.protocol is None:
             return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
         try:
-            tx = self.protocol.transact(cmd, data=b"", t2_ms=t2_ms, expected_length=length)
+            tx = self.protocol.transact(cmd, data=request_data, t2_ms=t2_ms, expected_length=length)
         except OSError:
             # Transport failed outside the protocol's result path; timing/retries
             # cannot be reconstructed here. Do not invent measurements.
@@ -68,8 +76,19 @@ class CommandDispatcher:
                 "D3": decode_d3,
                 "D4": decode_d4,
                 "D5": decode_d5,
+                "EL": decode_el,
+                "OL": decode_ol,
+                "FD": decode_fd,
             }[cmd]
-            decoded = decoder(tx.response_data)
+            if cmd in ("EL", "OL"):
+                start = int(request_data.decode("ascii"), 16)
+                decoded = decoder(tx.response_data, expected_start=start)
+                # 全8件のDecode完了後に、ブロック内の個別Query項目を組み立てる。
+                for index, record in enumerate(decoded["RECORDS"]):
+                    for field in ("DATEHOUR", "ID"):
+                        decoded["{}_{:02d}_{}".format(cmd, start + index, field)] = record[field]
+            else:
+                decoded = decoder(tx.response_data)
             required_fields = set(REFRESH_REQUIRED_FIELDS.get(cmd, ()))
             for cache_name, field in CACHE_QUERY_COMMANDS.values():
                 if cache_name == target:
@@ -103,16 +122,35 @@ class CommandDispatcher:
         except CommandError as exc:
             return CommandResult(False, "ERR:{}".format(exc), error="PARSER")
 
+        if spec.cache_action == "BC_START":
+            # 新規診断の開始時に旧BCを無効化し、失敗しても旧結果へ戻さない。
+            self.cache.refresh_started("BC")
+        if self.protocol is None:
+            return CommandResult(False, "ERR:NF55G_NOT_CONNECTED", error="NF55G_NOT_CONNECTED")
+
         tx = self.protocol.transact(
             spec.nf_cmd,
             data=spec.data,
             t2_ms=spec.t2_ms,
-            expected_length=0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP") else None,
+            # BCは開始・停止とも30文字。SEの状態情報はSTATUSへ転用しない。
+            expected_length=(30 if spec.nf_cmd == "BC" else
+                             15 if spec.nf_cmd == "SE" else
+                             0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP", "SL") else None),
         )
 
         # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。
         if tx.ok:
             self.cache.apply_success_invalidation(spec.cache_action)
+            if spec.nf_cmd == "BC":
+                try:
+                    decoded = decode_bc(tx.response_data)
+                    if not set(BC_QUERY_FIELDS).issubset(decoded):
+                        raise DecodeError("incomplete BC data")
+                except (ValueError, UnicodeError):
+                    return CommandResult(False, "ERR:DECODE", transaction=tx, error="DECODE")
+                # 診断開始の完全応答だけをBCへ採用。停止応答からBCを有効化しない。
+                if spec.cache_action == "BC_START":
+                    self.cache.refresh_succeeded("BC", decoded, "BC")
             return CommandResult(True, "OK", transaction=tx)
 
         if tx.ambiguous:

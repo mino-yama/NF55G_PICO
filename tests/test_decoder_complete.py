@@ -349,7 +349,7 @@ class DecoderCompleteTests(unittest.TestCase):
         self.assertEqual(decoded["AR_12VOUT_V_P2_REF_RAW"], "12345678")
 
     def test_decode_el_ol_82_chars(self):
-        record = "26090112" "09"
+        record = "1A09010C" "09"
         payload = "01" + record * 8
         decoded_el = decode_el(payload, expected_start=1)
         decoded_ol = decode_ol(payload, expected_start=1)

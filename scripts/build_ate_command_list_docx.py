@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import re
 from pathlib import Path
 
@@ -116,6 +117,15 @@ def add_formatted_text(paragraph, text: str, size=Pt(9)):
 
 def markdown_table_widths(headers: list[str]) -> list[int]:
     count = len(headers)
+    if count == 10:
+        return [2200, 1500, 650, 1400, 900, 900, 1450, 1550, 2800, 650]
+    if headers[-1] == "実装有無":
+        if count == 6:
+            return [3000, 1600, 1200, 3000, 4400, 650]
+        if count == 5:
+            return [3500, 2200, 2300, 5150, 650]
+        if count == 4:
+            return [3500, 2200, 7650, 650]
     if count >= 9:
         return [1800, 1150, 900, 1200, 700, 900, 1300, 1500, 1910][:count]
     if count == 5:
@@ -138,12 +148,16 @@ def add_table(doc: Document, rows: list[list[str]]):
     table.allow_autofit = False
     set_table_grid(table, widths)
     apply_cell_margins(table)
+    # 複数ページの一覧でも見出しを繰り返し、1行をページ途中で分割しない。
+    header = OxmlElement("w:tblHeader")
+    table.rows[0]._tr.get_or_add_trPr().append(header)
 
     for idx, text in enumerate(rows[0]):
         cell = table.rows[0].cells[idx]
         set_cell_shading(cell, HEADER_FILL)
         p = cell.paragraphs[0]
         p.paragraph_format.space_after = Pt(0)
+        p.paragraph_format.keep_with_next = True
         add_formatted_text(p, text, Pt(8))
         for run in p.runs:
             run.bold = True
@@ -154,6 +168,8 @@ def add_table(doc: Document, rows: list[list[str]]):
             p = cells[idx].paragraphs[0]
             p.paragraph_format.space_after = Pt(0)
             add_formatted_text(p, text, Pt(8))
+    for row in table.rows:
+        row._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
     doc.add_paragraph()
 
 
@@ -206,21 +222,22 @@ def configure_document(doc: Document):
         style.paragraph_format.space_after = Pt(5)
 
 
-def add_footer(doc: Document):
+def add_footer(doc: Document, revision="Rev.0-draft"):
     footer = doc.sections[0].footer
     paragraph = footer.paragraphs[0]
     paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run = paragraph.add_run("NF55G Pico 2 ATE Command List Rev.0-draft")
+    run = paragraph.add_run("NF55G Pico 2 ATE Command List " + revision)
     set_run_font(run, FONT, Pt(8))
     run.font.color.rgb = RGBColor(0x55, 0x55, 0x55)
 
 
-def build_docx():
-    source = SOURCE.read_text(encoding="utf-8")
+def build_docx(source_path=SOURCE, output_path=OUTPUT):
+    source = Path(source_path).read_text(encoding="utf-8")
     lines = source.splitlines()
     doc = Document()
     configure_document(doc)
-    add_footer(doc)
+    revision = re.search(r"^Revision: (.+)$", source, re.MULTILINE)
+    add_footer(doc, revision.group(1).strip() if revision else "")
 
     i = 0
     while i < len(lines):
@@ -274,9 +291,13 @@ def build_docx():
         add_formatted_text(p, stripped, Pt(10))
         i += 1
 
-    doc.save(OUTPUT)
+    doc.save(output_path)
 
 
 if __name__ == "__main__":
-    build_docx()
-    print(OUTPUT)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--source", type=Path, default=SOURCE)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args()
+    build_docx(args.source, args.output)
+    print(args.output)

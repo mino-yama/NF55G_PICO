@@ -1,0 +1,59 @@
+Pico→ATE応答終端 確認結果 Rev.0
+日付: 2026-11-13（JST）
+
+結論
+現行Picoは応答の最後に必ずCRLF（0D 0A）を追加する。現在のATE_Command_Masterの応答終端仕様とは一致。
+過去のRB01G参考プログラムのATE向け応答はCR単独（0D）であり、現行と明確に異なる。
+ATE／PIA5100の現在の受信デリミタ、GPIB EOI／EOS設定、受信処理コードは未確認のため、実ATEとの整合は未確定。
+この差は調査対象として重要だが、CRLFにもCRは含まれるため「CR設定だから全応答が受信不能」とは断定できない。
+
+現行プログラムで確認した事実
+・src/ate_server.pyのreply(): self.tx = (text + '\r\n').encode('ascii')
+・FixtureApp.service_onceは応答をserver.replyへ渡しflush_replyする。正常応答・エラー応答は同じ終端付与処理を使う。
+・src/ate_uart.pyのwriteはbytesをUART.writeへ渡す。別のCR／LFやNULを付加しない。
+・コマンド受信側はCR／LF／CRLFを受け付けるが、これは「Picoが受信する要求」の仕様。Picoから出る応答終端は常にCRLFであり、受信要求の終端に追従して変えない。
+・GPIBのEOIはUART終端文字とは別の信号。Pico UARTはCRLFを送信するだけで、PIA5100→ATE区間のEOI生成／受信条件は別途照合が必要。
+
+PC直結による現行実機確認
+COM19、57600bps／8N1。稼働中の通常Picoを停止・reset・再配置せず確認。
+要求終端CR／LF／CRLFそれぞれでIDNとCOMM_STATUSを送信し、毎回400ms固定窓のraw bytesを採取。readlineやstripで終端を加工していない。
+6応答すべてが0D 0Aで終了し、余分なCRLFやNULは観測しなかった。
+IDN正常応答例: b'NF55G_PICO_FIXTURE,Rev.0\r\n'（26byte）
+HEX: 4e463535475f5049434f5f464958545552452c5265762e300d0a
+COMM正常応答例: b'OK:state=IDLE\r\n'（15byte）
+HEX: 4f4b3a73746174653d49444c450d0a
+ただし最初のIDN＋CRはERR:ASCII\r\n（11byte）となり、コマンド内容一致は5/6だった。この1件も終端は正しくCRLF。原因は未確定で、CR要求の終端異常や製品側異常と断定しない。残り5件は正常応答。
+元結果JSONのpassedは応答本文との完全一致判定。終端判定6/6とは区別する。
+
+過去プログラムとの比較
+参考資料: reference/local_hardware_reference_20260904/reference_only/other_project_rs232_examples/RB01G_2ch_RS232_reference_20240527.py
+・ATE側は同じUART0 GP0/GP1、57600／8N1。
+・*IDN?応答（75行）: uart1.write(txData1.encode('utf-8') + b'\r')
+・通常データ応答（252行）: uart1.write(str(txData2).encode('utf-8') + b'\r')
+・変数名uart1だが、実体はUART(0)。CAN232側UART(1)と混同しない。
+この資料は別案件の参考ソースであり、現ATEの設定値や当時の全実動作を証明するものではない。原典は変更していない。
+
+PIA5100メーカー公開情報
+公式RS232C設定表ではTermination Characterは任意ASCIIを設定可能、工場値は0x0A（LF）。57600／8N1の確認だけでは終端設定は決まらない。
+またFlow Control、488.2 Block Transfer、KISTD Mode等は別設定。今回、現物値を読み取っていないため値を推測しない。
+公式資料: https://global.kikusui.co.jp/spec/pia5100_rs232c-host-tab/
+確認日: 2026-11-13（JST）
+公開仕様は機能・工場値の根拠であり、今回使用するPIA5100の現設定の根拠ではない。
+
+整合確認の要点（以下は条件付きの推測）
+・PIA5100の終端がLFなら、現行応答はLFを含む。ただし直前CRの扱いとGPIB側へ返るraw bytesは実測が必要。
+・終端がCRならCRで終端を検出できる可能性がある一方、余ったLFが残存／次メッセージ化される可能性がある。具体的動作は現物設定とメーカー手順で確認する。
+・ATEがCRLFを厳密に要求するなら、PIA5100による終端変換後もその2byteが届くか確認する。
+・ATEがEOI完了を待つなら、文字の一致だけでは完了条件を満たした証明にならない。
+・数値を受信する場合は、終端文字を取り除く位置と、空行を別応答として扱わないかも確認する。
+
+次の切り分け
+1. PIA5100カスタム設定のTermination CharacterのHEX値と、ATE側のEOS／EOI／固定バイト数／受信完了条件を確認する（ユーザーへ質問済み、回答待ち）。
+2. ATE経由の*IDN?を1件だけ使い、ATEのraw受信bytes・受信byte数・完了理由・timeoutを記録する。
+3. 過去CR単独と現行CRLFの比較が必要なら、その実ATE条件で試験する。PC直結だけで適合とは判断しない。
+4. 応答をCR単独へ恒久変更する場合は現仕様変更に当たるため、受信条件を確認してCode／Test／Docs／CHANGELOGを同時更新する。現段階では変更しない。
+
+変更・終了状態
+今回、製品ソース／Pico配置内容／通信設定は変更していない。通常ループを維持しCOM19は解放した。
+新規保存: temp/ate_response_eol_20261113_run01/capture.py、result.json、本報告。
+ATE-TX-01はOpenを維持。終端不一致・初回ERR:ASCII・GPIB経路の挙動はいずれも原因未確定。

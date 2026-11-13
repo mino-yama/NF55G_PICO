@@ -1,0 +1,51 @@
+ATE応答終端のConfig対応・Pico配置結果 Rev.0
+日付: 2026-11-13（JST）
+対象: COM14 / Pico ID 2d35a1e11ac125e3、PC直結ATE UART COM19
+
+変更内容と理由
+ユーザーからPIA5100のTermination CharacterはCR単独との確認を受け、Pico→ATE応答の初期終端をCR単独へ変更した。
+以前の「現設定未確認」は本ユーザー回答により更新する。ただし設定ツールから直接読戻したという意味ではない。
+src/config.pyのATE_RESPONSE_TERMINATORでCR／LF／CRLFを選択できる。初期値はCR。
+設定例:
+ATE_RESPONSE_TERMINATOR = "CR"    # 0D
+ATE_RESPONSE_TERMINATOR = "LF"    # 0A
+ATE_RESPONSE_TERMINATOR = "CRLF"  # 0D 0A
+変更後はconfig.pyをPicoへ配置して再起動する。起動済みATEServerは生成時の設定を保持する。
+EOIはGPIBの信号で、PicoのUARTからは送出できない。PIA5100／ATE側で設定する。UARTの疑似EOI byteや不正値を送らないよう、EOI等の無効設定はValueErrorで明示拒否する。
+
+実装・仕様の範囲
+・src/ate_server.py: ATEServer生成時の設定検証と応答終端選択。正常／エラー応答共通で終端付与。未送信末尾を保持する部分write処理は維持。
+・src/config.py: ATE_RESPONSE_TERMINATOR追加、既定CR、設定方法の日本語コメント追加。
+・tests/test_ate_response_terminator.py: 新規5テスト。3応答設定×3要求終端、正常／UNKNOWN／ASCII／FU拒否、1byte write、0／None受理、未送信時二重reply拒否、設定保持、不正値／EOI拒否。
+・tests/test_ate_line_endings.py、tests/test_runtime_integration.py: 既定CRの応答期待値へ更新。要求終端はCR／LF／CRLFを維持。
+・scripts/pico_runtime_smoke.py: CRで要求確定、後続LFで二重応答しないこと、設定に従う応答末尾へ整合。今回はスクリプト全体の実機実行ではなく構文確認のみ。
+・ATE_Command_Master、Software_Module_Interface、Runtime_Integration、Test_Specification、Open_Issues、CHANGELOG、Real_Hardware_Test_Logを更新。
+NF55Gのframe／BCC／ACK／Retry／T1/T2／Cache／FU禁止仕様は変更していない。
+
+実行テストと結果
+Host Unit／Mock NF55G: 全315件成功、9.047秒。配置ログに全結果保存。
+実機3種終端: 24/24成功。各modeでIDN＋要求CR／LF／CRLF、UNKNOWN、ASCII異常、通信状態、SD状態、自己診断の計8件。
+固定250msの窓で応答全byteを採取し、余分な終端やNULがないことまで期待byte列と完全一致で確認。
+CR時のIDN応答: NF55G_PICO_FIXTURE,Rev.0＋0D（25byte）。以前の末尾LFは付かない。
+LF／CRLFは実機RAM上だけで設定値を変えてATEServerを再生成して確認。保存ファイルのCRは変更せず、終了時RAM設定もCRへ復元。
+実機NF55G送信byte数は0。全フェーズ終了時は未送信0、ate_error=None。
+通常起動: reset後/main.pyから起動し、CR終端で7/7成功。IDN3回=7.874／7.605／8.517ms。通信IDLE、SD=OK、RTC=OK、自己診断全項目OK。
+既存スモークスクリプトはpy_compile成功。
+
+Pico配置と終了状態
+更新前27ファイルの退避・hash検証後、src Python25件＋root main.pyを最新化。
+26ファイルの実機SHA-256はPCスナップショットと全件一致、MicroPython compile成功。
+実機内容差分は/src/ate_server.pyと/src/config.pyの2件。
+通常/main.pyの常駐ループが動作中。57600bps／8N1、応答CR、REPLログOFF。COM14／COM19は解放済み。
+
+残事項
+ATE／PIA5100／GPIBの実経路での受信成功・EOI条件は未確認。PC直結の実機結果だけでATE-TX-01をCloseしない。
+過去の初回ERR:ASCIIやTEST_END直後約722ms遅延の原因は本変更で確定・解決扱いにしない。
+量産Timing・長時間運転・物理電源再投入は今回の確認範囲外。
+
+保存先
+temp/pico_response_terminator_20261113_run01/backup/: 更新前の実機ファイル
+同/source/: 配置ソーススナップショット
+同/deployment_log.json、before_manifest.json、local_manifest.json、deployment_result.json: Hostテスト、退避、配置、hash、compile
+同/terminator_hil_result.json: 全24件の要求・応答HEXとmode、実機出力
+同/normal_boot_result.json: 通常起動後7件の応答HEX・時間

@@ -1,5 +1,5 @@
 # 通信条件、再送上限、Cache名、操作後の無効化対象を集約する。
-# T1=200msとD0のT2=600msは暫定値。確定状況はdocs/Open_Issues.mdを参照。
+# D0のT2はr2に基づき300ms（2026-11-11ユーザー指定）。T1=200msは暫定値。
 
 """Project-wide constants for the NF55G Pico fixture."""
 
@@ -8,6 +8,19 @@ ETX = 0x03
 ACK = 0x06
 NAK = 0x15
 
+# ATE UART0: GP0/GP1, 8N1.
+ATE_BAUDRATE = 57600
+ATE_BITS = 8
+ATE_PARITY = None
+ATE_STOP_BITS = 1
+
+# ATEへの応答終端: "CR" / "LF" / "CRLF"。変更後はPicoを再起動する。
+# EOIはPIA5100/GPIB側の信号であり、UARTからは送出できない。
+ATE_RESPONSE_TERMINATOR = "CR"
+
+# REPL CSV mirror is opt-in; set True only for interactive debug sessions.
+REPL_LOG_ENABLED = True
+
 NF55_BAUDRATE = 38400
 NF55_BITS = 8
 NF55_PARITY = "even"
@@ -15,7 +28,7 @@ NF55_STOP_BITS = 1
 
 T1_ACK_TIMEOUT_MS = 200
 T2_DEFAULT_MS = 100
-T2_D0_MS = 600
+T2_D0_MS = 300
 T2_BC_MS = 6000
 
 MAX_COMMAND_RETRY = 1

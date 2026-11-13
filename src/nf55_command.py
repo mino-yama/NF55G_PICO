@@ -25,6 +25,28 @@ READ_REFRESH_COMMANDS = {
     "D3_REFRESH": ("D3", "D3", 200, 21),
     "D4_MAINT_READ": ("D4", "D4", 100, 212),
 }
+# 履歴開始番号のATE表記は10進、NF55Gへはルール②の2桁ASCII HEXで送る。
+READ_REQUEST_DATA = {}
+for _kind, _starts in (("EL", (1, 9, 17, 25)),
+                       ("OL", (1, 9, 17, 25, 33, 41, 49, 57))):
+    for _start in _starts:
+        _name = "{}_REFRESH_{:02d}".format(_kind, _start)
+        READ_REFRESH_COMMANDS[_name] = (_kind, "{}_{:02d}".format(_kind, _start), 100, 82)
+        READ_REQUEST_DATA[_name] = "{:02X}".format(_start).encode("ascii")
+
+
+def resolve_read_command(ate_name):
+    if ate_name in READ_REFRESH_COMMANDS:
+        return READ_REFRESH_COMMANDS[ate_name] + (READ_REQUEST_DATA.get(ate_name, b""),)
+    if ate_name.startswith("FD_READ_"):
+        address = ate_name[len("FD_READ_"):]
+        if len(address) != 6 or any(c not in "0123456789ABCDEFabcdef" for c in address):
+            raise CommandError("FD address must be 6 ASCII HEX chars")
+        # アドレスは既にASCII HEX。範囲外の製品応答を推測・FF補完しない。
+        return ("FD", "FD", 100, 64, address.encode("ascii"))
+    return None
+
+
 DATA_QUERY_FIELDS = {
     "NF55_DATE?": "DATE",
     "NF55_TIME?": "TIME",
@@ -95,6 +117,19 @@ for _cache, _fields in (("STATUS", STATUS_QUERY_FIELDS), ("INFO", INFO_QUERY_FIE
     for _field in _fields:
         CACHE_QUERY_COMMANDS[_field + "?"] = (_cache, _field)
 
+# 各履歴Queryは対応する8件ブロックだけを参照する。Queryで通信しない。
+for _kind, _limit in (("EL", 32), ("OL", 64)):
+    for _number in range(1, _limit + 1):
+        _block = "{}_{:02d}".format(_kind, ((_number - 1) // 8) * 8 + 1)
+        for _field in ("DATEHOUR", "ID"):
+            _key = "{}_{:02d}_{}".format(_kind, _number, _field)
+            CACHE_QUERY_COMMANDS[_key + "?"] = (_block, _key)
+CACHE_QUERY_COMMANDS["FD_DATA?"] = ("FD", "FD_RAW")
+
+BC_QUERY_FIELDS = ("BC_MODE", "BC_V1", "BC_V2", "BC_I1", "BC_I2", "BC_TEMP", "BC_SOC", "BC_IR")
+for _field in BC_QUERY_FIELDS:
+    CACHE_QUERY_COMMANDS[_field + "?"] = ("BC", _field)
+
 REFRESH_REQUIRED_FIELDS = {
     "D2": (
         "AC_OFF_HOUR", "PS_OFF_HOUR", "AVE_OFF_TEMP", "OFF_CHARGE_HOUR",
@@ -131,6 +166,14 @@ class NF55CommandSpec:
 
 
 CONTROL_COMMANDS = {
+    # BCは開始・停止とも寿命診断DATA30文字、T2=6秒。Cache操作は別管理する。
+    "BATT_CHECK_START": NF55CommandSpec("BATT_CHECK_START", "BC", b"1", config.T2_BC_MS, "BC_START"),
+    "BATT_CHECK_STOP": NF55CommandSpec("BATT_CHECK_STOP", "BC", b"0", config.T2_BC_MS, "BC_STOP"),
+    # SET ERPはBURST／PS_OFF_CHARGE／予約00の4文字。両設定を毎回明示する。
+    "ERP_SET_1_0": NF55CommandSpec("ERP_SET_1_0", "SE", b"1000", 100, "SE"),
+    "ERP_SET_0_0": NF55CommandSpec("ERP_SET_0_0", "SE", b"0000", 100, "SE"),
+    "ERP_SET_0_1": NF55CommandSpec("ERP_SET_0_1", "SE", b"0100", 100, "SE"),
+    "ERP_SET_1_1": NF55CommandSpec("ERP_SET_1_1", "SE", b"1100", 100, "SE"),
     # CLEARはr1 p.35の既定データとT2を使用し、送信後に関連Cacheを無効化する。
     "CLEAR_ALL": NF55CommandSpec("CLEAR_ALL", "CD", b"0", 500, "CD"),
     "CLEAR_POWER": NF55CommandSpec("CLEAR_POWER", "CD", b"1", 500, "CD"),
@@ -147,7 +190,80 @@ CONTROL_COMMANDS = {
 }
 
 
+# 項目別SPは未指定項目を最大HEX値（変更なし）、予約18文字を0で生成する。
+# 保護設定と意味未確定のCHG_IR_THDは、この入口から変更しない。
+PARAMETER_ITEMS = {
+    "PS_ON_BACKUP": (0, 1, 1),
+    "AC_LINK": (1, 1, 1),
+    "AUTO_CHARGE": (2, 1, 3),
+    "EVENT_ENABLE": (3, 1, 1),
+    "MAX_BACKUP_TIME": (4, 1, 14),
+    "MIN_BACKUP_TIME": (5, 2, 254),
+    "RESTART_TIME": (7, 2, 254),
+    "BATT_LOW_THD": (9, 2, 100),
+    "BATT_CAP_MAH": (11, 4, 65534),
+    "BATT_CAP_WH": (15, 2, 254),
+}
+PROTECTED_PARAMETER_ITEMS = (
+    "BATT_WNG_THD", "BATT_ALM_THD", "ADU_TEMP_THD", "BBU_TEMP_THD", "FAN_WNG_THD",
+)
+
+
+def build_item_parameter_command(ate_name, payload=None):
+    if payload is not None:
+        raise CommandError("UNEXPECTED_PAYLOAD")
+    fields = ate_name[len("PARAM_"):].rsplit("_", 1)
+    if len(fields) != 2:
+        raise CommandError("PARAMETER_FORMAT")
+    item, value_text = fields
+    if item in PROTECTED_PARAMETER_ITEMS:
+        raise CommandError("PARAMETER_PROTECTED")
+    if item == "CHG_IR_THD":
+        raise CommandError("PARAMETER_UNCONFIRMED")
+    if item not in PARAMETER_ITEMS:
+        raise CommandError("PARAMETER_UNKNOWN_ITEM")
+    if not value_text or any(c not in "0123456789" for c in value_text):
+        raise CommandError("PARAMETER_VALUE")
+    value = int(value_text)
+    offset, width, maximum = PARAMETER_ITEMS[item]
+    if value > maximum:
+        raise CommandError("PARAMETER_RANGE")
+    encoded = ("{:0" + str(width) + "X}").format(value)
+    data = ("F" * offset + encoded + "F" * (32 - offset - width) + "0" * 18).encode("ascii")
+    return NF55CommandSpec(ate_name, "SP", data, 100, "SP")
+
+
+# SLの通常入口は10進整数を最小3桁HEXへ変換し、予約5文字を0で付加する。
+# OI-08実機試験のため範囲外を拒否・丸め・切捨てしない。RAWはASCII DATAを保持する。
+def build_life_command(ate_name, payload=None):
+    if ate_name == "LIFE_SET_RAW":
+        if payload is None:
+            raise CommandError("LIFE_RAW_PAYLOAD_REQUIRED")
+        try:
+            data = _ascii_bytes(payload)
+        except UnicodeError:
+            raise CommandError("LIFE_RAW_ASCII")
+        # ATEの1行とNFフレームの区切りは維持し、DATAのHEX・値・長さは検査しない。
+        if any(value < 32 or value > 126 for value in data):
+            raise CommandError("LIFE_RAW_PRINTABLE_ASCII")
+    else:
+        if payload is not None:
+            raise CommandError("UNEXPECTED_PAYLOAD")
+        value_text = ate_name[len("LIFE_SET_"):]
+        digits = value_text[1:] if value_text[:1] in ("+", "-") else value_text
+        if not digits or any(c not in "0123456789" for c in digits):
+            raise CommandError("LIFE_VALUE_INTEGER")
+        data = ("{:03X}".format(int(value_text)) + "00000").encode("ascii")
+    return NF55CommandSpec(ate_name, "SL", data, 100, "SL")
+
+
 def build_control_command(ate_name, payload=None):
+    if ate_name.startswith("LIFE_SET_"):
+        return build_life_command(ate_name, payload)
+
+    if ate_name.startswith("PARAM_") and ate_name not in ("PARAM_SET", "PARAM_RESET"):
+        return build_item_parameter_command(ate_name, payload)
+
     if ate_name == "CLOCK_SYNC":
         try:
             data = _ascii_bytes(payload)
@@ -176,6 +292,8 @@ def build_control_command(ate_name, payload=None):
         raise CommandError("unsupported control command: {}".format(ate_name))
 
     spec = CONTROL_COMMANDS[ate_name]
+    if spec.nf_cmd == "BC" and payload is not None:
+        raise CommandError("UNEXPECTED_PAYLOAD")
     if payload not in (None, b"", ""):
         raise CommandError("{} does not accept payload".format(ate_name))
     return spec

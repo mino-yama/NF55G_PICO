@@ -1,0 +1,26 @@
+Pico最新FW再配置・一致確認 Rev.0
+日付: 2026-11-13（JST）
+対象: COM14 / Pico ID 2d35a1e11ac125e3、PC直結ATE UART COM19
+
+依頼に基づき現在のPCソース一式をスナップショット化し、更新前の実機27ファイルを退避・SHA-256照合後に配置処理を実施。
+配置対象はsrc Python25件とroot main.pyの計26件。すべて既存実機ファイルと同一だったためmpremoteはUp to dateとして不要な書込みを省略した。PC版と実機に差分なし。
+配置処理後の実機SHA-256は全26件がPCスナップショットと一致し、全件MicroPython compile成功。
+本作業で製品コードの新規修正は行っていない。
+
+テスト結果
+Host Unit／Mock NF55G:315件すべて成功、6.762秒。
+通常/main.pyへreset後、PC直結ローカル7件すべて正常。
+IDN3回は8.096／8.046／8.008ms、初回から正常応答。COMM_STATUS=IDLE、SD_STATUS=OK、RTC_CHECK=OK、PICO_SELF_CHECKの全項目OK。
+NF55G製品コマンドは要求していない。
+
+終了状態
+57600bps／8N1、ATE応答CR単独、REPL_LOG_ENABLED=True。
+通常/main.py常駐ループが動作中。COM14／COM19は解放済み。
+初回ASCII異常の原因やATE／PIA5100／GPIB経路の合格は本確認だけで確定しない。従来のOpen Issueを維持。
+
+保存先
+temp/pico_latest_update_20261113_run01/backup/: 更新前実機27ファイル
+同/source/: 今回の配置元スナップショット
+同/deployment_log.json: Hostテスト・退避・配置処理・compileの出力
+同/before_manifest.json、local_manifest.json、deployment_result.json: 個体・全ファイルhash・差分なしの証跡
+同/normal_boot_result.json: 再起動後7件のraw応答・時間

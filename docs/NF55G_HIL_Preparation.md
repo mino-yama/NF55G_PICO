@@ -85,7 +85,7 @@ Queryは `ERR:CACHE_INVALID`。Mock応答を用いたRefresh/全63 Queryは検�
 | 配置/記録コミットpush、開始時worktree clean | 開始時に再確認 |
 
 NF55GはPico-2CH-RS232のUART1（GP4/GP5、38400 bps、8E1）、
-ATEはUART0（GP0/GP1、115200 bps、8N1）。USB COM14はPico REPLでありATE UARTとは別。
+ATEはUART0（GP0/GP1、57600 bps、8N1）。USB COM14はPico REPLでありATE UARTとは別。
 CN24のピン番号・ハーネス接続は原典の結線表を実物と照合し、本書では推測しない。
 製品接続後に既存UARTループバック用パターン試験を実行しない。
 

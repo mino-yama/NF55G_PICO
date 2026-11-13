@@ -6,7 +6,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from src.ate_uart import UARTByteTransport
+from src.ate_uart import UARTByteTransport, create_ate_uart
 from src.cache_manager import CacheManager
 from src.command_parser import ParseError, parse_ate_command
 from src.command_dispatcher import CommandDispatcher
@@ -39,6 +39,38 @@ class FakeRawUART:
 
 
 class HardwareLayerTests(unittest.TestCase):
+    def test_create_ate_uart_uses_57600_8n1_on_gp0_gp1(self):
+        from unittest.mock import patch
+
+        calls = []
+
+        class FakePin:
+            def __init__(self, number):
+                self.number = number
+
+        class FakeUART:
+            def __init__(self, uart_id, **kwargs):
+                calls.append((uart_id, kwargs))
+
+        machine = type("Machine", (), {"Pin": FakePin, "UART": FakeUART})
+        with patch.dict(sys.modules, {"machine": machine}):
+            create_ate_uart()
+
+        uart_id, options = calls[0]
+        self.assertEqual(uart_id, 0)
+        self.assertEqual(options["baudrate"], 57600)
+        self.assertEqual(options["bits"], 8)
+        self.assertIsNone(options["parity"])
+        self.assertEqual(options["stop"], 1)
+        self.assertEqual(options["tx"].number, 0)
+        self.assertEqual(options["rx"].number, 1)
+
+    def test_ate_baudrate_is_separate_from_nf55g_baudrate(self):
+        from src import config
+
+        self.assertEqual(config.ATE_BAUDRATE, 57600)
+        self.assertEqual(config.NF55_BAUDRATE, 38400)
+
     def test_uart_byte_transport_normalizes_none_read_and_bytes_write(self):
         raw = FakeRawUART(rx=b"abc")
         transport = UARTByteTransport(raw)

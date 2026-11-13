@@ -4,6 +4,7 @@ ATE framing uses an in-memory peer, not physical UART wiring. Leaves CSV on SD.
 No NF55G command is requested. Run via mpremote on a fresh interpreter.
 """
 import os
+from src import config
 from src.main import create_fixture_app
 from src.ate_server import ATEServer
 
@@ -52,11 +53,13 @@ app.server = ATEServer(peer)
 def command(line):
     peer.rx = line.encode() + b'\r'
     app.service_once()
-    assert not peer.tx, 'reply before CRLF'
+    # CRで要求を確定し、後着LFで二重応答しないことも確認する。
+    reply, peer.tx = peer.tx, b''
     peer.rx = b'\n'
     app.service_once()
-    reply, peer.tx = peer.tx, b''
-    assert reply.endswith(b'\r\n'), repr(reply)
+    assert not peer.tx, 'duplicate response after LF'
+    ending = {'CR': b'\r', 'LF': b'\n', 'CRLF': b'\r\n'}[config.ATE_RESPONSE_TERMINATOR]
+    assert reply.endswith(ending), repr(reply)
     print('ATE|{}|{}'.format(line, reply.decode().strip()))
     return reply.decode().strip()
 

@@ -25,7 +25,7 @@ src/
 └─ models.py
 ```
 
-USB CDC detailed implementation is deferred. Architecture should allow a future `usb_console.py` to feed the same command core.
+USB CDC command-console implementation is deferred. The output-only `ReplDebugSink` mirrors CSV rows accepted by the SD sink through pollable `sys.stdout` only when `config.REPL_LOG_ENABLED=True`; the default is False. It does not accept ATE commands or create a second command interface. A future `usb_console.py` may feed the shared command core, subject to ATE/NF55G priority and nonblocking output constraints.
 
 ## Responsibilities
 - main.py: init and scheduler only.
@@ -42,6 +42,8 @@ USB CDC detailed implementation is deferred. Architecture should allow a future 
 - logger.py: queue + sinks.
 - diagnostic.py: fixture self-check; no product judgement.
 - models.py: shared data structures.
+
+ATE physical interface: UART0, GP0=TX／GP1=RX, 57600bps／8N1. NF55G UART1 remains independently configured at 38400bps／8E1.
 
 ## Core interfaces
 

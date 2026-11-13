@@ -8,7 +8,7 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from src.cache_manager import CacheManager
-from src.frame import parse_frame
+from src.frame import build_frame, parse_frame
 from src.main import FixtureApp
 from src.mock_nf55g import FakeClock, MockNF55GScenario, MockUART, ScenarioStep
 from src.nf55_command import DATA_QUERY_FIELDS, STATUS_QUERY_FIELDS, INFO_QUERY_FIELDS
@@ -57,7 +57,7 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         for field in STATUS_QUERY_FIELDS:
             self.assertEqual(app.execute_ate_line(field + "?"), "0")
 
-    def test_d0_refresh_uses_provisional_t2_and_populates_data_only(self):
+    def test_d0_refresh_uses_r2_t2_and_populates_data_only(self):
         app, uart = self.make_app([ScenarioStep.ack_response("D0", D0)])
         self.seed(app)
         original = app.protocol.transact
@@ -65,7 +65,7 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         def checked(command, **kwargs):
             self.assertFalse(app.cache.is_valid("DATA"))
             self.assertEqual((command, kwargs),
-                             ("D0", dict(data=b"", t2_ms=600, expected_length=327)))
+                             ("D0", dict(data=b"", t2_ms=300, expected_length=327)))
             return original(command, **kwargs)
 
         app.protocol.transact = checked
@@ -82,6 +82,64 @@ class ReadCacheIntegrationTests(unittest.TestCase):
         self.assertEqual(app.cache.metadata("DATA")["source_cmd"], "D0")
         self.assertNotIn("PS_ON", app.cache.get("DATA"))
         self.assertNotIn("FW_REV", app.cache.get("DATA"))
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_response_through_300ms_after_ack_is_accepted(self):
+        # T2は有効ACK後から計る。300ms境界の完全フレームも受理する。
+        for delay in (299, 300):
+            with self.subTest(delay_ms=delay):
+                app, uart = self.make_app([ScenarioStep.ack_response(
+                    "D0", D0, ack_delay_ms=7, response_delay_ms=7 + delay)])
+                self.seed(app)
+                result = app.dispatcher.execute_refresh("DATA_REFRESH")
+                self.assertEqual(result.ate_response, "OK")
+                self.assertEqual(result.transaction.elapsed_ms, 7 + delay)
+                self.assertEqual(result.transaction.command_retry_count, 0)
+                self.assertEqual(result.transaction.response_retry_count, 0)
+                self.assertEqual(uart.tx_log[-1], b"\x06")
+                self.assertTrue(app.cache.is_valid("DATA"))
+                self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+                self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_response_after_300ms_on_final_attempt_is_ambiguous(self):
+        # 初回は無応答。最終試行の301ms後の応答を期限内として採用しない。
+        app, uart = self.make_app([
+            ScenarioStep.resp_timeout(ack_delay_ms=7),
+            ScenarioStep.ack_response("D0", D0, ack_delay_ms=7, response_delay_ms=308),
+        ])
+        self.seed(app)
+        result = app.dispatcher.execute_refresh("DATA_REFRESH")
+        self.assertEqual(result.ate_response, "ERR:RESP_TIMEOUT")
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(result.transaction.command_retry_count, 1)
+        self.assertEqual(result.transaction.response_retry_count, 0)
+        self.assertEqual([parse_frame(tx).cmd for tx in uart.tx_log], ["D0", "D0"])
+        self.assertFalse(app.cache.is_valid("DATA"))
+        before = list(uart.tx_log)
+        self.assertEqual(app.execute_ate_line("VOUT12?"), "ERR:CACHE_INVALID")
+        self.assertEqual(uart.tx_log, before)
+        self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
+        self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
+
+    def test_d0_eb_does_not_extend_300ms_deadline(self):
+        app, uart = self.make_app([
+            ScenarioStep(((0, b"\x06"), (250, build_frame("EB", "0" * 20)))),
+            ScenarioStep.resp_timeout(),
+        ])
+        self.seed(app)
+        result = app.dispatcher.execute_refresh("DATA_REFRESH")
+        self.assertEqual(result.ate_response, "ERR:RESP_TIMEOUT")
+        # 各300msの期限を越えた次のpollで失敗し、EBによる延長はない。
+        self.assertEqual(result.transaction.elapsed_ms, 602)
+        self.assertEqual(result.transaction.command_retry_count, 1)
+        self.assertEqual(result.transaction.response_retry_count, 0)
+        self.assertTrue(result.transaction.ambiguous)
+        self.assertEqual(len(app.protocol.eb_events), 1)
+        self.assertEqual(uart.tx_log[1], b"\x06")
+        self.assertEqual([parse_frame(tx).cmd for tx in uart.tx_log if tx.startswith(b"\x02")],
+                         ["D0", "D0"])
+        self.assertFalse(app.cache.is_valid("DATA"))
         self.assertEqual(app.cache.get("STATUS"), {"old": "STATUS"})
         self.assertEqual(app.cache.get("INFO"), {"old": "INFO"})
 

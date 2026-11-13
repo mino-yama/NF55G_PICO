@@ -18,7 +18,7 @@ class ATELineEndingTests(unittest.TestCase):
                 app = FixtureApp(ate_uart=port, protocol=protocol)
                 for _ in range(20):
                     app.service_once()
-                self.assertEqual(bytes(port.tx), b'OK\r\n')
+                self.assertEqual(bytes(port.tx), b'OK\r')
                 self.assertEqual(len([x for x in nf.tx_log if x.startswith(b'\x02')]), 1)
 
     def test_periodic_cr_does_not_leave_work_or_poison_next_command(self):
@@ -31,7 +31,7 @@ class ATELineEndingTests(unittest.TestCase):
             self.assertEqual(port.tx, b'')
         port.rx.extend(b'*IDN?\n')
         app.service_once()
-        self.assertEqual(bytes(port.tx), b'NF55G_PICO_FIXTURE,Rev.0\r\n')
+        self.assertEqual(bytes(port.tx), b'NF55G_PICO_FIXTURE,Rev.0\r')
 
     def test_split_crlf_and_mixed_empty_lines(self):
         port = BytePort(b'*IDN?\r')
@@ -41,7 +41,7 @@ class ATELineEndingTests(unittest.TestCase):
         port.rx.extend(b'\n\r\n\n*IDN?\n*IDN?\r\n')
         for _ in range(10):
             app.service_once()
-        self.assertEqual(bytes(port.tx), b'NF55G_PICO_FIXTURE,Rev.0\r\n' * 3)
+        self.assertEqual(bytes(port.tx), b'NF55G_PICO_FIXTURE,Rev.0\r' * 3)
 
     def test_errors_recover_at_each_ending(self):
         for ending in (b'\r', b'\n', b'\r\n'):
@@ -51,7 +51,7 @@ class ATELineEndingTests(unittest.TestCase):
                     app = FixtureApp(ate_uart=port)
                     for _ in range(30):
                         app.service_once()
-                    self.assertEqual(bytes(port.tx), ('ERR:' + error + '\r\nNF55G_PICO_FIXTURE,Rev.0\r\n').encode())
+                    self.assertEqual(bytes(port.tx), ('ERR:' + error + '\rNF55G_PICO_FIXTURE,Rev.0\r').encode())
 
     def test_pending_queue_limit_preserves_mixed_lines(self):
         port = BytePort(b'A\r\nB\nC\r')
