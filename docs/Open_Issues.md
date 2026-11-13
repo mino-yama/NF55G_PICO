@@ -199,7 +199,7 @@ Codex must NOT close these by inference.
 | OI-10 | FD out-of-range address | current FW FF fill; confirm formal behavior |
 | OI-11 | EB timing while command transaction active | keep original deadline; HIL confirm |
 | OI-12 | AR T2 final value | confirm before final release |
-| OI-13 | RTC HAT revision pin mapping | verify I2C scan 0x68 on received hardware |
+| OI-13（Resolved、2026-11-13） | RTC HAT revision pin mapping | ユーザー確認により現行I2C0 SDA=GP20／SCL=GP21で問題なく、ピン競合なしとして解決。実装・Software_Module_Interfaceと一致し、2026-11-10実機で0x68検出・日時設定／読戻し・秒進行を確認済み（RTC_Acceptance_Recheck_20261110.md）。HW-01のSD基板GP4／GP5分離、およびDEV-RTC-01の保持確認とは別件。 |
 | OI-14 | QR Cacheからのログファイル名生成 | 2026-09-18ユーザー指定によりQR読取Cacheをログファイル名に利用する。採用フィールド、命名形式、使用不可文字、重複時処理、未読時処理、TEST_STARTとの順序は未確定。OI-23参照。Openを維持する。 |
 | OI-15 | Detailed USB CDC/PySide6 protocol | deferred phase |
 | OI-16 | AD request/response wire format mismatch | Fixture draft defines AD as 10-char DATA control/set command; interim FW request is `TYPE1+POINT1+VALUE8` and success response is `TYPE1+POINT1+ADC6+CALC8`. Confirm r1/production FW/design expectation. |
