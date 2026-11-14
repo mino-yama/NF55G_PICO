@@ -84,6 +84,8 @@ ATE-EOL-01追記（2026-11-10、Open継続）: COM20実機でD0入口DATA_REFRES
 
 ## ATE-TX-01: ATE応答のUART送信・受信確認とログ表現（Open、2026-11-13）
 
+2026-11-14ユーザー確認（未受信問題は解決）: 本日、実ATEと実NF55Gの組合せで総合テストを実施し、前日発生したATEへ値が返らない問題は終端コードの相違が原因と判明。終端をCR（0x0D）へ統一して解決したとの報告を受領した。以下の原因未確定・timeout仮説は確認前の履歴であり、今回の未受信原因として扱わない。関連CSVは`F:/BANK_A/20261114_092525_T000019.csv`。本記録はユーザーによる実機確認に基づき、CSV単独で物理終端やATE受信を証明したものではない。ATE-TX-01のうち未受信原因調査は完了とし、ログの論理RESULTと物理送信証跡の区別、初回ASCII異常、TEST_END後の応答遅延・遅着対応は別の残課題としてOpenを維持する。総合テスト全項目の合否・長時間条件は本報告だけでは確定しない。
+
 - 確認事実: `FixtureApp.execute_ate_line`は応答文字列を生成した後、ATEログへ`direction='TX', event='RESULT'`として記録し、その後`ATEServer.reply`／`flush_reply`へ渡す。したがってCSVの`ATE/TX/RESULT`はCommand Coreの論理結果で、UART.writeの実行・受理量・全byte送信完了・ATE側受信を証明しない。ATEServerは短いwriteの残りを保持するが、受理byte数・残量・送信完了・write例外の証跡をLoggerへ残していない。`ATE/RX/REQUEST`も行組立後の論理要求であり、全受信byteの物理RAW記録とは別。
 - 過去の実機事実: COM19で`*IDN?`→`NF55G_PICO_FIXTURE,Rev.0`やATE Query応答を実際に受信した記録がある（`Development_Unit_Command_Debug_20261109.md`、本Real_Hardware_Test_Log内の2026-11-13確認）。したがってPico→ATE経路は少なくとも当該試験時には応答していた。今回の未受信を直ちに恒久的な配線／UART送信故障とは扱わない。ただし過去成功は今回の接続状態を保証しない。
 - 追加ユーザー観測（2026-11-13）: NF55G側UART1ではオシロスコープで波形を確認。過去に作成したRB01G経由は問題なし、PC serial通信も問題なしとの申告。ATE向けUART0（GP0/GP1）とPIA5100／GPIB経路の受信確認とは別経路のため、これらの成功だけではATE経路成立を証明しない。調査対象をPico UART0 TX→RS232変換／配線→PIA5100→GPIB→ATEの各区間へ絞るが、故障箇所は未確定。
