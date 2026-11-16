@@ -1,0 +1,50 @@
+test_disallowed_character_discards_until_enter (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_disallowed_character_discards_until_enter) ... ok
+test_exact_device_and_descriptor_required (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_exact_device_and_descriptor_required) ... ok
+test_incomplete_alt_digits_rejected (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_incomplete_alt_digits_rejected) ... ok
+test_long_scan_rejected_without_partial_publication (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_long_scan_rejected_without_partial_publication) ... ok
+test_malformed_hid_does_not_publish_or_contaminate_next (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_malformed_hid_does_not_publish_or_contaminate_next) ... ok
+test_missing_enter_never_publishes (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_missing_enter_never_publishes) ... ok
+test_more_than_five_alt_digits_rejected (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_more_than_five_alt_digits_rejected) ... ok
+test_physical_orientation_a (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_physical_orientation_a) ... ok
+test_physical_orientation_b (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_physical_orientation_b) ... ok
+test_preserve_case_zero_and_hyphen (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_preserve_case_zero_and_hyphen) ... ok
+test_repeated_held_reports_do_not_duplicate (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_repeated_held_reports_do_not_duplicate) ... ok
+test_reset_discards_partial_scan (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_reset_discards_partial_scan) ... ok
+test_short_scan_rejected_and_next_scan_recovers (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_short_scan_rejected_and_next_scan_recovers) ... ok
+test_timeout_boundary_and_duplicate_reports (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_timeout_boundary_and_duplicate_reports) ... ok
+test_timeout_handles_tick_wrap (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_timeout_handles_tick_wrap) ... ok
+test_two_consecutive_scans_are_separate (tests.test_usb_submcu_qr_alt_decoder.NativeQRDecoderTests.test_two_consecutive_scans_are_separate) ... ok
+test_arbitrary_or_multiple_prefix_bytes_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_arbitrary_or_multiple_prefix_bytes_rejected) ... ok
+test_data_length_overflow (tests.test_usb_submcu_probe_log.ProbeLogTests.test_data_length_overflow) ... ok
+test_decoder_error_is_capture_error_and_validated (tests.test_usb_submcu_probe_log.ProbeLogTests.test_decoder_error_is_capture_error_and_validated) ... ok
+test_decoder_fw_keeps_1024_capacity (tests.test_usb_submcu_probe_log.ProbeLogTests.test_decoder_fw_keeps_1024_capacity) ... ok
+test_error_not_success (tests.test_usb_submcu_probe_log.ProbeLogTests.test_error_not_success) ... ok
+test_firmware_qr_text_is_diagnostic_only (tests.test_usb_submcu_probe_log.ProbeLogTests.test_firmware_qr_text_is_diagnostic_only) ... ok
+test_full_log_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_full_log_rejected) ... ok
+test_header_corrupt (tests.test_usb_submcu_probe_log.ProbeLogTests.test_header_corrupt) ... ok
+test_known_large_uart_version_allows_more_than_256 (tests.test_usb_submcu_probe_log.ProbeLogTests.test_known_large_uart_version_allows_more_than_256) ... ok
+test_large_uart_capacity_boundary (tests.test_usb_submcu_probe_log.ProbeLogTests.test_large_uart_capacity_boundary) ... ok
+test_large_uart_still_rejects_sequence_gap (tests.test_usb_submcu_probe_log.ProbeLogTests.test_large_uart_still_rejects_sequence_gap) ... ok
+test_midstream_nul_and_sequence_gap_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_midstream_nul_and_sequence_gap_rejected) ... ok
+test_missing_descriptor (tests.test_usb_submcu_probe_log.ProbeLogTests.test_missing_descriptor) ... ok
+test_old_and_unknown_versions_keep_256_limit (tests.test_usb_submcu_probe_log.ProbeLogTests.test_old_and_unknown_versions_keep_256_limit) ... ok
+test_partial_or_disallowed_qr_text_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_partial_or_disallowed_qr_text_rejected) ... ok
+test_ram_overflow_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_ram_overflow_rejected) ... ok
+test_ram_raw_only (tests.test_usb_submcu_probe_log.ProbeLogTests.test_ram_raw_only) ... ok
+test_report_without_mount (tests.test_usb_submcu_probe_log.ProbeLogTests.test_report_without_mount) ... ok
+test_sequence_gap (tests.test_usb_submcu_probe_log.ProbeLogTests.test_sequence_gap) ... ok
+test_short_ram (tests.test_usb_submcu_probe_log.ProbeLogTests.test_short_ram) ... ok
+test_startup_nul_is_reported_without_acceptance (tests.test_usb_submcu_probe_log.ProbeLogTests.test_startup_nul_is_reported_without_acceptance) ... ok
+test_startup_nul_requires_explicit_option (tests.test_usb_submcu_probe_log.ProbeLogTests.test_startup_nul_requires_explicit_option) ... ok
+test_startup_option_keeps_clean_capture_clean (tests.test_usb_submcu_probe_log.ProbeLogTests.test_startup_option_keeps_clean_capture_clean) ... ok
+test_startup_option_preserves_init_error (tests.test_usb_submcu_probe_log.ProbeLogTests.test_startup_option_preserves_init_error) ... ok
+test_startup_requires_identity_and_complete_line (tests.test_usb_submcu_probe_log.ProbeLogTests.test_startup_requires_identity_and_complete_line) ... ok
+test_uart_raw_only (tests.test_usb_submcu_probe_log.ProbeLogTests.test_uart_raw_only) ... ok
+test_uart_truncated (tests.test_usb_submcu_probe_log.ProbeLogTests.test_uart_truncated) ... ok
+test_unknown_kind (tests.test_usb_submcu_probe_log.ProbeLogTests.test_unknown_kind) ... ok
+test_zero_descriptor_rejected (tests.test_usb_submcu_probe_log.ProbeLogTests.test_zero_descriptor_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 0.525s
+
+OK

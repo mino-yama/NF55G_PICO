@@ -1,0 +1,11 @@
+{
+  "records": 393,
+  "hid_reports": 388,
+  "hid_payloads_identical_to_old_alt_capture": true,
+  "errors": [],
+  "usa_image_decode": "JD200",
+  "usa_code_matches_option_sheet_english": true,
+  "test_qr_independently_decoded_ascii": "AbC-0000000000000000000000000123456",
+  "test_qr_bytes_match_expected": true,
+  "english_direct_input_confirmed": false
+}

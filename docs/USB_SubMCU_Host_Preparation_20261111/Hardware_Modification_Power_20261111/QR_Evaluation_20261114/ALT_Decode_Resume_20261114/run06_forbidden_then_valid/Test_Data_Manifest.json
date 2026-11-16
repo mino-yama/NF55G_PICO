@@ -1,0 +1,18 @@
+[
+  {
+    "label": "FORBIDDEN35",
+    "text": "Aa0_012345678901234567890123456789Z",
+    "length": 35,
+    "image": "QR_FORBIDDEN35.png",
+    "image_sha256": "288d1a3a04e553b4fffbac2b059f295d1fa984a165531cdb4cb04dbcf7a47ec4",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  },
+  {
+    "label": "VALID35",
+    "text": "zZ9-987654321098765432109876543210a",
+    "length": 35,
+    "image": "QR_VALID35.png",
+    "image_sha256": "5bcc0f021c0b67cfb4bdd1ea1a95c79b2426698ac801ebbf7e3c0571b427d262",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  }
+]

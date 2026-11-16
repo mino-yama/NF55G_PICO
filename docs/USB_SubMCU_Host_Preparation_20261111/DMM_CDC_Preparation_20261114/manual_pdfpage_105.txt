@@ -1,0 +1,16 @@
+7355 Digital Multimeter Operation Manual
+6.4.3 USB Setting
+6-11
+6.4.3.2
+Setting USB ID
+The USB ID is settable when the interface is set to USB.
+1.
+Enter the address between 1 and 127 from 'USBid' in 
+ in 
+.
+2.
+Press 
+ to apply the setting.
+8 I/F
+MENU
+ENTER

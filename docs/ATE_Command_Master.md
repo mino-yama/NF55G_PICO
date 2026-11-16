@@ -1,5 +1,9 @@
 # ATE Command Master
 
+2026-11-14取得Cacheの破棄条件（未実装）: DMM/QRとも書込み完了時に使用Cacheを破棄し、TEST_END時に当該試行の全取得Cache・未完了要求を失効させる。終了後の遅着で復活させず、破棄後の再書込みには再取得とATE確認を必要とする。成否不明はHard Rule 15に従いINVALID。ログ履歴は保持。完了単位等の残事項は[取得値書込み要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)を参照。
+
+2026-11-14追加要件（未実装）: DMM/QRは読取り指令→取得Cache保存・ATE返却→ATE確認→別の明示書込み指令でCache値をNF55Gへ付加する。数値直接指定の既存方式も維持する。取得だけの自動書込みと、Cache利用書込み時の再取得は行わない。対象・試行・取得との対応がないINVALID CacheではNF55Gへ送信せずエラーとする。正式なコマンド名/引数/IDは未確定。[確定フローと残事項](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。以下の既存コマンドが実装変更済みという意味ではない。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0
 

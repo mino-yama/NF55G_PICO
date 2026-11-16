@@ -1,0 +1,57 @@
+[
+  {
+    "file": "firmware/usb_submcu_host_probe/CMakeLists.txt",
+    "sha256": "49E768EE943498FC6A231461019331A3137F22CDE608DC5DE04A72FC16A1DD00",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "firmware/usb_submcu_host_probe/main.c",
+    "sha256": "F443B8EC28B1E2688E4B945086ABBA3FBF94DF167109D6642ED94B53F7E579C2",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "firmware/usb_submcu_host_probe/README.md",
+    "sha256": "5451D2A8D2B7231FE2797D48565561221C2D98947F58BA12113AA003776A9043",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "scripts/usb_submcu_probe_log.py",
+    "sha256": "2955474C48FE03B0977D2C7A6BDBC5278093D9A92B0018FC0E945ECB33708170",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "tests/test_usb_submcu_probe_log.py",
+    "sha256": "3C04522E9CAE979D130B0D6B56000C6C31C394892AD46B2AC8E87B3AB637A366",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "firmware/usb_submcu_host_probe/qr_alt_decoder.c",
+    "sha256": "D99D9DE596B20D5F113F92DDDE05CAD0400EA3E20BA90846CDB4C35BCF7D27D9",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "firmware/usb_submcu_host_probe/qr_alt_decoder.h",
+    "sha256": "1C8B74183DD4F1CDDFF8150E31D736547D91C21CDF2A23D0D17ECC9C7DBB7A8B",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "tests/test_usb_submcu_qr_alt_decoder.py",
+    "sha256": "ECB0A2ABA49F36395BC0E65C2A3BFB250C801D6336B5832BFCF1255EB1B90FCE",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "tests/fixtures/usb_submcu_qr_alt/manifest.json",
+    "sha256": "F15A615B1CA4818E0BB1891533F099E6A982E4EA821E28835CADE1F273CBA7A8",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "tests/fixtures/usb_submcu_qr_alt/orientation_a.bin",
+    "sha256": "8961FF8435A6B19F766C5D6F4CB8D2818445ECDE931D5AC4D7A87FB619FE6132",
+    "release_snapshot_match": true
+  },
+  {
+    "file": "tests/fixtures/usb_submcu_qr_alt/orientation_b.bin",
+    "sha256": "518EC0F585580EA40FFE952371C3CD4124F578D3D998BE0884AE7494B77821B5",
+    "release_snapshot_match": true
+  }
+]

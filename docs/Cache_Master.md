@@ -1,5 +1,7 @@
 # Cache / Invalidation / Post-Action Confirmation Master
 
+2026-11-14追加要件（未実装）: DMM/QR取得値をCacheしATEへ返し、ATE確認後の別の明示書込み指令でそのCache値を利用する。対象・補正点・試行/取得との対応を照合し、ATEが確認した値と送信値の同一性を保証する。取得失敗・不完全データをVALIDにせず、INVALID/欠落/不一致のCacheでは書込みを送信しない。Cache利用書込み時に再取得しない。書込み完了で使用Cacheを破棄し、TEST_ENDでは当該試行の全DMM/QR取得Cacheと未完了要求を失効させる。遅着で復活させず、再使用には再取得・ATE確認を必要とする。成否不明もHard Rule 15に従い関連CacheをINVALIDにする。ログ履歴は消去しない。正式Cache名・追加の時間期限・完了単位等は未確定。以下の既存Cache一覧や失効実装を変更済みとは扱わない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0
 

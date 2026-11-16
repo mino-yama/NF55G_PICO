@@ -1,0 +1,7 @@
+{
+  "status": "interrupted_for_retry",
+  "reason": "User reported C1/C2 mix-up and requested repeat; do not attribute missing remount to firmware",
+  "source_bytes": 61756,
+  "source_sha256": "a49619e83a20fb016ef1195d744f97100e182a97072555e2f223488a560a9350",
+  "capture_result_complete": false
+}

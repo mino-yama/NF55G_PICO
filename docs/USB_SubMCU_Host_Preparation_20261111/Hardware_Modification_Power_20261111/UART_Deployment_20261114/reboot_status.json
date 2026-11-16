@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "note": "終了0を実行ツール結果で確認。標準出力がなかったためTee-Objectではログが作られず、この記録を別途保存。",
+  "command": "picotool reboot --ser A06FEA01012EC137",
+  "stdout": ""
+}

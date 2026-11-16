@@ -1,0 +1,5 @@
+# Preserve original reference, capture, and release bytes for recorded SHA-256 checks.
+/reference/USB_Host_SubMCU_20261116_RP2350_USB_A/** -text
+/docs/USB_SubMCU_Host_Preparation_20261111/** -text
+/firmware/usb_submcu_host_probe/releases/** -text
+/tests/fixtures/** -text

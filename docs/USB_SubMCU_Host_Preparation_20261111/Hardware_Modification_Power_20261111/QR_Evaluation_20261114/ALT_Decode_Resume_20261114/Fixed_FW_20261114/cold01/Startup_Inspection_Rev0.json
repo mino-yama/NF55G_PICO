@@ -1,0 +1,98 @@
+{
+  "interim": true,
+  "complete_bytes": 8471,
+  "pending_bytes": 0,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "startup_stage": 4,
+    "host_health": 46,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1
+  },
+  "stages": [
+    {
+      "ms": 24,
+      "phase": 1,
+      "value": 3000
+    },
+    {
+      "ms": 3037,
+      "phase": 2,
+      "value": 0
+    },
+    {
+      "ms": 3048,
+      "phase": 3,
+      "value": 0
+    },
+    {
+      "ms": 3062,
+      "phase": 4,
+      "value": 0
+    }
+  ],
+  "health_first": [
+    {
+      "ms": 3575,
+      "values": [
+        1,
+        513,
+        0,
+        0,
+        0,
+        12
+      ]
+    },
+    {
+      "ms": 4575,
+      "values": [
+        557314,
+        1512,
+        0,
+        0,
+        0,
+        13
+      ]
+    }
+  ],
+  "health_last": [
+    {
+      "ms": 46575,
+      "values": [
+        23902142,
+        43512,
+        0,
+        0,
+        0,
+        13
+      ]
+    },
+    {
+      "ms": 47575,
+      "values": [
+        24457973,
+        44512,
+        0,
+        0,
+        0,
+        13
+      ]
+    },
+    {
+      "ms": 48575,
+      "values": [
+        25013798,
+        45512,
+        0,
+        0,
+        0,
+        13
+      ]
+    }
+  ],
+  "errors": [],
+  "boot": "qr-fixed-20261114.1",
+  "source_sha256": "5d0050379af1ebe74a77f12ba18eb80506150ba5d35701e6525947356c3eb35c"
+}

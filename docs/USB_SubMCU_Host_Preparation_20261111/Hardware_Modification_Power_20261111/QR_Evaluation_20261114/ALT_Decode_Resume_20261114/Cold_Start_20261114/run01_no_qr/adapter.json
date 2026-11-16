@@ -1,0 +1,11 @@
+{
+  "port": "COM22",
+  "vid": 6790,
+  "pid": 21795,
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "tx_bytes": 0,
+  "flow_control": false,
+  "stop_policy": "15 seconds after first received byte, or 600 seconds total"
+}

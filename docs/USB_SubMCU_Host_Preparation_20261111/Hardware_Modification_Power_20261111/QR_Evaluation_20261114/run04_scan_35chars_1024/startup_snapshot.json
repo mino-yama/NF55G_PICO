@@ -1,0 +1,36 @@
+{
+  "status": "raw_capture_only",
+  "records": 2,
+  "errors": [],
+  "events": [
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d756172742d32303236313131342e31"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    }
+  ],
+  "qr_text_verified": false,
+  "hardware_acceptance": false,
+  "transport": "UART",
+  "dropped": null,
+  "tail_completeness": "not_proven",
+  "record_capacity": 1024,
+  "source_sha256": "e95589ee3aef8f6ddebddaed9d08dbf6b9b7a91b4f8704057a12ea495fefd3f2",
+  "source_bytes": 309,
+  "startup_prefix_hex": "00",
+  "original_framing_clean": false,
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ]
+}

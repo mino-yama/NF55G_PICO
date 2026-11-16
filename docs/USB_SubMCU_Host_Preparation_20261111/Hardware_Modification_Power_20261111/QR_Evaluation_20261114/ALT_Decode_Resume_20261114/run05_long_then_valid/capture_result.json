@@ -1,0 +1,17 @@
+{
+  "port": "COM22",
+  "vid": 6790,
+  "pid": 21795,
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "flow_control": false,
+  "tx_bytes": 0,
+  "stop_policy": "two outcome records (text or error) seen, then 5 seconds idle; total limit 600 seconds",
+  "rx_bytes": 122277,
+  "key_report_seen": true,
+  "decoded_text_records": 1,
+  "decoder_error_records": 1,
+  "elapsed_seconds": 114.656,
+  "port_closed": true
+}

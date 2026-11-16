@@ -1,0 +1,15 @@
+..............................................................................................................................................................................................................................................................................................................................................................E
+======================================================================
+ERROR: setUpClass (test_usb_submcu_stream.NativeStreamTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_usb_submcu_stream.py", line 77, in setUpClass
+    subprocess.run([compiler,'-I',str(src),str(p/'main.c'),str(src/'probe_stream.c'),str(src/'qr_alt_decoder.c'),'-o',str(cls.exe)],check=True,capture_output=True,text=True)
+  File "C:\Users\m_yamada\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\tools\\usb_submcu\\host-test-tcc\\tcc\\tcc.exe', '-I', 'C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\firmware\\usb_submcu_host_probe', 'C:\\Users\\m_yamada\\AppData\\Local\\Temp\\qr_stream_68nj0v92\\main.c', 'C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\firmware\\usb_submcu_host_probe\\probe_stream.c', 'C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\firmware\\usb_submcu_host_probe\\qr_alt_decoder.c', '-o', 'C:\\Users\\m_yamada\\AppData\\Local\\Temp\\qr_stream_68nj0v92\\check.exe']' returned non-zero exit status 1.
+
+----------------------------------------------------------------------
+Ran 350 tests in 28.934s
+
+FAILED (errors=1)

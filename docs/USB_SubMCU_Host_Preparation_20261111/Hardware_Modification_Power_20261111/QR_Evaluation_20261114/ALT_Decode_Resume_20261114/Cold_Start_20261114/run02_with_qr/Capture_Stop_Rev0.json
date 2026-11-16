@@ -1,0 +1,7 @@
+{
+  "status": "manually_stopped_after_no_additional_data",
+  "reason": "QR scanned, no HID mount/report/text received; separate RST comparison next",
+  "rx_bytes": 309,
+  "source_sha256": "900f96d99a7fdf5d305b53bcd98774c8ebcff47f69d1814a341e2f09d42bb559",
+  "tx_bytes": 0
+}

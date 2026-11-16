@@ -1,0 +1,44 @@
+{
+  "time": "2026-11-14T17:29:20.023761+09:00",
+  "trials": [
+    {
+      "name": "dtr_off_rts_on",
+      "dtr": false,
+      "rts": true,
+      "baudrate_trial": 9600,
+      "format": "8N1",
+      "pre_rx_hex": "",
+      "tx_count": 7,
+      "rx_hex": "",
+      "rx_ascii": "",
+      "exact_identity_match": false,
+      "port_closed_after": true
+    },
+    {
+      "name": "reopen_both_on_01",
+      "dtr": true,
+      "rts": true,
+      "baudrate_trial": 9600,
+      "format": "8N1",
+      "pre_rx_hex": "",
+      "tx_count": 7,
+      "rx_hex": "41444320436f72702e2c373335352c3234363431303037322c20204130310d0a",
+      "rx_ascii": "ADC Corp.,7355,246410072,  A01\r\n",
+      "exact_identity_match": true,
+      "port_closed_after": true
+    },
+    {
+      "name": "reopen_both_on_02",
+      "dtr": true,
+      "rts": true,
+      "baudrate_trial": 9600,
+      "format": "8N1",
+      "pre_rx_hex": "",
+      "tx_count": 7,
+      "rx_hex": "41444320436f72702e2c373335352c3234363431303037322c20204130310d0a",
+      "rx_ascii": "ADC Corp.,7355,246410072,  A01\r\n",
+      "exact_identity_match": true,
+      "port_closed_after": true
+    }
+  ]
+}

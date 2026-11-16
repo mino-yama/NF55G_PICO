@@ -1,0 +1,8 @@
+{
+  "uart_adapter_loopback": "112 cases / 5113 bytes each direction passed",
+  "observed_rx_bytes": 0,
+  "firmware_changed": false,
+  "stopped_for": "無給電で端子位置・配線写真を照合",
+  "date": "2026-11-14",
+  "normal_completion_metadata_exists": false
+}

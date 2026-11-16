@@ -1,0 +1,22 @@
+{
+  "expected": "AbC-0000000000000000000000000123456",
+  "vid": 59473,
+  "pid": 4097,
+  "captures": [
+    {
+      "orientation": "a",
+      "source": "docs\\USB_SubMCU_Host_Preparation_20261111\\Hardware_Modification_Power_20261111\\QR_Evaluation_20261114\\run05_scan_35chars_1024_rst\\scan_uart.raw",
+      "source_raw_sha256": "03af22def0a13b59303cbdc5fbe2f6edc2c646931a7ec46d3d4dadbd321c0650",
+      "report_count": 388,
+      "fixture_sha256": "8961ff8435a6b19f766c5d6f4cb8d2818445ecde931d5ac4d7a87fb619fe6132"
+    },
+    {
+      "orientation": "b",
+      "source": "docs\\USB_SubMCU_Host_Preparation_20261111\\Hardware_Modification_Power_20261111\\QR_Evaluation_20261114\\run06_scan_35chars_reversed\\scan_uart.raw",
+      "source_raw_sha256": "83ecc002f74796744f840259c464e54be11907643ab34afb3daeec59be6dec00",
+      "report_count": 388,
+      "fixture_sha256": "518ec0f585580ea40ffe952371c3cd4124f578d3d998be0884ae7494b77821b5"
+    }
+  ],
+  "descriptor_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+}

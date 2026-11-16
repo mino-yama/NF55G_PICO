@@ -1,0 +1,27 @@
+{
+  "source_sha256": "6858dcee38df6110847ccc3e6f1aa0dc67d97342a75566c5c0ca907f8a2ded88",
+  "source_bytes": 60677,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1,
+    "hid_report": 388,
+    "qr_text": 1
+  },
+  "text_matches": true,
+  "expected_text": "Aa0-012345678901234567890123456789Z",
+  "text_event": {
+    "seq": 391,
+    "ms": 1716,
+    "kind": "qr_text",
+    "addr": 1,
+    "instance": 0,
+    "data_hex": "4161302d3031323334353637383930313233343536373839303132333435363738395a"
+  },
+  "hid_mount_ms": [
+    557
+  ],
+  "hardware_acceptance": false
+}

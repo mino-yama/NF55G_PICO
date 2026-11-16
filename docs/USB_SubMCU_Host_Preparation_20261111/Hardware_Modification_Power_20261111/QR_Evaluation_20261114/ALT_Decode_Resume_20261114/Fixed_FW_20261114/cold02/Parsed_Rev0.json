@@ -1,0 +1,508 @@
+{
+  "status": "raw_capture_only",
+  "records": 61,
+  "errors": [],
+  "events": [
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d66697865642d32303236313131342e31"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    },
+    {
+      "seq": 2,
+      "ms": 24,
+      "kind": "startup_stage",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "01b80b0000"
+    },
+    {
+      "seq": 3,
+      "ms": 3037,
+      "kind": "startup_stage",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "0200000000"
+    },
+    {
+      "seq": 4,
+      "ms": 3048,
+      "kind": "startup_stage",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "0300000000"
+    },
+    {
+      "seq": 5,
+      "ms": 3062,
+      "kind": "startup_stage",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "0400000000"
+    },
+    {
+      "seq": 6,
+      "ms": 3575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "01000000010200000000000000000000000000000c000000"
+    },
+    {
+      "seq": 7,
+      "ms": 3606,
+      "kind": "hid_mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "00003f00"
+    },
+    {
+      "seq": 8,
+      "ms": 3606,
+      "kind": "report_descriptor",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+    },
+    {
+      "seq": 9,
+      "ms": 3606,
+      "kind": "mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "51e80110"
+    },
+    {
+      "seq": 10,
+      "ms": 4575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "02810800e80500000000000000000000000000000d000000"
+    },
+    {
+      "seq": 11,
+      "ms": 5575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "36fc1000d00900000000000000000000000000000d000000"
+    },
+    {
+      "seq": 12,
+      "ms": 6575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "6a771900b80d00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 13,
+      "ms": 7575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "9ff22100a01100000000000000000000000000000d000000"
+    },
+    {
+      "seq": 14,
+      "ms": 8575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "d66d2a00881500000000000000000000000000000d000000"
+    },
+    {
+      "seq": 15,
+      "ms": 9575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "06e93200701900000000000000000000000000000d000000"
+    },
+    {
+      "seq": 16,
+      "ms": 10575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "3e643b00581d00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 17,
+      "ms": 11575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71df4300402100000000000000000000000000000d000000"
+    },
+    {
+      "seq": 18,
+      "ms": 12575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "a55a4c00282500000000000000000000000000000d000000"
+    },
+    {
+      "seq": 19,
+      "ms": 13575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "dad55400102900000000000000000000000000000d000000"
+    },
+    {
+      "seq": 20,
+      "ms": 14575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "12515d00f82c00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 21,
+      "ms": 15575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "43cc6500e03000000000000000000000000000000d000000"
+    },
+    {
+      "seq": 22,
+      "ms": 16575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "7b476e00c83400000000000000000000000000000d000000"
+    },
+    {
+      "seq": 23,
+      "ms": 17575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "afc27600b03800000000000000000000000000000d000000"
+    },
+    {
+      "seq": 24,
+      "ms": 18575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "e33d7f00983c00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 25,
+      "ms": 19575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "17b98700804000000000000000000000000000000d000000"
+    },
+    {
+      "seq": 26,
+      "ms": 20575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "50349000684400000000000000000000000000000d000000"
+    },
+    {
+      "seq": 27,
+      "ms": 21575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "80af9800504800000000000000000000000000000d000000"
+    },
+    {
+      "seq": 28,
+      "ms": 22575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "b82aa100384c00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 29,
+      "ms": 23575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "eba5a900205000000000000000000000000000000d000000"
+    },
+    {
+      "seq": 30,
+      "ms": 24575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "1f21b200085400000000000000000000000000000d000000"
+    },
+    {
+      "seq": 31,
+      "ms": 25575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "549cba00f05700000000000000000000000000000d000000"
+    },
+    {
+      "seq": 32,
+      "ms": 26575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "8b17c300d85b00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 33,
+      "ms": 27575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "bc92cb00c05f00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 34,
+      "ms": 28575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "f30dd400a86300000000000000000000000000000d000000"
+    },
+    {
+      "seq": 35,
+      "ms": 29575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "2889dc00906700000000000000000000000000000d000000"
+    },
+    {
+      "seq": 36,
+      "ms": 30575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "5a04e500786b00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 37,
+      "ms": 31575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "917fed00606f00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 38,
+      "ms": 32575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "c7faf500487300000000000000000000000000000d000000"
+    },
+    {
+      "seq": 39,
+      "ms": 33575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "f975fe00307700000000000000000000000000000d000000"
+    },
+    {
+      "seq": 40,
+      "ms": 34575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "2ff10601187b00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 41,
+      "ms": 35575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "666c0f01007f00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 42,
+      "ms": 36575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "98e71701e88200000000000000000000000000000d000000"
+    },
+    {
+      "seq": 43,
+      "ms": 37575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "d0622001d08600000000000000000000000000000d000000"
+    },
+    {
+      "seq": 44,
+      "ms": 38575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "05de2801b88a00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 45,
+      "ms": 39575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "38593101a08e00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 46,
+      "ms": 40575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "6dd43901889200000000000000000000000000000d000000"
+    },
+    {
+      "seq": 47,
+      "ms": 41575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "a34f4201709600000000000000000000000000000d000000"
+    },
+    {
+      "seq": 48,
+      "ms": 42575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "d4ca4a01589a00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 49,
+      "ms": 43575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "0b465301409e00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 50,
+      "ms": 44575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "3fc15b0128a200000000000000000000000000000d000000"
+    },
+    {
+      "seq": 51,
+      "ms": 45575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "733c640110a600000000000000000000000000000d000000"
+    },
+    {
+      "seq": 52,
+      "ms": 46575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "a8b76c01f8a900000000000000000000000000000d000000"
+    },
+    {
+      "seq": 53,
+      "ms": 47575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "df327501e0ad00000000000000000000000000000d000000"
+    },
+    {
+      "seq": 54,
+      "ms": 48575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "10ae7d01c8b100000000000000000000000000000d000000"
+    },
+    {
+      "seq": 55,
+      "ms": 49575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "b50d8601b0b500000000000000000000510000000d000000"
+    },
+    {
+      "seq": 56,
+      "ms": 50488,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4161302d3031323334353637383930313233343536373839303132333435363738395a"
+    },
+    {
+      "seq": 57,
+      "ms": 50575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "50248e0198b900000000000001000000840100000d000000"
+    },
+    {
+      "seq": 58,
+      "ms": 51575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "839f960180bd00000000000001000000840100000d000000"
+    },
+    {
+      "seq": 59,
+      "ms": 52575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "b71a9f0168c100000000000001000000840100000d000000"
+    },
+    {
+      "seq": 60,
+      "ms": 53575,
+      "kind": "host_health",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "f095a70150c500000000000001000000840100000d000000"
+    }
+  ],
+  "qr_text_verified": false,
+  "hardware_acceptance": false,
+  "transport": "UART",
+  "dropped": null,
+  "tail_completeness": "not_proven",
+  "record_capacity": null,
+  "source_sha256": "02edfdb1322f810ddfd0b7d8e346b4fad76658de595306418f067409d25d49cb",
+  "source_bytes": 9395,
+  "startup_prefix_hex": "00",
+  "original_framing_clean": false,
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ]
+}

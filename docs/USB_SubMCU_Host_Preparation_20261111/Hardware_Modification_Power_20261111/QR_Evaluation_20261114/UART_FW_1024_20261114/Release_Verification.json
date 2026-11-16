@@ -1,0 +1,16 @@
+{
+  "release": "firmware\\usb_submcu_host_probe\\releases\\qr-uart-20261114.1",
+  "files": 44,
+  "uf2_bytes": 79360,
+  "uf2_sha256": "0ce5168e546f25431e51922fb6fd0728a38697efb65937b9532da9f9aece1b81",
+  "old_releases": [
+    {
+      "release": "qr-uart-20261111.1",
+      "verified_files": 45
+    },
+    {
+      "release": "qr-probe-20261111.1-ram",
+      "verified_files": 43
+    }
+  ]
+}

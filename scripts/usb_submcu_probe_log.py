@@ -1,5 +1,6 @@
 """QR単体Host評価のRAM／任意UART原文をオフライン検査する。実機操作なし。"""
 import argparse
+import hashlib
 import json
 import struct
 from pathlib import Path
@@ -7,7 +8,11 @@ from pathlib import Path
 RECORD = struct.Struct('<IIBBBB64s')
 HEADER = struct.Struct('<IIIII')
 MAGIC = 0x51525042
-KINDS = {1:'boot',2:'mount',3:'unmount',4:'hid_mount',5:'report_descriptor',6:'hid_report',7:'receive_request_failed',8:'hid_unmount',9:'oversize_report',10:'init_failed',11:'board_id'}
+# 固定した診断FW版だけに容量を割り当てる。未知版は従来の256件上限を維持。
+UART_CAPACITIES = {b'qr-uart-20261114.1': 1024,b'qr-uart-20261114.2': 1024}
+STREAM_VERSION = b'qr-fixed-20261114.1'
+KINDS = {1:'boot',2:'mount',3:'unmount',4:'hid_mount',5:'report_descriptor',6:'hid_report',7:'receive_request_failed',8:'hid_unmount',9:'oversize_report',10:'init_failed',11:'board_id',12:'qr_text',13:'qr_decode_error'}
+KINDS.update({14:'host_health',15:'startup_stage'})
 
 def decode_record(raw):
     if len(raw) != RECORD.size:
@@ -21,6 +26,7 @@ def inspect_records(records):
     if not records or records[0]['kind'] != 'boot':
         raise ValueError('boot record missing')
     descriptors = {}
+    health_drops=[]
     for idx,r in enumerate(records):
         if r['seq'] != idx:
             raise ValueError('sequence gap/restart')
@@ -44,13 +50,33 @@ def inspect_records(records):
         elif r['kind']=='hid_report':
             if key not in descriptors:
                 raise ValueError('report without HID mount')
+        elif r['kind']=='qr_text':
+            if key not in descriptors or len(data)!=35 or any(
+                    c not in b'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-' for c in data):
+                raise ValueError('invalid decoded QR text')
+        elif r['kind']=='qr_decode_error':
+            if len(data)!=1 or not 1<=data[0]<=11:
+                raise ValueError('invalid QR decode error')
+        elif r['kind']=='host_health':
+            if len(data)!=24:
+                raise ValueError('invalid host health')
+            loops,frames,dropped,texts,reports,flags=struct.unpack('<6I',data)
+            if flags & ~15:
+                raise ValueError('invalid host flags')
+            if dropped: health_drops.append(r)
+        elif r['kind']=='startup_stage':
+            if len(data)!=5:
+                raise ValueError('invalid startup stage')
+            phase,value=struct.unpack('<BI',data)
+            if phase not in (1,2,3,4) or (phase==1 and value!=3000) or (phase!=1 and value):
+                raise ValueError('invalid startup stage')
         elif r['kind']=='hid_unmount':
             if key in descriptors and descriptors[key][0]!=descriptors[key][1]:
                 raise ValueError('incomplete descriptor before unmount')
             descriptors.pop(key,None)
     if any(wanted!=actual for wanted,actual in descriptors.values()):
         raise ValueError('incomplete/missing report descriptor')
-    errors=[r for r in records if r['kind'] in ('receive_request_failed','oversize_report','init_failed')]
+    errors=[r for r in records if r['kind'] in ('receive_request_failed','oversize_report','init_failed','qr_decode_error')]+health_drops
     return {'status':'capture_errors' if errors else 'raw_capture_only',
             'records':len(records),'errors':errors,'events':records,
             'qr_text_verified':False,'hardware_acceptance':False}
@@ -74,10 +100,35 @@ def read_uart(text):
         if not line.startswith('@') or len(line)!=153:
             raise ValueError('invalid UART framing/truncated line')
         records.append(decode_record(bytes.fromhex(line[1:])))
-    if len(records)>=256:
-        raise ValueError('log at capacity: repeat shorter capture')
     result=inspect_records(records)
-    result.update(transport='UART',dropped=None,tail_completeness='not_proven')
+    version = bytes.fromhex(records[0]['data_hex'])
+    capacity = None if version==STREAM_VERSION else UART_CAPACITIES.get(version, 256)
+    if capacity is not None and len(records)>=capacity:
+        raise ValueError('log at capacity: repeat shorter capture')
+    result.update(transport='UART',dropped=None,tail_completeness='not_proven',record_capacity=capacity)
+    return result
+
+def read_uart_capture(raw, allow_startup_nul=False):
+    """原文を保持し、明示指定時だけ起動前NUL 1byteを警告付きで分離する。"""
+    prefix = b''
+    body = raw
+    if allow_startup_nul and raw.startswith(b'\x00@'):
+        prefix, body = raw[:1], raw[1:]
+    result = read_uart(body.decode('ascii'))
+    if prefix:
+        # 任意ノイズからの再同期や途中の破損除去はしない。起動識別も必要。
+        events = result['events']
+        if len(events) < 2 or events[1]['kind'] != 'board_id':
+            raise ValueError('startup NUL requires boot and board_id records')
+        identity = bytes.fromhex(events[1]['data_hex'])
+        if len(identity) != 16 or any(c not in b'0123456789abcdefABCDEF' for c in identity):
+            raise ValueError('invalid startup board_id')
+        if not body.endswith(b'\n'):
+            raise ValueError('startup capture missing final LF')
+    result.update(source_sha256=hashlib.sha256(raw).hexdigest(),
+                  source_bytes=len(raw), startup_prefix_hex=prefix.hex(),
+                  original_framing_clean=not bool(prefix),
+                  warnings=['leading_nul_observed_cause_unconfirmed'] if prefix else [])
     return result
 
 if __name__=='__main__':
@@ -85,6 +136,11 @@ if __name__=='__main__':
     p.add_argument('input',type=Path)
     p.add_argument('--format',choices=('ram','uart'),required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--allow-startup-nul', action='store_true',
+                   help='UART先頭NUL 1byteのみ警告付きで分離。原文の形式合格とはしない')
     args=p.parse_args()
-    result=read_ram(args.input.read_bytes()) if args.format=='ram' else read_uart(args.input.read_text(encoding='ascii'))
+    if args.allow_startup_nul and args.format != 'uart':
+        p.error('--allow-startup-nul requires --format uart')
+    raw = args.input.read_bytes()
+    result=read_ram(raw) if args.format=='ram' else read_uart_capture(raw,args.allow_startup_nul)
     args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')

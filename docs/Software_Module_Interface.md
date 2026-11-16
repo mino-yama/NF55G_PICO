@@ -1,5 +1,9 @@
 # Pico Software Module / Interface Specification
 
+2026-11-16親PIO UARTピン確認: 現行src/・旧試作・周辺基板原典と照合し、QRは親GP8 TX/GP9 RX、7355は親GP12 TX/GP13 RXを第一候補とする。追加2 UARTはPIO1 SM0～3（MicroPython ID4～7）の予約案で、旧PIO0試作から分離。現物配線・SM load・命令メモリ/IRQ/受信負荷は未確認、正式API/FW定数は未変更。[割付根拠・物理pin表](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Parent_PIO_UART_Pin_Check_20261116/Pin_Assignment_Rev0.md)。
+
+2026-11-16追加基板資料: 7355用はRP2350-USB-A/Switch Science SKU10275、USB-A→7355 USB-B。GPIO12/13のPIO CDC Hostを別FWで開発する前提を[回路・改造・FW調査](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/RP2350_USB_A_20261116/Assessment_Rev0.md)に整理。メーカーHID→Device CDCデモを7355 CDC Host実装済みとは扱わない。既存QR FW・正式親子UART/APIの契約は変更していない。
+
 2026-11-10追加要求（未実装）: QR／7355のUSBは下位Waveshare RP2350-USB-C、治具との指令・データは双方向UART。USB処理は下位、ATE受付・試験との相関・Cache／Logger連携・NF55G処理は治具、測定対象制御と最終判定はATEに分担する。治具側PIO RX＋TX、要求／完了／機器通知の分離と非blocking受渡しを設計候補とする。現行QR受信adapterはRXのみであり、追加リンク実装済みとは扱わない。[開発準備資料](USB_Host_SubMCU_Integration_Plan_20261110.md)／USB-SUB-01参照。既存モジュール・正式APIの契約は今回変更しない。
 
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
@@ -157,3 +161,24 @@ Type_C2のD+はGPIO12／R12、D−はGPIO13／R11。メーカーRP2350_USB_C=1�
 ## USB SubMCU UART版の準備完了（2026-11-11、実機未受入）
 
 [UART診断仕様](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Specification_Rev0.md)と[ビルド・検証結果](USB_SubMCU_Host_Preparation_20261111/UART_FW_20261111/Result_Rev0.md)を追加。qr-uart-20261111.1は追加基板GP0／115200・8N1のTX専用。既存76byteレコードをHEXで返し、起動版・IDをUSB開始前に送出する。ログは原文取得だけでQR35文字一致・製品合格としない。Host／Mock301件とファイル検証は成功、UART実機・QR・2 Hostは未受入。ATE／NF55Gの契約と正式親子UARTは変更しない。
+
+## USB SubMCU基板内の診断QR復元（2026-11-14）
+
+qr-uart-20261114.2は実機確認した限定HID形式をCモジュールで35文字へ復元し、診断レコードkind12へ完成原文、kind13へ理由1byteを記録する。正式な治具UART・ATE・Cache・Logger・SSには接続しない。内部状態だけで部分文字列を保持し、異常・timeoutで失効、切断で初期化する。[診断仕様と検証](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Decoder_FW_20261114/Specification_Rev0.md)。基板内CデコーダのHost再生は成功、実機配置と連続読取は次工程。
+
+## 2026-11-14 QRリーダー設定変更に伴う診断版の復元
+
+ユーザーがQRのAlt設定から英語キーボードへ変更し、Alt処理不要・復元・再試験を指示。直前の基板内復元診断実装は採用せず履歴へ保存、現行作業ソースと解析をqr-uart-20261114.1のHID原文取得版へ復元。正式親子UART・ATE／Cache／SSは変更しない。Host／Mock326件成功、実機書戻しと英語設定再採取は次工程。[状態・証跡](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/English_Keyboard_Retest_20261114/Restoration_Result_Rev0.md)。上の.2診断仕様・テスト結果は過去時点の履歴として保持。
+
+## 2026-11-14 Alt方式の基板内診断デコードを再採用
+
+ユーザーが英語設定調査を打ち切り、観測済みAlt方式をデコードして続行と指定。メーカー初期化は行わず、現行作業ソースを保存済みqr-uart-20261114.2へ復元。正式親子UART・ATE／Cache／Logger／SSは変更せず、まず診断kind12で35文字を出す限定構成とする。Host／Mock346件成功、実機は.1のため再配置後に確認する。[再開・状態](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Resume_Result_Rev0.md)。
+
+## 2026-11-14 固定接続の診断ストリーム追加
+
+qr-fixed-20261114.1はGP0 TXのみ115200/8N1・既存76byte HEXレコードで、kind12完成35文字とkind13理由を継続送信する候補。原文kind6は抑止、64件FIFOは排出後再利用し、欠落はseq gapとkind14のdropで検知。kind14は24byte uint32×6（main回数/frame/drop/完成数/HID数/flags）、kind15はphase+uint32の5byte。正式親子UART／ATE／Cache／SSではない。起動待ち3000msとAlt inter-report5000msは診断仮値で正式タイミングに採用しない。[仕様](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Fixed_FW_20261114/Specification_Rev0.md)。
+
+
+## 2026-11-14 Host基板と親接続経路の分離方針
+
+ユーザー指示によりQRは既存Host、7355は追加Hostとし、親Picoとの双方向UARTを独立2経路に分ける。1基板のnative＋PIO 2 Hostと、既存QR基板Type_C1の改造案は採用しない。親のATE UART0／NF55G UART1は維持し、PIO等のGPIO・SM・IRQ・bufferを確認してから割り当てる。経路別の起動識別・要求ID・取消・timeout・部分受信状態を持つ方針。ピン・baudrate・正式APIは未確定、診断TXを正式リンクに昇格させない。今回コード変更なし。[構成方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。

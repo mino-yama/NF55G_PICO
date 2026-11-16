@@ -1,0 +1,42 @@
+{
+  "retrieved_date_jst": "2026-11-16",
+  "purpose": "7355 CDC Host on RP2350-USB-A",
+  "files": [
+    {
+      "file": "SwitchScience_10275.html",
+      "url": "https://www.switch-science.com/products/10275",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    },
+    {
+      "file": "Waveshare_Wiki.html",
+      "url": "https://www.waveshare.com/wiki/RP2350-USB-A",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    },
+    {
+      "file": "RP2350-USB-A.pdf",
+      "url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.pdf",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    },
+    {
+      "file": "RP2350-USB-A.zip",
+      "url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.zip",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    },
+    {
+      "file": "TinyUSB_CDC.html",
+      "url": "https://docs.tinyusb.org/en/latest/reference/class/cdc.html",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    },
+    {
+      "file": "TinyUSB_Host_CDC_Example.html",
+      "url": "https://docs.tinyusb.org/en/latest/examples/host/cdc_msc_hid.html",
+      "status": "failed",
+      "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>"
+    }
+  ]
+}

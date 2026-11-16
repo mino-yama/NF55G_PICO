@@ -1,0 +1,7 @@
+COM6                
+    desc: USB �V���A�� �f�o�C�X (COM6)
+    hwid: USB VID:PID=2E8A:0005 SER=69F7D45962CFDFAD LOCATION=1-3:x.0
+COM19               
+    desc: Elecom USB-Serial Converter (COM19)
+    hwid: USB VID:PID=056E:5004 SER= LOCATION=1-4.2:x.0
+2 ports found

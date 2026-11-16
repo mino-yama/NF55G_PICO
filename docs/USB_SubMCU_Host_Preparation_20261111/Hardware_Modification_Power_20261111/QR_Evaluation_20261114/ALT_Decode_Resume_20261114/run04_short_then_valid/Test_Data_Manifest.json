@@ -1,0 +1,18 @@
+[
+  {
+    "label": "SHORT34",
+    "text": "Aa0-012345678901234567890123456789",
+    "length": 34,
+    "image": "QR_SHORT34.png",
+    "image_sha256": "d665ee2f4f0f190086212b40619da786d5e9b99028269f595fe08f4dadb6aaf2",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  },
+  {
+    "label": "VALID35",
+    "text": "zZ9-987654321098765432109876543210a",
+    "length": 35,
+    "image": "QR_VALID35.png",
+    "image_sha256": "5bcc0f021c0b67cfb4bdd1ea1a95c79b2426698ac801ebbf7e3c0571b427d262",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  }
+]

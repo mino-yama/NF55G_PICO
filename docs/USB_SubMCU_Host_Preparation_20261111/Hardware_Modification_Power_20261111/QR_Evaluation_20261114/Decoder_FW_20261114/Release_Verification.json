@@ -1,0 +1,26 @@
+{
+  "release": "firmware\\usb_submcu_host_probe\\releases\\qr-uart-20261114.2",
+  "files": 50,
+  "uf2_bytes": 82432,
+  "uf2_sha256": "419fadbc4d7e79704ff8703574d59524e4bea5262991f10eef71a2c5441d61f3",
+  "old_releases": [
+    {
+      "release": "qr-uart-20261111.1",
+      "verified_files": 45
+    },
+    {
+      "release": "qr-probe-20261111.1-ram",
+      "verified_files": 43
+    },
+    {
+      "release": "qr-uart-20261114.1",
+      "verified_files": 44
+    }
+  ],
+  "native_test_compiler": {
+    "url": "https://download-mirror.savannah.gnu.org/releases/tinycc/tcc-0.9.27-win64-bin.zip",
+    "resolved_url": "https://download-mirror.savannah.gnu.org/releases/tinycc/tcc-0.9.27-win64-bin.zip",
+    "sha256": "34a721949a2583fdff725312da092fa0f5f1f284b702e6f811c6954714faabb2",
+    "bytes": 489586
+  }
+}

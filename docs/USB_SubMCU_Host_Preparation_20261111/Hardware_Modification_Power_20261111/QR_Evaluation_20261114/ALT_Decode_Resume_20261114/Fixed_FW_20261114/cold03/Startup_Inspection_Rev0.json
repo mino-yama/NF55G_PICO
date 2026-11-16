@@ -1,0 +1,54 @@
+{
+  "interim": true,
+  "source_sha256": "c409b7c1fb70c92da6ee1d303b5e604961444b1329e368b5b3363849c771b02b",
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "startup_stage": 4,
+    "host_health": 26,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1
+  },
+  "mount_ms": [
+    3606
+  ],
+  "health_first": [
+    {
+      "ms": 3575,
+      "values": [
+        1,
+        513,
+        0,
+        0,
+        0,
+        12
+      ]
+    }
+  ],
+  "health_last": [
+    {
+      "ms": 27575,
+      "values": [
+        13341513,
+        24512,
+        0,
+        0,
+        0,
+        13
+      ]
+    },
+    {
+      "ms": 28575,
+      "values": [
+        13897350,
+        25512,
+        0,
+        0,
+        0,
+        13
+      ]
+    }
+  ],
+  "errors": []
+}

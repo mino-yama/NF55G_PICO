@@ -1,0 +1,68 @@
+[
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/pico_sdk_version.cmake",
+    "file": "Local_Fixed_SDK/pico_sdk_version.cmake",
+    "sha256": "4f6ab383065aa1f55680b4db84dc901700575f3276f8e482f0b19e169c0d085b",
+    "bytes": 1899
+  },
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/LICENSE",
+    "file": "Local_Fixed_SDK/TinyUSB_LICENSE",
+    "sha256": "fb8368d162b37541316d42def63b4b2371f71b7e68a722cfcb31cc6e85746b4d",
+    "bytes": 1110
+  },
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/class/cdc/cdc_host.h",
+    "file": "Local_Fixed_SDK/cdc_host.h",
+    "sha256": "4324c1edd7ee77c4ef6f4d47419542ce8836b3adfc3559bbba6615db362413f1",
+    "bytes": 8293
+  },
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/class/cdc/cdc_host.c",
+    "file": "Local_Fixed_SDK/cdc_host.c",
+    "sha256": "9ff2f87befbaae485114b394b46a915c1f1c7c9fe1ce5b9a510d7c7ecefac886",
+    "bytes": 60445
+  },
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/portable/raspberrypi/pio_usb/hcd_pio_usb.c",
+    "file": "Local_Fixed_SDK/hcd_pio_usb.c",
+    "sha256": "e4b6982c2fcf4a92f2cf6f0123bf97129102bf3fb95f87777c93e6b823ce7f9c",
+    "bytes": 7197
+  },
+  {
+    "source": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/examples/host/cdc_msc_hid/src/tusb_config.h",
+    "file": "Local_Fixed_SDK/host_example_tusb_config.h",
+    "sha256": "fb0262173760ecb0bbb5f401d5d8f72947650c5671586266dd2b3f51fa110111",
+    "bytes": 5086
+  },
+  {
+    "source": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/LICENSE",
+    "file": "Local_Fixed_PIO/LICENSE",
+    "sha256": "552320d7937c0ef4bde067b2905d6331e3dd9bba1ff726b2d34d8edcdc9dbc76",
+    "bytes": 1071
+  },
+  {
+    "source": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/pio_usb_host.c",
+    "file": "Local_Fixed_PIO/pio_usb_host.c",
+    "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3",
+    "bytes": 44389
+  },
+  {
+    "source": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/pio_usb_configuration.h",
+    "file": "Local_Fixed_PIO/pio_usb_configuration.h",
+    "sha256": "6856bbeac5cdcabb66468b881fb8457974891ad58dd2ccfe2ed969c3d735664b",
+    "bytes": 2868
+  },
+  {
+    "source": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/usb_tx.pio",
+    "file": "Local_Fixed_PIO/usb_tx.pio",
+    "sha256": "802ab5a326108f029a7aa0145750d19bc036243a78c25d4b93567f962721c921",
+    "bytes": 6243
+  },
+  {
+    "source": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/usb_rx.pio",
+    "file": "Local_Fixed_PIO/usb_rx.pio",
+    "sha256": "092adef4200e12f490020557ad0ec58ad040793b309119412730d7112a1f6644",
+    "bytes": 6250
+  }
+]

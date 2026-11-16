@@ -1,0 +1,13 @@
+{
+  "source_pdf": "BCR-TC2D1BK_Keyboard.pdf",
+  "source_sha256": "68a317bd4fa0a27ec8097e6df87ddb93c260800f6f0a298fcb2d62324f5b46ff",
+  "page": 1,
+  "clip_pdf_points": [
+    40,
+    80,
+    178,
+    160
+  ],
+  "scale": 4,
+  "purpose": "メーカーUSA設定コードだけを表示し、Japan／ALTの誤読を避ける。バーコードを再生成せずPDFを描画。"
+}

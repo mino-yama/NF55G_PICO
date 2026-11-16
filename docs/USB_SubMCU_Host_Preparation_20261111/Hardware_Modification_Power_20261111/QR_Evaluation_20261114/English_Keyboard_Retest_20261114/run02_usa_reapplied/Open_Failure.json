@@ -1,0 +1,11 @@
+{
+  "port": "COM22",
+  "rx_bytes": 0,
+  "stage": "serial open",
+  "error": "Access denied",
+  "date": "2026-11-14",
+  "owner_identified": false,
+  "capture_started": false,
+  "winerror": 5,
+  "matching_running_python_captures_found": false
+}

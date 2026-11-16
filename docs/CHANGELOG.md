@@ -1,5 +1,100 @@
 # CHANGELOG
 
+## 2026-11-16 CDC Host単体仕様とUART監視手順を整理
+
+- PC成功条件をPIO Hostで再現する初回範囲を、専用FW/列挙/CDC設定/IDN、その後に電圧/レンジ確認の順として整理。追加HostのGP0診断TX→3.3V adapter RXD/GND、115200/8N1案、外部5VとPC書込みモードを分離する配線条件を記録。
+- 新CDC FWは未作成で、QR版を流用して動作確認済みとはしない。R13状態とadapter型番はユーザー確認中。今回は仕様書のみ、コード/FW変更・ビルド/Host/Mock/実機操作なし。[単体確認仕様](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/CDC_Host_Single_Acceptance_20261116_Rev0.md)。
+
+## 2026-11-16 親PicoのPIO UART2系統のGPIO空き確認
+
+- src/・旧診断script・Rev.4 GPIO表・RS232/RTC回路図・SD EAGLEネットを照合。QR用GP8 TX/GP9 RXを維持し、7355用はGP12 TX/GP13 RXの割付案を作成。PIO1 SM0～3を候補にし、GPIO/物理pin対応と原典・hash証跡を保存。
+- GP10旧診断、GP6/7 RTC選択、GP15 card-detect等を考慮。資料上の競合なしと現物未確認を分離し、USB-SUB-05はOpen維持。文書/証跡のみ、ソース/設定/FW/配線変更なし、Host/Mock・実機試験未実行。[割付と確認結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Parent_PIO_UART_Pin_Check_20261116/Pin_Assignment_Rev0.md)。
+
+## 2026-11-16 RP2350-USB-Aの7355 CDC Host資料と改造手順を調査
+
+- 指定SKU10275についてメーカー回路図・Wiki・デモZIP・R13位置/ピン画像・設計資料・TinyUSB説明の原典9件を新規保存。hash台帳、展開物、固定SDK/PIO関連11ファイルの照合コピー、回路図描画を作成。販売ページはWeb確認済み、HTML保存は429で未完了と記録。
+- R13撤去をHost専用化の基本案とし、R10 NC/R11・R12維持、USB-A側CC変更不要、VSYS直結電源の扱い、追加pull-down評価、CDC Host専用FWと単体受入順序を具体化。USB-SUB-05と基板選定/モジュール資料に関連付け、個体版・電気条件・FW適合はOpen維持。
+- 収集scriptの構文・原典hash/形式/リンクを確認。既存FW/量産コード/配線変更・機器操作なし、Host/Mock・ARMビルド・実機試験は未実行。[調査と手順](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/RP2350_USB_A_20261116/Assessment_Rev0.md)。
+
+## 2026-11-14 QRと校正の書込み後読戻しフロー案
+
+- 書込み完了で取得Cacheを破棄した後、ATEが明示Refreshと個別Queryで期待値照合する手順を整理。SSはINFO_REFRESH、ADは計画上AR_REFRESH。AR未実装・形式と反映時期のOpenを明示し、校正後の外部測定確認は保存値確認と分けた。
+- 照合期待値はATE保持の設計案。文書のみ更新、コード/FW/配線変更なし、Host/Mock・実機試験未実行。[確認フロー案](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Post_Write_Verification_Flow_Rev0.md)。
+
+## 2026-11-14 QRとDMMの取得Cacheは書込み完了またはTEST_ENDで破棄
+
+- ユーザー指定で書込み完了時の使用Cache破棄、TEST_END時の全取得Cache破棄を確定。未完了要求の失効・遅着での復活禁止・再利用には再取得/ATE確認を要件化し、成否不明時INVALIDの既存Hard Ruleと整合。履歴ログは保持する。
+- 取得値書込み要件、ATE/Cache Master、Open Issues、試験要件、工程案を更新。正式API・完了単位等は未確定。文書のみ、コード/FW/配線変更・Host/Mock・実機試験なし。
+
+## 2026-11-14 DMMとQRは取得CacheをATE確認後に別指令で書込み
+
+- ユーザー回答で取得→Cache・ATE返却→ATE確認→別の明示書込み指令でCache値を付加する順序を確定。数値直接指定方式は維持。書込み時の再取得禁止、確認した値と書込み値の同一性、INVALID/不一致時の無送信を要件とし、ATE/Cache Master・関連要件・工程・試験要件・Open Issuesへ反映した。
+- 正式API/取得識別・Cache寿命/書込み後状態・変換規則等は未確定。今回は文書変更のみ、コード/FW変更・Host/Mock・実機試験なし。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
+
+## 2026-11-14 校正とQRの取得値付加書込みの到達要件を追記
+
+- ユーザー指示により、数値直接指定と別にDMM取得値を校正書込みへ付加する方式、QR読取値をNF55G書込みへ使う方式を到達機能として記録。関連要件・工程案・Open Issuesを更新。
+- 従来のATE数値再指定契約との差を明示し、取得と明示書込みの実行境界は確認中。正式API・SS変換/保留解除は未確定。文書のみ更新、コード/FW変更・Host/Mock・実機試験なし。[要件追記](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
+
+## 2026-11-14 7355通信後のQRと測定機能の開発工程案
+
+- 単体測定→2経路の資源/通信契約→双方向リンク→QRのATE連携→7355測定のATE連携→補正フロー→総合試験の順序と完了条件を整理。QRの既得固定接続実績を使い、要求相関を重点工程とした。SS保留、測定取得と補正書込みの分離を維持する。
+- 工程案のみ追加。コード／FW／配線変更・実機操作なし、Host／Mock未実行。未回答API・残Issueは確定/Closeしない。[開発工程案](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Development_Steps_After_CDC_Rev0.md)。
+
+## 2026-11-14 7355 USB CDC設定保存とIDN後の電圧・レンジ試験を準備
+
+- PC成功条件（9600/8N1・DTR/RTS両ON・CRLF・識別情報）を集約。保存済みメーカー説明書からSCPIのDC/AC選択、固定/AUTOレンジ、READ?、トリガ条件を確認し、IDN→DC20V単発→200V→AUTOの逐次手順を作成。設定後にQuery応答を受けるUSB制約を反映した。
+- 前面BUS/LANGは未確認と明記。ADCのMD?は資料上RS-232/LAN専用のためCDCへ流用しない。コード／FW／配線・原典変更なし。文書・原典照合のみ、Host／Mock・実機測定は未実行。[設定・即試験手順](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/CDC_Settings_Voltage_Quick_Test_Rev0.md)。
+
+## 2026-11-14 追加基板RP2350-USB-Aと7355 USB-B接続を確定
+
+- ユーザーの型番明示を反映し、追加基板USB-A→USB A–Bケーブル→7355 USB-Bを確定。選定記録・基板分離方針・USB-SUB-05を更新し、直前の接続形態確認待ちを解消。既存QR基板の記録・構成は維持する。
+- 文書のみ更新。回路・FW適合と親側2リンクは未受入、IssueはOpenを維持。コード／FW／配線変更・実機操作なし、Host／Mockは再実行しない。[選定記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Board_USB_A_Selection_Rev0.md)。
+
+## 2026-11-14 7355用追加HostはQRと同じ基板・USB-Aを指定
+
+- ユーザー指定の基板・端子方針を別記録へ保存し、基板分離方針とUSB-SUB-05へ最新追記。既存QR記録はRP2350-USB-Cのため、USB-Aの接続形態は確認中とし、型番変更や変換器採用を推定しない。
+- 文書のみ変更。コード／FW／配線変更・購入・実機操作なし。Host／Mockは再実行せず、IssueはOpenを維持。[選定記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Board_USB_A_Selection_Rev0.md)。
+
+## 2026-11-14 ユーザー指定でAlt方式デコードを再採用
+
+- 英語設定の切分けを終了し、Alt方式で続行するユーザー指示を受領。全設定初期化は行わず、qr-uart-20261114.2の保存snapshotから作業C・解析器・テスト／fixtureを復元。11ファイルhash一致、Host／Mock346件成功（9.433秒、skipなし）。
+- 実機は.1のため.2再配置とkind12の35文字確認は次工程。正式親子UART・ATE／Cache／SSは未統合、その他Open事項は維持。[再開記録](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Resume_Result_Rev0.md)。
+
+## 2026-11-14 QR側の英語設定に合わせAlt処理を撤回・原文取得版へ復元
+
+- ユーザーの設定変更・再試験指示で受信停止。Alt専用C・nativeテスト・fixtureを履歴へ退避し、作業FW／解析器をqr-uart-20261114.1の1024件HID原文取得版へ復元、5ファイルhash一致を確認。
+- 復元後Host／Mock326件成功（5.854秒）。旧配布物・旧Alt実機データは保持。実機Flashは.2のままで、.1書戻しと英語設定の再採取は次工程。[復元結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/English_Keyboard_Retest_20261114/Restoration_Result_Rev0.md)。
+
+## 2026-11-14 HOST基板内でQR35文字を復元する診断版を準備
+
+- qr_alt_decoder.c／hを追加し、実機VID／PID・記述子に限定したAlt＋5桁数字の復元を実装。完成35文字＋Enterでkind12、異常はkind13。部分データは公開せず、切断初期化・暫定timeout・Enter境界の復帰を管理する。
+- 同じCコードのnative実行で両向き実機HID再生等16件、ログ解析追加4件、全Host／Mock346件成功（skipなし）。ARMビルド80ステップ成功、qr-uart-20261114.2のUF2と50ファイルを保存、旧132ファイルのhash一致。
+- 正式親子UART・ATE／Cache／Logger／SS、7355・2 Hostは変更しない。新FWの実機配置・基板内復元の実受信は次工程。[仕様・検証・配布](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Decoder_FW_20261114/Result_Rev0.md)。
+
+## 2026-11-14 Type_C2 QRプラグ両向きで既知35文字一致
+
+- 反転向きBでも393レコード／HID388件、35文字と期待HID全列が一致。向きA／BのHID全388件も一致、Enter1回・解放まで確認。
+- 両向き各1回・RST後のPC側照合として記録。FW内デコーダ・連続読取・電源投入起動・保護・7355／2 Hostを未受入として保持。[実機評価総括](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Result_Rev0.md)。追加のFW・ソース変更なし。
+
+## 2026-11-14 QR既知35文字の単発取得・オフライン完全一致
+
+- qr-uart-20261114.1を対象照合・旧Flash退避・書込みverifyして実機再試験。393レコード／HID388件で既知35文字の完全一致、期待HID全列との一致、Enter1回と解放まで確認。
+- これはPC側の既知データ1件の照合。FW内文字列デコーダ・正式親子UART・全ハード受入は未実装／未完。先頭NULと電源投入起動差、両向き・繰返し・負荷・保護・7355・2 Hostを残す。
+- [実機原文・結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/run05_scan_35chars_1024_rst/Result_Rev0.md)。ソース追加変更なし、直前のHost／Mock326件成功を維持。
+
+## 2026-11-14 QR実機HIDの診断ログ容量を1024件へ拡張
+
+- 35文字QRの1読取で旧256件ログが満杯になり、完全一致を未判定として記録。実機のAlt＋テンキー列を含む原文を保持し、機器設定は変更しない。
+- UART版をqr-uart-20261114.1／1024件へ分離。旧RAM版と旧配布物は維持、UARTの76byte形式とHost処理は変更しない。解析上限は既知新版だけ1024、旧版・未知版は256、満杯拒否を維持。
+- 新規4テスト・Host／Mock326件成功（5.612秒）。新FWのビルド・UF2検証と配布保存が成功、旧88ファイルのhash一致を確認。実機未配置。[仕様・検証](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/UART_FW_1024_20261114/Specification_Rev0.md)。
+
+## 2026-11-14 USB SubMCU起動UARTの先頭NULを警告付きで診断解析
+
+- 2回の起動rawで先頭00＋正規2レコードを確認。既定の厳密拒否は維持し、明示オプションで先頭1byteだけを分離、元hash・警告・非合格情報を保存する。途中破損・連番欠落・複数ノイズの受理は追加しない。
+- 新規7テスト、Host／Mock全322件成功（6.967秒）。FW・原文・旧配布物は変更しない。QR・外部給電起動・電気保護の受入は未完了。USB-SUB-04はOpenとして記録。
+- [仕様・検証結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/Boot_UART_20261114/Startup_UART_Handling_Rev1_20261114.md)。
+
 ## 2026-11-14 実ATEでの未受信問題の解決記録
 
 - ユーザーが実ATE・実NF55Gの総合テストを実施し、前日のATE未受信は終端コードの相違が原因、CR（0x0D）統一で解決と報告。Real_Hardware_Test_LogとATE-TX-01へ記録した。
@@ -846,3 +941,24 @@ voltage measurement unperformed, clock-only root cause not established.
 
 - COM14／Pico ID `2d35a1e11ac125e3`へ`src/config.py`のみ配置。PC／Pico SHA-256一致、`REPL_LOG_ENABLED=False`と`ATE_BAUDRATE=57600`をPico上で読戻し確認。
 - ATE側baud設定が未確認のためMain再起動は保留。COM19の旧115200bps `*IDN?`は無応答で、新57600bpsのATE通信確認とは扱わない。相手側57600bps設定後に再起動・ATE応答確認が必要。[実機記録](Real_Hardware_Test_Log.md)
+
+## 2026-11-14 固定接続・連続読取候補FWの準備
+
+ユーザー指示によりホットプラグ試験を今回の目標から外し、固定接続での電源投入～連続読取を対象にする。qr-fixed-20261114.1を独立Continuousビルドで追加。起動3秒待ち候補・段階記録・1秒heartbeatと64件の再利用FIFOを追加し、HID原文全件送信を止めて完成文字列／異常／状態を継続送信する。旧.1/.2配布と旧有限RAM/UARTモードは保持。parser・native Cテストを更新。実機未書込み・起動問題の解決は未確認。[診断仕様](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Fixed_FW_20261114/Specification_Rev0.md)。
+
+## 2026-11-14 固定接続候補FWの配置
+
+qr-fixed-20261114.1を追加基板A06FEA01012EC137へ配置。現Flash2MB退避・load -v・独立verify・配置後版／chipid照合・reboot成功。Host／Mock354件成功。外部給電・QR固定接続の自動起動／継続読取は未検証であり、電源ON認識問題を解決済みとはしない。
+
+## 2026-11-14 固定接続cold-start第1回と20読取
+
+qr-fixed-20261114.1／A06FEA01012EC137。電源ONのみ・RSTなしでHID mount3606ms、A/B交互20件を全件35文字一致で取得。main/frame進行、drop0、途中再起動・decodeエラーなし。先頭NULは継続。cold-start複数回・10分以上稼働は未確認。原因確定・全体受入・Open Issue Closeとはしない。
+
+## 2026-11-14 固定接続の限定動作確認完了
+
+qr-fixed-20261114.1／A06FEA01012EC137。電源ONからRSTなしのQR自動認識3試行中3成功、各HID mount3606ms。第1回A/B交互20読取は全件35文字一致、drop0、decodeエラー・途中再起動なし。先頭NULは継続。10分以上はエージェント追加の試験であり待ち時間への指摘を受け今回は省略、長時間成功とは扱わない。今回の固定接続の基本動作確認であり、正式ATE連携・7355／2 Host・量産保護等の受入／Open Issue Closeとは区別。
+
+
+## 2026-11-14 QR／7355 Host基板の分離を採用
+
+ユーザー指示により7355用Host基板を追加し、QR用と親Picoへの接続経路を分離する方針へ変更。既存QR基板Type_C1の改造・CC切替案と写真依頼は取り下げ、旧案は履歴として保持。構成方針書、既存計画の最新注記、親インターフェース設計条件・段階試験計画を更新しUSB-SUB-05を追加。USB-SUB-03は旧構成課題としてOpen維持。コード／FW・基板の変更、購入操作・追加実機試験なし。[現行方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。

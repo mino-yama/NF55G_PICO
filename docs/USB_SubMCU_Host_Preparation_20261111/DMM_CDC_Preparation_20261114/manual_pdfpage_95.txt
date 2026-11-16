@@ -1,0 +1,69 @@
+7355 Digital Multimeter Operation Manual
+6. HOW TO USE INTERFACE
+6-1
+6.
+HOW TO USE INTERFACE
+The 7355 includes USB and LAN interfaces. GPIB (Option +01) and RS232 (Option +03) interfaces can
+be added as factory options.
+However, these interfaces cannot be used at the same time. Select one of them.
+Interface configuration
+6.1
+Interface Selection
+The interface can be selected and set only from the menu on the front panel.
+1.
+The selected interface is saved in the non-volatile memory and does not change even if the power is
+turned off or the interface is reset.
+2.
+A unique address for the instrument is set on the interface. When multiple digital multimeters are
+connected to the USB interface, an address (USB ID) is set to identify each one.
+The address is displayed by turning on the power or using the address setting in the menu.
+The interface setting items and the factory defaults are shown below.
+Select the interface from GPIB, USB, RS232, LAN and CDC by ‘BUS’ in 
+  in 
+.
+Interface
+Standard
+Option+01
+Option+03
+USB, CDC
+
+
+
+GPIB
+
+RS232
+
+LAN
+
+
+
+Setting item
+Factory default
+Interface selection (BUS)
+USB
+Header ON/OFF (HEADR)
+ON
+GPIB address (GP.Adr)
+01
+USB ID (USBid)
+001
+Baud rate (BAUD)
+9600
+Data length (DATA)
+8bit
+Parity (P-Bit)
+None
+Stop bit (STOP)
+1bit
+Echo (ECHO)
+OFF
+IP address (IP.Adr)
+192.168.0.1
+Default gateway (G.WAY)
+192.168.0.0
+Subnet mask (S.MASK)
+255.255.255.0
+Output data format (DFORM)
+ASCII
+8 I/F
+MENU

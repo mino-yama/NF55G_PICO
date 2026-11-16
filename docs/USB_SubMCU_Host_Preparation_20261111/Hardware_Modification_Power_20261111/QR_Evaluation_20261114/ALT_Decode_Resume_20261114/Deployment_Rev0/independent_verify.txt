@@ -1,0 +1,13 @@
+Verifying Flash:      [                              ]  0%
+Verifying Flash:      [===                           ]  10%
+Verifying Flash:      [======                        ]  20%
+Verifying Flash:      [=========                     ]  30%
+Verifying Flash:      [============                  ]  40%
+Verifying Flash:      [===============               ]  50%
+Verifying Flash:      [==================            ]  60%
+Verifying Flash:      [=====================         ]  70%
+Verifying Flash:      [========================      ]  80%
+Verifying Flash:      [===========================   ]  90%
+Verifying Flash:      [==============================]  100%
+
+  OK

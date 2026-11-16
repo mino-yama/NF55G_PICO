@@ -1,0 +1,82 @@
+[
+  {
+    "path": "DTR_On_Trial/Identity_Query.json",
+    "bytes": 379,
+    "sha256": "06d8a25374b95c898a39fc32e7c4752495ef5d4ffb6378a1430797b63fb1f8c7"
+  },
+  {
+    "path": "DTR_On_Trial/planned_tx.bin",
+    "bytes": 7,
+    "sha256": "86f7552a3f21b671393f92a8139616fadf4230e1dc50d4513892172b3b832f28"
+  },
+  {
+    "path": "DTR_On_Trial/pre_rx.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "DTR_RTS_On_Trial/Identity_Query.json",
+    "bytes": 433,
+    "sha256": "630eb2b8680eaaa5902f94e94678e797dc5203cae4c015939c6263c48ae245e5"
+  },
+  {
+    "path": "DTR_RTS_On_Trial/planned_tx.bin",
+    "bytes": 7,
+    "sha256": "86f7552a3f21b671393f92a8139616fadf4230e1dc50d4513892172b3b832f28"
+  },
+  {
+    "path": "DTR_RTS_On_Trial/pre_rx.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "DTR_RTS_On_Trial/rx.bin",
+    "bytes": 32,
+    "sha256": "ffa68c7880787351a5b6fb7cc7ed50c2eea689ad7631284bb52070ac03024287"
+  },
+  {
+    "path": "Identity_Query.json",
+    "bytes": 787,
+    "sha256": "8e31808d6a709adfe0ec754f020a5ad61014dbbdf52fdc00ac73a316b3984ab6"
+  },
+  {
+    "path": "pre_rx.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "Repeat_And_RTS_Check/dtr_off_rts_on_rx.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "Repeat_And_RTS_Check/reopen_both_on_01_rx.bin",
+    "bytes": 32,
+    "sha256": "ffa68c7880787351a5b6fb7cc7ed50c2eea689ad7631284bb52070ac03024287"
+  },
+  {
+    "path": "Repeat_And_RTS_Check/reopen_both_on_02_rx.bin",
+    "bytes": 32,
+    "sha256": "ffa68c7880787351a5b6fb7cc7ed50c2eea689ad7631284bb52070ac03024287"
+  },
+  {
+    "path": "Repeat_And_RTS_Check/Results.json",
+    "bytes": 1186,
+    "sha256": "48a95b887529e9e8e00d319067038b7bfd54b74aef3f8cc98f010e887d9749e9"
+  },
+  {
+    "path": "Result_Rev0.md",
+    "bytes": 5952,
+    "sha256": "42ac95d42b31b857c94eb8aa3852a3facd03c05841f0d295c6e3fd635e9c62b4"
+  },
+  {
+    "path": "Schematic_Review.png",
+    "bytes": 248769,
+    "sha256": "793a8c77f3347493387e6f9d30ef1e0de83094502860b28da0ec311cdefe4590"
+  },
+  {
+    "path": "Windows_Device_Identity.json",
+    "bytes": 580,
+    "sha256": "d64d89c5e71e348a847dfa5b010010e7058aefa2e5b971380a84f162d2f222d3"
+  }
+]

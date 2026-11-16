@@ -1,0 +1,62 @@
+{
+  "retrieved_date_jst": "2026-11-16",
+  "purpose": "7355 CDC Host on RP2350-USB-A",
+  "files": [
+    {
+      "file": "SwitchScience_10275.html",
+      "url": "https://www.switch-science.com/products/10275",
+      "status": "failed",
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "file": "Waveshare_Wiki.html",
+      "url": "https://www.waveshare.com/wiki/RP2350-USB-A",
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.waveshare.com/wiki/RP2350-USB-A",
+      "status": "downloaded",
+      "bytes": 73421,
+      "sha256": "df466332e95314bffb73c48ea9c031c73738d35a953d9cf2b5822d3085d49731"
+    },
+    {
+      "file": "RP2350-USB-A.pdf",
+      "url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "final_url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.pdf",
+      "status": "downloaded",
+      "bytes": 320779,
+      "sha256": "23d0fd5af475d2e2e728e6f686f3f15d6d65e33bc6a6ffe2e027d1134a0dcc5d"
+    },
+    {
+      "file": "RP2350-USB-A.zip",
+      "url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.zip",
+      "http_status": 200,
+      "content_type": "application/zip",
+      "final_url": "https://files.waveshare.com/wiki/RP2350-USB-A/RP2350-USB-A.zip",
+      "status": "downloaded",
+      "bytes": 115274,
+      "sha256": "e709329b4ec4735ba1895578edac8fd0fba1f575656df213b55e6997fda1dec5"
+    },
+    {
+      "file": "TinyUSB_CDC.html",
+      "url": "https://docs.tinyusb.org/en/latest/reference/class/cdc.html",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://docs.tinyusb.org/en/latest/reference/class/cdc.html",
+      "status": "downloaded",
+      "bytes": 45982,
+      "sha256": "42c2ef63456ff05df3108b6443e50b19dbbe444e11ee95e11490fef5d216095c"
+    },
+    {
+      "file": "TinyUSB_Host_CDC_Example.html",
+      "url": "https://docs.tinyusb.org/en/latest/examples/host/cdc_msc_hid.html",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://docs.tinyusb.org/en/latest/examples/host/cdc_msc_hid.html",
+      "status": "downloaded",
+      "bytes": 33143,
+      "sha256": "083c901d100818b26d064d54e5c32ac5368b9b21d31f251111d483aef1a19c9b"
+    }
+  ]
+}

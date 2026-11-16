@@ -1,0 +1,11 @@
+{
+  "port": "COM22",
+  "vid": 6790,
+  "pid": 21795,
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "flow_control": false,
+  "tx_bytes": 0,
+  "stop_policy": "two decoded QR texts or decoder error seen, then 5 seconds idle; total limit 600 seconds"
+}

@@ -1,5 +1,9 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-14 DMM/QR取得Cache書込みの追加試験要件（未実装・未実行）: 取得だけではNF55G送信なし、ATE確認後の明示指令で確認したCache値だけを付加、書込み中の再取得なし、欠落/INVALID/対象・試行・取得不一致は無送信エラー、確認後の別取得・遅着による値差替え拒否、数値直接指定方式は事前取得なしで利用可、をHost/Mock/実機の対象とする。書込み完了後の再書込み拒否、TEST_ENDで未使用分も破棄、終了後の遅着・次試行でCache復活なし、ambiguous時INVALID、履歴ログ保持も確認する。正式ID/API・追加期限・完了単位/明示拒否時処理は詳細設計で具体化。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
+
+2026-11-14 7355 CDC次回試験の準備（未実行）: RP2350-USB-A→7355 USB-B構成を対象に、PC成功条件とメーカーSCPIコマンドを[CDC設定・電圧初回試験手順](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/CDC_Settings_Voltage_Quick_Test_Rev0.md)へ集約。BUS/LANG確認後、IDN→DC20V単発→200V固定→AUTOを順次確認する。設定とQuery応答を交互に処理し、原文・前面表示・既知入力を記録する。Host実機適合・測定は未実行、既存NF55G試験と合否契約は変更しない。
+
 2026-11-11 D1～D5時間測定: D1／D2／D3／D5各10回の通常ATE取得はすべてOK・再送0、ACK後完全応答平均14.0／22.0／18.6／58.9ms、最大15／23／34／74ms。D4は再送なしのRAM観測で10回、平均116.0ms・最大133ms、全回で現行100ms超過。D4通常Transaction成功とは区別し、Cache非採用・製品用T2／ソース変更なし。全50標本・102フレームBCC、CSV hash・14列と別計算一致、破棄0・通常待受復帰済み。長時間・全動作状態・原因の確定は未実施。[測定結果と方式](Spec_Review_20261111/D1_D5_Timing_20261111_112941/Timing_Result_Rev0.md)。
 
 2026-11-11 D0 T2=300ms実機追記: configのみ配置・hash確認後、S1.13／PS_ON=1／BATT_ON=0でD0正常系10回がOK、ACK後完全応答180～182ms、再送0。DATA327文字、CSV全14列・BCC・SD／PC hash一致、破棄0、通常待受復帰済み。実機の境界・EB競合・異常系と量産全条件は未確認。下記のD0未配置記述は実装時点の履歴。[実機結果](Spec_Review_20261111/Hardware_D0_T2_300ms_Result_20261111.md)。
@@ -534,3 +538,22 @@ ARは仕様確認待ちで今回未実装。BC診断開始などの制御追加�
 Host／MockでCR既定、CR／LF／CRLF応答と全3種要求終端の組合せ、正常／UNKNOWN／ASCII／FU拒否の共通終端、1byte部分write・0／None受理、未送信中の二重reply拒否、生成時設定保持、不正値／EOI拒否を確認する。製品frame・Cache・Retry仕様は変更しない。実機は配置hash・compile・通常再起動後のCR末尾raw bytesと余分なLF／NULがないことを確認する。PIA5100経由のEOI／ATE受信はPC直結とは区別する。
 
 実行結果（2026-11-13）: Host／Mock全315件成功、実機CR／LF／CRLF各8件＝24件成功、保存CR設定の通常起動7件成功。26 Pythonの実機hash一致・compile成功、NF55G送信0byte。[設定・検証証跡](ATE_Response_Terminator_Config_20261113_Rev0.txt)。
+
+## 2026-11-14 USB Host基板内の診断QRデコーダ検証
+
+qr-uart-20261114.2にqr_alt_decoder.c／hを追加。VID／PIDと実機63byte記述子に限定し、Alt＋テンキー5桁から英数字・ハイフン35文字＋Enterでkind12を1回出力する。部分データ非公開、異常時Enterまで破棄、切断初期化、暫定inter-report5秒は診断版だけの規則であり、正式ATE／親子UART／Cache／SSへ接続しない。
+
+tests/test_usb_submcu_qr_alt_decoder.pyはFWと同じCをnative DLLへコンパイルし、両向き実機HID再生・大小文字／ゼロ／ハイフン・重複押下・連続2読取・終端欠落・34／36文字・文字種・report異常・Alt桁・timeout境界／wrap・初期化・profile拒否を16件で確認。tests/test_usb_submcu_probe_log.pyへkind12／13・新版容量の4件追加。全Host／Mock346件成功、skipなし。ARMビルドも成功。新FWの実機配置・新kind12の実受信・連続読取は未実施。[仕様・結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Decoder_FW_20261114/Result_Rev0.md)。
+
+2026-11-14追加指示: QRリーダーをAlt設定から英語キーボードへ変更したため、上記Alt専用診断実装とnativeテストはケース内履歴へ退避し、現在のビルド・テスト対象を.1原文取得版へ復元。復元後Host／Mock326件成功。英語設定での実機再試験は書戻し後に実施し、旧設定の実績は流用しない。[復元結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/English_Keyboard_Retest_20261114/Restoration_Result_Rev0.md)。
+
+2026-11-14方針再指定: ユーザーが英語設定の調査はここまでとしてAltデコードで続行と指定。保存済み.2のC・テスト・両向き実機fixtureを復元、Host／Mock346件成功（skipなし）。実機への.2再配置・診断kind12受信と連続2読取を次工程とする。前の撤回・.1復元は当時の履歴として保持。[再開記録](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Resume_Result_Rev0.md)。
+
+## 2026-11-14 固定接続・継続送信候補の検証
+
+C FIFOの10000件周回順序、満杯時非上書き・drop・再利用、空読み時旧値非公開、同じCデコーダ200読取を検証対象へ追加。parserは新ストリーム版だけ生涯1024件制限を解除し、heartbeat/stage破損・seq gap・dropを検査。実機では固定QR接続の電源投入をRSTなしで複数回と20回以上の連続読取を確認する予定。Host成功を実機完了としない。[仕様](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Fixed_FW_20261114/Specification_Rev0.md)。
+
+
+## 2026-11-14 QR／7355の2基板・独立2経路構成（試験計画）
+
+ユーザー指示の新構成ではHost単体試験を基板別に行う。親リンクは各々の分割／連結・破損・旧起動・旧要求・取消・timeoutを確認し、同時入力と片側切断／再起動／受信あふれ時に他方の応答が混入しないことを検証する。ATE／NF55G Timing優先・Logger非blocking・取得だけでは補正書込みしない境界を維持。親GPIO／PIO資源・正式APIは未確定で、今回は試験計画のみ。既存354件やQR単体実績を新構成の試験成功と扱わない。[新構成・段階試験](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。

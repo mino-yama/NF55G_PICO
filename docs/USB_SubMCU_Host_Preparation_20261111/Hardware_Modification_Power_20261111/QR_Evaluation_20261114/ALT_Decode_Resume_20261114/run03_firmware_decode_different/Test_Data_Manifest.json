@@ -1,0 +1,18 @@
+[
+  {
+    "label": "A",
+    "text": "Aa0-012345678901234567890123456789Z",
+    "length": 35,
+    "image": "QR_A_35chars.png",
+    "image_sha256": "d036a0c8f7f9ca3c0bd4224a9cfa6768dc16244beb3139e865dd78b341f84203",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  },
+  {
+    "label": "B",
+    "text": "zZ9-987654321098765432109876543210a",
+    "length": 35,
+    "image": "QR_B_35chars.png",
+    "image_sha256": "5bcc0f021c0b67cfb4bdd1ea1a95c79b2426698ac801ebbf7e3c0571b427d262",
+    "independent_decode": "zxing-cpp 3.1.1 exact match"
+  }
+]

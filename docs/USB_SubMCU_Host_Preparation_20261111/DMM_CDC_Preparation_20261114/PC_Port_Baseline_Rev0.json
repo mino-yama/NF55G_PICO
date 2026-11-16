@@ -1,0 +1,10 @@
+[
+  {
+    "device": "COM22",
+    "description": "USB-SERIAL CH341 (COM22)",
+    "vid": 6790,
+    "pid": 21795,
+    "serial_number": "",
+    "location": "1-4.3"
+  }
+]

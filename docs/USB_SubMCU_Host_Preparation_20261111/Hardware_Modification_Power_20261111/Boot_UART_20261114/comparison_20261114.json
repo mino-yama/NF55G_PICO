@@ -1,0 +1,44 @@
+{
+  "runs": [
+    {
+      "run": "run01_power_on",
+      "raw_bytes": 309,
+      "sha256": "5c6318ae5489e74e9f5af79279e7555a003a5c23a31f22d29d4865f4b8d42ded",
+      "original_strict_parse": "failed",
+      "error": "invalid UART framing/truncated line",
+      "leading_bytes_hex": "00",
+      "body_bytes": 308,
+      "version": "qr-uart-20261111.1",
+      "board_id": "A06FEA01012EC137",
+      "seq": [
+        0,
+        1
+      ],
+      "init_failed_seen": false,
+      "original_capture_accepted": false
+    },
+    {
+      "run": "run02_rst",
+      "raw_bytes": 309,
+      "sha256": "5c6318ae5489e74e9f5af79279e7555a003a5c23a31f22d29d4865f4b8d42ded",
+      "original_strict_parse": "failed",
+      "error": "invalid UART framing/truncated line",
+      "leading_bytes_hex": "00",
+      "body_bytes": 308,
+      "version": "qr-uart-20261111.1",
+      "board_id": "A06FEA01012EC137",
+      "seq": [
+        0,
+        1
+      ],
+      "init_failed_seen": false,
+      "original_capture_accepted": false
+    }
+  ],
+  "bodies_identical": true,
+  "pio_init_success_proven": false,
+  "qr_tested": false,
+  "uart_clean_framing_pass": false,
+  "port_closed": true,
+  "note": "NUL原因未確定。先頭1byteを除いた派生解析で識別のみ確認。厳密パーサは変更しない。"
+}

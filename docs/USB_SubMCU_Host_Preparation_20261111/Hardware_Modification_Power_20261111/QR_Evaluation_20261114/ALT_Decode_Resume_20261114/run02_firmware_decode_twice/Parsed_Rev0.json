@@ -1,0 +1,6284 @@
+{
+  "status": "raw_capture_only",
+  "records": 783,
+  "errors": [],
+  "events": [
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d756172742d32303236313131342e32"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    },
+    {
+      "seq": 2,
+      "ms": 557,
+      "kind": "hid_mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "00003f00"
+    },
+    {
+      "seq": 3,
+      "ms": 557,
+      "kind": "report_descriptor",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+    },
+    {
+      "seq": 4,
+      "ms": 557,
+      "kind": "mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "51e80110"
+    },
+    {
+      "seq": 5,
+      "ms": 6165,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 6,
+      "ms": 6168,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 7,
+      "ms": 6171,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 8,
+      "ms": 6174,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 9,
+      "ms": 6177,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 10,
+      "ms": 6180,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 11,
+      "ms": 6183,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005e0000000000"
+    },
+    {
+      "seq": 12,
+      "ms": 6186,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 13,
+      "ms": 6189,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 14,
+      "ms": 6192,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 15,
+      "ms": 6195,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 16,
+      "ms": 6198,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 17,
+      "ms": 6201,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 18,
+      "ms": 6204,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 19,
+      "ms": 6207,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 20,
+      "ms": 6210,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 21,
+      "ms": 6213,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 22,
+      "ms": 6216,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400610000000000"
+    },
+    {
+      "seq": 23,
+      "ms": 6219,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 24,
+      "ms": 6222,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 25,
+      "ms": 6225,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 26,
+      "ms": 6228,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 27,
+      "ms": 6231,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 28,
+      "ms": 6234,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 29,
+      "ms": 6237,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 30,
+      "ms": 6240,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 31,
+      "ms": 6243,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 32,
+      "ms": 6246,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 33,
+      "ms": 6249,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005e0000000000"
+    },
+    {
+      "seq": 34,
+      "ms": 6252,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 35,
+      "ms": 6255,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005f0000000000"
+    },
+    {
+      "seq": 36,
+      "ms": 6258,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 37,
+      "ms": 6261,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 38,
+      "ms": 6264,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 39,
+      "ms": 6267,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 40,
+      "ms": 6270,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 41,
+      "ms": 6273,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 42,
+      "ms": 6276,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 43,
+      "ms": 6279,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 44,
+      "ms": 6282,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 45,
+      "ms": 6285,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 46,
+      "ms": 6288,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 47,
+      "ms": 6291,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 48,
+      "ms": 6294,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 49,
+      "ms": 6297,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 50,
+      "ms": 6300,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 51,
+      "ms": 6303,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 52,
+      "ms": 6306,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 53,
+      "ms": 6309,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 54,
+      "ms": 6312,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 55,
+      "ms": 6315,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 56,
+      "ms": 6318,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 57,
+      "ms": 6321,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 58,
+      "ms": 6324,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 59,
+      "ms": 6327,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 60,
+      "ms": 6330,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 61,
+      "ms": 6333,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 62,
+      "ms": 6336,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 63,
+      "ms": 6339,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 64,
+      "ms": 6342,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 65,
+      "ms": 6345,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 66,
+      "ms": 6348,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 67,
+      "ms": 6351,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 68,
+      "ms": 6354,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 69,
+      "ms": 6357,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 70,
+      "ms": 6360,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 71,
+      "ms": 6363,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 72,
+      "ms": 6366,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 73,
+      "ms": 6369,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 74,
+      "ms": 6372,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 75,
+      "ms": 6375,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 76,
+      "ms": 6378,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 77,
+      "ms": 6381,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 78,
+      "ms": 6384,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 79,
+      "ms": 6387,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 80,
+      "ms": 6390,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 81,
+      "ms": 6393,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 82,
+      "ms": 6396,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 83,
+      "ms": 6399,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 84,
+      "ms": 6402,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 85,
+      "ms": 6405,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 86,
+      "ms": 6408,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 87,
+      "ms": 6411,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 88,
+      "ms": 6414,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 89,
+      "ms": 6417,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 90,
+      "ms": 6420,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 91,
+      "ms": 6423,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 92,
+      "ms": 6426,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 93,
+      "ms": 6429,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 94,
+      "ms": 6432,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 95,
+      "ms": 6435,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 96,
+      "ms": 6438,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 97,
+      "ms": 6441,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 98,
+      "ms": 6444,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 99,
+      "ms": 6447,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 100,
+      "ms": 6450,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 101,
+      "ms": 6453,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 102,
+      "ms": 6456,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 103,
+      "ms": 6459,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 104,
+      "ms": 6462,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 105,
+      "ms": 6465,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 106,
+      "ms": 6468,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 107,
+      "ms": 6471,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 108,
+      "ms": 6474,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 109,
+      "ms": 6477,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 110,
+      "ms": 6480,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 111,
+      "ms": 6483,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 112,
+      "ms": 6486,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 113,
+      "ms": 6489,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 114,
+      "ms": 6492,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 115,
+      "ms": 6495,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 116,
+      "ms": 6498,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 117,
+      "ms": 6501,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 118,
+      "ms": 6504,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 119,
+      "ms": 6507,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 120,
+      "ms": 6510,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 121,
+      "ms": 6513,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 122,
+      "ms": 6516,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 123,
+      "ms": 6519,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 124,
+      "ms": 6522,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 125,
+      "ms": 6525,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 126,
+      "ms": 6528,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 127,
+      "ms": 6531,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 128,
+      "ms": 6534,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 129,
+      "ms": 6537,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 130,
+      "ms": 6540,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 131,
+      "ms": 6543,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 132,
+      "ms": 6546,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 133,
+      "ms": 6549,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 134,
+      "ms": 6552,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 135,
+      "ms": 6555,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 136,
+      "ms": 6558,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 137,
+      "ms": 6561,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 138,
+      "ms": 6564,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 139,
+      "ms": 6567,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 140,
+      "ms": 6570,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 141,
+      "ms": 6573,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 142,
+      "ms": 6576,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 143,
+      "ms": 6579,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 144,
+      "ms": 6582,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 145,
+      "ms": 6585,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 146,
+      "ms": 6588,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 147,
+      "ms": 6591,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 148,
+      "ms": 6594,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 149,
+      "ms": 6597,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 150,
+      "ms": 6600,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 151,
+      "ms": 6603,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 152,
+      "ms": 6606,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 153,
+      "ms": 6609,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 154,
+      "ms": 6612,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 155,
+      "ms": 6615,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 156,
+      "ms": 6618,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 157,
+      "ms": 6621,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 158,
+      "ms": 6624,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 159,
+      "ms": 6627,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 160,
+      "ms": 6630,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 161,
+      "ms": 6633,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 162,
+      "ms": 6636,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 163,
+      "ms": 6639,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 164,
+      "ms": 6642,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 165,
+      "ms": 6645,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 166,
+      "ms": 6648,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 167,
+      "ms": 6651,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 168,
+      "ms": 6654,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 169,
+      "ms": 6657,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 170,
+      "ms": 6660,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 171,
+      "ms": 6663,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 172,
+      "ms": 6666,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 173,
+      "ms": 6669,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 174,
+      "ms": 6672,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 175,
+      "ms": 6675,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 176,
+      "ms": 6678,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 177,
+      "ms": 6681,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 178,
+      "ms": 6684,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 179,
+      "ms": 6687,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 180,
+      "ms": 6690,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 181,
+      "ms": 6693,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 182,
+      "ms": 6696,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 183,
+      "ms": 6699,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 184,
+      "ms": 6702,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 185,
+      "ms": 6705,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 186,
+      "ms": 6708,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 187,
+      "ms": 6711,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 188,
+      "ms": 6714,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 189,
+      "ms": 6717,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 190,
+      "ms": 6720,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 191,
+      "ms": 6723,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 192,
+      "ms": 6726,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 193,
+      "ms": 6729,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 194,
+      "ms": 6732,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 195,
+      "ms": 6735,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 196,
+      "ms": 6738,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 197,
+      "ms": 6741,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 198,
+      "ms": 6744,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 199,
+      "ms": 6747,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 200,
+      "ms": 6750,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 201,
+      "ms": 6753,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 202,
+      "ms": 6756,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 203,
+      "ms": 6759,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 204,
+      "ms": 6762,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 205,
+      "ms": 6765,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 206,
+      "ms": 6768,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 207,
+      "ms": 6771,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 208,
+      "ms": 6774,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 209,
+      "ms": 6777,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 210,
+      "ms": 6780,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 211,
+      "ms": 6783,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 212,
+      "ms": 6786,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 213,
+      "ms": 6789,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 214,
+      "ms": 6792,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 215,
+      "ms": 6795,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 216,
+      "ms": 6798,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 217,
+      "ms": 6801,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 218,
+      "ms": 6804,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 219,
+      "ms": 6807,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 220,
+      "ms": 6810,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 221,
+      "ms": 6813,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 222,
+      "ms": 6816,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 223,
+      "ms": 6819,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 224,
+      "ms": 6822,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 225,
+      "ms": 6825,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 226,
+      "ms": 6828,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 227,
+      "ms": 6831,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 228,
+      "ms": 6834,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 229,
+      "ms": 6837,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 230,
+      "ms": 6840,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 231,
+      "ms": 6843,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 232,
+      "ms": 6846,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 233,
+      "ms": 6849,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 234,
+      "ms": 6852,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 235,
+      "ms": 6855,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 236,
+      "ms": 6858,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 237,
+      "ms": 6861,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 238,
+      "ms": 6864,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 239,
+      "ms": 6867,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 240,
+      "ms": 6870,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 241,
+      "ms": 6873,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 242,
+      "ms": 6876,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 243,
+      "ms": 6879,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 244,
+      "ms": 6882,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 245,
+      "ms": 6885,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 246,
+      "ms": 6888,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 247,
+      "ms": 6891,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 248,
+      "ms": 6894,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 249,
+      "ms": 6897,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 250,
+      "ms": 6900,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 251,
+      "ms": 6903,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 252,
+      "ms": 6906,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 253,
+      "ms": 6909,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 254,
+      "ms": 6912,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 255,
+      "ms": 6915,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 256,
+      "ms": 6918,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 257,
+      "ms": 6921,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 258,
+      "ms": 6924,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 259,
+      "ms": 6927,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 260,
+      "ms": 6930,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 261,
+      "ms": 6933,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 262,
+      "ms": 6936,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 263,
+      "ms": 6939,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 264,
+      "ms": 6942,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 265,
+      "ms": 6945,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 266,
+      "ms": 6948,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 267,
+      "ms": 6951,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 268,
+      "ms": 6954,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 269,
+      "ms": 6957,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 270,
+      "ms": 6960,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 271,
+      "ms": 6963,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 272,
+      "ms": 6966,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 273,
+      "ms": 6969,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 274,
+      "ms": 6972,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 275,
+      "ms": 6975,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 276,
+      "ms": 6978,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 277,
+      "ms": 6981,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 278,
+      "ms": 6984,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 279,
+      "ms": 6987,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 280,
+      "ms": 6990,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 281,
+      "ms": 6993,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 282,
+      "ms": 6996,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 283,
+      "ms": 6999,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 284,
+      "ms": 7002,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 285,
+      "ms": 7005,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 286,
+      "ms": 7008,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 287,
+      "ms": 7011,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 288,
+      "ms": 7014,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 289,
+      "ms": 7017,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 290,
+      "ms": 7020,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 291,
+      "ms": 7023,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 292,
+      "ms": 7026,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 293,
+      "ms": 7029,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 294,
+      "ms": 7032,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 295,
+      "ms": 7035,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 296,
+      "ms": 7038,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 297,
+      "ms": 7041,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 298,
+      "ms": 7044,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 299,
+      "ms": 7047,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 300,
+      "ms": 7050,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 301,
+      "ms": 7053,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 302,
+      "ms": 7056,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 303,
+      "ms": 7059,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 304,
+      "ms": 7062,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 305,
+      "ms": 7065,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 306,
+      "ms": 7068,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 307,
+      "ms": 7071,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 308,
+      "ms": 7074,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 309,
+      "ms": 7077,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 310,
+      "ms": 7080,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 311,
+      "ms": 7083,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 312,
+      "ms": 7086,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 313,
+      "ms": 7089,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 314,
+      "ms": 7092,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 315,
+      "ms": 7095,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 316,
+      "ms": 7098,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 317,
+      "ms": 7101,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 318,
+      "ms": 7104,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 319,
+      "ms": 7107,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 320,
+      "ms": 7110,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 321,
+      "ms": 7113,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 322,
+      "ms": 7116,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 323,
+      "ms": 7119,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 324,
+      "ms": 7122,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 325,
+      "ms": 7125,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 326,
+      "ms": 7128,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 327,
+      "ms": 7131,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 328,
+      "ms": 7134,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 329,
+      "ms": 7137,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 330,
+      "ms": 7140,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 331,
+      "ms": 7143,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 332,
+      "ms": 7146,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400610000000000"
+    },
+    {
+      "seq": 333,
+      "ms": 7149,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 334,
+      "ms": 7152,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 335,
+      "ms": 7155,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 336,
+      "ms": 7158,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 337,
+      "ms": 7161,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 338,
+      "ms": 7164,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 339,
+      "ms": 7167,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 340,
+      "ms": 7170,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 341,
+      "ms": 7173,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 342,
+      "ms": 7176,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 343,
+      "ms": 7179,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 344,
+      "ms": 7182,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 345,
+      "ms": 7185,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 346,
+      "ms": 7188,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 347,
+      "ms": 7191,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 348,
+      "ms": 7194,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 349,
+      "ms": 7197,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 350,
+      "ms": 7200,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 351,
+      "ms": 7203,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 352,
+      "ms": 7206,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 353,
+      "ms": 7209,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 354,
+      "ms": 7212,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400590000000000"
+    },
+    {
+      "seq": 355,
+      "ms": 7215,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 356,
+      "ms": 7218,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 357,
+      "ms": 7221,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 358,
+      "ms": 7224,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 359,
+      "ms": 7227,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 360,
+      "ms": 7230,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 361,
+      "ms": 7233,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 362,
+      "ms": 7236,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 363,
+      "ms": 7239,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 364,
+      "ms": 7242,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 365,
+      "ms": 7245,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005a0000000000"
+    },
+    {
+      "seq": 366,
+      "ms": 7248,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 367,
+      "ms": 7251,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 368,
+      "ms": 7254,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 369,
+      "ms": 7257,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 370,
+      "ms": 7260,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 371,
+      "ms": 7263,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 372,
+      "ms": 7266,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 373,
+      "ms": 7269,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 374,
+      "ms": 7272,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 375,
+      "ms": 7275,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 376,
+      "ms": 7278,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005b0000000000"
+    },
+    {
+      "seq": 377,
+      "ms": 7281,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 378,
+      "ms": 7284,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 379,
+      "ms": 7287,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 380,
+      "ms": 7290,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 381,
+      "ms": 7293,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 382,
+      "ms": 7296,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 383,
+      "ms": 7299,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 384,
+      "ms": 7302,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 385,
+      "ms": 7305,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 386,
+      "ms": 7308,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 387,
+      "ms": 7311,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 388,
+      "ms": 7314,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 389,
+      "ms": 7317,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 390,
+      "ms": 7320,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000280000000000"
+    },
+    {
+      "seq": 391,
+      "ms": 7320,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4162432d30303030303030303030303030303030303030303030303030313233343536"
+    },
+    {
+      "seq": 392,
+      "ms": 7323,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 393,
+      "ms": 7326,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 394,
+      "ms": 12483,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 395,
+      "ms": 12486,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 396,
+      "ms": 12489,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 397,
+      "ms": 12492,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 398,
+      "ms": 12495,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 399,
+      "ms": 12498,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 400,
+      "ms": 12501,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005e0000000000"
+    },
+    {
+      "seq": 401,
+      "ms": 12504,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 402,
+      "ms": 12507,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 403,
+      "ms": 12510,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 404,
+      "ms": 12513,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 405,
+      "ms": 12516,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 406,
+      "ms": 12519,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 407,
+      "ms": 12522,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 408,
+      "ms": 12525,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 409,
+      "ms": 12528,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 410,
+      "ms": 12531,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 411,
+      "ms": 12534,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400610000000000"
+    },
+    {
+      "seq": 412,
+      "ms": 12537,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 413,
+      "ms": 12540,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 414,
+      "ms": 12543,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 415,
+      "ms": 12546,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 416,
+      "ms": 12549,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 417,
+      "ms": 12552,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 418,
+      "ms": 12555,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 419,
+      "ms": 12558,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 420,
+      "ms": 12561,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 421,
+      "ms": 12564,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 422,
+      "ms": 12567,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005e0000000000"
+    },
+    {
+      "seq": 423,
+      "ms": 12570,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 424,
+      "ms": 12573,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005f0000000000"
+    },
+    {
+      "seq": 425,
+      "ms": 12576,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 426,
+      "ms": 12579,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 427,
+      "ms": 12582,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 428,
+      "ms": 12585,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 429,
+      "ms": 12588,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 430,
+      "ms": 12591,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 431,
+      "ms": 12594,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 432,
+      "ms": 12597,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 433,
+      "ms": 12600,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 434,
+      "ms": 12603,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 435,
+      "ms": 12606,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 436,
+      "ms": 12609,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 437,
+      "ms": 12612,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 438,
+      "ms": 12615,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 439,
+      "ms": 12618,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 440,
+      "ms": 12621,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 441,
+      "ms": 12624,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 442,
+      "ms": 12627,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 443,
+      "ms": 12630,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 444,
+      "ms": 12633,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 445,
+      "ms": 12636,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 446,
+      "ms": 12639,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 447,
+      "ms": 12642,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 448,
+      "ms": 12645,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 449,
+      "ms": 12648,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 450,
+      "ms": 12651,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 451,
+      "ms": 12654,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 452,
+      "ms": 12657,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 453,
+      "ms": 12660,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 454,
+      "ms": 12663,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 455,
+      "ms": 12666,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 456,
+      "ms": 12669,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 457,
+      "ms": 12672,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 458,
+      "ms": 12675,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 459,
+      "ms": 12678,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 460,
+      "ms": 12681,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 461,
+      "ms": 12684,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 462,
+      "ms": 12687,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 463,
+      "ms": 12690,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 464,
+      "ms": 12693,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 465,
+      "ms": 12696,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 466,
+      "ms": 12699,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 467,
+      "ms": 12702,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 468,
+      "ms": 12705,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 469,
+      "ms": 12708,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 470,
+      "ms": 12711,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 471,
+      "ms": 12714,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 472,
+      "ms": 12717,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 473,
+      "ms": 12720,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 474,
+      "ms": 12723,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 475,
+      "ms": 12726,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 476,
+      "ms": 12729,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 477,
+      "ms": 12732,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 478,
+      "ms": 12735,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 479,
+      "ms": 12738,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 480,
+      "ms": 12741,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 481,
+      "ms": 12744,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 482,
+      "ms": 12747,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 483,
+      "ms": 12750,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 484,
+      "ms": 12753,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 485,
+      "ms": 12756,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 486,
+      "ms": 12759,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 487,
+      "ms": 12762,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 488,
+      "ms": 12765,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 489,
+      "ms": 12768,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 490,
+      "ms": 12771,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 491,
+      "ms": 12774,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 492,
+      "ms": 12777,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 493,
+      "ms": 12780,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 494,
+      "ms": 12783,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 495,
+      "ms": 12786,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 496,
+      "ms": 12789,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 497,
+      "ms": 12792,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 498,
+      "ms": 12795,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 499,
+      "ms": 12798,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 500,
+      "ms": 12801,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 501,
+      "ms": 12804,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 502,
+      "ms": 12807,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 503,
+      "ms": 12810,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 504,
+      "ms": 12813,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 505,
+      "ms": 12816,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 506,
+      "ms": 12819,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 507,
+      "ms": 12822,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 508,
+      "ms": 12825,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 509,
+      "ms": 12828,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 510,
+      "ms": 12831,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 511,
+      "ms": 12834,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 512,
+      "ms": 12837,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 513,
+      "ms": 12840,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 514,
+      "ms": 12843,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 515,
+      "ms": 12846,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 516,
+      "ms": 12849,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 517,
+      "ms": 12852,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 518,
+      "ms": 12855,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 519,
+      "ms": 12858,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 520,
+      "ms": 12861,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 521,
+      "ms": 12864,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 522,
+      "ms": 12867,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 523,
+      "ms": 12870,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 524,
+      "ms": 12873,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 525,
+      "ms": 12876,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 526,
+      "ms": 12879,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 527,
+      "ms": 12882,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 528,
+      "ms": 12885,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 529,
+      "ms": 12888,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 530,
+      "ms": 12891,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 531,
+      "ms": 12894,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 532,
+      "ms": 12897,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 533,
+      "ms": 12900,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 534,
+      "ms": 12903,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 535,
+      "ms": 12906,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 536,
+      "ms": 12909,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 537,
+      "ms": 12912,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 538,
+      "ms": 12915,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 539,
+      "ms": 12918,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 540,
+      "ms": 12921,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 541,
+      "ms": 12924,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 542,
+      "ms": 12927,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 543,
+      "ms": 12930,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 544,
+      "ms": 12933,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 545,
+      "ms": 12936,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 546,
+      "ms": 12939,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 547,
+      "ms": 12942,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 548,
+      "ms": 12945,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 549,
+      "ms": 12948,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 550,
+      "ms": 12951,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 551,
+      "ms": 12954,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 552,
+      "ms": 12957,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 553,
+      "ms": 12960,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 554,
+      "ms": 12963,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 555,
+      "ms": 12966,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 556,
+      "ms": 12969,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 557,
+      "ms": 12972,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 558,
+      "ms": 12975,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 559,
+      "ms": 12978,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 560,
+      "ms": 12981,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 561,
+      "ms": 12984,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 562,
+      "ms": 12987,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 563,
+      "ms": 12990,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 564,
+      "ms": 12993,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 565,
+      "ms": 12996,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 566,
+      "ms": 12999,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 567,
+      "ms": 13002,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 568,
+      "ms": 13005,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 569,
+      "ms": 13008,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 570,
+      "ms": 13011,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 571,
+      "ms": 13014,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 572,
+      "ms": 13017,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 573,
+      "ms": 13020,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 574,
+      "ms": 13023,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 575,
+      "ms": 13026,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 576,
+      "ms": 13029,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 577,
+      "ms": 13032,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 578,
+      "ms": 13035,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 579,
+      "ms": 13038,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 580,
+      "ms": 13041,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 581,
+      "ms": 13044,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 582,
+      "ms": 13047,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 583,
+      "ms": 13050,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 584,
+      "ms": 13053,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 585,
+      "ms": 13056,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 586,
+      "ms": 13059,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 587,
+      "ms": 13062,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 588,
+      "ms": 13065,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 589,
+      "ms": 13068,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 590,
+      "ms": 13071,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 591,
+      "ms": 13074,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 592,
+      "ms": 13077,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 593,
+      "ms": 13080,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 594,
+      "ms": 13083,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 595,
+      "ms": 13086,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 596,
+      "ms": 13089,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 597,
+      "ms": 13092,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 598,
+      "ms": 13095,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 599,
+      "ms": 13098,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 600,
+      "ms": 13101,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 601,
+      "ms": 13104,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 602,
+      "ms": 13107,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 603,
+      "ms": 13110,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 604,
+      "ms": 13113,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 605,
+      "ms": 13116,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 606,
+      "ms": 13119,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 607,
+      "ms": 13122,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 608,
+      "ms": 13125,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 609,
+      "ms": 13128,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 610,
+      "ms": 13131,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 611,
+      "ms": 13134,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 612,
+      "ms": 13137,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 613,
+      "ms": 13140,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 614,
+      "ms": 13143,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 615,
+      "ms": 13146,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 616,
+      "ms": 13149,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 617,
+      "ms": 13152,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 618,
+      "ms": 13155,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 619,
+      "ms": 13158,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 620,
+      "ms": 13161,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 621,
+      "ms": 13164,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 622,
+      "ms": 13167,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 623,
+      "ms": 13170,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 624,
+      "ms": 13173,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 625,
+      "ms": 13176,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 626,
+      "ms": 13179,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 627,
+      "ms": 13182,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 628,
+      "ms": 13185,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 629,
+      "ms": 13188,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 630,
+      "ms": 13191,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 631,
+      "ms": 13194,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 632,
+      "ms": 13197,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 633,
+      "ms": 13200,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 634,
+      "ms": 13203,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 635,
+      "ms": 13206,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 636,
+      "ms": 13209,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 637,
+      "ms": 13212,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 638,
+      "ms": 13215,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 639,
+      "ms": 13218,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 640,
+      "ms": 13221,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 641,
+      "ms": 13224,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 642,
+      "ms": 13227,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 643,
+      "ms": 13230,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 644,
+      "ms": 13233,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 645,
+      "ms": 13236,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 646,
+      "ms": 13239,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 647,
+      "ms": 13242,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 648,
+      "ms": 13245,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 649,
+      "ms": 13248,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 650,
+      "ms": 13251,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 651,
+      "ms": 13254,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 652,
+      "ms": 13257,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 653,
+      "ms": 13260,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 654,
+      "ms": 13263,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 655,
+      "ms": 13266,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 656,
+      "ms": 13269,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 657,
+      "ms": 13272,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 658,
+      "ms": 13275,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 659,
+      "ms": 13278,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 660,
+      "ms": 13281,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 661,
+      "ms": 13284,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 662,
+      "ms": 13287,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 663,
+      "ms": 13290,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 664,
+      "ms": 13293,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 665,
+      "ms": 13296,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 666,
+      "ms": 13299,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 667,
+      "ms": 13302,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 668,
+      "ms": 13305,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 669,
+      "ms": 13308,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 670,
+      "ms": 13311,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 671,
+      "ms": 13314,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 672,
+      "ms": 13317,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 673,
+      "ms": 13320,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 674,
+      "ms": 13323,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 675,
+      "ms": 13326,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 676,
+      "ms": 13329,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 677,
+      "ms": 13332,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 678,
+      "ms": 13335,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 679,
+      "ms": 13338,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 680,
+      "ms": 13341,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 681,
+      "ms": 13344,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 682,
+      "ms": 13347,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 683,
+      "ms": 13350,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 684,
+      "ms": 13353,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 685,
+      "ms": 13356,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 686,
+      "ms": 13359,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 687,
+      "ms": 13362,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 688,
+      "ms": 13365,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 689,
+      "ms": 13368,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 690,
+      "ms": 13371,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 691,
+      "ms": 13374,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 692,
+      "ms": 13377,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 693,
+      "ms": 13380,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 694,
+      "ms": 13383,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 695,
+      "ms": 13386,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 696,
+      "ms": 13389,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 697,
+      "ms": 13392,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 698,
+      "ms": 13395,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 699,
+      "ms": 13398,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 700,
+      "ms": 13401,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 701,
+      "ms": 13404,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 702,
+      "ms": 13407,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 703,
+      "ms": 13410,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 704,
+      "ms": 13413,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 705,
+      "ms": 13416,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 706,
+      "ms": 13419,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 707,
+      "ms": 13422,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 708,
+      "ms": 13425,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 709,
+      "ms": 13428,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 710,
+      "ms": 13431,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 711,
+      "ms": 13434,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 712,
+      "ms": 13437,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 713,
+      "ms": 13440,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 714,
+      "ms": 13443,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 715,
+      "ms": 13446,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 716,
+      "ms": 13449,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 717,
+      "ms": 13452,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 718,
+      "ms": 13455,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 719,
+      "ms": 13458,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 720,
+      "ms": 13461,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 721,
+      "ms": 13464,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400610000000000"
+    },
+    {
+      "seq": 722,
+      "ms": 13467,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 723,
+      "ms": 13470,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 724,
+      "ms": 13473,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 725,
+      "ms": 13476,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 726,
+      "ms": 13479,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 727,
+      "ms": 13482,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 728,
+      "ms": 13485,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 729,
+      "ms": 13488,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 730,
+      "ms": 13491,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 731,
+      "ms": 13494,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 732,
+      "ms": 13497,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 733,
+      "ms": 13500,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 734,
+      "ms": 13503,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 735,
+      "ms": 13506,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 736,
+      "ms": 13509,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 737,
+      "ms": 13512,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 738,
+      "ms": 13515,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 739,
+      "ms": 13518,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 740,
+      "ms": 13521,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 741,
+      "ms": 13524,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 742,
+      "ms": 13527,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 743,
+      "ms": 13530,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400590000000000"
+    },
+    {
+      "seq": 744,
+      "ms": 13533,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 745,
+      "ms": 13536,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 746,
+      "ms": 13539,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 747,
+      "ms": 13542,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 748,
+      "ms": 13545,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 749,
+      "ms": 13548,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 750,
+      "ms": 13551,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 751,
+      "ms": 13554,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 752,
+      "ms": 13557,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 753,
+      "ms": 13560,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 754,
+      "ms": 13563,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005a0000000000"
+    },
+    {
+      "seq": 755,
+      "ms": 13566,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 756,
+      "ms": 13569,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 757,
+      "ms": 13572,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 758,
+      "ms": 13575,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 759,
+      "ms": 13578,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 760,
+      "ms": 13581,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 761,
+      "ms": 13584,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 762,
+      "ms": 13587,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 763,
+      "ms": 13590,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 764,
+      "ms": 13593,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 765,
+      "ms": 13596,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005b0000000000"
+    },
+    {
+      "seq": 766,
+      "ms": 13599,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 767,
+      "ms": 13602,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 768,
+      "ms": 13605,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 769,
+      "ms": 13608,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 770,
+      "ms": 13611,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 771,
+      "ms": 13614,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 772,
+      "ms": 13617,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 773,
+      "ms": 13620,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 774,
+      "ms": 13623,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 775,
+      "ms": 13626,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 776,
+      "ms": 13629,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 777,
+      "ms": 13632,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 778,
+      "ms": 13635,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 779,
+      "ms": 13638,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000280000000000"
+    },
+    {
+      "seq": 780,
+      "ms": 13638,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4162432d30303030303030303030303030303030303030303030303030313233343536"
+    },
+    {
+      "seq": 781,
+      "ms": 13641,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 782,
+      "ms": 13644,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    }
+  ],
+  "qr_text_verified": false,
+  "hardware_acceptance": false,
+  "transport": "UART",
+  "dropped": null,
+  "tail_completeness": "not_proven",
+  "record_capacity": 1024,
+  "source_sha256": "08e499a903b511c014293c321d9add40cf3ee89fd0d58beac5de5af7def73390",
+  "source_bytes": 120583,
+  "startup_prefix_hex": "00",
+  "original_framing_clean": false,
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ]
+}

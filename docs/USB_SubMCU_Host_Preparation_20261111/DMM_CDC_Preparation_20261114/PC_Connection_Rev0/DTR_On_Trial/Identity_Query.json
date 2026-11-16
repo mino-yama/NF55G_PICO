@@ -1,0 +1,12 @@
+{
+  "time": "2026-11-14T17:28:18.753780+09:00",
+  "baudrate_trial": 9600,
+  "format": "8N1",
+  "dtr": true,
+  "rts": false,
+  "purpose": "Compare DTR ON after DTR OFF write timeout; identification query only. Prior write completion unknown.",
+  "pre_rx_hex": "",
+  "pre_rx_ascii": "",
+  "error": "SerialTimeoutException('Write timeout')",
+  "port_closed_after": true
+}

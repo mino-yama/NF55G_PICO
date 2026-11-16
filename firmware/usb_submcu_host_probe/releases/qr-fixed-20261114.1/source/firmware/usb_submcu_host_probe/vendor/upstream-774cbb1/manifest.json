@@ -1,0 +1,72 @@
+[
+  {
+    "file": "CMakeLists.txt",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/CMakeLists.txt",
+    "sha256": "fef6672def30614280baed069e4a4377c613aa6be83bf0468077ae7edbbf1d6e"
+  },
+  {
+    "file": "LICENSE",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/LICENSE",
+    "sha256": "552320d7937c0ef4bde067b2905d6331e3dd9bba1ff726b2d34d8edcdc9dbc76"
+  },
+  {
+    "file": "README.md",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/README.md",
+    "sha256": "acc7316f710c91127c89da1572e691776d8fe9f5521979fbdef00b504519b997"
+  },
+  {
+    "file": "src/pio_usb.c",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb.c",
+    "sha256": "29a1f890928f85c25beab644f55b2152bec53bb1d0cc12e1893fed45a6d364d6"
+  },
+  {
+    "file": "src/pio_usb.h",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb.h",
+    "sha256": "8c1f21d2a81da8acfa4717ca6bb44be9d5e1c5d73285fa2cf6dc7a51a772ade8"
+  },
+  {
+    "file": "src/pio_usb_configuration.h",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_configuration.h",
+    "sha256": "6856bbeac5cdcabb66468b881fb8457974891ad58dd2ccfe2ed969c3d735664b"
+  },
+  {
+    "file": "src/pio_usb_device.c",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_device.c",
+    "sha256": "4298b8d434d2fa3b5c2a8fe698e8ff7f2ff58c32550d7862bbbd30d7421f5a0a"
+  },
+  {
+    "file": "src/pio_usb_host.c",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_host.c",
+    "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3"
+  },
+  {
+    "file": "src/pio_usb_ll.h",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/pio_usb_ll.h",
+    "sha256": "b96c4a6d09bb615c48ed2adffbea026461f8b334321fc32b182ec198eec42d98"
+  },
+  {
+    "file": "src/usb_crc.c",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_crc.c",
+    "sha256": "a64362222038c41a6a54f5194ad95465a2ab98603c164ab6a5242cf022de09b3"
+  },
+  {
+    "file": "src/usb_crc.h",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_crc.h",
+    "sha256": "3d762983af3ea1a7d8b9e32c8524c03c1453336095b20e8a56ef69e9a82b9b33"
+  },
+  {
+    "file": "src/usb_definitions.h",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_definitions.h",
+    "sha256": "1d043588d52c99711a2b60a4347adfcf8421988783d33a0c73b77190028d89f6"
+  },
+  {
+    "file": "src/usb_rx.pio",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_rx.pio",
+    "sha256": "ce52be19f93eb73c6754743882cf324aa23a9f748519459a40d70e3f13a59c37"
+  },
+  {
+    "file": "src/usb_tx.pio",
+    "url": "https://raw.githubusercontent.com/waveshareteam/RP2350-USB-C/774cbb1e8ecc9d5cc8474ba9feb90a0939047f3b/examples/C/01_USB/src/usb_tx.pio",
+    "sha256": "802ab5a326108f029a7aa0145750d19bc036243a78c25d4b93567f962721c921"
+  }
+]

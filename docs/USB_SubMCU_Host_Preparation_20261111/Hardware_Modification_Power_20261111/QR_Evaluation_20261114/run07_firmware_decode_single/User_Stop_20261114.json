@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-14",
+  "capture_stopped": true,
+  "captured_bytes": 0,
+  "alt_decoder_hardware_test_completed": false,
+  "reason": "ユーザーが待機を指示。QRのAlt設定を英語キーボードへ変更し、Alt処理不要・プログラム復元・再試験を指定"
+}

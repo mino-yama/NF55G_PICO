@@ -1,0 +1,8 @@
+LIBRARY qr_decoder_native.dll
+
+EXPORTS
+qr_alt_decoder_feed
+qr_alt_decoder_init
+qr_alt_decoder_poll
+qr_alt_profile_supported
+qr_alt_test_state_size

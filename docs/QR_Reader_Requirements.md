@@ -1,5 +1,7 @@
 # QRコード読取・書込み連携要件
 
+2026-11-14最新確定指示: QRもDMM同様、読取り→Cache保存・ATE返却→ATE確認→別の明示書込み指令でCache値をNF55G書込みへ付加する。取得のみで書かず、書込み時に再取得しない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。SS保留解除時期と未回答のフィールド変換規則を推定せず、読取単体だけを全体開発完了としない。
+
 2026-11-11試行分離: ユーザー指定によりQRを次試行へ引き継がず、再試験でも当該試行で再取得・明示SS実行とする。現行共通入口では、受付済みTEST_STARTごとに旧QRReceiver状態とログ用S/Nを失効させる実装を追加した。前試行のQR履歴は旧CSVに残す。新USB下位UARTの旧要求・遅延応答を試行／要求IDで除外する部分は結合時に実装する。SS開発は保留し、空シリアルの無送信エラーは確定要求として保持するが、今回はSS入口・変換・拒否処理を新設しない。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。
 
 2026-11-10追記: 指定基板Waveshare RP2350-USB-CでQRとDMMのUSB処理を集約し、治具Pico 2と双方向UARTで共有する。[開発準備資料](USB_Host_SubMCU_Integration_Plan_20261110.md)参照。既存GP9のPIO受信試作は送信機能を持たず、新リンクのフレーム分離・PIO TXを別途設計する。以降の旧ホスト接続は履歴。正式QR API／Cache・SS対応、今回機器での実機成立は未確定のまま。
@@ -96,3 +98,15 @@ OI-14/OI-23はOpenを維持する。2026-09-26ユーザー指示でQR単独受�
 ## 2026-11-09 ログ命名についてのユーザー確定事項
 
 TEST_START後にQRを読み、末尾6桁の製造番号をS/Nとしてログ名に使用する。形式はSSSSSS_YYYYMMDD_HHMMSS.csv、日時は試験開始時。先頭ゼロを保持する。未取得・不正時は日時名を維持する。終了時に命名を確定する共通コアを実装し、物理QR受信と正式ATEコマンドの統合は引き続き未実施。SSのフィールド対応やQR→UNIT_SERIAL変換をこの決定から推測しない。
+
+## 2026-11-14 新HOST基板内の診断復元準備
+
+Type_C2 QRの実機HIDに合わせ、HOST基板内でAlt＋テンキー5桁から35文字を復元する診断Cモジュールを準備。英数字・ハイフンと35文字＋Enterを満たす時だけ完成原文を出し、途中異常・切断・暫定timeoutで断片を公開しない。これはUSB-SUB-01の限定診断実装で、正式QR_SCAN／GET／Cache／SSや親子UARTの確定・統合ではない。[適用範囲・検証](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Decoder_FW_20261114/Specification_Rev0.md)。旧配布物と過去の未実装記録は当時の履歴として保持する。
+
+## 2026-11-14 QRリーダーを英語キーボード設定へ変更
+
+ユーザーがAlt設定を英語キーボードへ変更したと回答し、Alt処理を不要として原文取得版への復元・再試験を指定。新設定のHID形式・配列・suffixは再取得後に評価する。先のAlt数字列の両向き実績やCデコーダ試作は当時の履歴とし、現在の採用仕様にはしない。[復元と次工程](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/English_Keyboard_Retest_20261114/Restoration_Result_Rev0.md)。
+
+## 2026-11-14 Alt入力の復元を用いて続行する指定
+
+英語キーボードへの切替え調査はここまでとし、ユーザーがAlt方式をデコードする方法で続行と指定。実機で得た形式に限定する.2診断Cデコーダを再採用する。QR側の全設定初期化は行わず、正式API／Cache／SSへの統合・タイムアウトの正式仕様は未確定のまま保持。[適用範囲・検証](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/ALT_Decode_Resume_20261114/Resume_Result_Rev0.md)。

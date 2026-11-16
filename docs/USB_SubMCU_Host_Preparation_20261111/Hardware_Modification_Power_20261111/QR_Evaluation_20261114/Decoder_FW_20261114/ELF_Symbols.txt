@@ -1,0 +1,10 @@
+
+20002ae0 00013014 B g_probe
+10000280 000000d8 t pump_uart
+10000bc0 00000372 T qr_alt_decoder_feed
+10000b78 00000008 T qr_alt_decoder_init
+10000b80 0000003e T qr_alt_decoder_poll
+10000b3c 0000003c T qr_alt_profile_supported
+200168f0 00000034 b qr_decoder
+10001d50 00000104 T uart_init
+

@@ -1,0 +1,18 @@
+{
+  "DeviceDesc": "@usbser.inf,%usbserial.devicedesc%;USB シリアル デバイス",
+  "HardwareID": [
+    "USB\\VID_1334&PID_0309&REV_0100",
+    "USB\\VID_1334&PID_0309"
+  ],
+  "CompatibleIDs": [
+    "USB\\COMPAT_VID_1334&Class_02&SubClass_02&Prot_01",
+    "USB\\COMPAT_VID_1334&Class_02&SubClass_02",
+    "USB\\COMPAT_VID_1334&Class_02",
+    "USB\\Class_02&SubClass_02&Prot_01",
+    "USB\\Class_02&SubClass_02",
+    "USB\\Class_02"
+  ],
+  "Service": "usbser",
+  "Mfg": "@usbser.inf,%msft%;Microsoft",
+  "FriendlyName": "USB シリアル デバイス (COM24)"
+}

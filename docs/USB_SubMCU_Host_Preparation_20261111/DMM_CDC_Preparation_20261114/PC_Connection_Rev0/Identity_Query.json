@@ -1,0 +1,29 @@
+{
+  "time": "2026-11-14T17:27:57.502089+09:00",
+  "ports": [
+    {
+      "device": "COM22",
+      "description": "USB-SERIAL CH341 (COM22)",
+      "vid": 6790,
+      "pid": 21795,
+      "serial_number": "",
+      "location": "1-4.3"
+    },
+    {
+      "device": "COM24",
+      "description": "USB シリアル デバイス (COM24)",
+      "vid": 4916,
+      "pid": 777,
+      "serial_number": "24641007200",
+      "location": "1-4.1"
+    }
+  ],
+  "command_ascii": "*IDN?\r\n",
+  "baudrate_trial": 9600,
+  "format": "8N1",
+  "dtr": false,
+  "rts": false,
+  "note": "PC-only identification trial; CDC line coding and CRLF acceptance are observations, not finalized Host specification.",
+  "pre_rx_hex": "",
+  "error": "SerialTimeoutException('Write timeout')"
+}

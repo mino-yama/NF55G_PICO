@@ -1,0 +1,12 @@
+{
+  "new_records": 393,
+  "hid_reports": 388,
+  "hid_payloads_identical_to_previous_alt_capture": true,
+  "modifier_values": [
+    0,
+    4
+  ],
+  "fw_version_hex": "71722d756172742d32303236313131342e31",
+  "errors": [],
+  "english_direct_key_output_confirmed": false
+}

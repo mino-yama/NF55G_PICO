@@ -1,0 +1,13 @@
+{
+  "port": "COM22",
+  "vid": 6790,
+  "pid": 21795,
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "flow_control": false,
+  "tx_bytes": 0,
+  "rx_bytes": 309,
+  "elapsed_seconds": 46.422,
+  "port_closed": true
+}

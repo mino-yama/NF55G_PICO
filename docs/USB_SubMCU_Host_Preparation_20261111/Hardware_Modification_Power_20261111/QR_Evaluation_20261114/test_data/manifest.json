@@ -1,0 +1,11 @@
+{
+  "generator": "qrcode 8.2",
+  "payload": "AbC-0000000000000000000000000123456",
+  "ascii_bytes": 35,
+  "qr_version": 3,
+  "error_correction": "M",
+  "quiet_zone_modules": 4,
+  "png_sha256": "a389c552f85761ccb4b0071c87748a09257c47780f17da58e2e63f4f25cd182c",
+  "expected_payload_sha256": "eff24b99c496f54e5189fe06ddd666d43b930504c812c358221245049babfa73",
+  "independent_decode_performed": false
+}

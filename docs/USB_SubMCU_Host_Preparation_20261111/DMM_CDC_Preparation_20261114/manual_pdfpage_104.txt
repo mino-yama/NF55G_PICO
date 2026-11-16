@@ -1,0 +1,47 @@
+7355 Digital Multimeter Operation Manual
+6.4 USB
+6-10
+6.4
+USB
+6.4.1
+Overview
+The 7355 is equipped with USB (Universal Serial Bus) conforming to USB 2.0 standard.
+USB allows function settings and reading of measurement data with respect to multiple instruments
+connected to the bus from a PC, making it simple to configure an automated measurement system.
+Also, USB also supports USB CDC, it can be used as a virtual COM port.
+NOTE:
+All operations using a PC or hub cannot be always guaranteed
+6.4.2
+USB Specifications
+•
+Standard:
+Complies with USB2.0 Full-Speed
+•
+Connectors:
+USB type B (female)
+•
+ID:
+USB ID, settable from 1 to 127
+•
+Remote/Local:
+Available
+•
+Input commands:
+Function setting and query with ASCII character string commands
+•
+Output format:
+Measurement data and query response in ASCII character strings or 
+binary format.
+•
+Driver:
+ADC instruments USB driver
+•
+Class:
+USB TMC and USB CDC
+6.4.3
+USB Setting
+6.4.3.1
+Connecting with Personal Computer
+Connect the USB connector (type B) on the rear of the 7355 to that on a personal computer with a cable.
+Fully insert all connectors.
+Use a USB hub to connect multiple instruments to a single personal computer.

@@ -1,0 +1,129 @@
+{
+  "interim": true,
+  "source_bytes_at_inspection": 61756,
+  "source_sha256_at_inspection": "a49619e83a20fb016ef1195d744f97100e182a97072555e2f223488a560a9350",
+  "diagnostic_only": true,
+  "not_strict_single_boot_validation": true,
+  "nul_prefix_line_indexes": [
+    0,
+    5
+  ],
+  "counts": {
+    "boot": 2,
+    "board_id": 2,
+    "hid_mount": 2,
+    "report_descriptor": 2,
+    "mount": 2,
+    "hid_report": 388,
+    "qr_text": 1,
+    "unmount": 1,
+    "hid_unmount": 1
+  },
+  "non_report_events": [
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d756172742d32303236313131342e32"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    },
+    {
+      "seq": 2,
+      "ms": 557,
+      "kind": "hid_mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "00003f00"
+    },
+    {
+      "seq": 3,
+      "ms": 557,
+      "kind": "report_descriptor",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+    },
+    {
+      "seq": 4,
+      "ms": 557,
+      "kind": "mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "51e80110"
+    },
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d756172742d32303236313131342e32"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    },
+    {
+      "seq": 2,
+      "ms": 557,
+      "kind": "hid_mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "00003f00"
+    },
+    {
+      "seq": 3,
+      "ms": 557,
+      "kind": "report_descriptor",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+    },
+    {
+      "seq": 4,
+      "ms": 557,
+      "kind": "mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "51e80110"
+    },
+    {
+      "seq": 391,
+      "ms": 17925,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4161302d3031323334353637383930313233343536373839303132333435363738395a"
+    },
+    {
+      "seq": 394,
+      "ms": 31497,
+      "kind": "unmount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": ""
+    },
+    {
+      "seq": 395,
+      "ms": 31497,
+      "kind": "hid_unmount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": ""
+    }
+  ],
+  "hardware_acceptance": false
+}

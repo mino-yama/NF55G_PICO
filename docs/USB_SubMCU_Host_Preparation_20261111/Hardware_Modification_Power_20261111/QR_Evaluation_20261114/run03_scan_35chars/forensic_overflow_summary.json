@@ -1,0 +1,301 @@
+{
+  "raw_bytes": 39425,
+  "records": 256,
+  "seq_first": 0,
+  "seq_last": 255,
+  "kinds": {
+    "boot": 1,
+    "board_id": 1,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1,
+    "hid_report": 251
+  },
+  "first_events": [
+    {
+      "seq": 0,
+      "ms": 0,
+      "kind": "boot",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "71722d756172742d32303236313131312e31"
+    },
+    {
+      "seq": 1,
+      "ms": 0,
+      "kind": "board_id",
+      "addr": 0,
+      "instance": 0,
+      "data_hex": "41303646454130313031324543313337"
+    },
+    {
+      "seq": 2,
+      "ms": 556,
+      "kind": "hid_mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "00003f00"
+    },
+    {
+      "seq": 3,
+      "ms": 556,
+      "kind": "report_descriptor",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "05010906a101050719e029e71500250175019508810295017508810395057501050819012905910295017503910395067508150025ff0507190029ff8100c0"
+    },
+    {
+      "seq": 4,
+      "ms": 557,
+      "kind": "mount",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "51e80110"
+    },
+    {
+      "seq": 5,
+      "ms": 4673,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 6,
+      "ms": 4676,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 7,
+      "ms": 4679,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 8,
+      "ms": 4682,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 9,
+      "ms": 4685,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 10,
+      "ms": 4688,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 11,
+      "ms": 4691,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005e0000000000"
+    },
+    {
+      "seq": 12,
+      "ms": 4694,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 13,
+      "ms": 4697,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005d0000000000"
+    },
+    {
+      "seq": 14,
+      "ms": 4700,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 15,
+      "ms": 4703,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 16,
+      "ms": 4706,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 17,
+      "ms": 4709,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    }
+  ],
+  "last_events": [
+    {
+      "seq": 244,
+      "ms": 5390,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    },
+    {
+      "seq": 245,
+      "ms": 5393,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 246,
+      "ms": 5396,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0000000000000000"
+    },
+    {
+      "seq": 247,
+      "ms": 5399,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 248,
+      "ms": 5402,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 249,
+      "ms": 5405,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 250,
+      "ms": 5408,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 251,
+      "ms": 5411,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400620000000000"
+    },
+    {
+      "seq": 252,
+      "ms": 5414,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 253,
+      "ms": 5417,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "04005c0000000000"
+    },
+    {
+      "seq": 254,
+      "ms": 5420,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400000000000000"
+    },
+    {
+      "seq": 255,
+      "ms": 5423,
+      "kind": "hid_report",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "0400600000000000"
+    }
+  ],
+  "hid_report_lengths": {
+    "8": 251
+  },
+  "frequent_hid_reports": [
+    [
+      "0400000000000000",
+      114
+    ],
+    [
+      "0400620000000000",
+      69
+    ],
+    [
+      "0000000000000000",
+      22
+    ],
+    [
+      "0400600000000000",
+      20
+    ],
+    [
+      "04005c0000000000",
+      20
+    ],
+    [
+      "04005e0000000000",
+      2
+    ],
+    [
+      "04005d0000000000",
+      2
+    ],
+    [
+      "0400610000000000",
+      1
+    ],
+    [
+      "04005f0000000000",
+      1
+    ]
+  ],
+  "accepted": false,
+  "reason": "256 record capacity reached; inspect only, not complete scan evidence"
+}

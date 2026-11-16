@@ -1,0 +1,6 @@
+
+Algorithm : SHA256
+Hash      : E46AB98D8EC514665A6AE8B69B52C6E46F19B6DE50EED293F62BED7C1E1AD997
+Path      : C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\docs\USB_SubMCU_Host_Preparation_20261111\Hardware_Modification_Power_20261111\QR_Evaluation_20261114\ALT_Decode_Resume_20261114\Fixed_FW_20261114\deploy01\before.bin
+
+

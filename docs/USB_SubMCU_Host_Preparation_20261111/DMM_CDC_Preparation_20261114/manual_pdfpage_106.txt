@@ -1,0 +1,32 @@
+7355 Digital Multimeter Operation Manual
+6.5 LAN
+6-12
+6.5
+LAN
+6.5.1
+Overview
+The 7355 can be remotely controlled via the LAN interface by connecting the LAN port on the rear panel
+to a personal computer. 
+Plug into a network or directly connect to a host computer to operate the 7355.
+6.5.2
+LAN Setting
+Using the LAN interface requires the following settings. (These settings cannot be changed by remote
+control.)
+Table 6-3    LAN Setting Items
+Setting item
+Function
+IP address (IP.Adr)
+IP address setting
+Default value: 192.168.0.1
+Default gateway (G.WAY)
+Default gateway setting
+Default value: 192.168.0.0
+Subnet mask (S.MASK)
+Subnet mask setting
+Default value: 255.255.255.0
+MAC address (MAC.Ad)
+Remote command only
+A unique MAC address is displayed for each unit. 
+This address cannot be changed.
+*
+For the setting details, verify with the network manager.

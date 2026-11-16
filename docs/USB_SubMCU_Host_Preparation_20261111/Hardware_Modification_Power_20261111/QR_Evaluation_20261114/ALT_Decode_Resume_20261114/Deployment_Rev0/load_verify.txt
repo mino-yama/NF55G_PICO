@@ -1,0 +1,27 @@
+Family ID 'rp2350-arm-s' can be downloaded in absolute space:
+  00000000->02000000
+Loading into Flash:   [                              ]  0%
+Loading into Flash:   [===                           ]  10%
+Loading into Flash:   [======                        ]  20%
+Loading into Flash:   [=========                     ]  30%
+Loading into Flash:   [============                  ]  40%
+Loading into Flash:   [===============               ]  50%
+Loading into Flash:   [==================            ]  60%
+Loading into Flash:   [=====================         ]  70%
+Loading into Flash:   [========================      ]  80%
+Loading into Flash:   [===========================   ]  90%
+Loading into Flash:   [==============================]  100%
+
+Verifying Flash:      [                              ]  0%
+Verifying Flash:      [===                           ]  10%
+Verifying Flash:      [======                        ]  20%
+Verifying Flash:      [=========                     ]  30%
+Verifying Flash:      [============                  ]  40%
+Verifying Flash:      [===============               ]  50%
+Verifying Flash:      [==================            ]  60%
+Verifying Flash:      [=====================         ]  70%
+Verifying Flash:      [========================      ]  80%
+Verifying Flash:      [===========================   ]  90%
+Verifying Flash:      [==============================]  100%
+
+  OK

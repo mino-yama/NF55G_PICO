@@ -1,5 +1,10 @@
 # 7.3 電流／電圧補正：外部測定値取込みの追加要求
 
+2026-11-14最新確定指示: 数値直接指定方式を維持し、別にDMM読取り→Cache保存・ATE返却→ATE確認→明示書込み指令でCache値を付加してNF55Gへ送信する方式を設ける。取得のみで書かず、書込み時に再取得しない。以下のATE数値再指定・取得値補完禁止の記述は旧方式であり、取得Cache利用方式は本追記を優先する。[確定要件と残事項](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。正式API・Cache寿命等は未確定。
+
+**2026-11-14 最新方針：7355用Host基板を追加し、QR用Hostとは親Picoへの接続経路を分ける。測定取得・ATE判定・数値指定書込みの分離は維持。** [現行方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。
+
+
 2026-11-10追記: 7355のUSB処理をQRと共通のWaveshare RP2350-USB-Cで担当し、治具Pico 2と双方向UARTで指令・測定データを共有する。[開発準備資料](USB_Host_SubMCU_Integration_Plan_20261110.md)参照。以下の7355向けPIA5100／GPIBは従来経路として保持し、既存ATE接続は維持する。取得と数値付き補正書込みの分離、測定対象制御と判定のATE担当を継続。電流取得は既存シャント電圧測定を引き継ぎ、直接電流測定への切替えや換算担当・抵抗値を推測しない。
 
 2026-11-09変更要求: ユーザーが7355をUSB接続すると指定。以下のPIA5100／GPIBによる7355接続は従来案として保持する。新しい測定器接続は[CH9350・QR・7355変更要求](CH9350_QR_DMM_Plan_20261109.md)を参照。7355はUSBTMC／CDC対応であり、HID用CH9350による直接制御は資料上対応しない。USBホスト構成・通信詳細は未確定。ATE接続経路の変更は今回指定されていない。

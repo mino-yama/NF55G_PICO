@@ -1,0 +1,4 @@
+{
+  "exit_code": 0,
+  "command": "picotool reboot --ser A06FEA01012EC137"
+}

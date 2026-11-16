@@ -1,0 +1,211 @@
+{
+  "date_jst": "2026-11-16",
+  "scope": "Repository and saved hardware references; no live hardware inspection",
+  "proposed_parent_gpio_physical": {
+    "8": 11,
+    "9": 12,
+    "12": 16,
+    "13": 17
+  },
+  "existing_normal_gpio": [
+    0,
+    1,
+    4,
+    5,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "source_files": [
+    {
+      "path": "src/ate_uart.py",
+      "sha256": "06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9",
+      "calls": [
+        {
+          "line": 50,
+          "expression": "UART(0, baudrate=config.ATE_BAUDRATE, bits=config.ATE_BITS, parity=config.ATE_PARITY, stop=config.ATE_STOP_BITS, tx=Pin(0), rx=Pin(1), rxbuf=4096, timeout=0, timeout_char=0)"
+        },
+        {
+          "line": 51,
+          "expression": "Pin(0)"
+        },
+        {
+          "line": 51,
+          "expression": "Pin(1)"
+        }
+      ]
+    },
+    {
+      "path": "src/nf55_uart.py",
+      "sha256": "1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b",
+      "calls": [
+        {
+          "line": 61,
+          "expression": "UART(1, baudrate=config.NF55_BAUDRATE, bits=config.NF55_BITS, parity=_micropython_parity(config.NF55_PARITY), stop=config.NF55_STOP_BITS, tx=Pin(4), rx=Pin(5), rxbuf=2048, timeout=0, timeout_char=0)"
+        },
+        {
+          "line": 67,
+          "expression": "Pin(4)"
+        },
+        {
+          "line": 68,
+          "expression": "Pin(5)"
+        }
+      ]
+    },
+    {
+      "path": "src/rtc_driver.py",
+      "sha256": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254",
+      "calls": [
+        {
+          "line": 111,
+          "expression": "I2C(0, scl=Pin(21), sda=Pin(20), freq=100000)"
+        },
+        {
+          "line": 111,
+          "expression": "Pin(21)"
+        },
+        {
+          "line": 111,
+          "expression": "Pin(20)"
+        }
+      ]
+    },
+    {
+      "path": "src/sd_sink.py",
+      "sha256": "5f58adf307a4134da640c1273826e27e770665fc45105976040479b387de6eb5",
+      "calls": [
+        {
+          "line": 291,
+          "expression": "Pin(16, Pin.IN, Pin.PULL_UP)"
+        },
+        {
+          "line": 292,
+          "expression": "SPI(0, sck=Pin(18), mosi=Pin(19), miso=miso)"
+        },
+        {
+          "line": 288,
+          "expression": "Pin(17, Pin.OUT, value=1)"
+        },
+        {
+          "line": 292,
+          "expression": "Pin(18)"
+        },
+        {
+          "line": 292,
+          "expression": "Pin(19)"
+        },
+        {
+          "line": 294,
+          "expression": "Pin(17)"
+        }
+      ]
+    },
+    {
+      "path": "src/main.py",
+      "sha256": "290d232855fb56208a3238246ab7d88e6f56b6b74dd615737a2e9a03847d2c7d",
+      "calls": []
+    },
+    {
+      "path": "src/qr_pio_rx.py",
+      "sha256": "0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38",
+      "calls": [
+        {
+          "line": 41,
+          "expression": "Pin(rx_pin, Pin.IN, Pin.PULL_UP)"
+        },
+        {
+          "line": 45,
+          "expression": "rp2.StateMachine(sm_id, _receive, freq=baudrate * 8, in_base=self.rx, jmp_pin=self.rx)"
+        },
+        {
+          "line": 43,
+          "expression": "Pin(tx_idle_pin, Pin.OUT, value=1)"
+        }
+      ]
+    },
+    {
+      "path": "scripts/pico_qr_receive_test.py",
+      "sha256": "a0d6a227d4ddc4a41d7cccd0e2558ea49c829a154b1bafb6c34922b76fc3a206",
+      "calls": [
+        {
+          "line": 106,
+          "expression": "QRPioRx()"
+        },
+        {
+          "line": 109,
+          "expression": "UART(0, baudrate=115200, bits=8, parity=None, stop=1, tx=Pin(0), rx=Pin(1), rxbuf=4096, timeout=0, timeout_char=0)"
+        },
+        {
+          "line": 110,
+          "expression": "Pin(0)"
+        },
+        {
+          "line": 110,
+          "expression": "Pin(1)"
+        }
+      ]
+    },
+    {
+      "path": "scripts/pico_usb_host_debug.py",
+      "sha256": "7819c1ded80e97aa9253ce50779d05efd2758fbde614e91bb25c291e111bf39f",
+      "calls": [
+        {
+          "line": 7,
+          "expression": "QRPioRx(rx_pin=10, baudrate=230400, sm_id=1, tx_idle_pin=None, buffer_size=16384)"
+        }
+      ]
+    }
+  ],
+  "sd_board_path": "reference\\local_hardware_reference_20260904\\required_for_development\\02_sd_adafruit_ada5703_picowbell\\pcb\\Adafruit PiCowbell Adalogger.brd",
+  "sd_board_sha256": "50a523188ebcfcff8f2cdf00530a91e264fd47946906bd94f1c0ad5ca6b1e7f1",
+  "sd_nets": [
+    {
+      "name": "IO8",
+      "contacts": [
+        {
+          "element": "CB1",
+          "pad": "11"
+        },
+        {
+          "element": "JP3",
+          "pad": "5"
+        }
+      ]
+    },
+    {
+      "name": "IO9",
+      "contacts": [
+        {
+          "element": "CB1",
+          "pad": "12"
+        },
+        {
+          "element": "JP3",
+          "pad": "4"
+        }
+      ]
+    },
+    {
+      "name": "IO12",
+      "contacts": [
+        {
+          "element": "CB1",
+          "pad": "16"
+        }
+      ]
+    },
+    {
+      "name": "IO13",
+      "contacts": [
+        {
+          "element": "CB1",
+          "pad": "17"
+        }
+      ]
+    }
+  ]
+}

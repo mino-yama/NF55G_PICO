@@ -1,0 +1,18 @@
+{
+  "port": "COM22",
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "flow_control": false,
+  "tx_bytes": 0,
+  "requested_texts": 1000,
+  "total_seconds": 1800,
+  "started_utc": "2026-11-14T07:57:31.657508+00:00",
+  "rx_bytes": 28029,
+  "text_records": 2,
+  "error_records": 0,
+  "stop_reason": "explicit_stop_marker",
+  "elapsed_seconds": 195.25,
+  "port_closed": true,
+  "source_sha256": "ffc1923a85c75f0ca40fc3dca2f7486f8d294b1c8e5fb1d8693baf5f3445d00c"
+}

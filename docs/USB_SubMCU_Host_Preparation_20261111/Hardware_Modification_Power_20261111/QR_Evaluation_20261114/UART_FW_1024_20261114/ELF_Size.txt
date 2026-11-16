@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+  43360	      0	  86392	 129752	  1fad8	firmware/usb_submcu_host_probe/build_uart_gp0/usb_submcu_host_probe.elf

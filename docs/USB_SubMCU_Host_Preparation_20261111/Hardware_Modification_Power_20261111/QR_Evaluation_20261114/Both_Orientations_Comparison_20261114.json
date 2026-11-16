@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-14",
+  "orientations": [
+    {
+      "orientation": "A",
+      "folder": "run05_scan_35chars_1024_rst",
+      "records": 393,
+      "hid_reports": 388,
+      "exact_35char_match": true,
+      "input_payload_sha256": "eff24b99c496f54e5189fe06ddd666d43b930504c812c358221245049babfa73"
+    },
+    {
+      "orientation": "B",
+      "folder": "run06_scan_35chars_reversed",
+      "records": 393,
+      "hid_reports": 388,
+      "exact_35char_match": true,
+      "input_payload_sha256": "eff24b99c496f54e5189fe06ddd666d43b930504c812c358221245049babfa73"
+    }
+  ],
+  "hid_sequences_identical": true,
+  "payloads_identical": true,
+  "scope": "one known scan in each plug orientation after HOST reset",
+  "hardware_acceptance": false,
+  "production_decoder_implemented": false
+}

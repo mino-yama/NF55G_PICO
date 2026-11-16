@@ -1,0 +1,11 @@
+{
+  "port": "COM22",
+  "location": "1-4.3",
+  "baud": 115200,
+  "format": "8N1",
+  "flow_control": false,
+  "tx_bytes": 0,
+  "requested_texts": 20,
+  "total_seconds": 1200,
+  "started_utc": "2026-11-14T07:46:37.410561+00:00"
+}

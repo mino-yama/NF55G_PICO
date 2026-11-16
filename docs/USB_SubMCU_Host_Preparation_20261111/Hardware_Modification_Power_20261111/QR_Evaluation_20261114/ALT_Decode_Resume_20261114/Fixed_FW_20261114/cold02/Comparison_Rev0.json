@@ -1,0 +1,46 @@
+{
+  "source_sha256": "02edfdb1322f810ddfd0b7d8e346b4fad76658de595306418f067409d25d49cb",
+  "source_bytes": 9395,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "startup_stage": 4,
+    "host_health": 51,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1,
+    "qr_text": 1
+  },
+  "exactly_one_A": true,
+  "text_events": [
+    {
+      "seq": 56,
+      "ms": 50488,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4161302d3031323334353637383930313233343536373839303132333435363738395a"
+    }
+  ],
+  "mount_ms": [
+    3606
+  ],
+  "max_drop": 0,
+  "main_and_frames_advance": true,
+  "last_health": {
+    "ms": 53575,
+    "values": [
+      27760112,
+      50512,
+      0,
+      1,
+      388,
+      13
+    ]
+  },
+  "errors": [],
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ],
+  "hardware_acceptance": false
+}

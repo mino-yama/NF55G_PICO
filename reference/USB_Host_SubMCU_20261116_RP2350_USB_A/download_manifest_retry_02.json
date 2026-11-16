@@ -1,0 +1,46 @@
+{
+  "retrieved_date_jst": "2026-11-16",
+  "purpose": "7355 CDC Host on RP2350-USB-A",
+  "files": [
+    {
+      "file": "Waveshare_R13_Location.png",
+      "url": "https://www.waveshare.com/w/upload/c/ca/RP2350-USB-A-R13.png",
+      "http_status": 200,
+      "content_type": "image/png",
+      "final_url": "https://www.waveshare.com/w/upload/c/ca/RP2350-USB-A-R13.png",
+      "status": "downloaded",
+      "bytes": 521527,
+      "sha256": "af329a66876c5b69fa9264a8e58d812549e5a50211796ba2e59a2ff6555357aa"
+    },
+    {
+      "file": "Waveshare_Pinout.jpg",
+      "url": "https://www.waveshare.com/w/upload/6/64/680px-RP2350-USB-A-details-6.jpg",
+      "http_status": 200,
+      "content_type": "image/jpeg",
+      "final_url": "https://www.waveshare.com/w/upload/6/64/680px-RP2350-USB-A-details-6.jpg",
+      "status": "downloaded",
+      "bytes": 115056,
+      "sha256": "79f7091a88fece9291c44c5cb2b593874d6bb7ebf6662e971063bb0ba2005f04"
+    },
+    {
+      "file": "Hardware-design-with-rp2350.pdf",
+      "url": "https://files.waveshare.com/wiki/common/Hardware-design-with-rp2350.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "final_url": "https://files.waveshare.com/wiki/common/Hardware-design-with-rp2350.pdf",
+      "status": "downloaded",
+      "bytes": 4395048,
+      "sha256": "6c85405de48d02c0486ad5e10ffd1434aee948f6cdcd3e78af9eab3070bd4e96"
+    },
+    {
+      "file": "Raspberry-pi-pico-2-c-sdk.pdf",
+      "url": "https://files.waveshare.com/wiki/common/Raspberry-pi-pico-2-c-sdk.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "final_url": "https://files.waveshare.com/wiki/common/Raspberry-pi-pico-2-c-sdk.pdf",
+      "status": "downloaded",
+      "bytes": 5681093,
+      "sha256": "8843c21783ac08eb7cfb2369216a3935353a712a098a24fda24c52e840b5e375"
+    }
+  ]
+}

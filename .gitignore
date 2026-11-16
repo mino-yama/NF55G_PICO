@@ -12,3 +12,4 @@ firmware/usb_submcu_acceptance/build/
 # QR host probe build intermediates
 firmware/usb_submcu_host_probe/build/
 firmware/usb_submcu_host_probe/build_uart_gp0/
+firmware/usb_submcu_host_probe/build_uart_continuous/

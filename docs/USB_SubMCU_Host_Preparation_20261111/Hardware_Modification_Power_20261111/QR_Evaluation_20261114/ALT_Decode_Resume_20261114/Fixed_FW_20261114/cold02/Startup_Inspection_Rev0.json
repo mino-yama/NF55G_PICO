@@ -1,0 +1,85 @@
+{
+  "interim": true,
+  "source_bytes": 5545,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "startup_stage": 4,
+    "host_health": 27,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1
+  },
+  "mount_ms": [
+    3606
+  ],
+  "startup_stages": [
+    {
+      "ms": 24,
+      "phase_and_value": [
+        1,
+        3000
+      ]
+    },
+    {
+      "ms": 3037,
+      "phase_and_value": [
+        2,
+        0
+      ]
+    },
+    {
+      "ms": 3048,
+      "phase_and_value": [
+        3,
+        0
+      ]
+    },
+    {
+      "ms": 3062,
+      "phase_and_value": [
+        4,
+        0
+      ]
+    }
+  ],
+  "health_first": [
+    {
+      "ms": 3575,
+      "values": [
+        1,
+        513,
+        0,
+        0,
+        0,
+        12
+      ]
+    }
+  ],
+  "health_last": [
+    {
+      "ms": 28575,
+      "values": [
+        13897203,
+        25512,
+        0,
+        0,
+        0,
+        13
+      ]
+    },
+    {
+      "ms": 29575,
+      "values": [
+        14453032,
+        26512,
+        0,
+        0,
+        0,
+        13
+      ]
+    }
+  ],
+  "errors": [],
+  "source_sha256": "45ea6443f82140a986d4c2ed81ebad39994f3a4eb37ab16f459a903748bc86bf"
+}

@@ -1,0 +1,33 @@
+{
+  "scope": "forensic prefix only; capture at capacity, not accepted",
+  "observed_alt_decimal_groups": [
+    "00065",
+    "00098",
+    "00067",
+    "00045",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048",
+    "00048"
+  ],
+  "partial_group": "00048",
+  "candidate_ascii_prefix": "AbC-000000000000000000",
+  "candidate_prefix_length": 22,
+  "expected_starts_with_candidate": true,
+  "unsupported_keys": [],
+  "full_35char_match": false
+}

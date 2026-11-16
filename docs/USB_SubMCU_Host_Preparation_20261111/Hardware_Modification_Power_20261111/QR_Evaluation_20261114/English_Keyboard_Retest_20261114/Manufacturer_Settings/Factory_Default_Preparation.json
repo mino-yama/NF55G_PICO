@@ -1,0 +1,13 @@
+{
+  "source": "BCR-TC2D1BK_optioncode.pdf",
+  "source_page": 1,
+  "clip_points": [
+    65.0,
+    150.0,
+    230.0,
+    235.0
+  ],
+  "code": "AB000",
+  "executed": false,
+  "requires_user_choice": "Resets all reader settings, not just keyboard language; prepare only."
+}

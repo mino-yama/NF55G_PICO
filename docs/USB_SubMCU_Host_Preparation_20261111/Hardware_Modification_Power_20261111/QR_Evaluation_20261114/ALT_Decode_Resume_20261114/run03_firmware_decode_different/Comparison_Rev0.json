@@ -1,0 +1,51 @@
+{
+  "source_sha256": "8b211aced5590510ffc20d76109202fe1a8768a590674cc668597b946c76e5db",
+  "source_bytes": 120583,
+  "records": 783,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1,
+    "hid_report": 776,
+    "qr_text": 2
+  },
+  "boot": "qr-uart-20261114.2",
+  "board_id": "A06FEA01012EC137",
+  "expected_texts": [
+    "Aa0-012345678901234567890123456789Z",
+    "zZ9-987654321098765432109876543210a"
+  ],
+  "decoded_texts": [
+    "Aa0-012345678901234567890123456789Z",
+    "zZ9-987654321098765432109876543210a"
+  ],
+  "exact_ordered_match": true,
+  "text_events": [
+    {
+      "seq": 391,
+      "ms": 21477,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "4161302d3031323334353637383930313233343536373839303132333435363738395a"
+    },
+    {
+      "seq": 780,
+      "ms": 30501,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "7a5a392d39383736353433323130393837363534333231303938373635343332313061"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ],
+  "original_framing_clean": false,
+  "final_keys_released": true,
+  "hardware_acceptance": false,
+  "scope": "two different known QR scans in one boot; overall acceptance pending"
+}

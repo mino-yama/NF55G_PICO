@@ -341,3 +341,33 @@ Keep the NF55G unpowered and do not send product commands during this check.
 - 再開後、ユーザーがCOM6／COM20、NF55G電源ON・通信接続、バッテリ／負荷なし、BURST・PS_ON操作可能と回答。12:23 JSTの明示D1はPS_ON=1、BATT_ON=0、BURST_ON=0、BURST／PS_OFF_CHARGE=0/0、BC実行なし、再送0。TEST_END後自己診断／SD正常、破棄0、IDLE。外部BURST反転を依頼し操作回答待ち。設定変更なし。詳細・証跡は上記ERP継続準備へ追記。
 - 12:25 JST、ユーザー申告BURST OFFで明示D1のBURST_ON=0を確認。PS_ON=1、ERP設定0/0、再送・破棄0、自己診断／SD正常、IDLE。操作前も0のため切替検出とは扱わず、次のBURST ON操作を依頼。設定変更なし。証跡は[ERP継続記録](ERP_Precheck_20261109.md)。
 - 12:27～12:28 JST、BURST ON申告後もD1のBURST_ON=0。ERP_SET_1_0→明示D1で設定1/0、入力0を確認し、ERP_SET_0_0→D1で元値復元済み。終了時自己診断／SD正常、再送0、IDLE。ユーザー説明はONでGND接続。ユーザー側で開放／閉路とON/OFFを整理して試験するため操作待機。端子実測と原因は未確認、CSV回収・BCC照合は未完了。詳細・ATE JSONは[ERP継続記録](ERP_Precheck_20261109.md)。
+
+## 2026-11-14 USB Host SubMCU QR単発35文字のPC側照合
+
+追加RP2350-USB-C A06FEA01012EC137、Type_C2 QR VID:E851／PID:1001を外部給電で評価。旧256件診断ログは35文字採取時に満杯となり未判定で保持。診断UART版をqr-uart-20261114.1／1024件へ拡張し、Host／Mock326件成功、旧Flash退避・対象照合・load -v・独立verify後に再試験した。
+
+再試験は393レコード・HID388件を取得し、既知35文字（AbC-＋0を25個＋123456）がPC側解析で完全一致。Alt＋テンキー数字列の復元と、期待値から生成したHID全列の比較が一致し、末尾Enter1回とキー解放を確認。FW内デコーダ・正式親子UARTは未実装。先頭NUL警告、電源投入とRSTによる起動差、UART末尾完全性・破棄数、反転・繰返し、7355・2 Host・量産保護は未受入でIssueをCloseしない。追加ヒューズなし評価はユーザー明示指定。 [原文・単発照合結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/run05_scan_35chars_1024_rst/Result_Rev0.md)。
+
+## 2026-11-14 Type_C2 QRの反転向き・35文字照合
+
+電源OFFでType_C2側プラグを反転した向きBでも、HOST RST後の既知35文字1回について393レコード／HID388件を取得。PC側の復元文字列と期待原文が完全一致、期待値から生成したHID全列とも一致した。向きA／BのHID列も全388件一致、Enter1回とキー解放、連番欠落・容量到達・エラーレコードなし。両向き各1回の実績であり、FW内デコーダ・連続読取・電源投入自動起動・7355／2 Host・電気保護の受入ではない。[総括・原文](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Result_Rev0.md)。COM閉、電源OFFはユーザーへ案内。
+
+## 2026-11-14 QR英語キーボード設定への切替え・原文取得FWへ書戻し
+
+ユーザーがAlt処理不要とし、英語キーボード設定への変更・再試験・プログラム復元を指示。Alt専用試作は履歴へ退避、作業ソースと解析器を.1へ復元しHost／Mock326件成功。対象A06FEA01012EC137の.2 Flash全2MB退避後、既存配布UF2のhashを照合してqr-uart-20261114.1へ書戻し、load -vと独立verify成功、配置後版・個体を確認してrebootした。英語設定での実機再採取は次工程であり、旧Alt設定の実績は転用しない。[書戻し証跡](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/English_Keyboard_Retest_20261114/Restore_Deployment_Rev0/Result_Rev0.md)。
+
+## 2026-11-14 固定接続候補FWの配置
+
+qr-fixed-20261114.1を追加基板A06FEA01012EC137へ配置。現Flash2MB退避・load -v・独立verify・配置後版／chipid照合・reboot成功。Host／Mock354件成功。外部給電・QR固定接続の自動起動／継続読取は未検証であり、電源ON認識問題を解決済みとはしない。
+
+## 2026-11-14 固定接続cold-start第1回と20読取
+
+qr-fixed-20261114.1／A06FEA01012EC137。電源ONのみ・RSTなしでHID mount3606ms、A/B交互20件を全件35文字一致で取得。main/frame進行、drop0、途中再起動・decodeエラーなし。先頭NULは継続。cold-start複数回・10分以上稼働は未確認。原因確定・全体受入・Open Issue Closeとはしない。
+
+## 2026-11-14 固定接続cold-start第2回
+
+qr-fixed-20261114.1、RSTなしでHID mount3606ms、QR A35文字一致。main/frame進行、drop0、エラー・途中再起動なし。電源投入は現時点2試行中2成功。第3回／10分以上継続は未確認。
+
+## 2026-11-14 固定接続の限定動作確認完了
+
+qr-fixed-20261114.1／A06FEA01012EC137。電源ONからRSTなしのQR自動認識3試行中3成功、各HID mount3606ms。第1回A/B交互20読取は全件35文字一致、drop0、decodeエラー・途中再起動なし。先頭NULは継続。10分以上はエージェント追加の試験であり待ち時間への指摘を受け今回は省略、長時間成功とは扱わない。今回の固定接続の基本動作確認であり、正式ATE連携・7355／2 Host・量産保護等の受入／Open Issue Closeとは区別。

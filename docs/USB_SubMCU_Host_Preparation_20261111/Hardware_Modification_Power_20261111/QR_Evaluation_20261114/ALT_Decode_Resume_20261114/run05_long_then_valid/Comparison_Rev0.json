@@ -1,0 +1,47 @@
+{
+  "source_sha256": "02756e11333ec56deef4647ecae16d0d3cb9beb2e7f5ca9df778459a7438500d",
+  "source_bytes": 122277,
+  "records": 794,
+  "counts": {
+    "boot": 1,
+    "board_id": 1,
+    "hid_mount": 1,
+    "report_descriptor": 1,
+    "mount": 1,
+    "hid_report": 787,
+    "qr_decode_error": 1,
+    "qr_text": 1
+  },
+  "boot": "qr-uart-20261114.2",
+  "board_id": "A06FEA01012EC137",
+  "expected_error_code": 8,
+  "expected_valid_text": "zZ9-987654321098765432109876543210a",
+  "outcomes": [
+    {
+      "seq": 401,
+      "ms": 6414,
+      "kind": "qr_decode_error",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "08"
+    },
+    {
+      "seq": 791,
+      "ms": 16068,
+      "kind": "qr_text",
+      "addr": 1,
+      "instance": 0,
+      "data_hex": "7a5a392d39383736353433323130393837363534333231303938373635343332313061"
+    }
+  ],
+  "expected_outcome_order_match": true,
+  "unexpected_errors": [],
+  "generic_parser_status": "capture_errors",
+  "warnings": [
+    "leading_nul_observed_cause_unconfirmed"
+  ],
+  "original_framing_clean": false,
+  "final_keys_released": true,
+  "hardware_acceptance": false,
+  "scope": "36-character rejection then normal 35-character recovery in one boot"
+}

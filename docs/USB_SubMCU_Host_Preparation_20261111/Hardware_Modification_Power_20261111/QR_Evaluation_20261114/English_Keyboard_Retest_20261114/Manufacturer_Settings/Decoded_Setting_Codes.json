@@ -1,0 +1,599 @@
+[
+  {
+    "source_pdf": "BCR-TC2D1BK_Keyboard.pdf",
+    "image": "Keyboard_For_Decode.png",
+    "barcodes": [
+      {
+        "format": "Code 128",
+        "text": "JD200",
+        "bytes_hex": "4a44323030",
+        "position": {
+          "top_left": [
+            108,
+            194
+          ],
+          "bottom_right": [
+            323,
+            258
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "JD201",
+        "bytes_hex": "4a44323031",
+        "position": {
+          "top_left": [
+            486,
+            194
+          ],
+          "bottom_right": [
+            701,
+            258
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "source_pdf": "BCR-TC2D1BK_optioncode.pdf",
+    "image": "Option_Page1.png",
+    "barcodes": [
+      {
+        "format": "Code 128",
+        "text": "EQ020",
+        "bytes_hex": "4551303230",
+        "position": {
+          "top_left": [
+            1978,
+            74
+          ],
+          "bottom_right": [
+            2172,
+            135
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "JD201",
+        "bytes_hex": "4a44323031",
+        "position": {
+          "top_left": [
+            778,
+            135
+          ],
+          "bottom_right": [
+            993,
+            199
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB260",
+        "bytes_hex": "4142323630",
+        "position": {
+          "top_left": [
+            1369,
+            170
+          ],
+          "bottom_right": [
+            1598,
+            201
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EV010",
+        "bytes_hex": "4556303130",
+        "position": {
+          "top_left": [
+            1980,
+            201
+          ],
+          "bottom_right": [
+            2174,
+            262
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "JD200",
+        "bytes_hex": "4a44323030",
+        "position": {
+          "top_left": [
+            778,
+            284
+          ],
+          "bottom_right": [
+            993,
+            349
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB261",
+        "bytes_hex": "4142323631",
+        "position": {
+          "top_left": [
+            1375,
+            311
+          ],
+          "bottom_right": [
+            1600,
+            342
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB000",
+        "bytes_hex": "4142303030",
+        "position": {
+          "top_left": [
+            188,
+            377
+          ],
+          "bottom_right": [
+            404,
+            442
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "JD062",
+        "bytes_hex": "4a44303632",
+        "position": {
+          "top_left": [
+            778,
+            431
+          ],
+          "bottom_right": [
+            993,
+            496
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EC010",
+        "bytes_hex": "4543303130",
+        "position": {
+          "top_left": [
+            1978,
+            449
+          ],
+          "bottom_right": [
+            2172,
+            507
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB262",
+        "bytes_hex": "4142323632",
+        "position": {
+          "top_left": [
+            1358,
+            455
+          ],
+          "bottom_right": [
+            1611,
+            489
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EC020",
+        "bytes_hex": "4543303230",
+        "position": {
+          "top_left": [
+            1978,
+            569
+          ],
+          "bottom_right": [
+            2172,
+            627
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB040",
+        "bytes_hex": "4142303430",
+        "position": {
+          "top_left": [
+            188,
+            650
+          ],
+          "bottom_right": [
+            404,
+            717
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CE000",
+        "bytes_hex": "4345303030",
+        "position": {
+          "top_left": [
+            777,
+            686
+          ],
+          "bottom_right": [
+            993,
+            750
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EM010",
+        "bytes_hex": "454d303130",
+        "position": {
+          "top_left": [
+            1382,
+            710
+          ],
+          "bottom_right": [
+            1576,
+            768
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "ED010",
+        "bytes_hex": "4544303130",
+        "position": {
+          "top_left": [
+            1980,
+            766
+          ],
+          "bottom_right": [
+            2175,
+            825
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB030",
+        "bytes_hex": "4142303330",
+        "position": {
+          "top_left": [
+            189,
+            812
+          ],
+          "bottom_right": [
+            405,
+            875
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EM020",
+        "bytes_hex": "454d303230",
+        "position": {
+          "top_left": [
+            1382,
+            839
+          ],
+          "bottom_right": [
+            1576,
+            900
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CE001",
+        "bytes_hex": "4345303031",
+        "position": {
+          "top_left": [
+            777,
+            845
+          ],
+          "bottom_right": [
+            993,
+            911
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "ED020",
+        "bytes_hex": "4544303230",
+        "position": {
+          "top_left": [
+            1980,
+            901
+          ],
+          "bottom_right": [
+            2175,
+            962
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB060",
+        "bytes_hex": "4142303630",
+        "position": {
+          "top_left": [
+            188,
+            970
+          ],
+          "bottom_right": [
+            404,
+            1037
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EA010",
+        "bytes_hex": "4541303130",
+        "position": {
+          "top_left": [
+            1382,
+            971
+          ],
+          "bottom_right": [
+            1576,
+            1031
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CD000",
+        "bytes_hex": "4344303030",
+        "position": {
+          "top_left": [
+            779,
+            1054
+          ],
+          "bottom_right": [
+            995,
+            1121
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EA020",
+        "bytes_hex": "4541303230",
+        "position": {
+          "top_left": [
+            1382,
+            1105
+          ],
+          "bottom_right": [
+            1576,
+            1160
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EE010",
+        "bytes_hex": "4545303130",
+        "position": {
+          "top_left": [
+            1980,
+            1106
+          ],
+          "bottom_right": [
+            2175,
+            1166
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "AB050",
+        "bytes_hex": "4142303530",
+        "position": {
+          "top_left": [
+            191,
+            1132
+          ],
+          "bottom_right": [
+            407,
+            1196
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CD010",
+        "bytes_hex": "4344303130",
+        "position": {
+          "top_left": [
+            779,
+            1180
+          ],
+          "bottom_right": [
+            995,
+            1247
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EE020",
+        "bytes_hex": "4545303230",
+        "position": {
+          "top_left": [
+            1980,
+            1244
+          ],
+          "bottom_right": [
+            2175,
+            1304
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EB010",
+        "bytes_hex": "4542303130",
+        "position": {
+          "top_left": [
+            1384,
+            1276
+          ],
+          "bottom_right": [
+            1578,
+            1337
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CD030",
+        "bytes_hex": "4344303330",
+        "position": {
+          "top_left": [
+            779,
+            1312
+          ],
+          "bottom_right": [
+            995,
+            1379
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "DC000",
+        "bytes_hex": "4443303030",
+        "position": {
+          "top_left": [
+            189,
+            1384
+          ],
+          "bottom_right": [
+            404,
+            1451
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EB020",
+        "bytes_hex": "4542303230",
+        "position": {
+          "top_left": [
+            1384,
+            1403
+          ],
+          "bottom_right": [
+            1578,
+            1463
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CD031",
+        "bytes_hex": "4344303331",
+        "position": {
+          "top_left": [
+            779,
+            1441
+          ],
+          "bottom_right": [
+            995,
+            1505
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EF010",
+        "bytes_hex": "4546303130",
+        "position": {
+          "top_left": [
+            1980,
+            1454
+          ],
+          "bottom_right": [
+            2175,
+            1514
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "DC010",
+        "bytes_hex": "4443303130",
+        "position": {
+          "top_left": [
+            188,
+            1543
+          ],
+          "bottom_right": [
+            404,
+            1610
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "CD032",
+        "bytes_hex": "4344303332",
+        "position": {
+          "top_left": [
+            779,
+            1570
+          ],
+          "bottom_right": [
+            995,
+            1637
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EQ010",
+        "bytes_hex": "4551303130",
+        "position": {
+          "top_left": [
+            1382,
+            1576
+          ],
+          "bottom_right": [
+            1576,
+            1634
+          ]
+        }
+      },
+      {
+        "format": "Code 128",
+        "text": "EF020",
+        "bytes_hex": "4546303230",
+        "position": {
+          "top_left": [
+            1980,
+            1577
+          ],
+          "bottom_right": [
+            2175,
+            1637
+          ]
+        }
+      }
+    ]
+  }
+]

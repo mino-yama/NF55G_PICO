@@ -1,0 +1,29 @@
+NF55G USB Host worktree commit checks
+Date: 2026-11-16 JST
+
+User request: commit and push the current work; leave IS unchanged.
+No issue status or implementation was changed during these commit checks.
+
+Host Unit / Mock NF55G regression:
+  Command: python -m unittest discover -s tests -v
+  Result: Ran 354 tests in 12.145s; OK.
+  Failures/errors/skips: 0/0/0.
+  Includes native C QR decoder and continuous FIFO tests.
+
+Whitespace check:
+  Command: git diff --check
+  Result: exit 0, no whitespace errors.
+  Git emitted existing LF-to-CRLF working-copy notices.
+
+Scope:
+  QR Host firmware, decoder/FIFO and diagnostic tools/tests;
+  QR real-hardware records and preserved release artifacts;
+  DMM CDC / acquired-value cache-write / post-write verification requirements;
+  RP2350-USB-A references and hardware preparation;
+  parent PIO UART pin checks and connector candidates.
+
+Excluded: root debug.log (working-session log).
+Git attributes preserve reference/capture/release/fixture bytes for SHA-256 checks.
+Windows long-path support is enabled per staging command; no global Git settings changed.
+No hardware writes, wiring changes, CDC Host acceptance or new Issue closure.
+Commit and push results are reported in the chat after execution.
