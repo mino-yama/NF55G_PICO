@@ -1,0 +1,30 @@
+RP2350-USB-A 端子位置・UART監視配線
+02  初回は監視専用 / 親Picoへの双方向接続は後工程
+DMM 7355用 / Rev.0
+2026-11-16 / A4横 / 2/3
+配線準備図 / はんだ付けは試作完了後 / 実機の向き・シルク・給電条件を照合
+2 / 3
+追加RP2350-USB-A
+DMM用Host / 部品面位置は1枚目
+#01 GP0 / UART TX
+#17 GND
+#02 GP1は今回未接続
+USB-A → 7355 USB-B
+USB-UART変換基板
+3.3Vロジック対応のUARTモード
+RXD  ← Hostの送信を受信
+GND  ― 信号基準を共通化
+TXD / 5V / 3V3：接続しない
+USB側 → PCで原文ログ保存
+115200bps / 8N1
+TXD-RXD短絡なし
+機能試験時：外部5V→Host #18、GND→#17。HostのPC側USB-Cは外す。
+FW書込み時：外部5Vと7355を外し、Host USB-C→PC。上記は専用診断FWの配線案です。
+後工程：親Picoとの接続案（今回の監視専用配線とは分ける）
+親Pico GP12 TX（物理16） → DMM Host GP1 RX（P1 #02）
+親Pico GP13 RX（物理17） ← DMM Host GP0 TX（P1 #01）
+親Pico GND                ― DMM Host GND（P1 #17）
+親のGP12/13とHostの内部USB GP12/13は別MCU。HostのUSBデータ線へ接続しない。
+試験開始前：R13の現物確認・Host専用FWの準備/配置・電源条件の確認が必要。
+7355のCDC条件：9600 / 8N1、DTR・RTSともON、終端CRLF（監視UARTの速度とは別）。
+図面上のGP1受信・親接続は未実装の候補。基板改造・配線・FW配置を本図作成時に実施していません。

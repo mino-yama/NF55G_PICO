@@ -1,0 +1,535 @@
+--- S1.13/NF55_main.c
+
++++ S1.15_r1/NF55_main.c
+
+@@ -2,6 +2,8 @@
+
+ #include "NF55_define.h"
+ #include "NF55_global.h"
+ #include <string.h>
++#include <stddef.h>
++#include <stdint.h>
+ 
+ void    sleep(void);
+ int     user_main2(void);
+@@ -39,16 +41,21 @@
+
+ void clear_global_variables(void);
+ extern void fan_stop_PWM(void);
+ 
+-#ifdef _HIS_ENABLE_MODE_
+-extern uint32_t dbg_1ms_cnt;
+-#endif
+-
++/* S1.14 グロバール変数初期化アルゴリズム変更（dataセクションをまるっと初期化） */
++uintptr_t data_start;
++uintptr_t data_end;
++size_t data_size;
++
++/*******************************************************************************
++* Function Name: check_reset()
++* Description  : 直前のリセット要因の検出
++* Arguments    : None
++* Return Value : None
++*******************************************************************************/
+ void check_reset(void)
+ {
+-
+-
++    /* 直前のリセット要因がWDTの時はログに記録してラッチ状態とする */
+     if(gu32_reset_cause == DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT0_VIOLATION) {
+-        //WDTリセット時
+         DL_WWDT_disablePower(WWDT0_INST);
+ 
+         O_PS_ON_OUT_H;
+@@ -63,24 +70,25 @@
+
+ 
+         gu8_f_wdt_err=1;
+         set_info_evt_errlog( FLAG_WDT, _SET_ );
+-
+-    }
+-}
+-
++    }
++}
++
++/*******************************************************************************
++* Function Name: wdt_loop()
++* Description  : 直前のリセット要因がWDTの時のROM書き込み完了待ち処理
++* Arguments    : None
++* Return Value : None
++*******************************************************************************/
+ void wdt_loop(void)
+ {
+-
+-    if(eeprom_req_busy==0){
+-
++    if(eeprom_req_busy==0)
++    {
+         while(1)
+         {
+-          // 停止
++            ;   /* ラッチ */
+         }
+     }
+-
+-}
+-
+-
++}
+ 
+ /*******************************************************************************
+ * Function Name: main()
+@@ -91,7 +99,6 @@
+
+ int main(void)
+ {
+     gu32_reset_cause = DL_SYSCTL_getResetCause();
+-
+ 
+     SYSCFG_DL_init();
+ 
+@@ -115,25 +122,13 @@
+
+ 
+ 	operate_log_request(OPE_MIC_POWER_ON);
+ 
+-
+     while (1)
+     {
+         sleep();             // 1ms Wait
+-
+-#ifdef _HIS_ENABLE_MODE_
+-        ++dbg_1ms_cnt;
+-#endif
+-
+-#ifdef _DEBUG_ON_
+-        //O_TEST_OUT_H;
+-#endif
+-
+ 
+ #ifdef _WWDT_ON_
+         DL_WWDT_restart(WWDT0_INST);
+-
+ #endif
+-
+ 
+         if(gu8_f_wdt_err==0)
+         {
+@@ -148,12 +143,11 @@
+
+             discharge_proc();    // 放電(バックアップ)制御
+ 
+             if(gu8_f_before_shutdown!=1)
+-             {
+-
++            {
+                 charge_proc();       // 充電制御
+ 
+                 dcir_proc();         // DCIR測定制御
+-             }
++            }
+ 
+             burst_proc();        // Burst制御
+ 
+@@ -165,23 +159,16 @@
+
+ 
+             eeprom_all_backup_proc();  // EEPROM 全バックアップ処理
+ 
++            /* AC復電待ち処理 */
+             revoltage();
+-        
+         }
+ 
+         write_eeprom();      // EEPROM書込み処理
+ 
+-        if(gu8_f_wdt_err==1){
+-
++        if(gu8_f_wdt_err==1)
++        {
+             wdt_loop();
+         }
+-
+-#ifdef _HIS_ENABLE_MODE_
+-        //set_fan_speed(gu8_s_debug_fan_sirei_num);
+-#endif
+-#ifdef _DEBUG_ON_
+-        //O_TEST_OUT_L;
+-#endif
+     }
+ }
+ 
+@@ -212,12 +199,10 @@
+
+ 
+     //__enable_irq();
+ 
+-    gu32_reset_cause = DL_SYSCTL_getResetCause();//リセット要因を取得
+-    DL_WWDT_reset(WWDT0_INST);     //wwdtの値リセット
+-    DL_WWDT_enablePower(WWDT0_INST);  //poweron
+-    SYSCFG_DL_WWDT0_init();   //wdt初期化
+-
+-
++    gu32_reset_cause = DL_SYSCTL_getResetCause();   //リセット要因を取得
++    DL_WWDT_reset(WWDT0_INST);                      //wwdtの値リセット
++    DL_WWDT_enablePower(WWDT0_INST);                //poweron
++    SYSCFG_DL_WWDT0_init();                         //wdt初期化
+ 
+ #ifndef _WWDT_ON_
+     DL_WWDT_disablePower(WWDT0_INST);
+@@ -231,25 +216,21 @@
+
+ 
+     check_reset();
+ 
+-    paramter_init2(); // 各パラメータの初期値設定
++    paramter_init2();       // 各パラメータの初期値設定
+ 
+     startup_input_ad();     // 立上げ時 ADC収集処理
+ 
+ 	operate_log_request(OPE_MIC_POWER_ON);
++
+     while (1)
+     {
+-        sleep();             // 1ms Wait
+-
+-#ifdef _DEBUG_ON_
+-        //O_TEST_OUT_H;
+-#endif
+-
++        sleep();            // 1ms Wait
+ 
+ #ifdef _WWDT_ON_
+         DL_WWDT_restart(WWDT0_INST);
+ #endif
+ 
+-        if(gu8_f_wdt_err==0)
++        if (gu8_f_wdt_err == 0)
+         {
+             input();             // ADC/GPIO入力
+ 
+@@ -261,13 +242,12 @@
+
+ 
+             discharge_proc();    // 放電(バックアップ)制御
+ 
+-            if(gu8_f_before_shutdown!=1)
+-             {
+-
+-                charge_proc();       // 充電制御
+-
+-                dcir_proc();         // DCIR測定制御
+-             }
++            if (gu8_f_before_shutdown != 1)
++            {
++                charge_proc();   // 充電制御
++
++                dcir_proc();     // DCIR測定制御
++            }
+ 
+             burst_proc();        // Burst制御
+ 
+@@ -284,16 +264,10 @@
+
+ 
+         write_eeprom();  
+ 
+-        if(gu8_f_wdt_err==1){
++        if (gu8_f_wdt_err == 1)
++        {
+             wdt_loop();
+         }
+-
+-#ifdef _HIS_ENABLE_MODE_
+-        //set_fan_speed(gu8_s_debug_fan_sirei_num);
+-#endif
+-#ifdef _DEBUG_ON_
+-        //O_TEST_OUT_L;
+-#endif
+     }
+ }
+ 
+@@ -316,9 +290,9 @@
+
+ *******************************************************************************/
+ void paramter_init2(void)
+ {
+-    gu8_f_user_select = 1; // User2で動作
+-
+-    rtc_data_set_fu();  // 時刻設定(SET CLOCK)受信
++    gu8_f_user_select = 1;          // User2で動作
++
++    rtc_data_set_fu();              // 時刻設定(SET CLOCK)受信
+ 
+     gu32_c_event_wait = TIMER_10s;  // イベント送信可能待ちタイマ
+ }
+@@ -425,131 +399,131 @@
+
+ * Arguments    : None
+ * Return Value : None
+ *******************************************************************************/
+-
+-
+-
+-void revoltage(void){
+-  if(gu8_f_before_shutdown!=0)
+-  {
+-    switch(gu8_end_dischg_stage)
+-    {
+-
+-    case 0:
+-        switch(gu8_f_skip_reason)
++void revoltage(void)
++{
++    if (gu8_f_before_shutdown != 0)
++    {
++        switch(gu8_end_dischg_stage)
+         {
+-        case 1 :
+-
+-            O_12V_EN_H;
+-
+-            if( gu8_f_fan_pwm != _OUT_NOT_ )
+-            {
+-              if(gu32_c_fan_pwm_delay == 0 ) // 1ms x N
+-              {
+-                fan_stop_PWM(); // FAN PWM OFF
+-                gu8_f_fan_pwm = _OUT_NOT_;
+-                gu8_f_on = 0;
+-                f_gu8_fan_speed = 0;  // FAN制御用
+-                gu8_fan_output_stg = 0;
+-                gu8_new_spd = 0;
+-                gu16_d_fan_rpm = 0;
+-                gu16_d_fan_rpm_old = 0;
+-                gu16_c_fan = 0;
+-                gu8_end_dischg_stage=1;
+-              } else{
+-                gu32_c_fan_pwm_delay--;
+-              }
+-            }
++            case 0:
++                switch(gu8_f_skip_reason)
++                {
++                    case 1 :
++                        O_12V_EN_H;
++
++                        if( gu8_f_fan_pwm != _OUT_NOT_ )
++                        {
++                            if(gu32_c_fan_pwm_delay == 0 ) // 1ms x N
++                            {
++                                fan_stop_PWM(); // FAN PWM OFF
++                                gu8_f_fan_pwm = _OUT_NOT_;
++                                gu8_f_on = 0;
++                                f_gu8_fan_speed = 0;  // FAN制御用
++                                gu8_fan_output_stg = 0;
++                                gu8_new_spd = 0;
++                                gu16_d_fan_rpm = 0;
++                                gu16_d_fan_rpm_old = 0;
++                                gu16_c_fan = 0;
++                                gu8_end_dischg_stage=1;
++                            }
++                            else
++                            {
++                                gu32_c_fan_pwm_delay--;
++                            }
++                        }
++                        break;
++
++                    case 2 :                 //PS_OFFで停電した場合は
++                        fan_stop_PWM();
++                        O_VCC_12V_EN_L;
++                        O_BATCHG_EN_H;
++
++                        if (eeprom_req_busy == 0)
++                        {
++                            gu8_end_dischg_stage=2;
++                        }
++                        break;
++
++                    case 3 :                               //バッテリ無しで切断されたときや放電中に中断されたとき
++                        if( gu8_f_charge_output == _ON_ )  // 放電出力中?
++                        {
++                            O_DISCHG12V_EN_L;
++                            O_BATT_EN_L;
++                            DL_TimerG_stopCounter(SYNC_0_INST);
++                            DL_TimerG_stopCounter(SYNC_120_INST);
++                            DL_TimerG_stopCounter(SYNC_240_INST);
++                            gu8_f_charge_output = _OFF_;   // 放電出力中 OFF
++                        }
++
++                        if (eeprom_req_busy == 0)
++                        {
++                            gu8_end_dischg_stage=2;
++                        }
++                        break;
++
++                    default :
++                        break;
++                }
+                 break;
+ 
+-        case 2 :                 //PS_OFFで停電した場合は
+-
+-
+-            fan_stop_PWM();
+-            O_VCC_12V_EN_L;
+-            O_BATCHG_EN_H;
+-
+-            if(eeprom_req_busy==0){
+-
+-                gu8_end_dischg_stage=2;
+-            }
+-
++            case 1 ://放電終止もしくはバックアップ中のPS_OFFによる切断時
++                if (eeprom_req_busy == 0)
++                {
++                    O_DISCHG12V_EN_L;                     //DischgOFF
++                    O_BATT_EN_L;                          //BATT_ENOFF
++                    //****放電コンバーターOFF***********************
++                    DL_TimerG_stopCounter(SYNC_0_INST);
++                    DL_TimerG_stopCounter(SYNC_120_INST);
++                    DL_TimerG_stopCounter(SYNC_240_INST);
++                    //******************************************
++                    O_VCC_12V_EN_L;
++                    gu8_f_charge_output = _OFF_;
++
++                    gu8_end_dischg_stage=2;
++                }
+                 break;
+-        case 3 :                               //バッテリ無しで切断されたときや放電中に中断されたとき
+-
+-            if( gu8_f_charge_output == _ON_ )  // 放電出力中?
+-            {
+-
+-                 O_DISCHG12V_EN_L;
+-                 O_BATT_EN_L;
+-                 DL_TimerG_stopCounter(SYNC_0_INST);
+-                 DL_TimerG_stopCounter(SYNC_120_INST);
+-                 DL_TimerG_stopCounter(SYNC_240_INST);
+-                 gu8_f_charge_output = _OFF_;   // 放電出力中 OFF
+-            }
+-
+-            if(eeprom_req_busy==0){
+-
+-
+-                gu8_end_dischg_stage=2;
+-            }
+-
++
++            case 2:
++                if (gu16_c_aft_ac_on >= TIMER_600ms)
++                {
++                    gu8_end_dischg_stage=0;
++                    clear_global_variables();
++                }
+                 break;
+ 
+-       default :
++            case 3:
+                 break;
+         }
+-
+-
+-
+-        break;
+-
+-    case 1 ://放電終止もしくはバックアップ中のPS_OFFによる切断時
+-        if(eeprom_req_busy==0){
+-        O_DISCHG12V_EN_L;                     //DischgOFF
+-        O_BATT_EN_L;                          //BATT_ENOFF
+-        //****放電コンバーターOFF***********************
+-        DL_TimerG_stopCounter(SYNC_0_INST);
+-        DL_TimerG_stopCounter(SYNC_120_INST);
+-        DL_TimerG_stopCounter(SYNC_240_INST);
+-        //******************************************
+-        O_VCC_12V_EN_L;
+-        gu8_f_charge_output = _OFF_;
+-
+-        gu8_end_dischg_stage=2;
+-
+-        }
+-         break;
+-
+-    case 2:
+-        if(gu16_c_aft_ac_on>=TIMER_600ms)
+-        {
+-
+-              gu8_end_dischg_stage=0;
+-              clear_global_variables();
+-        }
+-         break;
+-
+-    case 3:
+-
+-        break;
+-    }
+-  	
+-  }
+-
+-}
+-
+-void clear_global_variables(void){
++    }
++}
++
++/*******************************************************************************
++* Function Name: clear_global_variables
++* Description  : グローバル変数の初期化
++* Arguments    : None
++* Return Value : None
++*******************************************************************************/
++void clear_global_variables(void)
++{
++    extern uint8_t _sdata;
++    extern uint8_t _edata;
++
++    data_start = (uintptr_t)&_sdata;
++    data_end   = (uintptr_t)&_edata;
++    data_size  = (size_t)(data_end - data_start);
+ 
+     /* グローバル変数領域をクリア */
+-    memset((void *)0x20200100, 0, 0x1742);   //変数を追加したらmapを確認してクリア領域を更新する
+-
+-    //0以外の変数
++    //memset((void *)0x20200100, 0, 0x1742);   //変数を追加したらmapを確認してクリア領域を更新する
++
++    /* dataセクションをゼロクリア */
++    memset((void *)data_start, 0, data_size);
++
++    /* 0以外の初期値をもつグローバル変数の初期化 */
+     gu8_f_envt_first = 1;
+     gu8_f_batt_not_con=2;
+     gu8_f_batt_connect = _UNKNOWN_CONNECT_;
+     gu8_f_first_check = _ON_;
+     gu8_f_ini_ps_on=2;
+-
+ 
+     pi_ps_on.ON_time = TIMER_10ms;
+     pi_ps_on.OF_time = TIMER_10ms;
+@@ -563,6 +537,7 @@
+
+     pi_ac_on_level.OF_time = TIMER_8ms;
+     pi_aft_ac_on_level.ON_time = TIMER_3ms;
+     pi_aft_ac_on_level.OF_time = TIMER_8ms;
++
+     /* 追加フィルター */
+     pi_low_v.ON_time = (TIMER_300ms - TIMER_4ms);
+     pi_low_v.OF_time = TIMER_10ms;
+@@ -633,11 +608,9 @@
+
+ 
+     pi_fan_stop_protection.ON_time=TIMER_10s;
+     pi_fan_stop_protection.OF_time= TIMER_10ms;
++
+     read_all_eeprom();//ROMデータをイニシャルで読み出すので必要
++
+     userInit();
+    // gu16_c_proc_delay = TIMER_1000ms;
+-
+-
+-
+-}
+-
++}

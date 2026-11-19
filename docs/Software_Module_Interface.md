@@ -1,5 +1,11 @@
 # Pico Software Module / Interface Specification
 
+2026-11-19追加回答を実装: シャント50A/50mV、取得mV、換算担当は親Pico。`CalibrationMeasurements.get_calibration(token)`は電流対象のmV測定値を同じ数値文字列のAとして返し、元値/単位も併記する。BATT_VはVを要求する。単位不一致では候補を返さず、Cache原文は変更しない。正式ATE/Host API・AD表現は未確定。[詳細](ADC_Calibration_Development_20261119.md)。
+
+2026-11-19 ADC測定値のRAM基盤: `calibration_measurement.py`の`CalibrationMeasurements`を`FixtureApp.measurements`へ追加。`start_trial/end_trial/begin/complete/fail/get/discard`は内部APIで正式ATE/Hostフレームではない。試行と取得の対応を照合し、完成応答のDecodeは将来adapterの責務とする。TEST_START/再STARTとTEST_END成立に連動。DMM通信/換算/AD送信は未接続。[詳細](ADC_Calibration_Development_20261119.md)。
+
+2026-11-16 DMM制御方針（未実装）: 7355のASCIIコマンドと設定/測定手順はATE担当。親は宛先付き要求の転送/取得相関/Cache/Logger、追加HostはCDC接続と送受信/timeout/機器状態を担当する。一般ASCII応答から校正値を自動採用せず、明示測定要求の結果のみ取得Cache候補とする。正式中継API・変換担当は未確定。[最新分担とデバッグ範囲](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。
+
 2026-11-16親PIO UARTピン確認: 現行src/・旧試作・周辺基板原典と照合し、QRは親GP8 TX/GP9 RX、7355は親GP12 TX/GP13 RXを第一候補とする。追加2 UARTはPIO1 SM0～3（MicroPython ID4～7）の予約案で、旧PIO0試作から分離。現物配線・SM load・命令メモリ/IRQ/受信負荷は未確認、正式API/FW定数は未変更。[割付根拠・物理pin表](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Parent_PIO_UART_Pin_Check_20261116/Pin_Assignment_Rev0.md)。
 
 2026-11-16追加基板資料: 7355用はRP2350-USB-A/Switch Science SKU10275、USB-A→7355 USB-B。GPIO12/13のPIO CDC Hostを別FWで開発する前提を[回路・改造・FW調査](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/RP2350_USB_A_20261116/Assessment_Rev0.md)に整理。メーカーHID→Device CDCデモを7355 CDC Host実装済みとは扱わない。既存QR FW・正式親子UART/APIの契約は変更していない。

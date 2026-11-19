@@ -1,0 +1,159 @@
+--- S1.13/NF55_global.c
+
++++ S1.15_r1/NF55_global.c
+
+@@ -18,12 +18,14 @@
+
+ uint16_t    gu16_CheckADC0 = 0;
+ uint16_t    gu16_CheckADC1 = 0;
+ 
+-uint16_t    gu16_ADC_cnt_4 = 0;
++uint16_t    gu16_ADC_cnt_4  = 0;
++uint16_t    gu16_ADC_cnt_10 = 0;  /* S1.14 128F対策 */
+ uint16_t    gu16_ADC_cnt_50 = 0;
+ uint16_t    gu16_ADC0_Result[7][50] = {0};
+ uint16_t    gu16_ADC1_Result[7][50] = {0};
+ uint16_t    gu16_ADC0_Sens[7] = {0};
+ uint16_t    gu16_ADC1_Sens[7] = {0};
++uint16_t    gu16_ADC0_5_10[10] = {0};  /* S1.14 128F対策 */
+ 
+ uint8_t  gu8_f_batt_not_con=2;
+ uint16_t gu16_c_batt_not_con=0;
+@@ -47,6 +49,7 @@
+
+ 
+ struct _Filter pi_high_i_on       = {0,0,TIMER_10ms,   TIMER_10ms, 0, _TRG_NONE_};
+ struct _Filter pi_high_i_on_50ms   = {0,0,TIMER_1ms,   TIMER_1ms, 0, _TRG_NONE_};
++struct _Filter pi_high_i_on_10ms   = {0,0,TIMER_1ms,   TIMER_1ms, 0, _TRG_NONE_};  /* S1.14 128F */
+ 
+ struct _Filter pi_high_v         = {0,0,TIMER_2ms,   TIMER_2ms, 0, _TRG_NONE_};
+ struct _Filter pi_high_i_dis_6   = {0,0,TIMER_1ms, TIMER_1ms, 0, _TRG_NONE_};
+@@ -76,6 +79,7 @@
+
+ struct _Filter pi_fan_low_protection   = { 0, 0, TIMER_30s,  TIMER_10ms, 0, _TRG_NONE_ };
+ struct _Filter pi_fan_high_protection  = { 0, 0, TIMER_30s,  TIMER_10ms, 0, _TRG_NONE_ };
+ struct _Filter pi_fan_stop_protection  = { 0, 0, TIMER_10s,  TIMER_10ms, 0, _TRG_NONE_ };
++
+ ///////////////////////////////
+ uint8_t     gu8_f_over_v = 0;
+ uint8_t     gu8_f_over_i_on = 0;
+@@ -86,9 +90,6 @@
+
+ uint8_t     gu8_f_tmp_fail_bbu=0;
+ uint8_t     gu8_f_tmp_wng_batt=0;
+ 
+-
+-////////////////////////
+-
+ ////////////////////////////////////////////////////////////
+ struct _Filter pi_burst_i_over   = {0,0,(TIMER_300ms+TIMER_50ms),   (TIMER_300ms+TIMER_50ms), 0, _TRG_NONE_};
+ struct _Filter pi_burst_i_good    = {0,0,(TIMER_300ms+TIMER_50ms),   TIMER_10ms, 0, _TRG_NONE_};
+@@ -114,6 +115,7 @@
+
+ uint8_t     gu8_f_high_i_of_h    = _OFF_;
+ uint8_t     gu8_f_high_i_on      = _OFF_;
+ uint8_t     gu8_f_high_i_on_50ms = _OFF_;
++uint8_t     gu8_f_high_i_on_10ms = _OFF_;  /* S1.14 128F対策 */
+ uint8_t     gu8_f_high_v        = _OFF_;
+ uint8_t     gu8_f_high_i_dis_6  = _OFF_;
+ uint8_t     gu8_f_high_i_cha    = _OFF_;
+@@ -146,6 +148,7 @@
+
+ uint8_t     gu8_f_opencheck=0;
+ 
+ uint8_t     gu8_f_ac_off_detected=0;
++
+ /////////////////////////////////////////////////////
+ uint8_t     gu8_f_skip_reason=0;
+ 
+@@ -217,6 +220,8 @@
+
+ uint32_t    gu32_c_minus_dv_disable = 0;                    // 充電開始後、-ΔV検出を行わない期間カウンタ
+ uint8_t     gu8_f_charge_inhibited = 0;    // 充電禁止中フラグ(0:充電可能 1:充電禁止中)
+ uint8_t     gu8_f_main_chg_now = 0;     // 主充電中フラグ
++uint8_t     gu8_f_suppr_chg_now = 0;      //温度抑止中フラグ
++uint8_t     gu8_f_charge_cmd_mode = 0;      // 今回の充電が強制充電コマンドによるものであることを通知するフラグ
+ 
+ uint8_t     gu8_f_dcir_check_doing = 0;    // DCIR測定中フラグ
+ life_diag_data_response_t gs_life_diag_data_response = {0}; // 寿命診断データ(BCコマンドレスポンス用)
+@@ -249,11 +254,26 @@
+
+ float       gf_12vout_i_coeff  = 0.0;
+ float       gf_12vout_v_coeff  = 0.0;
+ 
++/* S1.14 123F対策 補正の計算式を修正 */
++float       gf_dischg_i_coeff_ad2  = 0.0;
++float       gf_dischg_i_coeff_po2  = 0.0;
++float       gf_batt_v_coeff_ad2   = 0.0;
++float       gf_batt_v_coeff_po2   = 0.0;
++float       gf_acdc12v_v_coeff_ad2 = 0.0;
++float       gf_acdc12v_v_coeff_po2 = 0.0;
++float       gf_batt_chg_coeff_ad2  = 0.0;
++float       gf_batt_chg_coeff_po2  = 0.0;
++float       gf_12vout_v_coeff_ad2  = 0.0;
++float       gf_12vout_v_coeff_po2  = 0.0;
++
+ uint16_t    gu16_ad_dischg_i  = 0;
+ uint16_t    gu16_ad_batt_v    = 0;
+ uint16_t    gu16_ad_acdc12v_v = 0;
+ uint16_t    gu16_ad_batt_chg  = 0;
+-uint16_t    gu16_ad_12vout_i  = 0;
++uint16_t    gu16_val_12vout_i  = 0;    /* S1.14 128F対策 */
++uint16_t    gu16_val_12vout_i_50 = 0;  /* S1.14 128F対策 */
++uint16_t    gu16_val_12vout_i_10 = 0;  /* S1.14 128F対策 */
++
+ uint16_t    gu16_ad_12vout_v  = 0;
+ 
+ uint8_t     gu8_uart_main_receivedata[UART_RCV_MAIN_NUM];
+@@ -353,8 +373,6 @@
+
+ uint16_t    gu16_ad_12vout_v_now_ad=0;
+ uint16_t    gu16_ad_chgout_v_now_ad=0;
+ 
+-
+-
+ // FAN制御用(PWM)
+ uint8_t     gu8_fan_output_stg = 0;     // FAN出力処理ステージ
+ uint16_t    gu16_fan_pwm_freq = 0;      // FAN周波数
+@@ -412,7 +430,8 @@
+
+  // サブタイマー群
+ uint16_t gu16_c_bat_temp_calc = 0;    // バッテリ温度平均算出用タイマー(1m)
+  // データ群
+-uint16_t gu16_bat_temp_1h_sum = 0;           // バッテリ温度算出用合計値(※最大で、1minごと合計60データとして変数型を想定)
++//uint16_t gu16_bat_temp_1h_sum = 0;           // バッテリ温度算出用合計値(※最大で、1minごと合計60データとして変数型を想定)
++int16_t gi16_bat_temp_1h_sum = 0;           /* S1.14 150F対策 */
+ uint8_t gu8_c_bat_temp_1h_sum_sample = 0;    // バッテリ温度算出用合計値_サンプル数
+  // フラグ群
+ uint8_t gu8_f_ac_70v_ac_interrupt_on_trg = 0;    // AC70V瞬断ONトリガ
+@@ -495,7 +514,6 @@
+
+ 
+ float       gf_max_per = 0;
+ float       gf_min_per = 0;
+-
+ float       gf_adj_per = 0;
+ 
+ uint8_t gu8_f_charging_active_old = 0;
+@@ -516,6 +534,7 @@
+
+ uint8_t gu8_cmd_sl_proc_stage = 0;
+ uint8_t gu8_cmd_bc_proc_stage = 0;
+ uint8_t gu8_cmd_ad_proc_stage = 0;
++uint8_t gu8_cmd_sc_proc_stage = 0;
+ 
+ uint8_t gu8_ack_stage = 0;
+ uint8_t gu8_nak_stage = 0;
+@@ -544,10 +563,9 @@
+
+ uint32_t gu32_reset_cause=0;
+ 
+ uint8_t gu8_f_ini_ps_on = 2;
++
+ /*******************************/
+ /* Boot <-> User受け渡しデータ */
+ /*******************************/
+ __attribute__((section(".fixed_ram"))) __attribute__((used))
+ data_info_common_t data_info_common;
+-
+-

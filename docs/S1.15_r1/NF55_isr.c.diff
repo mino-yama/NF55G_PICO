@@ -1,0 +1,188 @@
+--- S1.13/NF55_isr.c
+
++++ S1.15_r1/NF55_isr.c
+
+@@ -41,8 +41,9 @@
+
+ {
+     // Enter an infinite loop.
+     volatile int i = 1;
+-    while(i)
+-    {
++    while (i)
++    {
++        ;
+     }
+ }
+ 
+@@ -99,7 +100,6 @@
+
+  *******************************************************************************/
+ void ADC12_0_INST_IRQHandler(void)
+ {
+-
+     switch (DL_ADC12_getPendingInterrupt(ADC12_0_INST))
+     {
+         case DL_ADC12_IIDX_MEM0_RESULT_LOADED:
+@@ -126,7 +126,6 @@
+
+         default:
+             break;
+     }
+-
+ }
+ 
+ /*******************************************************************************
+@@ -137,7 +136,6 @@
+
+  *******************************************************************************/
+ void ADC12_1_INST_IRQHandler(void)
+ {
+-
+     switch (DL_ADC12_getPendingInterrupt(ADC12_1_INST))
+     {
+         case DL_ADC12_IIDX_MEM0_RESULT_LOADED:
+@@ -152,7 +150,6 @@
+
+         default:
+             break;
+     }
+-
+ }
+ 
+ /*******************************************************************************
+@@ -163,15 +160,14 @@
+
+  *******************************************************************************/
+ void GROUP1_IRQHandler(void)
+ {
+-       uint32_t c_fan_prm_new = 0;
+-//static uint32_t c_fan_prm_old = 0;
+-       uint32_t c_ac_on_new = 0;
+-//static uint32_t c_ac_on_old = 0;
+-       uint32_t diff;
+-       //float   t1;
+-
+-//static  uint8_t     su8_f_rpm = 0;   /* 初回の割込み発生を記憶 */
+-        uint32_t    now_rpm;
++    uint32_t c_fan_prm_new = 0;
++    //static uint32_t c_fan_prm_old = 0;
++    uint32_t c_ac_on_new = 0;
++    //static uint32_t c_ac_on_old = 0;
++    uint32_t diff;
++    //float   t1;
++    //static  uint8_t     su8_f_rpm = 0;   /* 初回の割込み発生を記憶 */
++    uint32_t    now_rpm;
+ 
+     uint32_t gpio = DL_GPIO_getEnabledInterruptStatus(GPIO_GRP_B_PORT,
+         (GPIO_GRP_B_PB14_INPUT_PIN | GPIO_GRP_B_PB3_INPUT_PIN));  // FAN PRM / AC_ON_IN
+@@ -240,8 +236,6 @@
+
+     /*************************/
+     if ((gpio & GPIO_GRP_B_PB3_INPUT_PIN) == GPIO_GRP_B_PB3_INPUT_PIN)
+     {
+-
+-
+         DL_GPIO_clearInterruptStatus(GPIO_GRP_B_PORT, GPIO_GRP_B_PB3_INPUT_PIN);
+ #if 0 // 2026/5/28
+ #if 0
+@@ -250,7 +244,9 @@
+
+         if( gu32_c_ac_on_old >= c_ac_on_new )
+         {
+             diff = gu32_c_ac_on_old - c_ac_on_new;
+-        } else {
++        }
++        else
++        {
+             diff = gu32_c_ac_on_old + ~c_ac_on_new;
+         }
+         gu32_c_ac_on_old = c_ac_on_new;
+@@ -270,11 +266,15 @@
+
+                     gu8_f_ac_on = _ON_;     // AC有り
+                     gu16_c_ac_on_flt = 20;
+                 }
+-            } else {
++            }
++            else
++            {
+                 gu8_f_ac_on = _OFF_;        // AC無し
+                 gu16_c_ac_on_flt = 0;
+             }
+-        } else {
++        }
++        else
++        {
+             gu32_c_ac_off_period = diff;   // OFF期間
+             if( gu32_c_ac_off_period >= AC_TIME_7MS ) // OFF期間=7ms?
+             {
+@@ -313,7 +313,9 @@
+
+         if( gu32_c_ac_on_old >= c_ac_on_new )
+         {
+             diff = gu32_c_ac_on_old - c_ac_on_new;
+-        } else {
++        }
++        else
++        {
+             diff = gu32_c_ac_on_old + ~c_ac_on_new;
+         }
+         gu32_c_ac_on_old = c_ac_on_new;
+@@ -333,7 +335,9 @@
+
+                     }
+                     gu16_c_ac_on_flt = 20;
+                 }
+-            } else {
++            }
++            else
++            {
+                 gu16_c_ac_on_flt = 0;
+                 if( gu8_f_ac_syundan_1s != 0 )
+                 {
+@@ -347,7 +351,9 @@
+
+                     }
+                 }
+             }
+-        } else {
++        }
++        else
++        {
+             gu32_c_ac_off_period = diff;   // OFF期間
+         }
+ #if 0
+@@ -364,7 +370,6 @@
+
+ #endif
+ #endif
+ #endif
+-
+     }
+ }
+ 
+@@ -414,7 +419,9 @@
+
+                 gu8_uart_main_receivedata[gu8_uart_main_rcv_wpt] = rdata;     // 受信バッファに格納
+                 gu8_uart_main_rcv_wpt = (gu8_uart_main_rcv_wpt+1) & (UART_RCV_MAIN_NUM-1);
+ 
+-            } else {
++            }
++            else
++            {
+                 // OverRun/Parity/Framing
+                 rdata = DL_UART_Main_receiveData(UART_0_INST); // Dummy Read
+                 switch (error)
+@@ -449,7 +456,9 @@
+
+             {
+                 tdata = gu8_d_uart_sendbuf[gu8_d_uart_snd_rpt][gu16_c_tx++];
+                 DL_UART_Main_transmitData(UART_0_INST, tdata);
+-            } else {
++            }
++            else
++            {
+                 gu16_tx_send_req[gu8_d_uart_snd_rpt][0] = 0;
+             }
+             break;

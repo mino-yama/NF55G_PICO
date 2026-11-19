@@ -1,0 +1,54 @@
+--- S1.13/NF55_eeprom.h
+
++++ S1.15_r1/NF55_eeprom.h
+
+@@ -71,8 +71,9 @@
+
+ 
+ // バッテリ容量
+ typedef struct {
+-    float    wh;                  // バッテリ容量現在値(Wh)
+-    float    mah;                 // バッテリ容量現在値(mAh)
++    float   wh;                     // バッテリ容量現在値(Wh)
++    float   mah;                    // バッテリ容量現在値(mAh)
++    float   chgsoc;                 /* ChgSOC 充電量積算値(mAh) */
+ } batt_cap_t;
+ 
+ // 積算データ
+@@ -155,8 +156,8 @@
+
+ 
+     set_serial_t        set_serial;    // 48(48)  SET SERIAL
+ 
+-    batt_cap_t          batt_cap;      // 96(8)   バッテリ容量現在値
+-    uint8_t             dummy10[8];
++    batt_cap_t          batt_cap;      // 96(12)   バッテリ容量現在値
++    uint8_t             dummy10[4];
+ 
+     off_period_data_t   off_period_data; // 112(28)  OFF期間データ
+     uint8_t             dummy4[4];
+@@ -194,7 +195,8 @@
+
+ 
+     uint8_t             batt_err;     // 832
+     uint8_t             ps_on_sts;    // 833
+-    uint8_t             dummy13[14];  // 834
++    uint8_t             back_up;      // 834
++    uint8_t             dummy13[13];  // 835
+ 
+     uint8_t             dummy14[8];   // 848
+     uint32_t            crc32;        // 856
+@@ -221,10 +223,11 @@
+
+ #define EEPROM_12VOUT_V_POS  816     // 12VOUT_V 調整
+ #define EEPROM_BATT_ERR_POS  832     // バッテリ異常
+ #define EEPROM_PS_ON_STS_POS 833     // PS_ON状態
++#define EEPROM_BACK_UP_POS   834     // バックアップ判定
+ #define EEPROM_CRC_POS       856     // CRC
+ #define EEPROM_PINCODE_POS   860     // PINCODE
+ 
+-#define EEPROM_VALID_DATA    834    // EEPROM有効データ数(CRC計算範囲)
++#define EEPROM_VALID_DATA    835    // EEPROM有効データ数(CRC計算範囲)
+ #define EEPROM_ALL_DATA      864    // EEPROM全データ数
+ 
+ #define ERROR_LOG_COUNT      32     // ERROR LOG数

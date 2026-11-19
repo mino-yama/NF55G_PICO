@@ -1,0 +1,65 @@
+
+- GPIOA:
+	+ High-Drive Input with internal pull-up: PA28
+	+ High-Drive Input with internal pull-up: PA31
+	+ Standard Input with internal pull-up: PA2
+	+ High-Speed Input with internal pull-up: PA9
+	+ High-Speed Output: PA13
+	+ High-Speed Output: PA14
+	+ Standard with Wake Input: PA18
+	+ Standard Input: PA21
+	+ Standard Input: PA23
+- GPIOB:
+	+ Standard Input with internal pull-up: PB3
+	+ Standard Output: PB6
+	+ Standard Output: PB7
+	+ Standard Output: PB8
+	+ Standard Output: PB9
+	+ Standard Input with internal pull-up: PB14
+	+ Standard Output: PB15
+	+ Standard Output: PB16
+	+ Standard Output: PB18
+	+ Standard Output: PB19
+- SYSCTL:
+	+ HFXIN: PA5
+	+ HFXOUT: PA6
+	+ LFXIN: PA3
+	+ LFXOUT: PA4
+- TIMG8:
+	+ Capture/Compare Pin 0: PA7
+- TIMG6:
+	+ Capture/Compare Pin 0: PB2
+- TIMG0:
+	+ Capture/Compare Pin 0: PA12
+- TIMA0:
+	+ Capture/Compare Pin 0: PA8
+- TIMG12
+- I2C0:
+	+ I2C Serial Data line (SDA): PA0
+	+ I2C Serial Clock line (SCL): PA1
+- UART0:
+	+ RX Pin: PA11
+	+ TX Pin: PA10
+- ADC0:
+	+ ADC12 Channel 0 Pin: PA27
+	+ ADC12 Channel 1 Pin: PA26
+	+ ADC12 Channel 2 Pin: PA25
+	+ ADC12 Channel 3 Pin: PA24
+	+ ADC12 Channel 5 Pin: PB24
+	+ ADC12 Channel 6 Pin: PB20
+	+ ADC12 Channel 7 Pin: PA22
+- ADC1:
+	+ ADC12 Channel 1 Pin: PA16
+	+ ADC12 Channel 2 Pin: PA17
+	+ ADC12 Channel 4 Pin: PB17
+- EVENT
+- CRC
+- RTC
+- SYSTICK
+- DAC12:
+	+ DAC12 Output Pin: PA15
+- WWDT0
+- MATHACL
+- BOARD:
+	+ Debug Clock: PA20
+	+ Debug Data In Out: PA19

@@ -1,0 +1,68 @@
+# ADC校正：確定事項と治具開発 第1段階
+
+日付: 2026-11-19。根拠は本日のユーザー指示。状態: 校正対象の仕様判断確定／治具開発継続／実機検証待ち。
+
+## 確定事項
+
+製品NF55Gの新FW S1.15_r1（2026-11-18レビュー版）との差異を吸収するための治具変更は保留する。一方、ADC校正の治具機能は開発を進める。製品FW・GitHub Open Issuesの変更や実機書込みを今回の作業に含めない。
+
+設計部門から製造・検査現場へ発行された「7.3 電流／電圧の補正」を根拠に、必須校正対象は次の3系統とする。各A/B点の実測値を取得し、SETで記録する。「付近」は目標であり合否閾値ではない。
+
+|対象|A点|B点|
+|---|---|---|
+|DISCHG_I（バッテリ放電電流）|44 A付近|0.3 A付近|
+|BATT_CHG（バッテリ充電電流）|1.85 A付近|0.5 A付近|
+|BATT_V（バッテリ電圧）|8 V付近|5 V付近|
+
+ユーザー確認によるFW解析結果: gf_dischg_i_coeffはEEPROMの2点校正データから算出、gf_12vout_i_coeffは固定係数。12VOUT_Iは必須対象に含まれず、固定係数であること自体を設計指示7.3に対する不適合とは判断しない。他ADC項目への校正機能追加は要求しない。今回、この解析を再実施したものではない。
+
+OI-17は設計指示7.3との不整合として扱わない。ただし機能確認完了やIssueのCloseを意味しない。OI-19の保存後反映・電源再投入の要否は実機で確認する。添付NF54191-G_S2.docxはNF54G検査仕様書として区別し、NF55Gの根拠・変更指令へ読み替えない。今回添付本文の解析は行っていない。
+
+## 到達機能
+
+ATE → 親Pico → 7355専用USB Host（CDC）→ DMMで取得し、逆経路で完成測定値を受ける。親は対象・補正点・試行・取得要求に結び付けてCacheへ保持し、ATEへ返す。ATEが採用を判定し、別の明示指令で親にCacheを指定してNF55GへのAD指令＋測定値を送らせる。親が製品PASS/FAILを判定しない。
+
+7355のSCPI本文・測定条件・手順はATEが担当する既存方針を維持する。読取りだけのAD送信、書込み時の自動再測定、個別QueryでのRefreshは行わない。数値直接指定方式も維持する。使用Cacheは書込み完了または成否不明時に破棄し、TEST_END成立時は未使用Cache・未完了取得も全て失効する。
+
+## 今回実装した範囲
+
+### 追加確定：シャントと換算担当
+
+同日ユーザー回答により、電流2系統のシャントは50 A／50 mV（1 mΩ）、取得単位はmV、換算担当は親Picoで確定。`I[A] = U[mV]`なので数値を変えずにAとして扱う。例: 44.012 mV→44.012 A、0.30012 mV→0.30012 A、1.85001 mV→1.85001 A、0.50002 mV→0.50002 A。BATT_VはVのまま保持する。
+
+`complete()`はmVも受け付け、測定Cacheでは原文・数値文字列・測定単位を保持する。`get_calibration(token)`は電流対象でmVを要求し、同じ数値文字列のAを返す。元の数値・単位も返却値の`measurement_value_text/measurement_unit`へ保持する。BATT_VではVを要求し、Vのまま返す。元Cacheは変更しない。単位不一致は`CALIBRATION_UNIT`として校正候補を返さない。
+
+DMMの実際のUSB応答がV表記の場合、それをmVと表示だけ付け替えてはならない。将来のadapterで応答単位の確認・必要なV→mV正規化を行う。今回の実装は明示的にmVへDecode済みの値を入力とする。符号・指数・小数桁を保持し、新たな丸め/絶対値化は行わない。ADへの格納表現と製品側の極性契約は未確定のままとする。
+
+以下の第1段階実装に、この換算候補取得を追加した。正式ATE返却フレーム・AD送信への接続は未実装。
+
+- `src/calibration_measurement.py`: 3系統×A/Bの最大6枠を保持するRAM基盤。内部tokenで試行世代・取得連番・対象・点を照合する。tokenは内部APIであり正式ATE/UARTフレームではない。
+- `begin()`で同じ点の旧値を先に破棄し、`complete()`で完成・Decode済みの単一数値を保持する。`fail()`で失敗・timeout・取消を終了させ、旧値へ戻さない。遅着・重複・別対象/点/試行の応答は採用しない。同時に保留する測定要求は1件とする内部実装で、正式通信契約は未確定。
+- DMM原文と数値文字列、明示されたV/mV/A単位を保持する。上記の校正候補取得でmV→Aを換算する。浮動小数点への変換・丸め・物理範囲判定は行わない。数値構文検査はOL/NaN/Inf等を拒否するが、数値形式の機器オーバーレンジ表現までは判定しない。将来adapterが完成判定・機器別応答検証を行い、任意SCPI応答を渡さない責任を持つ。
+- `get()`は同じtokenの値のコピーを返し、呼出し側の変更が保持値へ影響しない。`discard()`は使用した取得だけを失効させる内部入口で、AD transaction結果への接続は未実装。
+- `src/main.py`: 受付済みTEST_START/再STARTに試行開始を連動し、TEST_END成立に全破棄を連動する。BUSYで拒否されたSTART/ENDは状態を保持する。既存Logger履歴を消さない。
+
+正式な測定取得/Cache照会/書込みのATEコマンド、親子UART、CDC FW、AD/AR入口は今回追加していない。DMM→ADの一連動作が完成したという意味ではない。実機配置も行わない。
+
+## 残事項と次工程
+
+確定前に推測で実装しない事項:
+
+1. 正式ATEコマンド・応答・エラーと親子UARTフレーム、原文長上限、完了条件・timeout・切断回復。
+2. 製品側の極性・丸め・AD表現、およびDMM応答単位の確認/正規化。シャント50A/50mV・取得mV・PicoでAへ換算は確定済み。目標電流を実測値の代用にしない。
+3. A/BとADのP1/P2対応、AD/AR形式・応答・T2、明示拒否時のCache扱い、追加の鮮度期限。
+4. 保存・保持・補正後測定値、電源再投入前後の反映（OI-19）、AD異常処理の実機検証。
+
+CAL-EXT-02および関連Open Issuesは未回答部分について継続する。今回は新FW差異に対する独自補正やIssueの設計回答を行わない。
+
+次工程は正式API・換算の詳細化→DMM中継/Cache取得のATE入口→ATE確認後のCache利用AD送信→実機検証。未確定部分を接続するまでは本基盤の保持値を校正に使用しない。
+
+## 検証
+
+`tests/test_calibration_measurement.py`で3系統×2点、原文/桁/単位の保持、コピー保護、再取得失敗、遅着・重複・誤点・旧試行、不正数値、使用値破棄を検証する。Mock NF55Gを接続したFixtureApp経由でTEST_START/再START/TEST_END、BUSY拒否、無送信を検証する。実行結果は本案件の`ADC_Calibration_Host_Mock_20261119.log`へ保存する。DMM/USB CDC/ADの実機試験は未実行。
+
+実行結果: `.venv/Scripts/python.exe -B -m unittest discover -s tests -v`でHost Unit/Mockを含む全369件成功（7.521秒、追加15件を含む）。今回変更した追跡ファイルの`git diff --check`も成功。作業開始前から差分がある別ファイル`Development_Steps_After_CDC_Rev0.md`の末尾空白指摘は今回変更せず保持した。
+
+シャント換算追加後の実行結果: 同じ全試験コマンドで全375件成功（9.164秒、換算追加6件を含む）。結果は[追加後のHost/Mockログ](ADC_Calibration_Shunt_Host_Mock_20261119.log)へ別名保存し、初回369件のログを保持した。更新した追跡文書のdiff空白チェックも成功。DMM/CDC/ADの実機検証と配置は未実施。
+
+今回変更ファイル: 新規`src/calibration_measurement.py`、`tests/test_calibration_measurement.py`、本記録・試験ログ、既存`src/main.py`、`docs/ATE_Command_Master.md`、`docs/Cache_Master.md`、`docs/Calibration_External_Measurement_Requirements_20261104.md`、`docs/Implementation_Plan.md`、`docs/Open_Issues.md`、`docs/Software_Module_Interface.md`、`docs/Test_Specification.md`、`docs/CHANGELOG.md`。既存文書への変更は最新注記の追記とし、作業前からの変更を保持した。

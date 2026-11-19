@@ -1,5 +1,11 @@
 # 7.3 電流／電圧補正：外部測定値取込みの追加要求
 
+2026-11-19追加回答: 電流2系統は50A/50mV（1mΩ）シャントを使用し、測定値はmVで取得、親PicoがAへ換算する。I[A]=U[mV]なので数値を変更せず単位をAとする。BATT_VはV。以下のシャント抵抗値・換算担当・取得単位の未確定記述はこの回答で更新する。`get_calibration(token)`に換算を実装し、元Cacheの原文/mV値を保持する。DMM実応答の単位確認と正規化、AD表現・製品極性等は継続。[実装と残事項](ADC_Calibration_Development_20261119.md)。
+
+2026-11-19ユーザー確定: 校正必須はDISCHG_I（A≈44A/B≈0.3A）、BATT_CHG（A≈1.85A/B≈0.5A）、BATT_V（A≈8V/B≈5V）の3系統。12VOUT_I固定係数は設計指示7.3との不適合としない。新製品FWに対する追従変更は保留、ADC校正の治具機能は開発継続。測定Cacheの基盤と試行境界の失効を先行実装し、正式ATE/CDC/AD連携・換算・実機確認は残る。従来の開発保留記述は本指示でこの範囲を解除する。NF54Gの添付検査仕様書は区別する。[確定事項と進捗](ADC_Calibration_Development_20261119.md)。
+
+2026-11-16 DMM指令所有者: ユーザー方針により7355のASCIIコマンド・設定/測定順序はATE担当、親PicoとHostは宛先を識別して中継する。任意の数字応答を校正値へ自動採用せず、対象/点/取得に対応した明示測定要求だけをCacheへ採用する設計。[分担とデバッグ計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。取得→ATE確認→別のCache利用書込みと、既存数値直接指定を維持。中継書式・単位換算等は未確定。
+
 2026-11-14最新確定指示: 数値直接指定方式を維持し、別にDMM読取り→Cache保存・ATE返却→ATE確認→明示書込み指令でCache値を付加してNF55Gへ送信する方式を設ける。取得のみで書かず、書込み時に再取得しない。以下のATE数値再指定・取得値補完禁止の記述は旧方式であり、取得Cache利用方式は本追記を優先する。[確定要件と残事項](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。正式API・Cache寿命等は未確定。
 
 **2026-11-14 最新方針：7355用Host基板を追加し、QR用Hostとは親Picoへの接続経路を分ける。測定取得・ATE判定・数値指定書込みの分離は維持。** [現行方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。

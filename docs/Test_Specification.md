@@ -1,5 +1,11 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-19シャント換算テスト追加: 電流2系統×2点でmV→同値A、BATT_Vの両点でV保持、符号/指数/精度の保持、誤単位の拒否、元Cacheの保護、失効後の候補拒否を確認する。親Pico相当のFixtureApp＋Mock NF55Gで換算のみではAD送信なしも確認する。前回ログを保持し、追加後の全試験結果を`ADC_Calibration_Shunt_Host_Mock_20261119.log`へ保存する。
+
+2026-11-19 ADC測定Cache基盤: `tests/test_calibration_measurement.py`に、3系統×A/Bの保持、原文/数値桁/単位の保持、再取得失敗時の旧値破棄、遅着・重複・別点/試行の拒否、不正数値、コピー保護、使用Cache破棄を追加。Mock NF55G付きFixtureAppでATEのTEST_START/再START/TEST_END、BUSY拒否時の保持とNF55G無送信も確認する。正式DMM取得/Cache照会/AD送信、換算とCDC実機試験は未実装/未実行。[範囲・結果ログ](ADC_Calibration_Development_20261119.md)。
+
+2026-11-16 DMMのATE指定ASCII中継の試験要件（未実装・未実行）: 宛先分離（治具/DMMのIDNを混同しない）、SCPI本文の引用符/空白/カンマ等の保持、設定送信完了とQuery完了の区別、終端の二重付加防止、分割/過長/timeout/切断/遅着の要求分離、任意ASCII応答と明示測定Cacheの採用分離（OPCの1を測定値にしない）、QR同時動作とATE/NF55G優先を対象とする。[分担とデバッグ工程](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。正式API/上限/期限等の設計後にHost/Mock/実機で具体化する。
+
 2026-11-14 DMM/QR取得Cache書込みの追加試験要件（未実装・未実行）: 取得だけではNF55G送信なし、ATE確認後の明示指令で確認したCache値だけを付加、書込み中の再取得なし、欠落/INVALID/対象・試行・取得不一致は無送信エラー、確認後の別取得・遅着による値差替え拒否、数値直接指定方式は事前取得なしで利用可、をHost/Mock/実機の対象とする。書込み完了後の再書込み拒否、TEST_ENDで未使用分も破棄、終了後の遅着・次試行でCache復活なし、ambiguous時INVALID、履歴ログ保持も確認する。正式ID/API・追加期限・完了単位/明示拒否時処理は詳細設計で具体化。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
 
 2026-11-14 7355 CDC次回試験の準備（未実行）: RP2350-USB-A→7355 USB-B構成を対象に、PC成功条件とメーカーSCPIコマンドを[CDC設定・電圧初回試験手順](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/CDC_Settings_Voltage_Quick_Test_Rev0.md)へ集約。BUS/LANG確認後、IDN→DC20V単発→200V固定→AUTOを順次確認する。設定とQuery応答を交互に処理し、原文・前面表示・既知入力を記録する。Host実機適合・測定は未実行、既存NF55G試験と合否契約は変更しない。

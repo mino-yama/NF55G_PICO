@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 842 595">
+<rect width="842" height="595" fill="white"/>
+<text x="25" y="29" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="19" fill="#213244">RP2350-USB-A 端子位置・UART監視配線</text>
+<text x="25" y="51" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="11" fill="#176a9b">03  裏面から見た位置図：USB-Cが上のまま、左右を反転 / 縮尺なし</text>
+<text x="634" y="28" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="11" fill="#213244">DMM 7355用 / Rev.0</text>
+<text x="634" y="48" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="9" fill="#213244">2026-11-16 / A4横 / 3/3</text>
+<polyline points="25,65 817,65" fill="none" stroke="#647483" stroke-width="1.5"/>
+<polyline points="25,563 817,563" fill="none" stroke="#647483" stroke-width="1.5"/>
+<text x="25" y="581" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="9" fill="#647483">配線準備図 / はんだ付けは試作完了後 / 実機の向き・シルク・給電条件を照合</text>
+<text x="760" y="581" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#647483">3 / 3</text>
+<text x="30" y="88" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="11" fill="#176a9b">裏面の左側</text>
+<text x="411" y="88" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="11" fill="#176a9b">裏面の右側</text>
+<rect x="220" y="113" width="168" height="309" fill="#f2f5f8" stroke="#176a9b"/>
+<rect x="262" y="95" width="84" height="51" fill="#edf0f4" stroke="#647483" stroke-dasharray="4 3"/>
+<text x="270" y="118" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="13" fill="#213244">USB-C</text>
+<text x="269" y="134" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="9" fill="#213244">位置目安</text>
+<rect x="250" y="400" width="108" height="57" fill="#edf0f4" stroke="#647483" stroke-dasharray="4 3"/>
+<text x="271" y="425" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="15" fill="#213244">USB-A</text>
+<text x="265" y="443" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#213244">位置目安</text>
+<text x="274" y="266" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="18" fill="#176a9b">裏面</text>
+<text x="253" y="291" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#176a9b">左右反転図</text>
+<rect x="214" y="149" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="147" width="170" height="23" fill="#f5eefb" stroke="#7735a4"/>
+<text x="40" y="163" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#7735a4">#01</text>
+<text x="95" y="163" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#7735a4">GP0 / TX</text>
+<polyline points="200,158 214,158" fill="none" stroke="#7735a4" stroke-width="1.5"/>
+<rect x="214" y="177" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="175" width="170" height="23" fill="#f6f7f8" stroke="#176a9b"/>
+<text x="40" y="191" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#176a9b">#02</text>
+<text x="95" y="191" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#176a9b">GP1 / RX</text>
+<polyline points="200,186 214,186" fill="none" stroke="#176a9b" stroke-width="1.5"/>
+<rect x="214" y="205" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="203" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="219" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#03</text>
+<text x="95" y="219" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP2</text>
+<polyline points="200,214 214,214" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="233" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="231" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="247" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#04</text>
+<text x="95" y="247" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP3</text>
+<polyline points="200,242 214,242" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="261" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="259" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="275" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#05</text>
+<text x="95" y="275" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP4</text>
+<polyline points="200,270 214,270" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="289" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="287" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="303" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#06</text>
+<text x="95" y="303" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP5</text>
+<polyline points="200,298 214,298" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="317" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="315" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="331" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#07</text>
+<text x="95" y="331" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP6</text>
+<polyline points="200,326 214,326" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="345" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="343" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="359" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#08</text>
+<text x="95" y="359" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP7</text>
+<polyline points="200,354 214,354" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="214" y="373" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="30" y="371" width="170" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="40" y="387" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#09</text>
+<text x="95" y="387" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP8</text>
+<polyline points="200,382 214,382" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="149" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="147" width="158" height="23" fill="#fff5f2" stroke="#bf3434"/>
+<text x="421" y="163" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#bf3434">#18</text>
+<text x="476" y="163" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#bf3434">5V / VSYS</text>
+<polyline points="394,158 411,158" fill="none" stroke="#bf3434" stroke-width="1.5"/>
+<rect x="382" y="177" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="175" width="158" height="23" fill="#f6f7f8" stroke="#213244"/>
+<text x="421" y="191" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#213244">#17</text>
+<text x="476" y="191" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#213244">GND</text>
+<polyline points="394,186 411,186" fill="none" stroke="#213244" stroke-width="1.5"/>
+<rect x="382" y="205" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="203" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="219" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#16</text>
+<text x="476" y="219" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">3V3</text>
+<polyline points="394,214 411,214" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="233" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="231" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="247" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#15</text>
+<text x="476" y="247" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP29</text>
+<polyline points="394,242 411,242" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="261" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="259" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="275" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#14</text>
+<text x="476" y="275" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP28</text>
+<polyline points="394,270 411,270" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="289" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="287" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="303" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#13</text>
+<text x="476" y="303" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP27</text>
+<polyline points="394,298 411,298" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="317" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="315" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="331" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#12</text>
+<text x="476" y="331" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP26</text>
+<polyline points="394,326 411,326" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="345" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="343" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="359" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#11</text>
+<text x="476" y="359" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP10</text>
+<polyline points="394,354 411,354" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="382" y="373" width="12" height="18" fill="#ead99d" stroke="#8e773d"/>
+<rect x="411" y="371" width="158" height="23" fill="#f6f7f8" stroke="#647483"/>
+<text x="421" y="387" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">#10</text>
+<text x="476" y="387" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#647483">GP9</text>
+<polyline points="394,382 411,382" fill="none" stroke="#647483" stroke-width="1.5"/>
+<rect x="591" y="104" width="224" height="176" fill="#fff6ed" stroke="#ba762a"/>
+<text x="601" y="126" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#8e551a">裏面での目印</text>
+<text x="601" y="152" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#8e551a">USB-Cを上に保持。</text>
+<text x="601" y="178" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#8e551a">GP0 / #01：左上。</text>
+<text x="601" y="204" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#8e551a">5V / #18：右上。</text>
+<text x="601" y="230" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#8e551a">GND / #17：右上から2番。</text>
+<text x="601" y="256" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#8e551a">3V3 / #16：右上から3番。</text>
+<rect x="591" y="300" width="224" height="108" fill="#f1f5fb" stroke="#176a9b"/>
+<text x="601" y="321" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="12" fill="#176a9b">はんだ付け前に</text>
+<text x="601" y="344" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#176a9b">表面シルクと本図を照合。</text>
+<text x="601" y="367" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#176a9b">「#」は回路図P1の番号。</text>
+<text x="601" y="390" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#176a9b">基板を上下逆にしない。</text>
+<text x="30" y="481" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#213244">見方：部品面の図からUSB-Cを上に保って左右へ裏返した図。上下方向も変える場合は再照合。</text>
+<text x="30" y="504" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="11" fill="#bf3434">#18は5V / VSYS、#16は3V3。電源の左右取り違えに注意。無給電で施工する。</text>
+<text x="30" y="527" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="10" fill="#213244">図は位置確認用。基板版・実装済み配線と照合し、試作完了後に必要な端子だけ施工する。</text>
+<text x="30" y="547" font-family="MS Gothic, Noto Sans CJK JP, sans-serif" font-size="9" fill="#647483">原典：Waveshare RP2350-USB-A.pdf（P1）と部品面ピン配置図から左右反転して作成。</text>
+</svg>

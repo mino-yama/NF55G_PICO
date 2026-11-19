@@ -1,0 +1,720 @@
+--- S1.13/NF55_hogo.c
+
++++ S1.15_r1/NF55_hogo.c
+
+@@ -68,63 +68,64 @@
+
+     if(gu8_f_ac_on==_ON_||gu8_f_ps_on==_ON_){
+         if( gu8_f_low_v == _ON_ ) // 項番1:不足電圧  [+12V各種異常]
+         {
+-
+-                if(((gu8_alm_type_dischg_err & 0x01) == 0) &&
+-                        ((gu8_alm_type_temp_err & 0x03) == 0) &&
+-                        ((gu8_alm_type_pfc_err & 0x01) == 0) &&
+-                        ((gu8_alm_type_fan_err & 0x02) == 0)&&
+-                        ((gu8_alm_type_12v_err & 0x2B) == 0)&&
+-                        (gu8_f_opencheck!=1)  //openの時はログをしない
+-                        )
++            if (((gu8_alm_type_dischg_err & 0x01) == 0) &&
++                ((gu8_alm_type_temp_err   & 0x03) == 0) &&
++                ((gu8_alm_type_pfc_err    & 0x01) == 0) &&
++                ((gu8_alm_type_fan_err    & 0x02) == 0) &&
++                ((gu8_alm_type_12v_err    & 0x2B) == 0) &&
++                 (gu8_f_opencheck!=1))                          //openの時はログをしない
++            {
++                if ((gu8_alm_type_12v_err & BIT0) == 0)
+                 {
+-                    if((gu8_alm_type_12v_err & BIT0) == 0){
+-
+-                          set_info_evt_errlog( FLAG_12V_LV, _SET_ );  // 12V_LV (1)
+-                          gu8_alm_type_12v_err |= BIT0; // 0x01
+-                    }
+-
++                    set_info_evt_errlog( FLAG_12V_LV, _SET_ );  // 12V_LV (1)
++                    gu8_alm_type_12v_err |= BIT0; // 0x01
+                 }
+-        }
+-    }
+-
+-
+-    //
+-    if( gu8_f_ps_on == _ON_ )   // PS_ON = ON?
+-    {
+-        if( gu8_f_high_i_on  == _ON_ ) // 項番6,7:過電流保護 2-8 [+12V各種異常]
+-        {
+-            if(gu8_f_over_i_on==0){
+-
++            }
++        }
++    }
++
++    /* PS_ON状態 */
++    if( gu8_f_ps_on == _ON_ )
++    {
++        /* 12V出力の過電流を検出した */
++        if( gu8_f_high_i_on_10ms == _ON_ ) // 項番6,7:過電流保護 2-8 [+12V各種異常]
++        {
++            /* FLAG_12V_OCがセットされていないならセットする */
++            if (gu8_f_over_i_on == 0)
++            {
+                set_info_evt_errlog( FLAG_12V_OC, _SET_ ); // 12V_OC  (1)
+-               gu8_f_over_i_on=1;
+-            }
+-
+-        }else {
+-            if(gu8_f_over_i_on==1)
++               gu8_f_over_i_on = 1;
++            }
++        }
++        /* 12V出力の過電流が収まった */
++        else
++        {
++            /* FLAG_12V_OCがセットされているならリセットする */
++            if (gu8_f_over_i_on == 1)
+             {
+                set_info_evt_errlog( FLAG_12V_OC, _RESET_ ); // 12V_OC  (1)
+-               gu8_f_over_i_on=0;
+-            }
+-        }
+-
+-         if(gu8_f_high_i_on_50ms==_ON_)  //ラッチ
+-         {
+-             if( (gu8_alm_type_12v_err & BIT1) == 0 )
+-             {
+-
++               gu8_f_over_i_on = 0;
++            }
++        }
++
++        if(gu8_f_high_i_on_50ms == _ON_)  //ラッチ
++        {
++            if( (gu8_alm_type_12v_err & BIT1) == 0 )
++            {
+                 gu8_alm_type_12v_err |= BIT1; // 0x02
+-             }
+-         }
+-
+-    }else{
+-
+-        if( gu8_f_over_i_on!=0&&(gu8_alm_type_12v_err & BIT1) == 0 )
++            }
++        }
++    }
++    /* PS_OFF状態 */
++    else
++    {
++        if( (gu8_f_over_i_on != 0) && ((gu8_alm_type_12v_err & BIT1) == 0) )
+         {
+             set_info_evt_errlog( FLAG_12V_OC, _RESET_ );  // 12V_OC(1)
+-            gu8_f_over_i_on=0;
+-        }
+-        gu8_f_high_i_on=_OFF_;
+-        gu8_f_high_i_on_50ms=_OFF_;
++            gu8_f_over_i_on = 0;
++        }
++        gu8_f_high_i_on_10ms =_OFF_;
++        gu8_f_high_i_on_50ms =_OFF_;
+     }
+ 
+ #if 0
+@@ -140,19 +141,20 @@
+
+         }
+     }
+ #else
+-    if( gu8_f_ps_on == _OFF_&&(gu8_alm_type_12v_err & BIT1) == 0 )   // PS_ON = OFF?   (1)
++    if( (gu8_f_ps_on == _OFF_) && ((gu8_alm_type_12v_err & BIT1) == 0) )   // PS_ON = OFF?   (1)
+     {
+         if( gu8_f_high_i_of  == _ON_ ) // 項番4:過電流保護 2-10 [+12V各種異常]
+         {
+-            if(gu8_f_12v_oc_off == 0){
++            if(gu8_f_12v_oc_off == 0)
++            {
+                 set_info_evt_errlog( FLAG_12V_OC_OFF, _SET_ );  // 12V_OC_OFF (1)
+                 gu8_f_12v_oc_off = 1;
+-
+-            }
+-
+-        }else{
+-
+-            if(gu8_f_12v_oc_off == 1){
++            }
++        }
++        else
++        {
++            if(gu8_f_12v_oc_off == 1)
++            {
+                 set_info_evt_errlog( FLAG_12V_OC_OFF, _RESET_ );  // 12V_OC_OFF (1)
+                 gu8_f_12v_oc_off = 0;
+             }
+@@ -160,24 +162,25 @@
+
+ 
+        if( gu8_f_high_i_of_h == _ON_) // 項番6,7:過電流保護 [+12V各種異常]
+        {
+-           if(gu8_f_12v_oc_off_h == 0){
++           if(gu8_f_12v_oc_off_h == 0)
++           {
+                set_info_evt_errlog( FLAG_12V_OC_OFF_H, _SET_ );  // 12V_OC_OFF (1)
+                gu8_f_12v_oc_off_h = 1;
+            }
+-       } else{
+-
++       }
++       else
++       {
+            if(gu8_f_12v_oc_off_h == 1)
+            {
+                set_info_evt_errlog( FLAG_12V_OC_OFF_H, _RESET_ );  // 12V_OC_OFF (1)
+                gu8_f_12v_oc_off_h = 0;
+            }
+        }
+-
+-    }else{
+-
++    }
++    else
++    {
+         if( gu8_f_12v_oc_off != 0 )
+         {
+-
+             set_info_evt_errlog( FLAG_12V_OC_OFF, _RESET_ );  // 12V_OC_OFF (1)
+             gu8_f_12v_oc_off = 0;
+         }
+@@ -189,27 +192,24 @@
+
+         gu8_f_high_i_of=_OFF_;
+         gu8_f_high_i_of_h=_OFF_;
+     }
+-
+ #endif
+ 
+-    if( (gu8_f_high_v == _ON_) || (gu8_f_dischg12_ovp == _ON_) ) // 項番8:過電圧保護  [+12V各種異常]  + 放電コンバータ過電圧
+-        {
+-            if( gu8_f_over_v == 0 )
+-            {
+-
+-
+-                set_info_evt_errlog( FLAG_12V_OV, _SET_ );  // 12_OV  (1)
+-                gu8_f_over_v=1;
+-            }
+-        }else{
+-            if( gu8_f_over_v == 1 )
+-            {
+-                set_info_evt_errlog( FLAG_12V_OV, _RESET_ );  // 12_OV  (1)
+-                gu8_f_over_v=0;
+-            }
+-
+-        }
+-
++    if ( (gu8_f_high_v == _ON_) || (gu8_f_dischg12_ovp == _ON_) ) // 項番8:過電圧保護  [+12V各種異常]  + 放電コンバータ過電圧
++    {
++        if( gu8_f_over_v == 0 )
++        {
++            set_info_evt_errlog( FLAG_12V_OV, _SET_ );  // 12_OV  (1)
++            gu8_f_over_v=1;
++        }
++    }
++    else
++    {
++        if( gu8_f_over_v == 1 )
++        {
++            set_info_evt_errlog( FLAG_12V_OV, _RESET_ );  // 12_OV  (1)
++            gu8_f_over_v=0;
++        }
++    }
+ 
+     if( gu8_f_bbu_sw_short == _ON_ ) // 項番16:出力スイッチ故障(ショート) 2-9 [+12V各種異常]
+     {
+@@ -226,8 +226,8 @@
+
+     {
+         if(gu8_f_sw_short==1)  // 12V_EN(eFuse) OFF
+         {
+-             set_info_evt_errlog( FLAG_BBU_SW_ST, _RESET_ );   // BBU_SW_ST  (-)  12V_EN=OFFなのに電圧がある
+-             gu8_f_sw_short=0;
++           set_info_evt_errlog( FLAG_BBU_SW_ST, _RESET_ );   // BBU_SW_ST  (-)  12V_EN=OFFなのに電圧がある
++           gu8_f_sw_short=0;
+         }
+     }
+ 
+@@ -264,7 +264,6 @@
+
+         }
+     }
+ 
+-
+     /********************************/
+     /* [充電回路各種異常](ラッチ系) */
+     /********************************/
+@@ -293,16 +292,16 @@
+
+ 
+                 }
+             }
+-        }else{
++        }
++        else
++        {
+             if( gu8_f_over_chg == 1 )
+             {
+-                    set_info_evt_errlog( FLAG_CHG_OV, _RESET_ );  // CHG_OV  (3)
+-                    gu8_f_over_chg=0;
+-            }
+-
+-        }
+-    }
+-
++                set_info_evt_errlog( FLAG_CHG_OV, _RESET_ );  // CHG_OV  (3)
++                gu8_f_over_chg=0;
++            }
++        }
++    }
+ 
+     if( (gu8_f_charging_active != 0) && (gu8_f_batchg_en_out == _OUT_ON_) )    // 充電中
+     {
+@@ -318,12 +317,16 @@
+
+                         set_info_evt_errlog( FLAG_CHG_LV, _SET_ );   // CHG_LV  (3)
+                         gu8_alm_type_chg_err |= BIT2; // 0x04
+                     }
+-                 }
+-            } else {
++                }
++            }
++            else
++            {
+                 gu32_c_low_v_shortage= TIMER_10min;  // 充電電流 1.5A以上あれば検出停止
+             }
+          }
+-    } else {
++    }
++    else
++    {
+         filter_clear(&pi_low_v_shortage);
+         filter_clear(&pi_low_v_shortage_5a);
+         gu32_c_low_v_shortage = 0;
+@@ -342,7 +345,8 @@
+
+     }
+     else   //項番18:ADU 温度異常保護(警告) 1-1   [温度警告]
+     {
+-        if(gu8_f_tmp_fail_adu==1){
++        if(gu8_f_tmp_fail_adu==1)
++        {
+             set_info_evt_errlog( FLAG_ADU_TEMP_WNG, _RESET_ );   // ADU_TEMP_WNG  (-)
+             gu8_f_tmp_fail_adu=0;
+         }
+@@ -350,14 +354,16 @@
+
+     // BBU
+     if( gu8_f_fail_bbu== _ON_  )        //項番19:BBU 温度異常保護(警告) 1-2   [温度警告]
+     {
+-        if(gu8_f_tmp_fail_bbu==0){
++        if(gu8_f_tmp_fail_bbu==0)
++        {
+             set_info_evt_errlog( FLAG_BBU_TEMP_WNG, _SET_ );   // BBU_TEMP_WNG  (-)
+             gu8_f_tmp_fail_bbu=1;
+         }
+     }
+     else                                    //項番19:BBU 温度異常保護(警告) 1-2   [温度警告]
+     {
+-        if(gu8_f_tmp_fail_bbu==1){
++        if(gu8_f_tmp_fail_bbu==1)
++        {
+             set_info_evt_errlog( FLAG_BBU_TEMP_WNG, _RESET_ );   // BBU_TEMP_WNG  (-)
+             gu8_f_tmp_fail_bbu=0;
+         }
+@@ -390,7 +396,8 @@
+
+     if( gu8_f_ac_on == _ON_ ) // AC ON?
+     {
+ 
+-        if(gu8_f_pfc_fail_in==_ON_){
++        if(gu8_f_pfc_fail_in==_ON_)
++        {
+             if( gu8_f_pfc_err==0 )     //項番23:PFC異常保護(過電圧) 1-7,8  [PFC回路異常]
+             {
+                 set_info_evt_errlog( FLAG_PFC_OV, _SET_ );  // PFC_OV (1)
+@@ -440,8 +447,6 @@
+
+                 }
+             }
+         }
+-
+-
+     }
+ 
+     if( gu8_f_batt_connect == _BATT1_CONNECT_ )   // BATT1接続
+@@ -472,7 +477,9 @@
+
+               f_suppres |= BIT0;
+         }
+ 
+-    } else {    // 充電中
++    }
++    else
++    {
+         if( gu8_f_batt_temp_aft == _ON_ )
+         {
+             if( pi_batt_temp_aft.trg == _TRG_ON_  )     //項番30:バッテリ温度抑止(充電中) 22.3.1 項番2 [バッテリ異常]
+@@ -481,7 +488,9 @@
+
+ 
+             }
+             f_suppres |= BIT0;
+-        } else {
++        }
++        else
++        {
+             if( pi_batt_temp_aft.trg ==  _TRG_OFF_ )     //項番30:バッテリ温度抑止(充電中) 22.3.1 項番2 [バッテリ異常]
+             {
+                 set_info_evt_errlog( FLAG_BATT_TEMP_WNG, _RESET_ );  // BATT_TEMP_WNG  (4)
+@@ -502,10 +511,11 @@
+
+             }
+         }
+         f_suppres |= (BIT0 | BIT1);
+-    } else {
++    }
++    else
++    {
+         if( pi_batt_break.trg == _TRG_OFF_ )     //項番31:バッテリ保護素子破損 22.3.1 項番3 [バッテリ異常]
+         {
+-
+             set_info_evt_errlog( FLAG_BATT_P_FAIL, _RESET_ );  // BATT_P_FAIL  (2)
+         }
+     }
+@@ -514,24 +524,25 @@
+
+     {
+         if( pi_batt_break_chg.trg == _TRG_ON_ )
+         {
+-
+             gu16_batt_break_chg_timer=TIMER_2000ms;
+ 
+             pi_batt_break_chg.trg=_TRG_OFF_;
+ 
+-           set_info_evt_errlog( FLAG_BATT_P_FAIL, _SET_ );  // BATT_P_FAIL  (2)
++            set_info_evt_errlog( FLAG_BATT_P_FAIL, _SET_ );  // BATT_P_FAIL  (2)
+         	
+-           if (gu8_f_ac_on_trg == _TRG_OFF_)
+-           {
++            if (gu8_f_ac_on_trg == _TRG_OFF_)
++            {
+                 operate_log_request(OPE_AC_FAIL);   //opelog
+-           }
+-        }
+-           f_suppres |= (BIT0 | BIT1);
+-    } else {
+-          if( pi_batt_break_chg.trg == _TRG_OFF_ )
+-          {
+-           set_info_evt_errlog( FLAG_BATT_P_FAIL, _RESET_ );  // BATT_P_FAIL  (2)
+-          }
++            }
++        }
++        f_suppres |= (BIT0 | BIT1);
++    }
++    else
++    {
++        if( pi_batt_break_chg.trg == _TRG_OFF_ )
++        {
++            set_info_evt_errlog( FLAG_BATT_P_FAIL, _RESET_ );  // BATT_P_FAIL  (2)
++        }
+     }
+ 
+     // バッテリ未接続
+@@ -547,7 +558,9 @@
+
+ 
+         }
+         f_suppres |= (BIT0 | BIT1);
+-    } else {
++    }
++    else
++    {
+         if( pi_batt_not.trg == _TRG_OFF_ )     //項番32:バッテリ未接続 22.3.1 項番4 [バッテリ異常]
+         {
+             set_info_evt_errlog( FLAG_BATT_DCN, _RESET_ );  // BATT_DCN  (2)
+@@ -560,13 +573,17 @@
+
+         {
+             gu8_f_susp_cha = TEMP_SUPPRES_1;       // 充電中断フラグON
+         }
+-    } else {
++    }
++    else
++    {
+         gu8_f_susp_cha = TEMP_SUPPRES_0;       // 充電中断フラグOFF
+     }
+     if( (f_suppres & BIT1) != 0 )
+     {
+         gu8_f_susp_dischg = _ON_;   // 放電中断フラグOFF
+-    } else {
++    }
++    else
++    {
+         gu8_f_susp_dischg = _OFF_;   // 放電中断フラグOFF
+     }
+ #if 1
+@@ -590,7 +607,9 @@
+
+         if( SP_FAN_WNG_THD != UINT16_MAX_VALUE_UNDER ) // 回転停止検出停止
+         {
+             gu8_f_wng_fan_stop_protection = input_filter( _NZ_,  (pi_fan_stop_protection.sts == _ON_) ? (gu16_d_fan_rpm <= 1230): (gu16_d_fan_rpm <= SP_FAN_WNG_THD), &pi_fan_stop_protection);// 回転停止
+-        } else {
++        }
++        else
++        {
+             gu8_f_wng_fan_stop_protection = 0;
+         }
+ 
+@@ -600,7 +619,9 @@
+
+             {
+                 gu32_c_fan_fail_timer = TIMER_30s;  // 30秒
+                 gu8_f_fan_fail_check = 1;
+-            } else {
++            }
++            else
++            {
+                if( gu32_c_fan_fail_timer != 0 )
+                {
+                     gu32_c_fan_fail_timer--;
+@@ -618,7 +639,9 @@
+
+             if( gu8_f_wng_fan_low_protection != 0 )
+             {
+                 set_info_evt_errlog( FLAG_FAN_LOW, _SET_ );  // FAN_LOW
+-            } else {
++            }
++            else
++            {
+                 set_info_evt_errlog( FLAG_FAN_LOW, _RESET_ );  // FAN_LOW
+             }
+         }
+@@ -629,7 +652,9 @@
+
+             if( gu8_f_wng_fan_high_protection != 0 )
+             {
+                 set_info_evt_errlog( FLAG_FAN_HIGH, _SET_ );  // FAN_HIGH
+-            } else {
++            }
++            else
++            {
+                 set_info_evt_errlog( FLAG_FAN_HIGH, _RESET_ );  // FAN_HIGH
+             }
+         }
+@@ -640,12 +665,16 @@
+
+             if( gu8_f_wng_fan_stop_protection != 0 )
+             {
+                 set_info_evt_errlog( FLAG_FAN_STOP, _SET_ );  // FAN_STOP
+-            } else {
++            }
++            else
++            {
+                 set_info_evt_errlog( FLAG_FAN_STOP, _RESET_ );  // FAN_STOP
+             }
+         }
+         gu8_f_wng_fan_stop_old = gu8_f_wng_fan_stop_protection;
+-    } else {
++    }
++    else
++    {
+         gu8_f_wng_fan_low_old = 0;
+         gu8_f_wng_fan_high_old = 0;
+         gu8_f_wng_fan_stop_old = 0;
+@@ -675,16 +704,20 @@
+
+                 // 出力停止
+                 gu8_alm_type_fan_err |= BIT1;  // 0x02
+                 gu8_f_fan_fail_stop =0;
+-            } else {
++            }
++            else
++            {
+                 gu32_c_fan_fail_stop_timer--;
+             }
+-        } else {
++        }
++        else
++        {
+             set_info_evt_errlog( FLAG_FAN_FAIL, _RESET_ );  // FAN_FAIL  (1)
+             gu8_alm_type_fan_err &= ~(BIT0);   // 0x01
+             gu8_f_fan_fail_stop =0;
+         }
+     }
+-//////////////////////////////////////////////////////////////
++
+     if( ((gu8_alm_type_12v_err & 0x2B) != 0) ||
+         ((gu8_alm_type_dischg_err & 0x01) != 0) ||
+         ((gu8_alm_type_temp_err & 0x03) != 0) ||
+@@ -695,7 +728,9 @@
+
+         if( gu8_f_backup_active == _ON_ )    // バックアップ中に検出?
+         {
+             gu8_f_backup_active_alm= 1;
+-        } else {
++        }
++        else
++        {
+             gu8_f_backup_active_alm = 0;
+         }
+         hogo_output1();
+@@ -720,10 +755,7 @@
+
+     }
+ 
+     gu8_alm_type_batt_err_old = gu8_alm_type_batt_err;
+-//////////////////////////////////////////////////////////////
+-}
+-
+-
++}
+ 
+ /*******************************************************************************
+  * Function Name: hogo_output1()
+@@ -733,17 +765,14 @@
+
+  *******************************************************************************/
+ void hogo_output1(void)
+ {
+-
+   //  gu8_f_latch_alm = 1;   // ラッチ系アラーム
+ 
+     /*** /12V出力 ***/
+-  if(gu8_f_backup_active == _ON_){
+-
+-      O_12V_EN_H;    //バックアップ中の保護で電源が切れる時はログを残すためにOUTPUTなどの機能を停止するためここで直接OFFにする(例外)
+-  }
++    if(gu8_f_backup_active == _ON_){
++        O_12V_EN_H;    //バックアップ中の保護で電源が切れる時はログを残すためにOUTPUTなどの機能を停止するためここで直接OFFにする(例外)
++    }
+     gu8_f_12v_en_out        = _OUT_OFF_;        // 12V_EN OFF
+     gu32_c_12v_en_out_delay = 0;
+-
+ 
+     /*** 放電停止 ***/
+     gu8_f_stop_dischg =  _ON_;   //放電停止フラグON
+@@ -754,7 +783,6 @@
+
+     /*** 放電/充電/FAN ***/
+     gu8_f_vcc_12v_en_out        = _OUT_OFF_;    // VCC_12V_EN OFF
+     gu32_c_vcc_12v_en_out_delay = 0;
+-    /*********************/
+ }
+ 
+ /*******************************************************************************
+@@ -765,7 +793,6 @@
+
+  *******************************************************************************/
+ void hogo_output2(void)
+ {
+-
+     //gu8_f_latch_alm = 1;   // ラッチ系アラーム
+ 
+     /*** /12V出力 ***/
+@@ -790,7 +817,6 @@
+
+  *******************************************************************************/
+ void hogo_output3(void)
+ {
+-
+     //gu8_f_latch_alm = 1;   // ラッチ系アラーム
+ 
+     /*** /12V出力 ***/
+@@ -802,7 +828,6 @@
+
+ 
+     /*** 充電停止 ***/
+     gu8_f_stop_cha= _ON_;        //充電停止フラグ
+-
+ }
+ 
+ /*******************************************************************************
+@@ -813,7 +838,6 @@
+
+  *******************************************************************************/
+ void hogo_output4(void)
+ {
+-
+     //gu8_f_latch_alm = 1;   // ラッチ系アラーム
+ 
+     /*** /12V出力 ***/
+@@ -823,11 +847,8 @@
+
+         gu32_c_12v_en_out_delay = 0;
+     }
+ 
+-
+     /*** 充電停止 ***/
+     gu8_f_stop_cha= _ON_;        //充電停止フラグ
+-
+-
+ }
+ 
+ /*******************************************************************************
+@@ -846,7 +867,9 @@
+
+         gu8_f_stop_dischg =  _ON_;   //放電停止フラグON
+         /*** 充電停止 ***/
+         gu8_f_stop_cha= _ON_;        //充電停止フラグ
+-    } else {
++    }
++    else
++    {
+         if( gu8_f_ac_link_restarting == 0 )   // AC_LINK Resrart中でない?
+         {
+             gu8_f_12v_en_out        = _OUT_ON_;        // 12V_EN OFF
+@@ -856,7 +879,6 @@
+
+             gu8_f_stop_cha= _OFF_;        //充電停止フラグ
+         }
+     }
+-    /****************/
+ }
+ 
+ /*******************************************************************************
+@@ -865,9 +887,9 @@
+
+  * Arguments    : None
+  * Return Value : None
+  *******************************************************************************/
++uint8_t u8_f_batt_removed = 0;
+ void hogo_release(void)
+ {
+-
+     //***********************************************************************************************************************************
+     //      12V各種異常、放電回路異常、温度異常、FAN異常はACオフ→オンと放電完了の時→放電禁止状態であるため、条件としては電源の再起動となるため、実質的な解除は行わない
+     //***********************************************************************************************************************************
+@@ -889,15 +911,18 @@
+
+         gu8_f_stop_cha= _OFF_;        //充電停止フラグOFF
+     }
+ 
+-
+-
+-
+-    if(((gu8_f_ac_on == _ON_) && (gu8_f_batt_connect_trg == _TRG_ON_)) || // AC_ON=ONでバッテリ接続トリガ
++    if (gu8_f_batt_connect_trg == _TRG_OFF_)
++    {
++        u8_f_batt_removed = 1;
++    }
++
++    if(((gu8_f_ac_on == _ON_) && (gu8_f_batt_connect_trg == _TRG_ON_) && (u8_f_batt_removed== 1)) || // AC_ON=ONでバッテリ接続トリガ
+         (( gu8_f_ac_on_trg == _TRG_ON_) && (gu8_f_batt_err_startup_exist != 0) ) || // バッテリ異常有りフラグありでPS_ON=OFFトリガ
+         (gu8_f_cd_cmd_rcv != 0 )    // CDコマンド受信フラグ(バッテリ異常解除通知用)
+     )
+     {
+         gu8_f_cd_cmd_rcv = 0;
++        u8_f_batt_removed = 0;
+         if( gu8_alm_type_batt_err != 0 )
+         {
+             //*********バッテリ異常 ******************************
+@@ -986,4 +1011,3 @@
+
+     filter_clear(&pi_batt_low_6);
+     filter_clear(&pi_batt_high_6);
+ }
+-

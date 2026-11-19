@@ -1,5 +1,9 @@
 # Cache / Invalidation / Post-Action Confirmation Master
 
+2026-11-19シャント換算追加: ユーザー指定50A/50mVに従い、電流2系統のmV値を親Picoの`get_calibration(token)`で同じ数値のAへ換算する。測定Cacheは原文・元のmV値を保持し変更しない。BATT_VはVのまま、対象と単位が不一致なら候補取得を拒否する。換算候補取得では再測定・AD送信しない。[詳細](ADC_Calibration_Development_20261119.md)。
+
+2026-11-19 ADC測定Cache基盤: 製品読出しCacheと別の`CalibrationMeasurements`を追加。3系統×A/B、試行/取得token照合、取得開始時の旧値破棄、完成済み単一数値だけの保持、遅着/重複拒否、TEST_END成立時の全失効、再START時の世代更新を実装。書込み完了/成否不明時用の`discard`は内部入口のみでAD結果への接続は未実装。正式ATE取得/照会/書込み・CDC・換算は未実装、時間期限は未確定。[内部仕様と検証範囲](ADC_Calibration_Development_20261119.md)。
+
 2026-11-14追加要件（未実装）: DMM/QR取得値をCacheしATEへ返し、ATE確認後の別の明示書込み指令でそのCache値を利用する。対象・補正点・試行/取得との対応を照合し、ATEが確認した値と送信値の同一性を保証する。取得失敗・不完全データをVALIDにせず、INVALID/欠落/不一致のCacheでは書込みを送信しない。Cache利用書込み時に再取得しない。書込み完了で使用Cacheを破棄し、TEST_ENDでは当該試行の全DMM/QR取得Cacheと未完了要求を失効させる。遅着で復活させず、再使用には再取得・ATE確認を必要とする。成否不明もHard Rule 15に従い関連CacheをINVALIDにする。ログ履歴は消去しない。正式Cache名・追加の時間期限・完了単位等は未確定。以下の既存Cache一覧や失効実装を変更済みとは扱わない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
 
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。

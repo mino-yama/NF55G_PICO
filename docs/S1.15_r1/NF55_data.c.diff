@@ -1,0 +1,503 @@
+--- S1.13/NF55_data.c
+
++++ S1.15_r1/NF55_data.c
+
+@@ -27,20 +27,18 @@
+
+ void data_proc(void)
+ {
+ 	
+-	if(gu8_f_before_shutdown!=1)
++	if(gu8_f_before_shutdown != 1)
+ 	{
+ 		 rtc_data_set();             // RTC時間処理
+ 
+     	soc_calc_proc();            // SOC計算処理
+ 
+     	realtime_data_set_proc();   // リアルタイムデータ設定処理
+-
+ 	}
+ 
+-
+     cumulative_data_proc();        // 積算データ処理
+ 
+-    if(gu8_f_before_shutdown!=1)
++    if(gu8_f_before_shutdown != 1)
+     {
+     	off_time_data_proc();       // OFF期間データ処理
+ 
+@@ -49,10 +47,9 @@
+
+     	get_data2_proc();           // GET_DATA2データ処理
+ 
+     	charge_ready_proc();        // 充電待ち状態監視処理
+-			
+ 	}
+-   
+-}
++}
++
+ extern uint8_t eeprom_write_request( uint32_t pos, uint32_t num, uint8_t mode );
+ 
+ /*******************************************************************************
+@@ -85,7 +82,6 @@
+
+     eeprom_write_request( EEPROM_ERR_IDX_POS , sizeof(error_log_index_t), 0 ); // EEPROM書込みリクエスト(page)
+ }
+ 
+-
+ /*******************************************************************************
+ * Function Name: operate_log_request()
+ * Description  : オペレートログ処理
+@@ -115,7 +111,6 @@
+
+ 
+     eeprom_write_request( EEPROM_OPE_IDX_POS , sizeof(operate_log_index_t), 0 ); // EEPROM書込みリクエスト(page)
+ }
+-
+ 
+ /*******************************************************************************
+ * Function Name: rtc_data_set()
+@@ -159,22 +154,22 @@
+
+     time_t tt;
+     struct tm tm_data;
+ 
+-        gs_RTCCalendar = DL_RTC_getCalendarTime(RTC);
+-
+-        tm_data.tm_year  = gs_RTCCalendar.year-1900;  /* 1900年からの年 */
+-        tm_data.tm_mon   = gs_RTCCalendar.month-1;     /* 月(0～11) */
+-        tm_data.tm_mday  = gs_RTCCalendar.dayOfMonth; /* 日(1～31) */
+-        tm_data.tm_hour  = gs_RTCCalendar.hours;      /* 時(0～23) */
+-        tm_data.tm_min   = gs_RTCCalendar.minutes;     /* 分(0～59) */
+-        tm_data.tm_sec   = gs_RTCCalendar.seconds;     /* 秒(0～59) */
+-        tm_data.tm_isdst = 0;  /* 夏時間フラグ(採用:>0,不採用:0,不明:<0)  */
+-
+-        //time_t構造体に変換
+-        gt_otd_ac_on_time = mktime(&tm_data);
+-       // *(time_t*)&g_eeprom_data.set_clock.time = gt_otd_ac_on_time;  // 保存
+-        gu8_f_cmd_sc_recv = 1;
+-
+-}
++    gs_RTCCalendar = DL_RTC_getCalendarTime(RTC);
++
++    tm_data.tm_year  = gs_RTCCalendar.year-1900;  /* 1900年からの年 */
++    tm_data.tm_mon   = gs_RTCCalendar.month-1;     /* 月(0～11) */
++    tm_data.tm_mday  = gs_RTCCalendar.dayOfMonth; /* 日(1～31) */
++    tm_data.tm_hour  = gs_RTCCalendar.hours;      /* 時(0～23) */
++    tm_data.tm_min   = gs_RTCCalendar.minutes;     /* 分(0～59) */
++    tm_data.tm_sec   = gs_RTCCalendar.seconds;     /* 秒(0～59) */
++    tm_data.tm_isdst = 0;  /* 夏時間フラグ(採用:>0,不採用:0,不明:<0)  */
++
++    //time_t構造体に変換
++    gt_otd_ac_on_time = mktime(&tm_data);
++    // *(time_t*)&g_eeprom_data.set_clock.time = gt_otd_ac_on_time;  // 保存
++    gu8_f_cmd_sc_recv = 1;
++}
++
+ /*******************************************************************************
+ * Function Name: soc_calc_proc()
+ * Description  : SOC計算処理
+@@ -202,7 +197,10 @@
+
+     {
+         gu32_c_soc_timer_1s = 0;
+ 
+-        if( gu8_f_charging_active != 0 )    // 充電中
++        /* S1.14 125F対策 */
++        //if( gu8_f_charging_active != 0 )    // 充電中
++        if((gu8_f_charging_active != _OFF_) &&         /* 充電中 */
++                (gu8_f_susp_cha != TEMP_SUPPRES_1))     /* 中断中以外 */
+         {
+             fd_mah = (float)gu16_ad_batt_chg / 3600;                                           // mAh  (BATT_CHG/3600)
+             fd_wh  = ((float)gu16_ad_batt_chg / 1000) * ((float)gu16_ad_batt_v / 1000) / 3600; // Wh   (BATT_CHG×BATT_V/3600)
+@@ -297,8 +295,10 @@
+
+         }
+     }
+ 
+-    if( (gu8_alm_type_batt_err != 0 ) ||    // バッテリ異常(温度異常/高電圧/低電圧)
+-        ( gu8_f_batt_break == _ON_ ) ||     // バッテリ異常(保護素子破損)
++    /* S1.14 126F対策 【( gu8_f_batt_break_chg == _ON_ ) ||】の条件を追加 */
++    if( (gu8_alm_type_batt_err != 0 )   || // バッテリ異常(温度異常/高電圧/低電圧)
++        ( gu8_f_batt_break == _ON_ )     || // バッテリ異常(非充電時の保護素子破損)
++        ( gu8_f_batt_break_chg == _ON_ ) || // バッテリ異常(充電時の保護素子破損)
+         ( gu8_f_batt_not == _ON_ )          // バッテリ異常(未接続),バッテリ交換(未接続と同等)
+     )
+     {
+@@ -307,32 +307,40 @@
+
+         g_eeprom_data.batt_cap.wh = 0;    // SOC(Wh) 0%
+     }
+ 
+-
+     // SOC(%)の計算
+     mah_soc = (int16_t)((g_eeprom_data.batt_cap.mah * 100) / (float)SP_BATT_CAP_MAH);    // SOC(mAh)%  SP_BATT_CAP_MAH = 4900
+     wh_soc =  (int16_t)((g_eeprom_data.batt_cap.wh * 100)  / (float)SP_BATT_CAP_WH);     // SOC(Wh)%   SP_BATT_CAP_WH  = 36
+ 
+-    if( mah_soc >= SOC_100P )  // SOC 100%以上
+-        {
+-            gi8_d_soc_mah=SOC_100P;
+-        }else if(mah_soc <= SOC_0){
+-
+-            gi8_d_soc_mah=SOC_0;
+-        }else{
+-
+-            gi8_d_soc_mah=mah_soc;
+-        }
+-
+-        if( wh_soc >= SOC_100P )  // SOC 100%以上
+-        {
+-            gi8_d_soc_wh=SOC_100P;
+-            }else if(wh_soc <= SOC_0){
+-
+-                gi8_d_soc_wh=SOC_0;
+-        }else{
+-
+-            gi8_d_soc_wh=wh_soc;
+-        }
++	/* S1.14 121F対策 */
++    if( mah_soc >= SOC_127P )  // SOC 127%以上
++    //if( mah_soc >= SOC_127P )  // SOC 100%以上
++    {
++        gi8_d_soc_mah = SOC_127P;
++        //gi8_d_soc_mah = SOC_100P;
++    }
++    else if(mah_soc <= SOC_0)
++    {
++        gi8_d_soc_mah = SOC_0;
++    }
++    else
++    {
++        gi8_d_soc_mah = mah_soc;
++    }
++
++    /* S1.14 121F対策 */
++    if( wh_soc >= SOC_127P )  // SOC 127%以上
++    //if( wh_soc >= SOC_100P )  // SOC 100%以上
++    {
++        gi8_d_soc_wh = SOC_127P;
++        //gi8_d_soc_wh = SOC_100P;
++    }
++    else if(wh_soc <= SOC_0)
++    {
++        gi8_d_soc_wh = SOC_0;
++    }else
++    {
++        gi8_d_soc_wh = wh_soc;
++    }
+ 
+     if( gi8_d_soc_mah <= SOC_80 )  // SOC 80%以上?
+     {
+@@ -341,6 +349,7 @@
+
+ 
+     // EEPROM保存
+ }
++
+ /* S1.12 満充電検出時のCHARGE_ON, CHARGE_OKの同時ゼロ対策 */
+ /*******************************************************************************
+ * Function Name: full_charge_proc()
+@@ -379,17 +388,19 @@
+
+ void realtime_data_set_proc(void)
+ {
+     gs_realtime_data._12v_voltage     = gu16_ad_12vout_v;     // 12V出力電圧値(4)    mV
+-    gs_realtime_data._12v_current     = gu16_ad_12vout_i;     // 12V出力電流値(4)    mA
++    gs_realtime_data._12v_current     = gu16_val_12vout_i;     // 12V出力電流値(4)    mA
+     gs_realtime_data.batt_voltage     = gu16_ad_batt_v;       // バッテリ電圧(4)     mV
+ 
+-    if(gu8_f_charging_active==_OFF_){
+-
+-           gs_realtime_data.charge_voltage   =0;
+-        }else{
+-
+-           gs_realtime_data.charge_voltage   = gu16_ad_batt_v;       // バッテリ充電電圧(4) mV
+-        }
+-   // gs_realtime_data.charge_voltage   = gu16_ad_batt_v;       // バッテリ充電電圧(4) mV
++    if(gu8_f_charging_active == _OFF_)
++    {
++        gs_realtime_data.charge_voltage   =0;
++    }
++    else
++    {
++        gs_realtime_data.charge_voltage   = gu16_ad_batt_v;       // バッテリ充電電圧(4) mV
++    }
++
++    //gs_realtime_data.charge_voltage   = gu16_ad_batt_v;       // バッテリ充電電圧(4) mV
+     gs_realtime_data.batt_chg_current = gu16_ad_batt_chg;     // バッテリ充電電流(4) mA
+     gs_realtime_data.batt_current     = gu16_ad_dischg_i;     // バッテリ放電電流(4) mA
+     gs_realtime_data.batt_soc_wh      = gi8_d_soc_wh;         // バッテリSOC(Wh)(2)  %
+@@ -409,8 +420,7 @@
+
+ *******************************************************************************/
+ void cumulative_data_proc(void)
+ {
+-
+-    if(gu8_f_before_shutdown!=1)
++    if(gu8_f_before_shutdown != 1)
+     {
+         /*** 積算データを求めるための各種計算等処理 ***/
+         // 積算データ_1時間未満の経過時間記録
+@@ -427,9 +437,14 @@
+
+ 
+             if( gu8_f_batt_connect == _BATT1_CONNECT_)
+             {
+-                if( gi16_ad_battery_temp >= 0 )    // 0℃未満は0℃とする(一応)
+-                {
+-                    gu16_bat_temp_1h_sum += ( gi16_ad_battery_temp + 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) + 0.5℃ / 10) <-- 四捨五入し単位を1℃に変更
++                if( gi16_ad_battery_temp >= 0 )    /* 0℃未満は0℃とする(一応) <-- S1.14 150Fで負の数も有効にする（仕様的には-20～127℃に対応すべき） */
++                {
++                    //gu16_bat_temp_1h_sum += ( gi16_ad_battery_temp + 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) + 0.5℃ / 10) <-- 四捨五入し単位を1℃に変更
++                    gi16_bat_temp_1h_sum += ( gi16_ad_battery_temp + 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) + 0.5℃ / 10) <-- 正の数を四捨五入し単位を1℃に変更
++                }
++                else
++                {
++                    gi16_bat_temp_1h_sum += ( gi16_ad_battery_temp - 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) - 0.5℃ / 10) <-- 負の数を四捨五入し単位を1℃に変更
+                 }
+ 
+                 gu8_c_bat_temp_1h_sum_sample++;
+@@ -442,17 +457,34 @@
+
+         {
+             gu32_c_adu_temp_sek = 0;
+ 
+-            if( (g_eeprom_data.cumulative_data.total_adu_temp + ((gi16_ad_llc_temp + 5 ) * 0.1)) <= UINT24_MAX_VALUE_UNDER )
+-            {
+-                if( gi16_ad_llc_temp >= 0 )    // 0℃未満は0℃とする(一応)
+-                {
+-                    g_eeprom_data.cumulative_data.total_adu_temp += ( gi16_ad_llc_temp + 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) + 0.5℃ / 10) <-- 四捨五入し単位を1℃に変更
+-                }
+-            }
+-            else
+-            {
+-                g_eeprom_data.cumulative_data.total_adu_temp = UINT24_MAX_VALUE_UNDER;    // 最大値以上なら最大値固定
+-            }
++            if( gu8_f_ac_on == _ON_ )    // AC_OFF時間は含まない
++            {
++                if( (g_eeprom_data.cumulative_data.total_adu_temp + ((gi16_ad_llc_temp + 5 ) * 0.1)) <= UINT24_MAX_VALUE_UNDER )
++                {
++                    if( gi16_ad_llc_temp >= 0 )    /* 0℃未満は0℃とする(一応) <-- S1.14 150Fで負の数も有効にする（仕様的には-20～127℃に対応すべき） */
++                    {
++                        g_eeprom_data.cumulative_data.total_adu_temp += ( gi16_ad_llc_temp + 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) + 0.5℃ / 10) <-- 正の数を四捨五入し単位を1℃に変更
++                    }
++                    else
++                    {
++                        g_eeprom_data.cumulative_data.total_adu_temp += ( gi16_ad_llc_temp - 5 ) * 0.1;    // (バッテリ温度(単位:0.1℃) - 0.5℃ / 10) <-- 負の数を四捨五入し単位を1℃に変更
++                    }
++                }
++                else
++                {
++                    g_eeprom_data.cumulative_data.total_adu_temp = UINT24_MAX_VALUE_UNDER;    // 最大値以上なら最大値固定
++                }
++           }else
++           {
++               if(g_eeprom_data.cumulative_data.total_adu_temp + (INT8_ACOFF_TEMP) <= UINT24_MAX_VALUE_UNDER)
++               {
++                   g_eeprom_data.cumulative_data.total_adu_temp += INT8_ACOFF_TEMP;
++               }
++               else
++               {
++                   g_eeprom_data.cumulative_data.total_adu_temp = UINT24_MAX_VALUE_UNDER;
++               }
++           }
+         }
+ 
+         // 2. 電源稼働時間(TOTAL_ADU_HOUR)
+@@ -469,7 +501,7 @@
+
+                 }
+                 else
+                 {
+-                    g_eeprom_data.cumulative_data.total_adu_hour = 0;    // 積算量オーバーフロー時、稼働時間は0からリスタート
++                    g_eeprom_data.cumulative_data.total_adu_hour = 0;  //最大値固定にしたが最新の管理表から項目が消えたので戻した(仕様通り)
+                 }
+             }
+         }
+@@ -485,7 +517,7 @@
+
+     //if( gu8_f_ac_70v_ac_interrupt_on_trg == 1 )
+ 
+     /*** 瞬断カウント+1(AC_FAIL_COUNT) ***/
+-    if( gu8_f_ac_on_trg == _TRG_OFF_ )   // AC ON->OFFトリガ
++    if( gu8_f_ac_on_trg == _TRG_OFF_  )   // AC ON->OFFトリガ
+     {
+         if( gu32_c_ac_interrupt_protection == 0 )  // 1秒間に発生する繰り返しの瞬断については瞬断回数は1回とカウントする
+         {
+@@ -509,7 +541,7 @@
+
+         }
+     }
+ 
+-    if(gu8_f_before_shutdown!=1)
++    if(gu8_f_before_shutdown != 1)
+     {
+         // 4. 瞬断回数(90V以下)(AC_LOW_COUNT)
+         /* ※当データは一切変化しない */
+@@ -579,7 +611,7 @@
+
+         {
+             gu8_f_soc_calc_finish_sek = 0;
+ 
+-            if( (g_eeprom_data.cumulative_data.batt_ttl_charge + gf_chg_mah_val_sek) < UINT24_F__MAX_VALUE_UNDER)
++            if( (g_eeprom_data.cumulative_data.batt_ttl_charge + gf_chg_mah_val_sek + 0.5f) < UINT24_F__MAX_VALUE_UNDER)
+             {
+                 g_eeprom_data.cumulative_data.batt_ttl_charge += gf_chg_mah_val_sek;
+             }
+@@ -594,9 +626,9 @@
+
+         {
+             gu8_f_soc_calc_finish_sek = 0;
+ 
+-            if( (g_eeprom_data.cumulative_data.batt_ttl_discharge + gf_dischg_mah_val_sek) < UINT24_F__MAX_VALUE_UNDER)
+-            {
+-                g_eeprom_data.cumulative_data.batt_ttl_discharge += gf_dischg_mah_val_sek;
++            if( (g_eeprom_data.cumulative_data.batt_ttl_discharge + gf_dischg_mah_val_sek + 0.5f) < UINT24_F__MAX_VALUE_UNDER)
++            {
++                g_eeprom_data.cumulative_data.batt_ttl_discharge += gf_dischg_mah_val_sek ;
+             }
+             else
+             {
+@@ -617,9 +649,11 @@
+
+ 
+             if( gu8_c_bat_temp_1h_sum_sample > 0 )    // データ数0の場合のゼロ除算対策
+             {
+-                if( (g_eeprom_data.cumulative_data.total_batt_temp + (gu16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample)) <= UINT24_MAX_VALUE_UNDER )
+-                {
+-                    g_eeprom_data.cumulative_data.total_batt_temp += ( gu16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample );
++                //if( (g_eeprom_data.cumulative_data.total_batt_temp + (gu16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample)) <= UINT24_MAX_VALUE_UNDER )
++                if( (g_eeprom_data.cumulative_data.total_batt_temp + (gi16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample)) <= UINT24_MAX_VALUE_UNDER ) /* S1.14 150F */
++                {
++                    //g_eeprom_data.cumulative_data.total_batt_temp += ( gu16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample );
++                    g_eeprom_data.cumulative_data.total_batt_temp += ( gi16_bat_temp_1h_sum / gu8_c_bat_temp_1h_sum_sample );   /* S1.14 150F */
+ 
+                     if( g_eeprom_data.cumulative_data.batt_temp_sample_count < UINT24_MAX_VALUE_UNDER )
+                     {
+@@ -636,7 +670,8 @@
+
+                 g_eeprom_data.cumulative_data.total_batt_temp += 0;    // 必要？
+             }
+ 
+-            gu16_bat_temp_1h_sum = 0;
++            //gu16_bat_temp_1h_sum = 0;
++            gi16_bat_temp_1h_sum = 0;   /* S1.14 150F */
+             gu8_c_bat_temp_1h_sum_sample = 0;
+ 
+             if( g_eeprom_data.cumulative_data.batt_temp_sample_count > 0 )    // データ数0の場合のゼロ除算対策
+@@ -868,6 +903,11 @@
+
+             gs_life_calc_data.batt_charge = UINT8_MAX_VALUE;
+         }
+     }
++
++    /* S1.14 121F */
++    /* gf_jcd_ttl_chg_socがゼロクリアされるのはCMD_ID_D3受信時のみ。実行位置的にこのタイミングでRAM上のEEPROMテーブルを更新するのは妥当であろう */
++    /* 将来的にSOCのゼロクリアにchgsocのゼロクリアを同期させる場合でもこの位置でRAM上のEEPROMテーブルを更新しておけば対応可能となるとおもふ */
++    g_eeprom_data.batt_cap.chgsoc= gf_jcd_ttl_chg_soc;
+ }
+ 
+ /*******************************************************************************
+@@ -896,24 +936,25 @@
+
+ {
+     if(SP_AUTO_CHARGE == _DISABLE_)
+     {
+-
+-      if(gu8_f_charge_off == _CHARGE_OFF_KINSHI_)
+-      {
++        if(gu8_f_charge_off == _CHARGE_OFF_KINSHI_)
++        {
++            set_info_evt_errlog(FLAG_CHARGE_READY,_RESET_);
++        }
++        else if(gu8_f_charge_off == _CHARGE_OFF_CLEAR_)
++        {
++            set_info_evt_errlog(FLAG_CHARGE_READY,_SET_);
++        }
++    }
++    else
++    {
+         set_info_evt_errlog(FLAG_CHARGE_READY,_RESET_);
+-
+-      }else if(gu8_f_charge_off == _CHARGE_OFF_CLEAR_){
+-
+-        set_info_evt_errlog(FLAG_CHARGE_READY,_SET_);
+-      }
+-    }else{
+-
++    }
++
++    if((gu8_f_backup_active==_ON_) || (gu8_f_stop_cha == _ON_) || (gu8_f_dcir_check_doing == _ON_) || (gu8_f_susp_cha == TEMP_SUPPRES_1) && (gu8_f_batt_not == _ON_) )//136F
++    {
+         set_info_evt_errlog(FLAG_CHARGE_READY,_RESET_);
+     }
+ 
+-    if(gu8_f_backup_active==_ON_){
+-        set_info_evt_errlog(FLAG_CHARGE_READY,_RESET_);
+-
+-    }
+ 
+ }
+ 
+@@ -1214,36 +1255,31 @@
+
+             default:
+                 break;
+         }
++
+     	if( error_no != 0 )
+-               {
+-                   if( error_no < FLAG_COM_ALM )
+-                   {
+-                       if( status == _SET_ ) // _SET_
+-                       {
+-                           if( gu8_b_err_log[flag] == 0 )   // flag_a[100]
+-                           {
+-                               gu8_b_err_log[flag]=1;
+-                               //flag_a[flag] = 1;
+-                               error_log_request(error_no);
+-                           }
+-                       } else { // _RESET_
+-                           gu8_b_err_log[flag]=0;
+-                       }
+-                   } else {
+-                       error_log_request(error_no);
+-                   }
+-               }
++        {
++            if( error_no < FLAG_COM_ALM )
++            {
++                if( status == _SET_ ) // _SET_
++                {
++                    if( gu8_b_err_log[flag] == 0 )   // flag_a[100]
++                    {
++                        gu8_b_err_log[flag]=1;
++                        //flag_a[flag] = 1;
++                        error_log_request(error_no);
++                    }
++                }
++                else
++                { // _RESET_
++                    gu8_b_err_log[flag]=0;
++                }
++            }
++            else
++            {
++                error_log_request(error_no);
++            }
++        }
+     }
+     gu8_flag_old = flag;
+     gu8_status_old = status;
+ }
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-

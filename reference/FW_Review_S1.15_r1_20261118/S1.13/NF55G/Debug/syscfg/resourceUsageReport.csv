@@ -1,0 +1,57 @@
+Pin Number,Device Pin Name,IO Type,Assigned Peripheral,Assigned Function ,User Label
+3,PA28,HD,GPIO,High-Drive Input with internal pull-up,PA28_INPUT
+5,PA31,HD,GPIO,High-Drive Input with internal pull-up,PA31_INPUT
+8,PA2,SDL,GPIO,Standard Input with internal pull-up,PA2_INPUT
+17,PA9,HS,GPIO,High-Speed Input with internal pull-up,PA9_INPUT
+28,PA13,HS,GPIO,High-Speed Output,PA13_OUTPUT
+29,PA14,HS,GPIO,High-Speed Output,PA14_OUTPUT
+33,PA18,SDW,GPIO,Standard with Wake Input,PA18_INPUT
+39,PA21,SD,GPIO,Standard Input,PA21_INPUT
+43,PA23,SD,GPIO,Standard Input,PA23_INPUT
+15,PB3,SD,GPIO,Standard Input with internal pull-up,PB3_INPUT
+20,PB6,SD,GPIO,Standard Output,PB6_OUTPUT
+21,PB7,SD,GPIO,Standard Output,PB7_OUTPUT
+22,PB8,SD,GPIO,Standard Output,PB8_OUTPUT
+23,PB9,SD,GPIO,Standard Output,PB9_OUTPUT
+24,PB14,SD,GPIO,Standard Input with internal pull-up,PB14_INPUT
+25,PB15,SD,GPIO,Standard Output,PB15_OUTPUT
+26,PB16,SD,GPIO,Standard Output,PB16_OUTPUT
+37,PB18,SD,GPIO,Standard Output,PB18_OUTPUT
+38,PB19,SD,GPIO,Standard Output,PB19_OUTPUT
+11,PA5,SD,SYSCTL,"HFXIN",
+12,PA6,SD,SYSCTL,"HFXOUT",
+9,PA3,SD,SYSCTL,"LFXIN",
+10,PA4,SD,SYSCTL,"LFXOUT",
+13,PA7,SD,TIMG8,"Capture/Compare Pin 0",
+14,PB2,SD,TIMG6,"Capture/Compare Pin 0",
+27,PA12,HS,TIMG0,"Capture/Compare Pin 0",
+16,PA8,SD,TIMA0,"Capture/Compare Pin 0",
+1,PA0,OD,I2C0,"I2C Serial Data line (SDA)",
+2,PA1,OD,I2C0,"I2C Serial Clock line (SCL)",
+19,PA11,HD,UART0,"RX Pin",
+18,PA10,HD,UART0,"TX Pin",
+47,PA27,SD,ADC0,"ADC12 Channel 0 Pin",
+46,PA26,SD,ADC0,"ADC12 Channel 1 Pin",
+45,PA25,SD,ADC0,"ADC12 Channel 2 Pin",
+44,PA24,SD,ADC0,"ADC12 Channel 3 Pin",
+42,PB24,SD,ADC0,"ADC12 Channel 5 Pin",
+41,PB20,SD,ADC0,"ADC12 Channel 6 Pin",
+40,PA22,SD,ADC0,"ADC12 Channel 7 Pin",
+31,PA16,SD,ADC1,"ADC12 Channel 1 Pin",
+32,PA17,SDW,ADC1,"ADC12 Channel 2 Pin",
+36,PB17,SD,ADC1,"ADC12 Channel 4 Pin",
+30,PA15,SD,DAC12,"DAC12 Output Pin",
+35,PA20,SD,BOARD,"Debug Clock",
+34,PA19,HS,BOARD,"Debug Data In Out",
+
+
+Peripheral,Usage
+TIMG8,1 channels used out of 2 (50%)
+TIMG6,1 channels used out of 2 (50%)
+TIMG0,1 channels used out of 2 (50%)
+TIMA0,1 channels used out of 4 (25%)
+I2C,1 out of 2 instances (50%)
+UART,1 out of 4 instances (25%)
+ADC12,2 out of 2 instances (100%)
+WWDT,1 out of 2 instances (50%)
+

@@ -1,0 +1,2380 @@
+******************************************************************************
+            TI ARM Clang Linker PC v3.2.2                      
+******************************************************************************
+>> Linked Thu Oct  1 10:11:49 2026
+
+OUTPUT FILE NAME:   <NF55G.out>
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0001c851
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  FLASH                 0000e000   00011ff8  0000f2d8  00002d20  R  X
+  SRAM_FIX              20200000   00000100  0000002c  000000d4  RW X
+  SRAM                  20200100   00007f00  000022be  00005c42  RW X
+  BCR_CONFIG            41c00000   000000ff  00000000  000000ff  R   
+  BSL_CONFIG            41c00100   00000080  00000000  00000080  R   
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+0000e000    0000e000    0000f2d8   0000f2d8    r-x
+  0000e000    0000e000    000000c0   000000c0    r-- .intvecs
+  0000e0c0    0000e0c0    0000eaf0   0000eaf0    r-x .text
+  0001cbb0    0001cbb0    00000660   00000660    r-- .rodata
+  0001d210    0001d210    000000c8   000000c8    r-- .cinit
+20200100    20200100    000020c0   00000000    rw-
+  20200100    20200100    00001742   00000000    rw- .data
+  20201844    20201844    0000097c   00000000    rw- .bss
+20207e00    20207e00    00000200   00000000    rw-
+  20207e00    20207e00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    0000e000    000000c0     
+                  0000e000    000000c0     NF55_vector.o (.intvecs)
+
+.text      0    0000e0c0    0000eaf0     
+                  0000e0c0    00001320     NF55_serial.o (.text.set_normal_response)
+                  0000f3e0    000012ac     NF55_input.o (.text.input)
+                  0001068c    000009cc     NF55_hogo.o (.text.hogo_detect)
+                  00011058    000009a8     NF55_state.o (.text.charge_proc)
+                  00011a00    000006c0     NF55_data.o (.text.set_info_evt_errlog)
+                  000120c0    00000668     NF55_eeprom.o (.text.write_eeprom)
+                  00012728    00000578     NF55_input.o (.text.input_ad)
+                  00012ca0    00000518     NF55_serial.o (.text.cmd_sp_check)
+                  000131b8    000004b0     NF55_output.o (.text.fan_duty_set_proc)
+                  00013668    00000470     NF55_serial.o (.text.set_cumulative_data)
+                  00013ad8    00000458     NF55_state.o (.text.discharge_proc)
+                  00013f30    00000400     NF55_data.o (.text.cumulative_data_proc)
+                  00014330    000003f0     NF55_init.o (.text.userInit)
+                  00014720    000003e4     NF55_state.o (.text.dcir_proc)
+                  00014b04    000003d4     NF55_serial.o (.text.recv_proc)
+                  00014ed8    000003ac     NF55_serial.o (.text.cmd_proc)
+                  00015284    000003a8     NF55_serial.o (.text.cmd_ad_proc)
+                  0001562c    00000370     NF55_serial.o (.text.set_parameter_data)
+                  0001599c    00000368     NF55_serial.o (.text.set_realtime_data)
+                  00015d04    00000360     NF55_data.o (.text.soc_calc_proc)
+                  00016064    00000330     NF55_serial.o (.text.rx_main_proc)
+                  00016394    000002f0     NF55_output.o (.text.fan_speed_proc)
+                  00016684    000002c0     NF55_serial.o (.text.cmd_recv_check)
+                  00016944    000002b0     NF55_serial.o (.text.event_proc)
+                  00016bf4    000002a8     libc.a : mktime64.c.obj (.text.__mktime64)
+                  00016e9c    0000029c     NF55_state.o (.text.burst_proc)
+                  00017138    00000274     NF55_data.o (.text.off_time_data_proc)
+                  000173ac    00000230     NF55_serial.o (.text.set_life_diag_data)
+                  000175dc    00000230     NF55_serial.o (.text.set_life_diag_data_response)
+                  0001780c    00000208     NF55_serial.o (.text.set_off_period_data)
+                  00017a14    000001f4     libc.a : localtim64.c.obj (.text.__localtime64)
+                  00017c08    000001ec     NF55_main.o (.text.clear_global_variables)
+                  00017df4    000001ec     NF55_state.o (.text.full_chg_calc)
+                  00017fe0    000001b8     NF55_data.o (.text.data_proc)
+                  00018198    000001a8     NF55_serial.o (.text.set_ope_log_data)
+                  00018340    000001a0     NF55_serial.o (.text.set_clock_data)
+                  000184e0    00000198     NF55_serial.o (.text.set_err_log_data)
+                  00018678    00000194     iqmath.a : _IQNlog.o (.text._IQ19log)
+                  0001880c    00000192     libclang_rt.builtins.a : adddf3.S.obj (.text.adddf3_subdf3)
+                  0001899e    00000002     NF55_vector.o (.text.Default_Handler)
+                  000189a0    00000190     NF55_output.o (.text.output_io)
+                  00018b30    0000018c     NF55_output.o (.text.fan_hosei_temp_proc)
+                  00018cbc    0000018c     NF55_output.o (.text.set_fan_val)
+                  00018e48    00000170     NF55_serial.o (.text.cmd_sc_check)
+                  00018fb8    00000168     NF55_main.o (.text.revoltage)
+                  00019120    00000164     NF55_serial.o (.text.rx_proc)
+                  00019284    0000015c     NF55_eeprom.o (.text.eeprom_init_allparam)
+                  000193e0    00000154     NF55_eeprom.o (.text.read_eeprom)
+                  00019534    00000148     NF55_output.o (.text.ac_link_proc)
+                  0001967c    00000138     NF55_serial.o (.text.aft_ack_rcv_proc)
+                  000197b4    00000134     NF55_hogo.o (.text.hogo_release)
+                  000198e8    00000134     NF55_main.o (.text.user_main2)
+                  00019a1c    00000124     NF55_serial.o (.text.cmd_cd_proc)
+                  00019b40    0000011c     NF55_serial.o (.text.cmd_ss_proc)
+                  00019c5c    0000011c     NF55_eeprom.o (.text.eeprom_all_backup_proc)
+                  00019d78    0000011c     NF55_serial.o (.text.set_life_calc_data)
+                  00019e94    00000110     NF55_main.o (.text.main)
+                  00019fa4    0000010c     libclang_rt.builtins.a : divdf3.S.obj (.text.__divdf3)
+                  0001a0b0    00000108     NF55_state.o (.text.dcir_response)
+                  0001a1b8    00000104     driverlib.a : dl_timer.o (.text.DL_Timer_initFourCCPWMMode)
+                  0001a2bc    000000fc     ti_msp_dl_config.o (.text.SYSCFG_DL_GPIO_init)
+                  0001a3b8    000000f8     NF55_isr.o (.text.I2C0_IRQHandler)
+                  0001a4b0    000000f8     NF55_isr.o (.text.UART0_IRQHandler)
+                  0001a5a8    000000e8     driverlib.a : dl_timer.o (.text.DL_Timer_initTimerMode)
+                  0001a690    000000e8     NF55_state.o (.text.ps_on_proc)
+                  0001a778    000000e4     libclang_rt.builtins.a : muldf3.S.obj (.text.__muldf3)
+                  0001a85c    000000dc     driverlib.a : dl_sysctl_mspm0g1x0x_g3x0x.o (.text.DL_SYSCTL_configSYSPLL)
+                  0001a938    000000d8     NF55_output.o (.text.output_fan_pwm)
+                  0001aa10    000000d8     libclang_rt.builtins.a : addsf3.S.obj (.text)
+                  0001aae8    000000d0     ti_msp_dl_config.o (.text.SYSCFG_DL_initPower)
+                  0001abb8    000000c8     NF55_input.o (.text.input_init_ac)
+                  0001ac80    000000bc     NF55_data.o (.text.full_charge_proc)
+                  0001ad3c    000000b4     NF55_serial.o (.text.cmd_se_proc)
+                  0001adf0    000000b4     NF55_serial.o (.text.serial_tx_proc)
+                  0001aea4    000000a8     NF55_input.o (.text.calc_temperature)
+                  0001af4c    000000a8     NF55_data.o (.text.charge_ready_proc)
+                  0001aff4    000000a4     driverlib.a : dl_rtc_common.o (.text.DL_RTC_Common_initCalendar)
+                  0001b098    000000a2     libclang_rt.builtins.a : udivmoddi4.S.obj (.text)
+                  0001b13a    00000002                            : aeabi_div0.c.obj (.text.__aeabi_idiv0)
+                  0001b13c    00000098     NF55_eeprom.o (.text.read_all_eeprom)
+                  0001b1d4    00000094     NF55_state.o (.text.dischage_termination)
+                  0001b268    00000094     NF55_output.o (.text.output)
+                  0001b2fc    0000008c     libclang_rt.builtins.a : mulsf3.S.obj (.text.__mulsf3)
+                  0001b388    00000088     driverlib.a : dl_dac12.o (.text.DL_DAC12_init)
+                  0001b410    00000088     NF55_serial.o (.text.cmd_cl_proc)
+                  0001b498    00000084     NF55_output.o (.text.fan_rpm_calc_proc)
+                  0001b51c    00000082     libclang_rt.builtins.a : divsf3.S.obj (.text.__divsf3)
+                  0001b59e    00000002                            : aeabi_div0.c.obj (.text.__aeabi_ldiv0)
+                  0001b5a0    00000080     NF55_init.o (.text.make_set_parameter_value)
+                  0001b620    0000007c     driverlib.a : dl_rtc_common.o (.text.DL_RTC_Common_getCalendarTime)
+                  0001b69c    0000007c     ti_msp_dl_config.o (.text.SYSCFG_DL_ADC12_0_init)
+                  0001b718    00000078     NF55_isr.o (.text.GROUP1_IRQHandler)
+                  0001b790    00000078     libc.a : copy_decompress_lzss.c.obj (.text:decompress:lzss)
+                  0001b808    00000008     libclang_rt.builtins.a : aeabi_memcpy.S.obj (.text.__aeabi_memcpy)
+                  0001b810    00000074                            : truncdfsf2.S.obj (.text.__truncdfsf2)
+                  0001b884    00000070     ti_msp_dl_config.o (.text.SYSCFG_DL_ADC12_1_init)
+                  0001b8f4    00000070     ti_msp_dl_config.o (.text.SYSCFG_DL_SYSCTL_init)
+                  0001b964    00000070     ti_msp_dl_config.o (.text.SYSCFG_DL_UART_0_init)
+                  0001b9d4    00000070     libclang_rt.builtins.a : comparedf2.c.obj (.text.__gedf2)
+                  0001ba44    0000006c     ti_msp_dl_config.o (.text.SYSCFG_DL_I2C_0_init)
+                  0001bab0    0000006c     libclang_rt.builtins.a : comparedf2.c.obj (.text.__ledf2)
+                  0001bb1c    0000006c     NF55_data.o (.text.operate_log_request)
+                  0001bb88    00000068     ti_msp_dl_config.o (.text.SYSCFG_DL_FAN_PWM_init)
+                  0001bbf0    00000068     ti_msp_dl_config.o (.text.SYSCFG_DL_SYNC_0_init)
+                  0001bc58    00000068     ti_msp_dl_config.o (.text.SYSCFG_DL_SYNC_120_init)
+                  0001bcc0    00000068     ti_msp_dl_config.o (.text.SYSCFG_DL_SYNC_240_init)
+                  0001bd28    00000068     NF55_data.o (.text.rtc_data_set_fu)
+                  0001bd90    00000064     driverlib.a : dl_sysctl_mspm0g1x0x_g3x0x.o (.text.DL_SYSCTL_setHFCLKSourceHFXTParams)
+                  0001bdf4    00000064     ti_msp_dl_config.o (.text.SYSCFG_DL_init)
+                  0001be58    00000062     libclang_rt.builtins.a : aeabi_dcmp.S.obj (.text.__aeabi_dcmp)
+                  0001beba    00000002     --HOLE-- [fill = 0]
+                  0001bebc    00000062                            : aeabi_fcmp.S.obj (.text.__aeabi_fcmp)
+                  0001bf1e    00000002     --HOLE-- [fill = 0]
+                  0001bf20    00000060     driverlib.a : dl_sysctl_mspm0g1x0x_g3x0x.o (.text.DL_SYSCTL_setLFCLKSourceLFXT)
+                  0001bf80    00000060     NF55_input.o (.text.input_filter)
+                  0001bfe0    00000060     NF55_main.o (.text.jumpBoot)
+                  0001c040    0000005e     driverlib.a : dl_i2c.o (.text.DL_I2C_fillControllerTXFIFO)
+                  0001c09e    00000002     --HOLE-- [fill = 0]
+                  0001c0a0    00000058     NF55_data.o (.text.error_log_request)
+                  0001c0f8    00000058     NF55_output.o (.text.set_output_duty)
+                  0001c150    00000056     libclang_rt.builtins.a : aeabi_idivmod.S.obj (.text.__aeabi_idivmod)
+                  0001c1a6    00000054     NF55_serial.o (.text.calc_bcc)
+                  0001c1fa    00000002     --HOLE-- [fill = 0]
+                  0001c1fc    00000050     NF55_isr.o (.text.SysTick_Handler)
+                  0001c24c    0000004a     libclang_rt.builtins.a : fixdfsi.S.obj (.text.__fixdfsi)
+                  0001c296    00000002     --HOLE-- [fill = 0]
+                  0001c298    00000048     driverlib.a : dl_uart.o (.text.DL_UART_init)
+                  0001c2e0    00000044                 : dl_sysctl_mspm0g1x0x_g3x0x.o (.text.DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK)
+                  0001c324    00000040                 : dl_adc12.o (.text.DL_ADC12_setClockConfig)
+                  0001c364    00000040     ti_msp_dl_config.o (.text.SYSCFG_DL_RTC_init)
+                  0001c3a4    00000040     NF55_init.o (.text.SystemInit)
+                  0001c3e4    00000040     libclang_rt.builtins.a : aeabi_uidivmod.S.obj (.text.__aeabi_uidivmod)
+                  0001c424    00000040                            : extendsfdf2.S.obj (.text.__extendsfdf2)
+                  0001c464    00000040     NF55_state.o (.text.burst_off_proc)
+                  0001c4a4    00000040     NF55_eeprom.o (.text.eeprom_write_request)
+                  0001c4e4    0000003e     libclang_rt.builtins.a : divmoddi4.c.obj (.text.__divmoddi4)
+                  0001c522    00000002     --HOLE-- [fill = 0]
+                  0001c524    0000003c                            : floatsisf.S.obj (.text.__floatsisf)
+                  0001c560    0000003c                            : comparesf2.S.obj (.text.__gtsf2)
+                  0001c59c    0000003c     libc.a : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit)
+                  0001c5d8    0000003a     libclang_rt.builtins.a : comparesf2.S.obj (.text.__eqsf2)
+                  0001c612    00000002     --HOLE-- [fill = 0]
+                  0001c614    0000003a                            : muldsi3.S.obj (.text.__muldsi3)
+                  0001c64e    00000002     --HOLE-- [fill = 0]
+                  0001c650    00000038                            : fixsfsi.S.obj (.text.__fixsfsi)
+                  0001c688    00000038     NF55_state.o (.text.dischage_end_first)
+                  0001c6c0    00000030     ti_msp_dl_config.o (.text.SYSCFG_DL_SYSTICK_init)
+                  0001c6f0    00000030     crc32.o (.text.crc32_calc)
+                  0001c720    0000002c     NF55_isr.o (.text.ADC0_IRQHandler)
+                  0001c74c    0000002c     NF55_isr.o (.text.ADC1_IRQHandler)
+                  0001c778    0000002c     driverlib.a : dl_crc.o (.text.DL_CRC_calculateMemoryRange32)
+                  0001c7a4    0000002c     ti_msp_dl_config.o (.text.SYSCFG_DL_TIMER_G12_init)
+                  0001c7d0    0000002c     libclang_rt.builtins.a : floatsidf.S.obj (.text.__floatsidf)
+                  0001c7fc    0000002c     NF55_output.o (.text.converter_pwm_stop)
+                  0001c828    00000028     libclang_rt.builtins.a : floatunsisf.S.obj (.text.__floatunsisf)
+                  0001c850    00000028     libc.a : boot_cortex_m.c.obj (.text:_c_int00_noargs)
+                  0001c878    00000026     driverlib.a : dl_i2c.o (.text.DL_I2C_setClockConfig)
+                  0001c89e    00000002     --HOLE-- [fill = 0]
+                  0001c8a0    00000024     ti_msp_dl_config.o (.text.SYSCFG_DL_DAC12_init)
+                  0001c8c4    00000024     libclang_rt.builtins.a : floatunsidf.S.obj (.text.__floatunsidf)
+                  0001c8e8    00000024                            : muldi3.S.obj (.text.__muldi3)
+                  0001c90c    00000020     NF55_main.o (.text.sleep)
+                  0001c92c    0000001e     libclang_rt.builtins.a : ashldi3.S.obj (.text.__ashldi3)
+                  0001c94a    00000002     --HOLE-- [fill = 0]
+                  0001c94c    0000001c     driverlib.a : dl_timer.o (.text.DL_Timer_setCaptCompUpdateMethod)
+                  0001c968    0000001c                 : dl_timer.o (.text.DL_Timer_setClockConfig)
+                  0001c984    0000001c     NF55_isr.o (.text.RTC_IRQHandler)
+                  0001c9a0    00000018     driverlib.a : dl_timer.o (.text.DL_Timer_setCaptureCompareOutCtl)
+                  0001c9b8    00000018     ti_msp_dl_config.o (.text.SYSCFG_DL_SYSCTL_CLK_init)
+                  0001c9d0    00000018     ti_msp_dl_config.o (.text.SYSCFG_DL_WWDT0_init)
+                  0001c9e8    00000018     iqmath.a : _IQNdiv.o (.text._IQ19div)
+                  0001ca00    00000018              : _IQNmpy.o (.text._IQ19mpy)
+                  0001ca18    00000018     NF55_hogo.o (.text.hogo_proc)
+                  0001ca30    00000018     NF55_serial.o (.text.serial_rx_proc)
+                  0001ca48    00000018     NF55_state.o (.text.update_backup_ready)
+                  0001ca60    00000016     NF55_input.o (.text.startup_input_ad)
+                  0001ca76    00000002     --HOLE-- [fill = 0]
+                  0001ca78    00000014     ti_msp_dl_config.o (.text.SYSCFG_DL_CRC_init)
+                  0001ca8c    00000014     libclang_rt.builtins.a : aeabi_ldivmod.S.obj (.text.__aeabi_ldivmod)
+                  0001caa0    00000012     driverlib.a : dl_uart.o (.text.DL_UART_setClockConfig)
+                  0001cab2    00000012     libc.a : memcpy16.S.obj (.text:TI_memcpy_small)
+                  0001cac4    00000012            : copy_decompress_none.c.obj (.text:decompress:none)
+                  0001cad6    00000002     --HOLE-- [fill = 0]
+                  0001cad8    00000010     driverlib.a : dl_timer.o (.text.DL_Timer_setCaptureCompareValue)
+                  0001cae8    00000010     NF55_isr.o (.text.HardFault_Handler)
+                  0001caf8    00000010     NF55_eeprom.o (.text.eeprom_write_check)
+                  0001cb08    00000010     NF55_output.o (.text.fan_stop_PWM)
+                  0001cb18    00000010     libc.a : copy_zero_init.c.obj (.text:decompress:ZI)
+                  0001cb28    0000000e     libclang_rt.builtins.a : aeabi_memset.S.obj (.text.__aeabi_memset)
+                  0001cb36    0000000e     libc.a : memset16.S.obj (.text:TI_memset_small)
+                  0001cb44    0000000c     libclang_rt.builtins.a : aeabi_memset.S.obj (.text.__aeabi_memclr)
+                  0001cb50    0000000a     driverlib.a : dl_common.o (.text.DL_Common_delayCycles)
+                  0001cb5a    0000000a     NF55_vector.o (.text.Reset_Handler2)
+                  0001cb64    0000000a     NF55_input.o (.text.filter_clear)
+                  0001cb6e    00000008     libc.a : mktime64.c.obj (.text.OUTLINED_FUNCTION_0)
+                  0001cb76    00000002     --HOLE-- [fill = 0]
+                  0001cb78    00000010     libclang_rt.builtins.a : aeabi_idivmod.S.obj (.tramp.__aeabi_idiv.1)
+                  0001cb88    00000008     libc.a : mktime64.c.obj (.text.OUTLINED_FUNCTION_1)
+                  0001cb90    00000008            : mktime64.c.obj (.text.OUTLINED_FUNCTION_2)
+                  0001cb98    00000004     NF55_vector.o (.text.Reset_Handler)
+                  0001cb9c    00000004     libc.a : pre_init.c.obj (.text._system_pre_init)
+                  0001cba0    00000004            : exit.c.obj (.text:abort)
+                  0001cba4    0000000c     --HOLE-- [fill = 0]
+
+.cinit     0    0001d210    000000c8     
+                  0001d210    000000a4     (.cinit..data.load) [load image, compression = lzss]
+                  0001d2b4    0000000c     (__TI_handler_table)
+                  0001d2c0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  0001d2c8    00000010     (__TI_cinit_table)
+
+.rodata    0    0001cbb0    00000660     
+                  0001cbb0    00000400     crc32.o (.rodata.crc32tab)
+                  0001cfb0    0000004e     NF55_tbl.o (.rodata.CMD_TBL)
+                  0001cffe    0000003f     NF55_tbl.o (.rodata.ERROR_RESPONSE_TBL)
+                  0001d03d    00000003     ti_msp_dl_config.o (.rodata.gFAN_PWMClockConfig)
+                  0001d040    0000003c     iqmath.a : _IQNtables.o (.rodata._IQ30log_coeffs)
+                  0001d07c    00000030     libc.a : mktime64.c.obj (.rodata.mon_day)
+                  0001d0ac    00000030            : mktime64.c.obj (.rodata.mon_len)
+                  0001d0dc    00000028     ti_msp_dl_config.o (.rodata.gSYSPLLConfig)
+                  0001d104    00000020     ti_msp_dl_config.o (.rodata.gDAC12Config)
+                  0001d124    00000014     NF55_tbl.o (.rodata.SET_PRAMETER_DEF_TBL)
+                  0001d138    00000014     NF55_init.o (.rodata.gTIMER_G12TimerConfig)
+                  0001d14c    00000014     ti_msp_dl_config.o (.rodata.gTIMER_G12TimerConfig)
+                  0001d160    0000000e     NF55_isr.o (.rodata..Lswitch.table.ADC0_IRQHandler)
+                  0001d16e    0000000e     NF55_output.o (.rodata..Lswitch.table.get_fan_target_duty_cnt)
+                  0001d17c    0000000e     NF55_output.o (.rodata..Lswitch.table.set_fan_val.1)
+                  0001d18a    0000000e     NF55_output.o (.rodata..Lswitch.table.set_fan_val.2)
+                  0001d198    0000000d     NF55_tbl.o (.rodata.MONTH_END_TBL)
+                  0001d1a5    00000001     --HOLE-- [fill = 0]
+                  0001d1a6    0000000a     ti_msp_dl_config.o (.rodata.gUART_0Config)
+                  0001d1b0    00000008     ti_msp_dl_config.o (.rodata.gADC12_0ClockConfig)
+                  0001d1b8    00000008     ti_msp_dl_config.o (.rodata.gADC12_1ClockConfig)
+                  0001d1c0    00000008     ti_msp_dl_config.o (.rodata.gFAN_PWMConfig)
+                  0001d1c8    00000008     ti_msp_dl_config.o (.rodata.gSYNC_0Config)
+                  0001d1d0    00000008     ti_msp_dl_config.o (.rodata.gSYNC_120Config)
+                  0001d1d8    00000008     ti_msp_dl_config.o (.rodata.gSYNC_240Config)
+                  0001d1e0    00000007     NF55_tbl.o (.rodata.FFFFFF_TBL)
+                  0001d1e7    00000007     NF55_init.o (.rodata.str1.57995996054089690001)
+                  0001d1ee    00000006     NF55_isr.o (.rodata..Lswitch.table.ADC1_IRQHandler)
+                  0001d1f4    00000005     NF55_tbl.o (.rodata.FFFF_TBL)
+                  0001d1f9    00000003     ti_msp_dl_config.o (.rodata.gLFCLKConfig)
+                  0001d1fc    00000003     ti_msp_dl_config.o (.rodata.gSYNC_0ClockConfig)
+                  0001d1ff    00000003     ti_msp_dl_config.o (.rodata.gSYNC_120ClockConfig)
+                  0001d202    00000003     ti_msp_dl_config.o (.rodata.gSYNC_240ClockConfig)
+                  0001d205    00000003     ti_msp_dl_config.o (.rodata.gTIMER_G12ClockConfig)
+                  0001d208    00000002     ti_msp_dl_config.o (.rodata.gI2C_0ClockConfig)
+                  0001d20a    00000002     ti_msp_dl_config.o (.rodata.gUART_0ClockConfig)
+                  0001d20c    00000004     --HOLE-- [fill = 0]
+
+.init_array 
+*          0    0000e000    00000000     UNINITIALIZED
+
+.binit     0    0000e000    00000000     
+
+.fixed_ram 
+*          0    20200000    0000002c     NOLOAD SECTION
+                  20200000    0000002c     NF55_global.o (.fixed_ram)
+
+.data      0    20200100    00001742     UNINITIALIZED
+                  20200100    00000400     NF55_global.o (.data.gu32_b_fanrpm)
+                  20200500    00000360     NF55_global.o (.data.g_eeprom_data)
+                  20200860    00000360     NF55_global.o (.data.g_write_eeprom_data)
+                  20200bc0    000002bc     NF55_global.o (.data.gu16_ADC0_Result)
+                  20200e7c    000002bc     NF55_global.o (.data.gu16_ADC1_Result)
+                  20201138    00000080     NF55_global.o (.data.eeprom_write_req)
+                  202011b8    0000002f     NF55_global.o (.data.gu8_b_err_log)
+                  202011e7    00000001     NF55_state.o (.data.burst_current_state)
+                  202011e8    00000024     libc.a : localtim64.c.obj (.data.local_tm)
+                  2020120c    00000016     NF55_global.o (.data.gs_realtime_data)
+                  20201222    00000002     NF55_global.o (.data.eeprom_req_cnt)
+                  20201224    00000014     NF55_state.o (.data.i16_dtdt_set_new_1min)
+                  20201238    00000014     NF55_state.o (.data.i16_dtdt_set_old_1min)
+                  2020124c    00000014     NF55_global.o (.data.pi_ac_on_level)
+                  20201260    00000014     NF55_global.o (.data.pi_aft_ac_on_level)
+                  20201274    00000014     NF55_global.o (.data.pi_batt_break)
+                  20201288    00000014     NF55_global.o (.data.pi_batt_break_chg)
+                  2020129c    00000014     NF55_global.o (.data.pi_batt_con)
+                  202012b0    00000014     NF55_global.o (.data.pi_batt_high_6)
+                  202012c4    00000014     NF55_global.o (.data.pi_batt_low_6)
+                  202012d8    00000014     NF55_global.o (.data.pi_batt_not)
+                  202012ec    00000014     NF55_global.o (.data.pi_batt_temp_aft)
+                  20201300    00000014     NF55_global.o (.data.pi_batt_temp_bef)
+                  20201314    00000014     NF55_global.o (.data.pi_bbu_sw_open)
+                  20201328    00000014     NF55_global.o (.data.pi_bbu_sw_short)
+                  2020133c    00000014     NF55_global.o (.data.pi_burst_i_good)
+                  20201350    00000014     NF55_global.o (.data.pi_burst_i_over)
+                  20201364    00000014     NF55_global.o (.data.pi_burst_on)
+                  20201378    00000014     NF55_global.o (.data.pi_dischg12_ovp)
+                  2020138c    00000014     NF55_global.o (.data.pi_fail_bbu)
+                  202013a0    00000014     NF55_global.o (.data.pi_fan_fail_adu)
+                  202013b4    00000014     NF55_global.o (.data.pi_fan_fail_bbu)
+                  202013c8    00000014     NF55_global.o (.data.pi_fan_high_protection)
+                  202013dc    00000014     NF55_global.o (.data.pi_fan_low_protection)
+                  202013f0    00000014     NF55_global.o (.data.pi_fan_stop_protection)
+                  20201404    00000014     NF55_global.o (.data.pi_high_i_cha)
+                  20201418    00000014     NF55_global.o (.data.pi_high_i_dis_6)
+                  2020142c    00000014     NF55_global.o (.data.pi_high_i_of)
+                  20201440    00000014     NF55_global.o (.data.pi_high_i_of_h)
+                  20201454    00000014     NF55_global.o (.data.pi_high_i_on)
+                  20201468    00000014     NF55_global.o (.data.pi_high_i_on_50ms)
+                  2020147c    00000014     NF55_global.o (.data.pi_high_v)
+                  20201490    00000014     NF55_global.o (.data.pi_high_v_cha_6)
+                  202014a4    00000014     NF55_global.o (.data.pi_latch_fail)
+                  202014b8    00000014     NF55_global.o (.data.pi_low_v)
+                  202014cc    00000014     NF55_global.o (.data.pi_low_v_shortage)
+                  202014e0    00000014     NF55_global.o (.data.pi_low_v_shortage_5a)
+                  202014f4    00000014     NF55_global.o (.data.pi_pfc_fail_in)
+                  20201508    00000014     NF55_global.o (.data.pi_ps_on)
+                  2020151c    00000014     NF55_global.o (.data.pi_temp_fail_adu)
+                  20201530    00000014     NF55_global.o (.data.pi_temp_fail_bbu)
+                  20201544    00000010     libc.a : tmzone.c.obj (.data._tz)
+                  20201554    0000000f     NF55_global.o (.data.gs_status_info)
+                  20201563    00000001     NF55_state.o (.data.burst_state)
+                  20201564    0000000e     NF55_global.o (.data.gs_life_diag_data)
+                  20201572    0000000e     NF55_global.o (.data.gs_life_diag_data_response)
+                  20201580    0000000e     NF55_global.o (.data.gu16_ADC0_Sens)
+                  2020158e    0000000e     NF55_global.o (.data.gu16_ADC1_Sens)
+                  2020159c    0000000a     NF55_global.o (.data.gs_event_data)
+                  202015a6    0000000a     NF55_global.o (.data.gs_event_data_change)
+                  202015b0    0000000a     NF55_global.o (.data.gs_event_data_new)
+                  202015ba    0000000a     NF55_global.o (.data.gs_event_data_old)
+                  202015c4    00000004     NF55_state.o (.data.discharge_proc.c_backup_time)
+                  202015c8    00000008     NF55_global.o (.data.gt_otd_ac_off_occurrence)
+                  202015d0    00000008     NF55_global.o (.data.gt_otd_ac_on_time)
+                  202015d8    00000008     NF55_global.o (.data.gu16_tx_send_req)
+                  202015e0    00000006     NF55_global.o (.data.gs_life_calc_data)
+                  202015e6    00000006     NF55_global.o (.data.gu8_d_clock_data)
+                  202015ec    00000004     NF55_state.o (.data.discharge_proc.c_batt_on_delay)
+                  202015f0    00000004     NF55_state.o (.data.discharge_proc.c_soc_check_delay)
+                  202015f4    00000004     NF55_state.o (.data.f_batt_v_peak)
+                  202015f8    00000004     NF55_state.o (.data.f_batt_v_peak_calc_sample_sum)
+                  202015fc    00000004     NF55_state.o (.data.f_chg_ctl_batt_vol_v)
+                  20201600    00000004     NF55_global.o (.data.gf_12vout_i_coeff)
+                  20201604    00000004     NF55_global.o (.data.gf_12vout_v_coeff)
+                  20201608    00000004     NF55_global.o (.data.gf_acdc12v_v_coeff)
+                  2020160c    00000004     NF55_global.o (.data.gf_adj_per)
+                  20201610    00000004     NF55_global.o (.data.gf_batt_chg_coeff)
+                  20201614    00000004     NF55_global.o (.data.gf_batt_v_coeff)
+                  20201618    00000004     NF55_global.o (.data.gf_chg_mah_val_sek)
+                  2020161c    00000004     NF55_global.o (.data.gf_cmd_ad_after_correction_slope)
+                  20201620    00000004     NF55_global.o (.data.gf_cmd_ad_calculated_value)
+                  20201624    00000004     NF55_global.o (.data.gf_cmd_ad_val)
+                  20201628    00000004     NF55_global.o (.data.gf_dischg_i_coeff)
+                  2020162c    00000004     NF55_global.o (.data.gf_dischg_mah_val_sek)
+                  20201630    00000004     NF55_global.o (.data.gf_jcd_chg_soc_now)
+                  20201634    00000004     NF55_global.o (.data.gf_jcd_ttl_chg_soc)
+                  20201638    00000004     NF55_global.o (.data.gf_max_per)
+                  2020163c    00000004     NF55_global.o (.data.gf_min_per)
+                  20201640    00000004     NF55_global.o (.data.gf_otd_chg_soc_now)
+                  20201644    00000004     NF55_global.o (.data.gf_otd_chg_soc_total)
+                  20201648    00000004     NF55_global.o (.data.gu32_SysTickCount)
+                  2020164c    00000004     NF55_global.o (.data.gu32_c_12v_en_out_delay)
+                  20201650    00000004     NF55_global.o (.data.gu32_c_ac_interrupt_protection)
+                  20201654    00000004     NF55_global.o (.data.gu32_c_ac_link_timer)
+                  20201658    00000004     NF55_global.o (.data.gu32_c_adu_action_time)
+                  2020165c    00000004     NF55_global.o (.data.gu32_c_adu_temp_sek)
+                  20201660    00000004     NF55_global.o (.data.gu32_c_bat_connect_time)
+                  20201664    00000004     NF55_global.o (.data.gu32_c_bat_temp_ave_sek)
+                  20201668    00000004     NF55_global.o (.data.gu32_c_batchg_en_out_delay)
+                  2020166c    00000004     NF55_global.o (.data.gu32_c_batt_en_out_delay)
+                  20201670    00000004     NF55_global.o (.data.gu32_c_burst_out_delay)
+                  20201674    00000004     NF55_global.o (.data.gu32_c_chgv_114v_out_delay)
+                  20201678    00000004     NF55_global.o (.data.gu32_c_cmd_sc_evt_delay)
+                  2020167c    00000004     NF55_global.o (.data.gu32_c_converter_pwm_delay)
+                  20201680    00000004     NF55_global.o (.data.gu32_c_dcir_timer)
+                  20201684    00000004     NF55_global.o (.data.gu32_c_dischg12v_en_out_delay)
+                  20201688    00000004     NF55_global.o (.data.gu32_c_eeprom_timer)
+                  2020168c    00000004     NF55_global.o (.data.gu32_c_event_wait)
+                  20201690    00000004     NF55_global.o (.data.gu32_c_fan_fail_stop_timer)
+                  20201694    00000004     NF55_global.o (.data.gu32_c_fan_fail_timer)
+                  20201698    00000004     NF55_global.o (.data.gu32_c_fan_prm_old)
+                  2020169c    00000004     NF55_global.o (.data.gu32_c_fan_pwm_delay)
+                  202016a0    00000004     NF55_global.o (.data.gu32_c_low_v_shortage)
+                  202016a4    00000004     NF55_global.o (.data.gu32_c_minus_dv_disable)
+                  202016a8    00000004     NF55_global.o (.data.gu32_c_opencheck_time)
+                  202016ac    00000004     NF55_global.o (.data.gu32_c_ps_on_out_delay)
+                  202016b0    00000004     NF55_global.o (.data.gu32_c_soc_timer_1h)
+                  202016b4    00000004     NF55_global.o (.data.gu32_c_soc_timer_1s)
+                  202016b8    00000004     NF55_global.o (.data.gu32_c_test_out_delay)
+                  202016bc    00000004     NF55_global.o (.data.gu32_c_vcc_12v_en_out_delay)
+                  202016c0    00000004     NF55_global.o (.data.gu32_rcv_all_timer)
+                  202016c4    00000004     NF55_global.o (.data.gu32_reset_cause)
+                  202016c8    00000004     NF55_state.o (.data.i32_dtdt_temp_sum)
+                  202016cc    00000004     NF55_state.o (.data.u32_c_dcir_1h_timer)
+                  202016d0    00000004     NF55_state.o (.data.u32_c_sub_chg_inhibited_timer)
+                  202016d4    00000004     NF55_state.o (.data.u32_main_chg_timer)
+                  202016d8    00000004     NF55_state.o (.data.u32_sub_chg_timer)
+                  202016dc    00000004     NF55_eeprom.o (.data.write_eeprom.eeprom_write_wait)
+                  202016e0    00000002     NF55_global.o (.data.gi16_ad_batt1_temp)
+                  202016e2    00000002     NF55_global.o (.data.gi16_ad_battery_temp)
+                  202016e4    00000002     NF55_global.o (.data.gi16_ad_bbu_temp)
+                  202016e6    00000002     NF55_global.o (.data.gi16_ad_llc_temp)
+                  202016e8    00000002     NF55_global.o (.data.gi16_ctl_target_temp)
+                  202016ea    00000002     NF55_global.o (.data.gi16_otd_chg_bat_temp_ave)
+                  202016ec    00000002     NF55_global.o (.data.gi16_otd_ps_off_bat_temp_ave)
+                  202016ee    00000002     NF55_global.o (.data.gi16_pre_temp)
+                  202016f0    00000002     NF55_global.o (.data.gu16_ADC_cnt_4)
+                  202016f2    00000002     NF55_global.o (.data.gu16_ADC_cnt_50)
+                  202016f4    00000002     NF55_global.o (.data.gu16_CheckADC0)
+                  202016f6    00000002     NF55_global.o (.data.gu16_CheckADC1)
+                  202016f8    00000002     NF55_global.o (.data.gu16_ad_12vout_i)
+                  202016fa    00000002     NF55_global.o (.data.gu16_ad_12vout_i_now_ad)
+                  202016fc    00000002     NF55_global.o (.data.gu16_ad_12vout_v)
+                  202016fe    00000002     NF55_global.o (.data.gu16_ad_12vout_v_now_ad)
+                  20201700    00000002     NF55_global.o (.data.gu16_ad_acdc12v_v)
+                  20201702    00000002     NF55_global.o (.data.gu16_ad_batt_chg)
+                  20201704    00000002     NF55_global.o (.data.gu16_ad_batt_v)
+                  20201706    00000002     NF55_global.o (.data.gu16_ad_chgout_v_now_ad)
+                  20201708    00000002     NF55_global.o (.data.gu16_ad_dischg_i)
+                  2020170a    00000002     NF55_global.o (.data.gu16_bat_temp_1h_sum)
+                  2020170c    00000002     NF55_global.o (.data.gu16_batt_break_chg_timer)
+                  2020170e    00000002     NF55_global.o (.data.gu16_c_ac_on)
+                  20201710    00000002     NF55_global.o (.data.gu16_c_aft_ac_on)
+                  20201712    00000002     NF55_global.o (.data.gu16_c_bat_temp_calc)
+                  20201714    00000002     NF55_global.o (.data.gu16_c_fan)
+                  20201716    00000002     NF55_global.o (.data.gu16_c_otd_chg_bat_temp_ave)
+                  20201718    00000002     NF55_global.o (.data.gu16_c_otd_ps_off_bat_temp_ave)
+                  2020171a    00000002     NF55_global.o (.data.gu16_c_proc_delay)
+                  2020171c    00000002     NF55_global.o (.data.gu16_c_sta_rpm)
+                  2020171e    00000002     NF55_global.o (.data.gu16_c_timing1ms)
+                  20201720    00000002     NF55_global.o (.data.gu16_c_timing1s)
+                  20201722    00000002     NF55_global.o (.data.gu16_c_tx)
+                  20201724    00000002     NF55_global.o (.data.gu16_cmd_ad_set_ad_val)
+                  20201726    00000002     NF55_global.o (.data.gu16_d_fan_rpm)
+                  20201728    00000002     NF55_global.o (.data.gu16_d_fan_rpm_old)
+                  2020172a    00000002     NF55_global.o (.data.gu16_f_timing)
+                  2020172c    00000002     NF55_global.o (.data.gu16_f_timing_1sec)
+                  2020172e    00000002     NF55_global.o (.data.gu16_fan_odr_duty)
+                  20201730    00000002     NF55_global.o (.data.gu16_fan_odr_rpm)
+                  20201732    00000002     NF55_global.o (.data.gu16_fan_pwm_freq)
+                  20201734    00000002     NF55_global.o (.data.gu16_max_rpm_1)
+                  20201736    00000002     NF55_global.o (.data.gu16_max_rpm_5)
+                  20201738    00000002     NF55_global.o (.data.gu16_min_rpm_1)
+                  2020173a    00000002     NF55_global.o (.data.gu16_min_rpm_5)
+                  2020173c    00000002     NF55_global.o (.data.gu16_new_dty)
+                  2020173e    00000002     NF55_global.o (.data.gu16_new_per)
+                  20201740    00000002     NF55_global.o (.data.gu16_new_rpm)
+                  20201742    00000002     NF55_global.o (.data.gu16_now_per)
+                  20201744    00000002     NF55_global.o (.data.gu16_now_rpm)
+                  20201746    00000002     NF55_global.o (.data.gu16_p_fanrpm)
+                  20201748    00000002     NF55_serial.o (.data.rx_main_proc.data_count)
+                  2020174a    00000002     NF55_serial.o (.data.rx_main_proc.data_len)
+                  2020174c    00000002     NF55_serial.o (.data.tx_proc.c_tx_send_delay)
+                  2020174e    00000002     NF55_state.o (.data.u16_c_dcir_1s_timer)
+                  20201750    00000002     NF55_state.o (.data.u16_c_dtdt_ad_sampling_timer)
+                  20201752    00000002     NF55_state.o (.data.u16_c_dtdt_ave_and_comp_timer)
+                  20201754    00000002     NF55_state.o (.data.u16_c_dtdt_soc_full_chg_chk_timer)
+                  20201756    00000002     NF55_state.o (.data.u16_c_minus_dv_check_timer)
+                  20201758    00000002     NF55_state.o (.data.u16_c_minus_dv_peak_samp_timer)
+                  2020175a    00000001     NF55_state.o (.data.discharge_proc.f_backup_unlimit)
+                  2020175b    00000001     NF55_global.o (.data.eeprom_req_busy)
+                  2020175c    00000001     NF55_global.o (.data.eeprom_req_read_idx)
+                  2020175d    00000001     NF55_global.o (.data.eeprom_req_write_idx)
+                  2020175e    00000001     NF55_serial.o (.data.event_proc.c_retry)
+                  2020175f    00000001     NF55_global.o (.data.f_gu8_fan_ctl_mode)
+                  20201760    00000001     NF55_global.o (.data.f_gu8_fan_duty_change)
+                  20201761    00000001     NF55_global.o (.data.f_gu8_fan_speed)
+                  20201762    00000001     NF55_global.o (.data.f_gu8_fan_speed_def)
+                  20201763    00000001     NF55_global.o (.data.f_gu8_fan_temp_updwn)
+                  20201764    00000001     NF55_global.o (.data.gi8_d_soc_mah)
+                  20201765    00000001     NF55_global.o (.data.gi8_d_soc_wh)
+                  20201766    00000001     NF55_global.o (.data.gu8_ac_link_stage)
+                  20201767    00000001     NF55_global.o (.data.gu8_ack_stage)
+                  20201768    00000001     NF55_global.o (.data.gu8_alm_type_12v_err)
+                  20201769    00000001     NF55_global.o (.data.gu8_alm_type_batt_err)
+                  2020176a    00000001     NF55_global.o (.data.gu8_alm_type_batt_err_old)
+                  2020176b    00000001     NF55_global.o (.data.gu8_alm_type_chg_err)
+                  2020176c    00000001     NF55_global.o (.data.gu8_alm_type_dischg_err)
+                  2020176d    00000001     NF55_global.o (.data.gu8_alm_type_fan_err)
+                  2020176e    00000001     NF55_global.o (.data.gu8_alm_type_pfc_err)
+                  2020176f    00000001     NF55_global.o (.data.gu8_alm_type_temp_err)
+                  20201770    00000001     NF55_global.o (.data.gu8_backup_enable_cmd)
+                  20201771    00000001     NF55_global.o (.data.gu8_backup_off_cmd)
+                  20201772    00000001     NF55_global.o (.data.gu8_burst_stage)
+                  20201773    00000001     NF55_global.o (.data.gu8_c_bat_temp_1h_sum_sample)
+                  20201774    00000001     NF55_global.o (.data.gu8_c_batt_temp_reference_ok)
+                  20201775    00000001     NF55_global.o (.data.gu8_c_dischg_term)
+                  20201776    00000001     NF55_global.o (.data.gu8_cmd_ad_position)
+                  20201777    00000001     NF55_global.o (.data.gu8_cmd_ad_proc_stage)
+                  20201778    00000001     NF55_global.o (.data.gu8_cmd_ad_type)
+                  20201779    00000001     NF55_global.o (.data.gu8_cmd_bc_proc_stage)
+                  2020177a    00000001     NF55_global.o (.data.gu8_cmd_rp_proc_stage)
+                  2020177b    00000001     NF55_global.o (.data.gu8_cmd_se_proc_stage)
+                  2020177c    00000001     NF55_global.o (.data.gu8_cmd_sl_proc_stage)
+                  2020177d    00000001     NF55_global.o (.data.gu8_cmd_sp_proc_stage)
+                  2020177e    00000001     NF55_global.o (.data.gu8_cmd_ss_proc_stage)
+                  2020177f    00000001     NF55_global.o (.data.gu8_d_uart_rcv_num)
+                  20201780    00000001     NF55_global.o (.data.gu8_d_uart_rcv_rpt)
+                  20201781    00000001     NF55_global.o (.data.gu8_d_uart_rcv_wpt)
+                  20201782    00000001     NF55_global.o (.data.gu8_d_uart_snd_rpt)
+                  20201783    00000001     NF55_global.o (.data.gu8_d_uart_snd_wpt)
+                  20201784    00000001     NF55_global.o (.data.gu8_dischg_ps_off_stage)
+                  20201785    00000001     NF55_global.o (.data.gu8_dischg_ps_on_stage)
+                  20201786    00000001     NF55_global.o (.data.gu8_eeprom_all_backup)
+                  20201787    00000001     NF55_global.o (.data.gu8_eeprom_read_all_stage)
+                  20201788    00000001     NF55_global.o (.data.gu8_eeprom_write_stage)
+                  20201789    00000001     NF55_global.o (.data.gu8_end_dischg_stage)
+                  2020178a    00000001     NF55_global.o (.data.gu8_evt_proc_stage)
+                  2020178b    00000001     NF55_global.o (.data.gu8_f_12v_en_out)
+                  2020178c    00000001     NF55_global.o (.data.gu8_f_12v_oc_off)
+                  2020178d    00000001     NF55_global.o (.data.gu8_f_12v_oc_off_h)
+                  2020178e    00000001     NF55_global.o (.data.gu8_f_ac_70v_ac_interrupt)
+                  2020178f    00000001     NF55_global.o (.data.gu8_f_ac_link)
+                  20201790    00000001     NF55_global.o (.data.gu8_f_ac_link_restarting)
+                  20201791    00000001     NF55_global.o (.data.gu8_f_ac_off_detected)
+                  20201792    00000001     NF55_global.o (.data.gu8_f_ac_on)
+                  20201793    00000001     NF55_global.o (.data.gu8_f_ac_on_1ms)
+                  20201794    00000001     NF55_global.o (.data.gu8_f_ac_on_old)
+                  20201795    00000001     NF55_global.o (.data.gu8_f_ac_on_trg)
+                  20201796    00000001     NF55_global.o (.data.gu8_f_ack_nak_rcv)
+                  20201797    00000001     NF55_global.o (.data.gu8_f_aft_ac_on)
+                  20201798    00000001     NF55_global.o (.data.gu8_f_backup_active)
+                  20201799    00000001     NF55_global.o (.data.gu8_f_backup_active_alm)
+                  2020179a    00000001     NF55_global.o (.data.gu8_f_backup_active_old)
+                  2020179b    00000001     NF55_global.o (.data.gu8_f_backup_start_sek)
+                  2020179c    00000001     NF55_global.o (.data.gu8_f_batchg_en_out)
+                  2020179d    00000001     NF55_global.o (.data.gu8_f_batt_break)
+                  2020179e    00000001     NF55_global.o (.data.gu8_f_batt_break_chg)
+                  2020179f    00000001     NF55_global.o (.data.gu8_f_batt_cate_clear)
+                  202017a0    00000001     NF55_global.o (.data.gu8_f_batt_connect)
+                  202017a1    00000001     NF55_global.o (.data.gu8_f_batt_connect_old)
+                  202017a2    00000001     NF55_global.o (.data.gu8_f_batt_connect_trg)
+                  202017a3    00000001     NF55_global.o (.data.gu8_f_batt_en_out)
+                  202017a4    00000001     NF55_global.o (.data.gu8_f_batt_err_startup_exist)
+                  202017a5    00000001     NF55_global.o (.data.gu8_f_batt_high_6)
+                  202017a6    00000001     NF55_global.o (.data.gu8_f_batt_life_over_threshold)
+                  202017a7    00000001     NF55_global.o (.data.gu8_f_batt_low_6)
+                  202017a8    00000001     NF55_global.o (.data.gu8_f_batt_not)
+                  202017a9    00000001     NF55_global.o (.data.gu8_f_batt_not_con)
+                  202017aa    00000001     NF55_global.o (.data.gu8_f_batt_temp_aft)
+                  202017ab    00000001     NF55_global.o (.data.gu8_f_batt_temp_bef)
+                  202017ac    00000001     NF55_global.o (.data.gu8_f_bbu_sw_open)
+                  202017ad    00000001     NF55_global.o (.data.gu8_f_bbu_sw_short)
+                  202017ae    00000001     NF55_global.o (.data.gu8_f_before_shutdown)
+                  202017af    00000001     NF55_global.o (.data.gu8_f_burst_on)
+                  202017b0    00000001     NF55_global.o (.data.gu8_f_burst_out)
+                  202017b1    00000001     NF55_global.o (.data.gu8_f_cd_cmd_rcv)
+                  202017b2    00000001     NF55_global.o (.data.gu8_f_charge_inhibited)
+                  202017b3    00000001     NF55_global.o (.data.gu8_f_charge_off)
+                  202017b4    00000001     NF55_global.o (.data.gu8_f_charge_off_cmd)
+                  202017b5    00000001     NF55_global.o (.data.gu8_f_charge_ok_clear)
+                  202017b6    00000001     NF55_global.o (.data.gu8_f_charge_on)
+                  202017b7    00000001     NF55_global.o (.data.gu8_f_charge_on_cmd)
+                  202017b8    00000001     NF55_global.o (.data.gu8_f_charge_output)
+                  202017b9    00000001     NF55_global.o (.data.gu8_f_charging_active)
+                  202017ba    00000001     NF55_global.o (.data.gu8_f_charging_active_old)
+                  202017bb    00000001     NF55_global.o (.data.gu8_f_chgv_114v_out)
+                  202017bc    00000001     NF55_global.o (.data.gu8_f_cmd_d1_recv)
+                  202017bd    00000001     NF55_global.o (.data.gu8_f_cmd_sc_recv)
+                  202017be    00000001     NF55_global.o (.data.gu8_f_command_proc)
+                  202017bf    00000001     NF55_global.o (.data.gu8_f_converter_pwm)
+                  202017c0    00000001     NF55_global.o (.data.gu8_f_dcir_check_doing)
+                  202017c1    00000001     NF55_global.o (.data.gu8_f_dcir_complete)
+                  202017c2    00000001     NF55_global.o (.data.gu8_f_dcir_proc_init)
+                  202017c3    00000001     NF55_global.o (.data.gu8_f_dcir_request)
+                  202017c4    00000001     NF55_global.o (.data.gu8_f_dischg12_ovp)
+                  202017c5    00000001     NF55_global.o (.data.gu8_f_dischg12v_en_out)
+                  202017c6    00000001     NF55_global.o (.data.gu8_f_dischg_start_sek)
+                  202017c7    00000001     NF55_global.o (.data.gu8_f_dischg_term)
+                  202017c8    00000001     NF55_global.o (.data.gu8_f_dischg_under_1s)
+                  202017c9    00000001     NF55_global.o (.data.gu8_f_dischg_up_1s)
+                  202017ca    00000001     NF55_global.o (.data.gu8_f_eeprom_check_error)
+                  202017cb    00000001     NF55_global.o (.data.gu8_f_envt_first)
+                  202017cc    00000001     NF55_global.o (.data.gu8_f_event_lost)
+                  202017cd    00000001     NF55_global.o (.data.gu8_f_evt_ack_nak_rcv)
+                  202017ce    00000001     NF55_global.o (.data.gu8_f_fail_adu_bbu)
+                  202017cf    00000001     NF55_global.o (.data.gu8_f_fail_bbu)
+                  202017d0    00000001     NF55_global.o (.data.gu8_f_fan_fail_adu)
+                  202017d1    00000001     NF55_global.o (.data.gu8_f_fan_fail_bbu)
+                  202017d2    00000001     NF55_global.o (.data.gu8_f_fan_fail_check)
+                  202017d3    00000001     NF55_global.o (.data.gu8_f_fan_fail_stop)
+                  202017d4    00000001     NF55_global.o (.data.gu8_f_fan_pwm)
+                  202017d5    00000001     NF55_global.o (.data.gu8_f_fan_spd_backup)
+                  202017d6    00000001     NF55_global.o (.data.gu8_f_first_check)
+                  202017d7    00000001     NF55_global.o (.data.gu8_f_full_charge)
+                  202017d8    00000001     NF55_global.o (.data.gu8_f_full_charge_dcir)
+                  202017d9    00000001     NF55_global.o (.data.gu8_f_full_chg_sek)
+                  202017da    00000001     NF55_global.o (.data.gu8_f_high_i_cha)
+                  202017db    00000001     NF55_global.o (.data.gu8_f_high_i_dis_6)
+                  202017dc    00000001     NF55_global.o (.data.gu8_f_high_i_of)
+                  202017dd    00000001     NF55_global.o (.data.gu8_f_high_i_of_h)
+                  202017de    00000001     NF55_global.o (.data.gu8_f_high_i_on)
+                  202017df    00000001     NF55_global.o (.data.gu8_f_high_i_on_50ms)
+                  202017e0    00000001     NF55_global.o (.data.gu8_f_high_v)
+                  202017e1    00000001     NF55_global.o (.data.gu8_f_high_v_cha_6)
+                  202017e2    00000001     NF55_global.o (.data.gu8_f_ini_ps_on)
+                  202017e3    00000001     NF55_global.o (.data.gu8_f_initial_skip)
+                  202017e4    00000001     NF55_global.o (.data.gu8_f_jcd_chg_soc_calc_fin)
+                  202017e5    00000001     NF55_global.o (.data.gu8_f_latch_fail)
+                  202017e6    00000001     NF55_global.o (.data.gu8_f_low_v)
+                  202017e7    00000001     NF55_global.o (.data.gu8_f_low_v_shortage)
+                  202017e8    00000001     NF55_global.o (.data.gu8_f_low_v_shortage_5a)
+                  202017e9    00000001     NF55_global.o (.data.gu8_f_main_chg_now)
+                  202017ea    00000001     NF55_global.o (.data.gu8_f_multi_command)
+                  202017eb    00000001     NF55_global.o (.data.gu8_f_nak_sndreq)
+                  202017ec    00000001     NF55_global.o (.data.gu8_f_off_time_data_clear_en)
+                  202017ed    00000001     NF55_global.o (.data.gu8_f_on)
+                  202017ee    00000001     NF55_global.o (.data.gu8_f_opencheck)
+                  202017ef    00000001     NF55_global.o (.data.gu8_f_otd_ac_off_time_en)
+                  202017f0    00000001     NF55_global.o (.data.gu8_f_otd_batt_deg_set)
+                  202017f1    00000001     NF55_global.o (.data.gu8_f_otd_chg_soc_calc_fin)
+                  202017f2    00000001     NF55_global.o (.data.gu8_f_otd_old_set_clk_cmd)
+                  202017f3    00000001     NF55_global.o (.data.gu8_f_output_restart)
+                  202017f4    00000001     NF55_global.o (.data.gu8_f_over_chg)
+                  202017f5    00000001     NF55_global.o (.data.gu8_f_over_i_on)
+                  202017f6    00000001     NF55_global.o (.data.gu8_f_over_v)
+                  202017f7    00000001     NF55_global.o (.data.gu8_f_pfc_err)
+                  202017f8    00000001     NF55_global.o (.data.gu8_f_pfc_fail_in)
+                  202017f9    00000001     NF55_global.o (.data.gu8_f_power_category_clear)
+                  202017fa    00000001     NF55_global.o (.data.gu8_f_proc_start)
+                  202017fb    00000001     NF55_global.o (.data.gu8_f_ps_on)
+                  202017fc    00000001     NF55_global.o (.data.gu8_f_ps_on_backup_old)
+                  202017fd    00000001     NF55_global.o (.data.gu8_f_ps_on_old)
+                  202017fe    00000001     NF55_global.o (.data.gu8_f_ps_on_out)
+                  202017ff    00000001     NF55_global.o (.data.gu8_f_response)
+                  20201800    00000001     NF55_global.o (.data.gu8_f_rpm)
+                  20201801    00000001     NF55_global.o (.data.gu8_f_rtc_1sec)
+                  20201802    00000001     NF55_global.o (.data.gu8_f_skip_reason)
+                  20201803    00000001     NF55_global.o (.data.gu8_f_sl_cmd_rcv_sek)
+                  20201804    00000001     NF55_global.o (.data.gu8_f_soc_calc_finish_sek)
+                  20201805    00000001     NF55_global.o (.data.gu8_f_stop_cha)
+                  20201806    00000001     NF55_global.o (.data.gu8_f_stop_condition)
+                  20201807    00000001     NF55_global.o (.data.gu8_f_stop_dischg)
+                  20201808    00000001     NF55_global.o (.data.gu8_f_susp_cha)
+                  20201809    00000001     NF55_global.o (.data.gu8_f_susp_dischg)
+                  2020180a    00000001     NF55_global.o (.data.gu8_f_sw_short)
+                  2020180b    00000001     NF55_global.o (.data.gu8_f_temp_fail_adu)
+                  2020180c    00000001     NF55_global.o (.data.gu8_f_temp_fail_bbu)
+                  2020180d    00000001     NF55_global.o (.data.gu8_f_test_out)
+                  2020180e    00000001     NF55_global.o (.data.gu8_f_tmp_fail_adu)
+                  2020180f    00000001     NF55_global.o (.data.gu8_f_tmp_fail_bbu)
+                  20201810    00000001     NF55_global.o (.data.gu8_f_user_select)
+                  20201811    00000001     NF55_global.o (.data.gu8_f_vcc_12v_en_out)
+                  20201812    00000001     NF55_global.o (.data.gu8_f_wdt_err)
+                  20201813    00000001     NF55_global.o (.data.gu8_f_wng_fan_high)
+                  20201814    00000001     NF55_global.o (.data.gu8_f_wng_fan_high_old)
+                  20201815    00000001     NF55_global.o (.data.gu8_f_wng_fan_high_protection)
+                  20201816    00000001     NF55_global.o (.data.gu8_f_wng_fan_low)
+                  20201817    00000001     NF55_global.o (.data.gu8_f_wng_fan_low_old)
+                  20201818    00000001     NF55_global.o (.data.gu8_f_wng_fan_low_protection)
+                  20201819    00000001     NF55_global.o (.data.gu8_f_wng_fan_stop_old)
+                  2020181a    00000001     NF55_global.o (.data.gu8_f_wng_fan_stop_protection)
+                  2020181b    00000001     NF55_global.o (.data.gu8_fan_output_stg)
+                  2020181c    00000001     NF55_global.o (.data.gu8_flag_old)
+                  2020181d    00000001     NF55_global.o (.data.gu8_nak_stage)
+                  2020181e    00000001     NF55_global.o (.data.gu8_new_spd)
+                  2020181f    00000001     NF55_global.o (.data.gu8_now_spd)
+                  20201820    00000001     NF55_global.o (.data.gu8_pos)
+                  20201821    00000001     NF55_global.o (.data.gu8_prev_ac_link)
+                  20201822    00000001     NF55_global.o (.data.gu8_proc_stage)
+                  20201823    00000001     NF55_global.o (.data.gu8_rcv_main_stage)
+                  20201824    00000001     NF55_global.o (.data.gu8_rx_proc_stage)
+                  20201825    00000001     NF55_global.o (.data.gu8_status_old)
+                  20201826    00000001     NF55_global.o (.data.gu8_tx_send_stage)
+                  20201827    00000001     NF55_global.o (.data.gu8_uart_main_rcv_rpt)
+                  20201828    00000001     NF55_global.o (.data.gu8_uart_main_rcv_wpt)
+                  20201829    00000001     NF55_global.o (.data.gu_f_burst_i_over)
+                  2020182a    00000001     NF55_serial.o (.data.rx_main_proc.c_rx)
+                  2020182b    00000001     NF55_serial.o (.data.rx_proc.cmd_id_no)
+                  2020182c    00000001     NF55_state.o (.data.u8_c_dtdt_set_new_1min_wp)
+                  2020182d    00000001     NF55_state.o (.data.u8_c_dtdt_temp_rise_up_count)
+                  2020182e    00000001     NF55_state.o (.data.u8_c_minus_dv_consecutive_occurrence)
+                  2020182f    00000001     NF55_state.o (.data.u8_chg_ctl_stg)
+                  20201830    00000001     NF55_state.o (.data.u8_dcir_mode)
+                  20201831    00000001     NF55_state.o (.data.u8_dcir_stg)
+                  20201832    00000001     NF55_state.o (.data.u8_f_afterer_power_restored)
+                  20201833    00000001     NF55_state.o (.data.u8_f_auto_dcir_en)
+                  20201834    00000001     NF55_state.o (.data.u8_f_batt_on)
+                  20201835    00000001     NF55_state.o (.data.u8_f_charge_cmd_mode)
+                  20201836    00000001     NF55_state.o (.data.u8_f_charge_start_ok)
+                  20201837    00000001     NF55_state.o (.data.u8_f_dcir_24h_complete)
+                  20201838    00000001     NF55_state.o (.data.u8_f_dcir_8_04v_complete)
+                  20201839    00000001     NF55_state.o (.data.u8_f_dcir_aft_dischg_under_8_04v)
+                  2020183a    00000001     NF55_state.o (.data.u8_f_dtdt_full_chg_chk_start)
+                  2020183b    00000001     NF55_state.o (.data.u8_f_idle_state_init)
+                  2020183c    00000001     NF55_state.o (.data.u8_f_main_charge_state_init)
+                  2020183d    00000001     NF55_state.o (.data.u8_f_main_chg_ok)
+                  2020183e    00000001     NF55_state.o (.data.u8_f_main_chg_time_out)
+                  2020183f    00000001     NF55_state.o (.data.u8_f_sub_charge_state_init)
+                  20201840    00000001     NF55_state.o (.data.u8_f_sub_chg_ok)
+                  20201841    00000001     NF55_state.o (.data.u8_f_sub_chg_time_out)
+
+.stack     0    20207e00    00000200     UNINITIALIZED
+                  20207e00    00000004     libc.a : boot_cortex_m.c.obj (.stack)
+                  20207e04    000001fc     --HOLE--
+
+.bss       0    20201844    0000097c     UNINITIALIZED
+                  20201844    00000300     (.common:gu8_d_uart_sendbuf)
+                  20201b44    00000200     (.common:gu8_d_uart_recvbuf)
+                  20201d44    00000180     (.common:gu8_d_sendbuf)
+                  20201ec4    000000bc     (.common:gFAN_PWMBackup)
+                  20201f80    000000a0     (.common:gSYNC_0Backup)
+                  20202020    00000080     (.common:gu8_d_recvbuf)
+                  202020a0    00000080     (.common:gu8_uart_main_receivedata)
+                  20202120    00000014     (.common:gTxPacket)
+                  20202134    00000014     (.common:gs_set_parameter)
+                  20202148    00000014     (.common:gs_set_parameter_tmp)
+                  2020215c    00000010     (.common:gRxPacket)
+                  2020216c    00000008     (.common:gs_RTCCalendar)
+                  20202174    00000004     NF55_output.o (.bss.ac_link_proc.c_12v_off_timer)
+                  20202178    00000004     NF55_serial.o (.bss.ack_response.c_timer)
+                  2020217c    00000004     NF55_serial.o (.bss.event_proc.c_timer)
+                  20202180    00000004     NF55_serial.o (.bss.nak_response.c_timer)
+                  20202184    00000004     NF55_serial.o (.bss.recv_proc.c_timer)
+                  20202188    00000004     (.common:gRxCount)
+                  2020218c    00000004     (.common:gRxLen)
+                  20202190    00000004     (.common:gTxCount)
+                  20202194    00000004     (.common:gTxLen)
+                  20202198    00000004     (.common:gpt_I2C_RxPacket)
+                  2020219c    00000004     (.common:gu8_d_uart_rcv_count)
+                  202021a0    00000004     (.common:gu8_f_cmd_id_no)
+                  202021a4    00000002     NF55_serial.o (.bss.recv_proc.snd_num)
+                  202021a6    00000002     NF55_eeprom.o (.bss.write_eeprom.len)
+                  202021a8    00000002     NF55_eeprom.o (.bss.write_eeprom.mode)
+                  202021aa    00000002     NF55_eeprom.o (.bss.write_eeprom.num)
+                  202021ac    00000002     NF55_eeprom.o (.bss.write_eeprom.offset)
+                  202021ae    00000002     NF55_eeprom.o (.bss.write_eeprom.pos)
+                  202021b0    00000002     NF55_eeprom.o (.bss.write_eeprom.remain)
+                  202021b2    00000001     NF55_serial.o (.bss.ack_response.c_retry)
+                  202021b3    00000001     NF55_serial.o (.bss.ack_response.pos)
+                  202021b4    00000001     NF55_serial.o (.bss.cmd_ad_proc.pos)
+                  202021b5    00000001     NF55_serial.o (.bss.cmd_rp_proc.pos)
+                  202021b6    00000001     NF55_serial.o (.bss.cmd_se_proc.pos)
+                  202021b7    00000001     NF55_serial.o (.bss.cmd_sl_proc.pos)
+                  202021b8    00000001     NF55_serial.o (.bss.cmd_sp_proc.pos)
+                  202021b9    00000001     NF55_serial.o (.bss.cmd_ss_proc.pos)
+                  202021ba    00000001     NF55_serial.o (.bss.nak_response.pos)
+                  202021bb    00000001     NF55_serial.o (.bss.recv_proc.c_retry)
+                  202021bc    00000001     NF55_serial.o (.bss.rx_main_proc.cmd_id_no)
+                  202021bd    00000001     NF55_serial.o (.bss.rx_proc.num)
+                  202021be    00000001     NF55_eeprom.o (.bss.write_eeprom.target_Adr)
+                  202021bf    00000001     (.common:gI2cControllerStatus)
+
+__llvm_prf_cnts 
+*          0    20200100    00000000     UNINITIALIZED
+
+__llvm_prf_bits 
+*          0    20200100    00000000     UNINITIALIZED
+
+MODULE SUMMARY
+
+       Module                         code    ro data   rw data
+       ------                         ----    -------   -------
+    .\src\
+       NF55_serial.o                  19540   0         39     
+       NF55_global.o                  0       0         7841   
+       NF55_input.o                   6676    0         0      
+       NF55_state.o                   6528    0         121    
+       NF55_data.o                    5340    0         0      
+       NF55_output.o                  4116    42        4      
+       NF55_eeprom.o                  2844    0         21     
+       NF55_hogo.o                    2840    0         0      
+       NF55_main.o                    1560    0         0      
+       NF55_init.o                    1200    27        0      
+       NF55_isr.o                     828     20        0      
+       NF55_vector.o                  16      192       0      
+       NF55_tbl.o                     0       186       0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         51488   467       8026   
+                                                               
+    .\syscfg\
+       ti_msp_dl_config.o             1804    172       348    
+    +--+------------------------------+-------+---------+---------+
+       Total:                         1804    172       348    
+                                                               
+    .\utils\
+       crc32.o                        48      1024      0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         48      1024      0      
+                                                               
+    C:/ti/mspm0_sdk_2_04_00_06/source/ti/driverlib/lib/ticlang/m0p/mspm0g1x0x_g3x0x/driverlib.a
+       dl_timer.o                     588     0         0      
+       dl_sysctl_mspm0g1x0x_g3x0x.o   484     0         0      
+       dl_rtc_common.o                288     0         0      
+       dl_dac12.o                     136     0         0      
+       dl_i2c.o                       132     0         0      
+       dl_uart.o                      90      0         0      
+       dl_adc12.o                     64      0         0      
+       dl_crc.o                       44      0         0      
+       dl_common.o                    10      0         0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         1836    0         0      
+                                                               
+    C:/ti/mspm0_sdk_2_04_00_06/source/ti/iqmath/lib/ticlang/m0p/mathacl/mspm0g1x0x_g3x0x/iqmath.a
+       _IQNlog.o                      404     0         0      
+       _IQNtables.o                   0       60        0      
+       _IQNdiv.o                      24      0         0      
+       _IQNmpy.o                      24      0         0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         452     60        0      
+                                                               
+    C:\ti\ccs1281\ccs\tools\compiler\ti-cgt-armllvm_3.2.2.LTS\lib\armv6m-ti-none-eabi/c/libc.a
+       mktime64.c.obj                 704     96        0      
+       localtim64.c.obj               500     0         36     
+       copy_decompress_lzss.c.obj     120     0         0      
+       autoinit.c.obj                 60      0         0      
+       boot_cortex_m.c.obj            40      0         0      
+       copy_decompress_none.c.obj     18      0         0      
+       memcpy16.S.obj                 18      0         0      
+       copy_zero_init.c.obj           16      0         0      
+       tmzone.c.obj                   0       0         16     
+       memset16.S.obj                 14      0         0      
+       exit.c.obj                     4       0         0      
+       pre_init.c.obj                 4       0         0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         1498    96        52     
+                                                               
+    C:\ti\ccs1281\ccs\tools\compiler\ti-cgt-armllvm_3.2.2.LTS\lib\clang/15.0.7/lib/armv6m-ti-none-eabi/libclang_rt.builtins.a
+       adddf3.S.obj                   402     0         0      
+       divdf3.S.obj                   268     0         0      
+       muldf3.S.obj                   228     0         0      
+       comparedf2.c.obj               220     0         0      
+       addsf3.S.obj                   216     0         0      
+       udivmoddi4.S.obj               162     0         0      
+       mulsf3.S.obj                   140     0         0      
+       divsf3.S.obj                   130     0         0      
+       comparesf2.S.obj               118     0         0      
+       truncdfsf2.S.obj               116     0         0      
+       aeabi_idivmod.S.obj            102     0         0      
+       aeabi_dcmp.S.obj               98      0         0      
+       aeabi_fcmp.S.obj               98      0         0      
+       fixdfsi.S.obj                  74      0         0      
+       aeabi_uidivmod.S.obj           64      0         0      
+       extendsfdf2.S.obj              64      0         0      
+       divmoddi4.c.obj                62      0         0      
+       floatsisf.S.obj                60      0         0      
+       muldsi3.S.obj                  58      0         0      
+       fixsfsi.S.obj                  56      0         0      
+       floatsidf.S.obj                44      0         0      
+       floatunsisf.S.obj              40      0         0      
+       floatunsidf.S.obj              36      0         0      
+       muldi3.S.obj                   36      0         0      
+       ashldi3.S.obj                  30      0         0      
+       aeabi_memset.S.obj             26      0         0      
+       aeabi_ldivmod.S.obj            20      0         0      
+       aeabi_memcpy.S.obj             8       0         0      
+       aeabi_div0.c.obj               4       0         0      
+    +--+------------------------------+-------+---------+---------+
+       Total:                         2980    0         0      
+                                                               
+       Stack:                         0       0         512    
+       Linker Generated:              0       200       0      
+    +--+------------------------------+-------+---------+---------+
+       Grand Total:                   60106   2019      8938   
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 0001d2c8 records: 2, size/record: 8, table size: 16
+	.data: load addr=0001d210, load size=000000a4 bytes, run addr=20200100, run size=00001742 bytes, compression=lzss
+	.bss: load addr=0001d2c0, load size=00000008 bytes, run addr=20201844, run size=0000097c bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 0001d2b4 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
+
+
+FAR CALL TRAMPOLINES
+
+callee name               trampoline name
+   callee addr  tramp addr   call addr  call info
+--------------  -----------  ---------  ----------------
+__aeabi_idiv              $Tramp$TT$L$PI$$__aeabi_idiv
+   0001c151     0001cb78     0001cb74   libc.a : mktime64.c.obj (.text.OUTLINED_FUNCTION_0)
+                             0001cb8e          : mktime64.c.obj (.text.OUTLINED_FUNCTION_1)
+                             0001cb96          : mktime64.c.obj (.text.OUTLINED_FUNCTION_2)
+
+[1 trampolines]
+[3 trampoline calls]
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                                 
+-------   ----                                 
+0001c721  ADC0_IRQHandler                      
+0001c74d  ADC1_IRQHandler                      
+0001899f  AES_IRQHandler                       
+0001cba0  C$$EXIT                              
+0001cfb0  CMD_TBL                              
+0001899f  DAC0_IRQHandler                      
+0001c325  DL_ADC12_setClockConfig              
+0001c779  DL_CRC_calculateMemoryRange32        
+0001cb51  DL_Common_delayCycles                
+0001b389  DL_DAC12_init                        
+0001c041  DL_I2C_fillControllerTXFIFO          
+0001c879  DL_I2C_setClockConfig                
+0001b621  DL_RTC_Common_getCalendarTime        
+0001aff5  DL_RTC_Common_initCalendar           
+0001a85d  DL_SYSCTL_configSYSPLL               
+0001bd91  DL_SYSCTL_setHFCLKSourceHFXTParams   
+0001bf21  DL_SYSCTL_setLFCLKSourceLFXT         
+0001c2e1  DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK
+0001a1b9  DL_Timer_initFourCCPWMMode           
+0001a5a9  DL_Timer_initTimerMode               
+0001c94d  DL_Timer_setCaptCompUpdateMethod     
+0001c9a1  DL_Timer_setCaptureCompareOutCtl     
+0001cad9  DL_Timer_setCaptureCompareValue      
+0001c969  DL_Timer_setClockConfig              
+0001c299  DL_UART_init                         
+0001caa1  DL_UART_setClockConfig               
+0001899f  DMA_IRQHandler                       
+0001899f  Default_Handler                      
+0001cffe  ERROR_RESPONSE_TBL                   
+0001d1e0  FFFFFF_TBL                           
+0001d1f4  FFFF_TBL                             
+0001899f  GROUP0_IRQHandler                    
+0001b719  GROUP1_IRQHandler                    
+0001cae9  HardFault_Handler                    
+0001a3b9  I2C0_IRQHandler                      
+0001899f  I2C1_IRQHandler                      
+0001d198  MONTH_END_TBL                        
+0001899f  NMI_Handler                          
+0001899f  PendSV_Handler                       
+0001c985  RTC_IRQHandler                       
+0001cb99  Reset_Handler                        
+0001cb5b  Reset_Handler2                       
+0001d124  SET_PRAMETER_DEF_TBL                 
+0001899f  SPI0_IRQHandler                      
+0001899f  SPI1_IRQHandler                      
+0001899f  SVC_Handler                          
+0001b69d  SYSCFG_DL_ADC12_0_init               
+0001b885  SYSCFG_DL_ADC12_1_init               
+0001ca79  SYSCFG_DL_CRC_init                   
+0001c8a1  SYSCFG_DL_DAC12_init                 
+0001bb89  SYSCFG_DL_FAN_PWM_init               
+0001a2bd  SYSCFG_DL_GPIO_init                  
+0001ba45  SYSCFG_DL_I2C_0_init                 
+0001c365  SYSCFG_DL_RTC_init                   
+0001bbf1  SYSCFG_DL_SYNC_0_init                
+0001bc59  SYSCFG_DL_SYNC_120_init              
+0001bcc1  SYSCFG_DL_SYNC_240_init              
+0001c9b9  SYSCFG_DL_SYSCTL_CLK_init            
+0001b8f5  SYSCFG_DL_SYSCTL_init                
+0001c6c1  SYSCFG_DL_SYSTICK_init               
+0001c7a5  SYSCFG_DL_TIMER_G12_init             
+0001b965  SYSCFG_DL_UART_0_init                
+0001c9d1  SYSCFG_DL_WWDT0_init                 
+0001bdf5  SYSCFG_DL_init                       
+0001aae9  SYSCFG_DL_initPower                  
+0001c1fd  SysTick_Handler                      
+0001c3a5  SystemInit                           
+0001899f  TIMA0_IRQHandler                     
+0001899f  TIMA1_IRQHandler                     
+0001899f  TIMG0_IRQHandler                     
+0001899f  TIMG12_IRQHandler                    
+0001899f  TIMG6_IRQHandler                     
+0001899f  TIMG7_IRQHandler                     
+0001899f  TIMG8_IRQHandler                     
+0001cab3  TI_memcpy_small                      
+0001cb37  TI_memset_small                      
+0001a4b1  UART0_IRQHandler                     
+0001899f  UART1_IRQHandler                     
+0001899f  UART2_IRQHandler                     
+0001899f  UART3_IRQHandler                     
+0001c9e9  _IQ19div                             
+00018679  _IQ19log                             
+0001ca01  _IQ19mpy                             
+0001d040  _IQ30log_coeffs                      
+20208000  __STACK_END                          
+00000200  __STACK_SIZE                         
+00000000  __TI_ATRegion0_region_sz             
+00000000  __TI_ATRegion0_src_addr              
+00000000  __TI_ATRegion0_trg_addr              
+00000000  __TI_ATRegion1_region_sz             
+00000000  __TI_ATRegion1_src_addr              
+00000000  __TI_ATRegion1_trg_addr              
+00000000  __TI_ATRegion2_region_sz             
+00000000  __TI_ATRegion2_src_addr              
+00000000  __TI_ATRegion2_trg_addr              
+0001d2c8  __TI_CINIT_Base                      
+0001d2d8  __TI_CINIT_Limit                     
+0001d2d8  __TI_CINIT_Warm                      
+0001d2b4  __TI_Handler_Table_Base              
+0001d2c0  __TI_Handler_Table_Limit             
+0001c59d  __TI_auto_init_nobinit_nopinit       
+0001b791  __TI_decompress_lzss                 
+0001cac5  __TI_decompress_none                 
+ffffffff  __TI_pprof_out_hndl                  
+ffffffff  __TI_prof_data_size                  
+ffffffff  __TI_prof_data_start                 
+0001d210  __TI_static_base__                   
+0001cb19  __TI_zero_init                       
+00018817  __adddf3                             
+0001aa1b  __addsf3                             
+0001b811  __aeabi_d2f                          
+0001c24d  __aeabi_d2iz                         
+00018817  __aeabi_dadd                         
+0001be59  __aeabi_dcmpeq                       
+0001be95  __aeabi_dcmpge                       
+0001bea9  __aeabi_dcmpgt                       
+0001be81  __aeabi_dcmple                       
+0001be6d  __aeabi_dcmplt                       
+00019fa5  __aeabi_ddiv                         
+0001a779  __aeabi_dmul                         
+0001880d  __aeabi_dsub                         
+0001c425  __aeabi_f2d                          
+0001c651  __aeabi_f2iz                         
+0001aa1b  __aeabi_fadd                         
+0001bebd  __aeabi_fcmpeq                       
+0001bef9  __aeabi_fcmpge                       
+0001bf0d  __aeabi_fcmpgt                       
+0001bee5  __aeabi_fcmple                       
+0001bed1  __aeabi_fcmplt                       
+0001b51d  __aeabi_fdiv                         
+0001b2fd  __aeabi_fmul                         
+0001aa11  __aeabi_fsub                         
+0001c7d1  __aeabi_i2d                          
+0001c525  __aeabi_i2f                          
+0001c151  __aeabi_idiv                         
+0001b13b  __aeabi_idiv0                        
+0001c151  __aeabi_idivmod                      
+0001b59f  __aeabi_ldiv0                        
+0001ca8d  __aeabi_ldivmod                      
+0001c92d  __aeabi_llsl                         
+0001c8e9  __aeabi_lmul                         
+0001cb45  __aeabi_memclr                       
+0001cb45  __aeabi_memclr4                      
+0001cb45  __aeabi_memclr8                      
+0001b809  __aeabi_memcpy                       
+0001b809  __aeabi_memcpy4                      
+0001b809  __aeabi_memcpy8                      
+0001cb29  __aeabi_memset                       
+0001cb29  __aeabi_memset4                      
+0001cb29  __aeabi_memset8                      
+0001c8c5  __aeabi_ui2d                         
+0001c829  __aeabi_ui2f                         
+0001c3e5  __aeabi_uidiv                        
+0001c3e5  __aeabi_uidivmod                     
+0001c92d  __ashldi3                            
+ffffffff  __binit__                            
+0001bab1  __cmpdf2                             
+0001c5d9  __cmpsf2                             
+00019fa5  __divdf3                             
+0001c4e5  __divmoddi4                          
+0001b51d  __divsf3                             
+0001bab1  __eqdf2                              
+0001c5d9  __eqsf2                              
+0001c425  __extendsfdf2                        
+0001c24d  __fixdfsi                            
+0001c651  __fixsfsi                            
+0001c7d1  __floatsidf                          
+0001c525  __floatsisf                          
+0001c8c5  __floatunsidf                        
+0001c829  __floatunsisf                        
+0001b9d5  __gedf2                              
+0001c561  __gesf2                              
+0001b9d5  __gtdf2                              
+0001c561  __gtsf2                              
+0001bab1  __ledf2                              
+0001c5d9  __lesf2                              
+00017a15  __localtime64                        
+0001bab1  __ltdf2                              
+0001c5d9  __ltsf2                              
+00016bf5  __mktime64                           
+UNDEFED   __mpu_init                           
+0001a779  __muldf3                             
+0001c8e9  __muldi3                             
+0001c615  __muldsi3                            
+0001b2fd  __mulsf3                             
+0001bab1  __nedf2                              
+0001c5d9  __nesf2                              
+20207e00  __stack                              
+20200100  __start___llvm_prf_bits              
+20200100  __start___llvm_prf_cnts              
+20200100  __stop___llvm_prf_bits               
+20200100  __stop___llvm_prf_cnts               
+0001880d  __subdf3                             
+0001aa11  __subsf3                             
+0001b811  __truncdfsf2                         
+0001b099  __udivmoddi4                         
+0001c851  _c_int00_noargs                      
+202021c0  _ebss                                
+20201842  _edata                               
+20201844  _sbss                                
+20200100  _sdata                               
+UNDEFED   _system_post_cinit                   
+0001cb9d  _system_pre_init                     
+20201544  _tz                                  
+0001cba1  abort                                
+00019535  ac_link_proc                         
+0001967d  aft_ack_rcv_proc                     
+ffffffff  binit                                
+202011e7  burst_current_state                  
+0001c465  burst_off_proc                       
+00016e9d  burst_proc                           
+20201563  burst_state                          
+0001c1a7  calc_bcc                             
+0001aea5  calc_temperature                     
+00011059  charge_proc                          
+0001af4d  charge_ready_proc                    
+00017c09  clear_global_variables               
+00015285  cmd_ad_proc                          
+00019a1d  cmd_cd_proc                          
+0001b411  cmd_cl_proc                          
+00014ed9  cmd_proc                             
+00016685  cmd_recv_check                       
+00018e49  cmd_sc_check                         
+0001ad3d  cmd_se_proc                          
+00012ca1  cmd_sp_check                         
+00019b41  cmd_ss_proc                          
+0001c7fd  converter_pwm_stop                   
+0001c6f1  crc32_calc                           
+0001cbb0  crc32tab                             
+00013f31  cumulative_data_proc                 
+20200000  data_info_common                     
+00017fe1  data_proc                            
+00014721  dcir_proc                            
+0001a0b1  dcir_response                        
+0001c689  dischage_end_first                   
+0001b1d5  dischage_termination                 
+00013ad9  discharge_proc                       
+00019c5d  eeprom_all_backup_proc               
+00019285  eeprom_init_allparam                 
+2020175b  eeprom_req_busy                      
+20201222  eeprom_req_cnt                       
+2020175c  eeprom_req_read_idx                  
+2020175d  eeprom_req_write_idx                 
+0001caf9  eeprom_write_check                   
+20201138  eeprom_write_req                     
+0001c4a5  eeprom_write_request                 
+0001c0a1  error_log_request                    
+00016945  event_proc                           
+202015f4  f_batt_v_peak                        
+202015f8  f_batt_v_peak_calc_sample_sum        
+202015fc  f_chg_ctl_batt_vol_v                 
+2020175f  f_gu8_fan_ctl_mode                   
+20201760  f_gu8_fan_duty_change                
+20201761  f_gu8_fan_speed                      
+20201762  f_gu8_fan_speed_def                  
+20201763  f_gu8_fan_temp_updwn                 
+000131b9  fan_duty_set_proc                    
+00018b31  fan_hosei_temp_proc                  
+0001b499  fan_rpm_calc_proc                    
+00016395  fan_speed_proc                       
+0001cb09  fan_stop_PWM                         
+0001cb65  filter_clear                         
+0001ac81  full_charge_proc                     
+00017df5  full_chg_calc                        
+20201ec4  gFAN_PWMBackup                       
+202021bf  gI2cControllerStatus                 
+20202188  gRxCount                             
+2020218c  gRxLen                               
+2020215c  gRxPacket                            
+20201f80  gSYNC_0Backup                        
+20202190  gTxCount                             
+20202194  gTxLen                               
+20202120  gTxPacket                            
+20200500  g_eeprom_data                        
+20200860  g_write_eeprom_data                  
+20201600  gf_12vout_i_coeff                    
+20201604  gf_12vout_v_coeff                    
+20201608  gf_acdc12v_v_coeff                   
+2020160c  gf_adj_per                           
+20201610  gf_batt_chg_coeff                    
+20201614  gf_batt_v_coeff                      
+20201618  gf_chg_mah_val_sek                   
+2020161c  gf_cmd_ad_after_correction_slope     
+20201620  gf_cmd_ad_calculated_value           
+20201624  gf_cmd_ad_val                        
+20201628  gf_dischg_i_coeff                    
+2020162c  gf_dischg_mah_val_sek                
+20201630  gf_jcd_chg_soc_now                   
+20201634  gf_jcd_ttl_chg_soc                   
+20201638  gf_max_per                           
+2020163c  gf_min_per                           
+20201640  gf_otd_chg_soc_now                   
+20201644  gf_otd_chg_soc_total                 
+202016e0  gi16_ad_batt1_temp                   
+202016e2  gi16_ad_battery_temp                 
+202016e4  gi16_ad_bbu_temp                     
+202016e6  gi16_ad_llc_temp                     
+202016e8  gi16_ctl_target_temp                 
+202016ea  gi16_otd_chg_bat_temp_ave            
+202016ec  gi16_otd_ps_off_bat_temp_ave         
+202016ee  gi16_pre_temp                        
+20201764  gi8_d_soc_mah                        
+20201765  gi8_d_soc_wh                         
+20202198  gpt_I2C_RxPacket                     
+2020216c  gs_RTCCalendar                       
+2020159c  gs_event_data                        
+202015a6  gs_event_data_change                 
+202015b0  gs_event_data_new                    
+202015ba  gs_event_data_old                    
+202015e0  gs_life_calc_data                    
+20201564  gs_life_diag_data                    
+20201572  gs_life_diag_data_response           
+2020120c  gs_realtime_data                     
+20202134  gs_set_parameter                     
+20202148  gs_set_parameter_tmp                 
+20201554  gs_status_info                       
+202015c8  gt_otd_ac_off_occurrence             
+202015d0  gt_otd_ac_on_time                    
+20200bc0  gu16_ADC0_Result                     
+20201580  gu16_ADC0_Sens                       
+20200e7c  gu16_ADC1_Result                     
+2020158e  gu16_ADC1_Sens                       
+202016f0  gu16_ADC_cnt_4                       
+202016f2  gu16_ADC_cnt_50                      
+202016f4  gu16_CheckADC0                       
+202016f6  gu16_CheckADC1                       
+202016f8  gu16_ad_12vout_i                     
+202016fa  gu16_ad_12vout_i_now_ad              
+202016fc  gu16_ad_12vout_v                     
+202016fe  gu16_ad_12vout_v_now_ad              
+20201700  gu16_ad_acdc12v_v                    
+20201702  gu16_ad_batt_chg                     
+20201704  gu16_ad_batt_v                       
+20201706  gu16_ad_chgout_v_now_ad              
+20201708  gu16_ad_dischg_i                     
+2020170a  gu16_bat_temp_1h_sum                 
+2020170c  gu16_batt_break_chg_timer            
+2020170e  gu16_c_ac_on                         
+20201710  gu16_c_aft_ac_on                     
+20201712  gu16_c_bat_temp_calc                 
+20201714  gu16_c_fan                           
+20201716  gu16_c_otd_chg_bat_temp_ave          
+20201718  gu16_c_otd_ps_off_bat_temp_ave       
+2020171a  gu16_c_proc_delay                    
+2020171c  gu16_c_sta_rpm                       
+2020171e  gu16_c_timing1ms                     
+20201720  gu16_c_timing1s                      
+20201722  gu16_c_tx                            
+20201724  gu16_cmd_ad_set_ad_val               
+20201726  gu16_d_fan_rpm                       
+20201728  gu16_d_fan_rpm_old                   
+2020172a  gu16_f_timing                        
+2020172c  gu16_f_timing_1sec                   
+2020172e  gu16_fan_odr_duty                    
+20201730  gu16_fan_odr_rpm                     
+20201732  gu16_fan_pwm_freq                    
+20201734  gu16_max_rpm_1                       
+20201736  gu16_max_rpm_5                       
+20201738  gu16_min_rpm_1                       
+2020173a  gu16_min_rpm_5                       
+2020173c  gu16_new_dty                         
+2020173e  gu16_new_per                         
+20201740  gu16_new_rpm                         
+20201742  gu16_now_per                         
+20201744  gu16_now_rpm                         
+20201746  gu16_p_fanrpm                        
+202015d8  gu16_tx_send_req                     
+20201648  gu32_SysTickCount                    
+20200100  gu32_b_fanrpm                        
+2020164c  gu32_c_12v_en_out_delay              
+20201650  gu32_c_ac_interrupt_protection       
+20201654  gu32_c_ac_link_timer                 
+20201658  gu32_c_adu_action_time               
+2020165c  gu32_c_adu_temp_sek                  
+20201660  gu32_c_bat_connect_time              
+20201664  gu32_c_bat_temp_ave_sek              
+20201668  gu32_c_batchg_en_out_delay           
+2020166c  gu32_c_batt_en_out_delay             
+20201670  gu32_c_burst_out_delay               
+20201674  gu32_c_chgv_114v_out_delay           
+20201678  gu32_c_cmd_sc_evt_delay              
+2020167c  gu32_c_converter_pwm_delay           
+20201680  gu32_c_dcir_timer                    
+20201684  gu32_c_dischg12v_en_out_delay        
+20201688  gu32_c_eeprom_timer                  
+2020168c  gu32_c_event_wait                    
+20201690  gu32_c_fan_fail_stop_timer           
+20201694  gu32_c_fan_fail_timer                
+20201698  gu32_c_fan_prm_old                   
+2020169c  gu32_c_fan_pwm_delay                 
+202016a0  gu32_c_low_v_shortage                
+202016a4  gu32_c_minus_dv_disable              
+202016a8  gu32_c_opencheck_time                
+202016ac  gu32_c_ps_on_out_delay               
+202016b0  gu32_c_soc_timer_1h                  
+202016b4  gu32_c_soc_timer_1s                  
+202016b8  gu32_c_test_out_delay                
+202016bc  gu32_c_vcc_12v_en_out_delay          
+202016c0  gu32_rcv_all_timer                   
+202016c4  gu32_reset_cause                     
+20201766  gu8_ac_link_stage                    
+20201767  gu8_ack_stage                        
+20201768  gu8_alm_type_12v_err                 
+20201769  gu8_alm_type_batt_err                
+2020176a  gu8_alm_type_batt_err_old            
+2020176b  gu8_alm_type_chg_err                 
+2020176c  gu8_alm_type_dischg_err              
+2020176d  gu8_alm_type_fan_err                 
+2020176e  gu8_alm_type_pfc_err                 
+2020176f  gu8_alm_type_temp_err                
+202011b8  gu8_b_err_log                        
+20201770  gu8_backup_enable_cmd                
+20201771  gu8_backup_off_cmd                   
+20201772  gu8_burst_stage                      
+20201773  gu8_c_bat_temp_1h_sum_sample         
+20201774  gu8_c_batt_temp_reference_ok         
+20201775  gu8_c_dischg_term                    
+20201776  gu8_cmd_ad_position                  
+20201777  gu8_cmd_ad_proc_stage                
+20201778  gu8_cmd_ad_type                      
+20201779  gu8_cmd_bc_proc_stage                
+2020177a  gu8_cmd_rp_proc_stage                
+2020177b  gu8_cmd_se_proc_stage                
+2020177c  gu8_cmd_sl_proc_stage                
+2020177d  gu8_cmd_sp_proc_stage                
+2020177e  gu8_cmd_ss_proc_stage                
+202015e6  gu8_d_clock_data                     
+20202020  gu8_d_recvbuf                        
+20201d44  gu8_d_sendbuf                        
+2020219c  gu8_d_uart_rcv_count                 
+2020177f  gu8_d_uart_rcv_num                   
+20201780  gu8_d_uart_rcv_rpt                   
+20201781  gu8_d_uart_rcv_wpt                   
+20201b44  gu8_d_uart_recvbuf                   
+20201844  gu8_d_uart_sendbuf                   
+20201782  gu8_d_uart_snd_rpt                   
+20201783  gu8_d_uart_snd_wpt                   
+20201784  gu8_dischg_ps_off_stage              
+20201785  gu8_dischg_ps_on_stage               
+20201786  gu8_eeprom_all_backup                
+20201787  gu8_eeprom_read_all_stage            
+20201788  gu8_eeprom_write_stage               
+20201789  gu8_end_dischg_stage                 
+2020178a  gu8_evt_proc_stage                   
+2020178b  gu8_f_12v_en_out                     
+2020178c  gu8_f_12v_oc_off                     
+2020178d  gu8_f_12v_oc_off_h                   
+2020178e  gu8_f_ac_70v_ac_interrupt            
+2020178f  gu8_f_ac_link                        
+20201790  gu8_f_ac_link_restarting             
+20201791  gu8_f_ac_off_detected                
+20201792  gu8_f_ac_on                          
+20201793  gu8_f_ac_on_1ms                      
+20201794  gu8_f_ac_on_old                      
+20201795  gu8_f_ac_on_trg                      
+20201796  gu8_f_ack_nak_rcv                    
+20201797  gu8_f_aft_ac_on                      
+20201798  gu8_f_backup_active                  
+20201799  gu8_f_backup_active_alm              
+2020179a  gu8_f_backup_active_old              
+2020179b  gu8_f_backup_start_sek               
+2020179c  gu8_f_batchg_en_out                  
+2020179d  gu8_f_batt_break                     
+2020179e  gu8_f_batt_break_chg                 
+2020179f  gu8_f_batt_cate_clear                
+202017a0  gu8_f_batt_connect                   
+202017a1  gu8_f_batt_connect_old               
+202017a2  gu8_f_batt_connect_trg               
+202017a3  gu8_f_batt_en_out                    
+202017a4  gu8_f_batt_err_startup_exist         
+202017a5  gu8_f_batt_high_6                    
+202017a6  gu8_f_batt_life_over_threshold       
+202017a7  gu8_f_batt_low_6                     
+202017a8  gu8_f_batt_not                       
+202017a9  gu8_f_batt_not_con                   
+202017aa  gu8_f_batt_temp_aft                  
+202017ab  gu8_f_batt_temp_bef                  
+202017ac  gu8_f_bbu_sw_open                    
+202017ad  gu8_f_bbu_sw_short                   
+202017ae  gu8_f_before_shutdown                
+202017af  gu8_f_burst_on                       
+202017b0  gu8_f_burst_out                      
+202017b1  gu8_f_cd_cmd_rcv                     
+202017b2  gu8_f_charge_inhibited               
+202017b3  gu8_f_charge_off                     
+202017b4  gu8_f_charge_off_cmd                 
+202017b5  gu8_f_charge_ok_clear                
+202017b6  gu8_f_charge_on                      
+202017b7  gu8_f_charge_on_cmd                  
+202017b8  gu8_f_charge_output                  
+202017b9  gu8_f_charging_active                
+202017ba  gu8_f_charging_active_old            
+202017bb  gu8_f_chgv_114v_out                  
+202017bc  gu8_f_cmd_d1_recv                    
+202021a0  gu8_f_cmd_id_no                      
+202017bd  gu8_f_cmd_sc_recv                    
+202017be  gu8_f_command_proc                   
+202017bf  gu8_f_converter_pwm                  
+202017c0  gu8_f_dcir_check_doing               
+202017c1  gu8_f_dcir_complete                  
+202017c2  gu8_f_dcir_proc_init                 
+202017c3  gu8_f_dcir_request                   
+202017c4  gu8_f_dischg12_ovp                   
+202017c5  gu8_f_dischg12v_en_out               
+202017c6  gu8_f_dischg_start_sek               
+202017c7  gu8_f_dischg_term                    
+202017c8  gu8_f_dischg_under_1s                
+202017c9  gu8_f_dischg_up_1s                   
+202017ca  gu8_f_eeprom_check_error             
+202017cb  gu8_f_envt_first                     
+202017cc  gu8_f_event_lost                     
+202017cd  gu8_f_evt_ack_nak_rcv                
+202017ce  gu8_f_fail_adu_bbu                   
+202017cf  gu8_f_fail_bbu                       
+202017d0  gu8_f_fan_fail_adu                   
+202017d1  gu8_f_fan_fail_bbu                   
+202017d2  gu8_f_fan_fail_check                 
+202017d3  gu8_f_fan_fail_stop                  
+202017d4  gu8_f_fan_pwm                        
+202017d5  gu8_f_fan_spd_backup                 
+202017d6  gu8_f_first_check                    
+202017d7  gu8_f_full_charge                    
+202017d8  gu8_f_full_charge_dcir               
+202017d9  gu8_f_full_chg_sek                   
+202017da  gu8_f_high_i_cha                     
+202017db  gu8_f_high_i_dis_6                   
+202017dc  gu8_f_high_i_of                      
+202017dd  gu8_f_high_i_of_h                    
+202017de  gu8_f_high_i_on                      
+202017df  gu8_f_high_i_on_50ms                 
+202017e0  gu8_f_high_v                         
+202017e1  gu8_f_high_v_cha_6                   
+202017e2  gu8_f_ini_ps_on                      
+202017e3  gu8_f_initial_skip                   
+202017e4  gu8_f_jcd_chg_soc_calc_fin           
+202017e5  gu8_f_latch_fail                     
+202017e6  gu8_f_low_v                          
+202017e7  gu8_f_low_v_shortage                 
+202017e8  gu8_f_low_v_shortage_5a              
+202017e9  gu8_f_main_chg_now                   
+202017ea  gu8_f_multi_command                  
+202017eb  gu8_f_nak_sndreq                     
+202017ec  gu8_f_off_time_data_clear_en         
+202017ed  gu8_f_on                             
+202017ee  gu8_f_opencheck                      
+202017ef  gu8_f_otd_ac_off_time_en             
+202017f0  gu8_f_otd_batt_deg_set               
+202017f1  gu8_f_otd_chg_soc_calc_fin           
+202017f2  gu8_f_otd_old_set_clk_cmd            
+202017f3  gu8_f_output_restart                 
+202017f4  gu8_f_over_chg                       
+202017f5  gu8_f_over_i_on                      
+202017f6  gu8_f_over_v                         
+202017f7  gu8_f_pfc_err                        
+202017f8  gu8_f_pfc_fail_in                    
+202017f9  gu8_f_power_category_clear           
+202017fa  gu8_f_proc_start                     
+202017fb  gu8_f_ps_on                          
+202017fc  gu8_f_ps_on_backup_old               
+202017fd  gu8_f_ps_on_old                      
+202017fe  gu8_f_ps_on_out                      
+202017ff  gu8_f_response                       
+20201800  gu8_f_rpm                            
+20201801  gu8_f_rtc_1sec                       
+20201802  gu8_f_skip_reason                    
+20201803  gu8_f_sl_cmd_rcv_sek                 
+20201804  gu8_f_soc_calc_finish_sek            
+20201805  gu8_f_stop_cha                       
+20201806  gu8_f_stop_condition                 
+20201807  gu8_f_stop_dischg                    
+20201808  gu8_f_susp_cha                       
+20201809  gu8_f_susp_dischg                    
+2020180a  gu8_f_sw_short                       
+2020180b  gu8_f_temp_fail_adu                  
+2020180c  gu8_f_temp_fail_bbu                  
+2020180d  gu8_f_test_out                       
+2020180e  gu8_f_tmp_fail_adu                   
+2020180f  gu8_f_tmp_fail_bbu                   
+20201810  gu8_f_user_select                    
+20201811  gu8_f_vcc_12v_en_out                 
+20201812  gu8_f_wdt_err                        
+20201813  gu8_f_wng_fan_high                   
+20201814  gu8_f_wng_fan_high_old               
+20201815  gu8_f_wng_fan_high_protection        
+20201816  gu8_f_wng_fan_low                    
+20201817  gu8_f_wng_fan_low_old                
+20201818  gu8_f_wng_fan_low_protection         
+20201819  gu8_f_wng_fan_stop_old               
+2020181a  gu8_f_wng_fan_stop_protection        
+2020181b  gu8_fan_output_stg                   
+2020181c  gu8_flag_old                         
+2020181d  gu8_nak_stage                        
+2020181e  gu8_new_spd                          
+2020181f  gu8_now_spd                          
+20201820  gu8_pos                              
+20201821  gu8_prev_ac_link                     
+20201822  gu8_proc_stage                       
+20201823  gu8_rcv_main_stage                   
+20201824  gu8_rx_proc_stage                    
+20201825  gu8_status_old                       
+20201826  gu8_tx_send_stage                    
+20201827  gu8_uart_main_rcv_rpt                
+20201828  gu8_uart_main_rcv_wpt                
+202020a0  gu8_uart_main_receivedata            
+20201829  gu_f_burst_i_over                    
+0001068d  hogo_detect                          
+0001ca19  hogo_proc                            
+000197b5  hogo_release                         
+20201224  i16_dtdt_set_new_1min                
+20201238  i16_dtdt_set_old_1min                
+202016c8  i32_dtdt_temp_sum                    
+0000f3e1  input                                
+0001bf81  input_filter                         
+0001abb9  input_init_ac                        
+0000e000  interruptVectors                     
+0001bfe1  jumpBoot                             
+00019e95  main                                 
+0001b5a1  make_set_parameter_value             
+00017139  off_time_data_proc                   
+0001bb1d  operate_log_request                  
+0001b269  output                               
+0001a939  output_fan_pwm                       
+000189a1  output_io                            
+2020124c  pi_ac_on_level                       
+20201260  pi_aft_ac_on_level                   
+20201274  pi_batt_break                        
+20201288  pi_batt_break_chg                    
+2020129c  pi_batt_con                          
+202012b0  pi_batt_high_6                       
+202012c4  pi_batt_low_6                        
+202012d8  pi_batt_not                          
+202012ec  pi_batt_temp_aft                     
+20201300  pi_batt_temp_bef                     
+20201314  pi_bbu_sw_open                       
+20201328  pi_bbu_sw_short                      
+2020133c  pi_burst_i_good                      
+20201350  pi_burst_i_over                      
+20201364  pi_burst_on                          
+20201378  pi_dischg12_ovp                      
+2020138c  pi_fail_bbu                          
+202013a0  pi_fan_fail_adu                      
+202013b4  pi_fan_fail_bbu                      
+202013c8  pi_fan_high_protection               
+202013dc  pi_fan_low_protection                
+202013f0  pi_fan_stop_protection               
+20201404  pi_high_i_cha                        
+20201418  pi_high_i_dis_6                      
+2020142c  pi_high_i_of                         
+20201440  pi_high_i_of_h                       
+20201454  pi_high_i_on                         
+20201468  pi_high_i_on_50ms                    
+2020147c  pi_high_v                            
+20201490  pi_high_v_cha_6                      
+202014a4  pi_latch_fail                        
+202014b8  pi_low_v                             
+202014cc  pi_low_v_shortage                    
+202014e0  pi_low_v_shortage_5a                 
+202014f4  pi_pfc_fail_in                       
+20201508  pi_ps_on                             
+2020151c  pi_temp_fail_adu                     
+20201530  pi_temp_fail_bbu                     
+0001a691  ps_on_proc                           
+0001b13d  read_all_eeprom                      
+000193e1  read_eeprom                          
+00014b05  recv_proc                            
+00018fb9  revoltage                            
+0001bd29  rtc_data_set_fu                      
+00016065  rx_main_proc                         
+00019121  rx_proc                              
+0001ca31  serial_rx_proc                       
+0001adf1  serial_tx_proc                       
+00018341  set_clock_data                       
+00013669  set_cumulative_data                  
+000184e1  set_err_log_data                     
+00018cbd  set_fan_val                          
+00011a01  set_info_evt_errlog                  
+00019d79  set_life_calc_data                   
+000173ad  set_life_diag_data                   
+000175dd  set_life_diag_data_response          
+0000e0c1  set_normal_response                  
+0001780d  set_off_period_data                  
+00018199  set_ope_log_data                     
+0001c0f9  set_output_duty                      
+0001562d  set_parameter_data                   
+0001599d  set_realtime_data                    
+0001c90d  sleep                                
+00015d05  soc_calc_proc                        
+0001ca61  startup_input_ad                     
+2020174e  u16_c_dcir_1s_timer                  
+20201750  u16_c_dtdt_ad_sampling_timer         
+20201752  u16_c_dtdt_ave_and_comp_timer        
+20201754  u16_c_dtdt_soc_full_chg_chk_timer    
+20201756  u16_c_minus_dv_check_timer           
+20201758  u16_c_minus_dv_peak_samp_timer       
+202016cc  u32_c_dcir_1h_timer                  
+202016d0  u32_c_sub_chg_inhibited_timer        
+202016d4  u32_main_chg_timer                   
+202016d8  u32_sub_chg_timer                    
+2020182c  u8_c_dtdt_set_new_1min_wp            
+2020182d  u8_c_dtdt_temp_rise_up_count         
+2020182e  u8_c_minus_dv_consecutive_occurrence 
+2020182f  u8_chg_ctl_stg                       
+20201830  u8_dcir_mode                         
+20201831  u8_dcir_stg                          
+20201832  u8_f_afterer_power_restored          
+20201833  u8_f_auto_dcir_en                    
+20201834  u8_f_batt_on                         
+20201835  u8_f_charge_cmd_mode                 
+20201836  u8_f_charge_start_ok                 
+20201837  u8_f_dcir_24h_complete               
+20201838  u8_f_dcir_8_04v_complete             
+20201839  u8_f_dcir_aft_dischg_under_8_04v     
+2020183a  u8_f_dtdt_full_chg_chk_start         
+2020183b  u8_f_idle_state_init                 
+2020183c  u8_f_main_charge_state_init          
+2020183d  u8_f_main_chg_ok                     
+2020183e  u8_f_main_chg_time_out               
+2020183f  u8_f_sub_charge_state_init           
+20201840  u8_f_sub_chg_ok                      
+20201841  u8_f_sub_chg_time_out                
+0001ca49  update_backup_ready                  
+00014331  userInit                             
+000198e9  user_main2                           
+000120c1  write_eeprom                         
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                                 
+-------   ----                                 
+00000000  __TI_ATRegion0_region_sz             
+00000000  __TI_ATRegion0_src_addr              
+00000000  __TI_ATRegion0_trg_addr              
+00000000  __TI_ATRegion1_region_sz             
+00000000  __TI_ATRegion1_src_addr              
+00000000  __TI_ATRegion1_trg_addr              
+00000000  __TI_ATRegion2_region_sz             
+00000000  __TI_ATRegion2_src_addr              
+00000000  __TI_ATRegion2_trg_addr              
+00000200  __STACK_SIZE                         
+0000e000  interruptVectors                     
+0000e0c1  set_normal_response                  
+0000f3e1  input                                
+0001068d  hogo_detect                          
+00011059  charge_proc                          
+00011a01  set_info_evt_errlog                  
+000120c1  write_eeprom                         
+00012ca1  cmd_sp_check                         
+000131b9  fan_duty_set_proc                    
+00013669  set_cumulative_data                  
+00013ad9  discharge_proc                       
+00013f31  cumulative_data_proc                 
+00014331  userInit                             
+00014721  dcir_proc                            
+00014b05  recv_proc                            
+00014ed9  cmd_proc                             
+00015285  cmd_ad_proc                          
+0001562d  set_parameter_data                   
+0001599d  set_realtime_data                    
+00015d05  soc_calc_proc                        
+00016065  rx_main_proc                         
+00016395  fan_speed_proc                       
+00016685  cmd_recv_check                       
+00016945  event_proc                           
+00016bf5  __mktime64                           
+00016e9d  burst_proc                           
+00017139  off_time_data_proc                   
+000173ad  set_life_diag_data                   
+000175dd  set_life_diag_data_response          
+0001780d  set_off_period_data                  
+00017a15  __localtime64                        
+00017c09  clear_global_variables               
+00017df5  full_chg_calc                        
+00017fe1  data_proc                            
+00018199  set_ope_log_data                     
+00018341  set_clock_data                       
+000184e1  set_err_log_data                     
+00018679  _IQ19log                             
+0001880d  __aeabi_dsub                         
+0001880d  __subdf3                             
+00018817  __adddf3                             
+00018817  __aeabi_dadd                         
+0001899f  AES_IRQHandler                       
+0001899f  DAC0_IRQHandler                      
+0001899f  DMA_IRQHandler                       
+0001899f  Default_Handler                      
+0001899f  GROUP0_IRQHandler                    
+0001899f  I2C1_IRQHandler                      
+0001899f  NMI_Handler                          
+0001899f  PendSV_Handler                       
+0001899f  SPI0_IRQHandler                      
+0001899f  SPI1_IRQHandler                      
+0001899f  SVC_Handler                          
+0001899f  TIMA0_IRQHandler                     
+0001899f  TIMA1_IRQHandler                     
+0001899f  TIMG0_IRQHandler                     
+0001899f  TIMG12_IRQHandler                    
+0001899f  TIMG6_IRQHandler                     
+0001899f  TIMG7_IRQHandler                     
+0001899f  TIMG8_IRQHandler                     
+0001899f  UART1_IRQHandler                     
+0001899f  UART2_IRQHandler                     
+0001899f  UART3_IRQHandler                     
+000189a1  output_io                            
+00018b31  fan_hosei_temp_proc                  
+00018cbd  set_fan_val                          
+00018e49  cmd_sc_check                         
+00018fb9  revoltage                            
+00019121  rx_proc                              
+00019285  eeprom_init_allparam                 
+000193e1  read_eeprom                          
+00019535  ac_link_proc                         
+0001967d  aft_ack_rcv_proc                     
+000197b5  hogo_release                         
+000198e9  user_main2                           
+00019a1d  cmd_cd_proc                          
+00019b41  cmd_ss_proc                          
+00019c5d  eeprom_all_backup_proc               
+00019d79  set_life_calc_data                   
+00019e95  main                                 
+00019fa5  __aeabi_ddiv                         
+00019fa5  __divdf3                             
+0001a0b1  dcir_response                        
+0001a1b9  DL_Timer_initFourCCPWMMode           
+0001a2bd  SYSCFG_DL_GPIO_init                  
+0001a3b9  I2C0_IRQHandler                      
+0001a4b1  UART0_IRQHandler                     
+0001a5a9  DL_Timer_initTimerMode               
+0001a691  ps_on_proc                           
+0001a779  __aeabi_dmul                         
+0001a779  __muldf3                             
+0001a85d  DL_SYSCTL_configSYSPLL               
+0001a939  output_fan_pwm                       
+0001aa11  __aeabi_fsub                         
+0001aa11  __subsf3                             
+0001aa1b  __addsf3                             
+0001aa1b  __aeabi_fadd                         
+0001aae9  SYSCFG_DL_initPower                  
+0001abb9  input_init_ac                        
+0001ac81  full_charge_proc                     
+0001ad3d  cmd_se_proc                          
+0001adf1  serial_tx_proc                       
+0001aea5  calc_temperature                     
+0001af4d  charge_ready_proc                    
+0001aff5  DL_RTC_Common_initCalendar           
+0001b099  __udivmoddi4                         
+0001b13b  __aeabi_idiv0                        
+0001b13d  read_all_eeprom                      
+0001b1d5  dischage_termination                 
+0001b269  output                               
+0001b2fd  __aeabi_fmul                         
+0001b2fd  __mulsf3                             
+0001b389  DL_DAC12_init                        
+0001b411  cmd_cl_proc                          
+0001b499  fan_rpm_calc_proc                    
+0001b51d  __aeabi_fdiv                         
+0001b51d  __divsf3                             
+0001b59f  __aeabi_ldiv0                        
+0001b5a1  make_set_parameter_value             
+0001b621  DL_RTC_Common_getCalendarTime        
+0001b69d  SYSCFG_DL_ADC12_0_init               
+0001b719  GROUP1_IRQHandler                    
+0001b791  __TI_decompress_lzss                 
+0001b809  __aeabi_memcpy                       
+0001b809  __aeabi_memcpy4                      
+0001b809  __aeabi_memcpy8                      
+0001b811  __aeabi_d2f                          
+0001b811  __truncdfsf2                         
+0001b885  SYSCFG_DL_ADC12_1_init               
+0001b8f5  SYSCFG_DL_SYSCTL_init                
+0001b965  SYSCFG_DL_UART_0_init                
+0001b9d5  __gedf2                              
+0001b9d5  __gtdf2                              
+0001ba45  SYSCFG_DL_I2C_0_init                 
+0001bab1  __cmpdf2                             
+0001bab1  __eqdf2                              
+0001bab1  __ledf2                              
+0001bab1  __ltdf2                              
+0001bab1  __nedf2                              
+0001bb1d  operate_log_request                  
+0001bb89  SYSCFG_DL_FAN_PWM_init               
+0001bbf1  SYSCFG_DL_SYNC_0_init                
+0001bc59  SYSCFG_DL_SYNC_120_init              
+0001bcc1  SYSCFG_DL_SYNC_240_init              
+0001bd29  rtc_data_set_fu                      
+0001bd91  DL_SYSCTL_setHFCLKSourceHFXTParams   
+0001bdf5  SYSCFG_DL_init                       
+0001be59  __aeabi_dcmpeq                       
+0001be6d  __aeabi_dcmplt                       
+0001be81  __aeabi_dcmple                       
+0001be95  __aeabi_dcmpge                       
+0001bea9  __aeabi_dcmpgt                       
+0001bebd  __aeabi_fcmpeq                       
+0001bed1  __aeabi_fcmplt                       
+0001bee5  __aeabi_fcmple                       
+0001bef9  __aeabi_fcmpge                       
+0001bf0d  __aeabi_fcmpgt                       
+0001bf21  DL_SYSCTL_setLFCLKSourceLFXT         
+0001bf81  input_filter                         
+0001bfe1  jumpBoot                             
+0001c041  DL_I2C_fillControllerTXFIFO          
+0001c0a1  error_log_request                    
+0001c0f9  set_output_duty                      
+0001c151  __aeabi_idiv                         
+0001c151  __aeabi_idivmod                      
+0001c1a7  calc_bcc                             
+0001c1fd  SysTick_Handler                      
+0001c24d  __aeabi_d2iz                         
+0001c24d  __fixdfsi                            
+0001c299  DL_UART_init                         
+0001c2e1  DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK
+0001c325  DL_ADC12_setClockConfig              
+0001c365  SYSCFG_DL_RTC_init                   
+0001c3a5  SystemInit                           
+0001c3e5  __aeabi_uidiv                        
+0001c3e5  __aeabi_uidivmod                     
+0001c425  __aeabi_f2d                          
+0001c425  __extendsfdf2                        
+0001c465  burst_off_proc                       
+0001c4a5  eeprom_write_request                 
+0001c4e5  __divmoddi4                          
+0001c525  __aeabi_i2f                          
+0001c525  __floatsisf                          
+0001c561  __gesf2                              
+0001c561  __gtsf2                              
+0001c59d  __TI_auto_init_nobinit_nopinit       
+0001c5d9  __cmpsf2                             
+0001c5d9  __eqsf2                              
+0001c5d9  __lesf2                              
+0001c5d9  __ltsf2                              
+0001c5d9  __nesf2                              
+0001c615  __muldsi3                            
+0001c651  __aeabi_f2iz                         
+0001c651  __fixsfsi                            
+0001c689  dischage_end_first                   
+0001c6c1  SYSCFG_DL_SYSTICK_init               
+0001c6f1  crc32_calc                           
+0001c721  ADC0_IRQHandler                      
+0001c74d  ADC1_IRQHandler                      
+0001c779  DL_CRC_calculateMemoryRange32        
+0001c7a5  SYSCFG_DL_TIMER_G12_init             
+0001c7d1  __aeabi_i2d                          
+0001c7d1  __floatsidf                          
+0001c7fd  converter_pwm_stop                   
+0001c829  __aeabi_ui2f                         
+0001c829  __floatunsisf                        
+0001c851  _c_int00_noargs                      
+0001c879  DL_I2C_setClockConfig                
+0001c8a1  SYSCFG_DL_DAC12_init                 
+0001c8c5  __aeabi_ui2d                         
+0001c8c5  __floatunsidf                        
+0001c8e9  __aeabi_lmul                         
+0001c8e9  __muldi3                             
+0001c90d  sleep                                
+0001c92d  __aeabi_llsl                         
+0001c92d  __ashldi3                            
+0001c94d  DL_Timer_setCaptCompUpdateMethod     
+0001c969  DL_Timer_setClockConfig              
+0001c985  RTC_IRQHandler                       
+0001c9a1  DL_Timer_setCaptureCompareOutCtl     
+0001c9b9  SYSCFG_DL_SYSCTL_CLK_init            
+0001c9d1  SYSCFG_DL_WWDT0_init                 
+0001c9e9  _IQ19div                             
+0001ca01  _IQ19mpy                             
+0001ca19  hogo_proc                            
+0001ca31  serial_rx_proc                       
+0001ca49  update_backup_ready                  
+0001ca61  startup_input_ad                     
+0001ca79  SYSCFG_DL_CRC_init                   
+0001ca8d  __aeabi_ldivmod                      
+0001caa1  DL_UART_setClockConfig               
+0001cab3  TI_memcpy_small                      
+0001cac5  __TI_decompress_none                 
+0001cad9  DL_Timer_setCaptureCompareValue      
+0001cae9  HardFault_Handler                    
+0001caf9  eeprom_write_check                   
+0001cb09  fan_stop_PWM                         
+0001cb19  __TI_zero_init                       
+0001cb29  __aeabi_memset                       
+0001cb29  __aeabi_memset4                      
+0001cb29  __aeabi_memset8                      
+0001cb37  TI_memset_small                      
+0001cb45  __aeabi_memclr                       
+0001cb45  __aeabi_memclr4                      
+0001cb45  __aeabi_memclr8                      
+0001cb51  DL_Common_delayCycles                
+0001cb5b  Reset_Handler2                       
+0001cb65  filter_clear                         
+0001cb99  Reset_Handler                        
+0001cb9d  _system_pre_init                     
+0001cba0  C$$EXIT                              
+0001cba1  abort                                
+0001cbb0  crc32tab                             
+0001cfb0  CMD_TBL                              
+0001cffe  ERROR_RESPONSE_TBL                   
+0001d040  _IQ30log_coeffs                      
+0001d124  SET_PRAMETER_DEF_TBL                 
+0001d198  MONTH_END_TBL                        
+0001d1e0  FFFFFF_TBL                           
+0001d1f4  FFFF_TBL                             
+0001d210  __TI_static_base__                   
+0001d2b4  __TI_Handler_Table_Base              
+0001d2c0  __TI_Handler_Table_Limit             
+0001d2c8  __TI_CINIT_Base                      
+0001d2d8  __TI_CINIT_Limit                     
+0001d2d8  __TI_CINIT_Warm                      
+20200000  data_info_common                     
+20200100  __start___llvm_prf_bits              
+20200100  __start___llvm_prf_cnts              
+20200100  __stop___llvm_prf_bits               
+20200100  __stop___llvm_prf_cnts               
+20200100  _sdata                               
+20200100  gu32_b_fanrpm                        
+20200500  g_eeprom_data                        
+20200860  g_write_eeprom_data                  
+20200bc0  gu16_ADC0_Result                     
+20200e7c  gu16_ADC1_Result                     
+20201138  eeprom_write_req                     
+202011b8  gu8_b_err_log                        
+202011e7  burst_current_state                  
+2020120c  gs_realtime_data                     
+20201222  eeprom_req_cnt                       
+20201224  i16_dtdt_set_new_1min                
+20201238  i16_dtdt_set_old_1min                
+2020124c  pi_ac_on_level                       
+20201260  pi_aft_ac_on_level                   
+20201274  pi_batt_break                        
+20201288  pi_batt_break_chg                    
+2020129c  pi_batt_con                          
+202012b0  pi_batt_high_6                       
+202012c4  pi_batt_low_6                        
+202012d8  pi_batt_not                          
+202012ec  pi_batt_temp_aft                     
+20201300  pi_batt_temp_bef                     
+20201314  pi_bbu_sw_open                       
+20201328  pi_bbu_sw_short                      
+2020133c  pi_burst_i_good                      
+20201350  pi_burst_i_over                      
+20201364  pi_burst_on                          
+20201378  pi_dischg12_ovp                      
+2020138c  pi_fail_bbu                          
+202013a0  pi_fan_fail_adu                      
+202013b4  pi_fan_fail_bbu                      
+202013c8  pi_fan_high_protection               
+202013dc  pi_fan_low_protection                
+202013f0  pi_fan_stop_protection               
+20201404  pi_high_i_cha                        
+20201418  pi_high_i_dis_6                      
+2020142c  pi_high_i_of                         
+20201440  pi_high_i_of_h                       
+20201454  pi_high_i_on                         
+20201468  pi_high_i_on_50ms                    
+2020147c  pi_high_v                            
+20201490  pi_high_v_cha_6                      
+202014a4  pi_latch_fail                        
+202014b8  pi_low_v                             
+202014cc  pi_low_v_shortage                    
+202014e0  pi_low_v_shortage_5a                 
+202014f4  pi_pfc_fail_in                       
+20201508  pi_ps_on                             
+2020151c  pi_temp_fail_adu                     
+20201530  pi_temp_fail_bbu                     
+20201544  _tz                                  
+20201554  gs_status_info                       
+20201563  burst_state                          
+20201564  gs_life_diag_data                    
+20201572  gs_life_diag_data_response           
+20201580  gu16_ADC0_Sens                       
+2020158e  gu16_ADC1_Sens                       
+2020159c  gs_event_data                        
+202015a6  gs_event_data_change                 
+202015b0  gs_event_data_new                    
+202015ba  gs_event_data_old                    
+202015c8  gt_otd_ac_off_occurrence             
+202015d0  gt_otd_ac_on_time                    
+202015d8  gu16_tx_send_req                     
+202015e0  gs_life_calc_data                    
+202015e6  gu8_d_clock_data                     
+202015f4  f_batt_v_peak                        
+202015f8  f_batt_v_peak_calc_sample_sum        
+202015fc  f_chg_ctl_batt_vol_v                 
+20201600  gf_12vout_i_coeff                    
+20201604  gf_12vout_v_coeff                    
+20201608  gf_acdc12v_v_coeff                   
+2020160c  gf_adj_per                           
+20201610  gf_batt_chg_coeff                    
+20201614  gf_batt_v_coeff                      
+20201618  gf_chg_mah_val_sek                   
+2020161c  gf_cmd_ad_after_correction_slope     
+20201620  gf_cmd_ad_calculated_value           
+20201624  gf_cmd_ad_val                        
+20201628  gf_dischg_i_coeff                    
+2020162c  gf_dischg_mah_val_sek                
+20201630  gf_jcd_chg_soc_now                   
+20201634  gf_jcd_ttl_chg_soc                   
+20201638  gf_max_per                           
+2020163c  gf_min_per                           
+20201640  gf_otd_chg_soc_now                   
+20201644  gf_otd_chg_soc_total                 
+20201648  gu32_SysTickCount                    
+2020164c  gu32_c_12v_en_out_delay              
+20201650  gu32_c_ac_interrupt_protection       
+20201654  gu32_c_ac_link_timer                 
+20201658  gu32_c_adu_action_time               
+2020165c  gu32_c_adu_temp_sek                  
+20201660  gu32_c_bat_connect_time              
+20201664  gu32_c_bat_temp_ave_sek              
+20201668  gu32_c_batchg_en_out_delay           
+2020166c  gu32_c_batt_en_out_delay             
+20201670  gu32_c_burst_out_delay               
+20201674  gu32_c_chgv_114v_out_delay           
+20201678  gu32_c_cmd_sc_evt_delay              
+2020167c  gu32_c_converter_pwm_delay           
+20201680  gu32_c_dcir_timer                    
+20201684  gu32_c_dischg12v_en_out_delay        
+20201688  gu32_c_eeprom_timer                  
+2020168c  gu32_c_event_wait                    
+20201690  gu32_c_fan_fail_stop_timer           
+20201694  gu32_c_fan_fail_timer                
+20201698  gu32_c_fan_prm_old                   
+2020169c  gu32_c_fan_pwm_delay                 
+202016a0  gu32_c_low_v_shortage                
+202016a4  gu32_c_minus_dv_disable              
+202016a8  gu32_c_opencheck_time                
+202016ac  gu32_c_ps_on_out_delay               
+202016b0  gu32_c_soc_timer_1h                  
+202016b4  gu32_c_soc_timer_1s                  
+202016b8  gu32_c_test_out_delay                
+202016bc  gu32_c_vcc_12v_en_out_delay          
+202016c0  gu32_rcv_all_timer                   
+202016c4  gu32_reset_cause                     
+202016c8  i32_dtdt_temp_sum                    
+202016cc  u32_c_dcir_1h_timer                  
+202016d0  u32_c_sub_chg_inhibited_timer        
+202016d4  u32_main_chg_timer                   
+202016d8  u32_sub_chg_timer                    
+202016e0  gi16_ad_batt1_temp                   
+202016e2  gi16_ad_battery_temp                 
+202016e4  gi16_ad_bbu_temp                     
+202016e6  gi16_ad_llc_temp                     
+202016e8  gi16_ctl_target_temp                 
+202016ea  gi16_otd_chg_bat_temp_ave            
+202016ec  gi16_otd_ps_off_bat_temp_ave         
+202016ee  gi16_pre_temp                        
+202016f0  gu16_ADC_cnt_4                       
+202016f2  gu16_ADC_cnt_50                      
+202016f4  gu16_CheckADC0                       
+202016f6  gu16_CheckADC1                       
+202016f8  gu16_ad_12vout_i                     
+202016fa  gu16_ad_12vout_i_now_ad              
+202016fc  gu16_ad_12vout_v                     
+202016fe  gu16_ad_12vout_v_now_ad              
+20201700  gu16_ad_acdc12v_v                    
+20201702  gu16_ad_batt_chg                     
+20201704  gu16_ad_batt_v                       
+20201706  gu16_ad_chgout_v_now_ad              
+20201708  gu16_ad_dischg_i                     
+2020170a  gu16_bat_temp_1h_sum                 
+2020170c  gu16_batt_break_chg_timer            
+2020170e  gu16_c_ac_on                         
+20201710  gu16_c_aft_ac_on                     
+20201712  gu16_c_bat_temp_calc                 
+20201714  gu16_c_fan                           
+20201716  gu16_c_otd_chg_bat_temp_ave          
+20201718  gu16_c_otd_ps_off_bat_temp_ave       
+2020171a  gu16_c_proc_delay                    
+2020171c  gu16_c_sta_rpm                       
+2020171e  gu16_c_timing1ms                     
+20201720  gu16_c_timing1s                      
+20201722  gu16_c_tx                            
+20201724  gu16_cmd_ad_set_ad_val               
+20201726  gu16_d_fan_rpm                       
+20201728  gu16_d_fan_rpm_old                   
+2020172a  gu16_f_timing                        
+2020172c  gu16_f_timing_1sec                   
+2020172e  gu16_fan_odr_duty                    
+20201730  gu16_fan_odr_rpm                     
+20201732  gu16_fan_pwm_freq                    
+20201734  gu16_max_rpm_1                       
+20201736  gu16_max_rpm_5                       
+20201738  gu16_min_rpm_1                       
+2020173a  gu16_min_rpm_5                       
+2020173c  gu16_new_dty                         
+2020173e  gu16_new_per                         
+20201740  gu16_new_rpm                         
+20201742  gu16_now_per                         
+20201744  gu16_now_rpm                         
+20201746  gu16_p_fanrpm                        
+2020174e  u16_c_dcir_1s_timer                  
+20201750  u16_c_dtdt_ad_sampling_timer         
+20201752  u16_c_dtdt_ave_and_comp_timer        
+20201754  u16_c_dtdt_soc_full_chg_chk_timer    
+20201756  u16_c_minus_dv_check_timer           
+20201758  u16_c_minus_dv_peak_samp_timer       
+2020175b  eeprom_req_busy                      
+2020175c  eeprom_req_read_idx                  
+2020175d  eeprom_req_write_idx                 
+2020175f  f_gu8_fan_ctl_mode                   
+20201760  f_gu8_fan_duty_change                
+20201761  f_gu8_fan_speed                      
+20201762  f_gu8_fan_speed_def                  
+20201763  f_gu8_fan_temp_updwn                 
+20201764  gi8_d_soc_mah                        
+20201765  gi8_d_soc_wh                         
+20201766  gu8_ac_link_stage                    
+20201767  gu8_ack_stage                        
+20201768  gu8_alm_type_12v_err                 
+20201769  gu8_alm_type_batt_err                
+2020176a  gu8_alm_type_batt_err_old            
+2020176b  gu8_alm_type_chg_err                 
+2020176c  gu8_alm_type_dischg_err              
+2020176d  gu8_alm_type_fan_err                 
+2020176e  gu8_alm_type_pfc_err                 
+2020176f  gu8_alm_type_temp_err                
+20201770  gu8_backup_enable_cmd                
+20201771  gu8_backup_off_cmd                   
+20201772  gu8_burst_stage                      
+20201773  gu8_c_bat_temp_1h_sum_sample         
+20201774  gu8_c_batt_temp_reference_ok         
+20201775  gu8_c_dischg_term                    
+20201776  gu8_cmd_ad_position                  
+20201777  gu8_cmd_ad_proc_stage                
+20201778  gu8_cmd_ad_type                      
+20201779  gu8_cmd_bc_proc_stage                
+2020177a  gu8_cmd_rp_proc_stage                
+2020177b  gu8_cmd_se_proc_stage                
+2020177c  gu8_cmd_sl_proc_stage                
+2020177d  gu8_cmd_sp_proc_stage                
+2020177e  gu8_cmd_ss_proc_stage                
+2020177f  gu8_d_uart_rcv_num                   
+20201780  gu8_d_uart_rcv_rpt                   
+20201781  gu8_d_uart_rcv_wpt                   
+20201782  gu8_d_uart_snd_rpt                   
+20201783  gu8_d_uart_snd_wpt                   
+20201784  gu8_dischg_ps_off_stage              
+20201785  gu8_dischg_ps_on_stage               
+20201786  gu8_eeprom_all_backup                
+20201787  gu8_eeprom_read_all_stage            
+20201788  gu8_eeprom_write_stage               
+20201789  gu8_end_dischg_stage                 
+2020178a  gu8_evt_proc_stage                   
+2020178b  gu8_f_12v_en_out                     
+2020178c  gu8_f_12v_oc_off                     
+2020178d  gu8_f_12v_oc_off_h                   
+2020178e  gu8_f_ac_70v_ac_interrupt            
+2020178f  gu8_f_ac_link                        
+20201790  gu8_f_ac_link_restarting             
+20201791  gu8_f_ac_off_detected                
+20201792  gu8_f_ac_on                          
+20201793  gu8_f_ac_on_1ms                      
+20201794  gu8_f_ac_on_old                      
+20201795  gu8_f_ac_on_trg                      
+20201796  gu8_f_ack_nak_rcv                    
+20201797  gu8_f_aft_ac_on                      
+20201798  gu8_f_backup_active                  
+20201799  gu8_f_backup_active_alm              
+2020179a  gu8_f_backup_active_old              
+2020179b  gu8_f_backup_start_sek               
+2020179c  gu8_f_batchg_en_out                  
+2020179d  gu8_f_batt_break                     
+2020179e  gu8_f_batt_break_chg                 
+2020179f  gu8_f_batt_cate_clear                
+202017a0  gu8_f_batt_connect                   
+202017a1  gu8_f_batt_connect_old               
+202017a2  gu8_f_batt_connect_trg               
+202017a3  gu8_f_batt_en_out                    
+202017a4  gu8_f_batt_err_startup_exist         
+202017a5  gu8_f_batt_high_6                    
+202017a6  gu8_f_batt_life_over_threshold       
+202017a7  gu8_f_batt_low_6                     
+202017a8  gu8_f_batt_not                       
+202017a9  gu8_f_batt_not_con                   
+202017aa  gu8_f_batt_temp_aft                  
+202017ab  gu8_f_batt_temp_bef                  
+202017ac  gu8_f_bbu_sw_open                    
+202017ad  gu8_f_bbu_sw_short                   
+202017ae  gu8_f_before_shutdown                
+202017af  gu8_f_burst_on                       
+202017b0  gu8_f_burst_out                      
+202017b1  gu8_f_cd_cmd_rcv                     
+202017b2  gu8_f_charge_inhibited               
+202017b3  gu8_f_charge_off                     
+202017b4  gu8_f_charge_off_cmd                 
+202017b5  gu8_f_charge_ok_clear                
+202017b6  gu8_f_charge_on                      
+202017b7  gu8_f_charge_on_cmd                  
+202017b8  gu8_f_charge_output                  
+202017b9  gu8_f_charging_active                
+202017ba  gu8_f_charging_active_old            
+202017bb  gu8_f_chgv_114v_out                  
+202017bc  gu8_f_cmd_d1_recv                    
+202017bd  gu8_f_cmd_sc_recv                    
+202017be  gu8_f_command_proc                   
+202017bf  gu8_f_converter_pwm                  
+202017c0  gu8_f_dcir_check_doing               
+202017c1  gu8_f_dcir_complete                  
+202017c2  gu8_f_dcir_proc_init                 
+202017c3  gu8_f_dcir_request                   
+202017c4  gu8_f_dischg12_ovp                   
+202017c5  gu8_f_dischg12v_en_out               
+202017c6  gu8_f_dischg_start_sek               
+202017c7  gu8_f_dischg_term                    
+202017c8  gu8_f_dischg_under_1s                
+202017c9  gu8_f_dischg_up_1s                   
+202017ca  gu8_f_eeprom_check_error             
+202017cb  gu8_f_envt_first                     
+202017cc  gu8_f_event_lost                     
+202017cd  gu8_f_evt_ack_nak_rcv                
+202017ce  gu8_f_fail_adu_bbu                   
+202017cf  gu8_f_fail_bbu                       
+202017d0  gu8_f_fan_fail_adu                   
+202017d1  gu8_f_fan_fail_bbu                   
+202017d2  gu8_f_fan_fail_check                 
+202017d3  gu8_f_fan_fail_stop                  
+202017d4  gu8_f_fan_pwm                        
+202017d5  gu8_f_fan_spd_backup                 
+202017d6  gu8_f_first_check                    
+202017d7  gu8_f_full_charge                    
+202017d8  gu8_f_full_charge_dcir               
+202017d9  gu8_f_full_chg_sek                   
+202017da  gu8_f_high_i_cha                     
+202017db  gu8_f_high_i_dis_6                   
+202017dc  gu8_f_high_i_of                      
+202017dd  gu8_f_high_i_of_h                    
+202017de  gu8_f_high_i_on                      
+202017df  gu8_f_high_i_on_50ms                 
+202017e0  gu8_f_high_v                         
+202017e1  gu8_f_high_v_cha_6                   
+202017e2  gu8_f_ini_ps_on                      
+202017e3  gu8_f_initial_skip                   
+202017e4  gu8_f_jcd_chg_soc_calc_fin           
+202017e5  gu8_f_latch_fail                     
+202017e6  gu8_f_low_v                          
+202017e7  gu8_f_low_v_shortage                 
+202017e8  gu8_f_low_v_shortage_5a              
+202017e9  gu8_f_main_chg_now                   
+202017ea  gu8_f_multi_command                  
+202017eb  gu8_f_nak_sndreq                     
+202017ec  gu8_f_off_time_data_clear_en         
+202017ed  gu8_f_on                             
+202017ee  gu8_f_opencheck                      
+202017ef  gu8_f_otd_ac_off_time_en             
+202017f0  gu8_f_otd_batt_deg_set               
+202017f1  gu8_f_otd_chg_soc_calc_fin           
+202017f2  gu8_f_otd_old_set_clk_cmd            
+202017f3  gu8_f_output_restart                 
+202017f4  gu8_f_over_chg                       
+202017f5  gu8_f_over_i_on                      
+202017f6  gu8_f_over_v                         
+202017f7  gu8_f_pfc_err                        
+202017f8  gu8_f_pfc_fail_in                    
+202017f9  gu8_f_power_category_clear           
+202017fa  gu8_f_proc_start                     
+202017fb  gu8_f_ps_on                          
+202017fc  gu8_f_ps_on_backup_old               
+202017fd  gu8_f_ps_on_old                      
+202017fe  gu8_f_ps_on_out                      
+202017ff  gu8_f_response                       
+20201800  gu8_f_rpm                            
+20201801  gu8_f_rtc_1sec                       
+20201802  gu8_f_skip_reason                    
+20201803  gu8_f_sl_cmd_rcv_sek                 
+20201804  gu8_f_soc_calc_finish_sek            
+20201805  gu8_f_stop_cha                       
+20201806  gu8_f_stop_condition                 
+20201807  gu8_f_stop_dischg                    
+20201808  gu8_f_susp_cha                       
+20201809  gu8_f_susp_dischg                    
+2020180a  gu8_f_sw_short                       
+2020180b  gu8_f_temp_fail_adu                  
+2020180c  gu8_f_temp_fail_bbu                  
+2020180d  gu8_f_test_out                       
+2020180e  gu8_f_tmp_fail_adu                   
+2020180f  gu8_f_tmp_fail_bbu                   
+20201810  gu8_f_user_select                    
+20201811  gu8_f_vcc_12v_en_out                 
+20201812  gu8_f_wdt_err                        
+20201813  gu8_f_wng_fan_high                   
+20201814  gu8_f_wng_fan_high_old               
+20201815  gu8_f_wng_fan_high_protection        
+20201816  gu8_f_wng_fan_low                    
+20201817  gu8_f_wng_fan_low_old                
+20201818  gu8_f_wng_fan_low_protection         
+20201819  gu8_f_wng_fan_stop_old               
+2020181a  gu8_f_wng_fan_stop_protection        
+2020181b  gu8_fan_output_stg                   
+2020181c  gu8_flag_old                         
+2020181d  gu8_nak_stage                        
+2020181e  gu8_new_spd                          
+2020181f  gu8_now_spd                          
+20201820  gu8_pos                              
+20201821  gu8_prev_ac_link                     
+20201822  gu8_proc_stage                       
+20201823  gu8_rcv_main_stage                   
+20201824  gu8_rx_proc_stage                    
+20201825  gu8_status_old                       
+20201826  gu8_tx_send_stage                    
+20201827  gu8_uart_main_rcv_rpt                
+20201828  gu8_uart_main_rcv_wpt                
+20201829  gu_f_burst_i_over                    
+2020182c  u8_c_dtdt_set_new_1min_wp            
+2020182d  u8_c_dtdt_temp_rise_up_count         
+2020182e  u8_c_minus_dv_consecutive_occurrence 
+2020182f  u8_chg_ctl_stg                       
+20201830  u8_dcir_mode                         
+20201831  u8_dcir_stg                          
+20201832  u8_f_afterer_power_restored          
+20201833  u8_f_auto_dcir_en                    
+20201834  u8_f_batt_on                         
+20201835  u8_f_charge_cmd_mode                 
+20201836  u8_f_charge_start_ok                 
+20201837  u8_f_dcir_24h_complete               
+20201838  u8_f_dcir_8_04v_complete             
+20201839  u8_f_dcir_aft_dischg_under_8_04v     
+2020183a  u8_f_dtdt_full_chg_chk_start         
+2020183b  u8_f_idle_state_init                 
+2020183c  u8_f_main_charge_state_init          
+2020183d  u8_f_main_chg_ok                     
+2020183e  u8_f_main_chg_time_out               
+2020183f  u8_f_sub_charge_state_init           
+20201840  u8_f_sub_chg_ok                      
+20201841  u8_f_sub_chg_time_out                
+20201842  _edata                               
+20201844  _sbss                                
+20201844  gu8_d_uart_sendbuf                   
+20201b44  gu8_d_uart_recvbuf                   
+20201d44  gu8_d_sendbuf                        
+20201ec4  gFAN_PWMBackup                       
+20201f80  gSYNC_0Backup                        
+20202020  gu8_d_recvbuf                        
+202020a0  gu8_uart_main_receivedata            
+20202120  gTxPacket                            
+20202134  gs_set_parameter                     
+20202148  gs_set_parameter_tmp                 
+2020215c  gRxPacket                            
+2020216c  gs_RTCCalendar                       
+20202188  gRxCount                             
+2020218c  gRxLen                               
+20202190  gTxCount                             
+20202194  gTxLen                               
+20202198  gpt_I2C_RxPacket                     
+2020219c  gu8_d_uart_rcv_count                 
+202021a0  gu8_f_cmd_id_no                      
+202021bf  gI2cControllerStatus                 
+202021c0  _ebss                                
+20207e00  __stack                              
+20208000  __STACK_END                          
+ffffffff  __TI_pprof_out_hndl                  
+ffffffff  __TI_prof_data_size                  
+ffffffff  __TI_prof_data_start                 
+ffffffff  __binit__                            
+ffffffff  binit                                
+UNDEFED   __mpu_init                           
+UNDEFED   _system_post_cinit                   
+
+[724 symbols]

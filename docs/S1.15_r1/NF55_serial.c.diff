@@ -1,0 +1,1161 @@
+--- S1.13/NF55_serial.c
+
++++ S1.15_r1/NF55_serial.c
+
+@@ -20,7 +20,7 @@
+
+ uint8_t cmd_sp_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+ uint8_t cmd_rp_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+ uint8_t cmd_se_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+-uint8_t cmd_sc_proc(uint8_t *d_recvbuf, uint8_t num);
++uint8_t cmd_sc_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+ uint8_t cmd_ss_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+ uint8_t cmd_sl_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+ uint8_t cmd_bc_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response );
+@@ -47,6 +47,7 @@
+
+ uint32_t proc_cmd_fd(uint8_t *addr_buf);
+ uint8_t aft_ack_rcv_proc(uint8_t cmd_id_no, uint8_t *d_recvbuf, uint8_t num);
+ //
++void life_clac_data_Clear(void);
+ void tx_proc(void);
+ void update_wait(void);
+ uint8_t uart_send_req(uint8_t *sendbuf, uint16_t num);
+@@ -89,7 +90,7 @@
+
+ 
+     	rx_proc(); // RX処理
+ 
+-   // update_wait();
++        //update_wait();
+     }
+ }
+ 
+@@ -107,7 +108,6 @@
+
+ 
+     	tx_proc(); // TX処理
+ 	}
+-
+ }
+ 
+ /*******************************************************************************
+@@ -182,7 +182,9 @@
+
+                     {
+                         data_count = 0;
+                         gu8_rcv_main_stage = 2;
+-                    } else {
++                    }
++                    else
++                    {
+                         // CMD ID未定義
+                         gu8_rcv_main_stage = 4;
+                     }
+@@ -197,7 +199,9 @@
+
+                     if( rdata == ETX )   // ETX
+                     {
+                         gu8_rcv_main_stage = 3;
+-                    } else {
++                    }
++                    else
++                    {
+                         // 指定位置にETXが来ていない
+                         gu8_f_nak_sndreq = NAK_ETX;
+                         gu8_rcv_main_stage = 0;
+@@ -220,7 +224,9 @@
+
+                         gu8_d_uart_rcv_num++;
+                         gu8_d_uart_rcv_wpt = (gu8_d_uart_rcv_wpt+1) & (UART_RCV_NUM-1);
+                         gu8_rcv_main_stage = 0;
+-                    } else {
++                    }
++                    else
++                    {
+                         // BCCエラー
+                         gu8_f_nak_sndreq = NAK_BCC;
+                         gu8_rcv_main_stage = 0;
+@@ -424,28 +430,31 @@
+
+             if(cmd_id_no == CMD_ID_FU)
+             {
+                  if (gu8_f_multi_command == 0)
+-                    {
+-                        if (gu8_f_response == CMD_NORMAL)
+-                        {
+-                        ret=aft_ack_rcv_proc(cmd_id_no, d_recvbuf, num);
+-                        return ret;
+-
+-                        }else{
+-
+-                             gu8_proc_stage = 0;
+-                             ret = _DONE_;
+-                        }
+-                     }else{
+-                            gu8_f_response = CMD_NORMAL;
+-                            gu8_f_multi_command = 0;
+-                            gu8_proc_stage = 3;    // 多重コマンド処理後、継続
+-                          }
+-           }else{
+-              c_timer = RES_WAIT_TIMER; // 200ms
+-              //gu8_f_ack_nak_rcv = 0;    // 応答データクリア
+-              gu8_proc_stage = 6;
+-
+-                }
++                 {
++                     if (gu8_f_response == CMD_NORMAL)
++                     {
++                         ret=aft_ack_rcv_proc(cmd_id_no, d_recvbuf, num);
++                         return ret;
++                     }
++                     else
++                     {
++                         gu8_proc_stage = 0;
++                         ret = _DONE_;
++                     }
++                 }
++                 else
++                 {
++                     gu8_f_response = CMD_NORMAL;
++                     gu8_f_multi_command = 0;
++                     gu8_proc_stage = 3;    // 多重コマンド処理後、継続
++                 }
++           }
++            else
++            {
++                c_timer = RES_WAIT_TIMER; // 200ms
++                //gu8_f_ack_nak_rcv = 0;    // 応答データクリア
++                gu8_proc_stage = 6;
++            }
+         }
+         break;
+ 
+@@ -535,6 +544,8 @@
+
+     uint8_t ii, data;
+     uint8_t ret = CMD_NORMAL;
+     int32_t no;
++    uint8_t  bak[2];
++
+     switch (cmd_id_no)
+     {
+     case CMD_ID_SP:    // 各種閾値設定用 (SET PARAMETER)
+@@ -601,15 +612,21 @@
+
+             ret = SQE_ERR_RES;   // シーケンスエラー(SQE)レスポンス
+             break;
+         }
+-        break;
+-
+-    case CMD_ID_CN:    // 強制充電 (CHARGE ON)
+-        if ((gu8_f_backup_active == _ON_) || (gu8_alm_type_batt_err != _OFF_) || ((gu8_f_main_chg_now == _ON_) && (d_recvbuf[3] != '0')) || (gu8_f_charge_inhibited == _ON_)) // バックアップ中 または バッテリ異常あり または 主充電中(1の場合) または 充電禁止中?
++    	/*F104*/
++        if ((d_recvbuf[3] == '0') || (d_recvbuf[3] == '1') ) // 0/1
++        {
++            break;
++        }
++        ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
++        break;
++
++    case CMD_ID_CN:    // 強制充電 (CHARGE ON)  /*F124*/
++        if ((gu8_f_backup_active == _ON_) || (gu8_alm_type_batt_err != _OFF_) || (((gu8_f_main_chg_now == _ON_) || (gu8_f_suppr_chg_now == _ON_)) && (gu8_f_charge_cmd_mode == _CHG_MODE_FALSE_)) || (gu8_f_charge_inhibited == _ON_)) // バックアップ中 または バッテリ異常あり または 主充電中(1の場合) または 充電禁止中?
+         {
+             ret = SQE_ERR_RES;   // シーケンスエラー(SQE)レスポンス
+             break;
+         }
+-        if ((d_recvbuf[3] == '0') || (d_recvbuf[3] == '1'))    // BURST設定=無効/有効?
++        if ((d_recvbuf[3] == '0') || (d_recvbuf[3] == '1'))    // BURST設定=無効/有効? /*F110 F104*/
+         {
+             break;
+         }
+@@ -682,37 +699,32 @@
+
+         break;
+ 
+     case CMD_ID_EL:    // エラーログ取得 (ERROR LOG)
+-    	 {
+-        uint8_t  bak[2];
+         bak[0] = d_recvbuf[3];
+         bak[1] = d_recvbuf[4];
+ 
+         no = aschex_to_int( &d_recvbuf[3], 2);
+-               if( (no!=1) && (no!=9) && (no!=17) && (no!=25) )
+-               {
+-                   ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
+-               }
+-
+-               d_recvbuf[3] = bak[0];
+-               d_recvbuf[4] = bak[1];
+-        break;
+-    	 }
++
++        if( (no!=1) && (no!=9) && (no!=17) && (no!=25) )
++        {
++            ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
++        }
++
++        d_recvbuf[3] = bak[0];
++        d_recvbuf[4] = bak[1];
++        break;
+ 
+     case CMD_ID_OL:    // ON/OFF ログ取得 (OPERATE LOG)
+-        {
+-        uint8_t  bak[2];
+         bak[0] = d_recvbuf[3];
+         bak[1] = d_recvbuf[4];
+         no = aschex_to_int( &d_recvbuf[3], 2);
+         if( (no!=1) && (no!=9) && (no!=17) && (no!=25) && (no!=33) && (no!=41) && (no!=49) && (no!=57) )
+-            {
+-               ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
+-            }
++        {
++            ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
++        }
+ 
+         d_recvbuf[3] = bak[0];
+         d_recvbuf[4] = bak[1];
+         break;
+-        }
+ 
+     case CMD_ID_CD:    // データクリア (CLEAR DATA)
+         if (gu8_f_backup_active == _ON_) // バックアップ中?
+@@ -749,6 +761,23 @@
+
+             ret = SQE_ERR_RES;   // シーケンスエラー(SQE)レスポンス
+             break;
+         }
++        /*F100*/
++        uint8_t i;
++        for (i = 3; i <= 8; i++)
++        {
++            if (!(((d_recvbuf[i] >= '0') && (d_recvbuf[i] <= '9')) ||
++                  ((d_recvbuf[i] >= 'A') && (d_recvbuf[i] <= 'F')) ||
++                  ((d_recvbuf[i] >= 'a') && (d_recvbuf[i] <= 'f'))))
++            {
++                break;
++            }
++        }
++
++        if (i == 9)
++        {
++            break;
++        }
++        ret = PME_ERR_RES; // パラメータエラー(PME)レスポンス
+         break;
+ 
+     case CMD_ID_AD:    // バッテリ電圧補正機能(ADJUST)
+@@ -869,7 +898,9 @@
+
+                 if( (data == 0) || ((50 <= data) && (data <= 70)) )
+                 {
+                     gs_set_parameter_tmp.batt_wng_thd = data;      // バッテリ充電抑止温度閾値
+-                } else {
++                }
++                else
++                {
+                     break;
+                 }
+             }
+@@ -880,7 +911,9 @@
+
+                 if( (data == 0) || ((70 <= data) && (data <= 95)) )
+                 {
+                     gs_set_parameter_tmp.batt_alm_thd = data;      // バッテリ温度異常閾値
+-                } else {
++                }
++                else
++                {
+                     break;
+                 }
+             }
+@@ -891,7 +924,9 @@
+
+                 if( (data == 0) || ((60 <= data) && (data <= 95)) || (data == UINT8_MAX_VALUE_UNDER) )
+                 {
+                     gs_set_parameter_tmp.adu_temp_thd = data;      // AC/DC部の温度警告(ADU_TEMP_WNG)の検出閾値
+-                } else {
++                }
++                else
++                {
+                     break;
+                 }
+             }
+@@ -899,10 +934,12 @@
+
+             if( memcmp(&d_recvbuf[29], FFFF_TBL, 2) != 0 )
+             {
+                 data = aschex_to_int( &d_recvbuf[29], 2);
+-                if( (data == 0) || ((60 <= data) && (data <= 95)) || (data == UINT8_MAX_VALUE_UNDER) )
++                if( (data == 0) || ((60 <= data) && (data <= 100)) || (data == UINT8_MAX_VALUE_UNDER) )
+                 {
+                     gs_set_parameter_tmp.bbu_temp_thd = data;      // BACKUP部の温度警告(BBU_TEMP_WNG)の検出閾値
+-                } else {
++                }
++                else
++                {
+                     break;
+                 }
+             }
+@@ -913,7 +950,9 @@
+
+                 if( (data <= 1230) || (data == UINT16_MAX_VALUE_UNDER) )
+                 {
+                     gs_set_parameter_tmp.fan_wng_thd = data;      // FANの回転停止警告(FAN_WMG)の検出閾値
+-                } else {
++                }
++                else
++                {
+                     break;
+                 }
+             }
+@@ -939,12 +978,16 @@
+
+     {
+         data = aschex_to_int(&d_recvbuf[3], 2);
+         if (data > 99)
++        {
+             break;                       // 年(00-99)
++        }
+         gu8_d_clock_data[0] = (uint8_t) data;
+ 
+         data = aschex_to_int(&d_recvbuf[5], 2);
+         if ((data == 0) || (data > 12))
++        {
+             break;          // 月(01-12)
++        }
+         gu8_d_clock_data[1] = (uint8_t) data;
+ 
+         uint8_t wk = 0;
+@@ -957,22 +1000,30 @@
+
+         }
+         data = aschex_to_int(&d_recvbuf[7], 2);
+         if ((data == 0) || (data > (MONTH_END_TBL[gu8_d_clock_data[1]] + wk)))
++        {
+             break; // 日(01-31)
++        }
+         gu8_d_clock_data[2] = (uint8_t) data;
+ 
+         data = aschex_to_int(&d_recvbuf[9], 2);
+         if (data > 23)
++        {
+             break;                       // 時(00-23)
++        }
+         gu8_d_clock_data[3] = (uint8_t) data;
+ 
+         data = aschex_to_int(&d_recvbuf[11], 2);
+         if (data > 59)
++        {
+             break;                       // 分(00-59)
++        }
+         gu8_d_clock_data[4] = (uint8_t) data;
+ 
+         data = aschex_to_int(&d_recvbuf[13], 2);
+         if (data > 59)
++        {
+             break;                       // 秒(00-59)
++        }
+         gu8_d_clock_data[5] = (uint8_t) data;
+ 
+         ret = CMD_NORMAL;
+@@ -996,7 +1047,10 @@
+
+     do
+     {
+         data = aschex_to_int( &d_recvbuf[3], 3);
+-        if( data > UINT12_MAX_VALUE ) break;
++        if( data > UINT12_MAX_VALUE )
++        {
++            break;
++        }
+         SL_BATT_DEG = data;           // 寿命計算結果
+         ret = CMD_NORMAL;
+     }
+@@ -1030,7 +1084,7 @@
+
+         break;
+ 
+     case CMD_ID_SC:    // 時刻設定 (SET CLOCK)
+-        ret = cmd_sc_proc(d_recvbuf, num);
++        ret = cmd_sc_proc(d_recvbuf, num, response);
+         break;
+ 
+     case CMD_ID_SS:    // 製造情報設定 (SET SERIAL)
+@@ -1060,7 +1114,7 @@
+
+                 gu8_f_susp_cha = TEMP_SUPPRES_3;  // 温度抑止復帰(CHARGE ONコマンドオフ)
+             }
+         }
+-        else if (d_recvbuf[3] == '1')
++        else if (d_recvbuf[3] == '1' && gu8_f_susp_cha != 1 )
+         {
+             gu8_f_charge_on = 1;
+             set_info_evt_errlog(FLAG_CMD_CHARGE_ON,_SET_);
+@@ -1216,7 +1270,9 @@
+
+                 {
+                     *response = CMD_NORMAL;   // CMD_NORMAL;
+ 
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1256,7 +1312,9 @@
+
+                 if( eeprom_write_check(pos) == _OK_ )  // 書込み正常
+                 {
+                     *response = CMD_NORMAL;   // CMD_NORMAL;
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1312,7 +1370,9 @@
+
+                 if( eeprom_write_check(pos) == _OK_ )  // 書込み正常
+                 {
+                     *response = CMD_NORMAL;   // CMD_NORMAL;
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1332,40 +1392,71 @@
+
+  * Arguments    :
+  * Return Value : none
+  *******************************************************************************/
+-uint8_t cmd_sc_proc(uint8_t *d_recvbuf, uint8_t num)
+-{
+-    uint8_t ret = _DONE_;
++uint8_t cmd_sc_proc(uint8_t *d_recvbuf, uint8_t num, uint8_t *response)
++{
++    uint8_t ret = _CONTINUE_;
+     struct tm tm_data;
+-
+-    DL_RTC_Calendar RTCCalendarConfig = { .seconds = gu8_d_clock_data[5], /* Seconds */
+-                                          .minutes = gu8_d_clock_data[4], /* Minute  */
+-                                          .hours = gu8_d_clock_data[3], /* Hour    */
+-                                          .dayOfWeek = 0, /* Day of week = 0 (Sunday) */
+-                                          .dayOfMonth = gu8_d_clock_data[2], /* Day of month */
+-                                          .month = gu8_d_clock_data[1], /* Month   */
+-                                          .year = gu8_d_clock_data[0] + 2000, /* Year */
+-    };
+-    /* Set RTC Calendar */
+-    DL_RTC_initCalendar(RTC, RTCCalendarConfig, DL_RTC_FORMAT_BINARY);
+-
+-    //if( gu8_f_cmd_sc_recv == 0 )
+-    {
+-        gu32_c_cmd_sc_evt_delay = TIMER_2000ms;  // イベントDelayタイマ 2秒
+-    }
+-
+-    // OFF期間データ用
+-    tm_data.tm_year  = RTCCalendarConfig.year-1900;  /* 1900年からの年 */
+-    tm_data.tm_mon   = RTCCalendarConfig.month-1;     /* 月(0～11) */
+-    tm_data.tm_mday  = RTCCalendarConfig.dayOfMonth; /* 日(1～31) */
+-    tm_data.tm_hour  = RTCCalendarConfig.hours;      /* 時(0～23) */
+-    tm_data.tm_min   = RTCCalendarConfig.minutes;     /* 分(0～59) */
+-    tm_data.tm_sec   = RTCCalendarConfig.seconds;     /* 秒(0～59) */
+-    tm_data.tm_isdst = 0;  /* 夏時間フラグ(採用:>0,不採用:0,不明:<0)  */
+-
+-    //time_t構造体に変換
+-    gt_otd_ac_on_time = mktime(&tm_data);
+-
+-    gu8_f_cmd_sc_recv = 1;      // 時刻設定 (SET CLOCK)受信フラグON
++    static uint8_t pos;
++/*F115*/
++    switch( gu8_cmd_sc_proc_stage )
++    {
++    case 0:
++    {
++        DL_RTC_Calendar RTCCalendarConfig = { .seconds = gu8_d_clock_data[5], /* Seconds */
++                                              .minutes = gu8_d_clock_data[4], /* Minute  */
++                                              .hours = gu8_d_clock_data[3], /* Hour    */
++                                              .dayOfWeek = 0, /* Day of week = 0 (Sunday) */
++                                              .dayOfMonth = gu8_d_clock_data[2], /* Day of month */
++                                              .month = gu8_d_clock_data[1], /* Month   */
++                                              .year = gu8_d_clock_data[0] + 2000, /* Year */
++        };
++        /* Set RTC Calendar */
++        DL_RTC_initCalendar(RTC, RTCCalendarConfig, DL_RTC_FORMAT_BINARY);
++
++        //if( gu8_f_cmd_sc_recv == 0 )
++        {
++            gu32_c_cmd_sc_evt_delay = TIMER_2000ms;  // イベントDelayタイマ 2秒
++        }
++
++        // OFF期間データ用
++        tm_data.tm_year  = RTCCalendarConfig.year-1900;  /* 1900年からの年 */
++        tm_data.tm_mon   = RTCCalendarConfig.month-1;     /* 月(0～11) */
++        tm_data.tm_mday  = RTCCalendarConfig.dayOfMonth; /* 日(1～31) */
++        tm_data.tm_hour  = RTCCalendarConfig.hours;      /* 時(0～23) */
++        tm_data.tm_min   = RTCCalendarConfig.minutes;     /* 分(0～59) */
++        tm_data.tm_sec   = RTCCalendarConfig.seconds;     /* 秒(0～59) */
++        tm_data.tm_isdst = 0;  /* 夏時間フラグ(採用:>0,不採用:0,不明:<0)  */
++
++        //time_t構造体に変換
++        gt_otd_ac_on_time = mktime(&tm_data);
++        *(time_t*)&g_eeprom_data.set_clock.time = gt_otd_ac_on_time;  // 保存
++        gu8_f_cmd_sc_recv = 1;      // 時刻設定 (SET CLOCK)受信フラグON
++        pos = eeprom_write_request( EEPROM_SC_POS , sizeof(set_clock_t), 0 );
++        gu8_cmd_sc_proc_stage = 1;
++        break;
++    }
++    case 1:
++        if( eeprom_req_busy == 0 )
++        {
++            if( eeprom_write_check(pos) == _OK_ )  // 書込み正常
++            {
++               *response = CMD_NORMAL;   // CMD_NORMAL;
++            }
++            else
++            {
++               *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
++            }
++            ret = _DONE_;
++            gu8_cmd_sc_proc_stage = 0;
++        }
++        break;
++
++    default :
++        gu8_cmd_sc_proc_stage = 0;
++        break;
++
++    }
++
+ 
+     return ret;
+ }
+@@ -1406,7 +1497,9 @@
+
+                 if( eeprom_write_check(pos) == _OK_ )  // 書込み正常
+                 {
+                     *response = CMD_NORMAL;   // CMD_NORMAL;
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1449,7 +1542,9 @@
+
+                 {
+                     *response = CMD_NORMAL;   // CMD_NORMAL;
+                     gu8_f_otd_batt_deg_set = _ON_;    // バッテリ劣化度_更新
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1476,8 +1571,6 @@
+
+ 
+     switch( gu8_cmd_bc_proc_stage )
+     {
+-
+-
+         case 0:    // DCIRリクエスト送信
+             gu8_f_dcir_request = 1;    // タイムアウト時に落とす必要ありそう
+             gu8_cmd_bc_proc_stage = 1;
+@@ -1503,8 +1596,9 @@
+
+     if (d_recvbuf[3] == '0')
+     {
+         set_info_evt_errlog(FLAG_BATT_CHECK,_RESET_);
+-    }else if(d_recvbuf[3] == '1'){
+-
++    }
++    else if(d_recvbuf[3] == '1')
++    {
+         set_info_evt_errlog(FLAG_BATT_CHECK,_SET_);
+     }
+     return ret;
+@@ -1576,7 +1670,8 @@
+
+         gu32_c_bat_connect_time = 0;         // バッテリ接続時間タイマー(1h)
+         gu32_c_bat_temp_ave_sek = 0;         // バッテリ積算温度/平均温度タイマー(1h)
+         gu16_c_bat_temp_calc = 0;            // バッテリ温度平均算出用タイマー(1m)
+-        gu16_bat_temp_1h_sum = 0;            // バッテリ温度算出用合計値(※最大で、1minごと合計60データとして変数型を想定)
++        //gu16_bat_temp_1h_sum = 0;            // バッテリ温度算出用合計値(※最大で、1minごと合計60データとして変数型を想定)
++        gi16_bat_temp_1h_sum = 0;            /* S1.14 150F対策 */
+         gu8_c_bat_temp_1h_sum_sample = 0;    // バッテリ温度算出用合計値_サンプル数
+ 
+ 
+@@ -1602,8 +1697,6 @@
+
+ 
+     }
+ 
+-
+-
+     /*** 共通処理 ***/
+     // 寿命診断データ
+     gs_life_diag_data.batt_check_mode = 0;    // バッテリ測定モード
+@@ -1615,10 +1708,10 @@
+
+     gs_life_diag_data.batt_ir_soc_mah = 0;    // バッテリ測定SOC(mAh)
+     gs_life_diag_data.batt_ir = 0;            // バッテリのDCIR
+ 
+-    set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 満充電(充電完了)イベント リセット
++    //set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 満充電(充電完了)イベント リセット
+     gu8_f_cd_cmd_rcv = 1;    // CDコマンド受信フラグ(バッテリ異常解除通知用)
+ 
+-    gu8_f_charge_ok_clear = 1;    // CHARGE_OK クリアコマンド(充電開始用)
++   // gu8_f_charge_ok_clear = 1;    // CHARGE_OK クリアコマンド(充電開始用)
+ 
+     return _DONE_;
+ }
+@@ -1676,6 +1769,7 @@
+
+     static uint8_t pos;
+     uint8_t ret = _CONTINUE_;
+ 
++#ifndef _S114_DEBUG_
+     switch( gu8_cmd_ad_proc_stage )
+     {
+         case 0:
+@@ -1695,11 +1789,13 @@
+
+                         gf_cmd_ad_val = 0.0;
+                     }
+ 
+-                    if( gu8_cmd_ad_position == 1 ){
++                    if( gu8_cmd_ad_position == 1 )
++                    {
+                         g_eeprom_data.dischg_i.point1 = gf_cmd_ad_val;
+                         g_eeprom_data.dischg_i.ad1 = gu16_ADC1_Sens[0];
+                     }
+-                    else if( gu8_cmd_ad_position == 2 ){
++                    else if( gu8_cmd_ad_position == 2 )
++                    {
+                         g_eeprom_data.dischg_i.point2 = gf_cmd_ad_val;
+                         g_eeprom_data.dischg_i.ad2 = gu16_ADC1_Sens[0];
+                     }
+@@ -1718,11 +1814,13 @@
+
+                         gf_cmd_ad_val = 0.0;
+                     }
+ 
+-                    if( gu8_cmd_ad_position == 1 ){
++                    if( gu8_cmd_ad_position == 1 )
++                    {
+                         g_eeprom_data.batt_v.point1 = gf_cmd_ad_val;
+                         g_eeprom_data.batt_v.ad1 = gu16_ADC1_Sens[1];
+                     }
+-                    else if( gu8_cmd_ad_position == 2 ){
++                    else if( gu8_cmd_ad_position == 2 )
++                    {
+                         g_eeprom_data.batt_v.point2 = gf_cmd_ad_val;
+                         g_eeprom_data.batt_v.ad2 = gu16_ADC1_Sens[1];
+                     }
+@@ -1741,11 +1839,13 @@
+
+                         gf_cmd_ad_val = 0.0;
+                     }
+ 
+-                    if( gu8_cmd_ad_position == 1 ){
++                    if( gu8_cmd_ad_position == 1 )
++                    {
+                         g_eeprom_data.acdc12v_v.point1 = gf_cmd_ad_val;
+                         g_eeprom_data.acdc12v_v.ad1 = gu16_ADC1_Sens[2];
+                     }
+-                    else if( gu8_cmd_ad_position == 2 ){
++                    else if( gu8_cmd_ad_position == 2 )
++                    {
+                         g_eeprom_data.acdc12v_v.point2 = gf_cmd_ad_val;
+                         g_eeprom_data.acdc12v_v.ad2 = gu16_ADC1_Sens[2];
+                     }
+@@ -1764,11 +1864,13 @@
+
+                         gf_cmd_ad_val = 0.0;
+                     }
+ 
+-                    if( gu8_cmd_ad_position == 1 ){
++                    if( gu8_cmd_ad_position == 1 )
++                    {
+                         g_eeprom_data.batt_chg.point1 = gf_cmd_ad_val;
+                         g_eeprom_data.batt_chg.ad1 = gu16_ADC0_Sens[6];
+                     }
+-                    else if( gu8_cmd_ad_position == 2 ){
++                    else if( gu8_cmd_ad_position == 2 )
++                    {
+                         g_eeprom_data.batt_chg.point2 = gf_cmd_ad_val;
+                         g_eeprom_data.batt_chg.ad2 = gu16_ADC0_Sens[6];
+                     }
+@@ -1787,11 +1889,13 @@
+
+                         gf_cmd_ad_val = 0.0;
+                     }
+ 
+-                    if( gu8_cmd_ad_position == 1 ){
++                    if( gu8_cmd_ad_position == 1 )
++                    {
+                         g_eeprom_data._12vout_v.point1 = gf_cmd_ad_val;
+                         g_eeprom_data._12vout_v.ad1 = gu16_ADC0_Sens[4];
+                     }
+-                    else if( gu8_cmd_ad_position == 2 ){
++                    else if( gu8_cmd_ad_position == 2 )
++                    {
+                         g_eeprom_data._12vout_v.point2 = gf_cmd_ad_val;
+                         g_eeprom_data._12vout_v.ad2 = gu16_ADC0_Sens[4];
+                     }
+@@ -1836,9 +1940,7 @@
+
+                             }
+                             else
+                             {
+-
+                                 gf_cmd_ad_after_correction_slope = ((g_eeprom_data.batt_v.point1 - g_eeprom_data.batt_v.point2) / 1)*1000;         // BATT_V AD(1)値係数(mV単位)
+-
+                             }
+                             break;
+ 
+@@ -1883,7 +1985,9 @@
+
+                     }
+                     gf_cmd_ad_calculated_value = gf_cmd_ad_after_correction_slope  * gu16_cmd_ad_set_ad_val;
+ 
+-                } else {
++                }
++                else
++                {
+                     *response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+                 ret = _DONE_;
+@@ -1895,6 +1999,8 @@
+
+             gu8_cmd_ad_proc_stage= 0;
+             break;
+     }
++#endif
++
+     return ret;
+ }
+ 
+@@ -1990,7 +2096,6 @@
+
+         break;
+ 
+     case CMD_ID_BC:    // 寿命診断実行 (BATT CHECK)
+-
+         set_info_evt_errlog(FLAG_BATT_CHECK,_RESET_);
+         gu8_d_sendbuf[0] = STX;             // STX
+         gu8_d_sendbuf[1] = d_recvbuf[1];    // 受信CMD ID
+@@ -2004,8 +2109,8 @@
+
+         break;
+ 
+     case CMD_ID_D0:    // 全データ取得 (GET DATA0)
+-
+         // 寿命計算データ_レスポンス作成
++#if 0 /* S1.14 CHARGE_DATAの判断基準をchgsocからsocに変更 */
+         if( gu8_alm_type_batt_err != 0 )
+         {
+             gs_life_calc_data.charge_data = 0;      // バッテリ充電量データ
+@@ -2014,8 +2119,46 @@
+
+         {
+             gs_life_calc_data.charge_data = 1;      // バッテリ充電量データ
+         }
++        if( gs_life_calc_data.charge_data == 0 )
++        {
++            life_clac_data_Clear();
++        }
++        else
++        {
++            gs_life_calc_data.batt_temp = gi16_ad_battery_temp / 10;        // バッテリ温度
++            gs_life_calc_data.batt_deg = g_eeprom_data.set_life.batt_deg;         // バッテリ劣化度
++        }
++#endif
++        if( gu8_alm_type_batt_err != 0 )
++        {
++            gs_life_calc_data.charge_data = 0;      /* フラグCHARGE_DATAをリセット */
++            gs_life_calc_data.charge_end  = 0;      /* フラグCHARGE_ENDをリセット */
++        }
++        else
++        {
++            if( gi8_d_soc_mah > 0 )
++            {
++                gs_life_calc_data.charge_data = 1;  /* フラグCHARGE_DATAをセット */
++            }
++            else
++            {
++                gs_life_calc_data.charge_data = 0;  /* フラグCHARGE_DATAをリセット */
++            }
++        }
++
++        /* batt_chargeの値はフラグCHARGE_DATAに連動する */
++        if( gs_life_calc_data.charge_data == 0 )
++        {
++            gs_life_calc_data.batt_charge = 0;
++        }
++        else
++        {
++            gs_life_calc_data.batt_charge = gf_jcd_ttl_chg_soc / 49;
++        }
++
++        /* バッテリ温度とバッテリ劣化度はコマンド受信時の瞬時値を返す */
+         gs_life_calc_data.batt_temp = gi16_ad_battery_temp / 10;        // バッテリ温度
+-        gs_life_calc_data.batt_deg = g_eeprom_data.set_life.batt_deg;         // バッテリ劣化度
++        gs_life_calc_data.batt_deg  = g_eeprom_data.set_life.batt_deg;  // バッテリ劣化度
+ 
+         gu8_d_sendbuf[0] = STX;             // STX
+         gu8_d_sendbuf[1] = d_recvbuf[1];    // 受信CMD ID
+@@ -2049,7 +2192,6 @@
+
+         break;
+ 
+     case CMD_ID_D3:    // 通常寿命計算用 (GET DATA3)
+-
+         // 寿命計算データ_レスポンス作成
+         if( gu8_alm_type_batt_err != 0 )
+         {
+@@ -2059,8 +2201,15 @@
+
+         {
+             gs_life_calc_data.charge_data = 1;      // バッテリ充電量データ
+         }
+-        gs_life_calc_data.batt_temp = gi16_ad_battery_temp / 10;        // バッテリ温度
+-        gs_life_calc_data.batt_deg = g_eeprom_data.set_life.batt_deg;         // バッテリ劣化度
++        if( gs_life_calc_data.charge_data == 0 )
++        {
++            life_clac_data_Clear();
++        }
++        else
++        {
++            gs_life_calc_data.batt_temp = gi16_ad_battery_temp / 10;        // バッテリ温度
++            gs_life_calc_data.batt_deg = g_eeprom_data.set_life.batt_deg;         // バッテリ劣化度
++        }
+ 
+         gu8_d_sendbuf[0] = STX;             // STX
+         gu8_d_sendbuf[1] = d_recvbuf[1];    // 受信CMD ID
+@@ -2116,7 +2265,6 @@
+
+         gu8_d_sendbuf[1] = d_recvbuf[1];    // 受信CMD ID
+         gu8_d_sendbuf[2] = d_recvbuf[2];
+ 
+-
+         uint8_t offset;
+         uint8_t tmp[2];
+ 
+@@ -2173,21 +2321,21 @@
+
+ 
+         p_flash = (volatile uint8_t *)fw_addr;
+ 
+-        if ((fw_addr < FW_READ_START) ||
+-                    (fw_addr + 31 > FW_READ_END)){       //メモリ範囲外の場合
++        if ((fw_addr < FW_READ_START) || (fw_addr + 31 > FW_READ_END))  //メモリ範囲外の場合
++        {
+             for (int i = 0; i < 32; i++)
+             {
+                 byte_to_hex_ascii(0xFF, &gu8_d_sendbuf[fd_data]);  //FFで埋める
+-            fd_data += 2;
+-            }
+-        }
+-        else{
+-
++                fd_data += 2;
++            }
++        }
++        else
++        {
+             for (int i = 0; i < 32; i++)
+-           {
+-               byte_to_hex_ascii(p_flash[i], &gu8_d_sendbuf[fd_data]);
+-               fd_data += 2;
+-           }
++            {
++                byte_to_hex_ascii(p_flash[i], &gu8_d_sendbuf[fd_data]);
++                fd_data += 2;
++            }
+         }
+         gu8_d_sendbuf[fd_data++] = ETX;
+         bcc = calc_bcc(gu8_d_sendbuf, fd_data);                  // BCC
+@@ -2266,7 +2414,7 @@
+
+         gu8_d_sendbuf[144] = bcc >> 8;
+         gu8_d_sendbuf[145] = bcc & 0xff;
+         ret = 146;                                      // 送信数
+-         break;
++        break;
+ 
+     case CMD_ID_FF:    // 未定義
+     default:
+@@ -2682,9 +2830,9 @@
+
+     memcpy(&d_sndbuf[27], data, 4);
+     int_to_aschex( SEK_BATT_CHARGE_COUNT, data, 3);     // バッテリ総充電回数
+     memcpy(&d_sndbuf[31], data, 3);
+-    int_to_aschex( SEK_BATT_TTL_DISCHARGE, data, 6);    // バッテリ総放電量
++    int_to_aschex( (uint32_t)(SEK_BATT_TTL_DISCHARGE + 0.5f), data, 6);    // バッテリ総放電量
+     memcpy(&d_sndbuf[34], data, 6);
+-    int_to_aschex( SEK_BATT_TTL_CHARGE, data, 6);       // バッテリ総充電量
++    int_to_aschex( (uint32_t)(SEK_BATT_TTL_CHARGE + 0.5f), data, 6);       // バッテリ総充電量
+     memcpy(&d_sndbuf[40], data, 6);
+     int_to_aschex( SEK_TOTAL_BATT_TEMP, data, 6);       // バッテリ積算温度
+     memcpy(&d_sndbuf[46], data, 6);
+@@ -2829,11 +2977,11 @@
+
+                // eeprom_write_request( EEPROM_BATT_POS, 112, 0 );
+                 data_info_common.gu8_f_fw_update_mode = 1;//gu8_f_fw_update_mode;
+                 jumpBoot();
+-            }else
++            }
++            else
+             {
+                 ret=_CONTINUE_;
+             }
+-
+ 
+ #if 0
+             gu8_proc_stage = 0;
+@@ -2882,28 +3030,27 @@
+
+  * Arguments    : None
+  * Return Value : None
+  *******************************************************************************/
+-void set_err_log_data(uint8_t *d_sndbuf,uint8_t d_sndbuf2){
++void set_err_log_data(uint8_t *d_sndbuf,uint8_t d_sndbuf2)
++{
+     uint8_t data[3];
+ 
+     uint8_t wp = g_eeprom_data.error_log_index.error_log_writepointer;
+ 
+-    for(int i=0;i<8;i++){
+-
+-
+-      uint8_t idx =(wp + ERROR_LOG_COUNT - d_sndbuf2 - i) % ERROR_LOG_COUNT;
+-
+-      int_to_aschex( g_eeprom_data.error_log_data[idx].year, data, 2);
+-      memcpy(&d_sndbuf[i*10+0], data, 2);
+-      int_to_aschex( g_eeprom_data.error_log_data[idx].month, data, 2);
+-      memcpy(&d_sndbuf[i*10+2], data, 2);
+-      int_to_aschex( g_eeprom_data.error_log_data[idx].day , data, 2);
+-      memcpy(&d_sndbuf[i*10+4], data, 2);
+-      int_to_aschex(  g_eeprom_data.error_log_data[idx].hour, data, 2);
+-      memcpy(&d_sndbuf[i*10+6], data, 2);
+-      int_to_aschex( g_eeprom_data.error_log_data[idx].id, data, 2);
+-      memcpy(&d_sndbuf[i*10+8], data, 2);
+-    }
+-
++    for(int i=0;i<8;i++)
++    {
++        uint8_t idx =(wp + ERROR_LOG_COUNT - d_sndbuf2 - i) % ERROR_LOG_COUNT;
++
++        int_to_aschex( g_eeprom_data.error_log_data[idx].year, data, 2);
++        memcpy(&d_sndbuf[i*10+0], data, 2);
++        int_to_aschex( g_eeprom_data.error_log_data[idx].month, data, 2);
++        memcpy(&d_sndbuf[i*10+2], data, 2);
++        int_to_aschex( g_eeprom_data.error_log_data[idx].day , data, 2);
++        memcpy(&d_sndbuf[i*10+4], data, 2);
++        int_to_aschex(  g_eeprom_data.error_log_data[idx].hour, data, 2);
++        memcpy(&d_sndbuf[i*10+6], data, 2);
++        int_to_aschex( g_eeprom_data.error_log_data[idx].id, data, 2);
++        memcpy(&d_sndbuf[i*10+8], data, 2);
++    }
+ }
+ 
+ /*******************************************************************************
+@@ -2912,26 +3059,27 @@
+
+  * Arguments    : None
+  * Return Value : None
+  *******************************************************************************/
+-void set_ope_log_data(uint8_t *d_sndbuf,uint8_t d_sndbuf2){
++void set_ope_log_data(uint8_t *d_sndbuf,uint8_t d_sndbuf2)
++{
+     uint8_t data[3];
+ 	
+     uint8_t wp = g_eeprom_data.operate_log_index.operate_log_writepointer;
+ 	
+ 	
+-    for(int i=0;i<8;i++){
+-
+-      uint8_t idx =(wp + OPERATE_LOG_COUNT - d_sndbuf2 - i) % OPERATE_LOG_COUNT;
+-
+-      int_to_aschex( g_eeprom_data.operate_log_data[idx].year, data, 2);
+-      memcpy(&d_sndbuf[i*10+0], data, 2);
+-      int_to_aschex( g_eeprom_data.operate_log_data[idx].month, data, 2);
+-      memcpy(&d_sndbuf[i*10+2], data, 2);
+-      int_to_aschex( g_eeprom_data.operate_log_data[idx].day , data, 2);
+-      memcpy(&d_sndbuf[i*10+4], data, 2);
+-      int_to_aschex(  g_eeprom_data.operate_log_data[idx].hour, data, 2);
+-      memcpy(&d_sndbuf[i*10+6], data, 2);
+-      int_to_aschex( g_eeprom_data.operate_log_data[idx].id, data, 2);
+-      memcpy(&d_sndbuf[i*10+8], data, 2);
++    for(int i=0;i<8;i++)
++    {
++        uint8_t idx =(wp + OPERATE_LOG_COUNT - d_sndbuf2 - i) % OPERATE_LOG_COUNT;
++
++        int_to_aschex( g_eeprom_data.operate_log_data[idx].year, data, 2);
++        memcpy(&d_sndbuf[i*10+0], data, 2);
++        int_to_aschex( g_eeprom_data.operate_log_data[idx].month, data, 2);
++        memcpy(&d_sndbuf[i*10+2], data, 2);
++        int_to_aschex( g_eeprom_data.operate_log_data[idx].day , data, 2);
++        memcpy(&d_sndbuf[i*10+4], data, 2);
++        int_to_aschex(  g_eeprom_data.operate_log_data[idx].hour, data, 2);
++        memcpy(&d_sndbuf[i*10+6], data, 2);
++        int_to_aschex( g_eeprom_data.operate_log_data[idx].id, data, 2);
++        memcpy(&d_sndbuf[i*10+8], data, 2);
+     }
+ }
+ 
+@@ -2955,21 +3103,32 @@
+
+  * Arguments    : None
+  * Return Value : None
+  *******************************************************************************/
+- uint32_t proc_cmd_fd(uint8_t *addr_buf){
+-
++ uint32_t proc_cmd_fd(uint8_t *addr_buf)
++ {
+     uint32_t fw_addr = 0;
+ 
+     for (int i = 0; i < 6; i++)
+-       {
+-           fw_addr <<= 4;
+-           fw_addr |= hex2val(addr_buf[i]);
+-
+-       }
+-
+-return fw_addr;
+-
+-}
+-
++    {
++        fw_addr <<= 4;
++        fw_addr |= hex2val(addr_buf[i]);
++    }
++
++    return fw_addr;
++}
++ /*******************************************************************************
++  * Function Name:  life_clac_data_Clear()
++  * Description  :
++  * Arguments    : None
++  * Return Value : None
++  *******************************************************************************/
++ void life_clac_data_Clear(void)
++ {
++     //gs_life_calc_data.charge_data = 0;
++     gs_life_calc_data.charge_end  = 0;
++     gs_life_calc_data.batt_charge = 0;
++     gs_life_calc_data.batt_temp   = 0;
++    // gs_life_calc_data.batt_deg    = 0;
++ }
+ /*******************************************************************************
+  * Function Name: tx_proc()
+  * Description  : UART TX処理
+@@ -3033,18 +3192,14 @@
+
+  *******************************************************************************/
+ void update_wait(void)
+ {
+-    if(data_info_common.gu8_f_fw_update_mode == 1){
+-
+-        if(eeprom_req_busy==0){
+-
++    if(data_info_common.gu8_f_fw_update_mode == 1)
++    {
++        if(eeprom_req_busy==0)
++        {
+             jumpBoot();
+         }
+     }
+-
+-}
+-
+-
+-
++}
+ 
+ /*******************************************************************************
+  * Function Name: uart_send_req()
+@@ -3112,7 +3267,9 @@
+
+         bcc ^= dt;
+         //if( (dt == ETX) && (ii >= len) ) break;
+         if (ii >= len)
+-            break;
++        {
++            break;
++        }
+     }
+     int_to_aschex(bcc, tmp, 2);
+     bcc_char = (tmp[0] << 8) + tmp[1];
+@@ -3127,7 +3284,6 @@
+
+  *******************************************************************************/
+ uint8_t bit_to_aschex(uint8_t value)
+ {
+-
+     uint8_t n = value & 0x0f;
+ 
+     if (n <= 9)
+@@ -3326,7 +3482,7 @@
+
+     if(( pi_high_i_of_h.trg != _TRG_ON_ )&&(gu8_f_12v_oc_off_h!=1))
+     {
+ 
+-            if( (gu8_f_cmd_sc_recv == 0) ||  // 時刻設定(SET CLOCK)未受信時はイベント送信しない
++        if( (gu8_f_cmd_sc_recv == 0) ||  // 時刻設定(SET CLOCK)未受信時はイベント送信しない
+             (SP_EVENT == _DISABLE_) ||   // イベント送信設定=無効
+             ((gu8_f_ps_on == _OFF_))       // PS_ON=OFF
+         )
+@@ -3335,7 +3491,6 @@
+
+             return;
+         }
+     }
+-
+ 
+     if( gu32_c_cmd_sc_evt_delay != 0 )  // 時刻設定(SET CLOCK)受信してからD1受信するまでの2秒はイベント送信しない
+     {
+@@ -3374,7 +3529,9 @@
+
+                     {
+                         pt3[ii] = pt1[ii] ^ pt2[ii];    // 変化点作成
+                     }
+-                } else {
++                }
++                else
++                {
+                     pt3[0] = 0x03; // 全変化点 ON
+                     pt3[1] = 0x03;
+                     pt3[2] = 0x07;
+@@ -3417,11 +3574,11 @@
+
+         case 2:
+             //if( --c_timer != 0 )
+             //{
+-                if (send_complete_check(gu8_pos) == 0)
+-                {
+-                    c_timer = RES_WAIT_TIMER; // 200ms
+-                    //gu8_f_ent_ack_nak_rcv = 0;    // 応答データクリア
+-                    gu8_evt_proc_stage = 3;
++            if (send_complete_check(gu8_pos) == 0)
++            {
++                c_timer = RES_WAIT_TIMER; // 200ms
++                //gu8_f_ent_ack_nak_rcv = 0;    // 応答データクリア
++                gu8_evt_proc_stage = 3;
+             }
+             //} else {                       // タイムオーバー
+             //}
+@@ -3475,4 +3632,3 @@
+
+             break;
+     }
+ }
+-

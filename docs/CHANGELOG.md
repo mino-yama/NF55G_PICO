@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 2026-11-19 50A/50mVシャントの換算を親Picoへ実装
+
+- ユーザー回答でシャント50A/50mV（1mΩ）、取得mV、換算担当Picoが確定。電流2系統はmVの数値をそのままAにする。BATT_VはVを維持。
+- `calibration_measurement.py`でmV保持と`get_calibration(token)`を追加。原文/元単位を保持し、換算候補をコピーで返す。誤単位を拒否し、浮動小数点演算・丸め・自動測定・AD送信を行わない。
+- `test_calibration_measurement.py`に換算・単位・精度・失効・Mock無送信の6件を追加し、関連仕様とCAL-EXT-02の回答済み範囲を更新。正式ATE/Host接続・AD表現・実機検証は残る。[詳細](ADC_Calibration_Development_20261119.md)。
+- Host Unit/Mockの全375件成功（9.164秒）。追加後ログは別名保存し、前回ログを保持した。
+
+## 2026-11-19 ADC校正治具の開発継続と測定Cache基盤
+
+- ユーザー指示により新製品FWへの追従変更保留とADC治具開発継続を区別。必須対象3系統×2点、12VOUT_I固定係数の扱い、OI-17/OI-19とNF54G資料の区別を記録。
+- `calibration_measurement.py`と`FixtureApp.measurements`を追加。試行/取得/対象/点の照合、再取得前の破棄、遅着/重複拒否、TEST_START/再START/TEST_END成立との連動、原文/数値文字列の保持とコピー保護を実装。
+- 単体/Mock統合テスト15件を追加。正式ATEコマンド/親子UART/CDC/換算/AD送信は未追加、実機配置・製品FW/GitHub Issuesの変更なし。未回答IssueはCloseしない。[実装範囲と検証ログ](ADC_Calibration_Development_20261119.md)。
+- Host Unit/Mockを含む全369件成功（7.521秒）。今回変更した追跡ファイルのdiff空白チェック成功。
+
+## 2026-11-16 7355コマンドはATE指定ASCIIを中継する方針へ整理
+
+- ユーザー方針によりDMMのSCPI・設定/測定順序をATE担当、親を要求相関/中継/Cache、HostをCDC送受信とする分担を明記。任意ASCII応答と校正用の明示測定Cacheを区別し、取得→ATE確認→別書込み・完了/TEST_ENDで破棄を維持する。
+- CDC成立後の設定/測定、親経由中継、異常/復帰、QR共存、校正/読戻しのデバッグ工程を追加。正式中継API・数値変換等は未確定、IS状態は変更なし。文書のみ、コード/FW/実機操作・Host/Mockなし。[分担とデバッグ計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。
+
+## 2026-11-16 RP2350-USB-A端子位置とUART監視配線を図面化
+
+- メーカー回路図P1とピン配置図を照合し、部品面・裏面の全18端子番号/GPIO位置、GP0/GP1/GND/5V/3V3、監視用TX→RX配線と後工程の親接続案をA4横3枚のPDF/SVG/PNGへ整理。試作完了後にはんだ付けするユーザー予定を注記。
+- 18端子の一意性、文字/参照先/原典hashと3ページ描画を確認。図面生成scriptと記録のみ、IS状態・FW/実配線は変更せず、Host/Mock・実機試験なし。[図面一覧](drawings/RP2350_USB_A_Pinout_20261116_Rev0/README.md)。
+
 ## 2026-11-16 CDC Host単体仕様とUART監視手順を整理
 
 - PC成功条件をPIO Hostで再現する初回範囲を、専用FW/列挙/CDC設定/IDN、その後に電圧/レンジ確認の順として整理。追加HostのGP0診断TX→3.3V adapter RXD/GND、115200/8N1案、外部5VとPC書込みモードを分離する配線条件を記録。
@@ -962,3 +986,17 @@ qr-fixed-20261114.1／A06FEA01012EC137。電源ONからRSTなしのQR自動認�
 ## 2026-11-14 QR／7355 Host基板の分離を採用
 
 ユーザー指示により7355用Host基板を追加し、QR用と親Picoへの接続経路を分離する方針へ変更。既存QR基板Type_C1の改造・CC切替案と写真依頼は取り下げ、旧案は履歴として保持。構成方針書、既存計画の最新注記、親インターフェース設計条件・段階試験計画を更新しUSB-SUB-05を追加。USB-SUB-03は旧構成課題としてOpen維持。コード／FW・基板の変更、購入操作・追加実機試験なし。[現行方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。
+
+## 2026-11-18 S1.15_r1 新旧FW静的レビュー
+- ユーザー指定S1.13/S1.15_r1をreference/FW_Review_S1.15_r1_20261118へ全件保管。既存ファイル削除なし。全172ファイルの原本/コピーSHA-256一致。
+- docs/S1.15_r1へOI照合、機能差分、全ファイル一覧・テキスト差分・試験ログを追加。
+- Open_IssuesへAR表現の確認事実とS115-01〜04を追記。既存IssueはCloseしない。
+- Host Unit / Mock NF55G: python -m unittest discover -s tests -v、354件成功。NF55G再ビルド・実機試験は未実施。Picoコード/仕様変更なし。
+
+### S1.15_r1 治具側影響の追加確認（2026-11-18）
+- docs/S1.15_r1/Fixture_Impact_20261118.mdを追加。現行デコード・コマンド入口と照合し、直ちに必要なPico修正は未特定。D0取得順序、SC応答時間、新FW版照合、ATE期待値、AD/AR正式実装の前提を整理。
+- 現行関数の直接確認5項目成功。Picoコード変更なし。新FW実機・ATEコードは未検証。
+
+### 2026-11-18 S1.15_r1検証の工程割当て
+- docs/S1.15_r1/Verification_Schedule_20261118.mdにV01〜09の工程・担当区分・前提・完了証跡を登録。現行Development_StepsとImplementation_Planへ参照追記。
+- Fixture_Impactの確認事項を段階1/4/5/6へ配置。日程は工程順で管理し、製品FW設計回答と治具検証を分担。計画文書のみのためテスト再実行なし。

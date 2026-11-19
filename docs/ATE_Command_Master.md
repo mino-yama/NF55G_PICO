@@ -1,5 +1,9 @@
 # ATE Command Master
 
+2026-11-19 ADC校正治具の開発継続: 新製品FWへの追従変更保留と、ADC校正機能の開発を区別する。必須対象はDISCHG_I/BATT_CHG/BATT_VのA/B各2点。測定Cacheの内部基盤とTEST_START/TEST_END連動を追加したが、正式ATE取得/照会/Cache利用AD書込みコマンドは未追加。以下の未実装記述は中継・正式入口について引き続き有効。[確定事項・実装境界・残事項](ADC_Calibration_Development_20261119.md)。
+
+2026-11-16 DMMのASCII制御担当（未実装）: ユーザー方針により7355のSCPI文字列・設定/測定手順はATE側が担当し、親PicoはDMM宛て中継要求の本文をHostへ渡して応答をATEへ返す。治具自身/NF55G/DMMの宛先、応答有無・終端・timeout・取得相関を明示する正式フレームは今後定義する。親/Hostがレンジ・測定コマンドを自動追加しない。生応答と校正用Cache採用は区別し、明示測定取得→Cache→ATE確認→別書込みを維持。[責任分担とデバッグ計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。
+
 2026-11-14取得Cacheの破棄条件（未実装）: DMM/QRとも書込み完了時に使用Cacheを破棄し、TEST_END時に当該試行の全取得Cache・未完了要求を失効させる。終了後の遅着で復活させず、破棄後の再書込みには再取得とATE確認を必要とする。成否不明はHard Rule 15に従いINVALID。ログ履歴は保持。完了単位等の残事項は[取得値書込み要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)を参照。
 
 2026-11-14追加要件（未実装）: DMM/QRは読取り指令→取得Cache保存・ATE返却→ATE確認→別の明示書込み指令でCache値をNF55Gへ付加する。数値直接指定の既存方式も維持する。取得だけの自動書込みと、Cache利用書込み時の再取得は行わない。対象・試行・取得との対応がないINVALID CacheではNF55Gへ送信せずエラーとする。正式なコマンド名/引数/IDは未確定。[確定フローと残事項](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。以下の既存コマンドが実装変更済みという意味ではない。

@@ -1,0 +1,302 @@
+--- S1.13/NF55_eeprom.c
+
++++ S1.15_r1/NF55_eeprom.c
+
+@@ -120,20 +120,27 @@
+
+                 if( remain >= 16 )
+                 {
+                     len = 16;
+-                } else {
++                }
++                else
++                {
+                     len = remain;
+                 }
+-            } else {
++            }
++            else
++            {
+                 len = 1;
+             }
+             memcpy( &gTxPacket[1], &p_write_eeprom[pos+offset], len );
+             gTxLen = len + 1;
+             gTxCount = DL_I2C_fillControllerTXFIFO(I2C_0_INST, &gTxPacket[0], gTxLen);
+             // Enable TXFIFO trigger interrupt if there are more bytes to send
+-            if (gTxCount < gTxLen) {
++            if (gTxCount < gTxLen)
++            {
+                 DL_I2C_enableInterrupt(
+                     I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+-            } else {
++            }
++            else
++            {
+                 DL_I2C_disableInterrupt(
+                     I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+             }
+@@ -164,7 +171,9 @@
+
+                     {
+                         eeprom_write_wait = 0;
+                         gu8_eeprom_write_stage = 4;
+-                    } else {
++                    }
++                    else
++                    {
+                         gu8_eeprom_write_stage = 1;
+                     }
+                 }
+@@ -192,12 +201,13 @@
+
+             gTxLen = 1;
+             gTxCount = DL_I2C_fillControllerTXFIFO(I2C_0_INST, &gTxPacket[0], gTxLen);  // 読み出しアドレス指定
+             // Enable TXFIFO trigger interrupt if there are more bytes to send
+-            if (gTxCount < gTxLen) {
+-                DL_I2C_enableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+-            } else {
+-                DL_I2C_disableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            if (gTxCount < gTxLen)
++            {
++                DL_I2C_enableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            }
++            else
++            {
++                DL_I2C_disableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+             }
+             gu8_eeprom_write_stage = 6;
+             break;
+@@ -225,7 +235,9 @@
+
+                     if( (DL_I2C_getControllerStatus(I2C_0_INST) & DL_I2C_CONTROLLER_STATUS_ERROR) == 0 )
+                     {
+                         gu8_eeprom_write_stage = 8;
+-                    } else {
++                    }
++                    else
++                    {
+                         gu8_eeprom_write_stage = 5;
+                     }
+                 }
+@@ -254,14 +266,18 @@
+
+                     if( mode == 0 )
+                     {
+                         offset += 16;
+-                    } else {
++                    }
++                    else
++                    {
+                         offset++;
+                     }
+                     remain -= len;
+                     if( offset < num )
+                     {
+                         gu8_eeprom_write_stage = 1;
+-                    } else {
++                    }
++                    else
++                    {
+                         eeprom_req_cnt--;
+                         eeprom_req_read_idx = (eeprom_req_read_idx+1) & (I2C_REQ_NUM-1);
+                         gu8_eeprom_write_stage = 0;
+@@ -282,11 +298,12 @@
+
+             /* 1. 先頭から832バイトをハードウェアクセラレーターを使用して計算する */
+             /* 2. 1で求めた値を初期値として残りの2バイトを1バイト単位でCRC32を計算する */
+ 
+-            crc32_end_adrs = (uint32_t)&g_write_eeprom_data + EEPROM_VALID_DATA - 3;
++            crc32_end_adrs = (uint32_t)&g_write_eeprom_data + EEPROM_BATT_ERR_POS - 1;
+             crc32_result = DL_CRC_calculateMemoryRange32(CRC, 0xFFFFFFFF, (uint32_t *)&g_write_eeprom_data, (const uint32_t *)crc32_end_adrs);
+ 
+             crc32_result = ((crc32_result >> 8) & 0x00FFFFFF) ^ crc32tab[(crc32_result ^ (g_write_eeprom_data.batt_err)) & 0xFF];
+             crc32_result = ((crc32_result >> 8) & 0x00FFFFFF) ^ crc32tab[(crc32_result ^ (g_write_eeprom_data.ps_on_sts)) & 0xFF];
++            crc32_result = ((crc32_result >> 8) & 0x00FFFFFF) ^ crc32tab[(crc32_result ^ (g_write_eeprom_data.back_up)) & 0xFF];
+             crc32_result = crc32_result ^ 0xFFFFFFFFL;
+             g_write_eeprom_data.crc32 = crc32_result;
+ #endif
+@@ -301,12 +318,13 @@
+
+             gTxLen = len + 1;
+             gTxCount = DL_I2C_fillControllerTXFIFO(I2C_0_INST, &gTxPacket[0], gTxLen);
+             // Enable TXFIFO trigger interrupt if there are more bytes to send
+-            if (gTxCount < gTxLen) {
+-                DL_I2C_enableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+-            } else {
+-                DL_I2C_disableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            if (gTxCount < gTxLen)
++            {
++                DL_I2C_enableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            }
++            else
++            {
++                DL_I2C_disableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+             }
+             gu8_eeprom_write_stage = 11;
+             break;
+@@ -335,7 +353,9 @@
+
+                     {
+                         eeprom_write_wait = 0;
+                         gu8_eeprom_write_stage = 13;
+-                    } else {
++                    }
++                    else
++                    {
+                         gu8_eeprom_write_stage = 10;
+                     }
+                 }
+@@ -362,12 +382,13 @@
+
+             gTxLen = 1;
+             gTxCount = DL_I2C_fillControllerTXFIFO(I2C_0_INST, &gTxPacket[0], gTxLen);  // 読み出しアドレス指定
+             // Enable TXFIFO trigger interrupt if there are more bytes to send
+-            if (gTxCount < gTxLen) {
+-                DL_I2C_enableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+-            } else {
+-                DL_I2C_disableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            if (gTxCount < gTxLen)
++            {
++                DL_I2C_enableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            }
++            else
++            {
++                DL_I2C_disableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+             }
+             gu8_eeprom_write_stage = 15;
+             break;
+@@ -395,7 +416,9 @@
+
+                     if( (DL_I2C_getControllerStatus(I2C_0_INST) & DL_I2C_CONTROLLER_STATUS_ERROR) == 0 )
+                     {
+                         gu8_eeprom_write_stage = 17;
+-                    } else {
++                    }
++                    else
++                    {
+                         gu8_eeprom_write_stage = 14;
+                     }
+                 }
+@@ -463,7 +486,6 @@
+
+ 
+     if( g_eeprom_data.pin_code != PIN_CODE )
+     {
+-
+         eeprom_init_allparam(); // 全EEPROM初期化
+ 
+         for(;;)
+@@ -480,7 +502,10 @@
+
+ 
+     g_write_eeprom_data = g_eeprom_data;
+ 
++#ifndef _S114_DEBUG_
+     eeprom_param_check(); // 設定値チェック
++#endif
++
+ #else
+     eeprom_init_allparam(); // 全EEPROM初期化
+ #endif
+@@ -510,12 +535,13 @@
+
+             gTxLen = 1;
+             gTxCount = DL_I2C_fillControllerTXFIFO(I2C_0_INST, &gTxPacket[0], gTxLen);
+             // Enable TXFIFO trigger interrupt if there are more bytes to send
+-            if (gTxCount < gTxLen) {
+-                DL_I2C_enableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+-            } else {
+-                DL_I2C_disableInterrupt(
+-                    I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            if (gTxCount < gTxLen)
++            {
++                DL_I2C_enableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
++            }
++            else
++            {
++                DL_I2C_disableInterrupt(I2C_0_INST, DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER);
+             }
+             gu8_eeprom_read_all_stage = 1;
+             break;
+@@ -543,7 +569,9 @@
+
+                     if( (DL_I2C_getControllerStatus(I2C_0_INST) & DL_I2C_CONTROLLER_STATUS_ERROR) == 0 )
+                     {
+                         gu8_eeprom_read_all_stage = 3;
+-                    } else {
++                    }
++                    else
++                    {
+                         gu8_eeprom_read_all_stage = 0;
+                     }
+                 }
+@@ -666,8 +694,9 @@
+
+         O_DISCHG12V_EN_L;
+         converter_pwm_stop();
+ #if 1
+-        while(1){
+-
++        while (1)
++        {
++            ;
+         }
+ #endif
+     }
+@@ -684,7 +713,6 @@
+
+     //static uint8_t stage = 0;
+     static uint8_t pos;
+ 
+-
+     switch( gu8_eeprom_all_backup )
+     {
+         case 0:
+@@ -705,16 +733,15 @@
+
+     		if(gu8_f_before_shutdown!=1)
+     		{
+     	    	if(gu32_c_eeprom_timer==0)
+-    			{                                   //3分間隔
+-                   	 gu32_c_eeprom_timer=TIMER_3min;
++    			{                                   //1時間間隔
++                   	 gu32_c_eeprom_timer=TIMER_1hour;
+                      pos =eeprom_write_request( EEPROM_BATT_POS, 112, 0 );
+                      gu8_eeprom_all_backup = 1;
+-                }else{
+-
++                }
++    	    	else
++    	    	{
+                     gu32_c_eeprom_timer--;
+                 }
+-
+-
+     		}
+            	 break;
+     	
+@@ -724,7 +751,9 @@
+
+                 if( eeprom_write_check(pos) == _OK_ )  // 書込み正常
+                 {
+                     //*response = CMD_NORMAL;   // CMD_NORMAL;
+-                } else {
++                }
++                else
++                {
+                     //*response = HWE_ERR_RES;  // HW破損エラー(HWE)レスポンス
+                 }
+ 
+@@ -736,4 +765,3 @@
+
+             break;
+     }
+ }
+-

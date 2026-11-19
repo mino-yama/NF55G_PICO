@@ -13,6 +13,7 @@ try:
     from . import config
     from .ate_uart import create_ate_uart
     from .cache_manager import CacheManager
+    from .calibration_measurement import CalibrationMeasurements
     from .command_dispatcher import CommandDispatcher
     from .command_parser import ParseError, parse_ate_command
     from .diagnostic import FixtureDiagnostics
@@ -29,6 +30,7 @@ except ImportError:  # pragma: no cover
     import config
     from ate_uart import create_ate_uart
     from cache_manager import CacheManager
+    from calibration_measurement import CalibrationMeasurements
     from command_dispatcher import CommandDispatcher
     from command_parser import ParseError, parse_ate_command
     from diagnostic import FixtureDiagnostics
@@ -51,6 +53,9 @@ class FixtureApp:
         self.protocol = protocol or (NF55Protocol(nf55_uart, clock=self.clock) if nf55_uart is not None else None)
         self.cache = cache or CacheManager(clock_ms=self.clock.ticks_ms)
         self.logger = logger or Logger(clock=self.clock, rtc=rtc)
+        self.measurements = CalibrationMeasurements()
+        if self.logger.test_running:
+            self.measurements.start_trial()
         self.rtc = rtc
         self.qr_reader = QRReceiver(on_ready=self.accept_qr)
         self.server = ATEServer(ate_uart) if ate_uart is not None else None
@@ -177,8 +182,12 @@ class FixtureApp:
         response = self._execute_ate_line(line)
         new_trial = self.logger.trial_id != previous_trial
         if new_trial:
-            # 前試行の未完QRを次試行の完了データとして使わせない。
+            # 前試行のQR・測定値・未完取得を新試行へ引き継がせない。
             self.qr_reader.cancel()
+            self.measurements.start_trial()
+        if not self.logger.test_running:
+            # 終了が通信/SD処理で延期された間は保持し、試行終了成立時に破棄する。
+            self.measurements.end_trial()
         if (not was_recording or new_trial) and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
         if self.logger.active or self.logger.test_running:

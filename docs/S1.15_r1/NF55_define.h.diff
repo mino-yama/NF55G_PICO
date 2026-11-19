@@ -1,0 +1,80 @@
+--- S1.13/NF55_define.h
+
++++ S1.15_r1/NF55_define.h
+
+@@ -10,10 +10,10 @@
+
+ //#define _DEBUG_ON_  // Debug
+ //#define _USE_IQMATH_
+ //#define _NO_EEPROM_
+-//#define _LAUNCHPAD_MODE_
+ //#define _DEBUG_DATA_ON_
+ //#define _RELEASE_MODE_
+-//#define _HIS_ENABLE_MODE_
++//#define _FAN_HIS_ENABLE_
++//#define _S114_DEBUG_
+ #define _WWDT_ON_
+ /////////////////////////////////
+ 
+@@ -29,7 +29,6 @@
+
+ #define FAN_DEBUG_STOP (3U)
+ extern volatile uint8_t gu8_fan_debug_mode;
+ extern volatile uint8_t gu8_fan_debug_fast;
+-
+ 
+ #if 0
+ /* boot部でDebuggerを使うときの設定 */
+@@ -47,8 +46,7 @@
+
+ //////////////////////////////////////////
+ 
+ /////////////////////////////////
+-#define FW_REVISION     "S1.13 "    // FW REVISION(6char)
+-//#define FW_REVISION     "S9.01 "
++#define FW_REVISION     "S1.15 "    // FW REVISION(6char)
+ #define FW_VER_MAJ      0           // Release Version x.--
+ #define FW_VER_MIN      0           // Release Version -.xx
+ /////////////////////////////////
+@@ -176,6 +174,9 @@
+
+ 
+ #define     _EVENT_LOST_OK_  0  // イベントロスト正常
+ #define     _EVENT_LOST_NG_  1  // イベントロスト発生
++
++#define     _CHG_MODE_FALSE_ 0
++#define     _CHG_MODE_TRUE_  1
+ 
+ #define FW_FLASH_START  (0x00000000UL)
+ /* ADC */
+@@ -516,7 +517,9 @@
+
+ #define PRO_HIGH_I_ON    20000 //過電流保護 PS_ON
+ #define PRO_HIGH_I_OF    2000  //過電流保護 PS_OFF
+ #define PRO_HIGH_I_OF_H  5000  //過電流保護 PS_OFF(H)
+-#define PRO_HIGH_V       13500 //過電圧保護(+12V出力信号)
++/* S1.14 128F 問題点対策表に記載は無いが過電圧しきい値を13400に変更 */
++//#define PRO_HIGH_V       13500 //過電圧保護(+12V出力信号)
++#define PRO_HIGH_V       13400 //過電圧保護(+12V出力信号)
+ #define PRO_HIGH_I_DIS   58500 //過電圧保護(放電中)
+ #define PRO_HIGH_I_CHG   2600 //過電流保護充電
+ #define PRO_HIGH_V_CHG   11400 //過電圧保護充電
+@@ -550,6 +553,8 @@
+
+ #define ADC12V_CALL_BACK     11000
+ #define SP_BATT_WNG_CLR_THD  41
+ /* SOC */
++/* S1.14 121F対策 SOCは充電中は127%まで表示する。満充電検出時に100%にする */
++#define SOC_127P         127   // SOC 127%
+ #define SOC_100P         100   // SOC 100%
+ #define SOC_90           90    // SOC 90%
+ #define SOC_80           80    // SOC 80%
+@@ -566,6 +571,7 @@
+
+ #define UINT16_MAX_VALUE_UNDER     65534
+ #define UINT24_MAX_VALUE_UNDER     16777215
+ #define UINT24_F__MAX_VALUE_UNDER  16777215.0
++#define INT8_ACOFF_TEMP            30
+ ///////////////
+ #define RAMFUNC \
+     __attribute__((section(".TI.ramfunc"))) __attribute__((noinline))

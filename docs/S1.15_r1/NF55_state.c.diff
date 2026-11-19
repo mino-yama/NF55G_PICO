@@ -1,0 +1,1688 @@
+--- S1.13/NF55_state.c
+
++++ S1.15_r1/NF55_state.c
+
+@@ -30,6 +30,9 @@
+
+ /* S1.12 満充電検出時のCHARGE_ON, CHARGE_OKの同時ゼロ対策 */
+ extern void full_charge_proc(void);
+ 
++/* S1.14 131F 突然満充電となる対策 */
++void full_chg_calc_init(void);
++
+ /*******************************************************************************
+  * Function Name: ps_on_proc()
+  * Description  : PS ON 制御
+@@ -62,7 +65,8 @@
+
+ 	        gu8_f_ps_on_out = _OUT_ON_;  // PS_ON
+ 	        gu32_c_ps_on_out_delay = 0;
+ 
+-	    	if(pi_ps_on.trg==_TRG_ON_ ){
++	    	if(pi_ps_on.trg==_TRG_ON_ )
++	    	{
+ 	            operate_log_request(OPE_PS_ON);
+ 	        }
+ 	        //gu8_f_vcc_12v_en_out       = _OUT_ON_;   // VCC_12V_EN ON
+@@ -73,7 +77,8 @@
+
+ 	        gu8_f_ps_on_out = _OUT_OFF_; // PS_OFF
+ 	        gu32_c_ps_on_out_delay = 0;
+ 	    	
+-	    	if(pi_ps_on.trg==_TRG_OFF_ ){
++	    	if(pi_ps_on.trg==_TRG_OFF_ )
++	    	{
+ 	             operate_log_request(OPE_PS_OFF);
+ 	             if (SP_AC_LINK != _ENABLE_)     //8/20
+ 	             {
+@@ -82,15 +87,14 @@
+
+ 	             }
+ 	        }
+ 
+-	    	if(gu8_f_ac_on_trg == _TRG_OFF_){    //PS_OFF状態で停電したら復電待ちに移行
++	    	if(gu8_f_ac_on_trg == _TRG_OFF_)
++	    	{    //PS_OFF状態で停電したら復電待ちに移行
+ 	    	    gu8_alm_type_batt_err &= (uint8_t)~BIT3;
+                 g_eeprom_data.batt_err = gu8_alm_type_batt_err;
+-                eeprom_write_request( EEPROM_BATT_ERR_POS, 1, 0 );
++                eeprom_write_request( EEPROM_BATT_ERR_POS, sizeof(g_eeprom_data.batt_err), 1 );
+ 	    	    gu8_f_skip_reason=2;
+ 	    	    gu8_f_before_shutdown=1;
+-
+ 	    	}
+-
+ 	    }
+ 	//#if 0   // 仮 2026/2/18
+ 	    /*if( gu8_f_burst_on == _ON_ ) // BURST信号
+@@ -125,14 +129,11 @@
+
+ uint8_t burst_state=0;
+ uint8_t burst_current_state = 0;
+ 
+-
+-
+ /***********************************
+  *
+  * 状態変化をみてOFFからOFFを防ぐ
+  *
+   **********************************/
+-
+ void burst_proc(void)
+ {
+     //static uint8_t burst_stage = 0;
+@@ -182,12 +183,13 @@
+
+ 	                    && (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_) ) // BURST設定=有効でPS_OFF_CHARGE設定=有効
+ 	            {
+ 	                if( gu8_f_charging_active != 0 ) // 充電開始(バッテリー未充電)
+-	               {
++	                {
+ 	                    burst_off_proc();
+-
+-	               }else{
+-	                   burst_on_proc();
+-	               }
++	                }
++	                else
++	                {
++	                    burst_on_proc();
++	                }
+ 
+ 	                gu32_c_burst_out_delay = 0;
+ 	                gu8_burst_stage = 4;
+@@ -240,20 +242,17 @@
+
+ 	            if( g_eeprom_data.set_erp.ps_off_charge == _ENABLE_ ) // PS_OFF_CHARGE設定=有効
+ 	            {
+ 	                if( gu8_f_charging_active != 0 ) // 充電開始(バッテリー未充電)
+-	                  {
+-
++	                {
+ 	                    burst_off_proc();
+-	                  }else{
+-
+-	                      burst_on_proc();
+-	                  }
+-
+-
++	                }
++	                else
++	                {
++	                    burst_on_proc();
++	                }
+ 	                gu32_c_burst_out_delay = 0;
+ 	                gu8_burst_stage = 4;
+ 	                break;
+ 	            }
+-
+ 	            break;
+ 
+ 	        /**************************/
+@@ -351,8 +350,6 @@
+
+ 
+ 	                set_info_evt_errlog( FLAG_BURST_ON, _RESET_ );
+ 	                operate_log_request(OPE_BURST_OFF);
+-
+-
+ 	            }
+ 	            else if( now_state == 2 ) // good → ON
+ 	            {
+@@ -361,41 +358,35 @@
+
+ 
+ 	                set_info_evt_errlog( FLAG_BURST_ON, _SET_ );
+ 	                operate_log_request(OPE_BURST_ON);
+-
+ 	            }
+ 	        }
+-	    }else if(burst_state == _OFF_ ){
++	    }
++	    else if(burst_state == _OFF_ )
++	    {
+ 	        burst_current_state = 0;
+ 	    }
+    }
+-
+ }
+ 
+ void burst_off_proc(void)
+ {
+-
+     if( (burst_state == _ON_) && (gu_f_burst_i_over != 1) )
+     {
+         set_info_evt_errlog(FLAG_BURST_ON, _RESET_);
+         operate_log_request(OPE_BURST_OFF);
+-
+     }
+     gu8_f_burst_out = _OUT_OFF_;
+     burst_state = _OFF_;
+     gu32_c_burst_out_delay = 0;
+-
+ }
+ 
+ void burst_on_proc(void)
+ {
+-
+     if( gu_f_burst_i_over != 1 )
+     {
+-      gu8_f_burst_out = _OUT_ON_;     // Burst ON
+-
++        gu8_f_burst_out = _OUT_ON_;     // Burst ON
+     }
+     burst_state=_ON_;
+-
+ }
+ 
+ /*******************************************************************************
+@@ -416,11 +407,8 @@
+
+     //static uint8_t  f_ps_on_backup_old = _DISABLE_;
+     uint8_t ret;
+ 
+-
+ 	if(gu8_f_before_shutdown!=1)  //放電終止を検出したら処理しない
+   	{
+-
+-
+ 	    gu8_f_stop_condition= ((gu8_f_susp_dischg == _ON_) ||(gu8_f_stop_dischg == _ON_));
+ 
+ 	    if (gu8_f_first_check == _ON_)
+@@ -443,23 +431,21 @@
+
+             if ((gu8_f_ac_on == _OFF_) &&(gu8_f_initial_skip == _OFF_))
+             {
+ 
+-                if( (gu8_alm_type_batt_err & BIT0) != 0 ||(gu8_alm_type_batt_err & BIT1) != 0||(gu8_alm_type_batt_err & BIT2) != 0){
++                if( (gu8_alm_type_batt_err & BIT0) != 0 ||(gu8_alm_type_batt_err & BIT1) != 0||(gu8_alm_type_batt_err & BIT2) != 0)
++                {
+                     gu8_alm_type_batt_err |= BIT3;
+                     g_eeprom_data.batt_err = gu8_alm_type_batt_err;
+-                    eeprom_write_request( EEPROM_BATT_ERR_POS, 1, 0 );
++                    eeprom_write_request( EEPROM_BATT_ERR_POS, sizeof(g_eeprom_data.batt_err), 1 );
+                 }
+ 
+                 gu8_f_before_shutdown = 1;
+-                    gu8_f_skip_reason = 3;
+-
++                gu8_f_skip_reason = 3;
+             }
+             gu8_f_backup_active = _OFF_;
+             gu8_dischg_ps_on_stage = 0;
+             gu8_dischg_ps_off_stage = 0;
+             return;
+-
+ 	    }
+-
+ 
+ 	    if( gu8_f_ps_on == _ON_ )  // PS_ON
+ 	    {
+@@ -487,10 +473,14 @@
+
+ 	                        if( SP_MAX_BACKUP_TIME == 0 )
+ 	                        {
+ 	                            f_backup_unlimit = 1;    // 無制限
+-	                        } else {
++	                        }
++	                        else
++	                        {
+ 	                            f_backup_unlimit = 0;
+ 	                        }
+-	                    } else {
++	                    }
++	                    else
++	                    {
+ 	                        c_backup_time = (SP_MIN_BACKUP_TIME * TIMER_1000ms);          // 最小バックアップ時間(秒) val * 1s
+ 	                        f_backup_unlimit = 0;
+ 	                    }
+@@ -501,7 +491,9 @@
+
+ 	                    gu8_f_dischg_start_sek = 1;    // 積算データ:バッテリ総放電回数　記録用フラグ
+ 
+ 	                    gu8_dischg_ps_on_stage = 1;
+-	                } else { // ACあり
++	                }
++	                else
++	                { // ACあり
+ 	                    set_info_evt_errlog( FLAG_BATT_ON, _RESET_ );   // 状態情報 BAT_ON リセット(イベント)
+ 
+ 	                    gu8_f_backup_active = _OFF_;    // バックアップ中 OFF
+@@ -538,15 +530,18 @@
+
+ 	                        {
+ 	                            gu32_c_ac_link_timer = (SP_MAX_BACKUP_TIME * TIMER_1000ms * 60);     // AC_LINK有効タイマ(最大バックアップ時間(分) val * 60s)
+ 	                            gu8_f_backup_start_sek = 1;     // 積算データ:バックアップ回数　記録用フラグ
+-	                        	 operate_log_request(OPE_BATT_ON);   //opelog
++	                        	operate_log_request(OPE_BATT_ON);   //opelog
++	                            g_eeprom_data.back_up=1;    /*F120 バックアップした場合にEEPROMに書き込む*/
++	                            eeprom_write_request(EEPROM_BACK_UP_POS,sizeof(g_eeprom_data.back_up),1);
+ 	                        }
+ 	                        gu8_f_backup_active = _ON_;    // バックアップ中 ON
+ 
+ 	                        set_info_evt_errlog( FLAG_BATT_ON, _SET_);   // 状態情報 BAT_ON セット(イベント)
+-
+ 	                        gu8_f_dischg_under_1s = 0;  // 放電1秒未満 OFF
+ 	                        gu8_f_dischg_up_1s = 1;     // 放電1秒以上 ON
+-	                    } else {
++	                    }
++	                    else
++	                    {
+ 	                        c_batt_on_delay--;
+ 	                        break;
+ 	                    }
+@@ -565,7 +560,9 @@
+
+ 	                                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 満充電(充電完了)イベント リセット
+ 	                            }
+ 	                        }
+-	                    } else {
++	                    }
++	                    else
++	                    {
+ 	                        c_soc_check_delay--;
+ 	                    }
+ 
+@@ -574,15 +571,15 @@
+
+ 	                        if( SP_MAX_BACKUP_TIME == 0 )
+ 	                        {
+ 	                           f_backup_unlimit = 1;    // 無制限
+-	                        } else {
++	                        }
++	                        else
++	                        {
+ 	                           f_backup_unlimit = 0;
+ 	                        }
+ 	                        gu8_backup_enable_cmd = 0;
+ 	                        set_info_evt_errlog( FLAG_BACKUP_READY, _SET_ );   // 状態情報 BACKUP_READY セット BE側でセット
+ 
+ 	                        c_backup_time = (SP_MAX_BACKUP_TIME * TIMER_1000ms* 60); // 最小バックアップ時間(秒)
+-
+-
+ 	                    }
+ 	                    if( gu8_backup_off_cmd != 0 )
+ 	                    {
+@@ -598,7 +595,9 @@
+
+ 	                        gu8_f_dischg_term = 1;
+ 	                        gu8_dischg_ps_on_stage = 0;
+ 	                    }
+-	                } else {
++	                }
++	                else
++	                {
+ 
+ 	                    /***** 放電停止1 ******/
+ 	                    dischage_end_first();
+@@ -610,7 +609,6 @@
+
+ 	                break;
+ 
+ 	            case 2:
+-	               
+ 	                break;
+ 
+ 	            case 3:
+@@ -630,7 +628,9 @@
+
+ 	                            {
+ 	                                gu8_f_ac_link = 1;
+ 	                            }
+-	                        } else {
++	                        }
++	                        else
++	                        {
+ 	                            if( gu8_f_output_restart != 0 )  // OUTPUT RESTARTコマンド受信
+ 	                            {
+ 	                                gu8_f_ac_link = 2;
+@@ -650,10 +650,9 @@
+
+ 	        switch( gu8_dischg_ps_off_stage )
+ 	        {
+ 	            case 0:
+-
+ 	                set_info_evt_errlog( FLAG_BATT_ON,      _RESET_ );   // 状態情報 BAT_ON       リセット(イベント)
+ 
+-	               gu8_dischg_ps_off_stage = 1;
++	                gu8_dischg_ps_off_stage = 1;
+ 	        	
+ 	        	    if(gu8_f_charge_output == _ON_)
+ 	        	    {
+@@ -684,21 +683,17 @@
+
+  * Arguments    : None
+  * Return Value : None
+  *******************************************************************************/
+-
+ void update_backup_ready(void)
+ {
+    if (gs_set_parameter.ps_on_backup == _ENABLE_)
+-
+    {
+        set_info_evt_errlog(FLAG_BACKUP_READY, _SET_);
+-
+    }
+    else
+    {
+        set_info_evt_errlog(FLAG_BACKUP_READY, _RESET_);
+    }
+ }
+-
+ 
+ /*******************************************************************************
+  * Function Name: dischage_output_on()
+@@ -745,7 +740,9 @@
+
+         if( gu8_f_ps_on == _ON_ )  // PS_ON
+         {
+             gu32_c_dischg12v_en_out_delay = 0;
+-        } else {
++        }
++        else
++        {
+             gu32_c_dischg12v_en_out_delay = TIMER_5ms;
+         }
+         gu8_f_batt_en_out        = _OUT_OFF_;      // BATT_EN OFF
+@@ -757,7 +754,6 @@
+
+         gu8_f_charge_output = _OFF_;   // 放電出力中 OFF
+     }
+ }
+-
+ 
+ /*******************************************************************************
+  * Function Name: dischage_end_first()
+@@ -769,22 +765,17 @@
+
+ {
+    // gu8_f_12v_en_out=_OUT_OFF_;
+ 	gu8_f_fan_pwm = _OUT_OFF_;
+-	gu32_c_fan_pwm_delay=TIMER_5ms;
++	gu32_c_fan_pwm_delay = TIMER_5ms;
+ 
+ 	//eeprom_clear_wait_queue();
+-	if(gu8_f_ps_on == _ON_){
++	if(gu8_f_ps_on == _ON_)
++	{
+ 	    eeprom_write_request( EEPROM_BATT_POS, 112, 0 );
+ 	}
+ 
+ 	//放電終止フラグ
+-	gu8_f_before_shutdown=1;
+-	
+-	
++	gu8_f_before_shutdown = 1;
+ }
+-
+-
+-
+-
+ 
+ /*******************************************************************************
+  * Function Name: dischage_termination()
+@@ -798,13 +789,52 @@
+
+     uint16_t volt;
+     uint8_t ret = 0;
+ 
+-
+     if( gu8_f_batt_connect == _BATT1_CONNECT_ )
+     {
+         volt = BATT1_4700MV;   // BATT1 4.7V
+     }
+     else
+     {
++        // バッテリ接続なし
++        /***** 放電停止1 ******/
++        dischage_end_first();
++        /*********************/
++        operate_log_request(OPE_FINAL_VOLTAGE);
++        gu8_f_backup_active = _OFF_;    // バックアップ中 OFF
++        return(1);
++    }
++
++    if( gu16_ad_batt_v < volt )   // BATT電圧(mV)が終止判定電圧より低い
++    {
++        if( ++gu8_c_dischg_term >= 100 )    /* 100回連続検出(100ms) --> S1.14 144F　アップダウンカウンタに変更 */
++        {
++           // ログ FINAL_VOLTAGE
++            /***** 放電停止1 ******/
++            dischage_end_first();
++            /*********************/
++            operate_log_request(OPE_FINAL_VOLTAGE);
++            gu8_f_backup_active = _OFF_;    // バックアップ中 OFF
++            ret = 1;
++        }
++    }
++    /* S1.14 144F対応 従来はしきい値以上となったらカウンタをゼロに戻していたが、カウント値を1だけ減算する */
++    else
++    {
++        if (gu8_c_dischg_term > 0)
++        {
++            --gu8_c_dischg_term;
++        }
++    }
++
++    return ret;
++
++#if 0   /* S1.14 144F対策で従来方法をコメントアウトして残す */
++    if( gu8_f_batt_connect == _BATT1_CONNECT_ )
++    {
++        volt = BATT1_4700MV;   // BATT1 4.7V
++    }
++    else
++    {
+         detect = 2;            // バッテリ接続なし
+     }
+ 
+@@ -812,6 +842,7 @@
+
+     {
+         detect = 1;
+     }
++
+     if( detect == 1)
+     {
+         if( ++gu8_c_dischg_term >= 100 )    // 100回連続検出(100ms)
+@@ -839,6 +870,7 @@
+
+         gu8_c_dischg_term = 0;
+     }
+     return ret;
++#endif
+ }
+ 
+ /*******************************************************************************
+@@ -887,7 +919,7 @@
+
+ uint32_t u32_sub_chg_timer = 0;        // 補充電タイマー
+ uint8_t u8_f_main_chg_time_out = 0;    // 主充電タイマータイムアウトフラグ
+ uint8_t u8_f_sub_chg_time_out = 0;     // 補充電タイマータイムアウトフラグ
+-uint8_t u8_f_charge_cmd_mode = 0;      // 今回の充電が強制充電コマンドによるものであることを通知するフラグ
++//uint8_t u8_f_charge_cmd_mode = 0;      // 今回の充電が強制充電コマンドによるものであることを通知するフラグ
+ #if 0
+ uint8_t u8_f_chg_suspend_reason = 0;              // 充電中断理由フラグ
+ #endif
+@@ -899,6 +931,10 @@
+
+ uint8_t u8_f_charge_force_stop_state_init = 0;    // 充電強制禁止状態_初期化フラグ
+ #endif
+ uint8_t u8_f_charge_start_ok = 0;    // 充電開始完了フラグ(フラグ制御用)
++
++/* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++uint8_t u8_f_recharge_from_suspend = 0;
++uint8_t enable_delta_v = 0;
+ 
+ /* ※満充電計算(温度)に必要な変数 */
+ #define DTDT_TEMP_SUM_PERIOD TIMER_1000ms     // 温度データ引用周期
+@@ -982,8 +1018,8 @@
+
+ #define _TIME_IN_  0
+ #define _TIME_OUT_ 1
+ 
+-#define _CHG_MODE_FALSE_ 0
+-#define _CHG_MODE_TRUE_  1
++//#define _CHG_MODE_FALSE_ 0
++//#define _CHG_MODE_TRUE_  1
+ 
+ #define _CHG_SUSPEND_NASHI_   0    // 充電中断していない
+ #define _CHG_SUSPEND_TEMP_    1    // 充電温度抑止
+@@ -996,6 +1032,10 @@
+
+ 
+ void charge_proc(void)
+ {
++    /* S1.14で追加 */
++    uint8_t lvl_sta_trg1;
++    uint8_t lvl_sta_trg2;
++
+ #ifndef  DEVELOP_DAY_END
+     /*** 以下にcharge_proc用initを配置 ***/
+     // 各フラグの0クリア,満充電計算用タイマー各種や配列各種のクリア　など
+@@ -1011,17 +1051,20 @@
+
+     //f_chg_ctl_batt_vol_mv = f_chg_ctl_batt_vol_v * 1000;
+     //gu8_f_ps_on = 1;    //PS_ON:ON
+ #endif
+-    if( gu8_f_ac_on_trg == _TRG_ON_ )    // 復電したら復電後フラグ(仮)を立てる
++    if( gu8_f_ac_on_trg == _TRG_ON_)    // 復電したら復電後フラグ(仮)を立てる
+     {
+         u8_f_sub_chg_ok = _JOUKEN_NG_;
+         u8_f_afterer_power_restored = _ON_;
+         u32_c_sub_chg_inhibited_timer = 0;
+     }
++
+     if( u8_f_afterer_power_restored == _ON_ )
+     {
+         if( u32_c_sub_chg_inhibited_timer >= SUB_CHARGE_TIMER_KINSHI_VALUE )
+         {
+             u8_f_afterer_power_restored = _OFF_;
++            g_eeprom_data.back_up=0;               /*F120 1時間経過で解除*/
++            eeprom_write_request(EEPROM_BACK_UP_POS,sizeof(g_eeprom_data.back_up),1);
+         }
+         else
+         {
+@@ -1045,9 +1088,448 @@
+
+                 u8_f_idle_state_init = _CHG_INIT_COMPLETE_;
+ 
+                 // 制御用変数初期化
+-                u8_f_charge_cmd_mode = _CHG_MODE_FALSE_;
++                gu8_f_charge_cmd_mode = _CHG_MODE_FALSE_;
+                 u8_f_main_charge_state_init = _CHG_INIT_NOT_EXECUTE_;
+                 u8_f_sub_charge_state_init = _CHG_INIT_NOT_EXECUTE_;
++
++#if 0
++                u16_c_dtdt_ad_sampling_timer = 0;
++                u16_c_dtdt_ave_and_comp_timer = 0;
++                u16_c_dtdt_soc_full_chg_chk_timer = 0;
++                u8_f_dtdt_full_chg_chk_start = _DISABLE_;
++                i32_dtdt_temp_sum = 0;
++                u8_c_dtdt_set_new_1min_wp = 0;
++                u8_c_dtdt_temp_rise_up_count = 0;
++
++                gu32_c_minus_dv_disable = 0;
++                u16_c_minus_dv_check_timer = 0;
++                f_batt_v_peak = 0.0;
++                u8_c_minus_dv_consecutive_occurrence = 0;
++                for( uint8_t i = 0; i < 10; i++ )
++                {
++                    i16_dtdt_set_old_1min[i] = 0;
++                    i16_dtdt_set_new_1min[i] = 0;
++                }
++#endif
++                /* S1.14 131F対策 満充電計算用変数の初期化処理(S1.14で関数にした） */
++                full_chg_calc_init();
++
++                gu8_f_charge_inhibited = 0;
++            }
++
++            // アイドル状態 --> 充電強制禁止状態
++            if( (gu8_f_charge_off_cmd == _JUSIN_ARI_ ) || (gu8_f_charge_off == _CHARGE_OFF_KINSHI_) )    // CHARGE_OFF(1)受信時
++            {
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _CHARGE_FORCE_STOP_STATE_);    // 状態遷移
++                break;
++            }
++
++            // 主充電条件成立/不成立確認
++            if( ((gu8_f_ac_on_trg == _TRG_ON_) && (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))         // 復電 && SOC80%以下
++             || (pi_batt_not.trg == _TRG_OFF_)                                                       // バッテリ再接続
++             || ((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)))    // CHARGE_ON:1を受信(バッテリ主充電開始)
++            {
++                u8_f_main_chg_ok = _JOUKEN_OK_;
++            }
++            else
++            {
++                u8_f_main_chg_ok = _JOUKEN_NG_;
++            }
++
++            // 補充電条件成立/不成立確認(こちら有効レベル3でも使用するためこの位置)
++            if( u8_f_afterer_power_restored != _ON_ )    // 復電から1時間以内以外の場合
++            {
++                if((f_chg_ctl_batt_vol_v <= SUB_CHARGE_SIKIICHI)        // 補充電電圧閾値(7.8V)以下
++                        || (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))    // SOC(mAh)が80%以下
++                {
++                    u8_f_sub_chg_ok = _JOUKEN_OK_;
++                }
++                else
++                {
++                    u8_f_sub_chg_ok = _JOUKEN_NG_;
++                }
++            }
++#if 1
++            if( gu8_f_ac_on != _ON_ )    // ACが無ければ充電しない
++            {
++                break;
++            }
++#endif
++            // 自動充電_有効レベル判別
++            if( SP_AUTO_CHARGE == _DISABLE_ )    // 自動充電無効時(有効レベル3の条件を包含しない)
++            {
++                /* S1.14 番号無し 主充電の起動条件に(gu8_f_susp_cha == 0)と「PS_ONもしくはPS_OFF充電が有効」の条件を追加する(Copilotのソース解析結果より） */
++#if 0
++                if( (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)
++                 && (gu8_f_stop_cha != _ON_)
++                 //&& (gu8_f_susp_cha != 1)
++                 && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
++#endif
++                if( (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)
++                 && (gu8_f_stop_cha != _ON_)
++                 && (gu8_f_susp_cha == 0)
++                 && (gu8_f_dcir_check_doing != 1)
++                 && ((gu8_f_ps_on == _ON_) || ((gu8_f_ps_on == _OFF_) && (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_)))
++                )
++                {
++                    // アイドル状態 --> 主充電状態
++
++                    /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                    full_chg_calc_init();
++
++                    u8_f_charge_start_ok = 0;
++                    gu8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
++                    chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
++                    if( u8_f_charge_start_ok == 1 )
++                    {
++                        set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
++                        set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                        u8_f_charge_start_ok = 0;
++                    }
++                }
++            }
++            else    // 自動充電有効レベル1,2,3時(有効レベル3の条件を包含する)
++            {
++                if( gu8_f_charge_ok_clear == 1 )    // 満充電がクリアされたとき(例外的動作)
++                {
++                    /* S1.14 番号無し 主充電の起動条件に(gu8_f_susp_cha == 0)と「PS_ONもしくはPS_OFF充電が有効」の条件を追加する(Copilotのソース解析結果より） */
++#if 0
++                    if( ((SP_AUTO_CHARGE == _ENABLE_LV1_) || (SP_AUTO_CHARGE == _ENABLE_LV2_))    // 自動充電有効レベル1 or 2
++                            && (gu8_f_stop_cha != _ON_)
++                            && (gu8_f_susp_cha != 1)
++                            && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
++#endif
++
++                    if( ((SP_AUTO_CHARGE == _ENABLE_LV1_) || (SP_AUTO_CHARGE == _ENABLE_LV2_))    // 自動充電有効レベル1 or 2
++                            && (gu8_f_stop_cha != _ON_)
++                            && (gu8_f_susp_cha == 0)
++                            && (gu8_f_dcir_check_doing != 1)
++                            && ((gu8_f_ps_on == _ON_) || ((gu8_f_ps_on == _OFF_) && (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_))))
++                    {
++                        // アイドル状態 --> 主充電状態
++
++                        /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                        full_chg_calc_init();
++
++                        u8_f_charge_start_ok = 0;
++                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
++                        if( u8_f_charge_start_ok == 1 )
++                        {
++                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                            u8_f_charge_start_ok = 0;
++                        }
++                        break;
++                    }
++                }
++
++                /* S1.14 番号無し Level1の起動条件がAC復電のみとなっていたので仕様に従い以下の2条件とする */
++                /* S1.14 主充電の起動条件に「PS_ONもしくはPS_OFF充電が有効」の条件を追加する(Copilotのソース解析結果より） */
++                if (SP_AUTO_CHARGE == _ENABLE_LV1_)
++                {
++#if 0
++                    if( (SP_AUTO_CHARGE == _ENABLE_LV1_)    // 自動充電有効レベル1
++                            && (gu8_f_stop_cha != _ON_)
++                            && (gu8_f_susp_cha != 1)
++                            && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
++#endif
++
++                   /* 条件1：PS_OFF充電有効でAC復電検出 */
++                   lvl_sta_trg1 = (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_)  && (gu8_f_ac_on_trg == _TRG_ON_);
++
++                   /* 条件2：PS_OFF充電無効でPS_ON立ち上がり検出 */
++                   lvl_sta_trg2 = (g_eeprom_data.set_erp.ps_off_charge == _DISABLE_) && (gu8_f_ps_on == _ON_) && (pi_ps_on.trg == _TRG_ON_);
++
++                   if ((lvl_sta_trg1 || lvl_sta_trg2 )
++                     && (gu8_f_stop_cha != _ON_)
++                     && (gu8_f_susp_cha == 0)
++                     && (gu8_f_dcir_check_doing != 1)
++                     && ((gu8_f_ps_on == _ON_) || ((gu8_f_ps_on == _OFF_) && (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_)))
++                    )
++                    {
++                        // アイドル状態 --> 主充電状態
++
++                       /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                        full_chg_calc_init();
++
++                        u8_f_charge_start_ok = 0;
++                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
++                        if( u8_f_charge_start_ok == 1 )
++                        {
++                            set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
++                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                            u8_f_charge_start_ok = 0;
++                        }
++                        break;
++                    }
++                }
++
++                if( SP_AUTO_CHARGE == _ENABLE_LV2_ )    // 自動充電有効レベル2
++                {
++                    /* 条件1：PS_OFF充電有効でAC復電検出 */
++                    lvl_sta_trg1 = (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_)  && (gu8_f_ac_on_trg == _TRG_ON_);
++
++                    /* 条件2：PS_OFF充電無効でPS_ON立ち上がり検出 */
++                    lvl_sta_trg2 = (g_eeprom_data.set_erp.ps_off_charge == _DISABLE_) && (gu8_f_ps_on == _ON_) && (pi_ps_on.trg == _TRG_ON_);
++
++                    if (lvl_sta_trg1 || lvl_sta_trg2)
++                    {
++                        //if( (u8_f_sub_chg_ok == _JOUKEN_OK_)
++                        if(((f_chg_ctl_batt_vol_v <= SUB_CHARGE_SIKIICHI) || (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))    // 補充電電圧閾値(7.8V)以下 or SOC(mAh)が80%以下
++                         && (gu8_f_stop_cha != _ON_)
++                         && (gu8_f_susp_cha == 0)
++                         && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
++                        {
++                            // アイドル状態 --> 主充電状態
++
++                            /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                            full_chg_calc_init();
++
++                            u8_f_charge_start_ok = 0;
++                            chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
++                            if( u8_f_charge_start_ok == 1 )
++                            {
++                                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
++                                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                                u8_f_charge_start_ok = 0;
++                            }
++                            break;    // 下の充電開始条件チェックを通ると、補充電条件OK --> 補充電開始になってしまう(しかしbreakは荒いか？)
++                        }
++                    }
++                }
++
++                // 充電開始条件チェック
++                if( ((gu8_f_ps_on == _ON_) || ((gu8_f_ps_on == _OFF_) && (SE_PS_OFF_CHARGE == _ENABLE_)))    // PS_ON、あるいはPS_OFFだがPS_OFF_CHARGE可能状態のとき
++                 && (gu8_f_stop_cha != _ON_)                                                                 // 充電停止指示は無い
++                 //&& (gu8_f_susp_cha == 0)   /* S1.15 F129対策 元々コメントアウトされていたがS1.14でコメントを外したが温度抑止後の再開が出来なくなったので元に戻す */
++                 && ((u8_f_main_chg_ok == _JOUKEN_OK_) || (u8_f_sub_chg_ok == _JOUKEN_OK_)
++                  || ((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)))
++                 && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
++                {
++                    /* 以下、主補充電の準備OK、あるいはCHARGE_ON(1)を受信した場合のみ充電開始できる */
++                    // アイドル状態 --> 主充電状態 ※優先順位は(主充電 > 補充電)
++                    if( u8_f_main_chg_ok == _JOUKEN_OK_ )    // 主充電条件を満たす
++                    {
++                        /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                        full_chg_calc_init();
++
++                        u8_f_charge_start_ok = 0;
++                        if((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_))    //　CHARGE_ON(1)受信による充電だった場合
++                        {
++                            gu8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
++                        }
++                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
++                        if( u8_f_charge_start_ok == 1 )
++                        {
++                            if( gu8_f_charge_cmd_mode == _CHG_MODE_TRUE_ )
++                            {
++                                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
++                            }
++                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                            u8_f_charge_start_ok = 0;
++                        }
++                    }
++                    // アイドル状態 --> 補充電状態
++                    else if( u8_f_sub_chg_ok == _JOUKEN_OK_ )    // 補充電条件"のみ"満たす
++                    {
++                        /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                        full_chg_calc_init();
++
++                        u8_f_charge_start_ok = 0;
++                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _SUB_CHARGE_STATE_);    // 状態遷移
++                        if( u8_f_charge_start_ok == 1 )
++                        {
++                            //set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 充電完了(0)
++                            set_info_evt_errlog( FLAG_S_CHARGE_ON, _SET_ );    // 補充電中(1)
++
++                            /* S1.13 現行機は補充電中は「FLAG_S_CHARGE_ON, FLAG_CHG_CHARGE_ON」の両方がセットされているので真似する */
++                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++                            u8_f_charge_start_ok = 0;
++                        }
++                    }
++                }
++            }
++
++            break;
++
++            /**********************************************************************************/
++        case _MAIN_CHARGE_STATE_:    /*** 主充電状態 ***/
++            /**********************************************************************************/
++            // 主充電状態初期化処理
++            if( u8_f_main_charge_state_init == _CHG_INIT_NOT_EXECUTE_ )
++            {
++#ifdef HIS_ON_MODE
++his_temp2(2);
++u8_susp_init_for_his = 0;
++#endif
++                u8_f_main_charge_state_init = _CHG_INIT_COMPLETE_;
++#if 0
++                // フラグ&イベント　セット/リセット
++                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
++#endif
++                // 制御用変数初期化
++                u32_main_chg_timer = 0;
++                u8_f_idle_state_init = 0;
++                u8_f_recharge_from_suspend = 0;
++
++                chg_init_proc();
++            }
++
++
++            // 主充電タイマー
++            if( ++u32_main_chg_timer > MAIN_CHARGE_TIMER_TIMEOUT_VALUE )
++            {
++                u8_f_main_chg_time_out = _TIME_OUT_;    // タイムアウト(満充電)
++            }
++
++            // 主充電状態 --> 充電強制禁止状態
++            if( (gu8_f_charge_off_cmd == _JUSIN_ARI_ ) || (gu8_f_charge_off == _CHARGE_OFF_KINSHI_) )    // CHARGE_OFF(1)受信時
++            {
++                /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                if (u8_f_recharge_from_suspend == 1)
++                {
++                    u8_f_recharge_from_suspend = 0;
++                }
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _CHARGE_FORCE_STOP_STATE_);    // 状態遷移
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++                break;
++            }
++
++            // 充電停止指示(保護動作関連)
++            if( gu8_f_stop_cha == _ON_ )    // 充電停止指示あり
++            {
++                /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                if (u8_f_recharge_from_suspend == 1)
++                {
++                    u8_f_recharge_from_suspend = 0;
++                }
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++                break;
++            }
++
++            // 充電中断パターン1 : 温度抑止指示(保護動作関連)
++            if( gu8_f_susp_cha == 1 )    // 充電中断指示あり
++            {
++#if 0
++                u8_f_chg_suspend_reason = _CHG_SUSPEND_TEMP_;
++#endif
++                /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                if (u8_f_recharge_from_suspend == 1)
++                {
++                    u8_f_recharge_from_suspend = 0;
++                }
++
++               // if( gu8_f_batchg_en_out == _OUT_ON_ )
++             //   {
++                    //set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++             //   }
++                //chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
++                chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
++                //set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++
++                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
++                u32_main_chg_timer = 0;
++                break;
++            }
++
++            // 充電中断パターン2 : ACオフおよび停電
++            if( gu8_f_ac_on_trg == _TRG_OFF_ )
++            {
++#if 0
++                u8_f_chg_suspend_reason = _CHG_SUSPEND_AC_STOP_;
++#endif
++                /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                if (u8_f_recharge_from_suspend == 1)
++                {
++                    u8_f_recharge_from_suspend = 0;
++                }
++
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++
++                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
++                u32_main_chg_timer = 0;
++                break;
++            }
++
++            // 充電中断パターン3 : PS_OFF_CHARGE = 無効設定時でのPS_ON信号オフ
++            if( (g_eeprom_data.set_erp.ps_off_charge == _DISABLE_) && (gu8_f_ps_on == _OFF_) )
++            {
++#if 0
++                u8_f_chg_suspend_reason = _CHG_SUSPEND_PS_OFF_;
++#endif
++                /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                if (u8_f_recharge_from_suspend == 1)
++                {
++                    u8_f_recharge_from_suspend = 0;
++                }
++
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++
++                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
++                u32_main_chg_timer = 0;
++                break;
++            }
++
++            // 満充電計算
++            full_chg_calc();
++
++#if 0 /* S1.12 満充電検出時のCHARGE_ON, CHARGE_OKの同時ゼロ対策 */
++            // 主充電停止通常条件判別
++            if( (gu8_f_full_charge == _ON_)    // 満充電検出した
++             || ((gu8_f_charge_cmd_mode == _CHG_MODE_TRUE_) && (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_STOP_)))    // CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した
++            {
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
++                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++            }
++#else
++            // 主充電停止通常条件判別
++            if( (gu8_f_full_charge == _ON_)    // 満充電検出した
++             || ((gu8_f_charge_cmd_mode == _CHG_MODE_TRUE_) && (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_STOP_)))    // CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した
++            {
++                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
++
++                /* 主充電停止通常条件の両方が成立した場合は満充電検出条件を優先する */
++                /* 満充電検出条件が成立した場合 */
++                if( gu8_f_full_charge == _ON_)
++                {
++                    full_charge_proc(); // 満充電時処理 2026/9/16
++                    gu8_f_full_charge = _OFF_;
++                }
++                /* CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した条件が成立した場合 */
++                else
++                {
++                    set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
++                }
++            }
++#endif
++            break;
++
++            /**********************************************************************************/
++        case _SUB_CHARGE_STATE_:    /*** 補充電状態 ***/
++            /**********************************************************************************/
++            // 補充電状態初期化処理
++            if( u8_f_sub_charge_state_init == _CHG_INIT_NOT_EXECUTE_ )
++            {
++#ifdef HIS_ON_MODE
++his_temp2(3);
++#endif
++                u8_f_sub_charge_state_init = _CHG_INIT_COMPLETE_;
++#if 0
++                // フラグ&イベント　セット/リセット
++                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 充電完了(0)
++                set_info_evt_errlog( FLAG_S_CHARGE_ON, _SET_ );    // 補充電中(1)
++#endif
++                // 制御用変数初期化
++                u32_sub_chg_timer = 0;
++                u8_f_idle_state_init = _CHG_INIT_NOT_EXECUTE_;
++
++                chg_init_proc();
++               /* u8_f_main_chg_time_out = _TIME_IN_;
++                u8_f_sub_chg_time_out = _TIME_IN_;
++
+                 u16_c_dtdt_ad_sampling_timer = 0;
+                 u16_c_dtdt_ave_and_comp_timer = 0;
+                 u16_c_dtdt_soc_full_chg_chk_timer = 0;
+@@ -1063,344 +1545,6 @@
+
+                 {
+                     i16_dtdt_set_old_1min[i] = 0;
+                     i16_dtdt_set_new_1min[i] = 0;
+-                }
+-
+-                gu8_f_charge_inhibited = 0;
+-            }
+-
+-            // アイドル状態 --> 充電強制禁止状態
+-            if( (gu8_f_charge_off_cmd == _JUSIN_ARI_ ) || (gu8_f_charge_off == _CHARGE_OFF_KINSHI_) )    // CHARGE_OFF(1)受信時
+-            {
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _CHARGE_FORCE_STOP_STATE_);    // 状態遷移
+-                break;
+-            }
+-
+-            // 主充電条件成立/不成立確認
+-            if( ((gu8_f_ac_on_trg == _TRG_ON_) && (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))         // 復電 && SOC80%以下
+-             || (pi_batt_not.trg == _TRG_OFF_)                                                       // バッテリ再接続
+-             || ((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)))    // CHARGE_ON:1を受信(バッテリ主充電開始)
+-            {
+-                u8_f_main_chg_ok = _JOUKEN_OK_;
+-            }
+-            else
+-            {
+-                u8_f_main_chg_ok = _JOUKEN_NG_;
+-            }
+-
+-            // 補充電条件成立/不成立確認(こちら有効レベル3でも使用するためこの位置)
+-            if( u8_f_afterer_power_restored != _ON_ )    // 復電から1時間以内以外の場合
+-            {
+-                if((f_chg_ctl_batt_vol_v <= SUB_CHARGE_SIKIICHI)        // 補充電電圧閾値(7.8V)以下
+-                        || (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))    // SOC(mAh)が80%以下
+-                {
+-                    u8_f_sub_chg_ok = _JOUKEN_OK_;
+-                }
+-                else
+-                {
+-                    u8_f_sub_chg_ok = _JOUKEN_NG_;
+-                }
+-            }
+-#if 1
+-            if( gu8_f_ac_on != _ON_ )    // ACが無ければ充電しない
+-            {
+-                break;
+-            }
+-#endif
+-            // 自動充電_有効レベル判別
+-            if( SP_AUTO_CHARGE == _DISABLE_ )    // 自動充電無効時(有効レベル3の条件を包含しない)
+-            {
+-                if( (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)
+-                 && (gu8_f_stop_cha != _ON_)
+-                 //&& (gu8_f_susp_cha != 1)
+-                 && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
+-                {
+-                    // アイドル状態 --> 主充電状態
+-                    u8_f_charge_start_ok = 0;
+-                    u8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
+-                    chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+-                    if( u8_f_charge_start_ok == 1 )
+-                    {
+-                        set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
+-                        set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                        u8_f_charge_start_ok = 0;
+-                    }
+-                }
+-            }
+-            else    // 自動充電有効レベル1,2,3時(有効レベル3の条件を包含する)
+-            {
+-                if( gu8_f_charge_ok_clear == 1 )    // 満充電がクリアされたとき(例外的動作)
+-                {
+-                    if( ((SP_AUTO_CHARGE == _ENABLE_LV1_) || (SP_AUTO_CHARGE == _ENABLE_LV2_))    // 自動充電有効レベル1 or 2
+-                            && (gu8_f_stop_cha != _ON_)
+-                            && (gu8_f_susp_cha != 1)
+-                            && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
+-                    {
+-                        // アイドル状態 --> 主充電状態
+-                        u8_f_charge_start_ok = 0;
+-                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+-                        if( u8_f_charge_start_ok == 1 )
+-                        {
+-                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                            u8_f_charge_start_ok = 0;
+-                        }
+-                        break;
+-                    }
+-                }
+-
+-                if( gu8_f_ac_on_trg == _TRG_ON_ )    // 起動時のみ
+-                {
+-                    if( (SP_AUTO_CHARGE == _ENABLE_LV1_)    // 自動充電有効レベル1
+-                            && (gu8_f_stop_cha != _ON_)
+-                            && (gu8_f_susp_cha != 1)
+-                            && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
+-                    {
+-                        // アイドル状態 --> 主充電状態
+-                        u8_f_charge_start_ok = 0;
+-                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+-                        if( u8_f_charge_start_ok == 1 )
+-                        {
+-                            set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
+-                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                            u8_f_charge_start_ok = 0;
+-                        }
+-                        break;
+-                    }
+-                    if( SP_AUTO_CHARGE == _ENABLE_LV2_ )    // 自動充電有効レベル2
+-                    {
+-                        //if( (u8_f_sub_chg_ok == _JOUKEN_OK_)
+-                        if(((f_chg_ctl_batt_vol_v <= SUB_CHARGE_SIKIICHI) || (gi8_d_soc_mah <= CHARGE_START_KIJUN_SOC))    // 補充電電圧閾値(7.8V)以下 or SOC(mAh)が80%以下
+-                         && (gu8_f_stop_cha != _ON_)
+-                         && (gu8_f_susp_cha != 1)
+-                         && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
+-                        {
+-                            // アイドル状態 --> 主充電状態
+-                            u8_f_charge_start_ok = 0;
+-                            chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+-                            if( u8_f_charge_start_ok == 1 )
+-                            {
+-                                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
+-                                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                                u8_f_charge_start_ok = 0;
+-                            }
+-                            break;    // 下の充電開始条件チェックを通ると、補充電条件OK --> 補充電開始になってしまう(しかしbreakは荒いか？)
+-                        }
+-                    }
+-                }
+-
+-                // 充電開始条件チェック
+-                if( ((gu8_f_ps_on == _ON_) || ((gu8_f_ps_on == _OFF_) && (SE_PS_OFF_CHARGE == _ENABLE_)))    // PS_ON、あるいはPS_OFFだがPS_OFF_CHARGE可能状態のとき
+-                 && (gu8_f_stop_cha != _ON_)                                                                 // 充電停止指示は無い
+-                //&& (gu8_f_susp_cha != 1)                                                                   // 充電中断指示は無い
+-                 && ((u8_f_main_chg_ok == _JOUKEN_OK_) || (u8_f_sub_chg_ok == _JOUKEN_OK_)
+-                  || ((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_)))
+-                 && (gu8_f_dcir_check_doing != 1) )    // DCIR測定都合
+-                {
+-                    /* 以下、主補充電の準備OK、あるいはCHARGE_ON(1)を受信した場合のみ充電開始できる */
+-                    // アイドル状態 --> 主充電状態 ※優先順位は(主充電 > 補充電)
+-                    if( u8_f_main_chg_ok == _JOUKEN_OK_ )    // 主充電条件を満たす
+-                    {
+-                        u8_f_charge_start_ok = 0;
+-                        if((gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_))    //　CHARGE_ON(1)受信による充電だった場合
+-                        {
+-                            u8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
+-                        }
+-                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+-                        if( u8_f_charge_start_ok == 1 )
+-                        {
+-                            if( u8_f_charge_cmd_mode == _CHG_MODE_TRUE_ )
+-                            {
+-                                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
+-                            }
+-                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                            u8_f_charge_start_ok = 0;
+-                        }
+-                    }
+-                    // アイドル状態 --> 補充電状態
+-                    else if( u8_f_sub_chg_ok == _JOUKEN_OK_ )    // 補充電条件"のみ"満たす
+-                    {
+-                        u8_f_charge_start_ok = 0;
+-                        chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _SUB_CHARGE_STATE_);    // 状態遷移
+-                        if( u8_f_charge_start_ok == 1 )
+-                        {
+-                            //set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 充電完了(0)
+-                            set_info_evt_errlog( FLAG_S_CHARGE_ON, _SET_ );    // 補充電中(1)
+-
+-                            /* S1.13 現行機は補充電中は「FLAG_S_CHARGE_ON, FLAG_CHG_CHARGE_ON」の両方がセットされているので真似する */
+-                            set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-                            u8_f_charge_start_ok = 0;
+-                        }
+-                    }
+-                }
+-            }
+-
+-            break;
+-
+-            /**********************************************************************************/
+-        case _MAIN_CHARGE_STATE_:    /*** 主充電状態 ***/
+-            /**********************************************************************************/
+-            // 主充電状態初期化処理
+-            if( u8_f_main_charge_state_init == _CHG_INIT_NOT_EXECUTE_ )
+-            {
+-#ifdef HIS_ON_MODE
+-his_temp2(2);
+-u8_susp_init_for_his = 0;
+-#endif
+-                u8_f_main_charge_state_init = _CHG_INIT_COMPLETE_;
+-#if 0
+-                // フラグ&イベント　セット/リセット
+-                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );      // 充電完了(0)
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+-#endif
+-                // 制御用変数初期化
+-                u32_main_chg_timer = 0;
+-                u8_f_idle_state_init = 0;
+-
+-                chg_init_proc();
+-            }
+-
+-
+-            // 主充電タイマー
+-            if( ++u32_main_chg_timer > MAIN_CHARGE_TIMER_TIMEOUT_VALUE )
+-            {
+-                u8_f_main_chg_time_out = _TIME_OUT_;    // タイムアウト(満充電)
+-            }
+-
+-            // 主充電状態 --> 充電強制禁止状態
+-            if( (gu8_f_charge_off_cmd == _JUSIN_ARI_ ) || (gu8_f_charge_off == _CHARGE_OFF_KINSHI_) )    // CHARGE_OFF(1)受信時
+-            {
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _CHARGE_FORCE_STOP_STATE_);    // 状態遷移
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-                break;
+-            }
+-
+-            // 充電停止指示(保護動作関連)
+-            if( gu8_f_stop_cha == _ON_ )    // 充電停止指示あり
+-            {
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-                break;
+-            }
+-
+-            // 充電中断パターン1 : 温度抑止指示(保護動作関連)
+-            if( gu8_f_susp_cha == 1 )    // 充電中断指示あり
+-            {
+-#if 0
+-                u8_f_chg_suspend_reason = _CHG_SUSPEND_TEMP_;
+-#endif
+-                if( gu8_f_batchg_en_out == _OUT_ON_ )
+-                {
+-                    set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-                }
+-                //chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
+-                chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
+-                //set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-
+-                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
+-                u32_main_chg_timer = 0;
+-                break;
+-            }
+-
+-            // 充電中断パターン2 : ACオフおよび停電
+-            if( gu8_f_ac_on_trg == _TRG_OFF_ )
+-            {
+-#if 0
+-                u8_f_chg_suspend_reason = _CHG_SUSPEND_AC_STOP_;
+-#endif
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-
+-                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
+-                u32_main_chg_timer = 0;
+-                break;
+-            }
+-
+-            // 充電中断パターン3 : PS_OFF_CHARGE = 無効設定時でのPS_ON信号オフ
+-            if( (g_eeprom_data.set_erp.ps_off_charge == _DISABLE_) && (gu8_f_ps_on == _OFF_) )
+-            {
+-#if 0
+-                u8_f_chg_suspend_reason = _CHG_SUSPEND_PS_OFF_;
+-#endif
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _SUSPEND_CHARGE_STATE_);    // 状態遷移
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-
+-                /* S1.13 中断から復帰時は制限時間カウントをゼロからやり直す。その他のフラグは現状維持 */
+-                u32_main_chg_timer = 0;
+-                break;
+-            }
+-
+-            // 満充電計算
+-            full_chg_calc();
+-
+-#if 0 /* S1.12 満充電検出時のCHARGE_ON, CHARGE_OKの同時ゼロ対策 */
+-            // 主充電停止通常条件判別
+-            if( (gu8_f_full_charge == _ON_)    // 満充電検出した
+-             || ((u8_f_charge_cmd_mode == _CHG_MODE_TRUE_) && (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_STOP_)))    // CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した
+-            {
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
+-                set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-            }
+-#else
+-            // 主充電停止通常条件判別
+-            if( (gu8_f_full_charge == _ON_)    // 満充電検出した
+-             || ((u8_f_charge_cmd_mode == _CHG_MODE_TRUE_) && (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_STOP_)))    // CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した
+-            {
+-                chg_ctl_state_change(_JUUDEN_STOPING_, _JUUDEN_STOP_FLG_, _IDLE_STATE_);    // 状態遷移
+-
+-                /* 主充電停止通常条件の両方が成立した場合は満充電検出条件を優先する */
+-                /* 満充電検出条件が成立した場合 */
+-                if( gu8_f_full_charge == _ON_)
+-                {
+-                    full_charge_proc(); // 満充電時処理 2026/9/16
+-                    gu8_f_full_charge = _OFF_;
+-                }
+-                /* CHARGE_ON(1)で充電開始していて、その後CHARGE_ON(0)を受信した条件が成立した場合 */
+-                else
+-                {
+-                    set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _RESET_ );    // 充電中(0)
+-                }
+-            }
+-#endif
+-            break;
+-
+-            /**********************************************************************************/
+-        case _SUB_CHARGE_STATE_:    /*** 補充電状態 ***/
+-            /**********************************************************************************/
+-            // 補充電状態初期化処理
+-            if( u8_f_sub_charge_state_init == _CHG_INIT_NOT_EXECUTE_ )
+-            {
+-#ifdef HIS_ON_MODE
+-his_temp2(3);
+-#endif
+-                u8_f_sub_charge_state_init = _CHG_INIT_COMPLETE_;
+-#if 0
+-                // フラグ&イベント　セット/リセット
+-                set_info_evt_errlog( FLAG_CHARGE_OK, _RESET_ );    // 充電完了(0)
+-                set_info_evt_errlog( FLAG_S_CHARGE_ON, _SET_ );    // 補充電中(1)
+-#endif
+-                // 制御用変数初期化
+-                u32_sub_chg_timer = 0;
+-                u8_f_idle_state_init = _CHG_INIT_NOT_EXECUTE_;
+-
+-
+-                chg_init_proc();
+-               /* u8_f_main_chg_time_out = _TIME_IN_;
+-                u8_f_sub_chg_time_out = _TIME_IN_;
+-
+-                u16_c_dtdt_ad_sampling_timer = 0;
+-                u16_c_dtdt_ave_and_comp_timer = 0;
+-                u16_c_dtdt_soc_full_chg_chk_timer = 0;
+-                u8_f_dtdt_full_chg_chk_start = _DISABLE_;
+-                i32_dtdt_temp_sum = 0;
+-                u8_c_dtdt_set_new_1min_wp = 0;
+-                u8_c_dtdt_temp_rise_up_count = 0;
+-                gu32_c_minus_dv_disable = 0;
+-                u16_c_minus_dv_check_timer = 0;
+-                f_batt_v_peak = 0.0;
+-                u8_c_minus_dv_consecutive_occurrence = 0;
+-                for( uint8_t i = 0; i < 10; i++ )
+-                {
+-                    i16_dtdt_set_old_1min[i] = 0;
+-                    i16_dtdt_set_new_1min[i] = 0;
+                 }*/
+             }
+ 
+@@ -1468,11 +1612,12 @@
+
+ 
+             // 満充電計算
+             full_chg_calc();
++
+ #if 1 /* S1.12 満充電検出時のCHARGE_ON, CHARGE_OKの同時ゼロ対策 */
+             // 補充電状態 --> 主充電状態
+             if( (gu8_f_charge_on_cmd == _JUSIN_ARI_) && (gu8_f_charge_on == _CHARGE_ON_START_) )    //　CHARGE_ON(1)を受信した
+             {
+-                u8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
++                gu8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
+                 chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+                 set_info_evt_errlog( FLAG_S_CHARGE_ON, _RESET_ );    // 補充電中(0)
+                 set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+@@ -1502,7 +1647,7 @@
+
+                 // 補充電状態 --> 主充電状態を検出した
+                 else
+                 {
+-                    u8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
++                    gu8_f_charge_cmd_mode = _CHG_MODE_TRUE_;
+                     chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+                     set_info_evt_errlog( FLAG_S_CHARGE_ON, _RESET_ );    // 補充電中(0)
+                     set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+@@ -1575,6 +1720,12 @@
+
+                          && (((g_eeprom_data.set_erp.ps_off_charge == _DISABLE_) && (gu8_f_ps_on == _ON_))    // PS_OFF_CHARGE:無効時のPS_ON:ON --> OFF --> ON
+                            || (g_eeprom_data.set_erp.ps_off_charge == _ENABLE_) ))    // 元からPS_OFF_CHARGE:有効なら問題無し
+                         {
++                            /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++                            full_chg_calc_init();
++
++                            /* S1.14 番号無し 温度抑止から復帰時は満充電検出を5分待たない処理を追加 */
++                            u8_f_recharge_from_suspend = 1;
++
+                             chg_ctl_state_change(_JUUDEN_DOING_, _JUUDEN_START_FLG_, _MAIN_CHARGE_STATE_);    // 状態遷移
+                             set_info_evt_errlog( FLAG_CHG_CHARGE_ON, _SET_ );    // 充電中(1)
+                         }
+@@ -1630,8 +1781,6 @@
+
+     low_batt_proc(); // LOW BATT制御 (16.16)
+ }
+ 
+-
+-
+ /*******************************************************************************
+  * Function Name: chg_ctl_state_change()
+  * Description  : 充電制御状態遷移関数
+@@ -1667,8 +1816,18 @@
+
+     if( u8_chg_ctl_stg == _MAIN_CHARGE_STATE_)
+     {
+         gu8_f_main_chg_now = _ON_;
+-    } else {
++    }
++    else
++    {
+         gu8_f_main_chg_now = _OFF_;
++    }
++    if(u8_chg_ctl_stg == _SUSPEND_CHARGE_STATE_)
++    {
++        gu8_f_suppr_chg_now = _ON_;
++    }
++    else
++    {
++        gu8_f_suppr_chg_now = _OFF_;
+     }
+     u8_f_charge_start_ok = 1;
+ }
+@@ -1717,6 +1876,40 @@
+
+             break;
+     }
+ #endif
++}
++
++/* S1.14 131F対策 */
++/*******************************************************************************
++ * Function Name: full_chg_calc_init()
++ * Description  : 満充電計算用変数の初期化
++ * Arguments    : None
++ * Return Value : None
++ *******************************************************************************/
++void full_chg_calc_init(void)
++{
++    uint8_t i;
++
++    u16_c_dtdt_ad_sampling_timer = 0;
++    u16_c_dtdt_ave_and_comp_timer = 0;
++    u16_c_dtdt_soc_full_chg_chk_timer = 0;
++    u8_f_dtdt_full_chg_chk_start = _DISABLE_;
++    i32_dtdt_temp_sum = 0;
++    u8_c_dtdt_set_new_1min_wp = 0;
++    u8_c_dtdt_temp_rise_up_count = 0;
++
++    gu32_c_minus_dv_disable = 0;
++    u16_c_minus_dv_check_timer = 0;
++    f_batt_v_peak = 0;
++    u8_c_minus_dv_consecutive_occurrence = 0;
++    for (i=0; i<10; ++i)
++    {
++        i16_dtdt_set_new_1min[i] = 0;
++        i16_dtdt_set_old_1min[i] = 0;
++    }
++
++    /* 念のために以下の変数を初期化に追加 */
++    u16_c_minus_dv_peak_samp_timer = 0;
++    f_batt_v_peak_calc_sample_sum = 0;
+ }
+ 
+ /*******************************************************************************
+@@ -1767,6 +1960,8 @@
+
+         // 1分前と比較(SOC満充電確認)(2分経過時から作動)
+         if( u8_f_dtdt_full_chg_chk_start == _ENABLE_ )
+         {
++            /* S1.14 143F対策 */
++            u8_c_dtdt_temp_rise_up_count = 0U;
+             for( uint8_t i = 0; i < 10; i++ )
+             {
+                 if( i16_dtdt_set_new_1min[i] >= (i16_dtdt_set_old_1min[i] + DTDT_FULL_CHARGE_SIKIICHI) )    // 旧データに対し新データで温度が1.5℃以上上昇している場合
+@@ -1795,9 +1990,24 @@
+
+     }
+ 
+     /*** -ΔV チェック ***/
+-    if( ++gu32_c_minus_dv_disable >= MINUS_DV_DISABLE_TIME )    // 充電開始後5分以内は検出しない
+-    {
+-        if( ++u16_c_minus_dv_peak_samp_timer > MINUS_DV_PEAK_VAL_SAMPLE_PERIOD )    // ピーク値算出用平均値用合算(1s)
++
++    enable_delta_v = 0;
++    if (u8_f_recharge_from_suspend == 1)
++    {
++        enable_delta_v = 1;
++    }
++    else
++    {
++        if(++gu32_c_minus_dv_disable >= MINUS_DV_DISABLE_TIME)
++        {
++            enable_delta_v = 1;
++        }
++    }
++
++    //if( ++gu32_c_minus_dv_disable >= MINUS_DV_DISABLE_TIME )    // 充電開始後5分以内は検出しない
++    if (enable_delta_v == 1)
++    {
++        if( ++u16_c_minus_dv_peak_samp_timer >= MINUS_DV_PEAK_VAL_SAMPLE_PERIOD )    // ピーク値算出用平均値用合算(1s)
+         {
+             u16_c_minus_dv_peak_samp_timer = 0;
+ 
+@@ -1814,7 +2024,7 @@
+
+             }
+             f_batt_v_peak_calc_sample_sum = 0;
+ 
+-            if( gu16_ad_batt_v < (f_batt_v_peak - MINUS_DV_DOWN_SHIKIICHI) )    // 連続してピーク電圧-40mVになる回数を記録
++            if( gu16_ad_batt_v <= (f_batt_v_peak - MINUS_DV_DOWN_SHIKIICHI) )    // 連続してピーク電圧-40mVになる回数を記録
+             {
+                 u8_c_minus_dv_consecutive_occurrence++;
+             }
+@@ -1824,6 +2034,10 @@
+
+                 {
+                     u8_c_minus_dv_consecutive_occurrence--;
+                 }
++#if 0   /* S1.14 143F対策 仕様書に従って連続10回に修正したが、UpDownカウンターでも良いとの顧客提案に従い取り止めとする(参考としてソースをコメントで残す) */
++                /* 連続検出が途絶えた場合は連続回数をゼロクリアする */
++                u8_c_minus_dv_consecutive_occurrence = 0;
++#endif
+             }
+ 
+             if( u8_c_minus_dv_consecutive_occurrence >= MINUS_DV_KAISU_SHIKIICHI )    // バッテリ電圧が基準回数以上に連続して閾値を下回った場合
+@@ -1863,7 +2077,9 @@
+
+            u8_f_batt_on=1;
+         }
+         // BATT_LOW_ON  ON/OFFログ
+-    } else {
++    }
++    else
++    {
+         set_info_evt_errlog( FLAG_BATT_LOW, _RESET_ ); // 状態情報/イベント
+     	 if(u8_f_batt_on==1){
+             operate_log_request(OPE_LOWBATT_OFF);
+@@ -1883,6 +2099,11 @@
+
+ {
+     u8_f_main_chg_time_out = _TIME_IN_;
+     u8_f_sub_chg_time_out = _TIME_IN_;
++
++    /* S1.14 131F対策 満充電じゃないのに100%となる問題の対策 */
++    full_chg_calc_init();
++
++#if 0 /* オリジナルをコメントとして残す */
+     u16_c_dtdt_ad_sampling_timer = 0;
+     u16_c_dtdt_ave_and_comp_timer = 0;
+     u16_c_dtdt_soc_full_chg_chk_timer = 0;
+@@ -1899,7 +2120,7 @@
+
+         i16_dtdt_set_old_1min[i] = 0;
+         i16_dtdt_set_new_1min[i] = 0;
+     }
+-
++#endif
+ }
+ 
+ /*******************************************************************************
+@@ -1947,9 +2168,9 @@
+
+             if( gu8_f_dcir_request == 1 )    // BCコマンドを受信した
+             {
+                 /*** 測定不可条件確認 ***/
+-                if( (gu8_alm_type_batt_err != _ON_)    // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
++                if( ((gu8_alm_type_batt_err & 0x07) == 0)    // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
+                  && (gu8_f_backup_active != _ON_)          // 製品仕様書18.1.1.6 バックアップ中ではない
+-                 && (gu8_alm_type_chg_err != _ON_)     // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
++                 && ((gu8_alm_type_chg_err & 0x07) == 0 )     // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
+                  && (gu8_f_charging_active != _ON_)          // 製品仕様書18.1.3   充電中ではない
+                  && (gu8_f_susp_cha != 1) )            // 製品仕様書18.1.3   温度抑止中ではない
+                 {
+@@ -2021,9 +2242,9 @@
+
+                                     gu32_c_dcir_timer--;    // インクリメントを相殺
+ 
+                                     /*** 測定不可条件確認 ***/
+-                                    if( (gu8_alm_type_batt_err != _ON_)            // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
++                                    if( ((gu8_alm_type_batt_err & 0x07) == 0)            // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
+                                      && (gu8_f_backup_active != _ON_)                  // 製品仕様書18.1.1.6 バックアップ中ではない
+-                                     && (gu8_alm_type_chg_err != _ON_)             // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
++                                     && ((gu8_alm_type_chg_err & 0x07) == 0 )             // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
+                                      && (SP_AUTO_CHARGE != _DISABLE_)              // 製品仕様書18.1.1.6 自動充電無効設定時ではない
+                                      && (u8_f_dcir_aft_dischg_under_8_04v != 1)    // 製品仕様書18.1.1.6 電圧回復待ち後8.04V以下ではなかった
+                                      && (u8_f_dcir_8_04v_complete != 1)            // 製品仕様書18.1.1.6 先に充電2条件で測定は行われていない
+@@ -2055,12 +2276,13 @@
+
+                             /*** 充電2条件 ***/
+                             if( u8_f_dcir_8_04v_complete == 0 )    // これはグローバル変数にして、満充電検出時に落としてもらう？
+                             {
+-                                if( (gu16_ad_batt_v <= BATT_V_8_04V) || (gi8_d_soc_wh <=  SOC_90) )    // ORなのはあくまで仮
++                                //if( (gu16_ad_batt_v <= BATT_V_8_04V) || (gi8_d_soc_wh <=  SOC_90) )    // ORなのはあくまで仮
++                                if (gu16_ad_batt_v <= BATT_V_8_04V) /* S1.15 F143対策 */
+                                 {
+                                     /*** 測定不可条件確認 ***/
+-                                    if( (gu8_alm_type_batt_err != _ON_)            // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
++                                    if( ((gu8_alm_type_batt_err & 0x07) == 0)            // 製品仕様書18.1.1.6 バッテリ異常時ではない(製品仕様書18.1.3 保護動作時ではない　と同一か？)
+                                      && (gu8_f_backup_active != _ON_)                  // 製品仕様書18.1.1.6 バックアップ中ではない
+-                                     && (gu8_alm_type_chg_err != _ON_)             // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
++                                     && ((gu8_alm_type_chg_err & 0x07) == 0 )             // 製品仕様書18.1.1.6 充電回路異常時ではない(フラグ名不明)
+                                      && (SP_AUTO_CHARGE != _DISABLE_)              // 製品仕様書18.1.1.6 自動充電無効設定時ではない
+                                      && (u8_f_dcir_aft_dischg_under_8_04v != 1)    // 製品仕様書18.1.1.6 電圧回復待ち後8.04V以下ではなかった
+                                      && (gu8_f_charging_active != _ON_)                  // 製品仕様書18.1.3   充電中ではない
+@@ -2097,6 +2319,11 @@
+
+             {
+                 u8_dcir_stg = 0;
+ 
++                /* S1.14 149F対策 */
++                /* DCIR中断後に主充電開始条件 (gu8_f_dcir_check_doing != 1) が成立するよう、DCIR実行中フラグを解除する。 */
++                /* Copilotによる変更最小の提案にもとづく */
++                gu8_f_dcir_check_doing = 0;
++
+                 if( u8_dcir_mode == DCIR_BC_COMMAND_MODE )    // バックアップによるDCIR測定中断時、即座に測定完了（エラー）とする
+                 {
+                     // ログ用
+@@ -2147,6 +2374,11 @@
+
+ 
+                 u16_c_dcir_1s_timer = 0;
+ 
++                /* S1.14 149F対策 */
++                /* DCIR中断後に主充電開始条件 (gu8_f_dcir_check_doing != 1) が成立するよう、DCIR実行中フラグを解除する。 */
++                /* Copilotによる変更最小の提案にもとづく */
++                gu8_f_dcir_check_doing = 0;
++
+                 if( u8_dcir_mode == DCIR_BC_COMMAND_MODE )    // バックアップによるDCIR測定中断時、即座に測定完了（エラー）とする
+                 {
+                     // ログ用
+@@ -2182,7 +2414,9 @@
+
+                 gu8_f_batchg_en_out = _OUT_OFF_;
+ 
+                 // 測定エラー判別
+-                if( (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]) <= DCIR_CHARGE_CURRENT_ERROR )    // エラー時
++                /* S1.15 F138対策 S1.14の修正反映漏れ */
++                //if( (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]) <= DCIR_CHARGE_CURRENT_ERROR )    // エラー時
++                if( gu16_ad_batt_chg <= DCIR_CHARGE_CURRENT_ERROR )    // エラー時
+                 {
+                     dcir_response(1);
+                     gu8_f_dcir_complete = 1;
+@@ -2247,7 +2481,9 @@
+
+         //gs_life_diag_data.batt_voltage1 = 0;
+         gs_life_diag_data.batt_voltage2 = gu16_ad_batt_v;
+         //gs_life_diag_data.batt_current1 = 0;
+-        gs_life_diag_data.batt_current2 = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        /* S1.15 F138対策 S1.14の修正反映漏れ */
++        //gs_life_diag_data.batt_current2 = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        gs_life_diag_data.batt_current2 = gu16_ad_batt_chg;
+         gs_life_diag_data.batt_ir_temp = gi16_ad_battery_temp/10;
+         gs_life_diag_data.batt_ir_soc_mah = gi8_d_soc_mah;
+         gs_life_diag_data.batt_ir = ((gs_life_diag_data.batt_voltage2 - gs_life_diag_data.batt_voltage1) * 1000) / gs_life_diag_data.batt_current2;
+@@ -2271,7 +2507,9 @@
+
+         //gs_life_diag_data_response.batt_voltage1_res = 0;
+         gs_life_diag_data_response.batt_voltage2_res = gu16_ad_batt_v;
+         //gs_life_diag_data_response.batt_current1_res = 0;
+-        gs_life_diag_data_response.batt_current2_res = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        /* S1.15 F138対策 S1.14の修正反映漏れ */
++        //gs_life_diag_data_response.batt_current2_res = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        gs_life_diag_data_response.batt_current2_res = gu16_ad_batt_chg;
+         gs_life_diag_data_response.batt_ir_temp_res = gi16_ad_battery_temp/10;
+         gs_life_diag_data_response.batt_ir_soc_mah_res = gi8_d_soc_mah;
+         gs_life_diag_data_response.batt_ir_res = ((gs_life_diag_data.batt_voltage2 - gs_life_diag_data.batt_voltage1) * 1000) / gs_life_diag_data.batt_current2;
+@@ -2321,7 +2559,9 @@
+
+         //gs_life_diag_data_response.batt_voltage1_res = 0;
+         gs_life_diag_data_response.batt_voltage2_res = gu16_ad_batt_v;
+         //gs_life_diag_data_response.batt_current1_res = 0;
+-        gs_life_diag_data_response.batt_current2_res = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        /* S1.15 F138対策 S1.14の修正反映漏れ */
++        //gs_life_diag_data_response.batt_current2_res = (gf_batt_chg_coeff  * gu16_ADC0_Sens[6]);
++        gs_life_diag_data_response.batt_current2_res = gu16_ad_batt_chg;
+         gs_life_diag_data_response.batt_ir_temp_res = 0;
+         gs_life_diag_data_response.batt_ir_soc_mah_res = 0;
+         gs_life_diag_data_response.batt_ir_res = 0;

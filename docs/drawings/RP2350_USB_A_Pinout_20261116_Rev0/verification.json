@@ -1,0 +1,91 @@
+{
+  "date_jst": "2026-11-16",
+  "view": "component side; USB-C top, USB-A bottom",
+  "header": "P1; not MCU package or parent Pico physical pins",
+  "left_top_to_bottom": [
+    [
+      18,
+      "5V / VSYS"
+    ],
+    [
+      17,
+      "GND"
+    ],
+    [
+      16,
+      "3V3"
+    ],
+    [
+      15,
+      "GP29"
+    ],
+    [
+      14,
+      "GP28"
+    ],
+    [
+      13,
+      "GP27"
+    ],
+    [
+      12,
+      "GP26"
+    ],
+    [
+      11,
+      "GP10"
+    ],
+    [
+      10,
+      "GP9"
+    ]
+  ],
+  "right_top_to_bottom": [
+    [
+      1,
+      "GP0"
+    ],
+    [
+      2,
+      "GP1"
+    ],
+    [
+      3,
+      "GP2"
+    ],
+    [
+      4,
+      "GP3"
+    ],
+    [
+      5,
+      "GP4"
+    ],
+    [
+      6,
+      "GP5"
+    ],
+    [
+      7,
+      "GP6"
+    ],
+    [
+      8,
+      "GP7"
+    ],
+    [
+      9,
+      "GP8"
+    ]
+  ],
+  "sources": [
+    {
+      "path": "reference/USB_Host_SubMCU_20261116_RP2350_USB_A/RP2350-USB-A.pdf",
+      "sha256": "23d0fd5af475d2e2e728e6f686f3f15d6d65e33bc6a6ffe2e027d1134a0dcc5d"
+    },
+    {
+      "path": "reference/USB_Host_SubMCU_20261116_RP2350_USB_A/Waveshare_Pinout.jpg",
+      "sha256": "79f7091a88fece9291c44c5cb2b593874d6bb7ebf6662e971063bb0ba2005f04"
+    }
+  ]
+}

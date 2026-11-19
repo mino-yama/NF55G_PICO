@@ -1,0 +1,318 @@
+--- S1.13/NF55_global.h
+
++++ S1.15_r1/NF55_global.h
+
+@@ -39,11 +39,13 @@
+
+ extern uint16_t     gu16_CheckADC1;
+ 
+ extern uint16_t     gu16_ADC_cnt_4;
++extern uint16_t     gu16_ADC_cnt_10;  /* S1.14 128F対策 */
+ extern uint16_t     gu16_ADC_cnt_50;
+ extern uint16_t     gu16_ADC0_Result[7][50];
+ extern uint16_t     gu16_ADC1_Result[7][50];
+ extern uint16_t     gu16_ADC0_Sens[7];
+ extern uint16_t     gu16_ADC1_Sens[7];
++extern uint16_t     gu16_ADC0_5_10[10];  /* S1.14 128F対策 */
+ 
+ extern uint8_t  gu8_f_batt_not_con;
+ extern uint16_t gu16_c_batt_not_con;
+@@ -56,12 +58,14 @@
+
+ //extern struct _Filter pi_ac_on_no_isr;
+ extern struct _Filter pi_ac_on_level;
+ extern struct _Filter pi_aft_ac_on_level;
++
+ ///追加filter///////////////////////////////////////////////
+ extern struct _Filter pi_low_v;
+ extern struct _Filter pi_high_i_of;
+ extern struct _Filter pi_high_i_of_h;
+ extern struct _Filter pi_high_i_on ;
+ extern struct _Filter pi_high_i_on_50ms;
++extern struct _Filter pi_high_i_on_10ms;    /* S1.14 128F対策 */
+ extern struct _Filter pi_high_v ;
+ extern struct _Filter pi_high_i_dis_6 ;
+ extern struct _Filter pi_high_i_cha;
+@@ -83,6 +87,7 @@
+
+ extern struct _Filter pi_latch_fail;
+ extern struct _Filter pi_batt_low_6 ;
+ extern struct _Filter pi_batt_high_6 ;
++
+ /////////////////////////////////////////////////////////////////
+ extern struct _Filter pi_burst_i_over;
+ extern struct _Filter pi_burst_i_good;
+@@ -121,6 +126,7 @@
+
+ extern uint8_t     gu8_f_high_i_of_h;        //項番4:過電流保護 2-10  (H)
+ extern uint8_t     gu8_f_high_i_on;        //項番3:過電流保護 2-8
+ extern uint8_t     gu8_f_high_i_on_50ms;
++extern uint8_t     gu8_f_high_i_on_10ms;  /* S1.14 128F対策 */
+ extern uint8_t     gu8_f_high_v;          //項番8:過電流保護 2-7
+ extern uint8_t     gu8_f_high_i_dis_6;    //項番10:過電流保護 2-15  BATT6直
+ extern uint8_t     gu8_f_high_i_cha;      //項番12:過電流保護 2-13
+@@ -154,6 +160,7 @@
+
+ extern uint8_t     gu8_f_opencheck;
+ 
+ extern uint8_t     gu8_f_ac_off_detected;
++
+ /////////////////////////////////////////////////
+ extern uint8_t     gu8_f_skip_reason;
+ extern uint8_t     gu_f_burst_i_over;
+@@ -308,6 +315,8 @@
+
+ extern uint32_t    gu32_c_minus_dv_disable;                    // 充電開始後、-ΔV検出を行わない期間カウンタ
+ extern uint8_t     gu8_f_charge_inhibited;
+ extern uint8_t     gu8_f_main_chg_now;
++extern uint8_t     gu8_f_suppr_chg_now ;
++extern uint8_t     gu8_f_charge_cmd_mode;
+ 
+ extern uint8_t     gu8_f_dcir_check_doing;
+ typedef struct {    // 寿命診断データ(BCコマンド返信用)
+@@ -353,8 +362,22 @@
+
+ extern uint16_t    gu16_ad_batt_v;
+ extern uint16_t    gu16_ad_acdc12v_v;
+ extern uint16_t    gu16_ad_batt_chg;
+-extern uint16_t    gu16_ad_12vout_i;
++extern uint16_t    gu16_val_12vout_i;
++extern uint16_t    gu16_val_12vout_i_50;  /* S1.14 128F対策 */
++extern uint16_t    gu16_val_12vout_i_10;  /* S1.14 128F対策 */
+ extern uint16_t    gu16_ad_12vout_v;
++
++/* S1.14 123F対策 補正の計算式を修正 */
++extern float       gf_dischg_i_coeff_ad2;
++extern float       gf_dischg_i_coeff_po2;
++extern float       gf_batt_v_coeff_ad2;
++extern float       gf_batt_v_coeff_po2;
++extern float       gf_acdc12v_v_coeff_ad2;
++extern float       gf_acdc12v_v_coeff_po2;
++extern float       gf_batt_chg_coeff_ad2;
++extern float       gf_batt_chg_coeff_po2;
++extern float       gf_12vout_v_coeff_ad2;
++extern float       gf_12vout_v_coeff_po2;
+ 
+ extern uint8_t     gu8_uart_main_receivedata[UART_RCV_MAIN_NUM];
+ extern uint8_t     gu8_uart_main_rcv_wpt;
+@@ -413,7 +436,8 @@
+
+ extern uint32_t gu32_c_bat_temp_ave_sek;
+ extern uint8_t gu8_c_batt_temp_reference_ok;
+ extern uint16_t gu16_c_bat_temp_calc;
+-extern uint16_t gu16_bat_temp_1h_sum;
++//extern uint16_t gu16_bat_temp_1h_sum;
++extern int16_t gi16_bat_temp_1h_sum;    /* S1.14 150F対策 */
+ extern uint8_t gu8_c_bat_temp_1h_sum_sample;
+ extern uint8_t gu8_f_ac_70v_ac_interrupt_on_trg;
+ extern uint8_t gu8_f_bef_ac_70v_ac_interrupt;
+@@ -510,6 +534,7 @@
+
+ extern uint8_t gu8_cmd_sl_proc_stage;
+ extern uint8_t gu8_cmd_bc_proc_stage;
+ extern uint8_t gu8_cmd_ad_proc_stage;
++extern uint8_t gu8_cmd_sc_proc_stage;
+ 
+ extern uint8_t gu8_ack_stage;
+ extern uint8_t gu8_nak_stage;
+@@ -557,9 +582,8 @@
+
+ extern uint8_t     eeprom_req_write_idx;
+ extern uint8_t     eeprom_req_read_idx;
+ extern uint8_t     gu8_f_eeprom_check_error;
+-
+-
+ extern uint8_t     gu8_b_err_log[47];
++
+ ////////////////////////////////////////////////////////////////////////
+ // 13.4.1 リアルタイムデータ
+ ////////////////////////////////////////////////////////////////////////
+@@ -625,6 +649,7 @@
+
+     uint8_t all;
+     struct signal_status_bit_t bit;
+ };
++
+ /*********************/
+ /* COMMAND_STATUS(1) */
+ /*********************/
+@@ -639,6 +664,7 @@
+
+     uint8_t all;
+     struct command_status1_bit_t bit;
+ };
++
+ /*********************/
+ /* COMMAND_STATUS(2) */
+ /*********************/
+@@ -653,6 +679,7 @@
+
+     uint8_t all;
+     struct command_status2_bit_t bit;
+ };
++
+ /*****************/
+ /* BACKUP_STATUS */
+ /*****************/
+@@ -665,6 +692,7 @@
+
+     uint8_t all;
+     struct backup_status_bit_t bit;
+ };
++
+ /******************/
+ /* CHARGE_STATUS */
+ /******************/
+@@ -678,6 +706,7 @@
+
+     uint8_t all;
+     struct charge_status_bit_t bit;
+ };
++
+ /***************/
+ /* ADU_WARNING */
+ /***************/
+@@ -691,6 +720,7 @@
+
+     uint8_t all;
+     struct adu_warning_bit_t bit;
+ };
++
+ /**************/
+ /* ADU_ALM(1) */
+ /**************/
+@@ -704,6 +734,7 @@
+
+     uint8_t all;
+     struct adu_alm1_bit_t bit;
+ };
++
+ /***************/
+ /* BBU_WARNING */
+ /***************/
+@@ -715,6 +746,7 @@
+
+     uint8_t all;
+     struct bbu_warning_bit_t bit;
+ };
++
+ /***********/
+ /* BBU_ALM */
+ /***********/
+@@ -729,6 +761,7 @@
+
+     uint8_t all;
+     struct bbu_alm_bit_t bit;
+ };
++
+ /****************/
+ /* BATT_WARNING */
+ /****************/
+@@ -740,6 +773,7 @@
+
+     uint8_t all;
+     struct batt_warning_bit_t bit;
+ };
++
+ /*************/
+ /* BATT_ALM1 */
+ /*************/
+@@ -753,6 +787,7 @@
+
+     uint8_t all;
+     struct batt_alm1_bit_t bit;
+ };
++
+ /*************/
+ /* BATT_ALM2 */
+ /*************/
+@@ -767,6 +802,7 @@
+
+     uint8_t all;
+     struct batt_alm2_bit_t bit;
+ };
++
+ /**************/
+ /* ADU_ALM(2) */
+ /**************/
+@@ -816,6 +852,7 @@
+
+     uint8_t all;
+     struct e_backup_status_bit_t bit;
+ };
++
+ /*****************/
+ /* CHARGE_STATUS */
+ /*****************/
+@@ -828,6 +865,7 @@
+
+     uint8_t all;
+     struct e_charge_status_bit_t bit;
+ };
++
+ /***************/
+ /* ADU_WARNING */
+ /***************/
+@@ -841,6 +879,7 @@
+
+     uint8_t all;
+     struct e_adu_warning_bit_t bit;
+ };
++
+ /***********/
+ /* ADU_ALM */
+ /***********/
+@@ -854,6 +893,7 @@
+
+     uint8_t all;
+     struct e_adu_alm_bit_t bit;
+ };
++
+ /***************/
+ /* BBU_WARNING */
+ /***************/
+@@ -865,6 +905,7 @@
+
+     uint8_t all;
+     struct e_bbu_warning_bit_t bit;
+ };
++
+ /***********/
+ /* BBU_ALM */
+ /***********/
+@@ -879,6 +920,7 @@
+
+     uint8_t all;
+     struct e_bbu_alm_bit_t bit;
+ };
++
+ /****************/
+ /* BATT_WARNING */
+ /****************/
+@@ -890,6 +932,7 @@
+
+     uint8_t all;
+     struct e_batt_warning_bit_t bit;
+ };
++
+ /*************/
+ /* BATT_ALM1 */
+ /*************/
+@@ -903,6 +946,7 @@
+
+     uint8_t all;
+     struct e_batt_alm1_bit_t bit;
+ };
++
+ /*************/
+ /* BATT_ALM2 */
+ /*************/
+@@ -938,6 +982,7 @@
+
+ 
+ extern uint32_t gu32_reset_cause;
+ extern uint8_t gu8_f_ini_ps_on;
++
+ /*******************************/
+ /* Boot <-> User受け渡しデータ */
+ /*******************************/

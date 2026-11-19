@@ -1,0 +1,386 @@
+--- S1.13/NF55_output.c
+
++++ S1.15_r1/NF55_output.c
+
+@@ -50,7 +50,7 @@
+
+ //static  uint16_t    su16_adj_dty = 0;
+ //static  float       sf_adj_per = 0;
+ 
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ #define SIZ_U16_HIS 4800
+ uint16_t su16_b_his[SIZ_U16_HIS];
+ uint16_t su16_p_u16his = 0;
+@@ -64,20 +64,7 @@
+
+     }
+ }
+ #endif
+-#ifdef _HIS_ENABLE_MODE_
+-#define SIZ_U8_HIS 30
+-uint16_t su16_b_his3[SIZ_U8_HIS];
+-uint16_t su16_p_u8his = 0;
+-
+-void his_temp3(uint16_t dat)
+-{
+-    su16_b_his3[su16_p_u8his] = dat;
+-    if (su16_p_u8his < (SIZ_U8_HIS - 1))
+-    {
+-        ++su16_p_u8his;
+-    }
+-}
+-#endif
++
+ /*******************************************************************************
+ * Function Name: output()
+ * Description  : 出力処理
+@@ -86,22 +73,18 @@
+
+ *******************************************************************************/
+ void output(void)
+ {
+-	if(gu8_f_before_shutdown!=1)
++	if (gu8_f_before_shutdown != 1)
+ 	{
+-	    fan_speed_proc();        // FAN回転判定処理
+-
+-    	ac_link_proc();          // AC_LINK処理
+-
+-
+-    	output_io();   // I/O 出力処理
+-
+-
+-    	output_converter_pwm();  // コンバーターPWM 出力処理
+-
+-    	output_fan_pwm();        // FAN PWM 出力処理
+-	
++	    fan_speed_proc();       // FAN回転判定処理
++
++    	ac_link_proc();         // AC_LINK処理
++
++    	output_io();            // I/O 出力処理
++
++    	output_converter_pwm(); // コンバーターPWM 出力処理
++
++    	output_fan_pwm();       // FAN PWM 出力処理
+ 	}
+-
+ }
+ 
+ /*******************************************************************************
+@@ -684,11 +667,8 @@
+
+             gu16_d_fan_rpm = 0;
+         }
+ 
+-
+-
+-#endif
+-}
+-
++#endif
++}
+ 
+ ///*******************************************************************************
+ //* Function Name: fan_hosei_temp_proc()
+@@ -795,6 +775,7 @@
+
+                     break;
+             }
+         }
++
+         if( f_gu8_fan_ctl_mode == _FAN_CTL_TEMP_MODE_ )       // 温度制御モード
+         {
+             // 温度により回転モードを決定する(ボリューム一気に変換 --> 温度維持の場合追従できない穴あり。最初の条件に||で温度組み込む（あるいは上昇低下は不要になりうる？）)
+@@ -1004,7 +985,7 @@
+
+                 //DL_TimerA_setCaptureCompareValue(FAN_PWM_INST, (uint32_t)gu16_new_dty, DL_TIMERG_CAPTURE_COMPARE_0_INDEX);
+                 set_output_duty(gf_adj_per);
+                 DL_TimerA_startCounter(FAN_PWM_INST);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1026,7 +1007,7 @@
+
+ 
+                 /* Duty更新 */
+                 set_output_duty(gf_adj_per);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1042,7 +1023,7 @@
+
+             ++gu16_c_sta_rpm;
+             if (gu16_c_sta_rpm >= 5)
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+1);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1062,7 +1043,7 @@
+
+             }
+             else
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1077,7 +1058,7 @@
+
+             /* 指令速度が変わった？ */
+             if (f_gu8_fan_speed != gu8_new_spd)
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1102,7 +1083,7 @@
+
+                     gu8_f_wng_fan_high = _L_;
+ 
+                 }
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+8);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1123,7 +1104,7 @@
+
+ 
+                     /* Duty更新 */
+                     set_output_duty(gf_adj_per);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+1);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1139,7 +1120,7 @@
+
+                         /* FAN警告通知:回転低下 */
+                         gu8_f_wng_fan_low = _H_;
+                     }
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+2);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1161,7 +1142,7 @@
+
+ 
+                     /* Duty更新 */
+                     set_output_duty(gf_adj_per);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+3);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1177,7 +1158,7 @@
+
+                         /* FAN警告通知:回転上昇 */
+                         gu8_f_wng_fan_high = _H_;
+                     }
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+4);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1196,7 +1177,7 @@
+
+             /* 指令速度が変わった？ */
+             if (f_gu8_fan_speed != gu8_new_spd)
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1224,7 +1205,7 @@
+
+ 
+                 /* 目標速度に達したので現在速度を目標速度で更新する */
+                 gu8_now_spd = gu8_new_spd;
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+8);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1246,7 +1227,7 @@
+
+ 
+                     /* Duty更新 */
+                     set_output_duty(gf_adj_per);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+1);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1262,7 +1243,7 @@
+
+                         /* FAN警告通知:回転低下 */
+                         gu8_f_wng_fan_low = _H_;
+                     }
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+2);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1284,7 +1265,7 @@
+
+ 
+                     /* Duty更新 */
+                     set_output_duty(gf_adj_per);
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+3);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1300,7 +1281,7 @@
+
+                         /* FAN警告通知:回転上昇 */
+                         gu8_f_wng_fan_high = _H_;
+                     }
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+4);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1322,7 +1303,7 @@
+
+             }
+             else
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1336,7 +1317,7 @@
+
+             /* Idle中に5%範囲から外れたらDuty1%刻みの補正を実施する */
+             if(( gu16_d_fan_rpm > gu16_max_rpm_5 ) || ( gu16_d_fan_rpm < gu16_min_rpm_5 ))
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+1);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1350,7 +1331,7 @@
+
+             /* Idle中に1%範囲から外れたらDuty0.1%刻みの補正を実施する */
+             if(( gu16_d_fan_rpm > gu16_max_rpm_1 ) || ( gu16_d_fan_rpm < gu16_min_rpm_1 ))
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+2);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1361,7 +1342,7 @@
+
+                 return;
+             }
+ 
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1374,7 +1355,7 @@
+
+         case 50:
+             if(f_gu8_fan_speed == gu8_new_spd)
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1384,7 +1365,7 @@
+
+             }
+             else
+             {
+-#ifdef _HIS_ENABLE_MODE_
++#ifdef _FAN_HIS_ENABLE_
+ his_temp(gu8_fan_output_stg+9);
+ his_temp(gu8_now_spd);
+ his_temp(gu8_new_spd);
+@@ -1400,7 +1381,7 @@
+
+             case 90:
+                 if(f_gu8_fan_speed == gu8_new_spd)
+                 {
+-    #ifdef _HIS_ENABLE_MODE_
++    #ifdef _FAN_HIS_ENABLE_
+     his_temp(gu8_fan_output_stg);
+     his_temp(gu8_now_spd);
+     his_temp(gu8_new_spd);
+@@ -1410,7 +1391,7 @@
+
+                 }
+                 else
+                 {
+-    #ifdef _HIS_ENABLE_MODE_
++    #ifdef _FAN_HIS_ENABLE_
+     his_temp(gu8_fan_output_stg+9);
+     his_temp(gu8_now_spd);
+     his_temp(gu8_new_spd);
+@@ -1424,7 +1405,7 @@
+
+                 if(((gu8_f_wng_fan_low == _H_) && (gu16_d_fan_rpm > gu16_min_rpm_5))      // 回転低下
+                 || ((gu8_f_wng_fan_high == _H_) && (gu16_d_fan_rpm < gu16_max_rpm_5)))    // 回転上昇
+                 {
+-    #ifdef _HIS_ENABLE_MODE_
++    #ifdef _FAN_HIS_ENABLE_
+     his_temp(gu8_fan_output_stg+1);
+     his_temp(gu8_now_spd);
+     his_temp(gu8_new_spd);
+@@ -1558,19 +1539,13 @@
+
+ //* Function Name: set_output_duty()
+ //* Description  :
+ //* Arguments    : dutyカウント値
+-//* Return Value : dutyカウント値(ローンチパッドor実基板)
++//* Return Value : dutyカウント値
+ //*******************************************************************************/
+ void set_output_duty(float count)
+ {
+     gu16_new_dty = (float)gu16_fan_pwm_freq * count * 0.01;
+-
+-
+-#ifndef _LAUNCHPAD_MODE_
+-    gu16_new_dty = (float)gu16_fan_pwm_freq - gu16_new_dty;
+-#endif
+-
+-            DL_TimerA_setCaptureCompareValue(FAN_PWM_INST, (uint32_t)gu16_new_dty, DL_TIMERG_CAPTURE_COMPARE_0_INDEX);
+-
++	gu16_new_dty = (float)gu16_fan_pwm_freq - gu16_new_dty;
++    DL_TimerA_setCaptureCompareValue(FAN_PWM_INST, (uint32_t)gu16_new_dty, DL_TIMERG_CAPTURE_COMPARE_0_INDEX);
+ }
+ 
+ /*******************************************************************************
+@@ -1674,12 +1649,10 @@
+
+     }
+ }
+ 
+-
+ void restart_flg_proc(void)
+ {
+     if (SP_AC_LINK != _ENABLE_)
+     {
+-     set_info_evt_errlog( FLAG_RESTART_READY, _RESET_ );  // RESTART READY Reset
+-    }
+-
+-}
++        set_info_evt_errlog( FLAG_RESTART_READY, _RESET_ );  // RESTART READY Reset
++    }
++}

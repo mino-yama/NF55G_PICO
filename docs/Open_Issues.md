@@ -1,5 +1,9 @@
 # Open Issues
 
+2026-11-19 CAL-EXT-02の追加回答: シャント抵抗は50A/50mV（1mΩ）、取得単位mV、Aへの換算担当はPicoで確定。I[A]=U[mV]を内部校正候補取得へ実装した。元測定Cacheを保持し、誤単位では候補を拒否する。正式API・実応答の単位正規化・AD表現/極性・A/B点対応等の未回答部分と実機検証は継続し、IssueはCloseしない。[記録](ADC_Calibration_Development_20261119.md)。
+
+2026-11-19ユーザー決定と実装進捗: 必須校正はDISCHG_I/BATT_CHG/BATT_Vの3系統×2点。OI-17は設計指示7.3との不整合とせず、12VOUT_Iの追加校正は要求しない。ただし関連機能の確認完了/Issue Closeではない。OI-19の保存後反映・再投入要否は実機確認待ち。ADC治具機能の開発は継続可となり、取得Cacheの内部基盤・試行境界の失効を実装。CAL-EXT-02等の正式API、A/BとP1/P2対応、シャント換算、AD/AR契約の未回答部分は継続する。製品FW/GitHub Issuesは変更しない。[確定事項・未確認事項・今回の境界](ADC_Calibration_Development_20261119.md)。
+
 2026-11-14 取得値Cache書込み（詳細設計Open）: DMM/QR読取り→Cache・ATE返却→ATE確認→別指令でCache値書込み、数値直接指定方式の維持、書込み完了時の使用Cache破棄、TEST_END時の全取得Cache破棄はユーザー確定。TEST_END後の遅着では復活させず、成否不明時もHard Rule 15に従いINVALID。正式API/取得識別・Cache名/追加期限・完了単位/明示拒否時処理・単位換算・QR/SS変換と保留解除時期は未確定。実装・受入未完了のため関連IssueはCloseしない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
 
 ## 2026-11-11 D1～D5各10回の受信時間比較（D4-TIM-01、Open継続）
@@ -416,3 +420,22 @@ QR固定接続cold-startでFW起動2件のみ、同給電のRST後は557msで認
 未確定: 追加基板の型番・個体・使用Hostポート・CC／VBUS・保護、親GPIO／PIO SM・命令メモリ・IRQ・buffer・受信負荷、リンクの正式フレーム／API。共通コードを用いても経路別の起動・要求・受信状態を分ける。入手・購入操作・新構成の実装／実機検証は未実施。[構成・次工程](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。
 
 USB-SUB-03は1基板・2 Hostという旧構成の課題としてOpenのまま保持し、新構成の必須条件から外す。技術的に解決・Closeしたとは扱わない。USB-SUB-01／02／04も継続。
+
+## S1.15_r1 ソース比較レビュー（2026-11-18、Open継続）
+
+ユーザー指定のS1.13とS1.15_r1を比較。詳細と行番号根拠は [検証結果](S1.15_r1/Review_20261118.md)。原本コピー172ファイルのSHA-256一致、既存Host/Mock354件成功。実機試験・NF55G再ビルドは未実施。
+
+- OI-03: D0 ACK後のCHARGE_ENDクリアは新版にも存続。
+- OI-04: 今回の新旧ARはfloat型pointをint_to_aschex(int32_t,...)で整数HEXへ変換。過去記録のfloat raw HEX推定と区別する。過去暫定FWと今回S1.13の同一性は未確認。AD入力/応答とAR REFの表現差、小数保持・単位は要設計確認。
+- OI-05/16/18/21: 通常測定の2点オフセット補正は改善したが、AD即時係数反映・AD応答式・入力検証・校正条件の懸念は残る。
+- OI-06/07: BCの0/1以外PMEとDCIR中断フラグ解除等は改善。BC=0でもDCIR要求を立てる共通処理が残り、STOPの懸念は解消しない。
+- OI-20: ARのDATA140文字、5系統・2点・順序はソース一致。設計回答や実機検証によるCloseではない。
+
+| 追跡ID | 新たな確認事項 | 状態 |
+|---|---|---|
+| S115-01 | EEPROM CRC対象834→835byte、追加chgsoc/back_upの移行。旧EEPROM引継ぎ時のCRC不一致・起動停止可能性。書込み工程の初期化/移行手順を設計確認。 | Open・高優先 |
+| S115-02 | gf_batt_v_coeffの1000倍削除に対し、input:757の充電過電圧判定は旧式のまま。閾値PRO_HIGH_V_CHG=11400との単位/オフセット整合と保護成立を設計確認。 | Open・高優先 |
+| S115-03 | 実行時2点補正式とAD応答CALC式の差、およびAD後の係数反映手順。OI-05/16/21と関連。 | Open |
+| S115-04 | ARの整数変換による小数情報喪失と正式REF表現。今回S1.13にも存在。OI-04と関連。 | Open |
+
+上記は静的解析の確認事項。製品不良や実機改善を断定せず、設計回答を推測してCloseしない。治具側での吸収・仕様変更は行っていない。

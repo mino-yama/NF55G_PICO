@@ -1,0 +1,14 @@
+--- S1.13/NF55_tbl.c
+
++++ S1.15_r1/NF55_tbl.c
+
+@@ -63,7 +63,7 @@
+
+     .batt_wng_thd    = 65,       // 65℃        バッテリ充電抑止温度閾値          0:初期値
+     .batt_alm_thd    = 80,       // 80℃        バッテリ温度異常閾値              0:初期値
+     .adu_temp_thd    = 85,       // 85℃        AC/DC部の温度警告(ADU_TEMP_WNG)の検出閾値   0:初期値
+-    .bbu_temp_thd    = 85,       // 85℃        BACKUP部の温度警告(BBU_TEMP_WNG)の検出閾値  0:初期値
++    .bbu_temp_thd    = 90,       // 90℃        BACKUP部の温度警告(BBU_TEMP_WNG)の検出閾値  0:初期値
+     .fan_wng_thd     = 615       // 615rpm      FANの回転停止警告(FAN_WMG)の検出閾値        0:初期値
+ };
+ 
