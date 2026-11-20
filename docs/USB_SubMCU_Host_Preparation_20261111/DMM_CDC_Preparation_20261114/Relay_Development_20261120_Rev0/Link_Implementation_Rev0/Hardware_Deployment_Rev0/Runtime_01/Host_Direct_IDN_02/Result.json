@@ -1,0 +1,55 @@
+{
+  "time_jst": "2026-11-20T17:12:14.611188+09:00",
+  "port": "COM22",
+  "adapter": "CH341 1A86:5523",
+  "settings": "115200 8N1, no flow, DTR/RTS OFF",
+  "automatic_retry": false,
+  "firmware_written": false,
+  "instrument_query_sent_to_uart": true,
+  "commands": [
+    "*IDN? only after READY and Host identity verified"
+  ],
+  "frames": [
+    {
+      "kind": "h",
+      "request": 0,
+      "mode": 0,
+      "timeout_ms": 0,
+      "session_hex": "BE0D99B70A874879F637C92C2ECA28C7",
+      "payload_hex": "424643463245444238344230423337467C6D657465722D686F73742D72656C61792D32303236313132302E317C5245414459"
+    },
+    {
+      "kind": "A",
+      "request": 1,
+      "mode": 1,
+      "timeout_ms": 2000,
+      "session_hex": "BE0D99B70A874879F637C92C2ECA28C7",
+      "payload_hex": ""
+    },
+    {
+      "kind": "T",
+      "request": 1,
+      "mode": 1,
+      "timeout_ms": 2000,
+      "session_hex": "BE0D99B70A874879F637C92C2ECA28C7",
+      "payload_hex": ""
+    },
+    {
+      "kind": "R",
+      "request": 1,
+      "mode": 1,
+      "timeout_ms": 2000,
+      "session_hex": "BE0D99B70A874879F637C92C2ECA28C7",
+      "payload_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A"
+    }
+  ],
+  "identity": "BFCF2EDB84B0B37F",
+  "version": "meter-host-relay-20261120.1",
+  "state": "READY",
+  "success": true,
+  "response_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+  "response_ascii": "ADC Corp.,7355,246410099,  A02\r\n",
+  "port_closed": true,
+  "rx_bytes": 464,
+  "rx_sha256": "bdadea9670bb6547764739a78cc9996e18e86a6140038aa333102781f8444bfe"
+}

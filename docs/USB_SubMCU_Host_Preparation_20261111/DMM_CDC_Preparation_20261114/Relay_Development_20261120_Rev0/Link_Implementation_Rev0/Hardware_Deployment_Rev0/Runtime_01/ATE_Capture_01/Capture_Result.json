@@ -1,0 +1,34 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM5",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T16:33:56.986063+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 10093,
+      "rx_hex": "",
+      "rx_ascii": ""
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "*IDN? only after user power gate"
+  ],
+  "nf55g_commands": false,
+  "result": "STOPPED",
+  "power_notice": {
+    "date_jst": "2026-11-20",
+    "user_report": "完了（共通外部5V電源と7355本体ONの案内に対する回答）"
+  },
+  "error": "RuntimeError('ATE response incomplete/timeout; not retried')",
+  "all_rx_bytes": 0,
+  "all_rx_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "port_closed": true,
+  "actual_external_query_sent": false,
+  "actual_nf55g_commands_sent": false,
+  "user_confirmed_ate_connector": "ATE UART0 GP0/GP1 (not NF55G UART1 GP4/GP5)"
+}

@@ -1,0 +1,19 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user serial monitor transcript after reconnect-input request",
+  "query": "EXT_QUERY 10000 :READ?",
+  "raw_hex": "2D3030322E39313139452B30300D0A",
+  "raw_ascii": "-002.9119E+00\r\n",
+  "declared_bytes": 15,
+  "actual_bytes": 15,
+  "measurement_volts": "-2.9119",
+  "error_ascii": "+0,\"No error\"\r\n",
+  "previous_nonzero_measurement_volts": "-2.91180",
+  "difference_volts": "-0.00010",
+  "difference_magnitude_mV": "0.10",
+  "range_basis": "previous UP200V display and CONF199.9999V; unchanged requested",
+  "new_front_panel_value_unreported": true,
+  "input_reconnection_requested": true,
+  "calibration_pass_judged": false,
+  "codex_device_IO": false
+}

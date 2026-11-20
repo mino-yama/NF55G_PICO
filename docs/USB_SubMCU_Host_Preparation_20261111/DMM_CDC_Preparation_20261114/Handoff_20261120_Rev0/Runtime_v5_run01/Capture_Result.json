@@ -1,0 +1,116 @@
+{
+  "date_jst": "2026-11-20",
+  "firmware_version": "meter-host-voltage-test-20261120.5",
+  "target_usb_serial": "BFCF2EDB84B0B37F",
+  "capture_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/uart.raw",
+  "bytes_received": 1756,
+  "capture_sha256": "a4418463d26df602fdc01d1020f29d5c6cdd1c4bcb12da7a56523de368888bdd",
+  "capture_duration_seconds": 120,
+  "port": "COM22",
+  "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+  "leading_nul_bytes": 1,
+  "front_panel_range_reported_by_user": "20 V during this trial",
+  "usb_cdc_configuration": "VID/PID 1334:0309; 9600 8N1; DTR/RTS OK",
+  "idn_response": "ADC Corp.,7355,246410099,  A02\r\n",
+  "range_setting_command": ":SENS:VOLT:DC:RANG 20",
+  "error_after_range_setting": "+0,\"No error\"\r\n",
+  "conf_response": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+  "last_event": "SCPI_FAILED step=12 reason=CONF_RANGE_NOT_20V no_retry=1",
+  "read_query_sent": false,
+  "sequence_complete": false,
+  "issue": "USB-CDC-RANGE-01",
+  "interpretation": "CDC and setting-response validation succeeded through CONF. Same-trial front-panel 20 V report conflicts with approximately 200 V CONF numeric field. Gate stopped before READ as designed; cause remains unconfirmed.",
+  "commands": [
+    {
+      "step": 0,
+      "command": "*IDN?",
+      "expects_response": true,
+      "response_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "response_ascii": "ADC Corp.,7355,246410099,  A02\r\n"
+    },
+    {
+      "step": 1,
+      "command": ":SYST:ERR?",
+      "expects_response": true,
+      "response_hex": "2B302C224E6F206572726F72220D0A",
+      "response_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "step": 2,
+      "command": ":INIT:CONT OFF",
+      "expects_response": false,
+      "response_hex": "",
+      "response_ascii": ""
+    },
+    {
+      "step": 3,
+      "command": ":INIT:CONT?",
+      "expects_response": true,
+      "response_hex": "300D0A",
+      "response_ascii": "0\r\n"
+    },
+    {
+      "step": 4,
+      "command": ":ABOR",
+      "expects_response": false,
+      "response_hex": "",
+      "response_ascii": ""
+    },
+    {
+      "step": 5,
+      "command": "*OPC?",
+      "expects_response": true,
+      "response_hex": "310D0A",
+      "response_ascii": "1\r\n"
+    },
+    {
+      "step": 6,
+      "command": ":SENS:FUNC \"VOLT:DC\"",
+      "expects_response": false,
+      "response_hex": "",
+      "response_ascii": ""
+    },
+    {
+      "step": 7,
+      "command": ":SENS:FUNC?",
+      "expects_response": true,
+      "response_hex": "22564F4C543A4443220D0A",
+      "response_ascii": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "step": 8,
+      "command": ":SENS:VOLT:DC:RANG:AUTO OFF",
+      "expects_response": false,
+      "response_hex": "",
+      "response_ascii": ""
+    },
+    {
+      "step": 9,
+      "command": ":SENS:VOLT:DC:RANG:AUTO?",
+      "expects_response": true,
+      "response_hex": "300D0A",
+      "response_ascii": "0\r\n"
+    },
+    {
+      "step": 10,
+      "command": ":SENS:VOLT:DC:RANG 20",
+      "expects_response": false,
+      "response_hex": "",
+      "response_ascii": ""
+    },
+    {
+      "step": 11,
+      "command": ":SYST:ERR?",
+      "expects_response": true,
+      "response_hex": "2B302C224E6F206572726F72220D0A",
+      "response_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "step": 12,
+      "command": ":CONF?",
+      "expects_response": true,
+      "response_hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+      "response_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n"
+    }
+  ]
+}

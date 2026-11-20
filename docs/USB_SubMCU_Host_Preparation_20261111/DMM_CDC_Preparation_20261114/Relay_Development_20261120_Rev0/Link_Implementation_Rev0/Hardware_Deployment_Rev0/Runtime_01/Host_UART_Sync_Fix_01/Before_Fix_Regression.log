@@ -1,0 +1,954 @@
+test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) ... 
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=0) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=1) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=2) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=3) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=4) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=5) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=6) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=7) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=8) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=9) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=10) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=11) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=12) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=13) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=14) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=15) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=16) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=17) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=18) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=19) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=20) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=21) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=22) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=23) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=24) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=25) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=26) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=27) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=28) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=29) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=30) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=31) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=32) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=33) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=34) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=35) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=36) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=37) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=38) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=39) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=40) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=41) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=42) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=43) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=44) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=45) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=46) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=47) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=48) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=49) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=50) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=51) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=52) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=53) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=54) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=55) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=56) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=57) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=58) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=59) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=60) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=61) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=62) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=63) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=64) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=65) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=66) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=67) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=68) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=69) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=70) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=71) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=72) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=73) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=74) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=75) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=76) ... ERROR
+  test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=77) ... ERROR
+test_power_on_bytes_do_not_block_parent_query (test_external_instrument_link.NativeRelayLinkTests.test_power_on_bytes_do_not_block_parent_query) ... FAIL
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=14)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=16)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=18)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=19)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=20)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=22)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=23)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=24)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=26)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=27)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=28)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=29)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=30)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=31)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=32)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=33)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=34)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=35)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=36)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=37)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=38)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=39)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=40)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=41)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=42)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=43)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=44)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=45)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=46)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=47)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=49)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=50)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=51)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=52)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=53)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=54)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=55)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=56)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=57)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=58)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=59)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=60)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=61)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=62)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=63)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=64)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=65)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=66)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=67)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=68)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=69)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=70)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=71)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=72)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=73)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=74)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=75)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=76)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+ERROR: test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) (split=77)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 200, in test_host_recovers_power_on_capture_at_every_split
+    reply = decode_frame(bytes(transport.rx))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\src\external_instrument_contract.py", line 83, in decode_frame
+    raise ContractError("FRAME_ENDING")
+src.external_instrument_contract.ContractError: FRAME_ENDING
+
+======================================================================
+FAIL: test_power_on_bytes_do_not_block_parent_query (test_external_instrument_link.NativeRelayLinkTests.test_power_on_bytes_do_not_block_parent_query)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 210, in test_power_on_bytes_do_not_block_parent_query
+    reply = self.request()
+            ^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 186, in request
+    self.fail('No bounded response')
+AssertionError: No bounded response
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.492s
+
+FAILED (failures=1, errors=78)

@@ -1,6 +1,34 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
+
+2026-11-20 .3実機で設定Query5種×12周（60件、機器応答総1035byte）と終了エラーQueryを成功。全周で原文/書式/長さ一致、CONFは正常なVOLT +1.999999E+01,+1.000000E-06、AUTO=1、エラー0。先行の応答崩れは今回再現せず、受信健全性を確認。固定20V切替/前面一致/測定は未実施でレンジIssue等はOpen維持。COM7解放済み。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md)。
+
+2026-11-20 USB-RELAY-CDC-BUF-01（Open）: 提示CONF?が36byteの不正文字列に復号。固定SDK CDCのrx配列はTX macro確保64byte/初期化RX深さ256byteという不一致を確認し、実FIFOで隣接領域書換えを再現。Host側TX/RX256整合+ビルド時guardへ修正、新FW.3をビルド中。回帰3件追加し全453件成功。提示崩れの実機因果/20V問題は未確定でCloseしない。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Result_Rev0.md)。
+
+2026-11-20 .2実機試行10で親経由7355識別中継成功。ATEへOK:EXT_RX:32:HEXを返しADC Corp.,7355,246410099,  A02+CRLFを原文保持。Host入力線にHとQ一件を正常捕捉、再送/レンジ/READなし。試行9の起動00byte付き照合成功と合わせ同期修正の効果を確認。全受入/Issue Closeとはせず切断復帰/実負荷等は残る。シリアルモニターCOM7/57600 8N1を解放済み。 [解決記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Resolution_Rev0.md)。
+
+2026-11-20 起動時UART不具合を実原文で再現し修正: Host GP1で00 00+正常H（計77byte）を取得。旧Cは一行として破棄しhなし。Host受信を@先頭から同期させ、CRC/長さ/session/重複/故障保持/再送禁止を維持。回帰4件を追加して全450件成功。FW .2をビルド中、実機未配置。電気的起源と実機因果の最終確認は残りIssueはOpen。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Result_Rev0.md)。
+
+2026-11-20 中継縦通し32テスト追加: 実C engine/codecをnative DLLへリンクしてATE→FixtureApp→親adapter→Host→逆経路を検証。各種CRC/長さ・192byte原文・全USB応答分割境界・USB奇数長分割・遅着/重複/再起動/timeout/clock wrap・FU禁止・ATE順序・試行BUSYを確認。公式v1.27.0 asm_pioでTX4+RX12=16命令を組立て、PIO FIFO/IRQリングも検証。全Host/Mock 446件成功。実波形/IRQ負荷/実USBは別途受入。 [リンク実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
+2026-11-20 確定中継契約の13テスト追加: EXT_QUERY/EXT_SENDの本文/終端/期限/上限、独立CRC計算との照合、CRC破損、CRCが正しくても不正なheader/lengthの拒否、全192byteのフレーム往復、モニター向けHEX応答とエラー文字列注入の拒否を検証。親/Host実UART・PIO/CDC接続は別途検証する。 [確定仕様 Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Interface_Spec_Rev1.md)。
+
+2026-11-20 中継コア19テスト追加: 実測IDNの全2分割境界、原文保持、200V CONFの無変形返却、応答有無、送受信callback逆転、timeout境界、部分送信、取消/切断、再確立/旧token、複数行、上限を検証。全Host Unit/Mock NF55G 401件成功（5.327秒）。実UART/CDC adapterとATE縦通しは未試験。 [実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Result_Rev0.md)。
+
+2026-11-20 .5実機試行1: UART 1,756 byte、USB/CDC設定・IDN成功、引用符付き機能応答を受理。レンジ設定後のSCPI error=0だがCONF約200V、前面報告20V。READ前停止の動作を確認。測定受入は未完了。 [実機結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md)。
+
+2026-11-20 CDC応答検証追加: `tests/test_external_meter_scpi_validation.py`で実FWのCモジュールをnative実行し、00001/指数表記、20V CONF受理、実測200V CONF拒否、NaN/Inf/16進数/NUL/数値桁あふれ、部分・複数行、不正機能・分解能、既存19～21V境界を検証。全Host Unit/Mock 382件成功（10.344秒）。実機配置・READ・測定精度は未検証。ユーザー報告の前面20VとCONF約200Vとの相違を残す。[記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Result_Rev0.md)。
+
 2026-11-19シャント換算テスト追加: 電流2系統×2点でmV→同値A、BATT_Vの両点でV保持、符号/指数/精度の保持、誤単位の拒否、元Cacheの保護、失効後の候補拒否を確認する。親Pico相当のFixtureApp＋Mock NF55Gで換算のみではAD送信なしも確認する。前回ログを保持し、追加後の全試験結果を`ADC_Calibration_Shunt_Host_Mock_20261119.log`へ保存する。
+
+2026-11-19 外部測定器Host診断FW準備（当時未配置）: RP2350-USB-A専用のPIO USB CDC ACM Host FWを追加し、固定SDK 2.2.0でARM build/link成功。Host/Mock全375件は既存治具回帰であり、新Hostの機能確認ではない。以下の11-20追記で配置状態を更新。
+
+2026-11-20 外部測定器Host診断FW配置・UART/USB Host確認: WAVESHARE-30274対象serial BFCF2EDB84B0B37FへUF2配置・Flash verify OK、全Flash退避済み。SH-U05A COM22、115200/8N1、flow controlなし、DTR/RTS OFF、送信なしの30秒採取で、ユーザー申告の試験前提確認後に7355 USB-BをUSB-A Hostへ固定接続し、PC USB-Cを外して外部電源を投入。raw `temp/meter_host_com22_capture_20261120_06.raw`は124 byte、SHA-256=`3c06c23cecb91cf7c58cb4e9ceac961dd9e1a95c50cb8c000e85477cc52f715a`。FW版/Chip IDと`USB_HOST_READY rhport=1 dplus=12 dminus=13`を受信したが、`USB_MOUNT`/`CDC_MOUNT`/`IDN_TX_ONCE`/IDN応答なし。FW・UART・PIO Host初期化は確認済み、7355列挙・CDC/IDNは未達。次回通電前に電源OFFでUSB-A–USB-Bケーブル経路と7355側USB interface設定を照合する。QueryはFWが認識後に一度だけ送信し、再送しない。
+
+2026-11-20 7355 CDC/IDN再試験: USB-A–USB-Bケーブル経路と7355 BUS=CDCを確認後の試行で、USB/CDC mount、9600/8N1、DTR/RTS ON、`*IDN?`一回送信とCRLF終端応答を確認。raw `temp/meter_host_com22_capture_20261120_07.raw`は436 byte、SHA-256=`cac1ab22e6655a323671938428ce66037773c6bd3cc140867f9c394445f5222b`。実測IDN=`ADC Corp.,7355,246410099,  A02`。過去資料の`246410072 / A01`は別個体の参照値であり、ユーザー確認により差は想定内。通信確認は成立。測定試験は前面LANG=SCPIと既知の低電圧DC入力・V/COM接続を確認後、試験用FWを準備して実施する。
+
+2026-11-20 単発DCV測定FW初回/再試験: `.1`は対象chipid `0xbfcf2edb84b0b37f`へ配置・Flash verify OK。raw #08（1171 byte、SHA-256=`be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1`）で引用符付き`"VOLT:DC"`を誤拒否、READ未送信。`.2`を再配置・verify後のraw #09（1969 byte、SHA-256=`19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6`）では`:TRIG:COUN?`の`00001`を文字列不一致として停止、READ未送信。`:CONF?`応答は`VOLT +1.999999E+02,+1.000000E-05`で約200Vに見え、指定20Vとの相違は未解決。前面表示の確認が必要。`.3`は配置済みだが未実行・外部電源OFF。`.4`は`:CONF?`のfull-scale値が19～21V以外ならREAD前停止するゲート付きでbuild/hash検証済み、未配置。約0.2V DC・無負荷、BUS=CDC、LANG=SCPI、V/COM接続済み、初期設定記録済みとのユーザー確認あり。測定値はまだない。測定精度・PASS判定は行わない。
 
 2026-11-19 ADC測定Cache基盤: `tests/test_calibration_measurement.py`に、3系統×A/Bの保持、原文/数値桁/単位の保持、再取得失敗時の旧値破棄、遅着・重複・別点/試行の拒否、不正数値、コピー保護、使用Cache破棄を追加。Mock NF55G付きFixtureAppでATEのTEST_START/再START/TEST_END、BUSY拒否時の保持とNF55G無送信も確認する。正式DMM取得/Cache照会/AD送信、換算とCDC実機試験は未実装/未実行。[範囲・結果ログ](ADC_Calibration_Development_20261119.md)。
 

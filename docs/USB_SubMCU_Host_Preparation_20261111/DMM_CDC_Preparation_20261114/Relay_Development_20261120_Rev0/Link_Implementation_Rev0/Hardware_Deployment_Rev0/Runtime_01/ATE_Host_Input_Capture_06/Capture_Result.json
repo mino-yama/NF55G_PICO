@@ -1,0 +1,38 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM7",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T17:19:39.795180+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 16.0,
+      "rx_hex": "4E463535475F5049434F5F464958545552452C5265762E300D",
+      "rx_ascii": "NF55G_PICO_FIXTURE,Rev.0\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 *IDN?",
+      "tx_hex": "4558545F51554552592032303030202A49444E3F0D",
+      "time_jst": "2026-11-20T17:19:39.967233+09:00",
+      "tx_written": 21,
+      "elapsed_ms": 2016.0,
+      "rx_hex": "4552523A4558545F54494D454F55543A414D424947554F55533D300D",
+      "rx_ascii": "ERR:EXT_TIMEOUT:AMBIGUOUS=0\r"
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "*IDN? only after fixture identity verified"
+  ],
+  "nf55g_commands": false,
+  "result": "STOPPED",
+  "user_authorization": "Host側外部給電線の接続をユーザー確認。監視点をHost GP1受信入力へ移し、親からの要求を受動採取。冷起動・接続完了後に実行。",
+  "power_operation_performed": false,
+  "error": "RuntimeError('External instrument relay returned error: ERR:EXT_TIMEOUT:AMBIGUOUS=0')",
+  "all_rx_bytes": 53,
+  "all_rx_sha256": "33efb8b7bfb7abf901d4a41992dd248811baa6a54d25e61a41970676f95280fc",
+  "port_closed": true
+}

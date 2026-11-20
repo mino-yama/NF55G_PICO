@@ -1,0 +1,13 @@
+{
+  "port": "COM6",
+  "expected_unique_id": "69f7d45962cfdfad",
+  "date_jst": "2026-11-20",
+  "firmware_files_written": false,
+  "normal_main_started": false,
+  "queries_sent": false,
+  "unique_id": "69f7d45962cfdfad",
+  "factory_stdout": "FACTORY_DIAGNOSTIC_BEGIN\r\nIMPORT_OK\r\nFACTORY_OK\r\nEXTERNAL_ERROR=None\r\nEXTERNAL_LINK_PRESENT=True\r\nATE_UART=UART(0, baudrate=57600, bits=8, parity=None, stop=1, tx=0, rx=1, txbuf=256, rxbuf=4096, timeout=0, timeout_char=1, invert=None, irq=0)\r\nSD_DIAGNOSTIC={'error': None, 'status': 'OK', 'mounted': True, 'cs_before_spi': False, 'elapsed_ms': 1612, 'stage': 'READY', 'startup_delay_ms': 0}\r\nSM4_ACTIVE=True\r\nSM5_ACTIVE=True\r\nFACTORY_DIAGNOSTIC_END\r\n",
+  "factory_stderr": "",
+  "factory_ok": true,
+  "final_state": "raw soft reset; then friendly REPL stopped"
+}

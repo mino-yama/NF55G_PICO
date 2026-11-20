@@ -1,0 +1,24 @@
+{
+  "port": "COM22",
+  "settings": "115200 8N1, no flow, DTR/RTS OFF",
+  "Q_sent": false,
+  "SCPI_sent": false,
+  "automatic_retry": false,
+  "firmware_written": false,
+  "power_source": "external supply; PC USB-C disconnected",
+  "instrument_USB_B": "disconnected",
+  "reported_power_volts": [
+    5.0,
+    3.2
+  ],
+  "replayed_parent_H": true,
+  "tx_written": 75,
+  "elapsed_ms": 15,
+  "identity": "BFCF2EDB84B0B37F",
+  "version": "meter-host-relay-20261120.1",
+  "state": "NOT_READY",
+  "hello_ok": true,
+  "rx_hex": "4058312C46363042324130433135423831373232384338443831463931344232393830462C30303030303030302C682C302C30303030303030302C303033362C3432343634333436333234353434343233383334343233303432333333373436374336443635373436353732324436383646373337343244373236353643363137393244333233303332333633313331333233303245333137433445344635343546353234353431343435392C37413446373332340D0A",
+  "rx_sha256": "27dd24fce8a074e616aefee1d623f28df9b31f5a7c83911ac1f5991cfd9fc771",
+  "port_closed": true
+}

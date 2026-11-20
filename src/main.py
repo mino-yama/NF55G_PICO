@@ -11,6 +11,9 @@ startup_sd_diagnostic = None
 
 try:
     from . import config
+    from .external_instrument_contract import format_error
+    from .external_instrument_link import ExternalInstrumentLink, new_nonce
+    from .external_instrument_relay import RelayError
     from .ate_uart import create_ate_uart
     from .cache_manager import CacheManager
     from .calibration_measurement import CalibrationMeasurements
@@ -28,6 +31,9 @@ try:
     from .qr_reader import QRReceiver, decode_qr
 except ImportError:  # pragma: no cover
     import config
+    from external_instrument_contract import format_error
+    from external_instrument_link import ExternalInstrumentLink, new_nonce
+    from external_instrument_relay import RelayError
     from ate_uart import create_ate_uart
     from cache_manager import CacheManager
     from calibration_measurement import CalibrationMeasurements
@@ -46,8 +52,13 @@ except ImportError:  # pragma: no cover
 
 
 class FixtureApp:
-    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None):
+    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None, external_link=None):
         self.clock = clock or getattr(protocol, 'clock', None) or SystemClock()
+        self.external_link = external_link
+        self.external_error = None
+        self.external_response = None
+        self._external_pending = False
+        self._external_text = None
         self.ate_uart = ate_uart
         self.nf55_uart = nf55_uart
         self.protocol = protocol or (NF55Protocol(nf55_uart, clock=self.clock) if nf55_uart is not None else None)
@@ -86,6 +97,8 @@ class FixtureApp:
         return accepted
 
     def _comm_busy(self):
+        if self._external_pending:
+            return True
         if self.protocol is None:
             return False
         try:
@@ -116,11 +129,38 @@ class FixtureApp:
                             detail='elapsed_ms={};ambiguous={}'.format(tx.elapsed_ms, tx.ambiguous))
         return result.ate_response
 
+    def _service_external(self):
+        if self.external_link is None:
+            return
+        self.external_link.poll()
+        if not self._external_pending:
+            return
+        reply = self.external_link.take_reply()
+        if reply is None:
+            return
+        self._external_pending = False
+        if self.logger.active or self.logger.test_running:
+            self.logger.log(category='ATE', direction='TX', event='RESULT', result=reply,
+                            detail=self._external_text)
+        if self.server is not None:
+            try:
+                self.server.reply(reply)
+                self.server.flush_reply()
+            except OSError as exc:
+                self.ate_error = str(exc)
+        else:
+            self.external_response = reply
+
+    def take_external_response(self):
+        reply, self.external_response = self.external_response, None
+        return reply
+
     # 1巡分の処理：ATE受信とidle EB処理→ATE応答/要求実行→空き時間のRTC/SD処理。
     def service_once(self):
         self._pump_ate()
         if self.protocol is not None:
             self.protocol.service_idle()
+        self._service_external()
         if self.server is not None:
             try:
                 self.server.flush_reply()
@@ -135,8 +175,9 @@ class FixtureApp:
                                             detail='retained prefix only; rejected by ATE transport')
                     else:
                         response = self.execute_ate_line(line)
-                    self.server.reply(response)
-                    self.server.flush_reply()
+                    if response is not None:
+                        self.server.reply(response)
+                        self.server.flush_reply()
                     return
                 if self.server.has_work():
                     return
@@ -190,7 +231,7 @@ class FixtureApp:
             self.measurements.end_trial()
         if (not was_recording or new_trial) and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
-        if self.logger.active or self.logger.test_running:
+        if response is not None and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='TX', event='RESULT', result=response, detail=text)
         return response
 
@@ -201,8 +242,24 @@ class FixtureApp:
             if isinstance(exc, UnicodeError):
                 return 'ERR:ASCII'
             return "ERR:{}".format(exc)
+        if parsed.category == "EXTERNAL":
+            if self.external_link is None:
+                return format_error('DISABLED', False)
+            if self._comm_busy():
+                return format_error('BUSY', False)
+            try:
+                self.external_link.start(parsed.payload)
+            except RelayError as exc:
+                return format_error(str(exc), False)
+            self.external_response = None
+            self._external_pending = True
+            self._external_text = parsed.raw
+            # 応答は協調型service_onceから返す。ここでUSB待ちを行わない。
+            return None
         if parsed.category == "FORBIDDEN":
             return "ERR:FU_DISABLED"
+        if self._external_pending:
+            return "ERR:BUSY"
         if parsed.category == "REFRESH":
             return self._record_result(self.dispatcher.execute_refresh(parsed.name, parsed.payload))
         if parsed.category == "QUERY":
@@ -228,7 +285,22 @@ def create_fixture_app(enable_hardware=True):
     nf55_uart = None
     rtc = None
     logger = None
+    external_link = None
+    external_error = None
     if enable_hardware:
+        if config.EXTERNAL_INSTRUMENT_ENABLED:
+            transport = None
+            try:
+                try:
+                    from .external_instrument_pio import ExternalPioUART
+                except ImportError:
+                    from external_instrument_pio import ExternalPioUART
+                transport = ExternalPioUART()
+                external_link = ExternalInstrumentLink(transport, clock, new_nonce(), config.EXTERNAL_HOST_CHIPID)
+            except (ImportError, ValueError, OSError, RuntimeError, AttributeError) as exc:
+                external_error = str(exc)
+                if transport is not None:
+                    transport.close()
         ate_uart = create_ate_uart()
         nf55_uart = create_nf55_uart()
         try:
@@ -252,7 +324,9 @@ def create_fixture_app(enable_hardware=True):
             }
         logger = Logger(sd_sink=sink, clock=clock, rtc=rtc,
                 repl_sink=create_repl_sink(config.REPL_LOG_ENABLED))
-    return FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock)
+    app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock, external_link=external_link)
+    app.external_error = external_error
+    return app
 
 
 def main():

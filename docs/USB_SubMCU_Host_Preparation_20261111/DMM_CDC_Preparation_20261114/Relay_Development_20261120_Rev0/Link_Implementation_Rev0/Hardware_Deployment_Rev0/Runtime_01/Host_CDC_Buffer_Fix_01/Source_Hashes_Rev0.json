@@ -1,0 +1,22 @@
+{
+  "firmware/usb_submcu_external_meter_host/tusb_config.h": {
+    "bytes": 1037,
+    "sha256": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d"
+  },
+  "firmware/usb_submcu_external_meter_host/CMakeLists.txt": {
+    "bytes": 3901,
+    "sha256": "9056a7808e95c8e3a9cebb9c7dbefbca3161db34a69e81aaaa154e5036aa6a45"
+  },
+  "tests/test_external_meter_cdc_fifo.py": {
+    "bytes": 5836,
+    "sha256": "e86bfff9f3845f9e44542b29cf8bb4ea23f964f742362279b355a44f05ace09b"
+  },
+  "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/tusb_config_before.h": {
+    "bytes": 683,
+    "sha256": "a326c6e88c321360a81977f37465469c5d6eb46c134e7af80ab0a13c07783d7a"
+  },
+  "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/relay_20261120_2_before.uf2": {
+    "bytes": 94720,
+    "sha256": "cb3fc420088b72eae1bab80fad5ddb09c75f0bd8a79889aefddb08f42a869def"
+  }
+}

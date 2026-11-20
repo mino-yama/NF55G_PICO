@@ -1,0 +1,12 @@
+FACTORY_DIAGNOSTIC_BEGIN
+IMPORT_OK
+FACTORY_OK
+EXTERNAL_ERROR=None
+EXTERNAL_LINK_PRESENT=True
+ATE_UART=UART(0, baudrate=57600, bits=8, parity=None, stop=1, tx=0, rx=1, txbuf=256, rxbuf=4096, timeout=0, timeout_char=1, invert=None, irq=0)
+SD_DIAGNOSTIC={'error': None, 'status': 'OK', 'mounted': True, 'cs_before_spi': False, 'elapsed_ms': 1612, 'stage': 'READY', 'startup_delay_ms': 0}
+SM4_ACTIVE=True
+SM5_ACTIVE=True
+FACTORY_DIAGNOSTIC_END
+
+STDERR

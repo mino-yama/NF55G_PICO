@@ -1,0 +1,49 @@
+{
+  "source": "user serial monitor transcript",
+  "date_jst": "2026-11-20",
+  "reported_input_volts": 2.911,
+  "commands": [
+    {
+      "command": "EXT_SEND 2000 :TRIG:SOUR IMM",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "response": "OK:EXT_RX:3:310D0A"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:COUN 1",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "raw_tx_hex": "03",
+      "response": null
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "response": "ERR:FRAME"
+    },
+    {
+      "command": "EXT_SEND 2000 :SAMP:COUN 1",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "response": "OK:EXT_RX:3:310D0A"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:DEL 0",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "response": "OK:EXT_RX:3:310D0A"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "response": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A"
+    }
+  ],
+  "measurement_in_transcript": false,
+  "device_IO_by_codex": false
+}

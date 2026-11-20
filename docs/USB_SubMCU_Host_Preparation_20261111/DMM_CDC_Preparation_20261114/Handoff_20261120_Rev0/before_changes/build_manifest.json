@@ -1,0 +1,304 @@
+{
+  "date_jst": "2026-11-19",
+  "project": "usb_submcu_external_meter_host",
+  "version": "meter-host-diag-20261119.1",
+  "target": {
+    "reported_board": "Waveshare RP2350-USB-A",
+    "reported_product_code": "WAVESHARE-30274",
+    "silicon": "RP2350",
+    "image_type": "ARM Secure",
+    "flash_size_bytes": 2097152,
+    "pio_usb_host": {
+      "root_port": 1,
+      "dp_gpio": 12,
+      "dm_gpio": 13
+    },
+    "diagnostic_uart": {
+      "tx_gpio": 0,
+      "format": "115200 8N1",
+      "direction": "TX only"
+    }
+  },
+  "toolchain": {
+    "pico_sdk": "2.2.0",
+    "arm_gcc": "14.3.0",
+    "picotool": "2.2.0-a4",
+    "build_command": "scripts/build_usb_submcu_external_meter_host.ps1"
+  },
+  "scope": {
+    "usb_class": "CDC ACM Host",
+    "target_vid_pid": "1334:0309",
+    "cdc_line_coding": "9600 8N1",
+    "dtr_rts": "ON after successful control transfers",
+    "query": "*IDN? followed by CRLF, sent once without retry",
+    "response_capture": "Raw response bytes logged as hexadecimal over diagnostic UART",
+    "production_ate_link": false,
+    "nf55g_control": false,
+    "deployment_performed": true,
+    "hardware_acceptance_performed": false
+  },
+  "voltage_test_profile": {
+    "version": "meter-host-voltage-test-20261120.4",
+    "target": "build/usb_submcu_external_meter_voltage_test.uf2",
+    "built": true,
+    "deployed": false,
+    "deployment_history": [
+      {
+        "version": "meter-host-voltage-test-20261120.1",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK; test run stopped before READ because quoted VOLT:DC response was rejected",
+        "uf2_sha256": "e3ed60e8bfbe175f66dee7e0f68679b73b048c6037f9893a3e6a37b02b046684"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.2",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK; test run stopped before READ because zero-padded numeric response was compared as text",
+        "uf2_sha256": "0bc6827d397e0b9a5f4dabdcb639c8ff5775b920d0a0b5bfcae678c22d33aeb4"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.3",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK",
+        "uf2_sha256": "0664680f050c1fdafe073abd19aa251c8b6cf0e6298328484e5162d65dd5c695"
+      }
+    ],
+    "deployment": null,
+    "failed_attempts": [
+      {
+        "version": "meter-host-voltage-test-20261120.1",
+        "capture_file": "temp/meter_host_com22_capture_20261120_08.raw",
+        "bytes_received": 1171,
+        "capture_sha256": "be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1",
+        "last_command": ":SENS:FUNC?",
+        "response": "\"VOLT:DC\"\r\n",
+        "result": "Stopped with SCPI_FAILED step=7 reason=UNEXPECTED_RESPONSE; READ? was not sent",
+        "instrument_state_observed": "INIT:CONT OFF and DCV selected; subsequent range/trigger/sample setup and READ were not executed"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.2",
+        "capture_file": "temp/meter_host_com22_capture_20261120_09.raw",
+        "bytes_received": 1969,
+        "capture_sha256": "19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6",
+        "last_command": ":TRIG:COUN?",
+        "response": "00001\r\n",
+        "result": "Stopped with SCPI_FAILED step=15 reason=UNEXPECTED_RESPONSE; READ? was not sent",
+        "conf_response": "VOLT +1.999999E+02,+1.000000E-05",
+        "conf_interpretation": "appears to report approximately 200 V full-scale, conflicting with requested 20 V; verify against instrument front panel before any READ",
+        "instrument_state_observed": "DCV and AUTO off, IMM trigger, trigger count 1; CONF? appeared approximately 200 V; sample count, delay, READ and final error query were not executed"
+      }
+    ],
+    "command_sequence": [
+      "*IDN?",
+      ":SYST:ERR?",
+      ":INIT:CONT OFF",
+      ":INIT:CONT?",
+      ":ABOR",
+      "*OPC?",
+      ":SENS:FUNC \"VOLT:DC\"",
+      ":SENS:FUNC?",
+      ":SENS:VOLT:DC:RANG:AUTO OFF",
+      ":SENS:VOLT:DC:RANG:AUTO?",
+      ":SENS:VOLT:DC:RANG 20",
+      ":SYST:ERR?",
+      ":CONF?",
+      ":TRIG:SOUR IMM",
+      ":TRIG:SOUR?",
+      ":TRIG:COUN 1",
+      ":TRIG:COUN?",
+      ":SAMP:COUN 1",
+      ":SAMP:COUN?",
+      ":TRIG:DEL 0",
+      ":TRIG:DEL?",
+      ":SYST:ERR?",
+      ":READ?",
+      ":SYST:ERR?"
+    ],
+    "known_input_reported": "approximately 0.2 V DC, no load",
+    "preconditions_to_confirm": ["BUS=CDC", "LANG=SCPI", "V/COM connected to known DC input", "initial instrument settings recorded"],
+    "initial_instrument_settings_recorded_by_user": true,
+    "reported_input_terminals_connected": true,
+    "no_retry": true,
+    "read_count": 1,
+    "restores_previous_instrument_state": false,
+    "final_instrument_state": "DCV, fixed 20 V range, AUTO off, continuous initiation off, immediate trigger, trigger/sample count 1, trigger delay 0",
+    "conf_query_validation": "raw response is logged; before READ, require response prefix VOLT and first numeric full-scale value between 19 V and 21 V, otherwise stop; operator also compares with front-panel state",
+    "read_response_validation": "raw response is logged only; no accuracy threshold or product judgement",
+    "acceptance_scope": "raw communication and response capture only; not measurement accuracy or product PASS"
+  },
+  "deployment": {
+    "date_jst": "2026-11-20",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "tool": "picotool v2.2.0-a4",
+    "command": "picotool load -v <uf2> --ser BFCF2EDB84B0B37F -f",
+    "result": "Flash verify OK; picotool reported reboot to application mode",
+    "deployed_profile": "meter-host-diag-20261119.1",
+    "deployed_uf2_sha256_at_deployment": "6ee5eb6ec31b2d9277d562fccac3af1e62720df5f56319cf23c39dbc0edc0ff0",
+    "flash_backup_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/RP2350_USB_A_20261116/Flash_Backup_20261119/manifest.json"
+  },
+  "hardware_observations": {
+    "date_jst": "2026-11-20",
+    "diagnostic_adapter": "SH-U05A COM22; PnP status OK",
+    "captures": [
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_01.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_02.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wiring_check": "initial GP0 pad identification was later found incorrect; do not treat as valid GP0 test",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_03.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wiring_check": "GP0 position corrected before capture",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 124,
+        "capture_file": "temp/meter_host_com22_capture_20261120_04.raw",
+        "capture_sha256": "8e44cfb8024be10b107bd31c384781ed2b7266cbd0f03a141fa976d21a731ed3",
+        "external_power_cycle": "reported by user during capture",
+        "decoded_log": "FW=meter-host-diag-20261119.1 CHIPID=BFCF2EDB84B0B37F SDK=2.2.0 USB=PIO_HOST\\r\\nUSB_HOST_READY rhport=1 dplus=12 dminus=13\\r\\n",
+        "leading_bytes_hex": "0000",
+        "interpretation": "Firmware boot banner and PIO USB Host initialization confirmed; no USB device mount was observed in this capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 124,
+        "capture_file": "temp/meter_host_com22_capture_20261120_06.raw",
+        "capture_sha256": "3c06c23cecb91cf7c58cb4e9ceac961dd9e1a95c50cb8c000e85477cc52f715a",
+        "setup_report": "user confirmed R13/external-power preconditions and fixed 7355 USB-B to USB-A Host connection; PC USB-C disconnected",
+        "external_power_cycle": "reported by user during capture",
+        "decoded_log": "FW=meter-host-diag-20261119.1 CHIPID=BFCF2EDB84B0B37F SDK=2.2.0 USB=PIO_HOST\\r\\nUSB_HOST_READY rhport=1 dplus=12 dminus=13\\r\\n",
+        "leading_and_trailing_bytes_hex": "00",
+        "observed_events": ["FW banner", "USB_HOST_READY"],
+        "missing_events": ["USB_MOUNT", "CDC_MOUNT", "IDN_TX_ONCE", "IDN_RESPONSE_END"],
+        "interpretation": "Firmware and PIO USB Host initialized, but no USB device enumeration or CDC/IDN activity was observed during this capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 436,
+        "capture_file": "temp/meter_host_com22_capture_20261120_07.raw",
+        "capture_sha256": "cac1ab22e6655a323671938428ce66037773c6bd3cc140867f9c394445f5222b",
+        "setup_report": "user confirmed USB-A-to-USB-B cable route and 7355 BUS=CDC; PC USB-C disconnected",
+        "external_power_cycle": "reported by user during capture",
+        "observed_events": ["USB_MOUNT vid=1334 pid=0309", "CDC_MOUNT vid=1334 pid=0309", "LINE_CODING_OK 9600,8,N,1", "DTR_RTS_OK", "IDN_TX_ONCE bytes=7", "IDN_RESPONSE_END=CRLF total=32 overflow=0"],
+        "idn_response": "ADC Corp.,7355,246410099,  A02",
+        "reference_idn_other_unit": "ADC Corp.,7355,246410072,  A01",
+        "identity_note": "user confirmed this is a different 7355 instrument; serial/revision difference is expected",
+        "interpretation": "USB enumeration, CDC configuration, one IDN query, and CRLF response succeeded; actual connected instrument reported ADC Corp.,7355,246410099,  A02"
+      },
+      {
+        "duration_seconds": 120,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 1171,
+        "capture_file": "temp/meter_host_com22_capture_20261120_08.raw",
+        "capture_sha256": "be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1",
+        "firmware_version": "meter-host-voltage-test-20261120.1",
+        "setup_report": "user confirmed known approximately 0.2 V DC input connected and external-power-only operation",
+        "observed_events": ["USB_MOUNT", "CDC_MOUNT", "LINE_CODING_OK", "DTR_RTS_OK", "SCPI_TX steps 0 through 7", "SCPI_RESPONSE_END steps 0,1,3,5,7"],
+        "final_event": "SCPI_FAILED step=7 reason=UNEXPECTED_RESPONSE no_retry=1",
+        "last_response_hex": "22564F4C543A4443220D0A",
+        "last_response_ascii": "\"VOLT:DC\"\r\n",
+        "read_query_sent": false,
+        "interpretation": "Setting query returned the valid quoted SCPI function string; firmware comparison was too strict and stopped before the measurement query"
+      },
+      {
+        "duration_seconds": 120,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 1969,
+        "capture_file": "temp/meter_host_com22_capture_20261120_09.raw",
+        "capture_sha256": "19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6",
+        "firmware_version": "meter-host-voltage-test-20261120.2",
+        "setup_report": "user confirmed approximately 0.2 V DC input on V/COM and external-power-only operation",
+        "observed_events": ["USB_MOUNT", "CDC_MOUNT", "IDN response", "continuous initiation off", "ABOR/OPC complete", "DCV selected", "20 V range selected", "AUTO off", "IMM trigger", "trigger count 1"],
+        "last_event": "SCPI_FAILED step=15 reason=UNEXPECTED_RESPONSE no_retry=1",
+        "last_response_hex": "30303030310D0A",
+        "last_response_ascii": "00001\r\n",
+        "read_query_sent": false,
+        "interpretation": "Trigger count query returned numeric value 1 in zero-padded form; firmware compared text exactly and stopped before READ"
+      }
+    ],
+    "conclusion": "Capture seven confirmed USB/CDC/IDN communication. Measurement firmware .1 stopped before READ because it rejected the valid quoted VOLT:DC response. Version .2 accepted that response but stopped before READ because it rejected the valid zero-padded trigger count 00001. Version .3 parses numeric setting responses numerically, is built but not yet deployed. No measurement value has been acquired."
+  },
+  "build": {
+    "result": "ARM build and link succeeded",
+    "warning_policy": "-Wall -Wextra -Werror for application sources",
+    "artifacts": [
+      {
+        "file": "build/usb_submcu_external_meter_host.uf2",
+        "bytes": 83968,
+        "sha256": "0db7000767f7c1a8072596975ec1a794effc7003940c5885421d8de48467bd92",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_host.elf",
+        "bytes": 949516,
+        "sha256": "321b4663e36fa621bd4e186b187aaba132a08fccbc45599bd7fe8210b84f8a3b",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_host.bin",
+        "bytes": 41848,
+        "sha256": "6cc64c7d10bed4d0c35a686b81b6cdf327bcc6bee43bf64849f640467f2af0dd",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.uf2",
+        "bytes": 117248,
+        "sha256": "7bc2deeda6bca9250864b99f076052a7c796b229d465fa87b2d92578acc72aba",
+        "profile": "meter-host-voltage-test-20261120.4",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.elf",
+        "bytes": 1077556,
+        "sha256": "ad8eac9e0c8fccac4451c44e3db8bc609569a9dc210589cd65cdfcc6e3d69091",
+        "profile": "meter-host-voltage-test-20261120.4",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.bin",
+        "bytes": 58376,
+        "sha256": "aadcd8fc7cb76253c484115a0dd86b37fa3195031bd43c68c3eb0413fcccbe91",
+        "profile": "meter-host-voltage-test-20261120.4",
+        "deployed": false
+      }
+    ]
+  },
+  "safety_notes": [
+    "This diagnostic firmware is separate from all QR Host releases.",
+    "The development USB-C VBUS and USB-A/5V/VSYS share a board supply net; never connect PC power and the external supply simultaneously without verified isolation.",
+    "Deployment was performed after a verified full-flash backup. UART boot and USB_HOST_READY were observed on 2026-11-20. R13 workmanship photos, external-power path acceptance, and USB CDC Host hardware acceptance remain pending.",
+    "The native USB CDC device interface is disabled in this diagnostic firmware; loss of the COM port after reboot is expected. Use the separate TX-only diagnostic UART for runtime evidence."
+  ]
+}

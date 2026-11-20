@@ -1,0 +1,15 @@
+{
+  "port": "COM22",
+  "settings": "115200 8N1, no flow, DTR/RTS OFF",
+  "Q_sent": false,
+  "SCPI_sent": false,
+  "automatic_retry": false,
+  "firmware_written": false,
+  "tx_written": 75,
+  "elapsed_ms": 3000,
+  "hello_ok": false,
+  "error": "ContractError('FRAME_ENDING')",
+  "rx_hex": "",
+  "rx_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "port_closed": true
+}

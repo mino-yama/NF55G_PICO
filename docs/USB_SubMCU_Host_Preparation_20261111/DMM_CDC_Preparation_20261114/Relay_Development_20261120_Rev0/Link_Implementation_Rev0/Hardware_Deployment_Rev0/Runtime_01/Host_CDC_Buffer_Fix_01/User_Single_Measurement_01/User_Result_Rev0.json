@@ -1,0 +1,21 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user serial monitor transcript and front-panel polarity reply",
+  "host_firmware": "meter-host-relay-20261120.3",
+  "query": "EXT_QUERY 10000 :READ?",
+  "response": "OK:EXT_RX:15:2D30322E3931313830452B30300D0A",
+  "raw_hex": "2D30322E3931313830452B30300D0A",
+  "raw_ascii": "-02.91180E+00\r\n",
+  "declared_bytes": 15,
+  "actual_bytes": 15,
+  "measurement_volts": "-2.91180",
+  "reported_input_magnitude_volts": "2.911",
+  "front_panel_negative_user_confirmed": true,
+  "polarity_matches_front_panel": true,
+  "magnitude_difference_from_reported_value_volts": "0.00080",
+  "calibration_accuracy_pass_judged": false,
+  "error_raw_hex": "2B302C224E6F206572726F72220D0A",
+  "error_raw_ascii": "+0,\"No error\"\r\n",
+  "codex_device_IO": false,
+  "range_readback_mismatch_open": true
+}

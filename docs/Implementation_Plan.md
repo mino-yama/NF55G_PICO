@@ -1,5 +1,23 @@
 # NF55G Pico 2 Implementation Plan
 
+2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
+
+2026-11-20 工数/GPIO並行計画: 測定原文取得/ATE返却は実機済み。残る数値・単位/Cache/正式ATE入口とAD実装は仕様回答後コード/Mock1〜2実働日、基本実機確認含2〜3実働日（概算12〜24時間、待ち/全量産受入は別）。親GPIOは既存予約のQR GP8/9と実装済み測定器GP12/13を配線基準として維持。現行測定器PIOはSM4/5で旧案の順序に注意。RESETは必須/制御方式未確定、GP14/22を親側予備候補として確保しHost RUN結線は回路確認後。今回コード/Flash/実配線変更なし。 [工数](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Effort_Estimate_Rev0.md)／[配線基準](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev0.md)。
+
+2026-11-20 ユーザー補足による解釈訂正: 「試験者設定のレンジ」はATE側のコマンドで決定/設定する意味。前面手動設定を前提にせず、ATEが固定レンジ値またはAUTO条件を指定→Queryで設定確認→測定要求を送る。Pico/Hostは本文を中継し、指定値の独自置換/自動最適化を行わない。次の安定性試験もこの順序で実施する計画。今回は記録訂正のみ、実機送信/コード/Flash変更なし。 [現行方針Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md)。
+
+2026-11-20 ユーザー決定: 最適レンジは試験者が設定し、レンジ追加調査はここまでとする。中継は明示コマンド/原文を維持し自動最適化/独自補正しない。レンジ読戻し差の記録は保持し中継継続のブロッカーにしない。次は固定入力/試験者レンジでの安定性→timeout/切断/清浄復帰→ATE/NF55G/SD共存受入。その後、正式API等を確認してADC測定Cache/ATE確認後別指令ADへ接続する。今回は説明/記録のみ。 [方針・次工程](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_Operator_Range_Decision_Rev0.md)。
+
+2026-11-20 親配置完了: COM6/unique_id 69f7d45962cfdfadの既存26ファイルを退避・SHA照合後、配置対象30ファイルを実機SHA照合（追加/更新8）。実機RAM検証と配置後import成功。通常起動せずREPL停止、PIO4/5はinactive。Host/親の配置は完了したが、配線と実機中継受入は未実施。[親配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Parent_Deployment_01/Result_Rev0.md)。以下の親未配置記述は配置前の状態として保持。
+
+2026-11-20 後続配置: Host BFCF2EDB84B0B37Fへmeter-host-relay-20261120.1を書込み、Flash verifyと書込み後版照合に成功。旧.5全Flash退避・照合済み。BOOTSELのままrebootせず、親Picoは未配置・実機中継未試験。[Host配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/Result_Rev0.md)。以下のHost未配置記述は配置前の状態として保持。
+
+2026-11-20 中継リンクのコード結合を実施。親ATE非同期受付・PIO UART、独立Host中継UF2、Host上の実C/Python相互運用まで完了。全446件成功、ARM build/link成功。未配置の実機確認用パッケージと配線/配置/初回IDN手順を準備。次は個体/無給電配線照合・バックアップ・配置・実機縦通し。レンジ検証は保留。 [リンク実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
+2026-11-20 通信契約Rev.1をユーザー確定。承認値とATE要求/応答・親子フレームcodecを実装し、次は両adapter/Host CとATE入口・schedulerへの接続を進める。仕様承認を現物配線・実機疎通の完了とは扱わない。 [確定仕様 Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Interface_Spec_Rev1.md)。
+
+2026-11-20 中継着手: レンジ検証を保留し、外部測定器の要求相関/原文/期限を扱う内部コアを実装、全401件成功。正式ATE/親子UART契約の具体案を提示し、合意後にadapter/Host/ATE入口を結合する。現在は実機中継未完成。 [実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Result_Rev0.md)。
+
 2026-11-19最新指示: 新製品FWへの追従変更は保留するが、3系統のADC校正治具機能は開発を進める。測定Cacheの内部基盤と試行境界の失効を先行実装。正式ATE/Host API・シャント換算・AD/AR契約を確定後、中継/取得→ATE確認→Cache利用AD送信→実機検証へ進める。[確定事項・実装と残事項](ADC_Calibration_Development_20261119.md)。
 
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。

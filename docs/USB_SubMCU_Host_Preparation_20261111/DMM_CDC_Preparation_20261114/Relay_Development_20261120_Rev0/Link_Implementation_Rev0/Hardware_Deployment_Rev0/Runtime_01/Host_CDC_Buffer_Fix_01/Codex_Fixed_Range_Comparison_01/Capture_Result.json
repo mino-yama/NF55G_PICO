@@ -1,0 +1,507 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM7",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T18:57:43.121350+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 15.0,
+      "rx_hex": "4E463535475F5049434F5F464958545552452C5265762E300D",
+      "rx_ascii": "NF55G_PICO_FIXTURE,Rev.0\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 *IDN?",
+      "tx_hex": "4558545F51554552592032303030202A49444E3F0D",
+      "time_jst": "2026-11-20T18:57:43.291435+09:00",
+      "tx_written": 21,
+      "elapsed_ms": 187.0,
+      "rx_hex": "4F4B3A4558545F52583A33323A343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410D",
+      "rx_ascii": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r",
+      "instrument_raw_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "instrument_ascii": "ADC Corp.,7355,246410099,  A02\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:FUNC?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A46554E433F0D",
+      "time_jst": "2026-11-20T18:57:43.643525+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 188.0,
+      "rx_hex": "4F4B3A4558545F52583A31313A323235363446344335343341343434333232304430410D",
+      "rx_ascii": "OK:EXT_RX:11:22564F4C543A4443220D0A\r",
+      "instrument_raw_hex": "22564F4C543A4443220D0A",
+      "instrument_ascii": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :INIT:CONT?",
+      "tx_hex": "4558545F51554552592032303030203A494E49543A434F4E543F0D",
+      "time_jst": "2026-11-20T18:57:44.010120+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 204.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3330304430410D",
+      "rx_ascii": "OK:EXT_RX:3:300D0A\r",
+      "instrument_raw_hex": "300D0A",
+      "instrument_ascii": "0\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A564F4C543A44433A52414E473A4155544F3F0D",
+      "time_jst": "2026-11-20T18:57:44.384278+09:00",
+      "tx_written": 40,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:44.805519+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303331324332423331324533303330333033303330333034353244333033363232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:45.215960+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:SOUR IMM",
+      "tx_hex": "4558545F53454E442032303030203A545249473A534F555220494D4D0D",
+      "time_jst": "2026-11-20T18:57:45.641834+09:00",
+      "tx_written": 29,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :TRIG:SOUR?",
+      "tx_hex": "4558545F51554552592032303030203A545249473A534F55523F0D",
+      "time_jst": "2026-11-20T18:57:46.039013+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F52583A353A343934443444304430410D",
+      "rx_ascii": "OK:EXT_RX:5:494D4D0D0A\r",
+      "instrument_raw_hex": "494D4D0D0A",
+      "instrument_ascii": "IMM\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:COUN 1",
+      "tx_hex": "4558545F53454E442032303030203A545249473A434F554E20310D",
+      "time_jst": "2026-11-20T18:57:46.461080+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:57:46.857215+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SAMP:COUN 1",
+      "tx_hex": "4558545F53454E442032303030203A53414D503A434F554E20310D",
+      "time_jst": "2026-11-20T18:57:47.269716+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:57:47.681445+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:DEL 0",
+      "tx_hex": "4558545F53454E442032303030203A545249473A44454C20300D",
+      "time_jst": "2026-11-20T18:57:48.124438+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 250.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:57:48.550827+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 250.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SENS:VOLT:DC:RANG:AUTO OFF",
+      "tx_hex": "4558545F53454E442032303030203A53454E533A564F4C543A44433A52414E473A4155544F204F46460D",
+      "time_jst": "2026-11-20T18:57:48.981952+09:00",
+      "tx_written": 42,
+      "elapsed_ms": 328.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A564F4C543A44433A52414E473A4155544F3F0D",
+      "time_jst": "2026-11-20T18:57:49.483527+09:00",
+      "tx_written": 40,
+      "elapsed_ms": 344.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3330304430410D",
+      "rx_ascii": "OK:EXT_RX:3:300D0A\r",
+      "instrument_raw_hex": "300D0A",
+      "instrument_ascii": "0\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SENS:VOLT:DC:RANG 20",
+      "tx_hex": "4558545F53454E442032303030203A53454E533A564F4C543A44433A52414E472032300D",
+      "time_jst": "2026-11-20T18:57:50.007893+09:00",
+      "tx_written": 36,
+      "elapsed_ms": 109.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:50.304899+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 157.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303332324332423331324533303330333033303330333034353244333033353232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:50.643784+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 172.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 10000 :READ?",
+      "tx_hex": "4558545F5155455259203130303030203A524541443F0D",
+      "time_jst": "2026-11-20T18:57:51.026686+09:00",
+      "tx_written": 23,
+      "elapsed_ms": 609.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3244333033303332324533393331333133383435324233303330304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2D3030322E39313138452B30300D0A\r",
+      "instrument_raw_hex": "2D3030322E39313138452B30300D0A",
+      "instrument_ascii": "-002.9118E+00\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:51.822460+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303332324332423331324533303330333033303330333034353244333033353232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:52.236427+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SENS:VOLT:DC:RANG 200",
+      "tx_hex": "4558545F53454E442032303030203A53454E533A564F4C543A44433A52414E47203230300D",
+      "time_jst": "2026-11-20T18:57:52.658652+09:00",
+      "tx_written": 37,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:53.081846+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 234.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453330333933393339333933393435324233303333324332423331324533303330333033303330333034353244333033343232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A",
+      "instrument_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:53.506942+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 235.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 10000 :READ?",
+      "tx_hex": "4558545F5155455259203130303030203A524541443F0D",
+      "time_jst": "2026-11-20T18:57:53.972882+09:00",
+      "tx_written": 23,
+      "elapsed_ms": 641.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3244333033303330333232453339333133323435324233303330304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2D303030322E393132452B30300D0A\r",
+      "instrument_raw_hex": "2D303030322E393132452B30300D0A",
+      "instrument_ascii": "-0002.912E+00\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:54.806805+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 250.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453330333933393339333933393435324233303333324332423331324533303330333033303330333034353244333033343232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A",
+      "instrument_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:55.259190+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 250.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SENS:VOLT:DC:RANG:AUTO ON",
+      "tx_hex": "4558545F53454E442032303030203A53454E533A564F4C543A44433A52414E473A4155544F204F4E0D",
+      "time_jst": "2026-11-20T18:57:55.723145+09:00",
+      "tx_written": 41,
+      "elapsed_ms": 313.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A564F4C543A44433A52414E473A4155544F3F0D",
+      "time_jst": "2026-11-20T18:57:56.207063+09:00",
+      "tx_written": 40,
+      "elapsed_ms": 328.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:56.733351+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 281.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453330333933393339333933393435324233303333324332423331324533303330333033303330333034353244333033343232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E303939393939452B30332C2B312E303030303030452D3034220D0A",
+      "instrument_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:57.245574+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 266.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 10000 :READ?",
+      "tx_hex": "4558545F5155455259203130303030203A524541443F0D",
+      "time_jst": "2026-11-20T18:57:57.706580+09:00",
+      "tx_written": 23,
+      "elapsed_ms": 968.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3244333033323245333933313331333833363435324233303330304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2D30322E3931313836452B30300D0A\r",
+      "instrument_raw_hex": "2D30322E3931313836452B30300D0A",
+      "instrument_ascii": "-02.91186E+00\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:57:58.867050+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303331324332423331324533303330333033303330333034353244333033363232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:57:59.269933+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "identity/config/error queries",
+    "TRIG:SOUR IMM",
+    "TRIG:COUN 1",
+    "SAMP:COUN 1",
+    "TRIG:DEL 0",
+    "RANG:AUTO OFF/ON",
+    "RANG 20/200",
+    "READ? once per mode"
+  ],
+  "nf55g_commands": false,
+  "result": "FIXED_INPUT_RANGE_COMPARISON_SUCCEEDED",
+  "user_authorization": "ユーザー: 電圧を固定するのでCodex側で指示送信と受信。シリアルモニター終了/COM7使用可能を回答済み。固定入力を維持して20V指定/200V指定/AUTOを各一回比較。",
+  "power_operation_performed": false,
+  "executor": "Codex via ATE COM7",
+  "input_condition": "user holds voltage and wiring fixed",
+  "measurement_count_requested": 3,
+  "measurement_count_completed": 3,
+  "auto_before": "1\r\n",
+  "conf_before_settings": {
+    "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+    "range_volts": "+1.999999E+01",
+    "resolution_volts": "+1.000000E-06"
+  },
+  "error_before_settings": "+0,\"No error\"\r\n",
+  "comparisons": [
+    {
+      "mode": "FIXED_REQUEST_20",
+      "setting_command": ":SENS:VOLT:DC:RANG 20",
+      "conf_before_read": {
+        "raw_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+        "range_volts": "+1.999999E+02",
+        "resolution_volts": "+1.000000E-05"
+      },
+      "measurement_raw_ascii": "-002.9118E+00\r\n",
+      "measurement_raw_hex": "2D3030322E39313138452B30300D0A",
+      "measurement_volts": "-2.9118",
+      "conf_after_read": {
+        "raw_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+        "range_volts": "+1.999999E+02",
+        "resolution_volts": "+1.000000E-05"
+      },
+      "error_after": "+0,\"No error\"\r\n"
+    },
+    {
+      "mode": "FIXED_REQUEST_200",
+      "setting_command": ":SENS:VOLT:DC:RANG 200",
+      "conf_before_read": {
+        "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+        "range_volts": "+1.099999E+03",
+        "resolution_volts": "+1.000000E-04"
+      },
+      "measurement_raw_ascii": "-0002.912E+00\r\n",
+      "measurement_raw_hex": "2D303030322E393132452B30300D0A",
+      "measurement_volts": "-2.912",
+      "conf_after_read": {
+        "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+        "range_volts": "+1.099999E+03",
+        "resolution_volts": "+1.000000E-04"
+      },
+      "error_after": "+0,\"No error\"\r\n"
+    },
+    {
+      "mode": "AUTO",
+      "setting_command": ":SENS:VOLT:DC:RANG:AUTO ON",
+      "conf_before_read": {
+        "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+        "range_volts": "+1.099999E+03",
+        "resolution_volts": "+1.000000E-04"
+      },
+      "measurement_raw_ascii": "-02.91186E+00\r\n",
+      "measurement_raw_hex": "2D30322E3931313836452B30300D0A",
+      "measurement_volts": "-2.91186",
+      "conf_after_read": {
+        "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+        "range_volts": "+1.999999E+01",
+        "resolution_volts": "+1.000000E-06"
+      },
+      "error_after": "+0,\"No error\"\r\n"
+    }
+  ],
+  "conf_before_FIXED_REQUEST_20": {
+    "raw_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+    "range_volts": "+1.999999E+02",
+    "resolution_volts": "+1.000000E-05"
+  },
+  "error_before_FIXED_REQUEST_20": "+0,\"No error\"\r\n",
+  "conf_after_FIXED_REQUEST_20": {
+    "raw_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+    "range_volts": "+1.999999E+02",
+    "resolution_volts": "+1.000000E-05"
+  },
+  "error_after_FIXED_REQUEST_20": "+0,\"No error\"\r\n",
+  "conf_before_FIXED_REQUEST_200": {
+    "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+    "range_volts": "+1.099999E+03",
+    "resolution_volts": "+1.000000E-04"
+  },
+  "error_before_FIXED_REQUEST_200": "+0,\"No error\"\r\n",
+  "conf_after_FIXED_REQUEST_200": {
+    "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+    "range_volts": "+1.099999E+03",
+    "resolution_volts": "+1.000000E-04"
+  },
+  "error_after_FIXED_REQUEST_200": "+0,\"No error\"\r\n",
+  "conf_before_AUTO": {
+    "raw_ascii": "\"VOLT +1.099999E+03,+1.000000E-04\"\r\n",
+    "range_volts": "+1.099999E+03",
+    "resolution_volts": "+1.000000E-04"
+  },
+  "error_before_AUTO": "+0,\"No error\"\r\n",
+  "conf_after_AUTO": {
+    "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+    "range_volts": "+1.999999E+01",
+    "resolution_volts": "+1.000000E-06"
+  },
+  "error_after_AUTO": "+0,\"No error\"\r\n",
+  "all_rx_bytes": 1417,
+  "all_rx_sha256": "8e3912db5668b6f5b31e8ba527f6cfff48d957ed6d14ae5413324c9345dfad7a",
+  "port_closed": true
+}

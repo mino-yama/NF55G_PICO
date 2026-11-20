@@ -1,0 +1,41 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM7",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T17:51:28.169182+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 0.0,
+      "rx_hex": "4E463535475F5049434F5F464958545552452C5265762E300D",
+      "rx_ascii": "NF55G_PICO_FIXTURE,Rev.0\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 *IDN?",
+      "tx_hex": "4558545F51554552592032303030202A49444E3F0D",
+      "time_jst": "2026-11-20T17:51:28.343539+09:00",
+      "tx_written": 21,
+      "elapsed_ms": 313.0,
+      "rx_hex": "4F4B3A4558545F52583A33323A343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410D",
+      "rx_ascii": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r"
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "*IDN? only after fixture identity verified"
+  ],
+  "nf55g_commands": false,
+  "result": "IDENTIFICATION_RELAY_SUCCEEDED",
+  "user_authorization": "Host .2で起動照合/NOT_READY成功後、同じ通電で7355 USB-Bのみ接続。親経由IDNを各1回確認。ユーザー接続完了後実行。",
+  "power_operation_performed": false,
+  "instrument_response_ascii": "ADC Corp.,7355,246410099,  A02\r\n",
+  "instrument_response_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+  "instrument_model_match": true,
+  "instrument_identity_matches_previous": true,
+  "all_rx_bytes": 103,
+  "all_rx_sha256": "868b15d6bd6d17b42b008eec41c09cc0575cbc8f549e577608f772f6a0b2c716",
+  "port_closed": true
+}

@@ -1,0 +1,17 @@
+{
+  "target_usb_serial": "BFCF2EDB84B0B37F",
+  "target_chipid": "0xbfcf2edb84b0b37f",
+  "date_jst": "2026-11-20",
+  "version": "meter-host-relay-20261120.2",
+  "backup_verified": true,
+  "flash_verified": true,
+  "rebooted": false,
+  "runtime_accepted": false,
+  "backup_file": "before_relay_v2_flash_2MB.bin",
+  "backup_bytes": 2097152,
+  "backup_sha256": "db789fa1656ee5db02b7d198b23ae5949d9f68fc22128beaf0b9cb8f19d1e003",
+  "uf2_sha256": "cb3fc420088b72eae1bab80fad5ddb09c75f0bd8a79889aefddb08f42a869def",
+  "uf2_bytes": 94720,
+  "post_info_verified": true,
+  "result": "DEPLOYED_VERIFIED_BOOTSEL_NOT_REBOOTED"
+}

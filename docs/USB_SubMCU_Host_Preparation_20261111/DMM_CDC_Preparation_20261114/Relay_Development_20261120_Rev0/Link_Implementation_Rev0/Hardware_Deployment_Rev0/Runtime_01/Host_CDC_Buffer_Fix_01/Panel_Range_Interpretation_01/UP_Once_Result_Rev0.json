@@ -1,0 +1,22 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user front-panel and serial transcript after requested single UP operation",
+  "before": {
+    "auto": false,
+    "range_readback_volts": "19.99999",
+    "resolution_readback_volts": "0.000001"
+  },
+  "panel_display_volts_after_requested_UP": 200,
+  "after": {
+    "auto_ascii": "0\r\n",
+    "conf_hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+    "conf_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+    "bytes": 36,
+    "range_readback_volts": "199.9999",
+    "resolution_readback_volts": "0.00001"
+  },
+  "display_matches_after_state_this_trial": true,
+  "SCPI_RANG_20_semantics_resolved": false,
+  "open_issue_closed": false,
+  "code_or_flash_changed": false
+}

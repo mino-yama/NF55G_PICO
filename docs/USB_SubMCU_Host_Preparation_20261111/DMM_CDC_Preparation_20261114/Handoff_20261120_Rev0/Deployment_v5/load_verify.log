@@ -1,0 +1,37 @@
+Family ID 'rp2350-arm-s' can be downloaded in absolute space:
+  00000000->02000000
+Loading into Flash:   [                              ]  0%
+Loading into Flash:   [=                             ]  6%
+Loading into Flash:   [===                           ]  13%
+Loading into Flash:   [======                        ]  20%
+Loading into Flash:   [========                      ]  27%
+Loading into Flash:   [==========                    ]  34%
+Loading into Flash:   [============                  ]  41%
+Loading into Flash:   [==============                ]  48%
+Loading into Flash:   [================              ]  55%
+Loading into Flash:   [==================            ]  62%
+Loading into Flash:   [====================          ]  69%
+Loading into Flash:   [======================        ]  76%
+Loading into Flash:   [========================      ]  83%
+Loading into Flash:   [===========================   ]  90%
+Loading into Flash:   [============================= ]  97%
+Loading into Flash:   [==============================]  100%
+
+Verifying Flash:      [                              ]  0%
+Verifying Flash:      [=                             ]  6%
+Verifying Flash:      [===                           ]  13%
+Verifying Flash:      [======                        ]  20%
+Verifying Flash:      [========                      ]  27%
+Verifying Flash:      [==========                    ]  34%
+Verifying Flash:      [============                  ]  41%
+Verifying Flash:      [==============                ]  48%
+Verifying Flash:      [================              ]  55%
+Verifying Flash:      [==================            ]  62%
+Verifying Flash:      [====================          ]  69%
+Verifying Flash:      [======================        ]  76%
+Verifying Flash:      [========================      ]  83%
+Verifying Flash:      [===========================   ]  90%
+Verifying Flash:      [============================= ]  97%
+Verifying Flash:      [==============================]  100%
+
+  OK

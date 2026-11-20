@@ -1,0 +1,18 @@
+{
+  "version": "meter-host-voltage-test-20261120.5",
+  "date_jst": "2026-11-20",
+  "target_chipid": "0xbfcf2edb84b0b37f",
+  "target_usb_serial": "BFCF2EDB84B0B37F",
+  "tool": "picotool v2.2.0-a4",
+  "result": "load -v Flash verify OK; after_info confirms .5 and matching chipid; retained in BOOTSEL; not rebooted",
+  "uf2_sha256": "5156ce1fb1556cdba723a0b3021f57fa14ed803776435c0b7de15bc84876b860",
+  "backup": {
+    "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/before_v5_flash_2MB.bin",
+    "bytes": 2097152,
+    "sha256": "2a6e900ec1153ad73dd0b2d12d820b3465f8cc16e9c635954c0467a40d8abcd5",
+    "flash_verify": "OK",
+    "previous_version": "meter-host-voltage-test-20261120.3"
+  },
+  "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/Result_Rev0.md",
+  "runtime_test_performed": false
+}

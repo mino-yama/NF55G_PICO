@@ -1,0 +1,7 @@
+{
+  "port": "COM7",
+  "opened": true,
+  "tx_sent": false,
+  "date_jst": "2026-11-20",
+  "settings": "57600 8N1, flow control off, DTR/RTS off"
+}

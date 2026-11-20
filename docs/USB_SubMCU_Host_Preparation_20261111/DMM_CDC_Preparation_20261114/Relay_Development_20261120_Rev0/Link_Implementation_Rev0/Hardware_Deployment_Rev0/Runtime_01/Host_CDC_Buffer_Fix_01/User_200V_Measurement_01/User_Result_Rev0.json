@@ -1,0 +1,18 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user serial monitor transcript",
+  "previous_range_readback_volts": "199.9999",
+  "previous_auto": false,
+  "query": "EXT_QUERY 10000 :READ?",
+  "response": "OK:EXT_RX:15:2B3030302E30303030452B30300D0A",
+  "raw_hex": "2B3030302E30303030452B30300D0A",
+  "raw_ascii": "+000.0000E+00\r\n",
+  "declared_bytes": 15,
+  "actual_bytes": 15,
+  "measurement_volts": "0.0000",
+  "error_ascii": "+0,\"No error\"\r\n",
+  "previous_measurement_volts": "-2.91180",
+  "current_front_value_unconfirmed": true,
+  "input_unchanged_unconfirmed": true,
+  "codex_device_IO": false
+}

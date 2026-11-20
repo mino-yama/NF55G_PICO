@@ -1,5 +1,17 @@
 # ATE Command Master
 
+2026-11-20 ユーザー補足による解釈訂正: 「試験者設定のレンジ」はATE側のコマンドで決定/設定する意味。前面手動設定を前提にせず、ATEが固定レンジ値またはAUTO条件を指定→Queryで設定確認→測定要求を送る。Pico/Hostは本文を中継し、指定値の独自置換/自動最適化を行わない。次の安定性試験もこの順序で実施する計画。今回は記録訂正のみ、実機送信/コード/Flash変更なし。 [現行方針Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md)。
+
+2026-11-20 親配置完了: COM6/unique_id 69f7d45962cfdfadの既存26ファイルを退避・SHA照合後、配置対象30ファイルを実機SHA照合（追加/更新8）。実機RAM検証と配置後import成功。通常起動せずREPL停止、PIO4/5はinactive。Host/親の配置は完了したが、配線と実機中継受入は未実施。[親配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Parent_Deployment_01/Result_Rev0.md)。以下の親未配置記述は配置前の状態として保持。
+
+2026-11-20 後続配置: Host BFCF2EDB84B0B37Fへmeter-host-relay-20261120.1を書込み、Flash verifyと書込み後版照合に成功。旧.5全Flash退避・照合済み。BOOTSELのままrebootせず、親Picoは未配置・実機中継未試験。[Host配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/Result_Rev0.md)。以下のHost未配置記述は配置前の状態として保持。
+
+2026-11-20 中継リンク実装: EXT_QUERY/EXT_SENDを本文保持でparserへ登録し、FixtureAppから非同期受付・応答返却を接続した。外部待ち中もATE入力/NF55G idleを処理し、次要求は先行応答を追い越さない。無効時はERR:EXT_DISABLED:AMBIGUOUS=0。ソース既定は無効、実機確認用パッケージだけ有効。Host UF2/親コードは未配置で、実機から利用可能になったという意味ではない。 [リンク実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
+2026-11-20 ユーザー確定: 開発用の外部測定器中継コマンドをEXT_QUERY <timeout_ms> <本文>、EXT_SEND <timeout_ms> <本文>とする。timeout=1～10000ms、本文/応答各192byte。Query応答はOK:EXT_RX:<byte数>:<大文字HEX>、送信のみ完了はOK:EXT_TX、失敗はERR:EXT_<理由>:AMBIGUOUS=0/1。本文と応答原文を保持し、終端・期限と機器の実行成否を区別する。src/external_instrument_contract.pyに受付/応答形式を実装したが、本番parser/FixtureAppへの登録は未実装で、現行配置FWからはまだ利用できない。 [確定仕様 Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Interface_Spec_Rev1.md)。
+
+2026-11-20 中継開発着手: 外部測定器の内部要求管理コアを先行実装。正式ATEコマンドは今回追加しない。EXT_QUERY/EXT_SEND等は別紙の人間確認用候補であり、現parserでは使用できない。 [実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Result_Rev0.md)。
+
 2026-11-19 ADC校正治具の開発継続: 新製品FWへの追従変更保留と、ADC校正機能の開発を区別する。必須対象はDISCHG_I/BATT_CHG/BATT_VのA/B各2点。測定Cacheの内部基盤とTEST_START/TEST_END連動を追加したが、正式ATE取得/照会/Cache利用AD書込みコマンドは未追加。以下の未実装記述は中継・正式入口について引き続き有効。[確定事項・実装境界・残事項](ADC_Calibration_Development_20261119.md)。
 
 2026-11-16 DMMのASCII制御担当（未実装）: ユーザー方針により7355のSCPI文字列・設定/測定手順はATE側が担当し、親PicoはDMM宛て中継要求の本文をHostへ渡して応答をATEへ返す。治具自身/NF55G/DMMの宛先、応答有無・終端・timeout・取得相関を明示する正式フレームは今後定義する。親/Hostがレンジ・測定コマンドを自動追加しない。生応答と校正用Cache採用は区別し、明示測定取得→Cache→ATE確認→別書込みを維持。[責任分担とデバッグ計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/DMM_ATE_ASCII_Control_Debug_Plan_20261116_Rev0.md)。

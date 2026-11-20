@@ -1,0 +1,15 @@
+{
+  "port": "COM22",
+  "rx_only": true,
+  "writes_to_host": false,
+  "rx_bytes": 76,
+  "rx_sha256": "86957a0fb7369eac1e6e33e00161a2a92a5b23653286bc063c9f193d418b262e",
+  "frames": [
+    {
+      "decode_error": "ContractError('FRAME_FORMAT')",
+      "raw_hex": "004058312C31334536354436313836413733423430303030303030303030303030303030302C30303030303030302C482C302C30303030303030302C303030302C2C46333146373138420D0A"
+    }
+  ],
+  "capture_errors": [],
+  "port_closed": true
+}

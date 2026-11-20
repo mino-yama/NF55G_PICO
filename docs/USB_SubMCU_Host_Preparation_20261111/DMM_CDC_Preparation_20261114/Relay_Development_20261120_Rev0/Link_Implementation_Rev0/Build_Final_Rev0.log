@@ -1,0 +1,13 @@
+PICO_SDK_PATH is C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0
+Target board (PICO_BOARD) is 'waveshare_rp2350_usb_a_host_eval'.
+Using board configuration from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/firmware/usb_submcu_external_meter_host/boards/waveshare_rp2350_usb_a_host_eval.h
+Pico Platform (PICO_PLATFORM) is 'rp2350-arm-s'.
+Build type is Release
+Using picotool from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/picotool-2.2.0/picotool/picotool.exe
+TinyUSB available at C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/hw/bsp/rp2040; enabling build support for USB.
+-- Configuring done (2.4s)
+-- Generating done (2.5s)
+-- Build files have been written to: C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/firmware/usb_submcu_external_meter_host/build
+[1/3] Building C object CMakeFiles/usb_submcu_external_meter_relay.dir/relay_host.c.obj
+[2/3] Building C object CMakeFiles/usb_submcu_external_meter_relay.dir/relay_main.c.obj
+[3/3] Linking CXX executable usb_submcu_external_meter_relay.elf

@@ -1,0 +1,10 @@
+{
+  "port": "COM22",
+  "rx_only": true,
+  "writes_to_host": false,
+  "rx_bytes": 0,
+  "rx_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "frames": [],
+  "capture_errors": [],
+  "port_closed": true
+}

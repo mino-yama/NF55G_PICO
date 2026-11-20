@@ -1,0 +1,21 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "Existing temp captures; copied without modification",
+  "captures": [
+    {
+      "file": "meter_host_com22_capture_20261120_07.raw",
+      "bytes": 436,
+      "sha256": "cac1ab22e6655a323671938428ce66037773c6bd3cc140867f9c394445f5222b"
+    },
+    {
+      "file": "meter_host_com22_capture_20261120_08.raw",
+      "bytes": 1171,
+      "sha256": "be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1"
+    },
+    {
+      "file": "meter_host_com22_capture_20261120_09.raw",
+      "bytes": 1969,
+      "sha256": "19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6"
+    }
+  ]
+}

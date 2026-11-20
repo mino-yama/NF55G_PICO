@@ -1,0 +1,25 @@
+{
+  "date_jst": "2026-11-19",
+  "target": {
+    "reported_model": "Waveshare RP2350-USB-A",
+    "reported_product_code": "WAVESHARE-30274",
+    "chipid": "0xbfcf2edb84b0b37f",
+    "usb_vid_pid_bootsel": "2E8A:000F",
+    "usb_serial": "BFCF2EDB84B0B37F",
+    "flash_size_bytes": 2097152,
+    "bootloader": "UF2 Bootloader v1.1"
+  },
+  "backup": {
+    "file": "WAVESHARE-30274_BFCF2EDB84B0B37F_flash_2MB.bin",
+    "bytes": 2097152,
+    "sha256": "1b90c7066b977f42d163b59d115742dbb56ba618f5e76862f91f2a490733b474",
+    "tool": "picotool v2.2.0-a4",
+    "command": "picotool save -a -v <file> --ser BFCF2EDB84B0B37F",
+    "verify": "OK"
+  },
+  "notes": [
+    "Read-only full-flash backup; no erase or write performed.",
+    "BOOTSEL INFO_UF2 Board-ID is generic RP2350 and does not independently confirm the product code or board revision.",
+    "The SHA-256 matches an existing RP2350-USB-C baseline flash image; the current target chipid is a different individual."
+  ]
+}

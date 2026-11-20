@@ -9,9 +9,11 @@ judgement, or NF55G transmission.
 
 
 try:
+    from .external_instrument_contract import ContractError, parse_monitor_request
     from .nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
     from .nf55_command import build_item_parameter_command, build_life_command
 except ImportError:  # pragma: no cover
+    from external_instrument_contract import ContractError, parse_monitor_request
     from nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
     from nf55_command import build_item_parameter_command, build_life_command
 
@@ -77,6 +79,15 @@ class ParseError(ValueError):
 
 
 def parse_ate_command(line):
+    # 中継本文の空白を一般コマンド用stripで失わせない。
+    raw = line.encode('ascii') if isinstance(line, str) else line
+    if isinstance(raw, bytes) and raw.split(b' ', 1)[0].rstrip(b'\r\n') in (b'EXT_QUERY', b'EXT_SEND'):
+        try:
+            request = parse_monitor_request(raw)
+        except ContractError as exc:
+            raise ParseError('EXT_' + str(exc) + ':AMBIGUOUS=0')
+        return ParsedCommand(raw.decode('ascii'), raw.split(b' ', 1)[0].decode('ascii'),
+                             payload=request, category='EXTERNAL')
     text = _normalize_line(line)
     if not text:
         raise ParseError("EMPTY_COMMAND")

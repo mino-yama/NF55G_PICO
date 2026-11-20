@@ -1,0 +1,87 @@
+{
+  "date_jst": "2026-11-20",
+  "method": "source and existing pin-check/Rev4 documents; no physical continuity measurement",
+  "gpio_groups": {
+    "ATE": [
+      0,
+      1
+    ],
+    "NF55G": [
+      4,
+      5
+    ],
+    "QR": [
+      8,
+      9
+    ],
+    "EXTERNAL_INSTRUMENT": [
+      12,
+      13
+    ],
+    "SD": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "RTC": [
+      20,
+      21
+    ]
+  },
+  "logical_conflicts": false,
+  "reserved_reset_candidates": [
+    14,
+    22
+  ],
+  "reset_reservations_are_not_connection_approval": true,
+  "existing_external_pio_state_machines": [
+    4,
+    5
+  ],
+  "qr_future_pio_state_machine_candidates": [
+    6,
+    7
+  ],
+  "qr_combined_pio_runtime_verified": false,
+  "parent_gpio_layout_maintained": true,
+  "physical_expander_connector_mapping_verified": false,
+  "files": {
+    "src/ate_uart.py": {
+      "bytes": 1542,
+      "sha256": "06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9"
+    },
+    "src/nf55_uart.py": {
+      "bytes": 1846,
+      "sha256": "1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b"
+    },
+    "src/qr_pio_rx.py": {
+      "bytes": 3134,
+      "sha256": "0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38"
+    },
+    "src/external_instrument_pio.py": {
+      "bytes": 3500,
+      "sha256": "dbb3e54e81d38177bd04052dde8f0633d530bfc42a4b1abc13487afe1ef4010d"
+    },
+    "src/rtc_driver.py": {
+      "bytes": 6792,
+      "sha256": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254"
+    },
+    "src/sd_sink.py": {
+      "bytes": 11837,
+      "sha256": "5f58adf307a4134da640c1273826e27e770665fc45105976040479b387de6eb5"
+    },
+    "src/calibration_measurement.py": {
+      "bytes": 5664,
+      "sha256": "afed2fe36c15b2823339bd6ca8059c7207b35460f8e337d908c25b14ceb9936f"
+    },
+    "src/command_parser.py": {
+      "bytes": 4963,
+      "sha256": "57e7dd21d5a8312f8ee3fc4daaa755e738e234731df7146cf10d825b5db9a6bc"
+    },
+    "src/nf55_command.py": {
+      "bytes": 13822,
+      "sha256": "f900d3a11bb0e540faecb46cfb96e5d1104d3024f605e787c32bd742a42059eb"
+    }
+  }
+}

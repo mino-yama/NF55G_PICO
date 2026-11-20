@@ -1,0 +1,22 @@
+{
+  "date_jst": "2026-11-20",
+  "version": "meter-host-relay-20261120.1",
+  "target_usb_serial": "BFCF2EDB84B0B37F",
+  "target_chipid": "0xbfcf2edb84b0b37f",
+  "tool": "picotool v2.2.0-a4",
+  "command": "picotool load -v <relay.uf2> --ser BFCF2EDB84B0B37F",
+  "uf2_sha256": "2f6faee45dbbad016fe8470128e7cce9cb1c6e05980d053d4d83880b24a3906c",
+  "result": "Flash verify OK; post-load info confirms version/chipid/BOOTSEL",
+  "backup": {
+    "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/before_relay_flash_2MB.bin",
+    "bytes": 2097152,
+    "sha256": "86a61f8d704c330705980cfa44cefde638de38d43bebe303c1e5feb1192ecd7d",
+    "previous_version": "meter-host-voltage-test-20261120.5",
+    "flash_verify": "OK"
+  },
+  "reboot_performed": false,
+  "runtime_test_performed": false,
+  "parent_deployed": false,
+  "user_preparation": "User reported completion of Host external-5V/instrument/UART disconnection and PC USB-C-only BOOTSEL procedure",
+  "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/Result_Rev0.md"
+}

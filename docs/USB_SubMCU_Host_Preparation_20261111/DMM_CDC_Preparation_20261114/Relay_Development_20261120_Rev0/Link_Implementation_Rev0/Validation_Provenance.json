@@ -1,0 +1,29 @@
+{
+  "date_jst": "2026-11-20",
+  "assembler": {
+    "url": "https://raw.githubusercontent.com/micropython/micropython/v1.27.0/ports/rp2/modules/rp2.py",
+    "file": "rp2_v1_27_0.py",
+    "bytes": 7813,
+    "sha256": "095e1e4e44f02510bebd53e7e485a7368d726ced869e593985abfa08bc659f1b",
+    "license": "MIT; Copyright (c) 2020-2021 Damien P. George"
+  },
+  "pio": {
+    "tx_instructions": 4,
+    "rx_instructions": 12,
+    "pio1_total_instructions": 16,
+    "sm_ids": [
+      4,
+      5
+    ],
+    "scope": "Official assembler on CPython with hardware classes stubbed; physical sampling/IRQ/timing not verified"
+  },
+  "official_references": [
+    "https://docs.micropython.org/en/v1.27.0/library/os.html",
+    "https://docs.micropython.org/en/v1.27.0/library/binascii.html",
+    "https://docs.micropython.org/en/v1.27.0/library/rp2.StateMachine.html"
+  ],
+  "sdk_evidence": [
+    "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/class/cdc/cdc_host.c",
+    "tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/pico_rand/include/pico/rand.h"
+  ]
+}

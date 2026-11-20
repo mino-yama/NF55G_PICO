@@ -1,0 +1,7 @@
+{
+  "device_files_written": false,
+  "gpio_uart_started": false,
+  "stdout": "RAM_PARSER_CODEC_LINK_OK\r\nPIO_ASSEMBLED_TX=4\r\nPIO_ASSEMBLED_RX=12\r\nPIO4_ACTIVE=False\r\nPIO5_ACTIVE=False\r\n",
+  "stderr": "",
+  "passed": true
+}

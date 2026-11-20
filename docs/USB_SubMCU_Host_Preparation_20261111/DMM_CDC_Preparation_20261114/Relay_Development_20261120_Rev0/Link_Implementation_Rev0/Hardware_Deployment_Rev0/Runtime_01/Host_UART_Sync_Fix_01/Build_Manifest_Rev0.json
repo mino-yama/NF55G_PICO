@@ -1,0 +1,17 @@
+{
+  "version": "meter-host-relay-20261120.2",
+  "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/meter_host_relay_20261120_2.uf2",
+  "bytes": 94720,
+  "sha256": "cb3fc420088b72eae1bab80fad5ddb09c75f0bd8a79889aefddb08f42a869def",
+  "sdk": "2.2.0",
+  "arm_build": "success",
+  "unit_mock_tests": 450,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "regression_tests_added": 4,
+  "hardware_deployed": true,
+  "hardware_verified": false,
+  "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Build_Result_Rev0.md",
+  "deployment_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Host_Deployment_02/Deployment_Manifest.json"
+}

@@ -1,0 +1,29 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM7",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T16:58:39.410166+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 10015.0,
+      "rx_hex": "",
+      "rx_ascii": ""
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "*IDN? only after fixture identity verified"
+  ],
+  "nf55g_commands": false,
+  "result": "STOPPED",
+  "user_authorization": "7355 USB-B抜けをユーザー確認。デバッグを止めて最初の中継テストへ戻す指示。接続復帰通知後に実行。",
+  "power_operation_performed": false,
+  "error": "RuntimeError('ATE response incomplete/timeout; not retried')",
+  "all_rx_bytes": 0,
+  "all_rx_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "port_closed": true
+}

@@ -1,0 +1,38 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user serial monitor transcript and front panel confirmation",
+  "host_firmware": "meter-host-relay-20261120.3",
+  "commands": [
+    "EXT_SEND 2000 :SENS:VOLT:DC:RANG:AUTO OFF",
+    "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+    "EXT_SEND 2000 :SENS:VOLT:DC:RANG 20",
+    "EXT_QUERY 2000 :CONF?",
+    "EXT_QUERY 2000 :SYST:ERR?"
+  ],
+  "responses": [
+    {
+      "command": "AUTO?",
+      "declared_bytes": 3,
+      "actual_bytes": 3,
+      "hex": "300D0A",
+      "ascii": "0\r\n"
+    },
+    {
+      "command": "CONF?",
+      "declared_bytes": 36,
+      "actual_bytes": 36,
+      "hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+      "ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n"
+    },
+    {
+      "command": "SYST:ERR?",
+      "declared_bytes": 15,
+      "actual_bytes": 15,
+      "hex": "2B302C224E6F206572726F72220D0A",
+      "ascii": "+0,\"No error\"\r\n"
+    }
+  ],
+  "front_panel_range_volts_user_confirmed": 20,
+  "range_issue_closed": false,
+  "measurement_sent_by_codex": false
+}

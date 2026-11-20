@@ -1,0 +1,20 @@
+{
+  "port": "COM22",
+  "rx_only": true,
+  "writes_to_host": false,
+  "rx_bytes": 75,
+  "rx_sha256": "40e1b8db4922bcab843b93ff8093a711f175d8e871b7c2e30cb095e26f3d1db9",
+  "frames": [
+    {
+      "kind": "H",
+      "request": 0,
+      "session_hex": "F7DC7727C218D7410000000000000000",
+      "mode": 0,
+      "timeout_ms": 0,
+      "payload_hex": "",
+      "payload_ascii": ""
+    }
+  ],
+  "capture_errors": [],
+  "port_closed": true
+}

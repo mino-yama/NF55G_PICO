@@ -1,8 +1,97 @@
 # Open Issues
 
+2026-11-21 USB-HOST-RESET-01（Open）: NF55G Pico治具案件内でQR/CDC Hostのリセット方法を検討。手動RESETを第一候補、電源再投入を比較対象とする提案で採用未確定。CDCは親/Host双方のfault・session初期化と7355の旧応答/未完了処理解消が必要で、片側RESETのみを復帰完了としない。RUN外部配線を進めない既存方針は維持。ソフトRESET/自動watchdog/USB再初期化は未実装・採否未確定。コード/Flash/実機操作なし、関連IssueはCloseしない。[検討資料Rev.0](USB_Host_Reset_Study_20261121/Reset_Study_Rev0.md)。
+
+2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
+
+2026-11-20 工数/GPIO並行計画: 測定原文取得/ATE返却は実機済み。残る数値・単位/Cache/正式ATE入口とAD実装は仕様回答後コード/Mock1〜2実働日、基本実機確認含2〜3実働日（概算12〜24時間、待ち/全量産受入は別）。親GPIOは既存予約のQR GP8/9と実装済み測定器GP12/13を配線基準として維持。現行測定器PIOはSM4/5で旧案の順序に注意。RESETは必須/制御方式未確定、GP14/22を親側予備候補として確保しHost RUN結線は回路確認後。今回コード/Flash/実配線変更なし。 [工数](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Effort_Estimate_Rev0.md)／[配線基準](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev0.md)。
+
+2026-11-20 ユーザー補足による解釈訂正: 「試験者設定のレンジ」はATE側のコマンドで決定/設定する意味。前面手動設定を前提にせず、ATEが固定レンジ値またはAUTO条件を指定→Queryで設定確認→測定要求を送る。Pico/Hostは本文を中継し、指定値の独自置換/自動最適化を行わない。次の安定性試験もこの順序で実施する計画。今回は記録訂正のみ、実機送信/コード/Flash変更なし。 [現行方針Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md)。
+
+2026-11-20 ユーザー決定: 最適レンジは試験者が設定し、レンジ追加調査はここまでとする。中継は明示コマンド/原文を維持し自動最適化/独自補正しない。レンジ読戻し差の記録は保持し中継継続のブロッカーにしない。次は固定入力/試験者レンジでの安定性→timeout/切断/清浄復帰→ATE/NF55G/SD共存受入。その後、正式API等を確認してADC測定Cache/ATE確認後別指令ADへ接続する。今回は説明/記録のみ。 [方針・次工程](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_Operator_Range_Decision_Rev0.md)。
+
+2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
+
+2026-11-20 UP一回の表示対応確認: 押下前AUTO0/CONF19.99999V、ユーザーの押下時表示200V、押下後AUTO0/CONF199.9999V。今回の一時表示は変更後レンジと一致。過去RANG20直後の約200V読戻しの理由は別途未解明でIssue Open維持。現在固定200V相当、次は同じ低電圧入力で単発読出しを比較。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Panel_Range_Interpretation_01/UP_Once_Result_Rev0.md)。
+
+2026-11-20 前面キー操作なしの基準Query: AUTO?=0、CONF?はVOLT +1.999999E+01,+1.000000E-06（正常36byte）。現在の機器読戻しは固定20Vレンジ相当。以前のCONF約200Vとは取得時点/キー操作が異なり、過去SCPI動作の原因や一時表示の意味は未確定。次はUP一回の前後を比較。 [基準記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Panel_Range_Interpretation_01/No_Key_Baseline_Rev0.md)。
+
+2026-11-20 前面レンジ確認の前提を補足: ユーザーはレンジボタン押下時の表示が変更前後のどちらか不明と回答。取説4-3/4-19でUP/DOWNは設定変更そのものと確認。過去の前面20V報告は保持するが「現在レンジ確定」との扱いは保留し、前面読取り未確認へ訂正。正常CONF約200Vの観測は保持。USB-CDC-RANGE-01はCloseせず確認前提を更新。まずキー操作なしのAUTO?/CONF?を記録する。 [補足記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Panel_Range_Interpretation_01/Clarification_Rev0.md)。
+
+2026-11-20 ユーザー単発測定: READ?の15byte原文-02.91180E+00+CRLFを取得、-2.91180V、機器エラー0。前面もマイナスと回答し極性一致。校正/製品合否は未判定、前面20V/CONF約200V相違はOpen維持。次は同じ約2.9V入力で200Vレンジの前面/原文/再測定を確認する手順を作成。Codexの実機送信/コード変更なし。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/User_Single_Measurement_01/Result_Rev0.md)。
+
+2026-11-20 .3のユーザー固定20V確認: AUTO OFF/RANG20の後、AUTO?=0、CONF?は正常36byteのVOLT +1.999999E+02,+1.000000E-05、SYST:ERR?=0。ユーザーは前面20Vを確認。受信書式は正常だが前面/読戻し相違は継続しUSB-CDC-RANGE-01をOpen維持。FIFO不具合だけを原因にしない。次の測定用V/COM入力値を確認中、Codexは測定未送信。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/User_Fixed_20V_Check_01/Result_Rev0.md)。
+
+2026-11-20 .3実機で設定Query5種×12周（60件、機器応答総1035byte）と終了エラーQueryを成功。全周で原文/書式/長さ一致、CONFは正常なVOLT +1.999999E+01,+1.000000E-06、AUTO=1、エラー0。先行の応答崩れは今回再現せず、受信健全性を確認。固定20V切替/前面一致/測定は未実施でレンジIssue等はOpen維持。COM7解放済み。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md)。
+
+2026-11-20 CDC FIFO修正版.3をBFCF2EDB84B0B37Fへ配置完了。旧.2全Flash2MiB退避/hash照合、新UF2照合、Flash verify、書込み後個体/版/BOOTSEL照合成功。rebootなし、親ソフト変更なし。次は通常接続で設定Query12周の受信健全性を確認する。レンジ/測定は未実施、Issue Open維持。 [配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/Result_Rev0.md)。
+
+2026-11-20 CDC FIFO修正版.3のARM build/link、UF2版/hash照合完了。全453件成功。TX/RX FIFO256整合、endpoint64維持、SDK原本変更なし。実機はまだ.2で、全Flash退避後に.3配置する準備。測定前に累積Queryの受信健全性を確認する。 [ビルド結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Build_Result_Rev0.md)。
+
+2026-11-20 USB-RELAY-CDC-BUF-01（Open）: 提示CONF?が36byteの不正文字列に復号。固定SDK CDCのrx配列はTX macro確保64byte/初期化RX深さ256byteという不一致を確認し、実FIFOで隣接領域書換えを再現。Host側TX/RX256整合+ビルド時guardへ修正、新FW.3をビルド中。回帰3件追加し全453件成功。提示崩れの実機因果/20V問題は未確定でCloseしない。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Result_Rev0.md)。
+
+2026-11-20 .2実機試行10で親経由7355識別中継成功。ATEへOK:EXT_RX:32:HEXを返しADC Corp.,7355,246410099,  A02+CRLFを原文保持。Host入力線にHとQ一件を正常捕捉、再送/レンジ/READなし。試行9の起動00byte付き照合成功と合わせ同期修正の効果を確認。全受入/Issue Closeとはせず切断復帰/実負荷等は残る。シリアルモニターCOM7/57600 8N1を解放済み。 [解決記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Resolution_Rev0.md)。
+
+2026-11-20 修正版.2実機試行9: 電源投入前からのHost GP1監視で00+正常Hの76byteを確認。同条件でも親経由のh照合成立を示すEXT_LINK_NOT_READY/AMBIGUOUS=0を取得し、旧TIMEOUTから改善。USB-B未接続で機器Qなし。識別中継/負荷等は未確認のためIssueはOpen。次は同じ通電でUSB-Bだけ接続し識別確認。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Sync_Verify_09/Result_Rev0.md)。
+
+2026-11-20 Host同期修正版.2をBFCF2EDB84B0B37Fへ配置完了。旧.1全Flash2MiB退避・照合、新UF2 hash照合、load -vのFlash verify、書込み後ID/版/BOOTSEL照合成功。rebootなし、通常起動/親経由受入は次試験待ち。親ソフト変更なし、450件成功を継承。 [配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Host_Deployment_02/Result_Rev0.md)。
+
+2026-11-20 Host同期修正版.2のARM build/linkとUF2 metadata/hash照合完了。全450件成功。旧.1 UF2/sourceを保持し、新.2を別名配置用保存。実機はまだ.1で未書込み、次は個体照合/全Flash退避後に配置・実機再試験。 [ビルド結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Build_Result_Rev0.md)。
+
+2026-11-20 起動時UART不具合を実原文で再現し修正: Host GP1で00 00+正常H（計77byte）を取得。旧Cは一行として破棄しhなし。Host受信を@先頭から同期させ、CRC/長さ/session/重複/故障保持/再送禁止を維持。回帰4件を追加して全450件成功。FW .2をビルド中、実機未配置。電気的起源と実機因果の最終確認は残りIssueはOpen。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Result_Rev0.md)。
+
+2026-11-20 外部給電・PC UART直結でHost h/NOT_READY成功。試行7の親H原文75byteをPC UARTからそのまま送る比較でもh成功。原文書式は受理可能。親直結時の起動データ/信号条件等は未確認で、次は電源投入前からHost GP1を監視する準備。起動時データで最初のHが同じ不正行として破棄される可能性は仮説のみ。コード/Flash変更なし、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_External_Replay_01/Result_Rev0.md)。
+
+2026-11-20 Host実電圧のユーザー回答は5.0V/3.2V。測定精度/波形は未確認で電源異常や原因を断定しない。次は外部給電・USB-B未接続を維持し親信号を切離してPC UARTからH一回を送り、送信元を比較する準備。 [実測報告](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_NoUSB_07/Power_Measurement_Rev0.md)／[次試験](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_External_UART_01/Preparation_Rev0.md)。
+
+2026-11-20 試行7: 外部給電でUSB-B未接続の冷起動でも、親経由はTIMEOUT/AMBIGUOUS=0。Host GP1監視でCRC正常H 75byteを確認。USB起動順序だけで原因を確定しない。次はHost基板の実5V/3V3電圧をユーザーへ依頼中。今回はHost TXを直接監視していない。コード/Flash変更・再送なし、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_NoUSB_07/Result_Rev0.md)。
+
+2026-11-20 試行6: Host GP1受信線で親Hフレーム75byteを捕捉、CRC/形式正常。親からのH送信は監視点で確認。治具ID正常だが中継はTIMEOUT/AMBIGUOUS=0。Host内部UART受理/実電圧/起動時USB接続順序等は未確認。次は外部給電でUSB-Bなし冷起動を比較し、原因を決めず切り分ける。コード/Flash変更なし、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Input_Capture_06/Result_Rev0.md)。
+
+2026-11-20 ユーザー回答: Host側の外部5V/GND線も接続済み。端子実電圧は未測定で電源正常を断定しない。次は監視RXDをHost GP1へ移し、親TXのH要求到達を受動採取する準備。電源再投入で前試行fault/sessionを持越さず実行する。 [次試験準備](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Input_Capture_06/Preparation_Rev0.md)。
+
+2026-11-20 試行5: 親経由で治具IDは成功、EXT_QUERYは2015ms後TIMEOUT/AMBIGUOUS=0。並行したCOM22 RX専用Host TX監視は0byte・捕捉例外なし。直前Host単体USB-C給電では識別成功。外部給電復帰と親Hの到達等は未確認のため、Host側外部5V/GND線の接続をユーザー確認中。自動再送/Flash変更なし、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Capture_05/Result_Rev0.md)。
+
+2026-11-20 Host単体識別成功: USB-Bなし冷起動から接続後、h=READY、基板ID/FW版一致。Q(*IDN?、2000ms)にA/T/Rを確認し7355の32byte識別原文を取得。レンジ/READ/再送/Flash変更なし。親経由は未成立のまま、次は親復帰とHost TX受動採取を準備。IssueはOpen維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_Direct_IDN_02/Result_Rev0.md)。
+
+2026-11-20 Host冷起動比較: USB-BなしでHostとUART変換器を無給電にして再接続後、H/h応答が回復。基板ID/FW版一致、NOT_READY、16ms。USB切断だけでは回復しなかった先行試験と区別。原因未確定、次は同じ給電/UARTでUSB-B接続の変化を比較する。機器コマンド/Flash変更なし、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_Cold_Boot_01/Result_Rev0.md)。
+
+2026-11-20 USB-B切離し比較: Hostの電源/UART維持でHを1回送信し3000ms待機したが受信0byte。診断JSONのFRAME_ENDINGは空受信をdecodeした結果で、実機不正フレームの観測ではない。機器コマンドなし。次はUSB-B未接続でHost/変換器を無給電にして冷起動比較。原因未確定、Issue Open維持。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_USB_Disconnected_01/Result_Rev0.md)。
+
+2026-11-20 Host単体デバッグ: COM22からHを1回送ったが3秒応答なし、受信0byte。Q/SCPI未送信。先行のUSB-B未接続時にはH応答があったため、HostのUSB-C給電/UART配線を維持して7355 USB-Bだけ外す比較診断を準備。USB起因とは未断定、FW変更・自動再送なし。USB-RELAY-LINK-01はOpen。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_Direct_IDN_01/Result_Rev0.md)。
+
+2026-11-20 再試験4: COM7/57600 8N1で治具ID応答成功。EXT_QUERY 2000 *IDN?はERR:EXT_TIMEOUT:AMBIGUOUS=0、7355識別は未取得。自動再送/レンジ/READ/追加デバッグ/Flash変更なし、COM7解放済み。USB-B接続復帰後も中継TIMEOUTが返り、停止箇所・原因は未確定。Issue Open継続。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_04/Result_Rev0.md)。
+
+2026-11-20 接続復帰後試験3: ELECOMはCOM7（056E:5004）へ変化。COM5では送信前停止し、COM7で治具*IDN?を1回送ったが10秒応答0byte。EXT_QUERYは未送信、自動再送・Flash変更なし。親の外部給電復帰とATE接続を確認する段階。IssueはOpen継続。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_03/Result_Rev0.md)。
+
+2026-11-20 親単体診断: 実機IDを照合しFactory/SD/中継PIO初期化成功。PIO RXを同じGP12へ一時割当てた内部送受信で75byte完全一致・UARTエラーなし。元GP13入力/親Host配線/Host状態は未確認でUSB-RELAY-LINK-01はOpen維持。本番コード/Flash変更・機器Queryなし。終了時は親friendly REPL停止。 [診断結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Startup_Investigation_01/Result_Rev0.md)。
+
+2026-11-20 再試験2: COM5/57600 8N1で治具ID NF55G_PICO_FIXTURE,Rev.0 の応答を確認。EXT_QUERY 2000 *IDN?は2016ms後にERR:EXT_TIMEOUT:AMBIGUOUS=0。7355識別は未取得、自動再送・電源/コード変更・レンジ切替/READなし。停止箇所は未確定でUSB-RELAY-LINK-01をOpen追加。ATE無応答Issueは今回再現せず、原因未確定のままOpen維持。 [再試験結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_02/Result_Rev0.md)。
+
+## USB-RELAY-LINK-01: 中継識別要求のTIMEOUT（Open、2026-11-20）
+
+確認事実: ATEの治具ID応答成功後、外部識別要求はTIMEOUT/AMBIGUOUS=0。推測: HELLO未成立またはHostのUSB送信開始前TIMEOUT等。未確認: 親/Host間の実フレーム、PIO実初期化、Host通常起動・USB状態。原因を決めず親単体診断へ進む。実機中継受入未成立。
+
+## USB-RELAY-ATE-01: 配置後の治具ATE ID応答なし（Open、2026-11-20）
+
+COM5のELECOM（056E:5004）、57600/8N1から治具自身の*IDN?+CRを一回write（戻り値6）したが、10,093msで受信0byte。治具ID未確認のためEXT_QUERYは未送信。ユーザーはATE側UART0/GP0/GP1への接続を確認済み。親の起動・RS232信号・給電状態のいずれも未確認で、原因を断定しない。配置前/後のRAM・import成功は実ハード初期化/通常起動の成功を意味しない。次は親単独USBで起動ログ/Factory初期化を診断し、57600を根拠なく変更しない。 [試行結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_01/Result_Rev0.md)。
+
+2026-11-20 USB-SUB-01/05進捗: 親adapter/ATE入口と独立Host中継FWを実装し、全446件成功・ARM build/link成功。HELLO payloadのchipid|FW|状態、os.urandom/固定SDK get_rand_64を実装詳細として照合し、PIO TX4+RX12=16命令を公式assemblerで確認。これらのコード作成・Host検証は完了。一方、実機ファイル配置/Flash・実UART/USB・PIO IRQ/負荷・電源/端子/RESET・旧機器応答を含む実復帰は未確認。故障は保持し自動再送しない。USB-SUB-01/05・USB-INT-01はOpenを維持。レンジ相違は保留。 [リンク実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
+2026-11-20 USB-SUB-01/05の回答済み仕様: ユーザーが開発用通信契約Rev.1を承認。ATEのEXT_QUERY/EXT_SEND、timeout1～10000ms、本文/応答192byte、親子115200/8N1・親GP12/13/HostGP0/1、session/request/CRC-32と512byte上限のフレームを採用。これらを未承認候補とは扱わない。一方、HELLO payloadのFW版/ID表現、nonce用API、復帰時の旧データ排除、PIO資源/現物配線/RESET/負荷・実機受入は残るためIssueはOpen維持。レンジ相違検証は保留。 [確定仕様 Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Interface_Spec_Rev1.md)。
+
+2026-11-20 USB-SUB-01/05進捗: 外部測定器の書式非依存中継コアを実装し全401件成功。ATE名/応答形式・親子UART pin/baudrate/フレーム/CRC/起動相関等は未承認案のまま。adapterの清浄接続保証、現物配線とPIO資源/実機負荷は未検証。既存IssueはOpenを維持する。 [実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Result_Rev0.md)。
+
+2026-11-20 .5実機再現: 同一試行でユーザーは前面20Vを報告。RANG 20直後のSYST:ERR?は+0,"No error"、CONFは再び約200Vを返し、.5はCONF_RANGE_NOT_20VでREAD前停止。原因は未確定でUSB-CDC-RANGE-01をOpen維持。 [実機結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md)。
+
+## USB-CDC-RANGE-01: 7355前面レンジとCONF読戻しの相違（Open、2026-11-20）
+
+確認事実: raw #09で`:SENS:VOLT:DC:RANG 20`の後、`:CONF?`が`"VOLT +1.999999E+02,+1.000000E-05"`を返した。ユーザーは引継ぎ時に前面20Vレンジ・電源OFFと回答。応答数値は約200Vであり前面20Vと一致しない。推測: nominal値とfull-scale境界、機器応答仕様等の可能性は未検証で、原因としない。未確認: 同一試行時点の前面/読戻し対応、レンジコマンドの実機挙動、メーカーの説明。独自換算や200V応答の20V扱いは行わない。評価FW.5でも19～21V以外はREAD前停止を維持する。設計/機器仕様の確認を要し、Codex判断でCloseしない。[引継ぎ記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Result_Rev0.md)。
+
 2026-11-19 CAL-EXT-02の追加回答: シャント抵抗は50A/50mV（1mΩ）、取得単位mV、Aへの換算担当はPicoで確定。I[A]=U[mV]を内部校正候補取得へ実装した。元測定Cacheを保持し、誤単位では候補を拒否する。正式API・実応答の単位正規化・AD表現/極性・A/B点対応等の未回答部分と実機検証は継続し、IssueはCloseしない。[記録](ADC_Calibration_Development_20261119.md)。
 
 2026-11-19ユーザー決定と実装進捗: 必須校正はDISCHG_I/BATT_CHG/BATT_Vの3系統×2点。OI-17は設計指示7.3との不整合とせず、12VOUT_Iの追加校正は要求しない。ただし関連機能の確認完了/Issue Closeではない。OI-19の保存後反映・再投入要否は実機確認待ち。ADC治具機能の開発は継続可となり、取得Cacheの内部基盤・試行境界の失効を実装。CAL-EXT-02等の正式API、A/BとP1/P2対応、シャント換算、AD/AR契約の未回答部分は継続する。製品FW/GitHub Issuesは変更しない。[確定事項・未確認事項・今回の境界](ADC_Calibration_Development_20261119.md)。
+2026-11-19 OI-17の開発影響判定: NF55G製品FWの12VOUT_I固定値は試験手順書に検査項目として明記されておらず、ユーザー確認によりFWの設計思想によるものと判明。OI-17として追跡を継続するが、治具開発のブロッカーではない。IssueはCloseせず、製品FWやAD/AR動作を変更しない。
 
 2026-11-14 取得値Cache書込み（詳細設計Open）: DMM/QR読取り→Cache・ATE返却→ATE確認→別指令でCache値書込み、数値直接指定方式の維持、書込み完了時の使用Cache破棄、TEST_END時の全取得Cache破棄はユーザー確定。TEST_END後の遅着では復活させず、成否不明時もHard Rule 15に従いINVALID。正式API/取得識別・Cache名/追加期限・完了単位/明示拒否時処理・単位換算・QR/SS変換と保留解除時期は未確定。実装・受入未完了のため関連IssueはCloseしない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。
 
@@ -62,6 +151,24 @@ READ-FD-01は通信r2 p.38でもFD見出しと46h 30hの不一致が残る。OL�
 - QR／SS追加確定（同日ユーザー指定）: 製品交換を識別できないためQRは次試行へ引き継がない。同一製品の再試験もQRを再取得し、ATEの明示指示で再度SSを実行する。新試行の書込みシリアルが空ならエラーを返してSSをNF55Gへ送信しない。前回値や既定値で補完しない。前試行のQR履歴は前試行に保存する。正式エラーコード・空の具体的判定・SSフィールド対応は未確定でOI-23と関連する。
 - 残確認事項: START再送の識別方法、最終中断後に次指示がない場合、切替え受付／保存完了応答、ID生成・命名衝突、保存診断履歴、製品Cache失効の具体化、SS空シリアルの判定・エラー詳細。方針採用だけでIssueをCloseせず、QR正式Pico連携の組込み前に修正する推奨時期と未実装状態を維持する。
 - [案件調査と方針案Rev.0](Test_Interruption_20261111/Investigation_and_Policy_Rev0.md)。Host／Mock273件成功。実機未検証、src／tests／firmware変更・配置なし。OI-14／OI-23／USB-SUB-01と関連し、独断でCloseしない。
+
+## USB-INT-01: USB HOST中継基板のピン番号・配線位置（Open、2026-11-19）
+
+2026-11-19最新構成指定: QR用HostはWaveshare RP2350-USB-C、外部測定器用HostはWaveshare RP2350-USB-A（商品コードWAVESHARE-30274）。外部測定器用Hostは開発側にUSB-C、機器側にUSB-Aを使い、外部測定器のUSB-Bへユーザー準備ケーブルで接続する。給電はQR用と同じ外部電源を共用する。既存記録上の電源は多摩電子工業DC5V/2.4Aという申告値で、正確な型番、実電流制限値、分岐保護は未確認。
+
+2026-11-19 ユーザー了承: Pico 2からQR用RP2350-USB-Cと外部測定器用RP2350-USB-Aを使い分ける役割分担を確認した。ピン番号・配線位置や電源条件の未確認事項は引き続き本Issueで管理する。
+
+Pico 2 ⇔ Expander ⇔ 中継基板の部品は秋月電子117585（Pico用20Pピンソケット、リード長3.2mm、左右セット）およびADA-5200（スイッチサイエンス8588、PiCowbell Proto）。Expander CNからピンソケットを介してADA-5200へ接続し、ADA-5200から各Host基板へはんだ付け配線する。RESET信号の存在も指定された。
+
+中継基板はUSB HOSTとPico間の接続位置・配線を明確にする目印で、ハード設計・デバッグ時の説明を補助する。今後開発するUSB CDCと、開発済みQR機能のPico側ポート接続の説明に使用する。既存の設計方針を変更せず、USB CDC自体の実装や開発状態もこの追記では変更しない。
+
+具体的なExpander CN番号・ピン番号、ADA-5200と各Host基板の端子対応・配線位置、ユーザー準備ケーブルの型式・結線、共用外部電源によるQR＋Host＋外部測定器の同時負荷時電流・電圧・配線容量・分岐保護、RESETの接続先・配線位置・制御条件は未確認。回路図／配線表または記録付き実機確認で特定するまで推測で補わない。現物作業の未実施を資料欠落だけから断定しない。
+
+この追記は物理的な配線中継の引継ぎに限定し、既存GPIO割当、通信制御方式、FW、USB HOSTドライバ、RESET制御を変更・追加しない。USB CDC保守通信（OI-15）およびUSB-SUB-01～04とは区別し、OI-17（AD/AR target mapping）を変更しない。詳細は[接続仕様](USB_HOST_Interconnect_Spec.md)。USB-INT-01はOpenを維持する。
+
+| ID | Item | Closure Evidence Required |
+|---|---|---|
+| USB-INT-01 | USB HOST interconnect pins and wiring locations, including RESET | Confirmed schematic/wiring table or documented physical wiring verification identifying Expander CN, 117585, ADA-5200, QR RP2350-USB-C Host, external-instrument RP2350-USB-A (WAVESHARE-30274) Host, USB-A-to-instrument-USB-B cable, external power, and RESET. |
 
 ## USB-SUB-01: QR／7355共通USB下位マイコンと双方向UART（Open、2026-11-10）
 
@@ -211,7 +318,7 @@ Codex must NOT close these by inference.
 | OI-14 | QR Cacheからのログファイル名生成 | 2026-09-18ユーザー指定によりQR読取Cacheをログファイル名に利用する。採用フィールド、命名形式、使用不可文字、重複時処理、未読時処理、TEST_STARTとの順序は未確定。OI-23参照。Openを維持する。 |
 | OI-15 | Detailed USB CDC/PySide6 protocol | deferred phase |
 | OI-16 | AD request/response wire format mismatch | Fixture draft defines AD as 10-char DATA control/set command; interim FW request is `TYPE1+POINT1+VALUE8` and success response is `TYPE1+POINT1+ADC6+CALC8`. Confirm r1/production FW/design expectation. |
-| OI-17 | AD/AR target mapping and 12VOUT_I coverage | Fixture draft/decoder expose five AR systems; interim FW implements the same five targets, while `12VOUT_I` has a runtime coefficient but no AD/AR EEPROM slot. Confirm final target list and ATE names. |
+| OI-17 | AD/AR target mapping and 12VOUT_I coverage | User confirmed on 2026-11-19 that the product FW fixed value reflects FW design intent and is not listed as an inspection item in the test procedure. Keep OI-17 open for traceability, but it does not block fixture development. Do not infer new AD/AR behavior or change product FW. |
 | OI-18 | AD POINT/VALUE validation and rejection policy mismatch | Fixture docs leave POINT/VALUE validation open; interim FW uses POINT `1/2`, clamps out-of-range VALUE, and may not explicitly reject unsupported TYPE/POINT. Define final PME/SQE/clamp behavior. |
 | OI-19 | AD persistence/write timing and EEPROM error behavior | Interim FW stores `correct_t` to EEPROM and returns after write check; final commit timing, busy behavior, retention, write-cycle limits, and HWE behavior need confirmation. |
 | OI-20 | AR response length/order final confirmation | Fixture draft and interim FW both indicate 140 DATA chars: five targets x two points x `(ADC6 + REF/value8)`. Verify final production FW order/length before fixing ATE query behavior. |
@@ -255,7 +362,7 @@ Interim FW source checked:
 
 Consolidation map:
 - OI-16 merges former OI-16, OI-20, and OI-29. The issue is one wire-format mismatch: fixture draft command/response expectation vs interim FW implementation.
-- OI-17 merges former OI-17, OI-24, and OI-32. The issue is one target-list/mapping question: five AR systems vs runtime-only `12VOUT_I`.
+- OI-17 merges former OI-17, OI-24, and OI-32. The fixed-value behavior for `12VOUT_I` is user-confirmed as product FW design intent and is not a fixture-development blocker; retain the issue as an open mapping record.
 - OI-18 merges former OI-18, OI-19, OI-27, and OI-28. The issue is one validation-policy question: accepted POINT/VALUE range and error/clamp behavior.
 - OI-19 keeps former OI-21. Persistence/write behavior is separate from protocol field layout.
 - OI-20 keeps the AR order/length part of former OI-24. REF representation and ATE return policy are tracked in OI-04 to avoid duplication.
@@ -265,7 +372,7 @@ Consolidation map:
 Detailed AD/AR differences:
 - AD request/response format: `ATE_Command_Master.md` and `ATE_Command_List_for_Test_Program.md` define ATE command `AD_<TYPE>_<POINT>_<VALUE>` mapped to NF CMD `AD` with 10-char DATA, while interim FW parses DATA as `TYPE1 + POINT1 + VALUE8`. Current fixture docs treat AD as a control/set command, but interim FW returns success DATA `TYPE1 + POINT1 + ADC6 + CALC8`. Final production FW/D6-design expectation is not yet confirmed.
 - AD VALUE/AR REF numeric representation: fixture docs intentionally keep AR `REF8` raw/open and do not finalize AD VALUE encoding. Interim FW uses `aschex_to_float()` and `float_to_aschex()`, which indicates IEEE754 float bit pattern encoded as 8 ASCII HEX chars. Endianness, ATE decoded display, and raw preservation policy must be decided.
-- AD target mapping: fixture decoder and interim FW both indicate five calibration targets: `DISCHG_I`, `BATT_V`, `ACDC12V_V`, `BATT_CHG`, and `12VOUT_V`. Interim FW comments are narrower, describing battery voltage adjustment, and `12VOUT_I` has a runtime coefficient but no AD/AR EEPROM record. Final design must confirm whether `12VOUT_I` is intentionally non-adjustable.
+- AD target mapping: fixture decoder and interim FW both indicate five calibration targets: `DISCHG_I`, `BATT_V`, `ACDC12V_V`, `BATT_CHG`, and `12VOUT_V`. `12VOUT_I` has a fixed product-FW coefficient rather than an AD/AR EEPROM record. The user confirmed this reflects FW design intent and is not listed as a test-procedure inspection item. Keep OI-17 open for traceability, but do not block fixture development or add calibration behavior by inference.
 - AD POINT/range handling: fixture docs leave POINT and VALUE validation as open design items. Interim FW maps POINT `1` to `point1/ad1` and POINT `2` to `point2/ad2`; unsupported TYPE/POINT may fall through without explicit PME/SQE, and out-of-range VALUE is clamped rather than rejected. Production FW must define whether invalid input is rejected, clamped, or treated as sequence/parameter error.
 - AD persistence and reflection timing: interim FW writes calibration records to EEPROM and checks write completion, but successful AD appears to calculate response-local values without visibly updating runtime measurement coefficient globals such as `gf_batt_v_coeff`. This differs from an ATE expectation that immediate `AR_REFRESH` or subsequent measurements reflect AD. Confirm whether reboot, re-init, delay, or explicit refresh path is required.
 - AR response shape: `Data_Decode_Master.md` defines AR as 140 DATA chars: five systems x two points x `(ADC6 + REF8)`. Interim FW matches 140 DATA chars and full frame length 146, ordered `DISCHG_I`, `BATT_V`, `ACDC12V_V`, `BATT_CHG`, `12VOUT_V`. This agreement still needs final production FW confirmation before the ATE query behavior is fixed.
@@ -381,6 +488,8 @@ USB-SUB-02追記（2026-11-11、Open継続）: ユーザーが改造は実機確
 USB-SUB-02／04追記（2026-11-14、Open継続）: 改造完了の申告、PC給電5.00V／3.30V、外部給電5.01V／3.30VとUART接続時5.00V／3.3Vを記録。qr-uart-20261111.1の対象個体への書込み・verify成功。PC給電時と、同一UART配線の外部給電RST後に版・個体IDの2レコードを受信。先頭NULは再現し警告付き解析のみ。外部電源投入だけでは受信が現れずRST後に取得した差の原因は未確定。電圧・識別確認をHost／電源保護／無操作電源投入起動の合格としない。追加枝保護・QR負荷・7355・2 Hostは未受入。[比較結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/Boot_UART_20261114/run08_external_same_uart/Result_Rev0.md)。
 
 USB-SUB-02追記（2026-11-14、ユーザー指定の限定QR評価）: ユーザーが追加ヒューズ施工は困難、破損責任を引き受けて続行する旨を明示。今回のQR単体評価は追加ヒューズなし、申告済み5V／2.4Aアダプタ内蔵保護で進める。これは今回の評価運用の指定であり、追加枝1A保護の確認・量産保護の受入やIssue Closeではない。PC Type_C1切離し・無給電でQR固定接続・受信先行・初回は列挙とHID記述子のみ、という条件を維持する。[評価条件](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/Conditions_Rev0.md)。
+
+USB-SUB-02追記（2026-11-19、共用電源）: 外部測定器HostはQR用と同じ外部電源を使用する。既存記録上の多摩電子工業DC5V/2.4Aは申告定格であり、Host・外部測定器を加えた総負荷、電流制限の実作動値、枝ごとの保護・配線容量は未確認。回路・給電経路の確認後、無給電で現物部品を照合し、必要な部品処置の後に単一外部電源で段階的な複合負荷試験を行う。RP2350-USB-AのUSB-C VBUSと5V/VSYSは共通ネットなので、外部電源とPC USB-C給電の同時直結は行わない。電源分離・逆流防止を確認できた場合のみ別途試験計画を立てる。IssueはOpenを維持する。
 
 USB-SUB-01／02追記（2026-11-14、QR列挙実機結果）: Type_C2にQR固定接続、外部給電RST後、qr-uart-20261111.1で5レコードを取得。VID=E851／PID=1001、addr1／instance0、63byte HID Report Descriptor全体、エラーレコードなし。先頭NUL警告・末尾完全性未証明は維持。QRのLED青維持・音なしとの申告。文字列・配列・suffix・35文字一致・両向き・電源投入起動・7355・2 Host・量産保護は未受入でCloseしない。[原文・結果](USB_SubMCU_Host_Preparation_20261111/Hardware_Modification_Power_20261111/QR_Evaluation_20261114/run02_rst_enumeration/Result_Rev0.md)。
 

@@ -1,0 +1,48 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM6",
+  "files": [
+    {
+      "path": "main.py",
+      "bytes": 230,
+      "sha256": "b0b2a60bdabebe7f7f576039755b6e135be3731f9a2470d991b95ca540a21b93",
+      "device_sha256": "b0b2a60bdabebe7f7f576039755b6e135be3731f9a2470d991b95ca540a21b93"
+    },
+    {
+      "path": "src/__init__.py",
+      "bytes": 173,
+      "sha256": "e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3",
+      "device_sha256": "e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3"
+    },
+    {
+      "path": "src/ate_server.py",
+      "bytes": 2729,
+      "sha256": "2baab034e84f39f1a4bdebf207545fd27659548098393d2060a0682b11646564",
+      "device_sha256": "2baab034e84f39f1a4bdebf207545fd27659548098393d2060a0682b11646564"
+    },
+    {
+      "path": "src/ate_uart.py",
+      "bytes": 1542,
+      "sha256": "06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9",
+      "device_sha256": "06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9"
+    },
+    {
+      "path": "src/cache_manager.py",
+      "bytes": 2456,
+      "sha256": "316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea",
+      "device_sha256": "316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea"
+    }
+  ],
+  "backup_complete": false,
+  "device_files_written": false,
+  "soft_reset_performed": false,
+  "unique_id": "69f7d45962cfdfad",
+  "version": "3.4.0; MicroPython v1.27.0 on 2025-12-09",
+  "root_names": [
+    "sd",
+    "main.py",
+    "src"
+  ],
+  "runtime_precheck": "PIO4_ACTIVE=False\r\nPIO5_ACTIVE=False\r\nCRC32=3421780262\r\nNONCE_BYTES=8\r\n",
+  "error": "FileNotFoundError(2, 'No such file or directory')"
+}

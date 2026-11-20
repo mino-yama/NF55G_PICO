@@ -1,0 +1,39 @@
+{
+  "date_jst": "2026-11-20",
+  "user_report": "Parent GP12->Host GP1, Host GP0->Parent GP13, common GND wiring completed; external power was requested to remain OFF",
+  "physical_wiring_verified": false,
+  "present_devices": [
+    {
+      "name": "USB serial device COM6",
+      "unique_id": "69F7D45962CFDFAD",
+      "vid_pid": "2E8A:0005",
+      "status": "OK"
+    },
+    {
+      "name": "USB-SERIAL CH341 COM22",
+      "vid_pid": "1A86:5523",
+      "status": "OK"
+    }
+  ],
+  "ate_adapter": {
+    "previous_record": "Elecom USB-Serial Converter COM20",
+    "currently_detected": false,
+    "current_ate_settings": "57600 8N1; no flow control; response CR"
+  },
+  "parent_usb_still_detected": true,
+  "external_power_state": "Not independently measured",
+  "instrument_usb_connection": "Not yet confirmed in this post-deployment setup",
+  "actions_performed": [
+    "Read-only PnP inventory",
+    "Existing ATE adapter/use records checked",
+    "Current ATE source settings checked"
+  ],
+  "serial_ports_opened": false,
+  "commands_sent": false,
+  "next_steps": [
+    "Disconnect parent PC USB before applying external power",
+    "Fixed-connect Host USB-A to instrument USB-B",
+    "Connect existing Elecom USB-RS232C adapter to PC and fixture ATE port",
+    "Keep external power OFF until monitor waiting is confirmed"
+  ]
+}

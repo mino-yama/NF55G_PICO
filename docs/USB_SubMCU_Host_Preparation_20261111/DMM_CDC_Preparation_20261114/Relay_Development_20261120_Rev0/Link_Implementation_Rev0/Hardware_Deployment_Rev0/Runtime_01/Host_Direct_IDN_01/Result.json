@@ -1,0 +1,18 @@
+{
+  "time_jst": "2026-11-20T17:04:46.456119+09:00",
+  "port": "COM22",
+  "adapter": "CH341 1A86:5523",
+  "settings": "115200 8N1, no flow, DTR/RTS OFF",
+  "automatic_retry": false,
+  "firmware_written": false,
+  "instrument_query_sent_to_uart": false,
+  "commands": [
+    "*IDN? only after READY and Host identity verified"
+  ],
+  "frames": [],
+  "success": false,
+  "error": "TimeoutError('Host X1 response timeout')",
+  "port_closed": true,
+  "rx_bytes": 0,
+  "rx_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

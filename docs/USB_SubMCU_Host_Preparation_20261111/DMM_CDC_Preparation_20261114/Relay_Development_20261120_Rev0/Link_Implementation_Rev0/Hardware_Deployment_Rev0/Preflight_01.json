@@ -1,0 +1,30 @@
+{
+  "date_jst": "2026-11-20",
+  "purpose": "Read-only preflight for relay deployment",
+  "package_file_count": 31,
+  "package_hash_verification": "All files match manifest",
+  "present_ports": [
+    {
+      "name": "USB-SERIAL CH341 (COM22)",
+      "status": "OK",
+      "instance_id": "USB\\VID_1A86&PID_5523\\6&3A944CE5&0&3"
+    }
+  ],
+  "observed_rp2_devices": "No VID_2E8A devices appeared in present-device enumeration",
+  "removable_boot_volume": "No removable RP2350 volume appeared in the queried volume list",
+  "picotool": {
+    "target_serial": "BFCF2EDB84B0B37F",
+    "exit_code": 1,
+    "result": "No accessible RP-series devices in BOOTSEL mode were found with the specified serial"
+  },
+  "physical_power_isolation": "Not confirmed by current user message; do not infer from enumeration",
+  "actions_performed": [
+    "PnP/COM and removable-volume inventory",
+    "Read-only picotool info",
+    "Deployment package hash check"
+  ],
+  "flash_read": false,
+  "flash_write": false,
+  "parent_files_changed": false,
+  "next_action": "User disconnects external 5V, instrument USB and diagnostic UART from Host, then connects only Host development USB-C to PC in BOOTSEL mode"
+}

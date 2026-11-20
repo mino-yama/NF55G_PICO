@@ -1,0 +1,48 @@
+{
+  "source": "user serial monitor transcript",
+  "responses": [
+    {
+      "command": "INIT:CONT?",
+      "declared_bytes": 3,
+      "actual_bytes": 3,
+      "hex": "300D0A",
+      "ascii": "0\r\n"
+    },
+    {
+      "command": "*OPC?",
+      "declared_bytes": 3,
+      "actual_bytes": 3,
+      "hex": "310D0A",
+      "ascii": "1\r\n"
+    },
+    {
+      "command": "SENS:FUNC?",
+      "declared_bytes": 11,
+      "actual_bytes": 11,
+      "hex": "22564F4C543A4443220D0A",
+      "ascii": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "command": "RANG:AUTO?",
+      "declared_bytes": 3,
+      "actual_bytes": 3,
+      "hex": "300D0A",
+      "ascii": "0\r\n"
+    },
+    {
+      "command": "CONF?",
+      "declared_bytes": 36,
+      "actual_bytes": 36,
+      "hex": "3939394554202B312E3939393939394530452D302B312E303030303030452D3035220D0A",
+      "ascii": "999ET +1.999999E0E-0+1.000000E-05\"\r\n"
+    },
+    {
+      "command": "SYST:ERR?",
+      "declared_bytes": 15,
+      "actual_bytes": 15,
+      "hex": "2B302C224E6F206572726F72220D0A",
+      "ascii": "+0,\"No error\"\r\n"
+    }
+  ],
+  "device_IO_by_codex": false
+}

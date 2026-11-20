@@ -1,0 +1,29 @@
+{
+  "port": "COM22",
+  "rx_only": true,
+  "writes_to_host": false,
+  "rx_bytes": 160,
+  "rx_sha256": "923ce62eb0360a65652d6260bb7bd934985c51a59cfd304ef39ae420262ef4c6",
+  "frames": [
+    {
+      "kind": "H",
+      "request": 0,
+      "session_hex": "13E65D6186A73B400000000000000000",
+      "mode": 0,
+      "timeout_ms": 0,
+      "payload_hex": "",
+      "payload_ascii": ""
+    },
+    {
+      "kind": "Q",
+      "request": 1,
+      "session_hex": "13E65D6186A73B407A9F5B04C141A3E8",
+      "mode": 1,
+      "timeout_ms": 1887,
+      "payload_hex": "2A49444E3F",
+      "payload_ascii": "*IDN?"
+    }
+  ],
+  "capture_errors": [],
+  "port_closed": true
+}

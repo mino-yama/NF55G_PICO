@@ -1,5 +1,13 @@
 # NF55G Pico 2 試験治具
 
+2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
+
+2026-11-20 .3実機で設定Query5種×12周（60件、機器応答総1035byte）と終了エラーQueryを成功。全周で原文/書式/長さ一致、CONFは正常なVOLT +1.999999E+01,+1.000000E-06、AUTO=1、エラー0。先行の応答崩れは今回再現せず、受信健全性を確認。固定20V切替/前面一致/測定は未実施でレンジIssue等はOpen維持。COM7解放済み。 [結果](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md)。
+
+2026-11-20 .2実機試行10で親経由7355識別中継成功。ATEへOK:EXT_RX:32:HEXを返しADC Corp.,7355,246410099,  A02+CRLFを原文保持。Host入力線にHとQ一件を正常捕捉、再送/レンジ/READなし。試行9の起動00byte付き照合成功と合わせ同期修正の効果を確認。全受入/Issue Closeとはせず切断復帰/実負荷等は残る。シリアルモニターCOM7/57600 8N1を解放済み。 [解決記録](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Resolution_Rev0.md)。
+
+2026-11-20 外部測定器中継: 親ATE入口～Host実C engineのコード結合と全446件Host/Mock試験、独立中継UF2のARM buildが完了。実機配置・疎通は未実施。[実装と配置準備](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0  
 Date: 2026-09-01
@@ -37,6 +45,16 @@ Raspberry Pi Pico 2 を使用し、ATE と NF55G の間を仲介する量産試�
 - microSD: 32GB, FAT32
 - Power: 5V external power, Pico 常時動作
 - NF55G connector: CN24 HRS DF11-4DS-2C
+
+## USB HOST Extension Handoff (2026-11-19)
+
+Connection: `Pico 2 ⇔ Expander ⇔ interconnect board ⇔ Waveshare RP2350-USB-C USB HOST ×2`.
+The USB HOST units are for the QR reader and DMM. The interconnect board uses Akizuki **117585** (Raspberry Pi Pico 20P pin sockets, 3.2 mm leads, left/right set) and **ADA-5200** (Switch Science 8588, PiCowbell Proto).
+Connect Expander CN through the pin sockets to ADA-5200, then use soldered wiring to the two USB HOST units. A RESET signal is present on the interconnect board.
+
+The interconnect board is a physical marker for clarifying USB HOST-to-Pico connection points and wiring, and an aid for hardware-design and debugging explanations. It will be used to document the Pico-side port connections for planned USB CDC development and the already-developed QR function. This does not change existing design policy, GPIO assignments, communication control, or firmware. Specific pin numbers and wiring locations are unconfirmed and must not be inferred. The earlier part number `C-17585` is incorrect; use `117585`.
+
+See [USB HOST Interconnect Specification](docs/USB_HOST_Interconnect_Spec.md) for confirmed scope and unresolved details. The board documents physical connections only; it does not implement USB CDC or change its existing development status.
 
 ## NF55G communication
 - 38400 bps

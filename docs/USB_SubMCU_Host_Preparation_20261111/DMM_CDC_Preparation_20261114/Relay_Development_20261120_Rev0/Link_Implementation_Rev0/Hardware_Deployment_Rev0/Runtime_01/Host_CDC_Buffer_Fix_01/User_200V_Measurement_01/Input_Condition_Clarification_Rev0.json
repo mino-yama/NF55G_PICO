@@ -1,0 +1,12 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user reply",
+  "answer": "変わっている、現在無負荷",
+  "input_changed": true,
+  "reported_condition": "無負荷",
+  "exact_connection_unspecified": true,
+  "previous_measurement_volts": "-2.91180",
+  "current_measurement_volts": "0.0000",
+  "same_input_range_comparison_completed": false,
+  "codex_device_IO": false
+}

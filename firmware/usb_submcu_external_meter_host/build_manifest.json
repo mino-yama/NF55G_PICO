@@ -1,0 +1,868 @@
+{
+  "date_jst": "2026-11-19",
+  "project": "usb_submcu_external_meter_host",
+  "version": "meter-host-diag-20261119.1",
+  "target": {
+    "reported_board": "Waveshare RP2350-USB-A",
+    "reported_product_code": "WAVESHARE-30274",
+    "silicon": "RP2350",
+    "image_type": "ARM Secure",
+    "flash_size_bytes": 2097152,
+    "pio_usb_host": {
+      "root_port": 1,
+      "dp_gpio": 12,
+      "dm_gpio": 13
+    },
+    "diagnostic_uart": {
+      "tx_gpio": 0,
+      "format": "115200 8N1",
+      "direction": "TX only"
+    }
+  },
+  "toolchain": {
+    "pico_sdk": "2.2.0",
+    "arm_gcc": "14.3.0",
+    "picotool": "2.2.0-a4",
+    "build_command": "scripts/build_usb_submcu_external_meter_host.ps1"
+  },
+  "scope": {
+    "usb_class": "CDC ACM Host",
+    "target_vid_pid": "1334:0309",
+    "cdc_line_coding": "9600 8N1",
+    "dtr_rts": "ON after successful control transfers",
+    "query": "*IDN? followed by CRLF, sent once without retry",
+    "response_capture": "Raw response bytes logged as hexadecimal over diagnostic UART",
+    "production_ate_link": false,
+    "nf55g_control": false,
+    "deployment_performed": true,
+    "hardware_acceptance_performed": false
+  },
+  "voltage_test_profile": {
+    "version": "meter-host-voltage-test-20261120.5",
+    "target": "build/usb_submcu_external_meter_voltage_test.uf2",
+    "built": true,
+    "deployed": false,
+    "deployment_history": [
+      {
+        "version": "meter-host-voltage-test-20261120.1",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK; test run stopped before READ because quoted VOLT:DC response was rejected",
+        "uf2_sha256": "e3ed60e8bfbe175f66dee7e0f68679b73b048c6037f9893a3e6a37b02b046684"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.2",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK; test run stopped before READ because zero-padded numeric response was compared as text",
+        "uf2_sha256": "0bc6827d397e0b9a5f4dabdcb639c8ff5775b920d0a0b5bfcae678c22d33aeb4"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.3",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "Flash verify OK",
+        "uf2_sha256": "0664680f050c1fdafe073abd19aa251c8b6cf0e6298328484e5162d65dd5c695"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.5",
+        "date_jst": "2026-11-20",
+        "target_chipid": "0xbfcf2edb84b0b37f",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "tool": "picotool v2.2.0-a4",
+        "result": "load -v Flash verify OK; after_info confirms .5 and matching chipid; retained in BOOTSEL; not rebooted",
+        "uf2_sha256": "5156ce1fb1556cdba723a0b3021f57fa14ed803776435c0b7de15bc84876b860",
+        "backup": {
+          "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/before_v5_flash_2MB.bin",
+          "bytes": 2097152,
+          "sha256": "2a6e900ec1153ad73dd0b2d12d820b3465f8cc16e9c635954c0467a40d8abcd5",
+          "flash_verify": "OK",
+          "previous_version": "meter-host-voltage-test-20261120.3"
+        },
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/Result_Rev0.md",
+        "runtime_test_performed": false
+      }
+    ],
+    "deployment": {
+      "version": "meter-host-voltage-test-20261120.5",
+      "date_jst": "2026-11-20",
+      "target_chipid": "0xbfcf2edb84b0b37f",
+      "target_usb_serial": "BFCF2EDB84B0B37F",
+      "tool": "picotool v2.2.0-a4",
+      "result": "load -v Flash verify OK; after_info confirms .5 and matching chipid; retained in BOOTSEL; not rebooted",
+      "uf2_sha256": "5156ce1fb1556cdba723a0b3021f57fa14ed803776435c0b7de15bc84876b860",
+      "backup": {
+        "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/before_v5_flash_2MB.bin",
+        "bytes": 2097152,
+        "sha256": "2a6e900ec1153ad73dd0b2d12d820b3465f8cc16e9c635954c0467a40d8abcd5",
+        "flash_verify": "OK",
+        "previous_version": "meter-host-voltage-test-20261120.3"
+      },
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/Result_Rev0.md",
+      "runtime_test_performed": false
+    },
+    "failed_attempts": [
+      {
+        "version": "meter-host-voltage-test-20261120.1",
+        "capture_file": "temp/meter_host_com22_capture_20261120_08.raw",
+        "bytes_received": 1171,
+        "capture_sha256": "be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1",
+        "last_command": ":SENS:FUNC?",
+        "response": "\"VOLT:DC\"\r\n",
+        "result": "Stopped with SCPI_FAILED step=7 reason=UNEXPECTED_RESPONSE; READ? was not sent",
+        "instrument_state_observed": "INIT:CONT OFF and DCV selected; subsequent range/trigger/sample setup and READ were not executed"
+      },
+      {
+        "version": "meter-host-voltage-test-20261120.2",
+        "capture_file": "temp/meter_host_com22_capture_20261120_09.raw",
+        "bytes_received": 1969,
+        "capture_sha256": "19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6",
+        "last_command": ":TRIG:COUN?",
+        "response": "00001\r\n",
+        "result": "Stopped with SCPI_FAILED step=15 reason=UNEXPECTED_RESPONSE; READ? was not sent",
+        "conf_response": "VOLT +1.999999E+02,+1.000000E-05",
+        "conf_interpretation": "appears to report approximately 200 V full-scale, conflicting with requested 20 V; verify against instrument front panel before any READ",
+        "instrument_state_observed": "DCV and AUTO off, IMM trigger, trigger count 1; CONF? appeared approximately 200 V; sample count, delay, READ and final error query were not executed"
+      }
+    ],
+    "command_sequence": [
+      "*IDN?",
+      ":SYST:ERR?",
+      ":INIT:CONT OFF",
+      ":INIT:CONT?",
+      ":ABOR",
+      "*OPC?",
+      ":SENS:FUNC \"VOLT:DC\"",
+      ":SENS:FUNC?",
+      ":SENS:VOLT:DC:RANG:AUTO OFF",
+      ":SENS:VOLT:DC:RANG:AUTO?",
+      ":SENS:VOLT:DC:RANG 20",
+      ":SYST:ERR?",
+      ":CONF?",
+      ":TRIG:SOUR IMM",
+      ":TRIG:SOUR?",
+      ":TRIG:COUN 1",
+      ":TRIG:COUN?",
+      ":SAMP:COUN 1",
+      ":SAMP:COUN?",
+      ":TRIG:DEL 0",
+      ":TRIG:DEL?",
+      ":SYST:ERR?",
+      ":READ?",
+      ":SYST:ERR?"
+    ],
+    "known_input_reported": "approximately 0.2 V DC, no load",
+    "preconditions_to_confirm": [
+      "BUS=CDC",
+      "LANG=SCPI",
+      "V/COM connected to known DC input",
+      "initial instrument settings recorded"
+    ],
+    "initial_instrument_settings_recorded_by_user": true,
+    "reported_input_terminals_connected": true,
+    "no_retry": true,
+    "read_count": 1,
+    "restores_previous_instrument_state": false,
+    "final_instrument_state": "DCV, fixed 20 V range, AUTO off, continuous initiation off, immediate trigger, trigger/sample count 1, trigger delay 0",
+    "conf_query_validation": "Require one complete CRLF CONF line with VOLT, finite decimal full-scale 19 to 21 V, and positive finite decimal resolution; reject unknown formats, nonfinite/hex/NUL/partial or extra fields/lines before READ. Existing evaluation gate retained; not an accuracy tolerance.",
+    "read_response_validation": "raw response is logged only; no accuracy threshold or product judgement",
+    "acceptance_scope": "raw communication and response capture only; not measurement accuracy or product PASS",
+    "runtime_test": {
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md",
+      "result": "SCPI_FAILED step=12 reason=CONF_RANGE_NOT_20V no_retry=1",
+      "read_query_sent": false,
+      "measurement_acceptance_complete": false
+    },
+    "superseded_by": "meter-host-relay-20261120.1"
+  },
+  "deployment": {
+    "date_jst": "2026-11-20",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "tool": "picotool v2.2.0-a4",
+    "command": "picotool load -v <uf2> --ser BFCF2EDB84B0B37F -f",
+    "result": "Flash verify OK; picotool reported reboot to application mode",
+    "deployed_profile": "meter-host-diag-20261119.1",
+    "deployed_uf2_sha256_at_deployment": "6ee5eb6ec31b2d9277d562fccac3af1e62720df5f56319cf23c39dbc0edc0ff0",
+    "flash_backup_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/RP2350_USB_A_20261116/Flash_Backup_20261119/manifest.json"
+  },
+  "hardware_observations": {
+    "date_jst": "2026-11-20",
+    "diagnostic_adapter": "SH-U05A COM22; PnP status OK",
+    "captures": [
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_01.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_02.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wiring_check": "initial GP0 pad identification was later found incorrect; do not treat as valid GP0 test",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 0,
+        "capture_file": "temp/meter_host_com22_capture_20261120_03.raw",
+        "capture_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wiring_check": "GP0 position corrected before capture",
+        "external_power_cycle": "reported by user during capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 124,
+        "capture_file": "temp/meter_host_com22_capture_20261120_04.raw",
+        "capture_sha256": "8e44cfb8024be10b107bd31c384781ed2b7266cbd0f03a141fa976d21a731ed3",
+        "external_power_cycle": "reported by user during capture",
+        "decoded_log": "FW=meter-host-diag-20261119.1 CHIPID=BFCF2EDB84B0B37F SDK=2.2.0 USB=PIO_HOST\\r\\nUSB_HOST_READY rhport=1 dplus=12 dminus=13\\r\\n",
+        "leading_bytes_hex": "0000",
+        "interpretation": "Firmware boot banner and PIO USB Host initialization confirmed; no USB device mount was observed in this capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 124,
+        "capture_file": "temp/meter_host_com22_capture_20261120_06.raw",
+        "capture_sha256": "3c06c23cecb91cf7c58cb4e9ceac961dd9e1a95c50cb8c000e85477cc52f715a",
+        "setup_report": "user confirmed R13/external-power preconditions and fixed 7355 USB-B to USB-A Host connection; PC USB-C disconnected",
+        "external_power_cycle": "reported by user during capture",
+        "decoded_log": "FW=meter-host-diag-20261119.1 CHIPID=BFCF2EDB84B0B37F SDK=2.2.0 USB=PIO_HOST\\r\\nUSB_HOST_READY rhport=1 dplus=12 dminus=13\\r\\n",
+        "leading_and_trailing_bytes_hex": "00",
+        "observed_events": [
+          "FW banner",
+          "USB_HOST_READY"
+        ],
+        "missing_events": [
+          "USB_MOUNT",
+          "CDC_MOUNT",
+          "IDN_TX_ONCE",
+          "IDN_RESPONSE_END"
+        ],
+        "interpretation": "Firmware and PIO USB Host initialized, but no USB device enumeration or CDC/IDN activity was observed during this capture"
+      },
+      {
+        "duration_seconds": 30,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 436,
+        "capture_file": "temp/meter_host_com22_capture_20261120_07.raw",
+        "capture_sha256": "cac1ab22e6655a323671938428ce66037773c6bd3cc140867f9c394445f5222b",
+        "setup_report": "user confirmed USB-A-to-USB-B cable route and 7355 BUS=CDC; PC USB-C disconnected",
+        "external_power_cycle": "reported by user during capture",
+        "observed_events": [
+          "USB_MOUNT vid=1334 pid=0309",
+          "CDC_MOUNT vid=1334 pid=0309",
+          "LINE_CODING_OK 9600,8,N,1",
+          "DTR_RTS_OK",
+          "IDN_TX_ONCE bytes=7",
+          "IDN_RESPONSE_END=CRLF total=32 overflow=0"
+        ],
+        "idn_response": "ADC Corp.,7355,246410099,  A02",
+        "reference_idn_other_unit": "ADC Corp.,7355,246410072,  A01",
+        "identity_note": "user confirmed this is a different 7355 instrument; serial/revision difference is expected",
+        "interpretation": "USB enumeration, CDC configuration, one IDN query, and CRLF response succeeded; actual connected instrument reported ADC Corp.,7355,246410099,  A02"
+      },
+      {
+        "duration_seconds": 120,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 1171,
+        "capture_file": "temp/meter_host_com22_capture_20261120_08.raw",
+        "capture_sha256": "be7b8158d54450fa3cc6a43c842bef7c30599568583a388ff93f4aaa78b619c1",
+        "firmware_version": "meter-host-voltage-test-20261120.1",
+        "setup_report": "user confirmed known approximately 0.2 V DC input connected and external-power-only operation",
+        "observed_events": [
+          "USB_MOUNT",
+          "CDC_MOUNT",
+          "LINE_CODING_OK",
+          "DTR_RTS_OK",
+          "SCPI_TX steps 0 through 7",
+          "SCPI_RESPONSE_END steps 0,1,3,5,7"
+        ],
+        "final_event": "SCPI_FAILED step=7 reason=UNEXPECTED_RESPONSE no_retry=1",
+        "last_response_hex": "22564F4C543A4443220D0A",
+        "last_response_ascii": "\"VOLT:DC\"\r\n",
+        "read_query_sent": false,
+        "interpretation": "Setting query returned the valid quoted SCPI function string; firmware comparison was too strict and stopped before the measurement query"
+      },
+      {
+        "duration_seconds": 120,
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "bytes_received": 1969,
+        "capture_file": "temp/meter_host_com22_capture_20261120_09.raw",
+        "capture_sha256": "19eaccdde561ccc6ccc78f0d008e8c29fe5736df2023c66442c6258fe88f43b6",
+        "firmware_version": "meter-host-voltage-test-20261120.2",
+        "setup_report": "user confirmed approximately 0.2 V DC input on V/COM and external-power-only operation",
+        "observed_events": [
+          "USB_MOUNT",
+          "CDC_MOUNT",
+          "IDN response",
+          "continuous initiation off",
+          "ABOR/OPC complete",
+          "DCV selected",
+          "20 V range selected",
+          "AUTO off",
+          "IMM trigger",
+          "trigger count 1"
+        ],
+        "last_event": "SCPI_FAILED step=15 reason=UNEXPECTED_RESPONSE no_retry=1",
+        "last_response_hex": "30303030310D0A",
+        "last_response_ascii": "00001\r\n",
+        "read_query_sent": false,
+        "interpretation": "Trigger count query returned numeric value 1 in zero-padded form; firmware compared text exactly and stopped before READ"
+      },
+      {
+        "date_jst": "2026-11-20",
+        "firmware_version": "meter-host-voltage-test-20261120.5",
+        "target_usb_serial": "BFCF2EDB84B0B37F",
+        "capture_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/uart.raw",
+        "bytes_received": 1756,
+        "capture_sha256": "a4418463d26df602fdc01d1020f29d5c6cdd1c4bcb12da7a56523de368888bdd",
+        "capture_duration_seconds": 120,
+        "port": "COM22",
+        "settings": "115200 8N1, no flow control, DTR/RTS off, TX unused",
+        "leading_nul_bytes": 1,
+        "front_panel_range_reported_by_user": "20 V during this trial",
+        "usb_cdc_configuration": "VID/PID 1334:0309; 9600 8N1; DTR/RTS OK",
+        "idn_response": "ADC Corp.,7355,246410099,  A02\r\n",
+        "range_setting_command": ":SENS:VOLT:DC:RANG 20",
+        "error_after_range_setting": "+0,\"No error\"\r\n",
+        "conf_response": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n",
+        "last_event": "SCPI_FAILED step=12 reason=CONF_RANGE_NOT_20V no_retry=1",
+        "read_query_sent": false,
+        "sequence_complete": false,
+        "issue": "USB-CDC-RANGE-01",
+        "interpretation": "CDC and setting-response validation succeeded through CONF. Same-trial front-panel 20 V report conflicts with approximately 200 V CONF numeric field. Gate stopped before READ as designed; cause remains unconfirmed.",
+        "commands": [
+          {
+            "step": 0,
+            "command": "*IDN?",
+            "expects_response": true,
+            "response_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+            "response_ascii": "ADC Corp.,7355,246410099,  A02\r\n"
+          },
+          {
+            "step": 1,
+            "command": ":SYST:ERR?",
+            "expects_response": true,
+            "response_hex": "2B302C224E6F206572726F72220D0A",
+            "response_ascii": "+0,\"No error\"\r\n"
+          },
+          {
+            "step": 2,
+            "command": ":INIT:CONT OFF",
+            "expects_response": false,
+            "response_hex": "",
+            "response_ascii": ""
+          },
+          {
+            "step": 3,
+            "command": ":INIT:CONT?",
+            "expects_response": true,
+            "response_hex": "300D0A",
+            "response_ascii": "0\r\n"
+          },
+          {
+            "step": 4,
+            "command": ":ABOR",
+            "expects_response": false,
+            "response_hex": "",
+            "response_ascii": ""
+          },
+          {
+            "step": 5,
+            "command": "*OPC?",
+            "expects_response": true,
+            "response_hex": "310D0A",
+            "response_ascii": "1\r\n"
+          },
+          {
+            "step": 6,
+            "command": ":SENS:FUNC \"VOLT:DC\"",
+            "expects_response": false,
+            "response_hex": "",
+            "response_ascii": ""
+          },
+          {
+            "step": 7,
+            "command": ":SENS:FUNC?",
+            "expects_response": true,
+            "response_hex": "22564F4C543A4443220D0A",
+            "response_ascii": "\"VOLT:DC\"\r\n"
+          },
+          {
+            "step": 8,
+            "command": ":SENS:VOLT:DC:RANG:AUTO OFF",
+            "expects_response": false,
+            "response_hex": "",
+            "response_ascii": ""
+          },
+          {
+            "step": 9,
+            "command": ":SENS:VOLT:DC:RANG:AUTO?",
+            "expects_response": true,
+            "response_hex": "300D0A",
+            "response_ascii": "0\r\n"
+          },
+          {
+            "step": 10,
+            "command": ":SENS:VOLT:DC:RANG 20",
+            "expects_response": false,
+            "response_hex": "",
+            "response_ascii": ""
+          },
+          {
+            "step": 11,
+            "command": ":SYST:ERR?",
+            "expects_response": true,
+            "response_hex": "2B302C224E6F206572726F72220D0A",
+            "response_ascii": "+0,\"No error\"\r\n"
+          },
+          {
+            "step": 12,
+            "command": ":CONF?",
+            "expects_response": true,
+            "response_hex": "22564F4C54202B312E393939393939452B30322C2B312E303030303030452D3035220D0A",
+            "response_ascii": "\"VOLT +1.999999E+02,+1.000000E-05\"\r\n"
+          }
+        ]
+      }
+    ],
+    "conclusion": "CDC and setting-response validation succeeded through CONF. Same-trial front-panel 20 V report conflicts with approximately 200 V CONF numeric field. Gate stopped before READ as designed; cause remains unconfirmed."
+  },
+  "build": {
+    "result": "ARM build and link succeeded",
+    "warning_policy": "-Wall -Wextra -Werror for application sources",
+    "artifacts": [
+      {
+        "file": "build/usb_submcu_external_meter_host.uf2",
+        "bytes": 83968,
+        "sha256": "bc6c308d3a1be9259d73ac60c01ed66f957b0844c9dd6076b95cd038f6002fb8",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_host.elf",
+        "bytes": 949512,
+        "sha256": "2c2a05ed3b76ec377915ef2480980751552563550bf985cc412bdbb848c7c945",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_host.bin",
+        "bytes": 41848,
+        "sha256": "a30153bf94fccc4147cb082ac00ba21ee940ccdea97f12dce99e4d61cdf76dbd",
+        "profile": "meter-host-diag-20261119.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.uf2",
+        "bytes": 117760,
+        "sha256": "5156ce1fb1556cdba723a0b3021f57fa14ed803776435c0b7de15bc84876b860",
+        "profile": "meter-host-voltage-test-20261120.5",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.elf",
+        "bytes": 1081464,
+        "sha256": "c95bd9aa4a0fc7a69116bd3d058e53cbfafb20c8cf66300e357147a3bff8996b",
+        "profile": "meter-host-voltage-test-20261120.5",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_voltage_test.bin",
+        "bytes": 58808,
+        "sha256": "5e7e7dba28354d6d4bd52ad13551160a513ac6f73c2748d31e6e4a8da53a5cc2",
+        "profile": "meter-host-voltage-test-20261120.5",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_relay.uf2",
+        "bytes": 94208,
+        "sha256": "2f6faee45dbbad016fe8470128e7cce9cb1c6e05980d053d4d83880b24a3906c",
+        "profile": "meter-host-relay-20261120.1",
+        "deployed": true
+      },
+      {
+        "file": "build/usb_submcu_external_meter_relay.elf",
+        "bytes": 1000512,
+        "sha256": "05e6d560634fd9b49102a40b1f0a34b391de3073fa4c0ce209914111949ce478",
+        "profile": "meter-host-relay-20261120.1",
+        "deployed": false
+      },
+      {
+        "file": "build/usb_submcu_external_meter_relay.bin",
+        "bytes": 47080,
+        "sha256": "4f640cc8dbbb84a17c83285de547c0c10566670f7d1c805577e753117db53f0d",
+        "profile": "meter-host-relay-20261120.1",
+        "deployed": false
+      }
+    ]
+  },
+  "safety_notes": [
+    "This diagnostic firmware is separate from all QR Host releases.",
+    "The development USB-C VBUS and USB-A/5V/VSYS share a board supply net; never connect PC power and the external supply simultaneously without verified isolation.",
+    "Deployment was performed after a verified full-flash backup. UART boot and USB_HOST_READY were observed on 2026-11-20. R13 workmanship photos, external-power path acceptance, and USB CDC Host hardware acceptance remain pending.",
+    "The native USB CDC device interface is disabled in this diagnostic firmware; loss of the COM port after reboot is expected. Use the separate TX-only diagnostic UART for runtime evidence."
+  ],
+  "handoff_review": {
+    "date_jst": "2026-11-20",
+    "version": "meter-host-voltage-test-20261120.5",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Result_Rev0.md",
+    "previous_build_archive": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/before_changes",
+    "evidence_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Evidence_Manifest.json",
+    "user_report": "20 V front-panel range; power OFF",
+    "host_mock_tests": {
+      "passed": 382,
+      "seconds": 10.344,
+      "new_tests": 7,
+      "log": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Host_Mock_20261120_Rev0.log"
+    },
+    "arm_build": {
+      "result": "Succeeded for both profiles, including -Wall -Wextra -Werror",
+      "log": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Build_20261120_Rev0.log",
+      "uf2_metadata": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/UF2_Info_20261120_Rev0.log"
+    },
+    "deployment_performed": true,
+    "hardware_tests_performed": true,
+    "open_issue": "USB-CDC-RANGE-01",
+    "deployment_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Deployment_v5/Result_Rev0.md",
+    "latest_runtime_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md"
+  },
+  "relay_profile": {
+    "version": "meter-host-relay-20261120.1",
+    "target": "build/usb_submcu_external_meter_relay.uf2",
+    "built": true,
+    "deployed": true,
+    "host_uart": "GP0 TX / GP1 RX, 115200 8N1; X1 only, no plain diagnostic text",
+    "usb": "GP12/13 PIO USB Host, CDC 9600/8N1 DTR/RTS; VID/PID 1334:0309",
+    "automatic_instrument_commands": false,
+    "request_limit": 192,
+    "response_limit": 192,
+    "uart_frame_limit": 512,
+    "hello_payload": "chipid|version|READY/NOT_READY/BUSY/FAULT",
+    "recovery": "Faults latch; no automatic retransmit or rebind; verified clean operator recovery required",
+    "parent_source_enabled": false,
+    "deployment_package": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Deployment_Package/manifest.json",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md",
+    "tests": {
+      "host_mock_passed": 446,
+      "seconds": 2.632,
+      "new_tests": 32,
+      "log": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Host_Mock_Verified_Rev0.log",
+      "native_link": "Actual C relay_host/relay_wire linked to Python FixtureApp; physical USB and PIO hardware mocked",
+      "pio": "Official v1.27.0 assembler, TX4+RX12=16 instructions; FIFO/IRQ ring tests"
+    },
+    "build_log": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Build_Verified_Rev0.log",
+    "metadata": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/UF2_Info_Verified_Rev0.log",
+    "hardware_tests_performed": false,
+    "source_sha256": {
+      "src/external_instrument_link.py": "2e554efe0db0899472eb307a942a70815aacc50727b895055586d740e4f9399b",
+      "src/external_instrument_pio.py": "dbb3e54e81d38177bd04052dde8f0633d530bfc42a4b1abc13487afe1ef4010d",
+      "tests/test_external_instrument_link.py": "f4939f09b36f158dca9b8800ae2b6bf54b37ca13b5bfc3e5f4d648ccfcb896a0",
+      "tests/test_external_instrument_pio.py": "f711ab4988c7189163a266bb9ba3024da548dfa1e1ca58519ad494992732b66b",
+      "firmware/usb_submcu_external_meter_host/relay_host.c": "cbd79c5dca1269f63933045f2af7268e6f447474a928b154e488461d0e51aa34",
+      "firmware/usb_submcu_external_meter_host/relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
+      "firmware/usb_submcu_external_meter_host/relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
+      "firmware/usb_submcu_external_meter_host/relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+      "firmware/usb_submcu_external_meter_host/relay_main.c": "2985583b055173480063d75e0546099c83dbacc76658715ccc49deb16f5d730b"
+    },
+    "deployment": {
+      "date_jst": "2026-11-20",
+      "version": "meter-host-relay-20261120.1",
+      "target_usb_serial": "BFCF2EDB84B0B37F",
+      "target_chipid": "0xbfcf2edb84b0b37f",
+      "tool": "picotool v2.2.0-a4",
+      "command": "picotool load -v <relay.uf2> --ser BFCF2EDB84B0B37F",
+      "uf2_sha256": "2f6faee45dbbad016fe8470128e7cce9cb1c6e05980d053d4d83880b24a3906c",
+      "result": "Flash verify OK; post-load info confirms version/chipid/BOOTSEL",
+      "backup": {
+        "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/before_relay_flash_2MB.bin",
+        "bytes": 2097152,
+        "sha256": "86a61f8d704c330705980cfa44cefde638de38d43bebe303c1e5feb1192ecd7d",
+        "previous_version": "meter-host-voltage-test-20261120.5",
+        "flash_verify": "OK"
+      },
+      "reboot_performed": false,
+      "runtime_test_performed": false,
+      "parent_deployed": false,
+      "user_preparation": "User reported completion of Host external-5V/instrument/UART disconnection and PC USB-C-only BOOTSEL procedure",
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/Result_Rev0.md"
+    },
+    "parent_deployed": true,
+    "parent_deployment": {
+      "date_jst": "2026-11-20",
+      "unique_id": "69f7d45962cfdfad",
+      "port": "COM6",
+      "backup_file_count": 26,
+      "verified_file_count": 30,
+      "updated_file_count": 8,
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Parent_Deployment_01/Result_Rev0.md",
+      "ram_only_validation": true,
+      "actual_import_validation": true,
+      "normal_application_boot": false,
+      "pio_sm4_active": false,
+      "pio_sm5_active": false,
+      "runtime_bridge_test": false
+    },
+    "latest_hardware_trial": {
+      "date_jst": "2026-11-20",
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md",
+      "firmware": "meter-host-relay-20261120.3",
+      "executor": "Codex ATE COM7",
+      "user_fixed_input": true,
+      "instrument_idn_verified": true,
+      "measurements_completed": 3,
+      "rows": [
+        {
+          "command": ":SENS:VOLT:DC:RANG 20",
+          "range_readback": "+1.999999E+02",
+          "value": "-2.9118",
+          "error": "+0,\"No error\"\r\n"
+        },
+        {
+          "command": ":SENS:VOLT:DC:RANG 200",
+          "range_readback": "+1.099999E+03",
+          "value": "-2.912",
+          "error": "+0,\"No error\"\r\n"
+        },
+        {
+          "command": ":SENS:VOLT:DC:RANG:AUTO ON",
+          "range_readback": "+1.999999E+01",
+          "value": "-2.91186",
+          "error": "+0,\"No error\"\r\n"
+        }
+      ],
+      "runtime_relay_success": true,
+      "range_semantics_resolved": false,
+      "full_acceptance_complete": false,
+      "automatic_retry": false,
+      "port_closed": true
+    },
+    "hardware_trial_history": [
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_01/Result_Rev0.md",
+        "fixture_id_query_sent": true,
+        "fixture_response_bytes": 0,
+        "external_query_sent": false,
+        "runtime_relay_success": false,
+        "issue": "USB-RELAY-ATE-01",
+        "parent_normal_boot_observed": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_02/Result_Rev0.md",
+        "fixture_id_query_sent": true,
+        "fixture_id_response": "NF55G_PICO_FIXTURE,Rev.0",
+        "external_query_sent": true,
+        "external_response": "ERR:EXT_TIMEOUT:AMBIGUOUS=0",
+        "elapsed_ms": 2016,
+        "runtime_relay_success": false,
+        "issue": "USB-RELAY-LINK-01",
+        "automatic_retry": false,
+        "power_operation_performed": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_04/Result_Rev0.md",
+        "port": "COM7",
+        "fixture_id_response": "NF55G_PICO_FIXTURE,Rev.0\r",
+        "external_query_sent": true,
+        "external_response": "ERR:EXT_TIMEOUT:AMBIGUOUS=0\r",
+        "elapsed_ms": 2015,
+        "runtime_relay_success": false,
+        "issue": "USB-RELAY-LINK-01",
+        "automatic_retry": false,
+        "power_operation_performed": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Startup_Capture_08/Result_Rev0.md",
+        "fixture_id_response": "NF55G_PICO_FIXTURE,Rev.0",
+        "external_query_sent": true,
+        "external_response": "ERR:EXT_TIMEOUT:AMBIGUOUS=0",
+        "host_rx_startup_prefix_hex": "0000",
+        "host_rx_bytes": 77,
+        "runtime_relay_success": false,
+        "issue": "USB-RELAY-LINK-01",
+        "automatic_retry": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_Sync_Verify_09/Result_Rev0.md",
+        "firmware": "meter-host-relay-20261120.2",
+        "fixture_id_response": "NF55G_PICO_FIXTURE,Rev.0",
+        "external_response": "ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0",
+        "startup_handshake_verified": true,
+        "runtime_relay_success": false,
+        "host_rx_startup_prefix_hex": "00",
+        "host_rx_bytes": 76,
+        "instrument_Q_sent": false,
+        "automatic_retry": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_IDN_10/Result_Rev0.md",
+        "firmware": "meter-host-relay-20261120.2",
+        "fixture_id_response": "NF55G_PICO_FIXTURE,Rev.0",
+        "external_query_sent": true,
+        "external_response": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r",
+        "elapsed_ms": 313,
+        "runtime_relay_success": true,
+        "instrument_response_ascii": "ADC Corp.,7355,246410099,  A02\r\n",
+        "host_rx_bytes": 160,
+        "automatic_retry": false,
+        "acceptance_all_items_complete": false
+      },
+      {
+        "date_jst": "2026-11-20",
+        "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md",
+        "firmware": "meter-host-relay-20261120.3",
+        "fixture_id_verified": true,
+        "instrument_idn_verified": true,
+        "repeated_query_cycles": 12,
+        "repeated_query_count": 60,
+        "instrument_response_bytes": 1035,
+        "last_conf_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"",
+        "error_ascii": "+0,\"No error\"\r\n",
+        "settings_sent": false,
+        "measurements_sent": false,
+        "runtime_relay_success": true,
+        "full_acceptance_complete": false
+      }
+    ],
+    "uart_sync_fix_candidate": {
+      "version": "meter-host-relay-20261120.2",
+      "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/meter_host_relay_20261120_2.uf2",
+      "bytes": 94720,
+      "sha256": "cb3fc420088b72eae1bab80fad5ddb09c75f0bd8a79889aefddb08f42a869def",
+      "sdk": "2.2.0",
+      "arm_build": "success",
+      "unit_mock_tests": 450,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "regression_tests_added": 4,
+      "hardware_deployed": true,
+      "hardware_verified": true,
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Build_Result_Rev0.md",
+      "deployment_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Host_Deployment_02/Deployment_Manifest.json",
+      "startup_handshake_verified": true,
+      "instrument_idn_verified": true
+    },
+    "cdc_fifo_fix_candidate": {
+      "version": "meter-host-relay-20261120.3",
+      "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/meter_host_relay_20261120_3.uf2",
+      "bytes": 94720,
+      "sha256": "529f12081432aea98189c4aeb3cc7a96fa28deb13d49b7a2f175cc9c75336ab5",
+      "sdk": "2.2.0",
+      "arm_build": "success",
+      "unit_mock_tests": 453,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_native_fifo_tests": 3,
+      "TX_FIFO": 256,
+      "RX_FIFO": 256,
+      "TX_EPSIZE": 64,
+      "RX_EPSIZE": 64,
+      "sdk_vendor_modified": false,
+      "hardware_deployed": true,
+      "hardware_verified": true,
+      "deployment_manifest": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/Deployment_Manifest.json",
+      "hardware_verification_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md"
+    },
+    "operator_range_policy": {
+      "date_jst": "2026-11-20",
+      "range_selected_by": "ATE test conditions and explicit instrument commands",
+      "tester_setting_means": "ATE-side command selection, not front-panel operation",
+      "fixed_and_auto_modes": "explicitly selected by ATE",
+      "firmware_range_auto_correction": false,
+      "additional_range_investigation": "ended per user instruction",
+      "range_semantics_issue_closed": false,
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md"
+    },
+    "operator_range_policy_before_ate_clarification": {
+      "date_jst": "2026-11-20",
+      "range_selected_by": "tester",
+      "additional_range_investigation": "ended per user instruction",
+      "firmware_range_auto_correction": false,
+      "range_semantics_issue_closed": false,
+      "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_Operator_Range_Decision_Rev0.md"
+    }
+  },
+  "current_deployment": {
+    "date_jst": "2026-11-20",
+    "version": "meter-host-relay-20261120.3",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "uf2_sha256": "529f12081432aea98189c4aeb3cc7a96fa28deb13d49b7a2f175cc9c75336ab5",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/Result_Rev0.md",
+    "backup_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/before_relay_v3_flash_2MB.bin",
+    "backup_sha256": "406bfa54e0391a53fc572db42f12e06e5e81482382da94c1295c88632766bd65",
+    "flash_verified": true,
+    "post_info_verified": true,
+    "rebooted": false,
+    "runtime_accepted": false,
+    "normal_boot_observed": true,
+    "instrument_idn_verified": true,
+    "cdc_cumulative_query_verified": true,
+    "latest_verified_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md",
+    "direct_auto_measurement_verified": true,
+    "direct_fixed_input_measurement_comparison_completed": true
+  },
+  "current_deployment_before_uart_sync_fix": {
+    "date_jst": "2026-11-20",
+    "version": "meter-host-relay-20261120.1",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "tool": "picotool v2.2.0-a4",
+    "command": "picotool load -v <relay.uf2> --ser BFCF2EDB84B0B37F",
+    "uf2_sha256": "2f6faee45dbbad016fe8470128e7cce9cb1c6e05980d053d4d83880b24a3906c",
+    "result": "Flash verify OK; post-load info confirms version/chipid/BOOTSEL",
+    "backup": {
+      "file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/before_relay_flash_2MB.bin",
+      "bytes": 2097152,
+      "sha256": "86a61f8d704c330705980cfa44cefde638de38d43bebe303c1e5feb1192ecd7d",
+      "previous_version": "meter-host-voltage-test-20261120.5",
+      "flash_verify": "OK"
+    },
+    "reboot_performed": false,
+    "runtime_test_performed": false,
+    "parent_deployed": false,
+    "user_preparation": "User reported completion of Host external-5V/instrument/UART disconnection and PC USB-C-only BOOTSEL procedure",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Host_Deployment_01/Result_Rev0.md"
+  },
+  "current_deployment_before_cdc_fifo_fix": {
+    "date_jst": "2026-11-20",
+    "version": "meter-host-relay-20261120.2",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "uf2_sha256": "cb3fc420088b72eae1bab80fad5ddb09c75f0bd8a79889aefddb08f42a869def",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Host_Deployment_02/Result_Rev0.md",
+    "backup_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Host_Deployment_02/before_relay_v2_flash_2MB.bin",
+    "backup_sha256": "db789fa1656ee5db02b7d198b23ae5949d9f68fc22128beaf0b9cb8f19d1e003",
+    "flash_verified": true,
+    "post_info_verified": true,
+    "rebooted": false,
+    "runtime_accepted": false,
+    "normal_boot_observed": true,
+    "startup_handshake_verified": true,
+    "instrument_idn_verified": true,
+    "latest_verified_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_IDN_10/Result_Rev0.md"
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "date_jst": "2026-11-20",
+  "port": "COM7",
+  "adapter": "Elecom USB-Serial Converter 056E:5004",
+  "settings": "57600 8N1, flow control off, DTR/RTS off",
+  "queries": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2A49444E3F0D",
+      "time_jst": "2026-11-20T18:56:41.756730+09:00",
+      "tx_written": 6,
+      "elapsed_ms": 16.0,
+      "rx_hex": "4E463535475F5049434F5F464958545552452C5265762E300D",
+      "rx_ascii": "NF55G_PICO_FIXTURE,Rev.0\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 *IDN?",
+      "tx_hex": "4558545F51554552592032303030202A49444E3F0D",
+      "time_jst": "2026-11-20T18:56:41.930611+09:00",
+      "tx_written": 21,
+      "elapsed_ms": 282.0,
+      "rx_hex": "4F4B3A4558545F52583A33323A343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410D",
+      "rx_ascii": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r",
+      "instrument_raw_hex": "41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "instrument_ascii": "ADC Corp.,7355,246410099,  A02\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:FUNC?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A46554E433F0D",
+      "time_jst": "2026-11-20T18:56:42.394191+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 313.0,
+      "rx_hex": "4F4B3A4558545F52583A31313A323235363446344335343341343434333232304430410D",
+      "rx_ascii": "OK:EXT_RX:11:22564F4C543A4443220D0A\r",
+      "instrument_raw_hex": "22564F4C543A4443220D0A",
+      "instrument_ascii": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :INIT:CONT?",
+      "tx_hex": "4558545F51554552592032303030203A494E49543A434F4E543F0D",
+      "time_jst": "2026-11-20T18:56:42.888282+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 125.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3330304430410D",
+      "rx_ascii": "OK:EXT_RX:3:300D0A\r",
+      "instrument_raw_hex": "300D0A",
+      "instrument_ascii": "0\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A564F4C543A44433A52414E473A4155544F3F0D",
+      "time_jst": "2026-11-20T18:56:43.206715+09:00",
+      "tx_written": 40,
+      "elapsed_ms": 171.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:56:43.560612+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 187.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303331324332423331324533303330333033303330333034353244333033363232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:56:43.942088+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 187.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:SOUR IMM",
+      "tx_hex": "4558545F53454E442032303030203A545249473A534F555220494D4D0D",
+      "time_jst": "2026-11-20T18:56:44.321417+09:00",
+      "tx_written": 29,
+      "elapsed_ms": 171.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :TRIG:SOUR?",
+      "tx_hex": "4558545F51554552592032303030203A545249473A534F55523F0D",
+      "time_jst": "2026-11-20T18:56:44.677284+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F52583A353A343934443444304430410D",
+      "rx_ascii": "OK:EXT_RX:5:494D4D0D0A\r",
+      "instrument_raw_hex": "494D4D0D0A",
+      "instrument_ascii": "IMM\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:COUN 1",
+      "tx_hex": "4558545F53454E442032303030203A545249473A434F554E20310D",
+      "time_jst": "2026-11-20T18:56:45.073087+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:56:45.451277+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SAMP:COUN 1",
+      "tx_hex": "4558545F53454E442032303030203A53414D503A434F554E20310D",
+      "time_jst": "2026-11-20T18:56:45.843715+09:00",
+      "tx_written": 27,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:56:46.224977+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:DEL 0",
+      "tx_hex": "4558545F53454E442032303030203A545249473A44454C20300D",
+      "time_jst": "2026-11-20T18:56:46.614044+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 219.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 10000 *OPC?",
+      "tx_hex": "4558545F5155455259203130303030202A4F50433F0D",
+      "time_jst": "2026-11-20T18:56:47.003002+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 235.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_SEND 2000 :SENS:VOLT:DC:RANG:AUTO ON",
+      "tx_hex": "4558545F53454E442032303030203A53454E533A564F4C543A44433A52414E473A4155544F204F4E0D",
+      "time_jst": "2026-11-20T18:56:47.441363+09:00",
+      "tx_written": 41,
+      "elapsed_ms": 281.0,
+      "rx_hex": "4F4B3A4558545F54580D",
+      "rx_ascii": "OK:EXT_TX\r"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SENS:VOLT:DC:RANG:AUTO?",
+      "tx_hex": "4558545F51554552592032303030203A53454E533A564F4C543A44433A52414E473A4155544F3F0D",
+      "time_jst": "2026-11-20T18:56:47.907801+09:00",
+      "tx_written": 40,
+      "elapsed_ms": 297.0,
+      "rx_hex": "4F4B3A4558545F52583A333A3331304430410D",
+      "rx_ascii": "OK:EXT_RX:3:310D0A\r",
+      "instrument_raw_hex": "310D0A",
+      "instrument_ascii": "1\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:56:48.391571+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 266.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303331324332423331324533303330333033303330333034353244333033363232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:56:48.844812+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 281.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 10000 :READ?",
+      "tx_hex": "4558545F5155455259203130303030203A524541443F0D",
+      "time_jst": "2026-11-20T18:56:49.317057+09:00",
+      "tx_written": 23,
+      "elapsed_ms": 672.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3244333033323245333933313331333833353435324233303330304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2D30322E3931313835452B30300D0A\r",
+      "instrument_raw_hex": "2D30322E3931313835452B30300D0A",
+      "instrument_ascii": "-02.91185E+00\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :CONF?",
+      "tx_hex": "4558545F51554552592032303030203A434F4E463F0D",
+      "time_jst": "2026-11-20T18:56:50.185368+09:00",
+      "tx_written": 22,
+      "elapsed_ms": 203.0,
+      "rx_hex": "4F4B3A4558545F52583A33363A3232353634463443353432303242333132453339333933393339333933393435324233303331324332423331324533303330333033303330333034353244333033363232304430410D",
+      "rx_ascii": "OK:EXT_RX:36:22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A\r",
+      "instrument_raw_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+      "instrument_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n"
+    },
+    {
+      "command": "EXT_QUERY 2000 :SYST:ERR?",
+      "tx_hex": "4558545F51554552592032303030203A535953543A4552523F0D",
+      "time_jst": "2026-11-20T18:56:50.571208+09:00",
+      "tx_written": 26,
+      "elapsed_ms": 141.0,
+      "rx_hex": "4F4B3A4558545F52583A31353A3242333032433232344536463230363537323732364637323232304430410D",
+      "rx_ascii": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A\r",
+      "instrument_raw_hex": "2B302C224E6F206572726F72220D0A",
+      "instrument_ascii": "+0,\"No error\"\r\n"
+    }
+  ],
+  "automatic_retry": false,
+  "instrument_commands": [
+    "identity/config/error queries",
+    "TRIG:SOUR IMM",
+    "TRIG:COUN 1",
+    "SAMP:COUN 1",
+    "TRIG:DEL 0",
+    "RANG:AUTO ON",
+    "READ? once"
+  ],
+  "nf55g_commands": false,
+  "result": "AUTO_SINGLE_MEASUREMENT_SUCCEEDED",
+  "user_authorization": "ユーザー: 電圧を固定するのでCodex側で指示送信と受信。シリアルモニター終了/COM7使用可能を回答済み。AUTO確認と単発測定1回。",
+  "power_operation_performed": false,
+  "executor": "Codex via ATE COM7",
+  "input_condition": "user holds voltage and wiring fixed",
+  "measurement_count_requested": 1,
+  "measurement_count_completed": 1,
+  "auto_before": "1\r\n",
+  "conf_before_settings": {
+    "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+    "range_volts": "+1.999999E+01",
+    "resolution_volts": "+1.000000E-06"
+  },
+  "error_before_settings": "+0,\"No error\"\r\n",
+  "auto_after": "1\r\n",
+  "conf_before_read": {
+    "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+    "range_volts": "+1.999999E+01",
+    "resolution_volts": "+1.000000E-06"
+  },
+  "error_before_read": "+0,\"No error\"\r\n",
+  "measurement_raw_hex": "2D30322E3931313835452B30300D0A",
+  "measurement_raw_ascii": "-02.91185E+00\r\n",
+  "measurement_volts": "-2.91185",
+  "conf_after_read": {
+    "raw_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+    "range_volts": "+1.999999E+01",
+    "resolution_volts": "+1.000000E-06"
+  },
+  "error_after_read": "+0,\"No error\"\r\n",
+  "all_rx_bytes": 760,
+  "all_rx_sha256": "326f05b236c3a746c622e8a2b326a9150579d04abf0237b529b30ea2b927fcf0",
+  "port_closed": true
+}

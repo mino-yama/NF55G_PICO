@@ -49,3 +49,12 @@ Create an implementation plan only, using this order:
 - Do not auto-refresh.
 - Do not close Open Issues without human input.
 - Do not implement detailed USB CDC/PySide6 in the initial phase.
+
+## USB HOST Wiring Handoff (2026-11-19)
+
+- Follow `docs/USB_HOST_Interconnect_Spec.md` for the user-confirmed Pico 2 / Expander / interconnect board / Waveshare RP2350-USB-C USB HOST ×2 wiring and parts.
+- The USB HOST units are for the QR reader and DMM. Use Akizuki 117585 and ADA-5200 (Switch Science 8588, PiCowbell Proto); `C-17585` is an incorrect part number.
+- Treat the interconnect board as a marker for clarifying USB HOST-to-Pico connection points and wiring, and as an aid for hardware-design/debug explanations. It documents Pico-side port connections for planned USB CDC development and the already-developed QR function.
+- Specific pins, wiring locations, and RESET connection/behavior are unconfirmed. Track them under USB-INT-01 and do not infer them.
+- This interconnect documentation does not change existing design policy, GPIO assignments, communication control, or firmware. It does not implement USB CDC or change its existing development status; do not add a driver, protocol, or RESET control from this wiring handoff.
+- Keep physical wiring documentation distinct from USB CDC software implementation and existing USB-SUB issues.

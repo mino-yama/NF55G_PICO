@@ -15,6 +15,7 @@ Core handoff files:
 11. docs/CHANGELOG.md
 12. Codex_Master_Prompt.md
 13. docs/Desktop_to_VSC_Migration_Plan.md
+14. docs/USB_HOST_Interconnect_Spec.md (2026-11-19 wiring handoff; hardware scope only)
 
 Supporting reference files:
 Current communication baseline: reference/RW11用電源通信仕様書r1.pdf (GVT-284454-001-00, 2026/9/4). Adopted 2026-09-07; D6 is historical only.

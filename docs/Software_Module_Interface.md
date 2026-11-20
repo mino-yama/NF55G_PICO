@@ -1,5 +1,23 @@
 # Pico Software Module / Interface Specification
 
+2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
+
+2026-11-20 工数/GPIO並行計画: 測定原文取得/ATE返却は実機済み。残る数値・単位/Cache/正式ATE入口とAD実装は仕様回答後コード/Mock1〜2実働日、基本実機確認含2〜3実働日（概算12〜24時間、待ち/全量産受入は別）。親GPIOは既存予約のQR GP8/9と実装済み測定器GP12/13を配線基準として維持。現行測定器PIOはSM4/5で旧案の順序に注意。RESETは必須/制御方式未確定、GP14/22を親側予備候補として確保しHost RUN結線は回路確認後。今回コード/Flash/実配線変更なし。 [工数](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Effort_Estimate_Rev0.md)／[配線基準](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev0.md)。
+
+2026-11-20 ユーザー補足による解釈訂正: 「試験者設定のレンジ」はATE側のコマンドで決定/設定する意味。前面手動設定を前提にせず、ATEが固定レンジ値またはAUTO条件を指定→Queryで設定確認→測定要求を送る。Pico/Hostは本文を中継し、指定値の独自置換/自動最適化を行わない。次の安定性試験もこの順序で実施する計画。今回は記録訂正のみ、実機送信/コード/Flash変更なし。 [現行方針Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md)。
+
+2026-11-20 USB-RELAY-CDC-BUF-01（Open）: 提示CONF?が36byteの不正文字列に復号。固定SDK CDCのrx配列はTX macro確保64byte/初期化RX深さ256byteという不一致を確認し、実FIFOで隣接領域書換えを再現。Host側TX/RX256整合+ビルド時guardへ修正、新FW.3をビルド中。回帰3件追加し全453件成功。提示崩れの実機因果/20V問題は未確定でCloseしない。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Result_Rev0.md)。
+
+2026-11-20 .2実機試行10で親経由7355識別中継成功。ATEへOK:EXT_RX:32:HEXを返しADC Corp.,7355,246410099,  A02+CRLFを原文保持。Host入力線にHとQ一件を正常捕捉、再送/レンジ/READなし。試行9の起動00byte付き照合成功と合わせ同期修正の効果を確認。全受入/Issue Closeとはせず切断復帰/実負荷等は残る。シリアルモニターCOM7/57600 8N1を解放済み。 [解決記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Resolution_Rev0.md)。
+
+2026-11-20 起動時UART不具合を実原文で再現し修正: Host GP1で00 00+正常H（計77byte）を取得。旧Cは一行として破棄しhなし。Host受信を@先頭から同期させ、CRC/長さ/session/重複/故障保持/再送禁止を維持。回帰4件を追加して全450件成功。FW .2をビルド中、実機未配置。電気的起源と実機因果の最終確認は残りIssueはOpen。 [修正記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_UART_Sync_Fix_01/Result_Rev0.md)。
+
+2026-11-20 中継adapter実装: ExternalInstrumentLink/FrameReader、PIO1 SM4 TX/SM5 RX、FixtureApp/ATE入口を接続。execute_ate_lineは外部要求の受付時だけNone（pending）を返し、service_onceで完成後にATEへ返す。ATEポートなしの場合はtake_external_responseで回収する。Hostのrelay_wire/relay_host/relay_mainを独立UF2へ実装。HELLOはchipid|FW|状態、起動nonceはos.urandom/SDK get_rand_64。Host実Cと親Pythonの往復を検証。実PIO/CDC受入は未実施。 [リンク実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md)。
+
+2026-11-20 ユーザー承認により開発用親子UARTを115200/8N1、親PIO1 GP12 TX/GP13 RX、Host GP0 TX/GP1 RX、@X1のsession/request付きCRC-32フレームとして確定。ATE名・上限・応答形式も確定。external_instrument_contract.pyへ承認値、本文保持パーサー、フレームencode/decode、ATE応答表現を追加。I/O/nonce生成/接続照合・本番scheduler/Host C FWは未接続。PIO資源・現物配線・端子対応と実機受入は未検証。 [確定仕様 Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Interface_Spec_Rev1.md)。
+
+2026-11-20 外部測定器中継の第1段階: src/external_instrument_relay.pyを追加。GPIO/通信書式非依存の内部token、原文保持、明示応答有無/期限、送受信完了分離、遅着/旧接続拒否を管理する。正式ATE/親子UART、FixtureApp/Host FWには未接続。リンク再確立はadapterによる旧データ排除を前提とし、本コアだけで実機の遅着排除を保証しない。 [実装記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Result_Rev0.md)。
+
 2026-11-19追加回答を実装: シャント50A/50mV、取得mV、換算担当は親Pico。`CalibrationMeasurements.get_calibration(token)`は電流対象のmV測定値を同じ数値文字列のAとして返し、元値/単位も併記する。BATT_VはVを要求する。単位不一致では候補を返さず、Cache原文は変更しない。正式ATE/Host API・AD表現は未確定。[詳細](ADC_Calibration_Development_20261119.md)。
 
 2026-11-19 ADC測定値のRAM基盤: `calibration_measurement.py`の`CalibrationMeasurements`を`FixtureApp.measurements`へ追加。`start_trial/end_trial/begin/complete/fail/get/discard`は内部APIで正式ATE/Hostフレームではない。試行と取得の対応を照合し、完成応答のDecodeは将来adapterの責務とする。TEST_START/再STARTとTEST_END成立に連動。DMM通信/換算/AD送信は未接続。[詳細](ADC_Calibration_Development_20261119.md)。
@@ -36,6 +54,14 @@ src/
 ```
 
 USB CDC command-console implementation is deferred. The output-only `ReplDebugSink` mirrors CSV rows accepted by the SD sink through pollable `sys.stdout` only when `config.REPL_LOG_ENABLED=True`; the default is False. It does not accept ATE commands or create a second command interface. A future `usb_console.py` may feed the shared command core, subject to ATE/NF55G priority and nonblocking output constraints.
+
+## USB HOST Wiring Scope (2026-11-19)
+
+The [USB HOST interconnect specification](USB_HOST_Interconnect_Spec.md) records the Pico 2 / Expander / interconnect board wiring for the QR-side Waveshare RP2350-USB-C Host and the external-instrument Waveshare RP2350-USB-A Host (WAVESHARE-30274). The latter uses USB-C for development, USB-A as the Host port to the instrument's USB-B through a user-provided cable, and external power.
+The interconnect board is a physical marker for clarifying USB HOST-to-Pico connection points and wiring, and an aid for hardware-design/debug explanations. It will be used to document the Pico-side port connections for planned USB CDC development and the already-developed QR function.
+This documentation does not change existing design policy, GPIO assignments, communication control, module responsibilities, or firmware. It does not implement USB CDC or change its existing development status; no USB HOST driver or new communication protocol is introduced by this update.
+Specific pin numbers and wiring locations, including the RESET connection, remain unconfirmed under USB-INT-01. Do not invent values for `config.py` or infer RESET behavior from the presence of the signal.
+Physical interconnect documentation is distinct from the `usb_transport.py` USB CDC maintenance implementation; the existing software scope remains unchanged.
 
 ## Responsibilities
 - main.py: init and scheduler only.

@@ -1,0 +1,14 @@
+{
+  "date_jst": "2026-11-20",
+  "source": "user serial transcript after request for no front-panel key operation",
+  "auto_hex": "300D0A",
+  "auto_ascii": "0\r\n",
+  "auto_enabled": false,
+  "conf_hex": "22564F4C54202B312E393939393939452B30312C2B312E303030303030452D3036220D0A",
+  "conf_ascii": "\"VOLT +1.999999E+01,+1.000000E-06\"\r\n",
+  "conf_bytes": 36,
+  "range_readback_volts": "19.99999",
+  "resolution_readback_volts": "0.000001",
+  "panel_temporary_display_semantics_verified": false,
+  "code_or_flash_changed": false
+}

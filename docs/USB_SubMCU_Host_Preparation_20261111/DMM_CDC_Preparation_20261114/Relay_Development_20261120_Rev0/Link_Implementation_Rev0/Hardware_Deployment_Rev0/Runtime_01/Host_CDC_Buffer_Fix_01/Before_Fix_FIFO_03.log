@@ -1,0 +1,18 @@
+setUpClass (test_external_meter_cdc_fifo.MeterCdcFifoTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (test_external_meter_cdc_fifo.MeterCdcFifoTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_cdc_fifo.py", line 84, in setUpClass
+    raise RuntimeError(proc.stdout + proc.stderr)
+RuntimeError: In file included from C:/Users/m_yamada/AppData/Local/Temp/nf55g_cdc_fifo_inkimy9t/wrapper.c:1:
+In file included from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/common/tusb_fifo.h:45:
+In file included from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/osal/osal.h:55:
+C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/osal/osal_none.h:127: error: ';' expected (got "tu_fifo_t")
+
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.448s
+
+FAILED (errors=1)
