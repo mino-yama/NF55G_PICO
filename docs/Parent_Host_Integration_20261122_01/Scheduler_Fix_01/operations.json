@@ -1,0 +1,161 @@
+[
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine,binascii,hashlib,json; b=open('src/main.py','rb').read(); print('SNAP|'+json.dumps({'uid':binascii.hexlify(machine.unique_id()).decode(),'sha256':binascii.hexlify(hashlib.sha256(b).digest()).decode(),'size':len(b)}))"
+    ],
+    "code": 0,
+    "stdout": "SNAP|{\"uid\": \"69f7d45962cfdfad\", \"sha256\": \"d7735c95e6e799d3818e0f05e561370c5b1d9226df6fabf5acde5a6dfc75b9cb\", \"size\": 15225}\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine; machine.bootloader()"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\r\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\r\n  File \"<frozen runpy>\", line 88, in _run_code\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\__main__.py\", line 6, in <module>\r\n    sys.exit(main.main())\r\n             ^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\main.py\", line 622, in main\r\n    handler_func(state, args)\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\commands.py\", line 500, in do_exec\r\n    _do_execbuffer(state, args.expr[0], args.follow)\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\commands.py\", line 489, in _do_execbuffer\r\n    ret, ret_err = state.transport.follow(timeout=None, data_consumer=stdout_write_bytes)\r\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\transport_serial.py\", line 220, in follow\r\n    data = self.read_until(1, b\"\\x04\", timeout=timeout, data_consumer=data_consumer)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\transport_serial.py\", line 158, in read_until\r\n    if self.is_pty or self.serial.inWaiting() > 0:\r\n                      ^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\serial\\serialutil.py\", line 594, in inWaiting\r\n    return self.in_waiting\r\n           ^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\serial\\serialwin32.py\", line 259, in in_waiting\r\n    raise SerialException(\"ClearCommError failed ({!r})\".format(ctypes.WinError()))\r\nserial.serialutil.SerialException: ClearCommError failed (PermissionError(13, '\u30c7\u30d0\u30a4\u30b9\u304c\u30b3\u30de\u30f3\u30c9\u3092\u8a8d\u8b58\u3067\u304d\u307e\u305b\u3093\u3002', None, 22))\r\n"
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\tools\\usb_submcu\\picotool-2.2.0\\picotool\\picotool.exe",
+      "info",
+      "-a",
+      "--ser",
+      "69F7D45962CFDFAD"
+    ],
+    "code": 0,
+    "stdout": "Program Information\r\n name:                   MicroPython\r\n version:                v1.27.0\r\n features:               thread support\r\n                         USB REPL\r\n frozen modules:         neopixel, dht,\r\n                         ds18x20,\r\n                         onewire,\r\n                         uasyncio,\r\n                         asyncio/stream,\r\n                         asyncio/lock,\r\n                         asyncio/funcs,\r\n                         asyncio/event,\r\n                         asyncio/core,\r\n                         asyncio,\r\n                         _boot_fat,\r\n                         _boot, rp2\r\n binary start:           0x10000000\r\n binary end:             0x1005030c\r\n embedded drive:         0x10100000-0x10400000\r\n                         (3072K):\r\n                         MicroPython\r\n target chip:            RP2350\r\n image type:             ARM Secure\r\n\r\nFixed Pin Information\r\n none\r\n\r\nBuild Information\r\n sdk version:            2.1.1\r\n pico_board:             pico2\r\n boot2_name:             boot2_w25q080\r\n build date:             Dec  9 2025\r\n build attributes:       MinSizeRel\r\n\r\nMetadata Block 1\r\n address:                0x10000138\r\n next block address:     0x100502f8\r\n block type:             image def\r\n target chip:            RP2350\r\n image type:             ARM Secure\r\n\r\nMetadata Block 2\r\n address:                0x100502f8\r\n next block address:     0x10000138\r\n block type:             ignored\r\n\r\nDevice Information\r\n type:                   RP2350\r\n revision:               A2\r\n package:                QFN60\r\n chipid:                 0x69f7d45962cfdfad\r\n flash devinfo:          0x0c00\r\n current cpu:            ARM\r\n available cpus:         ARM, RISC-V\r\n default cpu:            ARM\r\n secure boot:            0\r\n debug enable:           1\r\n secure debug enable:    1\r\n boot_random:            d214ce68:4d4c49b0:e15dc211:f9bedfb6\r\n boot type:              bootsel\r\n last booted partition:  slot 0\r\n diagnostic source:      slot 0\r\n last boot diagnostics:  0x0000500d\r\n reboot param 0:         0x00000000\r\n reboot param 1:         0x00000000\r\n rom gitrev:             0x312e22fa\r\n flash size:             4096K\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\tools\\usb_submcu\\picotool-2.2.0\\picotool\\picotool.exe",
+      "save",
+      "-a",
+      "-v",
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\Scheduler_Fix_01\\parent_flash_before.bin",
+      "--ser",
+      "69F7D45962CFDFAD"
+    ],
+    "code": 0,
+    "stdout": "Saving file:          [                              ]  0%\rSaving file:          [                              ]  1%\rSaving file:          [                              ]  2%\rSaving file:          [                              ]  3%\rSaving file:          [=                             ]  4%\rSaving file:          [=                             ]  5%\rSaving file:          [=                             ]  6%\rSaving file:          [==                            ]  7%\rSaving file:          [==                            ]  8%\rSaving file:          [==                            ]  9%\rSaving file:          [===                           ]  10%\rSaving file:          [===                           ]  11%\rSaving file:          [===                           ]  12%\rSaving file:          [===                           ]  13%\rSaving file:          [====                          ]  15%\rSaving file:          [====                          ]  16%\rSaving file:          [=====                         ]  17%\rSaving file:          [=====                         ]  18%\rSaving file:          [=====                         ]  19%\rSaving file:          [======                        ]  20%\rSaving file:          [======                        ]  21%\rSaving file:          [======                        ]  22%\rSaving file:          [======                        ]  23%\rSaving file:          [=======                       ]  24%\rSaving file:          [=======                       ]  25%\rSaving file:          [=======                       ]  26%\rSaving file:          [========                      ]  27%\rSaving file:          [========                      ]  29%\rSaving file:          [=========                     ]  30%\rSaving file:          [=========                     ]  31%\rSaving file:          [=========                     ]  32%\rSaving file:          [=========                     ]  33%\rSaving file:          [==========                    ]  34%\rSaving file:          [==========                    ]  35%\rSaving file:          [==========                    ]  36%\rSaving file:          [===========                   ]  37%\rSaving file:          [===========                   ]  38%\rSaving file:          [===========                   ]  39%\rSaving file:          [============                  ]  40%\rSaving file:          [============                  ]  41%\rSaving file:          [============                  ]  42%\rSaving file:          [=============                 ]  44%\rSaving file:          [=============                 ]  45%\rSaving file:          [=============                 ]  46%\rSaving file:          [==============                ]  47%\rSaving file:          [==============                ]  48%\rSaving file:          [==============                ]  49%\rSaving file:          [===============               ]  50%\rSaving file:          [===============               ]  51%\rSaving file:          [===============               ]  52%\rSaving file:          [===============               ]  53%\rSaving file:          [================              ]  54%\rSaving file:          [================              ]  55%\rSaving file:          [================              ]  56%\rSaving file:          [=================             ]  58%\rSaving file:          [=================             ]  59%\rSaving file:          [==================            ]  60%\rSaving file:          [==================            ]  61%\rSaving file:          [==================            ]  62%\rSaving file:          [==================            ]  63%\rSaving file:          [===================           ]  64%\rSaving file:          [===================           ]  65%\rSaving file:          [===================           ]  66%\rSaving file:          [====================          ]  67%\rSaving file:          [====================          ]  68%\rSaving file:          [====================          ]  69%\rSaving file:          [=====================         ]  70%\rSaving file:          [=====================         ]  71%\rSaving file:          [=====================         ]  73%\rSaving file:          [======================        ]  74%\rSaving file:          [======================        ]  75%\rSaving file:          [======================        ]  76%\rSaving file:          [=======================       ]  77%\rSaving file:          [=======================       ]  78%\rSaving file:          [=======================       ]  79%\rSaving file:          [========================      ]  80%\rSaving file:          [========================      ]  81%\rSaving file:          [========================      ]  82%\rSaving file:          [========================      ]  83%\rSaving file:          [=========================     ]  84%\rSaving file:          [=========================     ]  85%\rSaving file:          [==========================    ]  87%\rSaving file:          [==========================    ]  88%\rSaving file:          [==========================    ]  89%\rSaving file:          [===========================   ]  90%\rSaving file:          [===========================   ]  91%\rSaving file:          [===========================   ]  92%\rSaving file:          [===========================   ]  93%\rSaving file:          [============================  ]  94%\rSaving file:          [============================  ]  95%\rSaving file:          [============================  ]  96%\rSaving file:          [============================= ]  97%\rSaving file:          [============================= ]  98%\rSaving file:          [============================= ]  99%\rSaving file:          [==============================]  100%\r\r\nWrote 4194304 bytes to C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\Scheduler_Fix_01\\parent_flash_before.bin\r\nVerifying Flash:      [                              ]  0%\rVerifying Flash:      [                              ]  1%\rVerifying Flash:      [                              ]  2%\rVerifying Flash:      [                              ]  3%\rVerifying Flash:      [=                             ]  4%\rVerifying Flash:      [=                             ]  5%\rVerifying Flash:      [=                             ]  6%\rVerifying Flash:      [==                            ]  7%\rVerifying Flash:      [==                            ]  8%\rVerifying Flash:      [==                            ]  9%\rVerifying Flash:      [===                           ]  10%\rVerifying Flash:      [===                           ]  11%\rVerifying Flash:      [===                           ]  12%\rVerifying Flash:      [===                           ]  13%\rVerifying Flash:      [====                          ]  15%\rVerifying Flash:      [====                          ]  16%\rVerifying Flash:      [=====                         ]  17%\rVerifying Flash:      [=====                         ]  18%\rVerifying Flash:      [=====                         ]  19%\rVerifying Flash:      [======                        ]  20%\rVerifying Flash:      [======                        ]  21%\rVerifying Flash:      [======                        ]  22%\rVerifying Flash:      [======                        ]  23%\rVerifying Flash:      [=======                       ]  24%\rVerifying Flash:      [=======                       ]  25%\rVerifying Flash:      [=======                       ]  26%\rVerifying Flash:      [========                      ]  27%\rVerifying Flash:      [========                      ]  29%\rVerifying Flash:      [=========                     ]  30%\rVerifying Flash:      [=========                     ]  31%\rVerifying Flash:      [=========                     ]  32%\rVerifying Flash:      [=========                     ]  33%\rVerifying Flash:      [==========                    ]  34%\rVerifying Flash:      [==========                    ]  35%\rVerifying Flash:      [==========                    ]  36%\rVerifying Flash:      [===========                   ]  37%\rVerifying Flash:      [===========                   ]  38%\rVerifying Flash:      [===========                   ]  39%\rVerifying Flash:      [============                  ]  40%\rVerifying Flash:      [============                  ]  41%\rVerifying Flash:      [============                  ]  42%\rVerifying Flash:      [=============                 ]  44%\rVerifying Flash:      [=============                 ]  45%\rVerifying Flash:      [=============                 ]  46%\rVerifying Flash:      [==============                ]  47%\rVerifying Flash:      [==============                ]  48%\rVerifying Flash:      [==============                ]  49%\rVerifying Flash:      [===============               ]  50%\rVerifying Flash:      [===============               ]  51%\rVerifying Flash:      [===============               ]  52%\rVerifying Flash:      [===============               ]  53%\rVerifying Flash:      [================              ]  54%\rVerifying Flash:      [================              ]  55%\rVerifying Flash:      [================              ]  56%\rVerifying Flash:      [=================             ]  58%\rVerifying Flash:      [=================             ]  59%\rVerifying Flash:      [==================            ]  60%\rVerifying Flash:      [==================            ]  61%\rVerifying Flash:      [==================            ]  62%\rVerifying Flash:      [==================            ]  63%\rVerifying Flash:      [===================           ]  64%\rVerifying Flash:      [===================           ]  65%\rVerifying Flash:      [===================           ]  66%\rVerifying Flash:      [====================          ]  67%\rVerifying Flash:      [====================          ]  68%\rVerifying Flash:      [====================          ]  69%\rVerifying Flash:      [=====================         ]  70%\rVerifying Flash:      [=====================         ]  71%\rVerifying Flash:      [=====================         ]  73%\rVerifying Flash:      [======================        ]  74%\rVerifying Flash:      [======================        ]  75%\rVerifying Flash:      [======================        ]  76%\rVerifying Flash:      [=======================       ]  77%\rVerifying Flash:      [=======================       ]  78%\rVerifying Flash:      [=======================       ]  79%\rVerifying Flash:      [========================      ]  80%\rVerifying Flash:      [========================      ]  81%\rVerifying Flash:      [========================      ]  82%\rVerifying Flash:      [========================      ]  83%\rVerifying Flash:      [=========================     ]  84%\rVerifying Flash:      [=========================     ]  85%\rVerifying Flash:      [==========================    ]  87%\rVerifying Flash:      [==========================    ]  88%\rVerifying Flash:      [==========================    ]  89%\rVerifying Flash:      [===========================   ]  90%\rVerifying Flash:      [===========================   ]  91%\rVerifying Flash:      [===========================   ]  92%\rVerifying Flash:      [===========================   ]  93%\rVerifying Flash:      [============================  ]  94%\rVerifying Flash:      [============================  ]  95%\rVerifying Flash:      [============================  ]  96%\rVerifying Flash:      [============================= ]  97%\rVerifying Flash:      [============================= ]  98%\rVerifying Flash:      [============================= ]  99%\rVerifying Flash:      [==============================]  100%\r\r\n  OK\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\tools\\usb_submcu\\picotool-2.2.0\\picotool\\picotool.exe",
+      "reboot",
+      "--ser",
+      "69F7D45962CFDFAD"
+    ],
+    "code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine,binascii,hashlib,json; b=open('src/main.py','rb').read(); print('SNAP|'+json.dumps({'uid':binascii.hexlify(machine.unique_id()).decode(),'sha256':binascii.hexlify(hashlib.sha256(b).digest()).decode(),'size':len(b)}))"
+    ],
+    "code": 0,
+    "stdout": "SNAP|{\"uid\": \"69f7d45962cfdfad\", \"sha256\": \"d7735c95e6e799d3818e0f05e561370c5b1d9226df6fabf5acde5a6dfc75b9cb\", \"size\": 15225}\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "fs",
+      "cp",
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\Scheduler_Fix_01\\main_candidate.py",
+      ":src/main.new"
+    ],
+    "code": 0,
+    "stdout": "cp C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\Scheduler_Fix_01\\main_candidate.py :src/main.new\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import binascii,hashlib,os; b=open('src/main.new','rb').read(); assert binascii.hexlify(hashlib.sha256(b).digest()).decode()=='cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120'; compile(b,'src/main.py','exec'); os.rename('src/main.new','src/main.py'); os.sync(); print('INSTALL_OK')"
+    ],
+    "code": 0,
+    "stdout": "INSTALL_OK\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine,binascii,hashlib,json; b=open('src/main.py','rb').read(); print('SNAP|'+json.dumps({'uid':binascii.hexlify(machine.unique_id()).decode(),'sha256':binascii.hexlify(hashlib.sha256(b).digest()).decode(),'size':len(b)}))"
+    ],
+    "code": 0,
+    "stdout": "SNAP|{\"uid\": \"69f7d45962cfdfad\", \"sha256\": \"cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120\", \"size\": 15522}\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine; machine.reset()"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\r\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\r\n  File \"<frozen runpy>\", line 88, in _run_code\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\__main__.py\", line 6, in <module>\r\n    sys.exit(main.main())\r\n             ^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\main.py\", line 622, in main\r\n    handler_func(state, args)\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\commands.py\", line 500, in do_exec\r\n    _do_execbuffer(state, args.expr[0], args.follow)\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\commands.py\", line 489, in _do_execbuffer\r\n    ret, ret_err = state.transport.follow(timeout=None, data_consumer=stdout_write_bytes)\r\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\transport_serial.py\", line 220, in follow\r\n    data = self.read_until(1, b\"\\x04\", timeout=timeout, data_consumer=data_consumer)\r\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\mpremote\\transport_serial.py\", line 158, in read_until\r\n    if self.is_pty or self.serial.inWaiting() > 0:\r\n                      ^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\serial\\serialutil.py\", line 594, in inWaiting\r\n    return self.in_waiting\r\n           ^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Lib\\site-packages\\serial\\serialwin32.py\", line 259, in in_waiting\r\n    raise SerialException(\"ClearCommError failed ({!r})\".format(ctypes.WinError()))\r\nserial.serialutil.SerialException: ClearCommError failed (OSError(22, '\u30b9\u30ec\u30c3\u30c9\u306e\u7d42\u4e86\u307e\u305f\u306f\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u306e\u8981\u6c42\u306b\u3088\u3063\u3066\u3001I/O \u51e6\u7406\u306f\u4e2d\u6b62\u3055\u308c\u307e\u3057\u305f\u3002', None, 995))\r\n"
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import machine,binascii,hashlib,json; b=open('src/main.py','rb').read(); print('SNAP|'+json.dumps({'uid':binascii.hexlify(machine.unique_id()).decode(),'sha256':binascii.hexlify(hashlib.sha256(b).digest()).decode(),'size':len(b)}))"
+    ],
+    "code": 0,
+    "stdout": "SNAP|{\"uid\": \"69f7d45962cfdfad\", \"sha256\": \"cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120\", \"size\": 15522}\r\n",
+    "stderr": ""
+  }
+]

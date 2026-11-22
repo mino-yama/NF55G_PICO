@@ -53,7 +53,15 @@ void relay_host_init(relay_host_t *host, const uint8_t nonce[8], const char *chi
 }
 
 void relay_host_device_ready(relay_host_t *host, bool ready) {
-    if (!ready && (host->pending || host->high_watermark != 0u)) relay_host_fail(host, "DISCONNECTED");
+    if (!ready && host->pending) {
+        // CDC送信開始後は成否不明として停止、未送信なら明示拒否して次の要求を妨げない。
+        if (host->tx_started) {
+            relay_host_fail(host, "DISCONNECTED");
+        } else {
+            error_frame(host, &host->request, "LINK_NOT_READY", false);
+            host->pending = false;
+        }
+    }
     host->ready = ready;
 }
 
@@ -115,8 +123,21 @@ static void accept_request(relay_host_t *host, const x1_frame_t *request, uint32
 }
 
 void relay_host_poll(relay_host_t *host, uint32_t now) {
-    if (host->pending && (uint32_t)(now - host->started_at) >= host->request.timeout_ms)
-        relay_host_fail(host, "TIMEOUT");
+    if (host->pending && (uint32_t)(now - host->started_at) >= host->request.timeout_ms) {
+        // 成否不明の停止時に保持済みRX長・TX/応答完成・末尾4byteを診断へ残す。
+        // 部分応答をRへ昇格させず、再送やfault解除は行わない。
+        char tail[9] = "NONE";
+        size_t count = host->response_length < 4u ? host->response_length : 4u;
+        for (size_t i = 0u; i < count; i++) {
+            snprintf(tail + 2u * i, sizeof(tail) - 2u * i, "%02X",
+                     (unsigned int)host->response[host->response_length - count + i]);
+        }
+        char reason[64];
+        int size = snprintf(reason, sizeof(reason), "TIMEOUT_RX%u_T%u_C%u_X%s",
+                            (unsigned int)host->response_length,
+                            host->tx_done ? 1u : 0u, host->response_done ? 1u : 0u, tail);
+        relay_host_fail(host, size > 0 && (size_t)size < sizeof(reason) ? reason : "TIMEOUT");
+    }
 }
 
 void relay_host_uart(relay_host_t *host, const uint8_t *data, size_t length, uint32_t now) {

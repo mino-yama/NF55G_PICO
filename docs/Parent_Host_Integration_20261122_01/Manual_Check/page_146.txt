@@ -1,0 +1,62 @@
+7355 Digital Multimeter Operation Manual
+6.8.4 SCPI Command Reference
+6-52
+4. System-related commands
+Item SCPI command Description Default
+System Buzzer *3 :CALCulate:LIMit:BEEPer 
+{OFF|FAIL|PASS}
+OFF: OFF 
+FAIL: The buzzer sounds when the comparator calculation result 
+is FAIL.
+PASS: The buzzer sounds when the comparator calculation result 
+is PASS.
+:CALCulate:LIMit:BEEPer? Response: OFF, FAIL or PASS
+:SYSTem:BEEPer:STATe 
+{ON,1|OFF,0}
+ON, 1: Buzzer ON
+OFF, 0: Buzzer OFF 
+:SYSTem:BEEPer:STATe? Response: 1 or 0
+Measurement 
+data display
+:DISPlay {ON,1|OFF,0} ON, 1: ON 
+OFF, 0: OFF
+:DISPlay? Response: 1 or 0
+Power 
+frequency
+[:SENSe]:LFRQency {50|60} 50: 50 Hz
+60: 60 Hz
+[:SENSe]:LFRQency? Response: 50 or 60
+Initialization *RST Instrument initialization
+Instrument 
+information
+*IDN? Response: ADC Corp.,nnnn,xxxxxxxxx,yyyyy
+ADC Corp.: Manufacturer (9 characters)
+nnnn: Model name (4 characters) “7355”
+xxxxxxxxx: Serial number (9 characters)
+yyyyy: Firmware revision (5 characters)
+Option 
+information
+*OPT? Query of option information
+Response: Without option “0”
+With option “GPIB I/F”, “RS232 I/F”, “COMP I/F”
+MAC address :SYSTem:MAC? Query of MAC address
+Response: BC:42:B4:nn:nn:nn
+Block delimiter :SYSTem:GPIB:DELimiter:BLOCk 
+{CRLF|LF|EOI}
+CRLF: CRLF+EOI 
+LF:  LF
+EOI: EOI
+:SYSTem:GPIB:DELimiter:BLOCk? Response: CRLF or EOI
+Output format :FORMat:DATA {ASCii|REAL64} ASCii: ASCII 
+REAL64: REAL 64 (Invalid for RS-232 and USBCDC)
+:FORMat:DATA? ASC or REAL
+Output data 
+digits
+:FORMat:DATA:DIGits 
+{5|6|MAXimum|MINimum}
+5: 5 1/2-digit output
+6: 6 1/2-digit output 
+:FORMat:DATA:DIGits? 
+[{MAXimum|MINimum}]
+Response: 5 or 6
+*3: When “:CALCulate:LIMit:BEEPer” is set to FAIL or PASS, the buzzer setting automatically turns ON.

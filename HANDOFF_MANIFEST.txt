@@ -2,6 +2,15 @@ NF55G Pico 2 Codex Handoff Rev.0
 Created: 2026-09-01
 
 Core handoff files:
+Current next-session plan (2026-11-23; user confirmed 2026-11-22):
+docs/Debug_Development_Plan_20261123_Rev0.md
+Baseline hashes: docs/Debug_Development_Plan_20261123_Rev0_Baseline.json
+Implement UART command-based normal RESET for the meter HOST; preserve CDC diagnostic .22.3 separately.
+Debug USB bulk IN, then QR after Yamada installs it, then staged coexistence testing when prerequisites pass.
+Yamada owns power-maintenance/signal-disconnection/external-operation hardware design.
+BOOTSEL implementation date is not assigned. AD/AR and automatic WDT remain separate pending work.
+Check live identities, firmware/source hashes and wiring; historical COM numbers and handoffs are not current-state proof.
+
 1. AGENTS.md
 2. README.md
 3. docs/ATE_Command_Master.md

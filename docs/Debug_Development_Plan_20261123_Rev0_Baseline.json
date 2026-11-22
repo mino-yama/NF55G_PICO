@@ -1,0 +1,85 @@
+{
+  "recorded_at_jst": "2026-11-22T19:20:41+09:00",
+  "scope": "read-only overlap review; no runtime verification",
+  "baseline_sources": [
+    {
+      "path": "src/main.py",
+      "sha256": "cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120"
+    },
+    {
+      "path": "src/external_instrument_link.py",
+      "sha256": "18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2"
+    },
+    {
+      "path": "src/external_instrument_contract.py",
+      "sha256": "2ac0b822d478f5f9e3afd73210cb8289f1d1669ff57e2d22849b7bd6c623a447"
+    },
+    {
+      "path": "src/command_parser.py",
+      "sha256": "57e7dd21d5a8312f8ee3fc4daaa755e738e234731df7146cf10d825b5db9a6bc"
+    },
+    {
+      "path": "src/command_dispatcher.py",
+      "sha256": "09da9ea2be4af0fe708814de3e93760ff6e920fa2038d95211f073cc11dcc5e9"
+    },
+    {
+      "path": "tests/test_external_instrument_link.py",
+      "sha256": "908952e254679673b008d6c50e3f48793382508aa31ac35b7de2af8135de20ff"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_main.c",
+      "sha256": "485717b7c3e4de7e995f9aaeaf1c1ea6454738184027dd24a25c3d8a0b039a3b"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_host.c",
+      "sha256": "26138e31e8a860a8f8a2eb7e59973b149117760f876109bc3f6c5bb26ca41d35"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_host.h",
+      "sha256": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_wire.c",
+      "sha256": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_wire.h",
+      "sha256": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_cdc_guard.c",
+      "sha256": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_cdc_guard.h",
+      "sha256": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_usb_diag.c",
+      "sha256": "55bc1ddcf54a4d82aa79b5850e42e76743045b864c9db9acfab4a229fd17cdec"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_usb_diag.h",
+      "sha256": "beeacc794101d319368e2da06685d9b9c073a33af586232e092482103fc09d3a"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/tusb_config.h",
+      "sha256": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/CMakeLists.txt",
+      "sha256": "5b785a2a7c03bdd1887eb03426dd7bf5cd6774333ae442ecf368b8b9970ad23f"
+    },
+    {
+      "path": "firmware/usb_submcu_host_probe/main.c",
+      "sha256": "9aa8b8187f4765cedacfd41e62881f99d2922a6d207d0507df30174a435ac3d7"
+    }
+  ],
+  "diagnostic_candidate": {
+    "version": "meter-host-relay-20261122.3",
+    "path": "docs\\Parent_Host_Integration_20261122_01\\USB_Lower_Diagnostic_Candidate\\meter_host_relay_20261122_3.uf2",
+    "sha256": "7a817134cffdf124197c68d958cfe9b5a96a98dbe308c8d5dd5a63e121e98ef2",
+    "source_hashes_match": true,
+    "runtime_accepted": false
+  }
+}

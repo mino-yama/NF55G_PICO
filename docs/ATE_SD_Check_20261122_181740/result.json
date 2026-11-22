@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "bursts": 100,
+  "malformed_cases": 4,
+  "malformed_recovery_pass": 4,
+  "exchanges": 109,
+  "reply_count": 419,
+  "max_exchange_ms": 1609.0,
+  "csv_rows": 820,
+  "csv_bytes": 44912,
+  "device_sha_matches": true,
+  "previous_log_unchanged": true,
+  "category_event_counts": {
+    "('ATE', 'REQUEST')": 409,
+    "('ATE', 'RESULT')": 408,
+    "('ATE', 'RECEIVE_ERROR')": 3
+  },
+  "drop": 0,
+  "queue": 0,
+  "host_monitor_bytes": 0,
+  "nf_commands_sent": 0,
+  "external_commands_sent": 0,
+  "qr_test_date": "2026-11-23",
+  "qr_status": "installation planned by user; not tested",
+  "final_state": "parent stopped; SM4/5 stopped; CDC fault preserved"
+}

@@ -1,0 +1,626 @@
+[
+  {
+    "commands": [
+      "PS_ON?",
+      "BURST_ON?",
+      "BURST?",
+      "PS_OFF_CHARGE?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.164452",
+    "pc_time_end": "2026-11-22T18:32:04.190993",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "RESTART_READY?",
+      "BACKUP_READY?",
+      "CHARGE_READY?",
+      "BATT_CHECK_RUN?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.190993",
+    "pc_time_end": "2026-11-22T18:32:04.220650",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_OFF_STATUS?",
+      "CHARGE_ON_STATUS?",
+      "BATT_ON?",
+      "BATT_LOW?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.220650",
+    "pc_time_end": "2026-11-22T18:32:04.247556",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "S_CHARGE_ON?",
+      "CHARGE_OK?",
+      "CHARGER_ON?",
+      "FAN_WNG?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.247556",
+    "pc_time_end": "2026-11-22T18:32:04.273528",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_TEMP_WNG?",
+      "OC_OFF_H?",
+      "PFC_OV?",
+      "FAN_FAIL?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.273528",
+    "pc_time_end": "2026-11-22T18:32:04.300008",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_TEMP_WNG?",
+      "BBU_FAIL?",
+      "CHG_LV?",
+      "CHG_OV?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.300008",
+    "pc_time_end": "2026-11-22T18:32:04.326357",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_OC?",
+      "BATT_TEMP_WNG?",
+      "BATT_TEMP_ALM?",
+      "BATT_LV?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.326357",
+    "pc_time_end": "2026-11-22T18:32:04.353170",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_OV?",
+      "BATT_LIFE?",
+      "BATT_MCN?",
+      "BATT_P_FAIL?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 32.0,
+    "pc_time_start": "2026-11-22T18:32:04.353170",
+    "pc_time_end": "2026-11-22T18:32:04.381640",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DCN?",
+      "12V_OV?",
+      "12V_LV?",
+      "12V_OC?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.381640",
+    "pc_time_end": "2026-11-22T18:32:04.407123",
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "12V_OC_OFF_L?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.407123",
+    "pc_time_end": "2026-11-22T18:32:04.416523",
+    "replies": [
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "STATUS_REFRESH"
+    ],
+    "reply_hex": "4f4b0d",
+    "elapsed_ms": 47.0,
+    "pc_time_start": "2026-11-22T18:32:04.416523",
+    "pc_time_end": "2026-11-22T18:32:04.460909",
+    "replies": [
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "PS_ON?",
+      "BURST_ON?",
+      "BURST?",
+      "PS_OFF_CHARGE?"
+    ],
+    "reply_hex": "310d300d300d300d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.460909",
+    "pc_time_end": "2026-11-22T18:32:04.486480",
+    "replies": [
+      "1",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "RESTART_READY?",
+      "BACKUP_READY?",
+      "CHARGE_READY?",
+      "BATT_CHECK_RUN?"
+    ],
+    "reply_hex": "300d310d300d300d",
+    "elapsed_ms": 32.0,
+    "pc_time_start": "2026-11-22T18:32:04.486480",
+    "pc_time_end": "2026-11-22T18:32:04.507651",
+    "replies": [
+      "0",
+      "1",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_OFF_STATUS?",
+      "CHARGE_ON_STATUS?",
+      "BATT_ON?",
+      "BATT_LOW?"
+    ],
+    "reply_hex": "300d300d300d310d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.507651",
+    "pc_time_end": "2026-11-22T18:32:04.531507",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "1"
+    ]
+  },
+  {
+    "commands": [
+      "S_CHARGE_ON?",
+      "CHARGE_OK?",
+      "CHARGER_ON?",
+      "FAN_WNG?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 32.0,
+    "pc_time_start": "2026-11-22T18:32:04.531507",
+    "pc_time_end": "2026-11-22T18:32:04.553927",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_TEMP_WNG?",
+      "OC_OFF_H?",
+      "PFC_OV?",
+      "FAN_FAIL?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.553927",
+    "pc_time_end": "2026-11-22T18:32:04.576164",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_TEMP_WNG?",
+      "BBU_FAIL?",
+      "CHG_LV?",
+      "CHG_OV?"
+    ],
+    "reply_hex": "300d300d310d300d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.576164",
+    "pc_time_end": "2026-11-22T18:32:04.598245",
+    "replies": [
+      "0",
+      "0",
+      "1",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_OC?",
+      "BATT_TEMP_WNG?",
+      "BATT_TEMP_ALM?",
+      "BATT_LV?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.598245",
+    "pc_time_end": "2026-11-22T18:32:04.620395",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_OV?",
+      "BATT_LIFE?",
+      "BATT_MCN?",
+      "BATT_P_FAIL?"
+    ],
+    "reply_hex": "300d300d300d310d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.620395",
+    "pc_time_end": "2026-11-22T18:32:04.642909",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "1"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DCN?",
+      "12V_OV?",
+      "12V_LV?",
+      "12V_OC?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.642909",
+    "pc_time_end": "2026-11-22T18:32:04.663689",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "12V_OC_OFF_L?"
+    ],
+    "reply_hex": "300d",
+    "elapsed_ms": 0.0,
+    "pc_time_start": "2026-11-22T18:32:04.663689",
+    "pc_time_end": "2026-11-22T18:32:04.669743",
+    "replies": [
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "PS_ON?",
+      "BURST_ON?",
+      "BURST?",
+      "PS_OFF_CHARGE?"
+    ],
+    "reply_hex": "310d300d300d300d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.669743",
+    "pc_time_end": "2026-11-22T18:32:04.690623",
+    "replies": [
+      "1",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "RESTART_READY?",
+      "BACKUP_READY?",
+      "CHARGE_READY?",
+      "BATT_CHECK_RUN?"
+    ],
+    "reply_hex": "300d310d300d300d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.690623",
+    "pc_time_end": "2026-11-22T18:32:04.714270",
+    "replies": [
+      "0",
+      "1",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_OFF_STATUS?",
+      "CHARGE_ON_STATUS?",
+      "BATT_ON?",
+      "BATT_LOW?"
+    ],
+    "reply_hex": "300d300d300d310d",
+    "elapsed_ms": 47.0,
+    "pc_time_start": "2026-11-22T18:32:04.714270",
+    "pc_time_end": "2026-11-22T18:32:04.756460",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "1"
+    ]
+  },
+  {
+    "commands": [
+      "S_CHARGE_ON?",
+      "CHARGE_OK?",
+      "CHARGER_ON?",
+      "FAN_WNG?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.756460",
+    "pc_time_end": "2026-11-22T18:32:04.777627",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_TEMP_WNG?",
+      "OC_OFF_H?",
+      "PFC_OV?",
+      "FAN_FAIL?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.777627",
+    "pc_time_end": "2026-11-22T18:32:04.799822",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_TEMP_WNG?",
+      "BBU_FAIL?",
+      "CHG_LV?",
+      "CHG_OV?"
+    ],
+    "reply_hex": "300d300d310d300d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.799822",
+    "pc_time_end": "2026-11-22T18:32:04.821227",
+    "replies": [
+      "0",
+      "0",
+      "1",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_OC?",
+      "BATT_TEMP_WNG?",
+      "BATT_TEMP_ALM?",
+      "BATT_LV?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.821227",
+    "pc_time_end": "2026-11-22T18:32:04.843112",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_OV?",
+      "BATT_LIFE?",
+      "BATT_MCN?",
+      "BATT_P_FAIL?"
+    ],
+    "reply_hex": "300d300d300d310d",
+    "elapsed_ms": 31.0,
+    "pc_time_start": "2026-11-22T18:32:04.843112",
+    "pc_time_end": "2026-11-22T18:32:04.865287",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "1"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DCN?",
+      "12V_OV?",
+      "12V_LV?",
+      "12V_OC?"
+    ],
+    "reply_hex": "300d300d300d300d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:04.865287",
+    "pc_time_end": "2026-11-22T18:32:04.888703",
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "12V_OC_OFF_L?"
+    ],
+    "reply_hex": "300d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:04.888703",
+    "pc_time_end": "2026-11-22T18:32:04.895550",
+    "replies": [
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATE?",
+      "RTC_TIME?",
+      "RTC_DATETIME?",
+      "RTC_CHECK?"
+    ],
+    "reply_hex": "32303236313132320d3138333230340d32303236313132325f3138333230340d4f4b0d",
+    "elapsed_ms": 47.0,
+    "pc_time_start": "2026-11-22T18:32:04.895550",
+    "pc_time_end": "2026-11-22T18:32:04.944950",
+    "replies": [
+      "20261122",
+      "183204",
+      "20261122_183204",
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230340d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:05.013708",
+    "pc_time_end": "2026-11-22T18:32:05.025711",
+    "replies": [
+      "20261122_183204"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230350d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:06.026132",
+    "pc_time_end": "2026-11-22T18:32:06.037651",
+    "replies": [
+      "20261122_183205"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230360d",
+    "elapsed_ms": 0.0,
+    "pc_time_start": "2026-11-22T18:32:07.038240",
+    "pc_time_end": "2026-11-22T18:32:07.049761",
+    "replies": [
+      "20261122_183206"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230370d",
+    "elapsed_ms": 0.0,
+    "pc_time_start": "2026-11-22T18:32:08.050667",
+    "pc_time_end": "2026-11-22T18:32:08.061847",
+    "replies": [
+      "20261122_183207"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230380d",
+    "elapsed_ms": 15.0,
+    "pc_time_start": "2026-11-22T18:32:09.062592",
+    "pc_time_end": "2026-11-22T18:32:09.075458",
+    "replies": [
+      "20261122_183208"
+    ]
+  },
+  {
+    "commands": [
+      "RTC_DATETIME?"
+    ],
+    "reply_hex": "32303236313132325f3138333230390d",
+    "elapsed_ms": 16.0,
+    "pc_time_start": "2026-11-22T18:32:10.075905",
+    "pc_time_end": "2026-11-22T18:32:10.087160",
+    "replies": [
+      "20261122_183209"
+    ]
+  }
+]

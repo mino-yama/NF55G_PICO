@@ -1,0 +1,14 @@
+{
+  "date_jst": "2026-11-22T15:49:15.733073+09:00",
+  "attempted": 1,
+  "completed": 0,
+  "failure": "RuntimeError(\"IDN failed: b'ERR:EXT_RECOVERY_REQUIRED:AMBIGUOUS=0'\")",
+  "duration_seconds": 1.25,
+  "max_ms": null,
+  "median_ms": null,
+  "host_frames": 1,
+  "monitor_errors": {},
+  "automatic_retry": false,
+  "nf55g_commands": 0,
+  "instrument_setting_commands": 0
+}

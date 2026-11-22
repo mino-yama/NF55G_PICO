@@ -1,0 +1,34 @@
+{
+  "date_jst": "2026-11-22",
+  "hash_checks": [
+    "parent package: SHA256 OK",
+    "host package: SHA256 OK",
+    "parent flash backup: SHA256 OK",
+    "host flash backup: SHA256 OK"
+  ],
+  "report_links": "all existing",
+  "git_diff_check": "success; line ending normalization warnings only",
+  "host_mock": {
+    "count": 456,
+    "seconds": 22.965,
+    "result": "OK"
+  },
+  "sequence": [
+    {
+      "phase": "startup_idn",
+      "reply": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "query_count": 1
+    },
+    {
+      "phase": "disconnected_idn",
+      "reply": "ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0",
+      "query_count": 1
+    },
+    {
+      "phase": "reconnected_idn",
+      "reply": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "query_count": 1
+    }
+  ],
+  "serial_ports_released": true
+}

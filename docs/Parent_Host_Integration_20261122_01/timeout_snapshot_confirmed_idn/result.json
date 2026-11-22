@@ -1,0 +1,18 @@
+{
+  "phase": "timeout_snapshot_confirmed_idn",
+  "date_jst": "2026-11-22T17:15:34.578936+09:00",
+  "command": "EXT_QUERY 2000 *IDN?\r",
+  "reply": "ERR:EXT_TIMEOUT:AMBIGUOUS=1\r",
+  "pre_bytes": {
+    "parent": 0,
+    "host": 0,
+    "ate": 0
+  },
+  "bytes": {
+    "parent": 0,
+    "host": 450,
+    "ate": 28
+  },
+  "query_count": 1,
+  "automatic_retry": false
+}

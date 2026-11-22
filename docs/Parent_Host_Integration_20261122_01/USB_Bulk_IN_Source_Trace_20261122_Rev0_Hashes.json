@@ -1,0 +1,51 @@
+{
+  "date_jst": "2026-11-22",
+  "method": "source review only",
+  "candidate_sources_match": true,
+  "sources": [
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_main.c",
+      "sha256": "485717b7c3e4de7e995f9aaeaf1c1ea6454738184027dd24a25c3d8a0b039a3b"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_host.c",
+      "sha256": "26138e31e8a860a8f8a2eb7e59973b149117760f876109bc3f6c5bb26ca41d35"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/relay_cdc_guard.c",
+      "sha256": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097"
+    },
+    {
+      "path": "firmware/usb_submcu_external_meter_host/tusb_config.h",
+      "sha256": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d"
+    },
+    {
+      "path": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/class/cdc/cdc_host.c",
+      "sha256": "9ff2f87befbaae485114b394b46a915c1f1c7c9fe1ce5b9a510d7c7ecefac886"
+    },
+    {
+      "path": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/tusb.c",
+      "sha256": "fdb77970d8833e41862934370c3fd08f388e0f2495fc702142a83ad4d5ee13be"
+    },
+    {
+      "path": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/common/tusb_private.h",
+      "sha256": "546c1f0815d9d59055c22ca4f175413d3f98cf3232de4111009afb6f39882363"
+    },
+    {
+      "path": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/host/usbh.c",
+      "sha256": "79403ed03e1e60f0bfda8708096b56b6ec313d3a237e62d1e210f4ef571963d7"
+    },
+    {
+      "path": "tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/src/portable/raspberrypi/pio_usb/hcd_pio_usb.c",
+      "sha256": "e4b6982c2fcf4a92f2cf6f0123bf97129102bf3fb95f87777c93e6b823ce7f9c"
+    },
+    {
+      "path": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/pio_usb.c",
+      "sha256": "29a1f890928f85c25beab644f55b2152bec53bb1d0cc12e1893fed45a6d364d6"
+    },
+    {
+      "path": "firmware/usb_submcu_host_probe/vendor/pico-pio-usb/src/pio_usb_host.c",
+      "sha256": "7220502f99ab2d255b576ffed2b66390388715dc9c3be93c7052a7ffa312e1b3"
+    }
+  ]
+}

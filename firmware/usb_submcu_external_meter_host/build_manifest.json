@@ -491,23 +491,23 @@
       },
       {
         "file": "build/usb_submcu_external_meter_relay.uf2",
-        "bytes": 94208,
-        "sha256": "2f6faee45dbbad016fe8470128e7cce9cb1c6e05980d053d4d83880b24a3906c",
-        "profile": "meter-host-relay-20261120.1",
-        "deployed": true
+        "bytes": 94720,
+        "sha256": "2c7314b9ed42f00acd6eaf32684854ff13eebe4101b4f8e6acb3506c6f4e014b",
+        "profile": "meter-host-relay-20261121.1",
+        "deployed": false
       },
       {
         "file": "build/usb_submcu_external_meter_relay.elf",
-        "bytes": 1000512,
-        "sha256": "05e6d560634fd9b49102a40b1f0a34b391de3073fa4c0ce209914111949ce478",
-        "profile": "meter-host-relay-20261120.1",
+        "bytes": 1001024,
+        "sha256": "64c90ef2c2bb2b84f2ac2cc5691f8eb42794476b373ec5625fb48c5c7f712799",
+        "profile": "meter-host-relay-20261121.1",
         "deployed": false
       },
       {
         "file": "build/usb_submcu_external_meter_relay.bin",
-        "bytes": 47080,
-        "sha256": "4f640cc8dbbb84a17c83285de547c0c10566670f7d1c805577e753117db53f0d",
-        "profile": "meter-host-relay-20261120.1",
+        "bytes": 47168,
+        "sha256": "e949d8088eb1c3278271ad3348c8d1ac0a0256eaa51edcfa30a7662a60e0b7dd",
+        "profile": "meter-host-relay-20261121.1",
         "deployed": false
       }
     ]
@@ -543,10 +543,36 @@
     "latest_runtime_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md"
   },
   "relay_profile": {
-    "version": "meter-host-relay-20261120.1",
+    "version": "meter-host-relay-20261121.1",
     "target": "build/usb_submcu_external_meter_relay.uf2",
     "built": true,
-    "deployed": true,
+    "deployed": false,
+    "previous_deployed_version": "meter-host-relay-20261120.3",
+    "change_summary": "Idle CDC unmount no longer latches Host FAULT; reconfiguration after remount restores ready state. Query while not ready returns LINK_NOT_READY without USB transmission. Disconnect after USB TX starts remains ambiguous/fail-closed with no retry.",
+    "build_date_jst": "2026-11-21",
+    "candidate_artifacts": {
+      "uf2": {
+        "file": "build/usb_submcu_external_meter_relay.uf2",
+        "bytes": 94720,
+        "sha256": "2c7314b9ed42f00acd6eaf32684854ff13eebe4101b4f8e6acb3506c6f4e014b"
+      },
+      "elf": {
+        "file": "build/usb_submcu_external_meter_relay.elf",
+        "bytes": 1001024,
+        "sha256": "64c90ef2c2bb2b84f2ac2cc5691f8eb42794476b373ec5625fb48c5c7f712799"
+      },
+      "bin": {
+        "file": "build/usb_submcu_external_meter_relay.bin",
+        "bytes": 47168,
+        "sha256": "e949d8088eb1c3278271ad3348c8d1ac0a0256eaa51edcfa30a7662a60e0b7dd"
+      }
+    },
+    "candidate_tests": {
+      "host_mock_passed": 456,
+      "duration_seconds": 9.396,
+      "new_disconnect_tests": 3,
+      "firmware_build": "ARM Secure RP2350; Pico SDK 2.2.0; -Wall -Wextra -Werror; build only, not deployed"
+    },
     "host_uart": "GP0 TX / GP1 RX, 115200 8N1; X1 only, no plain diagnostic text",
     "usb": "GP12/13 PIO USB Host, CDC 9600/8N1 DTR/RTS; VID/PID 1334:0309",
     "automatic_instrument_commands": false,
@@ -554,7 +580,7 @@
     "response_limit": 192,
     "uart_frame_limit": 512,
     "hello_payload": "chipid|version|READY/NOT_READY/BUSY/FAULT",
-    "recovery": "Faults latch; no automatic retransmit or rebind; verified clean operator recovery required",
+    "recovery": "Candidate 20261121.1: idle unmount clears ready and remount reconfigures; request while not ready is definite LINK_NOT_READY; disconnect after USB TX starts latches ambiguous fault; no command auto-retry",
     "parent_source_enabled": false,
     "deployment_package": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Deployment_Package/manifest.json",
     "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md",
@@ -570,15 +596,20 @@
     "metadata": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/UF2_Info_Verified_Rev0.log",
     "hardware_tests_performed": false,
     "source_sha256": {
-      "src/external_instrument_link.py": "2e554efe0db0899472eb307a942a70815aacc50727b895055586d740e4f9399b",
+      "src/external_instrument_link.py": "18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2",
       "src/external_instrument_pio.py": "dbb3e54e81d38177bd04052dde8f0633d530bfc42a4b1abc13487afe1ef4010d",
-      "tests/test_external_instrument_link.py": "f4939f09b36f158dca9b8800ae2b6bf54b37ca13b5bfc3e5f4d648ccfcb896a0",
+      "tests/test_external_instrument_link.py": "422a0f2c89865236b73411e061102e56117f66e2eb24672312bf08e5bf881e94",
       "tests/test_external_instrument_pio.py": "f711ab4988c7189163a266bb9ba3024da548dfa1e1ca58519ad494992732b66b",
       "firmware/usb_submcu_external_meter_host/relay_host.c": "cbd79c5dca1269f63933045f2af7268e6f447474a928b154e488461d0e51aa34",
       "firmware/usb_submcu_external_meter_host/relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
       "firmware/usb_submcu_external_meter_host/relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
       "firmware/usb_submcu_external_meter_host/relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
       "firmware/usb_submcu_external_meter_host/relay_main.c": "2985583b055173480063d75e0546099c83dbacc76658715ccc49deb16f5d730b"
+    },
+    "candidate_source_sha256": {
+      "src/external_instrument_link.py": "38e9555997f14c576cfc64b53be1dbff77de57072b544beb969c41e75a334767",
+      "tests/test_external_instrument_link.py": "c029df4e5f099d70c8da17f553bc6bcfe4f8a60b780cb24b5f58612c524ab840",
+      "firmware/usb_submcu_external_meter_host/relay_host.c": "0963f70170fd4c9e4b8745cff03e6825c43f93df5787430b7e4b7cbd93b9a39f"
     },
     "deployment": {
       "date_jst": "2026-11-20",
@@ -806,24 +837,19 @@
     }
   },
   "current_deployment": {
-    "date_jst": "2026-11-20",
-    "version": "meter-host-relay-20261120.3",
-    "target_usb_serial": "BFCF2EDB84B0B37F",
-    "target_chipid": "0xbfcf2edb84b0b37f",
-    "uf2_sha256": "529f12081432aea98189c4aeb3cc7a96fa28deb13d49b7a2f175cc9c75336ab5",
-    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/Result_Rev0.md",
-    "backup_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/before_relay_v3_flash_2MB.bin",
-    "backup_sha256": "406bfa54e0391a53fc572db42f12e06e5e81482382da94c1295c88632766bd65",
+    "serial": "BFCF2EDB84B0B37F",
+    "before_flash_bytes": 2097152,
+    "before_flash_sha256": "a2fdc8874880b58220241a30306da9fb9490479aec648be3d89fb718fb0bdc22",
+    "backup_verified": true,
+    "candidate_sha256": "ebbb7f99e09524a7cd89cb5ac7fb44c70d1be931358b8141a2135c888410c847",
+    "candidate_version": "meter-host-relay-20261122.2",
     "flash_verified": true,
     "post_info_verified": true,
     "rebooted": false,
-    "runtime_accepted": false,
-    "normal_boot_observed": true,
-    "instrument_idn_verified": true,
-    "cdc_cumulative_query_verified": true,
-    "latest_verified_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md",
-    "direct_auto_measurement_verified": true,
-    "direct_fixed_input_measurement_comparison_completed": true
+    "runtime_verified": false,
+    "final_state": "BOOTSEL",
+    "record": "docs\\Parent_Host_Integration_20261122_01\\Timeout_Snapshot_Deployment_01\\manifest.json",
+    "runtime_accepted": false
   },
   "current_deployment_before_uart_sync_fix": {
     "date_jst": "2026-11-20",
@@ -864,5 +890,195 @@
     "startup_handshake_verified": true,
     "instrument_idn_verified": true,
     "latest_verified_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Host_IDN_10/Result_Rev0.md"
+  },
+  "current_deployment_before_integration_20261122": {
+    "date_jst": "2026-11-20",
+    "version": "meter-host-relay-20261120.3",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "uf2_sha256": "529f12081432aea98189c4aeb3cc7a96fa28deb13d49b7a2f175cc9c75336ab5",
+    "record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/Result_Rev0.md",
+    "backup_file": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Host_Deployment_03/before_relay_v3_flash_2MB.bin",
+    "backup_sha256": "406bfa54e0391a53fc572db42f12e06e5e81482382da94c1295c88632766bd65",
+    "flash_verified": true,
+    "post_info_verified": true,
+    "rebooted": false,
+    "runtime_accepted": false,
+    "normal_boot_observed": true,
+    "instrument_idn_verified": true,
+    "cdc_cumulative_query_verified": true,
+    "latest_verified_record": "docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md",
+    "direct_auto_measurement_verified": true,
+    "direct_fixed_input_measurement_comparison_completed": true
+  },
+  "transfer_guard_candidate": {
+    "date_jst": "2026-11-22",
+    "version": "meter-host-relay-20261122.1",
+    "target_serial": "BFCF2EDB84B0B37F",
+    "uf2": {
+      "file": "meter_host_relay_20261122_1.uf2",
+      "bytes": 94720,
+      "sha256": "6d2bc8071472e2d63c5f1a2f10931cfcccdd09b5903679064d8bf25292efaed3"
+    },
+    "sources": {
+      "relay_main.c": "58dd1f9e0c2d7e094a302078abffa09ed811f6417a609dfbdd96885653dbb536",
+      "relay_host.c": "0963f70170fd4c9e4b8745cff03e6825c43f93df5787430b7e4b7cbd93b9a39f",
+      "relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
+      "relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
+      "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+      "relay_cdc_guard.c": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097",
+      "relay_cdc_guard.h": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6",
+      "CMakeLists.txt": "65c13f4d3ae51f78d81c397ef7242a87dbbe8ff0721b8dd8e21697cfd2445e39",
+      "tusb_config.h": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d",
+      "newlib_malloc_lock.c": "751082b4939b4ff4db0d8fcdc942b31775f78eb2bc6e554b21de7ca41997288c"
+    },
+    "unit_mock": {
+      "count": 464,
+      "seconds": 14.708,
+      "result": "OK"
+    },
+    "arm_build": "success -Wall -Wextra -Werror",
+    "wrap_table": {
+      "table_address": "0x1000964c",
+      "callback_thumb_pointer": "0x10001b81",
+      "verified": true
+    },
+    "deployed": true,
+    "runtime_accepted": false,
+    "record": "docs/Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md"
+  },
+  "current_deployment_before_transfer_guard_20261122": {
+    "date_jst": "2026-11-22",
+    "version": "meter-host-relay-20261121.1",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "uf2_sha256": "2c7314b9ed42f00acd6eaf32684854ff13eebe4101b4f8e6acb3506c6f4e014b",
+    "record": "docs/Parent_Host_Integration_20261122_01/Result_Rev0.md",
+    "backup_file": "docs/Parent_Host_Integration_20261122_01/backup/host_flash_before.bin",
+    "backup_sha256": "5d429adf838c62d68c8e9f2182db553e5237cb0958da53b7220472d3ef342dbe",
+    "flash_verified": true,
+    "post_info_verified": true,
+    "rebooted": true,
+    "normal_boot_observed": true,
+    "instrument_idn_verified": true,
+    "idle_disconnect_reconnect_trials": 1,
+    "idle_disconnect_reconnect_successes": 1,
+    "reset_during_hotplug_trial": false,
+    "runtime_accepted": false,
+    "remaining_acceptance": [
+      "in-flight disconnect",
+      "late/stale responses",
+      "parent Cache INVALID integration",
+      "long-run and combined ATE/NF55G/SD load"
+    ],
+    "parent_source_sha256": "18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2",
+    "parent_main_sha256": "cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120",
+    "parent_scheduler_fix": {
+      "record": "docs/Parent_Host_Integration_20261122_01/Acceptance_Status_Rev1.md",
+      "unit_mock_tests": 461,
+      "unit_mock_result": "OK",
+      "hardware_file_and_reboot_sha_verified": true,
+      "hardware_coexistence_retest": "pending Host RST; do not restart parent",
+      "runtime_accepted": false
+    }
+  },
+  "timeout_snapshot_candidate": {
+    "version": "meter-host-relay-20261122.2",
+    "date_jst": "2026-11-22",
+    "target_serial": "BFCF2EDB84B0B37F",
+    "uf2": {
+      "file": "meter_host_relay_20261122_2.uf2",
+      "bytes": 95232,
+      "sha256": "ebbb7f99e09524a7cd89cb5ac7fb44c70d1be931358b8141a2135c888410c847"
+    },
+    "sources": {
+      "relay_main.c": "58dd1f9e0c2d7e094a302078abffa09ed811f6417a609dfbdd96885653dbb536",
+      "relay_host.c": "26138e31e8a860a8f8a2eb7e59973b149117760f876109bc3f6c5bb26ca41d35",
+      "relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
+      "relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
+      "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+      "relay_cdc_guard.c": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097",
+      "relay_cdc_guard.h": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6",
+      "CMakeLists.txt": "c43fed3d1171155d93f222e813ac760a8fdcb93ee0746a8bae89ef639387dd0b",
+      "tusb_config.h": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d",
+      "newlib_malloc_lock.c": "751082b4939b4ff4db0d8fcdc942b31775f78eb2bc6e554b21de7ca41997288c"
+    },
+    "unit_mock": {
+      "count": 465,
+      "seconds": 12.694,
+      "result": "OK"
+    },
+    "arm_build": "success -Wall -Wextra -Werror",
+    "wrap_table": {
+      "address": "0x1000968c",
+      "callback_pointer": "0x10001b9d",
+      "verified": true
+    },
+    "timeout_snapshot_format_in_elf": true,
+    "deployed": true,
+    "runtime_accepted": false,
+    "record": "docs/Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md"
+  },
+  "current_deployment_before_timeout_snapshot_20261122": {
+    "date_jst": "2026-11-22",
+    "version": "meter-host-relay-20261122.1",
+    "target_usb_serial": "BFCF2EDB84B0B37F",
+    "target_chipid": "0xbfcf2edb84b0b37f",
+    "uf2_sha256": "6d2bc8071472e2d63c5f1a2f10931cfcccdd09b5903679064d8bf25292efaed3",
+    "record": "docs/Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md",
+    "backup_file": "docs/Parent_Host_Integration_20261122_01/Transfer_Guard_Deployment_01/host_flash_before.bin",
+    "backup_sha256": "5d429adf838c62d68c8e9f2182db553e5237cb0958da53b7220472d3ef342dbe",
+    "flash_verified": true,
+    "post_info_verified": true,
+    "rebooted": false,
+    "runtime_accepted": false,
+    "final_observed_state": "No H reply in 120 probes after reported normal boot; awaiting operator RST; parent runtime kept without instrument requests",
+    "parent_main_sha256": "cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120",
+    "parent_source_sha256": "18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2",
+    "operator_wiring_restored_and_normal_boot_reported": true,
+    "runtime_hello_observed": false
+  },
+  "usb_lower_diagnostic_candidate": {
+    "version": "meter-host-relay-20261122.3",
+    "date_jst": "2026-11-22",
+    "target_serial": "BFCF2EDB84B0B37F",
+    "uf2": {
+      "file": "meter_host_relay_20261122_3.uf2",
+      "bytes": 96256,
+      "sha256": "7a817134cffdf124197c68d958cfe9b5a96a98dbe308c8d5dd5a63e121e98ef2"
+    },
+    "sources": {
+      "relay_main.c": "485717b7c3e4de7e995f9aaeaf1c1ea6454738184027dd24a25c3d8a0b039a3b",
+      "relay_host.c": "26138e31e8a860a8f8a2eb7e59973b149117760f876109bc3f6c5bb26ca41d35",
+      "relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
+      "relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
+      "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+      "relay_cdc_guard.c": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097",
+      "relay_cdc_guard.h": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6",
+      "relay_usb_diag.c": "55bc1ddcf54a4d82aa79b5850e42e76743045b864c9db9acfab4a229fd17cdec",
+      "relay_usb_diag.h": "beeacc794101d319368e2da06685d9b9c073a33af586232e092482103fc09d3a",
+      "CMakeLists.txt": "5b785a2a7c03bdd1887eb03426dd7bf5cd6774333ae442ecf368b8b9970ad23f",
+      "tusb_config.h": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d",
+      "newlib_malloc_lock.c": "751082b4939b4ff4db0d8fcdc942b31775f78eb2bc6e554b21de7ca41997288c"
+    },
+    "unit_mock": {
+      "count": 467,
+      "seconds": 19.094,
+      "result": "OK"
+    },
+    "arm_build": "success -Wall -Wextra -Werror",
+    "wrap_table": {
+      "address": "0x100098c4",
+      "callback_pointer": "0x10001d01",
+      "verified": true
+    },
+    "timeout_snapshot_format_in_elf": true,
+    "deployed": false,
+    "runtime_accepted": false,
+    "receiver_wrap": {
+      "address": "0x20000120",
+      "ram": true,
+      "bulk_in_call_verified": true
+    }
   }
 }

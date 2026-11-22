@@ -1,0 +1,14 @@
+{
+  "date_jst": "2026-11-22T15:44:46.376848+09:00",
+  "attempted": 1,
+  "completed": 0,
+  "failure": "RuntimeError(\"ATE response count/boundary: [b'']\")",
+  "duration_seconds": 4.672,
+  "max_ms": null,
+  "median_ms": null,
+  "host_frames": 0,
+  "monitor_errors": {},
+  "automatic_retry": false,
+  "nf55g_commands": 0,
+  "instrument_setting_commands": 0
+}

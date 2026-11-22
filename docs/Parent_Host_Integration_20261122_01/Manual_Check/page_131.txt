@@ -1,0 +1,49 @@
+7355 Digital Multimeter Operation Manual
+6.8.3 ADC Command Reference
+6-37
+System Instrument 
+information
+*IDN? Response: ADC Corp.,nnnn,xxxxxxxxx,yyyyy
+ADC Corp.: Manufacturer (9 characters)
+nnnn: Model name (4 characters) “7355”
+xxxxxxxxx: Serial number (9 characters)
+yyyyy: Firmware revision (5 characters)
+Option information *OPT? Query of option information
+Response: Without option “0”
+With option “GPIB I/F”, “RS232 I/F”, “COMP I/F”
+MAC address MACA? Query of MAC address
+Response: BC:42:B4:nn:nn:nn
+Measurement data 
+header
+H0 OFF
+H1 ON 
+H? Response: H0 or H1
+Block delimiter DL0 CRLF<EOI> 
+DL1 LF
+DL2 <EOI>
+DL? Response: DL0 to DL2
+Output format DFO0 ASCII 
+DFO1 Binary (64-bit floating pint) (Invalid for RS-232 and USBCDC)
+DFO? Response: DFO0 or DFO1
+Measurement data 
+output digits
+RDG0 5 1/2-digit output
+RDG1 6 1/2-digit output 
+RDG? Response: RDG0 or RDG1
+SRQ S0 ON 
+S1 OFF *Turns ON when the power is turned ON.
+S? Response: S0 or S1
+Event history EVR Resets the event history readout.
+(to allow reading from the oldest one)
+EVH? Reads the event history sequentially.
+(After 20 readings, the history is read again from the first 
+reading.)
+Response: ±ddd,"xxxxxxxxxx"
+Event character string 
+(up to 80 characters)
+Error code
+• Up to 20 error events are stored.
+• Events after the 21st event are overwritten starting with the 
+oldest event.
+• The stored contents of the event history cannot be deleted.
+Item Command Description Default

@@ -1,0 +1,9 @@
+{
+  "date_jst": "2026-11-22T16:06:50.574354+09:00",
+  "failure": "RuntimeError(\"SD/RTC/drop failure: [b'OK', b'OK:cmd=0,rsp=0', b'OK', b'OK', b'6']\"); cleanup: RuntimeError('final logger status')",
+  "bursts": 24,
+  "automatic_retry": false,
+  "setting_changes": 0,
+  "nf55g_read_only_d1_requested": true,
+  "sd_log_recording_requested": true
+}

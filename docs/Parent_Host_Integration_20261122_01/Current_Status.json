@@ -1,0 +1,20 @@
+{
+  "date_jst": "2026-11-22",
+  "parent_uid": "69f7d45962cfdfad",
+  "parent_nonce": "aebff8cd13a17ffe",
+  "host_serial": "BFCF2EDB84B0B37F",
+  "host_version_deployed": "meter-host-relay-20261122.2",
+  "host_last_nonce": "e47063decf50313f",
+  "external_fault": true,
+  "logger_active": false,
+  "drop": 0,
+  "queue": 0,
+  "nf_state": "IDLE",
+  "ports_released": true,
+  "candidate": "meter-host-relay-20261122.3",
+  "candidate_state": "unit/mock 467 pass; ARM/ELF/UF2 verified; not deployed; awaiting isolated BOOTSEL",
+  "latest_report": "USB_Lower_Diagnostic_Rev0.md",
+  "parent_running": false,
+  "parent_external_pio_active": false,
+  "parent_external_pins": "input; verified stopped before flash preparation"
+}

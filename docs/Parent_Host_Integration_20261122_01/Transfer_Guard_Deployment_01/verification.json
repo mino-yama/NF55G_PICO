@@ -1,0 +1,9 @@
+{
+  "candidate_sha_matches": true,
+  "full_flash_backup_sha_matches": true,
+  "candidate_sources_match_build_snapshot": true,
+  "unit_mock_tests": 464,
+  "arm_link": "OK",
+  "runtime_verified": false,
+  "current_state": "waiting operator wiring restoration; parent stopped, external pins input"
+}

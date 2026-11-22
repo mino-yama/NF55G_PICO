@@ -1,5 +1,12 @@
 # External instrument USB Host diagnostic firmware
 
+Candidate `meter-host-relay-20261122.3` observes lower USB bulk IN calls, NAK/PID and endpoint state after the receive function returns. All 467 Host/Mock tests and ARM/ELF/UF2 checks pass; it is not deployed. The actual .22.2 firmware reported RX0/TX-complete/response-incomplete on its first IDN request. Fault is held without retry. See [current diagnostic](../../docs/Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md).
+
+Version `meter-host-relay-20261122.2` records RX length, TX/response completion flags and the final four RX bytes on TIMEOUT. Its deployment and runtime result are recorded in [timeout diagnostic](../../docs/Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md).
+
+
+Diagnostic candidate `meter-host-relay-20261122.1` adds target CDC transfer-failure observation via linker wrap (`USB_RX_XFER` / `USB_TX_XFER`). All 464 Host/Mock tests and the ARM build pass; the ELF CDC table references the wrapper. It has been flashed and verified on BFCF2EDB84B0B37F after a full flash backup; normal wiring/power restoration and runtime acceptance are pending. The observed READ timeout cause remains unconfirmed. See [diagnostic record](../../docs/Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md).
+
 This is a separate RP2350-USB-A project for CDC ACM Host evaluation. It does not modify or replace the QR Host firmware.
 
 The IDN diagnostic firmware is limited to:
@@ -31,6 +38,14 @@ Host Unit/Mock regression: 382 tests passed, including 7 new tests of the actual
 
 ## Explicit-command UART relay profile (2026-11-20)
 
-The independent `usb_submcu_external_meter_relay.uf2` target, version `meter-host-relay-20261120.1`, implements X1 on GP0 TX / GP1 RX at 115200/8N1. It performs CDC connection setup but sends no automatic IDN, range, or measurement commands. All instrument command bytes originate from explicit parent requests. X1 framing, CRC-32, boot session, request correlation and bounded queues are separate from the previous diagnostic/voltage-test targets. Plain diagnostic output is disabled on the relay UART.
+The independent `usb_submcu_external_meter_relay.uf2` target, initially deployed as `meter-host-relay-20261120.1` and currently prepared as candidate `meter-host-relay-20261121.1`, implements X1 on GP0 TX / GP1 RX at 115200/8N1. It performs CDC connection setup but sends no automatic IDN, range, or measurement commands. All instrument command bytes originate from explicit parent requests. X1 framing, CRC-32, boot session, request correlation and bounded queues are separate from the previous diagnostic/voltage-test targets. Plain diagnostic output is disabled on the relay UART.
 
-The parent ATE entry supports `EXT_QUERY <timeout_ms> <body>` and `EXT_SEND <timeout_ms> <body>` asynchronously. Source configuration remains disabled until hardware preparation. A separate staged package enables it for HIL. Parent/Host startup identity and fail-stop recovery are documented in the [link implementation record](../../docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md). This firmware is built, not deployed or physically accepted. The existing voltage-test .5 and QR firmware are preserved.
+The parent ATE entry supports `EXT_QUERY <timeout_ms> <body>` and `EXT_SEND <timeout_ms> <body>` asynchronously. Source configuration remains disabled until hardware preparation. A separate staged package enables it for HIL. Parent/Host startup identity and fail-stop recovery are documented in the [link implementation record](../../docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Result_Rev0.md). The production Hotplug remediation candidate is `meter-host-relay-20261121.1`:
+
+- An idle CDC unmount clears the device-ready state without latching Host FAULT. After remount, line coding and DTR/RTS setup run again; the existing Host/parent session and monotonically increasing request sequence remain in use.
+- A query received while CDC is not ready is rejected as `LINK_NOT_READY|0` before it is sent to the instrument. The parent reports `ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0` and may accept a later explicit request after reconnect.
+- An idle CDC unmount leaves the Host unready without faulting the existing session; after remount, line coding and DTR/RTS setup run again. A new explicit query can then proceed on that session.
+- A query received while CDC is not ready is rejected as `LINK_NOT_READY|0` before it is sent to the instrument. The parent reports `ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0` and may accept a later explicit request after reconnect.
+- A disconnect after USB transmission has started remains ambiguous and fail-closed. Host FAULT is retained and the command is never retried. Proving that delayed instrument responses cannot be mistaken for a new response, including repeated hot-plug and loaded operation, remains open acceptance work.
+
+The candidate is built, not deployed or physically accepted. Host/Mock regression passed 456 tests, including idle-remount, request-while-disconnected, and in-flight disconnect cases. This does not replace USB hardware acceptance. The existing voltage-test .5 and QR firmware are preserved.

@@ -1,0 +1,13 @@
+{
+  "serial": "BFCF2EDB84B0B37F",
+  "before_flash_bytes": 2097152,
+  "before_flash_sha256": "5d429adf838c62d68c8e9f2182db553e5237cb0958da53b7220472d3ef342dbe",
+  "backup_verified": true,
+  "candidate_sha256": "6d2bc8071472e2d63c5f1a2f10931cfcccdd09b5903679064d8bf25292efaed3",
+  "candidate_version": "meter-host-relay-20261122.1",
+  "flash_verified": true,
+  "post_info_verified": true,
+  "rebooted": false,
+  "runtime_verified": false,
+  "final_state": "BOOTSEL"
+}

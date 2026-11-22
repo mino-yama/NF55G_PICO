@@ -1,0 +1,6 @@
+
+firmware/usb_submcu_external_meter_host/build/usb_submcu_external_meter_relay.elf:     file format elf32-littlearm
+
+Contents of section .rodata:
+ 1000964c 00000000 696a0010 c96a0010 e56b0010  ....ij...j...k..
+ 1000965c 256d0010 811b0010 e56a0010           %m.......j..    

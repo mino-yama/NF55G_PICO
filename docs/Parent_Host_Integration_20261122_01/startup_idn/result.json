@@ -1,0 +1,18 @@
+{
+  "phase": "startup_idn",
+  "date_jst": "2026-11-22T15:33:40.971533+09:00",
+  "command": "EXT_QUERY 2000 *IDN?\r",
+  "reply": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r",
+  "pre_bytes": {
+    "parent": 130,
+    "host": 0,
+    "ate": 0
+  },
+  "bytes": {
+    "parent": 130,
+    "host": 464,
+    "ate": 78
+  },
+  "query_count": 1,
+  "automatic_retry": false
+}

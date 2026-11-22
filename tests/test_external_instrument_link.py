@@ -18,6 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'firmware/usb_submcu_external_meter_host'
 
 WRAPPER = r'''#include "relay_host.h"
+#include "relay_cdc_guard.h"
+#include "relay_usb_diag.h"
+#include "tusb.h"
 #include <string.h>
 #ifdef _WIN32
 #define API __declspec(dllexport)
@@ -29,6 +32,18 @@ typedef struct {
     unsigned char output[8][X1_FRAME_MAX];
     size_t lengths[8], head, tail, count;
 } test_t;
+static unsigned int real_cdc_calls;
+bool __real_cdch_xfer_cb(uint8_t address, uint8_t endpoint, xfer_result_t result, uint32_t count) {
+    (void)address; (void)endpoint; (void)result; (void)count;
+    real_cdc_calls++;
+    return true;
+}
+bool __wrap_cdch_xfer_cb(uint8_t, uint8_t, xfer_result_t, uint32_t);
+API int test_cdc_xfer(unsigned int address, unsigned int endpoint, unsigned int result) {
+    return __wrap_cdch_xfer_cb((uint8_t)address, (uint8_t)endpoint, (xfer_result_t)result, 0);
+}
+API unsigned int test_cdc_real_calls(void) { return real_cdc_calls; }
+API void test_cdc_unbind(void) { relay_cdc_guard_bind(NULL, 0); }
 static bool emit(void *context, const x1_frame_t *frame) {
     test_t *test = (test_t *)context;
     if (test->count == 8) return false;
@@ -43,7 +58,9 @@ API size_t test_chunk(size_t remaining) { return relay_usb_chunk_size(remaining)
 API size_t test_size(void) { return sizeof(test_t); }
 API void test_init(test_t *test, const unsigned char *nonce) {
     memset(test,0,sizeof(*test));
-    relay_host_init(&test->host, nonce, "BFCF2EDB84B0B37F", "meter-host-relay-20261120.1", emit, test);
+    relay_host_init(&test->host, nonce, "BFCF2EDB84B0B37F", "meter-host-relay-20261121.1", emit, test);
+    relay_cdc_guard_bind(&test->host, 3);
+    real_cdc_calls = 0;
 }
 API void test_ready(test_t *test, int ready) { relay_host_device_ready(&test->host, ready != 0); }
 API void test_uart(test_t *test, const unsigned char *bytes, size_t size, unsigned int now) {
@@ -72,6 +89,13 @@ API size_t test_pop(test_t *test, unsigned char *out) {
 API size_t test_recode(const unsigned char *bytes, size_t size, unsigned char *out) {
     x1_frame_t frame;
     return x1_decode(bytes,size,&frame) ? x1_encode(&frame,out,X1_FRAME_MAX) : 0;
+}
+API size_t test_usb_diag(const unsigned char *bytes, size_t size, unsigned char *out) {
+    x1_frame_t frame;
+    if (!x1_decode(bytes,size,&frame)) return 0;
+    relay_usb_snapshot_t snapshot = {2000,1998,2,0x80,0xD2,0x81,1,0,0,64};
+    relay_usb_diag_decorate(&frame, &snapshot);
+    return x1_encode(&frame,out,X1_FRAME_MAX);
 }
 '''
 
@@ -138,9 +162,14 @@ class NativeRelayLinkTests(unittest.TestCase):
         folder = Path(cls.temp.name)
         wrapper = folder / 'wrapper.c'
         wrapper.write_text(WRAPPER, encoding='ascii')
+        # guard自体は実Cを検証し、SDK型だけをnative ABI用に最小stub化する。
+        (folder / 'tusb.h').write_text(
+            '#include <stdbool.h>\n#include <stdint.h>\n#include <stddef.h>\n'
+            'typedef enum { XFER_RESULT_SUCCESS=0, XFER_RESULT_FAILED=1, '
+            'XFER_RESULT_STALLED=2, XFER_RESULT_TIMEOUT=3 } xfer_result_t;\n', encoding='ascii')
         library = folder / ('relay.dll' if os.name == 'nt' else 'relay.so')
-        args = [compiler, '-shared', '-I', str(SOURCE), str(SOURCE/'relay_host.c'),
-                str(SOURCE/'relay_wire.c'), str(wrapper), '-o', str(library)]
+        args = [compiler, '-shared', '-I', str(folder), '-I', str(SOURCE), str(SOURCE/'relay_host.c'),
+                str(SOURCE/'relay_wire.c'), str(SOURCE/'relay_cdc_guard.c'), str(SOURCE/'relay_usb_diag.c'), str(wrapper), '-o', str(library)]
         if os.name != 'nt':
             args.insert(2, '-fPIC')
         subprocess.run(args, check=True, capture_output=True, text=True)
@@ -161,6 +190,11 @@ class NativeRelayLinkTests(unittest.TestCase):
             getattr(cls.lib, name).restype = ctypes.c_size_t
         cls.lib.test_recode.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p]
         cls.lib.test_recode.restype = ctypes.c_size_t
+        cls.lib.test_usb_diag.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_void_p]
+        cls.lib.test_usb_diag.restype = ctypes.c_size_t
+        cls.lib.test_cdc_xfer.argtypes = [ctypes.c_uint, ctypes.c_uint, ctypes.c_uint]
+        cls.lib.test_cdc_xfer.restype = ctypes.c_int
+        cls.lib.test_cdc_real_calls.restype = ctypes.c_uint
 
     @classmethod
     def tearDownClass(cls):
@@ -279,13 +313,209 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.lib.test_ready(self.transport.memory, 0)
         self.assertEqual(self.request(), 'ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0')
         self.assertEqual(self.transport.commands, [])
+        self.assertIsNone(self.link.session)
         self.lib.test_ready(self.transport.memory, 1)
+        self.transport.responses = [b'ADC Corp.,7355,246410099,  A02\r\n']
         self.assertTrue(self.request().startswith('OK:EXT_RX:32:'))
+        self.assertIsNotNone(self.link.session)
+
+    def test_idle_disconnect_and_remount_reuse_link_without_reset(self):
+        self.assertTrue(self.request().startswith('OK:EXT_RX:32:'))
+        old_session = self.link.session
+        self.lib.test_ready(self.transport.memory, 0)
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+        self.lib.test_ready(self.transport.memory, 1)
+        self.transport.responses = [b'ADC Corp.,7355,246410099,  A02\r\n']
+
+        reply = self.request()
+
+        self.assertTrue(reply.startswith('OK:EXT_RX:32:'))
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+        self.assertIsNotNone(self.link.session)
+        self.assertEqual(self.link.session, old_session)
+        self.assertIsNotNone(self.link.host_info)
+        self.assertTrue(self.link.core.ready)
+        self.assertEqual(self.transport.commands, [b'*IDN?\r\n', b'*IDN?\r\n'])
+
+    def test_query_while_usb_disconnected_is_definite_and_recovers_after_remount(self):
+        self.assertTrue(self.request().startswith('OK:EXT_RX:32:'))
+        self.lib.test_ready(self.transport.memory, 0)
+
+        reply = self.request()
+
+        self.assertEqual(reply, 'ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0')
+        self.assertFalse(self.link.fault)
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+        self.assertEqual(self.transport.commands, [b'*IDN?\r\n'])
+
+        self.lib.test_ready(self.transport.memory, 1)
+        self.transport.responses = [b'ADC Corp.,7355,246410099,  A02\r\n']
+        reply = self.request()
+
+        self.assertTrue(reply.startswith('OK:EXT_RX:32:'))
+        self.assertEqual(self.transport.commands, [b'*IDN?\r\n', b'*IDN?\r\n'])
+
+    def test_active_disconnect_latches_ambiguous_fault_without_retry(self):
+        self.transport.auto_device = False
+        self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+        for _ in range(10):
+            self.link.poll()
+            if self.lib.test_pending(self.transport.memory):
+                break
+            self.clock.sleep_ms(1)
+        self.assertTrue(self.lib.test_pending(self.transport.memory))
+
+        self.lib.test_start(self.transport.memory)
+        self.lib.test_ready(self.transport.memory, 0)
+        self.transport.drain()
+        for _ in range(10):
+            self.link.poll()
+            reply = self.link.take_reply()
+            if reply is not None:
+                break
+            self.clock.sleep_ms(1)
+
+        self.assertEqual(reply, 'ERR:EXT_DISCONNECTED:AMBIGUOUS=1')
+        self.assertTrue(self.lib.test_fault(self.transport.memory))
+        self.assertEqual(self.transport.commands, [])
+        with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+            self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
 
     def test_conf_200v_is_transferred_without_range_gate(self):
         self.transport.responses = [b'"VOLT +1.999999E+02,+1.000000E-05"\r\n']
         reply = self.request(b'EXT_QUERY 2000 :CONF?')
         self.assertEqual(bytes.fromhex(reply.split(':')[-1]), b'"VOLT +1.999999E+02,+1.000000E-05"\r\n')
+
+    def test_cdc_guard_delegates_success_and_other_device_errors(self):
+        self.assertEqual(self.lib.test_cdc_xfer(3, 0x81, 0), 1)
+        self.assertEqual(self.lib.test_cdc_xfer(4, 0x81, 1), 1)
+        self.assertEqual(self.lib.test_cdc_real_calls(), 2)
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+
+    def test_cdc_guard_ignores_unmounted_device_error(self):
+        self.lib.test_cdc_unbind()
+        self.assertEqual(self.lib.test_cdc_xfer(3, 0x81, 2), 1)
+        self.assertEqual(self.lib.test_cdc_real_calls(), 1)
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+
+    def test_cdc_guard_reports_transfer_error_without_retry(self):
+        for endpoint, started, expected in ((0x81, False, 'USB_RX_XFER:AMBIGUOUS=0'),
+                                           (0x81, True, 'USB_RX_XFER:AMBIGUOUS=1'),
+                                           (0x02, True, 'USB_TX_XFER:AMBIGUOUS=1')):
+            with self.subTest(endpoint=endpoint, started=started):
+                self.setUp()
+                self.transport.auto_device = False
+                self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+                for _ in range(20):
+                    self.link.poll()
+                if started:
+                    self.lib.test_start(self.transport.memory)
+                self.assertEqual(self.lib.test_cdc_xfer(3, endpoint, 1), 0)
+                for _ in range(20):
+                    self.link.poll()
+                self.assertEqual(self.link.take_reply(), 'ERR:EXT_' + expected)
+                self.assertEqual(self.lib.test_cdc_real_calls(), 0)
+                self.assertTrue(self.lib.test_fault(self.transport.memory))
+                self.assertTrue(self.link.fault)
+                with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+                    self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+
+    def test_host_timeout_snapshot_distinguishes_no_partial_and_completed_rx(self):
+        cases = ((b'', True, 'TIMEOUT_RX0_T1_C0_XNONE'),
+                 (b'12', True, 'TIMEOUT_RX2_T1_C0_X3132'),
+                 (b'123456\r', True, 'TIMEOUT_RX7_T1_C0_X3435360D'),
+                 (b'1\r\n', False, 'TIMEOUT_RX3_T0_C1_X310D0A'))
+        for raw, tx_done, reason in cases:
+            with self.subTest(raw=raw, tx_done=tx_done):
+                self.setUp()
+                self.transport.auto_device = False
+                self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+                for _ in range(20):
+                    self.link.poll()
+                self.lib.test_start(self.transport.memory)
+                if tx_done:
+                    self.lib.test_done(self.transport.memory)
+                if raw:
+                    self.lib.test_rx(self.transport.memory, raw, len(raw), 0)
+                self.lib.test_poll(self.transport.memory, 2100)
+                for _ in range(20):
+                    self.link.poll()
+                self.assertEqual(self.link.take_reply(), 'ERR:EXT_' + reason + ':AMBIGUOUS=1')
+                self.assertTrue(self.link.fault)
+                self.assertTrue(self.lib.test_fault(self.transport.memory))
+
+    def test_usb_timeout_diagnostic_preserves_identity_and_ambiguous_flag(self):
+        raw = encode_frame(b'PARENTNCHOSTNONC', 7, 'E', 1, 2000, b'TIMEOUT_RX0_T1_C0_XNONE|1')
+        out = ctypes.create_string_buffer(512)
+        size = self.lib.test_usb_diag(raw, len(raw), out)
+        frame = decode_frame(out.raw[:size])
+        original = decode_frame(raw)
+        for name in ('session', 'request', 'kind', 'mode', 'timeout_ms'):
+            self.assertEqual(frame[name], original[name])
+        self.assertEqual(frame['payload'], b'TIMEOUT_RX0_T1_C0_XNONE_I2000_N1998_D2_S80_PD2_EP81_H1_K0_L0/64|1')
+
+    def test_usb_diagnostic_leaves_normal_other_error_and_full_payload_unchanged(self):
+        for kind, payload in (('R', b'TIMEOUT_RX0_T1_C0_XNONE|1'),
+                              ('E', b'USB_RX_XFER|1'), ('E', b'TIMEOUT_X|0'),
+                              ('E', b'TIMEOUT_' + b'A' * 182 + b'|1')):
+            with self.subTest(kind=kind, payload=payload):
+                raw = encode_frame(b'PARENTNCHOSTNONC', 7, kind, 1, 2000, payload)
+                out = ctypes.create_string_buffer(512)
+                size = self.lib.test_usb_diag(raw, len(raw), out)
+                self.assertEqual(out.raw[:size], raw)
+
+    def test_thousand_native_exchanges_preserve_variable_response_boundaries(self):
+        # 最小/最大応答とFIFO累積量を跨ぎ、前要求の末尾を次へ混ぜない。
+        session = None
+        for index in range(1000):
+            length = (index % 190) + 1
+            raw = bytes([65 + index % 26]) * length + b'\r\n'
+            self.transport.responses = [raw]
+            reply = self.request()
+            self.assertEqual(bytes.fromhex(reply.split(':')[-1]), raw)
+            session = session or self.link.session
+            self.assertEqual(self.link.session, session)
+            self.assertFalse(self.link.fault)
+            self.assertFalse(self.link.busy)
+            self.assertFalse(self.lib.test_pending(self.transport.memory))
+        self.assertEqual(len(self.transport.commands), 1000)
+        self.assertEqual(self.link.core._sequence, 1000)
+
+    def test_partial_response_disconnect_cannot_revive_after_remount_or_late_data(self):
+        self.transport.auto_device = False
+        self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+        for _ in range(20):
+            self.link.poll()
+        self.lib.test_start(self.transport.memory)
+        self.lib.test_done(self.transport.memory)
+        self.lib.test_rx(self.transport.memory, b'OLD', 3, self.clock.ticks_ms())
+        self.lib.test_ready(self.transport.memory, 0)
+        for _ in range(20):
+            self.link.poll()
+        self.assertEqual(self.link.take_reply(), 'ERR:EXT_DISCONNECTED:AMBIGUOUS=1')
+        self.lib.test_ready(self.transport.memory, 1)
+        self.lib.test_rx(self.transport.memory, b'\r\n', 2, self.clock.ticks_ms())
+        self.lib.test_done(self.transport.memory)
+        with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+            self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+        self.assertTrue(self.lib.test_fault(self.transport.memory))
+        self.assertIsNone(self.link.take_reply())
+
+    def test_fixture_rejects_bad_ate_lines_then_accepts_one_normal_request_each(self):
+        app, ate, nf = self.app()
+        bad_lines = (b'EXT_QUERY 0 *IDN?', b'EXT_QUERY 2000 \x03*IDN?',
+                     b'EXT_QUERY 2000 \xff', b'X' * 513)
+        for index, bad in enumerate(bad_lines):
+            self.transport.responses = [b'GOOD\r\n']
+            ate.enqueue_rx(bad + b'\rEXT_QUERY 2000 *IDN?\r')
+            self.run_app(app, 150)
+            self.assertEqual(len(self.transport.commands), index + 1)
+        replies = b''.join(ate.tx_log).split(b'\r')[:-1]
+        self.assertEqual(len(replies), len(bad_lines) * 2)
+        for index in range(0, len(replies), 2):
+            self.assertTrue(replies[index].startswith(b'ERR:'))
+            self.assertEqual(replies[index + 1], b'OK:EXT_RX:6:474F4F440D0A')
+        self.assertEqual(nf.tx_log, [])
 
     def test_query_timeout_latches_and_never_retries(self):
         self.transport.responses = []
@@ -401,6 +631,57 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.assertTrue(replies[0].startswith(b'OK:EXT_RX:32:'))
         self.assertEqual(len(replies), 3)
         self.assertEqual(nf.tx_log, [])
+
+    def test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies(self):
+        from src.logger import Logger, MemorySDSink
+        from src.mock_nf55g import MockNF55GScenario, ScenarioStep
+        outer = self
+        class GuardedSink(MemorySDSink):
+            def write_record(self, row):
+                outer.assertFalse(app._comm_busy())
+                outer.assertFalse(app.server.has_work())
+                super().write_record(row)
+            def flush(self):
+                outer.assertFalse(app._comm_busy())
+                outer.assertFalse(app.server.has_work())
+                super().flush()
+        sink = GuardedSink()
+        nf = MockUART(clock=self.clock, scenario=MockNF55GScenario([
+            ScenarioStep.ack_response('D1', '0' * 15) for _ in range(50)]))
+        ate = MockUART(clock=self.clock)
+        logger = Logger(sd_sink=sink, clock=self.clock, queue_limit=64)
+        app = FixtureApp(ate_uart=ate, nf55_uart=nf, clock=self.clock,
+                         logger=logger, external_link=self.link)
+        self.assertEqual(app.execute_ate_line('LOG_CONT_START'), 'OK')
+        for _ in range(50):
+            self.transport.responses = [b'1\r\n']
+            before = b''.join(ate.tx_log).count(b'\r')
+            ate.enqueue_rx(b'EXT_QUERY 2000 :READ?\rSTATUS_REFRESH\rRETRY_COUNT?\rSD_STATUS?\rCOMM_STATUS?\r')
+            for _ in range(1000):
+                app.service_once()
+                if b''.join(ate.tx_log).count(b'\r') == before + 5:
+                    break
+                self.clock.sleep_ms(1)
+            else:
+                self.fail('burst did not finish')
+            # 最終応答が返ったらidle巡回を挟まず次burstを投入する実機条件。
+        self.assertEqual(logger.drop_count, 0)
+        self.assertGreater(sink.write_count, 0)
+        self.assertEqual(nf.scenario.handled_command_count, 50)
+
+    def test_pending_ate_request_keeps_priority_over_due_sd_write(self):
+        from src.logger import Logger, MemorySDSink
+        sink = MemorySDSink()
+        logger = Logger(sd_sink=sink, clock=self.clock, flush_record_count=1)
+        ate = MockUART(clock=self.clock)
+        app = FixtureApp(ate_uart=ate, clock=self.clock, logger=logger)
+        self.assertEqual(app.execute_ate_line('LOG_CONT_START'), 'OK')
+        ate.enqueue_rx(b'COMM_STATUS?\rCOMM_STATUS?\r')
+        app.service_once()
+        self.assertEqual(sink.write_count, 0)
+        self.assertEqual(len(app.server.pending), 1)
+        app.service_once()
+        self.assertGreater(sink.write_count, 0)
 
     def test_fixture_send_preserves_trailing_spaces_and_does_not_add_query(self):
         app, ate, nf = self.app()

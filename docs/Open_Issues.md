@@ -1,5 +1,45 @@
 # Open Issues
 
+2026-11-22 23日作業計画: 既存改善/診断と通常RSTの重複箇所を照合。今回の文書調査でコード変更なし、固定.22.3 UF2/全12ソースhash一致。将来RST実装はmain/engine/親link等を共有するため別版で統合・回帰検証する。23日は測定器HOST RST実装、USB IN診断、山田のQR取付け後単独確認、成立後の共存試験を計画。ハードは山田担当、BOOTSEL実装日/AD-AR/WDTは別途。[項目・手順・開発案件](Debug_Development_Plan_20261123_Rev0.md)。
+
+2026-11-22 USB bulk INソース追跡（原因未確定・Open継続）: 固定SDK/vendorの受信投入→PIO IN→完了event→CDC FIFO→engineを確認。NAK継続/PID不一致は失敗eventなしで待機、FIFO空で受信投入失敗時はappに再投入契機なし、完了event未到達と期限前FIFO未回収でもengine RX0となり得る経路を整理。実発生の証明ではなく、.22.3の計数と追加観測で切分けが必要。コード/原典/FW/実機変更・試験実行なし。[調査Rev.0](Parent_Host_Integration_20261122_01/USB_Bulk_IN_Source_Trace_20261122_Rev0.md)。
+
+2026-11-22 USB-HOST-RESET-01 分担・予定更新（Open継続）: 給電維持・信号切断・外部操作のハードは山田が検討。コマンドによるHOST通常RSTは2026-11-23に実装予定。ハード検討を通常RST実装の開始条件にせず、BOOTSEL実装日は未指定。今回は記録のみ、コード/Flash/実機操作なし。[分担・予定](USB_Host_Reset_Study_20261121/Development_Reset_Task_Decision_20261122_Rev0.md)。
+
+2026-11-22 USB-HOST-RESET-01 開発用コマンド検討（Open継続）: ユーザー指定によりRST/BOOT外部端子操作なし・HOSTがハングしない前提で、既存UART経由のINFO/通常RESET/BOOTSELを検討。まず双方向UART実装済みの測定器HOSTを対象とし、FAULT中も使える管理入口、対象/boot世代照合、通常再起動後の親リンク再確立を提案。BOOTSEL中はUART受付不可で、外部給電OFF→PC給電へ切替えるとモードを失うため、給電維持PCデータ接続は回路/実機確認事項。QR RX実配線、wire/応答/期限は未確定。常時WDT/自動復旧は今回の範囲外。コード/Flash/実機操作なし。[開発用提案Rev.0](USB_Host_Reset_Study_20261121/Development_Reset_Bootsel_Command_Proposal_20261122_Rev0.md)。
+
+2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。
+
+
+2026-11-22 CDC期限比較: .22.1で50回共存成功（CSV853行/D1 50件/drop0/SHA一致）。500回の2秒期限試験は116成功後117回目TIMEOUT、10秒期限試験も72成功後73回目TIMEOUT。両条件でD1 Retry0・SD/RTC OK・drop0、USB_RX_XFER/TX_XFER通知なし。DMMは連続OFF/IMM/trigger1/sample1/delay0/DCV/error0を読取り確認済み。TIMEOUT受信長/TX完成/応答完成/末尾を記録する候補.22.2を準備、全465回帰成功、ARM build進行中・未配置。[最新診断](Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md)。
+
+2026-11-22 AD個別照合要求（Open）: 対象とPoint 1/2を明示し、同一試行の直前正常書込み値をAR読戻し値と照合、結果と両値を試験ログに残す。ATEへの指定応答は`OK:AD_VERIFY`、`ERR:AD_VERIFY_MISMATCH`、`ERR:AD_VERIFY_TIMEOUT`。電源再投入後の保持は別検証。現行正本のAD書込み・AR読出しATE入口は未実装。レビュー対象S1.13/S1.15_r1のARはfloat型pointを整数変換してREF8を出力し小数部分を失うため、全値の一致を保証できない。正式AR形式・小数を保持する読戻し手段・使用製品FW、AD/ARの正式通信契約とAR T2、未書込み/対象不一致/通信異常時の応答を設計確認する。OI-04/12/16/18/19/20/21はCloseしない。[詳細](ADC_Calibration_Development_20261119.md)。
+
+2026-11-22 Scheduler修正後の実機共存再試験: 新Host nonce11F71FF28CE2AC1D/READYとIDN照合成功、親は再起動せず再開。29回目READでHost A/T→E=TIMEOUT|1となり停止（2秒の明示期限、Rなし）。D1はRetry0、SD/RTC OK、終了後もログdrop0/Queue0。親PIOエラーなし、X1 frame decode error0。SD排出飢餓とは別の未確定事象として記録し自動再送しない。CDC transfer失敗をTIMEOUTと区別する候補.22.1を準備、全464回帰・ARM/link・UF2/ELF照合成功、対象Hostへ退避/verify配置済み（通常配線復元・実機検証待ち）。 [記録](Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md)。
+
+## USB-CDC-SD-01: 連続ATE burst時のLogger排出飢餓（Open、2026-11-22）
+
+2026-11-22 CDC/NF55G/SD共存修正: 実機でREAD+D1+ローカル照会の連続burst時にSDログdrop（21回目6件、終了後8件）を検出。最終ATE応答後の無条件returnにより次巡回までSDを延期し、次burstが先着するとLoggerが飢餓になる経路を回帰試験で再現（修正前drop688）。最終応答送出後は同じ巡回の既存has_work/通信busy判定へ進め、ATE待ち/未送出/受信中は優先、NF55G/外部通信中のSD禁止は維持。追加2件を含むHost Unit/Mock全461件成功（9.859秒）。修正版の実機配置・共存再試験を進行中。[受入記録](Parent_Host_Integration_20261122_01/Acceptance_Status_Rev1.md)。
+実機同条件でdrop 0を再確認し、同期SD I/OによるATE応答時間の許容上限・長期/複合負荷の受入を残す。Codex判断でCloseしない。
+
+2026-11-22 CDC受入継続: 可変長応答1000回・途中応答切断/遅着拒否・不正/正常ATE交互の回帰3件を追加、Host Unit/Mock全459件成功（17.130秒）。実機は親PIO停止を確認して接続解除/起動を実施したが、Host hがFAULTかつ旧boot nonceのままで起動成立未確認。RESET対象を確認するまで追加要求を停止。実機反復・送信中切断・旧応答境界等は未完了、Issue Open。[受入状況](Parent_Host_Integration_20261122_01/Acceptance_Status_Rev0.md)。
+
+2026-11-22 引継ぎ実行: 親69f7d45962cfdfadの旧9848 byteを実機hash照合し、親全Flash 4 MB/Host全Flash 2 MBを退避・verify。親candidate 10012 byteを配置・再起動後SHA照合、Host BFCF2EDB84B0B37Fへ`.21.1`をload -vし通常起動。初回IDN成功後、idle USB-B抜線中は`LINK_NOT_READY|0`で拒否し、再接続後はRESETせず同じHost起動sessionでREADY/IDN成功（1回）。Host/Mock全456件成功。送信中切断・旧応答排除・Cache INVALID連携・長期/複合負荷は未受入、Issue Open継続。[実行結果](Parent_Host_Integration_20261122_01/Result_Rev0.md)。以下の未配置記述は各記録時点の履歴。
+
+## USB-RELAY-HOTPLUG-01: 量産時の7355 USB-B接続/切断復帰（Open、2026-11-21）
+
+ユーザー要件: 量産ではUSB-Bの接続/切断を操作者が安定して行える保証がないため、CDCデバッグ完了後にFWを修正し、接続/切断後の復帰を手動RESETに依存させない。機器本体へのRESET/SCPI初期化は対象外。WDT/親RESETの方式も本Issueで先行確定しない。
+
+現行確認: 新規起動からの「7355最後に電源ON」は3/3回READY/IDN成功。「7355 ON後にHost/親起動、その後USB-B接続」は1/1回READY/IDN/READ成功。通信後のunmountはfault latch原因。candidate `.21.1`はidle disconnect後に同一sessionでremount/CDC再設定、切断中要求は`LINK_NOT_READY|0`で未送信拒否、送信開始後disconnectは`DISCONNECTED|1`でfault保持とした。Host/Mock 456件、全3 firmware targetのARM build/link、UF2 metadata確認済み。candidateはbuild/manifest記録済みだが対象Hostへ未配置。切断後Cache INVALIDの親連携、実機応答freshness/遅延データ、反復/負荷受入は未確認。根拠とrawは[実機比較記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
+残実装・受入要件: candidate `.21.1`を対象Hostへ安全に配置し、電源/USB-B hotplug実機でidle disconnect、CDC再列挙と9600/8N1・DTR/RTS再設定、要求前切断、送信中切断、遅延/残留応答、連続抜差し、7355電源断/投入を検証する。送信開始後の切断では親側の関連取得CacheをINVALIDにする統合確認が残り、自動再送は禁止。旧7355応答を新要求に採用しない境界を確認できない場合はRECOVERY_REQUIRED等で停止する。READ再開条件はREADY/新IDN・必要状態照合とする。ATE順序、他Host/NF55G/SD Timingと復帰不能時のATE通知も受入対象。実機合格・長期/複合負荷前のためIssue Open。
+
+初期FW対策はcandidate `.21.1`として実装・Host/Mock・ARM build済み、対象個体へ未配置。切断中/切断直後の測定を許可せず、Flash退避/配置後に実機で復帰境界を確認する。本IssueはOpen。
+
+2026-11-21 USB-HOST-RESET-01 目的訂正（Open継続）: ユーザーは7355/QR本体のRESETを求めておらず、通信経路上の問題とHostマイコンのキャッシュ/通信保持状態のリセットが目的と明示。状態クリアとHost再起動/WDTを分けて比較する案へ訂正。機器向けRESET/SCPI初期化は本件に含めない。方式/クリア範囲/転送停止/世代境界等は未確定。[現行Rev.2](USB_Host_Reset_Study_20261121/Host_Communication_State_Reset_Rev2.md)。コード/Flash/実機操作なし。
+
+2026-11-21 USB-HOST-RESET-01 要件具体化（Open継続）: 量産でボタン操作は困難、構造上RUN配線を引き出せないとのユーザー説明により、検討主軸をHost監視/WDT/親UART管理指令/FAULT中も動くHost管理入口へ変更。手動RESETはデバッグ比較用。親対象リンクの再確立、7355旧応答排除、QRのRX配線・読取り境界も必要。期限/フレーム/保持領域/再起動上限等は未確定。コード/Flash/実機操作なし。[設計検討Rev.1](USB_Host_Reset_Study_20261121/Host_Supervision_and_Software_Reset_Rev1.md)。
+
 2026-11-21 USB-HOST-RESET-01（Open）: NF55G Pico治具案件内でQR/CDC Hostのリセット方法を検討。手動RESETを第一候補、電源再投入を比較対象とする提案で採用未確定。CDCは親/Host双方のfault・session初期化と7355の旧応答/未完了処理解消が必要で、片側RESETのみを復帰完了としない。RUN外部配線を進めない既存方針は維持。ソフトRESET/自動watchdog/USB再初期化は未実装・採否未確定。コード/Flash/実機操作なし、関連IssueはCloseしない。[検討資料Rev.0](USB_Host_Reset_Study_20261121/Reset_Study_Rev0.md)。
 
 2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
@@ -69,8 +109,20 @@
 2026-11-20 再試験2: COM5/57600 8N1で治具ID NF55G_PICO_FIXTURE,Rev.0 の応答を確認。EXT_QUERY 2000 *IDN?は2016ms後にERR:EXT_TIMEOUT:AMBIGUOUS=0。7355識別は未取得、自動再送・電源/コード変更・レンジ切替/READなし。停止箇所は未確定でUSB-RELAY-LINK-01をOpen追加。ATE無応答Issueは今回再現せず、原因未確定のままOpen維持。 [再試験結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/ATE_Capture_02/Result_Rev0.md)。
 
 ## USB-RELAY-LINK-01: 中継識別要求のTIMEOUT（Open、2026-11-20）
+2026-11-21 最新反復結果: USB-B接続/7355 OFF状態からHost→親Picoを起動し、7355を最後にONする比較Aは3回連続でHost READY/IDN A/T/R成功。7355先行ON後のUSB-B接続比較Bは1回、READも1回成功。今回の起動順失敗は未再現だが、利用中unmountのfault latch/遅延応答鮮度と量産反復受入は未解決でIssue Open。[反復証跡](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
 
 確認事実: ATEの治具ID応答成功後、外部識別要求はTIMEOUT/AMBIGUOUS=0。推測: HELLO未成立またはHostのUSB送信開始前TIMEOUT等。未確認: 親/Host間の実フレーム、PIO実初期化、Host通常起動・USB状態。原因を決めず親単体診断へ進む。実機中継受入未成立。
+
+2026-11-21 追加: COM22受動監視中の読取専用ID Queryは`ERR:EXT_RECOVERY_REQUIRED:AMBIGUOUS=0`、Host GP0 TX 0 byteで親fault gateによる拒否と切り分け。通信idle確認後、Host→親Picoの順に既設RESET/RUNを手動操作し、Host `.3`/READYと7355 IDNを確認。DCV/AUTO ON/CONF約20 V・エラー0でREADを10回取得、値9.62322～9.62331 V、各機器エラー0。設定書込みなし。fault初発原因、精度・製品PASS、前面/CONFのレンジ相違は未解決のため本Issueおよび`USB-CDC-RANGE-01`はOpen継続。WDT/管理RESET機能は未実装。[逐次読出し結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
+切断比較追記: USB-Bが空とのユーザー確認後も1回目のIDN応答がA/T/Rで返ったが鮮度は未証明。次要求はHost `RECOVERY_REQUIRED|0`で拒否され、現在のHost/親リンクはfault状態。USB unmount時の遅延応答境界は未受入、切断中READなし。物理接続確認後に手動復帰し、fresh IDNを確認するまで測定を再開しない。[切断比較raw](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
+再接続後追記: ユーザーのHost→親Pico手動復帰完了回答後も、COM7のIDN Queryは`ERR:EXT_RECOVERY_REQUIRED:AMBIGUOUS=0`、COM22 Host TXは0 byte。親fault gateが残ったため測定を中止した。意図した親個体のリセット成立は未確認。対象Pico/RESET操作を特定するまで追加Query/READをしない。[再試行raw](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
+2026-11-21 後続結果: Host→親Picoの再起動後、電源順比較A (USB-B固定、7355を最後にON) とB (7355 ON後にUSB-B接続) は各1回READY/IDN成功。Bでは設定状態を維持しREAD `+09.62247E+00`, SYST:ERR=0。よって電源ON順や新規USB-B接続だけでは不安定さを再現しなかった。unmount faultは`relay_host_device_ready(false)`→high_watermark判定→Host fault latch、remountしてもconfigure抑止というソース経路と実機HELLO FAULTが一致。回帰テスト追加、Host/Mock 454件成功。暫定運用は通信session中のUSB-B抜線/7355電源断を避け、必要時Host→親再起動後にREADY/IDN確認。最初の切断後IDNの鮮度・遅着応答境界は未確定でIssue Open。[根拠・比較結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
+
+2026-11-21 反復数訂正: 上記の当初記録後、比較Aを2回追加し、USB-B固定・7355最後投入で3/3回READY/IDN成功。比較Bは1/1回IDN成功、READも1回成功した。初回1回ずつの記述は当時の結果として保持し、現時点の集計はA=3/3、B=1/1。少数試行であり量産受入完了ではない。[追加raw](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Battery_Read_Precheck_20261121.md)。
 
 ## USB-RELAY-ATE-01: 配置後の治具ATE ID応答なし（Open、2026-11-20）
 

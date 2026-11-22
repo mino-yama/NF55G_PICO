@@ -1,0 +1,50 @@
+7355 Digital Multimeter Operation Manual
+6.8.4 SCPI Command Reference
+6-43
+Measurement Measurement 
+function
+:CONFigure:<Function>
+{<real1>|MAXimum|MINimum},
+{<real2>|MAXimum|MINimum} *1
+Switches to the specified measurement function.
+<real1>: Range setting (0 ≤ Setting value ≤ 
+Maximum value in measurement range)
+(The maximum value for frequency 
+measurement is 750 V .)
+Not available for continuity, diode and 
+temperature measurements.
+<real2>:Resolution setting (sampling rate)
+For more information, see the 
+description of “[:SENSe]:<Function> 
+:RESolution”.
+<reral1> and <real2> are omittable.
+:CONFigure? Response: 
+“Function +d.ddddddE ±dd, 
++d.ddddddE±dd”
+“+d.ddddddE±dd” shows the 
+measurement range and resolution.
+Function 
+prohibited
+:INHibit:FUNCtion:<Function>? *1 Read s out the state of function setting 
+prohibition.
+Response: 
+1 or 0 (1: Disabled, 0: Enabled)
+Trigger *TRG Trigger command
+Measurement 
+operation
+:MEASure? Sets the DCV meas urement function and reads 
+the measurement data.
+:MEASure:<Function>?,
+{<real1>|MAXimum|MINimum},
+{<real2>|MAXimum|MINimum} *1
+Performs the measurement operation and reads 
+the measured value.
+<real1>: Range setting
+<real2>: Resolution setting (sampling rate)
+<reral1> and <real2> are omittable.
+:READ? Initializes the trigge r system and reads the 
+measurement data.
+:FETCh? Reads the measurement data only.
+Response: Refer to “Output Data Format.”
+*1: <Function> Specifies the function (but not enclos ed in double quotes) of “measurement function.”
+Item SCPI command Description Default

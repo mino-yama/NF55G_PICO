@@ -1,5 +1,7 @@
 # Logger / SD Card Specification
 
+2026-11-22 実装修正: ATE最終応答の送出完了後は同じservice_once内の既存has_work/通信busy判定へ進み、待ち要求・未送出応答・受信中の行がなければ既存Logger.serviceへ到達する。flush条件（1秒または32行）、32行の通常排出単位、通信中SD禁止は変更しない。同期SD I/O開始後に届くATE要求の遅延上限を新たに保証する変更ではない。連続burstでのSD排出飢餓を修正し、待ちATE優先の回帰試験を追加。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0
 

@@ -1,0 +1,20 @@
+{
+  "stale_frames": 1,
+  "bytes": 32511,
+  "active": false,
+  "nf_state": "IDLE",
+  "drop": 0,
+  "queue": 0,
+  "nf_eb_count": 0,
+  "filename": "/sd/BANK_A/20261122_161735.csv",
+  "sha256": "c5f59f7714044e44f6a57e3ad03def9086d84e34dd2717b1c6f4c890e0d4f284",
+  "link_fault": true,
+  "pio_error": null,
+  "last_hello_host_info": [
+    "BFCF2EDB84B0B37F",
+    "meter-host-relay-20261121.1",
+    "READY"
+  ],
+  "frame_errors": 0,
+  "note": "host_info is cached HELLO, not a live READY claim after timeout"
+}

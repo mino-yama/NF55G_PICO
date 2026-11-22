@@ -1,0 +1,10 @@
+{
+  "matched": true,
+  "events": 820,
+  "fields": [
+    "event",
+    "result",
+    "detail"
+  ],
+  "source": "requests.json compared sequentially to exported CSV; transport errors mapped to RECEIVE_ERROR; LOG_CONT_STOP response outside recording"
+}

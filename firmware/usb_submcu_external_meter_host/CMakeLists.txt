@@ -91,18 +91,19 @@ pico_add_extra_outputs(usb_submcu_external_meter_voltage_test)
 
 # 明示要求のみを中継する独立ターゲット。既存診断/電圧試験UF2は保持する。
 add_executable(usb_submcu_external_meter_relay
-    relay_main.c relay_host.c relay_wire.c newlib_malloc_lock.c
+    relay_main.c relay_host.c relay_wire.c relay_cdc_guard.c relay_usb_diag.c newlib_malloc_lock.c
 )
 target_include_directories(usb_submcu_external_meter_relay PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 target_compile_definitions(usb_submcu_external_meter_relay PRIVATE
-    CFG_TUH_RPI_PIO_USB=1 HOST_FW_VERSION="meter-host-relay-20261120.3"
+    CFG_TUH_RPI_PIO_USB=1 HOST_FW_VERSION="meter-host-relay-20261122.3"
 )
 target_compile_options(usb_submcu_external_meter_relay PRIVATE -Wall -Wextra -Werror)
+target_link_options(usb_submcu_external_meter_relay PRIVATE "-Wl,--wrap=cdch_xfer_cb" "-Wl,--wrap=pio_usb_bus_receive_packet_and_handshake")
 target_link_libraries(usb_submcu_external_meter_relay PRIVATE
     pico_stdlib pico_unique_id pico_rand hardware_clocks hardware_uart tinyusb_host tinyusb_pico_pio_usb
 )
 pico_enable_stdio_usb(usb_submcu_external_meter_relay 0)
 pico_enable_stdio_uart(usb_submcu_external_meter_relay 0)
 pico_set_program_name(usb_submcu_external_meter_relay "usb_submcu_external_meter_relay")
-pico_set_program_version(usb_submcu_external_meter_relay "meter-host-relay-20261120.3")
+pico_set_program_version(usb_submcu_external_meter_relay "meter-host-relay-20261122.3")
 pico_add_extra_outputs(usb_submcu_external_meter_relay)

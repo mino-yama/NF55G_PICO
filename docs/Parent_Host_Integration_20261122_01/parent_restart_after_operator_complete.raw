@@ -1,0 +1,11 @@
+Traceback (most recent call last):rvice_once
+  File "src/main.py", line 135, in _service_external
+  File "src/external_instrument_link.py", line 111, in poll
+KeyboardInterrupt: 
+MicroPython v1.27.0 on 2025-12-09; Raspberry Pi Pico2 with RP2350
+Type "help()" for more information.
+>>> 
+MicroPython v1.27.0 on 2025-12-09; Raspberry Pi Pico2 with RP2350
+Type "help()" for more information.
+>>> 
+MPY: soft reboot

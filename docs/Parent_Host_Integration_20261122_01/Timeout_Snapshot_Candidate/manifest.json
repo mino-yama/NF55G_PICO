@@ -1,0 +1,36 @@
+{
+  "version": "meter-host-relay-20261122.2",
+  "date_jst": "2026-11-22",
+  "target_serial": "BFCF2EDB84B0B37F",
+  "uf2": {
+    "file": "meter_host_relay_20261122_2.uf2",
+    "bytes": 95232,
+    "sha256": "ebbb7f99e09524a7cd89cb5ac7fb44c70d1be931358b8141a2135c888410c847"
+  },
+  "sources": {
+    "relay_main.c": "58dd1f9e0c2d7e094a302078abffa09ed811f6417a609dfbdd96885653dbb536",
+    "relay_host.c": "26138e31e8a860a8f8a2eb7e59973b149117760f876109bc3f6c5bb26ca41d35",
+    "relay_host.h": "1f4221f6422e1a49d5a8b0d86c94e5d316a61c85f9739dfbabdd0ab33b9dbc82",
+    "relay_wire.c": "e23155d7f09fcf04bcef472f1b85a3b4f3d71042d5e635730e284cded3b17a89",
+    "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+    "relay_cdc_guard.c": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097",
+    "relay_cdc_guard.h": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6",
+    "CMakeLists.txt": "c43fed3d1171155d93f222e813ac760a8fdcb93ee0746a8bae89ef639387dd0b",
+    "tusb_config.h": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d",
+    "newlib_malloc_lock.c": "751082b4939b4ff4db0d8fcdc942b31775f78eb2bc6e554b21de7ca41997288c"
+  },
+  "unit_mock": {
+    "count": 465,
+    "seconds": 12.694,
+    "result": "OK"
+  },
+  "arm_build": "success -Wall -Wextra -Werror",
+  "wrap_table": {
+    "address": "0x1000968c",
+    "callback_pointer": "0x10001b9d",
+    "verified": true
+  },
+  "timeout_snapshot_format_in_elf": true,
+  "deployed": false,
+  "runtime_accepted": false
+}

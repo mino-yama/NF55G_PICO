@@ -1,0 +1,63 @@
+7355 Digital Multimeter Operation Manual
+8.11 Error Message List
+8-24
+19 Err210 Analog sectio n communication error
+[Communication error (Analog)]
+Repair
+20 Err215 Analog operation ATT 1/100 measurement test error
+[ATT 1/100 Check]
+Repair
+21 Err216 Analog operation ATT 1/500 measurement test error
+[ATT 1/500 Check]
+Repair
+22 Err500 Calibration data error
+[CAL data]
+Solution 3
+23 Err501 ZERO calibration is not performed.
+[before ZERO]
+Solution 4
+24 Err-102 Command syntax error
+[Cmd Syntax]
+Solution 5
+25 Err-113 The command cannot be used.
+[Undefined header]
+Solution 5
+26 Err-121 Unrecognized character as the numerical value
+[Invalid character in number]
+Solution 5
+27 Err-141 Invalid character string parameter is entered.
+[Invalid character data]
+Solution 5
+28 Err-151 Error as the character st ring data (Quotation mark error)
+[Invalid string data]
+Solution 5
+29 Err-200 Execution error (Comma nd currently not executable)
+[Execution error]
+Solution 6
+30 Err-213 The INITiate command is ignored because the measurement 
+is performing.
+[Init ignored]
+Solution 6
+31 Err-214 The READ? or MEAS? co mmand is received when any 
+trigger source except for IMM is set.
+[Trigger deadlock]
+Solution 6
+32 Err-222 Out-of-range parameter setting
+[Data out of range]
+Solution 6
+33 Err-313 Calibration data lost
+[Calibration memory lost]
+Solution 7
+34 Err-314 Parameters saved by “*SA V” command are lost.
+[Save/recall memory lost]
+Solution 8
+35 Err-315 Saved parameters are lost.
+[Configuration memory lost]
+Solution 6
+36 Err -330 Self-test error
+[Self-test failed]
+Repair
+37 Err-350 Error queue overflows.
+[Queue overflow]
+Solution 9
+No. Error display Error factor [ ]: Response to the ERR? command Solution

@@ -1,5 +1,15 @@
 # 外部測定器USB Host CDC 引継ぎ・開発継続 Rev.0
 
+2026-11-21 電源順反復追加: USB-B接続/7355 OFF状態からHost→親を起動し、7355を最後にONする比較Aを3回連続実施。全回Host `.3`/READY・IDN A/T/R成功。7355先行ON後のUSB-B接続Bも1回READY/IDN成功、READ一回`+09.62247E+00`/error 0。電源順起因の失敗は未再現（量産反復数ではない）。unmount fault保持と暫定手順、raw hashは[結果](../Battery_Read_Precheck_20261121.md)。
+
+2026-11-21 手動復帰後の読出し: Hostを先、親Picoを後に既設RESET/RUNで復帰。COM22のX1 HELLOで`meter-host-relay-20261120.3`/READY、7355 IDN=`ADC Corp.,7355,246410099,  A02`を確認。設定QueryはDCV/AUTO ON/CONF約20 V/IMM/Trigger・Sample各1/エラー0。9～10 V入力のREADを10回取得し`+09.62322E+00`～`+09.62331E+00`、平均`9.623257 V`、幅`90 µV`。各後の機器エラー0。終了後もDCV/AUTO ON/CONF約20 V/エラー0を確認。設定書込み/自動再送なし。測定精度・PASSは未判定。詳細/raw hashは[結果](../Battery_Read_Precheck_20261121.md)。fault初発原因とレンジIssueはOpen。
+
+2026-11-21 USB-B切断比較: USB-Bが物理的に空とのユーザー確認後、IDN Query 1回はA/T/RとIDN応答になったが応答鮮度は未証明。2回目は`RECOVERY_REQUIRED|0`で拒否され、現在はHost/親リンクfault。切断中READなし。ケーブル再接続後にHost→親Picoの順で手動復帰し、fresh IDN確認後に測定を再開する。[詳細とraw証跡](../Battery_Read_Precheck_20261121.md)。
+
+2026-11-21 再接続後の復帰再試行: ユーザーの手動復帰完了回答後もCOM7は`ERR:EXT_RECOVERY_REQUIRED:AMBIGUOUS=0`、Host GP0 TXは0 byte。親fault gateが残り、測定は再開していない。リセット対象個体/操作成立は未確認。追加Queryなし。[結果](../Battery_Read_Precheck_20261121.md)。
+
+2026-11-21 後続切り分け結果: 操作対象を確認してHost→親Picoの順に再起動。その後の「7355最後に電源ON」と「7355先にON/USB-B後接続」は両方READY/IDN成功、後者でREADも成功。電源順だけの失敗は未再現。根因は通信後unmountでHost faultが保持され再mountでは自己解除されない設計経路と確認。暫定手順と回帰テスト454件成功を[結果](../Battery_Read_Precheck_20261121.md)へ記録。利用中の抜線/7355 power cycleは避け、必要時はHost→親再起動後にREADY/IDNを確認する。遅延応答freshness/全負荷反復は残Issue。
+
 2026-11-20 最新実機結果: .5のUSB/CDC/IDNは成立。レンジ設定後error=0、CONF約200Vと前面報告20Vの相違を再現。CONF_RANGE_NOT_20VでREAD前停止し測定値未取得。[試行1結果](Runtime_v5_run01/Result_Rev0.md)。以下の未実行記述は試行前の記録として保持。
 
 2026-11-20 後続更新: 評価FW.5を対象BFCF2EDB84B0B37Fへ配置、Flash verify OK。書込み後infoで.5と同個体を確認。BOOTSELのままでrebootせず、測定は未実施。[配置結果](Deployment_v5/Result_Rev0.md)。以下の未配置記述は配置前の状態として保持。

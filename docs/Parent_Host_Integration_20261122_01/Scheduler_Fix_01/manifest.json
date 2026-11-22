@@ -1,0 +1,18 @@
+{
+  "uid": "69f7d45962cfdfad",
+  "before": {
+    "uid": "69f7d45962cfdfad",
+    "sha256": "d7735c95e6e799d3818e0f05e561370c5b1d9226df6fabf5acde5a6dfc75b9cb",
+    "size": 15225
+  },
+  "candidate_sha256": "cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120",
+  "flash_backup_bytes": 4194304,
+  "flash_backup_sha256": "60c55b66cf4472c14886e7093d202772175c78dcd7d55b4cd78c56a31be4262a",
+  "flash_verify": true,
+  "after_reboot": {
+    "uid": "69f7d45962cfdfad",
+    "sha256": "cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120",
+    "size": 15522
+  },
+  "compile_ok": true
+}

@@ -1,0 +1,9 @@
+{
+  "date_jst": "2026-11-22T16:18:03.215264+09:00",
+  "failure": "RuntimeError(\"external response: b'ERR:EXT_TIMEOUT:AMBIGUOUS=1'\")",
+  "bursts": 32,
+  "automatic_retry": false,
+  "setting_changes": 0,
+  "nf55g_read_only_d1_requested": true,
+  "sd_log_recording_requested": true
+}

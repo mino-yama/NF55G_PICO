@@ -1,5 +1,7 @@
 # NF55G Pico治具 USB HOSTリセット方法の検討 Rev.0
 
+2026-11-21 目的訂正: 対象は機器本体ではなく、通信経路上のHostマイコンのキャッシュ/通信状態。本資料は初期検討履歴とし、[現行Rev.2](Host_Communication_State_Reset_Rev2.md)を優先する。
+
 日付: 2026-11-21
 
 対象: QR用RP2350-USB-C、外部測定器7355用RP2350-USB-A、および親Picoとの通信復帰。

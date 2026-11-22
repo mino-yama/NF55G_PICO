@@ -1,0 +1,15 @@
+{
+  "rows": 352,
+  "malformed_rows": 0,
+  "categories": {
+    "ATE": 247,
+    "NF55": 105
+  },
+  "events": {
+    "REQUEST": 124,
+    "RESULT": 123,
+    "RAW": 84,
+    "TRANSACTION": 21
+  },
+  "nf_transaction_rows": 21
+}

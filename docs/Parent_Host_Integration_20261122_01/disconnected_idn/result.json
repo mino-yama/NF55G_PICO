@@ -1,0 +1,18 @@
+{
+  "phase": "disconnected_idn",
+  "date_jst": "2026-11-22T15:34:44.499728+09:00",
+  "command": "EXT_QUERY 2000 *IDN?\r",
+  "reply": "ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0\r",
+  "pre_bytes": {
+    "parent": 0,
+    "host": 0,
+    "ate": 0
+  },
+  "bytes": {
+    "parent": 0,
+    "host": 107,
+    "ate": 35
+  },
+  "query_count": 1,
+  "automatic_retry": false
+}

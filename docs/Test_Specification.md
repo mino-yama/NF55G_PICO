@@ -1,5 +1,26 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。
+
+
+2026-11-22 CDC期限比較: .22.1で50回共存成功（CSV853行/D1 50件/drop0/SHA一致）。500回の2秒期限試験は116成功後117回目TIMEOUT、10秒期限試験も72成功後73回目TIMEOUT。両条件でD1 Retry0・SD/RTC OK・drop0、USB_RX_XFER/TX_XFER通知なし。DMMは連続OFF/IMM/trigger1/sample1/delay0/DCV/error0を読取り確認済み。TIMEOUT受信長/TX完成/応答完成/末尾を記録する候補.22.2を準備、全465回帰成功、ARM build/ELF/UF2照合成功・未配置。[最新診断](Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md)。
+
+2026-11-22 Scheduler修正後の実機共存再試験: 新Host nonce11F71FF28CE2AC1D/READYとIDN照合成功、親は再起動せず再開。29回目READでHost A/T→E=TIMEOUT|1となり停止（2秒の明示期限、Rなし）。D1はRetry0、SD/RTC OK、終了後もログdrop0/Queue0。親PIOエラーなし、X1 frame decode error0。SD排出飢餓とは別の未確定事象として記録し自動再送しない。CDC transfer失敗をTIMEOUTと区別する候補.22.1を準備、全464回帰・ARM/link・UF2/ELF照合成功、対象Hostへ退避/verify配置済み（通常配線復元・実機検証待ち）。 [記録](Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md)。
+
+2026-11-22 CDC/NF55G/SD共存修正: 実機でREAD+D1+ローカル照会の連続burst時にSDログdrop（21回目6件、終了後8件）を検出。最終ATE応答後の無条件returnにより次巡回までSDを延期し、次burstが先着するとLoggerが飢餓になる経路を回帰試験で再現（修正前drop688）。最終応答送出後は同じ巡回の既存has_work/通信busy判定へ進め、ATE待ち/未送出/受信中は優先、NF55G/外部通信中のSD禁止は維持。追加2件を含むHost Unit/Mock全461件成功（9.859秒）。修正版の実機配置・共存再試験を進行中。[受入記録](Parent_Host_Integration_20261122_01/Acceptance_Status_Rev1.md)。
+
+2026-11-22 CDC受入継続: 可変長応答1000回・途中応答切断/遅着拒否・不正/正常ATE交互の回帰3件を追加、Host Unit/Mock全459件成功（17.130秒）。実機は親PIO停止を確認して接続解除/起動を実施したが、Host hがFAULTかつ旧boot nonceのままで起動成立未確認。RESET対象を確認するまで追加要求を停止。実機反復・送信中切断・旧応答境界等は未完了、Issue Open。[受入状況](Parent_Host_Integration_20261122_01/Acceptance_Status_Rev0.md)。
+
+2026-11-22 引継ぎ実行: 親69f7d45962cfdfadの旧9848 byteを実機hash照合し、親全Flash 4 MB/Host全Flash 2 MBを退避・verify。親candidate 10012 byteを配置・再起動後SHA照合、Host BFCF2EDB84B0B37Fへ`.21.1`をload -vし通常起動。初回IDN成功後、idle USB-B抜線中は`LINK_NOT_READY|0`で拒否し、再接続後はRESETせず同じHost起動sessionでREADY/IDN成功（1回）。Host/Mock全456件成功。送信中切断・旧応答排除・Cache INVALID連携・長期/複合負荷は未受入、Issue Open継続。[実行結果](Parent_Host_Integration_20261122_01/Result_Rev0.md)。以下の未配置記述は各記録時点の履歴。
+
+2026-11-21 リセット受入対象の訂正（未実施）: Hostキャッシュ/バッファ/通信管理状態を対象とし、状態クリア/Host再起動後の旧転送・callback・旧応答混入と誤再送防止を確認する案。機器本体RESETやSCPI初期化を追加しない。[現行Rev.2](USB_Host_Reset_Study_20261121/Host_Communication_State_Reset_Rev2.md)。
+
+2026-11-21 Host監視/WDT/RESET受入案（未実施）: FAULT中管理受付、停止注入、正常待機時の誤発火防止、古い/不正RESET拒否、ACK欠落・新boot確認、7355遅延応答/QR途中HID排除、再起動上限、ATE/NF55G/SD共存を[設計検討Rev.1](USB_Host_Reset_Study_20261121/Host_Supervision_and_Software_Reset_Rev1.md)に整理。採用条件・期限は未確定、コード/実機変更なし。
+
+2026-11-21 CDC unmount初期FW対策（Host/Mock・ARM build済み、実機受入未実施）: idle unmount後はHost faultを立てず、remountでline coding/DTR/RTS設定を再実行して同一Host sessionで次の明示要求を処理する。CDC未接続中のQは`LINK_NOT_READY|0`でUSB送信せず、親はfaultを立てず後続要求を受け付ける。USB TX開始後のunmountは`DISCONNECTED|1`でfault保持・自動再送禁止。回帰3件を追加しHost/Mock全456件成功。candidate `.21.1`はARM build/UF2 metadata確認済み、対象へ未配置。実機でidle/要求前/USB TX開始後の抜差し、遅延/残留応答、連続反復、ATE/NF55G/SD共存を確認し、古い応答の鮮度を評価する。親側Cache INVALID連携も統合確認対象。合格前は量産対応完了としない。
+
+2026-11-21 量産USB-B接続/切断受入（FW変更後に実施）: 7355 USB-Bの新規接続/切断、7355電源の後投入、CDC設定完了待ち、連続抜差し、idle/要求中の切断と再接続を検証する。処理中切断はambiguous/Cache INVALIDとし再送禁止。旧応答・遅延callbackが新要求へ混入しないこと、READY/新IDN/必要状態確認前にREADしないこと、手動RESETなしの復帰または明確な復旧不能応答、ATE順序と他Host/NF55G/SD Timing維持を確認する。未実施、USB-RELAY-HOTPLUG-01 Open。
+
 2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
 
 2026-11-20 .3実機で設定Query5種×12周（60件、機器応答総1035byte）と終了エラーQueryを成功。全周で原文/書式/長さ一致、CONFは正常なVOLT +1.999999E+01,+1.000000E-06、AUTO=1、エラー0。先行の応答崩れは今回再現せず、受信健全性を確認。固定20V切替/前面一致/測定は未実施でレンジIssue等はOpen維持。COM7解放済み。 [結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md)。

@@ -1,0 +1,31 @@
+{
+  "source": "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\reference\\ADCMT_7355_20261104\\7355-ope--foa-00000201a00-e.pdf",
+  "sha256": "d63171a718f0644e38e431331b2010ca81d0a4f7ea86c575f3f1be672162621c",
+  "pages": 219,
+  "hits": [
+    {
+      "pdf_page": 131,
+      "keywords": [
+        "CRLF"
+      ]
+    },
+    {
+      "pdf_page": 137,
+      "keywords": [
+        "READ?"
+      ]
+    },
+    {
+      "pdf_page": 146,
+      "keywords": [
+        "CRLF"
+      ]
+    },
+    {
+      "pdf_page": 210,
+      "keywords": [
+        "READ?"
+      ]
+    }
+  ]
+}

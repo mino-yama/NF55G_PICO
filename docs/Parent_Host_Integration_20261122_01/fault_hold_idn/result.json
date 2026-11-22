@@ -1,0 +1,18 @@
+{
+  "phase": "fault_hold_idn",
+  "date_jst": "2026-11-22T16:01:40.767348+09:00",
+  "command": "EXT_QUERY 2000 *IDN?\r",
+  "reply": "ERR:EXT_RECOVERY_REQUIRED:AMBIGUOUS=0\r",
+  "pre_bytes": {
+    "parent": 0,
+    "host": 0,
+    "ate": 0
+  },
+  "bytes": {
+    "parent": 0,
+    "host": 0,
+    "ate": 38
+  },
+  "query_count": 1,
+  "automatic_retry": false
+}

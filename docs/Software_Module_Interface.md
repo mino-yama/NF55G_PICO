@@ -1,5 +1,20 @@
 # Pico Software Module / Interface Specification
 
+2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。
+
+
+2026-11-22 CDC期限比較: .22.1で50回共存成功（CSV853行/D1 50件/drop0/SHA一致）。500回の2秒期限試験は116成功後117回目TIMEOUT、10秒期限試験も72成功後73回目TIMEOUT。両条件でD1 Retry0・SD/RTC OK・drop0、USB_RX_XFER/TX_XFER通知なし。DMMは連続OFF/IMM/trigger1/sample1/delay0/DCV/error0を読取り確認済み。TIMEOUT受信長/TX完成/応答完成/末尾を記録する候補.22.2を準備、全465回帰成功、ARM build/ELF/UF2照合成功・未配置。[最新診断](Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md)。
+
+2026-11-22 転送診断候補（未配置）: meter-host-relay-20261122.1は対象CDCの非SUCCESS callbackをlinker wrapで観測し、USB_RX_XFER/USB_TX_XFERとしてfault保持・既存E通知する。SDK原典・成功処理・自動再送禁止を維持。全464回帰・ARM build・UF2 metadata・ELF driver tableのwrap pointerを照合。TIMEOUT根本原因は未確定。[診断記録](Parent_Host_Integration_20261122_01/Transfer_Error_Diagnostic_Rev0.md)。
+
+2026-11-22 CDC/NF55G/SD共存修正: 実機でREAD+D1+ローカル照会の連続burst時にSDログdrop（21回目6件、終了後8件）を検出。最終ATE応答後の無条件returnにより次巡回までSDを延期し、次burstが先着するとLoggerが飢餓になる経路を回帰試験で再現（修正前drop688）。最終応答送出後は同じ巡回の既存has_work/通信busy判定へ進め、ATE待ち/未送出/受信中は優先、NF55G/外部通信中のSD禁止は維持。追加2件を含むHost Unit/Mock全461件成功（9.859秒）。修正版の実機配置・共存再試験を進行中。[受入記録](Parent_Host_Integration_20261122_01/Acceptance_Status_Rev1.md)。
+
+2026-11-21 目的訂正（未実装）: 本件は機器本体のRESETではなくHostのキャッシュ/通信保持状態のリセット。管理入口での状態クリアとHost再起動を分離し、通常の機器本文へ転送しない構成を検討。[現行Rev.2](USB_Host_Reset_Study_20261121/Host_Communication_State_Reset_Rev2.md)。正式API/方式は未確定。
+
+2026-11-21 管理入口の検討（未実装）: RUN配線を使わずHost監視/WDT/親UART RESETを検討。管理要求を通常Q/機器本文から分け、FAULT/USB未接続時も照合・受付し、親対象リンクを再確立する構成案。フレーム/ATE名/期限は未確定、既存契約を変更しない。[検討Rev.1](USB_Host_Reset_Study_20261121/Host_Supervision_and_Software_Reset_Rev1.md)。
+
+2026-11-21 量産USB-B接続/切断要件（未実装）: CDCデバッグ完了後、7355のUSB-B切断/再接続を操作者の手動RESETに依存させないFW対応を行う。unmount fault、途中要求のambiguous/Cache INVALID、旧CDC応答/遅延callback隔離、Host/親session再確立、READY/IDN確認前のREAD禁止を含む。機器RESET/SCPI初期化は対象外。方式・成功条件・量産受入は[USB-RELAY-HOTPLUG-01](Open_Issues.md)でOpen管理し、現行FWへの変更はまだ行わない。
+
 2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
 
 2026-11-20 工数/GPIO並行計画: 測定原文取得/ATE返却は実機済み。残る数値・単位/Cache/正式ATE入口とAD実装は仕様回答後コード/Mock1〜2実働日、基本実機確認含2〜3実働日（概算12〜24時間、待ち/全量産受入は別）。親GPIOは既存予約のQR GP8/9と実装済み測定器GP12/13を配線基準として維持。現行測定器PIOはSM4/5で旧案の順序に注意。RESETは必須/制御方式未確定、GP14/22を親側予備候補として確保しHost RUN結線は回路確認後。今回コード/Flash/実配線変更なし。 [工数](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Effort_Estimate_Rev0.md)／[配線基準](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev0.md)。

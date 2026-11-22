@@ -1,0 +1,13 @@
+{
+  "host_frames": 150,
+  "kinds": {
+    "A": 50,
+    "T": 50,
+    "R": 50
+  },
+  "unique_sessions": 1,
+  "pc_observed_t_to_r_frame_gap_ms_min": 0.0,
+  "pc_observed_t_to_r_frame_gap_ms_median": 0.0,
+  "pc_observed_t_to_r_frame_gap_ms_max": 16.00000000325963,
+  "limitation": "PC serial delivery timestamps include USB-UART buffering/coalescing; zero gap does not establish simultaneous MCU events or device response time"
+}

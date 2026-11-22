@@ -1,0 +1,11 @@
+{
+  "device_sha_matches": true,
+  "bytes": 130367,
+  "rows": 1992,
+  "malformed_rows": 0,
+  "d1_transactions": 117,
+  "nf_raw_records": 468,
+  "drop": 0,
+  "queue": 0,
+  "link_fault": true
+}

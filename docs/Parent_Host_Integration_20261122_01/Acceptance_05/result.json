@@ -1,0 +1,16 @@
+{
+  "date_jst": "2026-11-22T15:55:01.470434+09:00",
+  "attempted": 200,
+  "completed": 200,
+  "failure": null,
+  "duration_seconds": 46.234,
+  "max_ms": 297.0,
+  "median_ms": 234.0,
+  "host_frames": 601,
+  "monitor_errors": {
+    "parent": "could not open port 'COM6': PermissionError(13, 'アクセスが拒否されました。', None, 5)"
+  },
+  "automatic_retry": false,
+  "nf55g_commands": 0,
+  "instrument_setting_commands": 0
+}

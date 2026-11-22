@@ -1,0 +1,27 @@
+{
+  "phase": "arm",
+  "failure": null,
+  "records": [
+    {
+      "command": "EXT_QUERY 2000 *IDN?",
+      "reply": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A\r",
+      "elapsed_ms": 468.99999998277053
+    },
+    {
+      "command": "EXT_QUERY 2000 :TRIG:DEL?",
+      "reply": "OK:EXT_RX:13:2B302E30303030452B30300D0A\r",
+      "elapsed_ms": 266.00000000325963
+    },
+    {
+      "command": "EXT_SEND 2000 :TRIG:DEL 5",
+      "reply": "OK:EXT_TX\r",
+      "elapsed_ms": 109.99999998603016
+    },
+    {
+      "command": "EXT_QUERY 2000 :TRIG:DEL?",
+      "reply": "OK:EXT_RX:13:2B352E30303030452B30300D0A\r",
+      "elapsed_ms": 156.00000001722947
+    }
+  ],
+  "automatic_retry": false
+}

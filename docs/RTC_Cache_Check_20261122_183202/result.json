@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "rtc_samples": [
+    {
+      "rtc": "20261122_183204",
+      "pc_start": "2026-11-22T18:32:05.013708",
+      "pc_end": "2026-11-22T18:32:05.025711",
+      "monotonic": 436345.328,
+      "offset_from_pc_midpoint_seconds": -1.01971
+    },
+    {
+      "rtc": "20261122_183205",
+      "pc_start": "2026-11-22T18:32:06.026132",
+      "pc_end": "2026-11-22T18:32:06.037651",
+      "monotonic": 436346.343,
+      "offset_from_pc_midpoint_seconds": -1.031892
+    },
+    {
+      "rtc": "20261122_183206",
+      "pc_start": "2026-11-22T18:32:07.038240",
+      "pc_end": "2026-11-22T18:32:07.049761",
+      "monotonic": 436347.359,
+      "offset_from_pc_midpoint_seconds": -1.044
+    },
+    {
+      "rtc": "20261122_183207",
+      "pc_start": "2026-11-22T18:32:08.050667",
+      "pc_end": "2026-11-22T18:32:08.061847",
+      "monotonic": 436348.375,
+      "offset_from_pc_midpoint_seconds": -1.056257
+    },
+    {
+      "rtc": "20261122_183208",
+      "pc_start": "2026-11-22T18:32:09.062592",
+      "pc_end": "2026-11-22T18:32:09.075458",
+      "monotonic": 436349.375,
+      "offset_from_pc_midpoint_seconds": -1.069025
+    },
+    {
+      "rtc": "20261122_183209",
+      "pc_start": "2026-11-22T18:32:10.075905",
+      "pc_end": "2026-11-22T18:32:10.087160",
+      "monotonic": 436350.39,
+      "offset_from_pc_midpoint_seconds": -1.081533
+    }
+  ],
+  "rtc_advance_seconds": 5.0,
+  "pc_elapsed_seconds": 5.062,
+  "rtc_osf_before": false,
+  "rtc_osf_after": false,
+  "invalid_status_queries": 37,
+  "valid_status_queries": 74,
+  "real_nf_transactions": [
+    {
+      "cmd_retry": 0,
+      "ok": true,
+      "cmd": "D1",
+      "rsp_retry": 0,
+      "ambiguous": false,
+      "error": null,
+      "elapsed_ms": 23,
+      "target_invalid_before_tx": true
+    }
+  ],
+  "query_triggered_nf_transactions": 0,
+  "metadata_unchanged_by_query": true,
+  "other_caches_unchanged": true,
+  "rtc_settings_written": false,
+  "host_monitor_bytes": 0,
+  "local_device_source_sha_matches": true,
+  "final_state": "parent stopped; CDC fault and SM4/5 stopped preserved; STATUS valid from actual D1"
+}

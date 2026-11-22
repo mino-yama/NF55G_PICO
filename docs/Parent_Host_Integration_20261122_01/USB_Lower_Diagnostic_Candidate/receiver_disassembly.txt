@@ -1,0 +1,68 @@
+
+C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\firmware\usb_submcu_external_meter_host\build\usb_submcu_external_meter_relay.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+Disassembly of section .data:
+
+2000141c <usb_in_transaction.constprop.0.isra.0>:
+2000141c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+2000141e:	4605      	mov	r5, r0
+20001420:	4c21      	ldr	r4, [pc, #132]	@ (200014a8 <usb_in_transaction.constprop.0.isra.0+0x8c>)
+20001422:	7aeb      	ldrb	r3, [r5, #11]
+20001424:	4620      	mov	r0, r4
+20001426:	2b01      	cmp	r3, #1
+20001428:	bf14      	ite	ne
+2000142a:	27c3      	movne	r7, #195	@ 0xc3
+2000142c:	274b      	moveq	r7, #75	@ 0x4b
+2000142e:	f7ff fc69 	bl	20000d04 <pio_usb_bus_prepare_receive>
+20001432:	786a      	ldrb	r2, [r5, #1]
+20001434:	2169      	movs	r1, #105	@ 0x69
+20001436:	792b      	ldrb	r3, [r5, #4]
+20001438:	4620      	mov	r0, r4
+2000143a:	f7ff fc25 	bl	20000c88 <pio_usb_bus_send_token>
+2000143e:	4620      	mov	r0, r4
+20001440:	f7ff fc84 	bl	20000d4c <pio_usb_bus_start_receive>
+20001444:	21d2      	movs	r1, #210	@ 0xd2
+20001446:	4620      	mov	r0, r4
+20001448:	f7fe fe6a 	bl	20000120 <__wrap_pio_usb_bus_receive_packet_and_handshake>
+2000144c:	1e06      	subs	r6, r0, #0
+2000144e:	f894 3052 	ldrb.w	r3, [r4, #82]	@ 0x52
+20001452:	db0d      	blt.n	20001470 <usb_in_transaction.constprop.0.isra.0+0x54>
+20001454:	42bb      	cmp	r3, r7
+20001456:	d016      	beq.n	20001486 <usb_in_transaction.constprop.0.isra.0+0x6a>
+20001458:	2201      	movs	r2, #1
+2000145a:	2000      	movs	r0, #0
+2000145c:	6921      	ldr	r1, [r4, #16]
+2000145e:	6965      	ldr	r5, [r4, #20]
+20001460:	680b      	ldr	r3, [r1, #0]
+20001462:	40aa      	lsls	r2, r5
+20001464:	ea23 0302 	bic.w	r3, r3, r2
+20001468:	600b      	str	r3, [r1, #0]
+2000146a:	f8a4 0051 	strh.w	r0, [r4, #81]	@ 0x51
+2000146e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+20001470:	2b5a      	cmp	r3, #90	@ 0x5a
+20001472:	d0f1      	beq.n	20001458 <usb_in_transaction.constprop.0.isra.0+0x3c>
+20001474:	2b1e      	cmp	r3, #30
+20001476:	d011      	beq.n	2000149c <usb_in_transaction.constprop.0.isra.0+0x80>
+20001478:	6923      	ldr	r3, [r4, #16]
+2000147a:	2140      	movs	r1, #64	@ 0x40
+2000147c:	4628      	mov	r0, r5
+2000147e:	6b1b      	ldr	r3, [r3, #48]	@ 0x30
+20001480:	f7ff fd58 	bl	20000f34 <pio_usb_ll_transfer_complete>
+20001484:	e7e8      	b.n	20001458 <usb_in_transaction.constprop.0.isra.0+0x3c>
+20001486:	f104 0153 	add.w	r1, r4, #83	@ 0x53
+2000148a:	4632      	mov	r2, r6
+2000148c:	6d68      	ldr	r0, [r5, #84]	@ 0x54
+2000148e:	f000 fc37 	bl	20001d00 <__memcpy_veneer>
+20001492:	4628      	mov	r0, r5
+20001494:	b2b1      	uxth	r1, r6
+20001496:	f7ff fd87 	bl	20000fa8 <pio_usb_ll_transfer_continue>
+2000149a:	e7dd      	b.n	20001458 <usb_in_transaction.constprop.0.isra.0+0x3c>
+2000149c:	2180      	movs	r1, #128	@ 0x80
+2000149e:	4628      	mov	r0, r5
+200014a0:	f7ff fd48 	bl	20000f34 <pio_usb_ll_transfer_complete>
+200014a4:	e7d8      	b.n	20001458 <usb_in_transaction.constprop.0.isra.0+0x3c>
+200014a6:	bf00      	nop
+200014a8:	20004130 	.word	0x20004130

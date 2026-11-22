@@ -1,0 +1,13 @@
+[
+  {
+    "command_hex": "2a49444e3f0d53445f5354415455533f0d5254435f434845434b3f0d4c4f475f44524f505f434f554e543f0d",
+    "reply_hex": "",
+    "elapsed_ms": 3000.0,
+    "expected": [
+      "NF55G_PICO_FIXTURE,Rev.0",
+      "OK",
+      "OK",
+      "0"
+    ]
+  }
+]

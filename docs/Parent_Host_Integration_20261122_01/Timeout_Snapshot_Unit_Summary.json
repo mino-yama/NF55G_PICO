@@ -1,0 +1,9 @@
+{
+  "command": ".venv/Scripts/python.exe -B -m unittest discover -s tests -v",
+  "count": 465,
+  "seconds": 12.694,
+  "result": "OK",
+  "evidence": "observed execution stdout summary; full stdout was not redirected to a file",
+  "new_test": "test_host_timeout_snapshot_distinguishes_no_partial_and_completed_rx",
+  "subcases": 4
+}

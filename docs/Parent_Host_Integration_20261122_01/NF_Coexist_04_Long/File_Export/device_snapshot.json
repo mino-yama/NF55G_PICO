@@ -1,0 +1,11 @@
+{
+  "drop": 0,
+  "sha256": "4b1d7d024d77e9d73b480d6f4f7c9dcd54fbe136f7448697211987ca4491a189",
+  "bytes": 130367,
+  "filename": "/sd/BANK_A/20261122_164739.csv",
+  "queue": 0,
+  "link_fault": true,
+  "active": false,
+  "nf_state": "IDLE",
+  "frame_errors": 0
+}

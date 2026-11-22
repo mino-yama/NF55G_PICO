@@ -1,5 +1,9 @@
 # ATE Command List for Test Program
 
+## 2026-11-22 AD個別照合（未実装）
+
+AD書込み後に校正対象とPoint 1/2を指定して個別照合する要求が確定した。成功`OK:AD_VERIFY`、不一致`ERR:AD_VERIFY_MISMATCH`、読戻しタイムアウト`ERR:AD_VERIFY_TIMEOUT`は予定応答であり、コマンド名・引数・その他のエラーは未確定。現行正本にAD書込み入口・AR読出し入口・本照合は実装されていないため、ATEプログラムから使用しない。試験ログには書込み値・読戻し値・結果を記録し、ATEが最終判定する。読戻し時点の一致と電源再投入後のEEPROM保持は別項目とする。製品FWのAR整数化による小数喪失などの実装前条件は[確認記録](ADC_Calibration_Development_20261119.md)を参照。
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
 Revision: Rev.0-draft
 Date: 2026-09-01

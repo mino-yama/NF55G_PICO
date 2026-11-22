@@ -1,0 +1,46 @@
+{
+  "date_jst": "2026-11-22T16:01:14.388215+09:00",
+  "body": ":READ?",
+  "requests": 51,
+  "stop_reply": "ERR:EXT_DISCONNECTED:AMBIGUOUS=1\r",
+  "automatic_retry": false,
+  "last_host_events": [
+    {
+      "request": 494,
+      "kind": "R",
+      "payload_hex": "2b30392e3632323234452b30300d0a",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    },
+    {
+      "request": 495,
+      "kind": "A",
+      "payload_hex": "",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    },
+    {
+      "request": 495,
+      "kind": "T",
+      "payload_hex": "",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    },
+    {
+      "request": 495,
+      "kind": "R",
+      "payload_hex": "2b30392e3632323233452b30300d0a",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    },
+    {
+      "request": 496,
+      "kind": "A",
+      "payload_hex": "",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    },
+    {
+      "request": 496,
+      "kind": "E",
+      "payload_hex": "444953434f4e4e45435445447c31",
+      "session": "ab1335e56b882d348f576f91fdcd8f6b"
+    }
+  ],
+  "inflight_disconnect_observed": true
+}

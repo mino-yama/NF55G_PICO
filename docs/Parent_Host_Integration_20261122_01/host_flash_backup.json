@@ -1,0 +1,5 @@
+{
+  "bytes": 2097152,
+  "sha256": "5d429adf838c62d68c8e9f2182db553e5237cb0958da53b7220472d3ef342dbe",
+  "verify": "picotool save -a -v successful"
+}

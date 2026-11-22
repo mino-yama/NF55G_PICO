@@ -1,0 +1,34 @@
+[
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "exec",
+      "import json,hashlib,binascii\nassert not app._comm_busy()\nassert not app.logger.active\np=app.logger.sd_sink.open_filename\nh=hashlib.sha256()\nf=open(p,'rb')\nsize=0\nwhile True:\n b=f.read(1024)\n if not b: break\n h.update(b)\n size+=len(b)\nf.close()\nprint('LOG_SNAP|'+json.dumps({'filename':p,'bytes':size,'sha256':binascii.hexlify(h.digest()).decode(),'drop':app.logger.drop_count,'queue':len(app.logger.queue),'active':app.logger.active,'nf_state':app.protocol.state,'link_fault':app.external_link.fault,'frame_errors':app.external_link.reader.errors}))\n"
+    ],
+    "code": 0,
+    "stdout": "LOG_SNAP|{\"drop\": 0, \"sha256\": \"959a42e6125209d53a8cf7270237c55b92d44c5c48e5b7bf64dd6642b4477212\", \"bytes\": 81877, \"filename\": \"/sd/BANK_A/20261122_165450.csv\", \"queue\": 0, \"link_fault\": true, \"active\": false, \"nf_state\": \"IDLE\", \"frame_errors\": 0}\r\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\.venv\\Scripts\\python.exe",
+      "-m",
+      "mpremote",
+      "connect",
+      "COM6",
+      "resume",
+      "fs",
+      "cp",
+      ":/sd/BANK_A/20261122_165450.csv",
+      "C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\NF_Coexist_05_10s\\File_Export\\20261122_165450.csv"
+    ],
+    "code": 0,
+    "stdout": "cp :/sd/BANK_A/20261122_165450.csv C:\\Users\\m_yamada\\OneDrive\\My Document\\NF55G\\NF55G_Pico\\docs\\Parent_Host_Integration_20261122_01\\NF_Coexist_05_10s\\File_Export\\20261122_165450.csv\r\n",
+    "stderr": ""
+  }
+]

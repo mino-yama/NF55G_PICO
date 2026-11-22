@@ -1,0 +1,23 @@
+test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies (tests.test_external_instrument_link.NativeRelayLinkTests.test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies) ... FAIL
+test_pending_ate_request_keeps_priority_over_due_sd_write (tests.test_external_instrument_link.NativeRelayLinkTests.test_pending_ate_request_keeps_priority_over_due_sd_write) ... FAIL
+
+======================================================================
+FAIL: test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies (tests.test_external_instrument_link.NativeRelayLinkTests.test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 556, in test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies
+    self.assertEqual(logger.drop_count, 0)
+AssertionError: 688 != 0
+
+======================================================================
+FAIL: test_pending_ate_request_keeps_priority_over_due_sd_write (tests.test_external_instrument_link.NativeRelayLinkTests.test_pending_ate_request_keeps_priority_over_due_sd_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 572, in test_pending_ate_request_keeps_priority_over_due_sd_write
+    self.assertGreater(sink.write_count, 0)
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.855s
+
+FAILED (failures=2)

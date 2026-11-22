@@ -1,0 +1,27 @@
+{
+  "date_jst": "2026-11-22",
+  "parent_uid": "69f7d45962cfdfad",
+  "parent_port": "COM6",
+  "host_serial": "BFCF2EDB84B0B37F",
+  "baseline": {
+    "bytes": 9848,
+    "sha256": "2e554efe0db0899472eb307a942a70815aacc50727b895055586d740e4f9399b"
+  },
+  "parent_candidate": {
+    "file": "package/parent/src/external_instrument_link.py",
+    "bytes": 10012,
+    "sha256": "18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2"
+  },
+  "host_candidate": {
+    "file": "package/host/usb_submcu_external_meter_relay.uf2",
+    "version": "meter-host-relay-20261121.1",
+    "bytes": 94720,
+    "sha256": "2c7314b9ed42f00acd6eaf32684854ff13eebe4101b4f8e6acb3506c6f4e014b"
+  },
+  "scope": "親はexternal_instrument_link.pyだけを更新。現行configと他ソースを保持。全Flash退避後に配置する。",
+  "host_mock_tests": {
+    "count": 456,
+    "result": "OK",
+    "seconds": 22.965
+  }
+}

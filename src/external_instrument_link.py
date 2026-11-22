@@ -229,6 +229,10 @@ class ExternalInstrumentLink:
             return SEND_COMPLETE_REPLY
         self.fault = True
         ambiguous = result['ambiguous'] if self._remote_ambiguous is None else self._remote_ambiguous
+        if result['status'] == 'LINK_NOT_READY' and not ambiguous:
+            self.session = None
+            self.host_info = None
+            self.fault = False
         return format_error(result['status'], ambiguous)
 
     def cancel(self):

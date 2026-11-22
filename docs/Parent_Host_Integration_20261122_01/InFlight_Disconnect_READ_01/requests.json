@@ -1,0 +1,147 @@
+[
+  {
+    "index": 1,
+    "seconds": 0.6559999999590218,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 2,
+    "seconds": 1.3439999999827705,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 3,
+    "seconds": 1.952999999979511,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 4,
+    "seconds": 2.530999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323234452B30300D0A\r"
+  },
+  {
+    "index": 5,
+    "seconds": 3.155999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 6,
+    "seconds": 3.780999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 7,
+    "seconds": 4.421999999962281,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 8,
+    "seconds": 5.062999999965541,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 9,
+    "seconds": 5.7189999999827705,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 10,
+    "seconds": 6.375,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 11,
+    "seconds": 7.046999999962281,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 12,
+    "seconds": 7.7189999999827705,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 13,
+    "seconds": 8.280999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 14,
+    "seconds": 8.875,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 15,
+    "seconds": 9.48499999998603,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 16,
+    "seconds": 10.10999999998603,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 17,
+    "seconds": 10.75,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 18,
+    "seconds": 11.39100000000326,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 19,
+    "seconds": 12.062999999965541,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 20,
+    "seconds": 12.71899999998277,
+    "reply": "OK:EXT_RX:15:2B30392E3632323234452B30300D0A\r"
+  },
+  {
+    "index": 21,
+    "seconds": 13.39100000000326,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 22,
+    "seconds": 13.952999999979511,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 23,
+    "seconds": 14.546999999962281,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 24,
+    "seconds": 15.155999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 25,
+    "seconds": 15.780999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323234452B30300D0A\r"
+  },
+  {
+    "index": 26,
+    "seconds": 16.405999999959022,
+    "reply": "OK:EXT_RX:15:2B30392E3632323235452B30300D0A\r"
+  },
+  {
+    "index": 27,
+    "seconds": 17.04699999996228,
+    "reply": "OK:EXT_RX:15:2B30392E3632323237452B30300D0A\r"
+  },
+  {
+    "index": 28,
+    "seconds": 17.70299999997951,
+    "reply": "OK:EXT_RX:15:2B30392E3632323236452B30300D0A\r"
+  },
+  {
+    "index": 29,
+    "seconds": 17.905999999959022,
+    "reply": "ERR:EXT_LINK_NOT_READY:AMBIGUOUS=0\r"
+  }
+]

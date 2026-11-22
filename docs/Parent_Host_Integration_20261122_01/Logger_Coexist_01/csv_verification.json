@@ -1,0 +1,28 @@
+{
+  "bytes": 25790,
+  "sha256": "56ce962d40d5eb779da1558dcd82ada5ed9339a176149c7d9923fbec5b75128c",
+  "matches_device_hash": true,
+  "rows": 416,
+  "columns": [
+    "timestamp",
+    "category",
+    "direction",
+    "cmd",
+    "event",
+    "raw_ascii",
+    "raw_hex",
+    "bcc_rx",
+    "bcc_calc",
+    "bcc_ok",
+    "cmd_retry",
+    "rsp_retry",
+    "result",
+    "detail"
+  ],
+  "event_counts": {
+    "REQUEST": 207,
+    "RESULT": 206,
+    "RECEIVE_ERROR": 3
+  },
+  "malformed_rows": 0
+}

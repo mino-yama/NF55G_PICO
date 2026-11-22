@@ -3,3 +3,7 @@
 /docs/USB_SubMCU_Host_Preparation_20261111/** -text
 /firmware/usb_submcu_host_probe/releases/** -text
 /tests/fixtures/** -text
+/docs/Parent_Host_Integration_20261122_01/** -text
+/docs/ATE_SD_Check_20261122_181618/** -text
+/docs/ATE_SD_Check_20261122_181740/** -text
+/docs/RTC_Cache_Check_20261122_183202/** -text

@@ -178,7 +178,9 @@ class FixtureApp:
                     if response is not None:
                         self.server.reply(response)
                         self.server.flush_reply()
-                    return
+                    # 最終応答の送出後は下のhas_work/busy判定へ進む。
+                    # 常に次巡回へ延期すると、直後のATE burstでSD排出が飢餓状態になる。
+                    # 待ち要求・未送出応答・受信中の行があれば、従来どおりATEを優先する。
                 if self.server.has_work():
                     return
             except OSError as exc:

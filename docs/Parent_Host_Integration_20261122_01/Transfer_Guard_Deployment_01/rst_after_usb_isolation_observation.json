@@ -1,0 +1,27 @@
+{
+  "operator_report": "USB-B removed and Host RST completed",
+  "parent_nonce": "aebff8cd13a17ffe",
+  "hello_replies": [
+    {
+      "elapsed_ms": 35067,
+      "host_nonce": "351a9a9718f8d296",
+      "payload": "BFCF2EDB84B0B37F|meter-host-relay-20261122.1|READY"
+    },
+    {
+      "elapsed_ms": 36068,
+      "host_nonce": "351a9a9718f8d296",
+      "payload": "BFCF2EDB84B0B37F|meter-host-relay-20261122.1|READY"
+    },
+    {
+      "elapsed_ms": 37066,
+      "host_nonce": "351a9a9718f8d296",
+      "payload": "BFCF2EDB84B0B37F|meter-host-relay-20261122.1|READY"
+    }
+  ],
+  "frame_errors": 0,
+  "pio_error_before": null,
+  "pio_error_after": null,
+  "source": "observed mpremote stdout from existing_link_hello_probe.py, not a raw UART dump",
+  "instrument_queries_sent": 0,
+  "unresolved": "operator-reported USB-B removal versus Host READY; verifying physical socket state"
+}
