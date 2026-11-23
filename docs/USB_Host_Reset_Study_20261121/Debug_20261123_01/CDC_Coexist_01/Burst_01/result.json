@@ -1,0 +1,12 @@
+{
+  "date_jst": "2026-11-23T12:31:40.204934+09:00",
+  "failure": null,
+  "bursts": 53,
+  "automatic_retry": false,
+  "setting_changes": 0,
+  "planned_reads": 50,
+  "completed_reads": 50,
+  "read_timeout_ms": 2000,
+  "nf55g_read_only_d1_requested": true,
+  "sd_log_recording_requested": true
+}

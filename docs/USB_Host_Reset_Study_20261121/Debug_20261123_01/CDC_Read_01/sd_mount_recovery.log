@@ -1,0 +1,5 @@
+STALE_MOUNT_RELEASED
+SD_REINIT_REPLY OK
+SD_AFTER|{"last_error": null, "open_filename": null, "bank": "BANK_A", "mounted": true, "mount_stage": "READY", "status": "OK"}
+LOGGER False 0 0
+RTC_CHECK True

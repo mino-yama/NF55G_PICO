@@ -25,6 +25,7 @@ typedef struct {
     bool uart_drop;
     bool management_parent_valid, management_info_valid;
     bool management_reset_waiting, management_reset_ack_sent, management_reset_due;
+    bool management_reset_started;
     uint8_t previous;
     uint32_t rejected_frames;
 } relay_host_t;
@@ -42,5 +43,6 @@ void relay_host_rx(relay_host_t *host, const uint8_t *data, size_t length, uint3
 void relay_host_fail(relay_host_t *host, const char *reason);
 void relay_host_reset_ack_transmitted(relay_host_t *host);
 bool relay_host_reset_due(const relay_host_t *host);
+bool relay_host_take_reset(relay_host_t *host);
 bool relay_host_reset_ack_pending(const relay_host_t *host);
 #endif

@@ -1,5 +1,21 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-23 次段階: .23.2実機で設定前後一致、単発READ10/10、READ/D1/SD/RTC50burst成功。HOST A/T/R各50をrequest/session照合、D1 Retry0、NF送信D1/ACKのみ、drop/Queue0、通信中SD write/flush試行0。CSV55,879byte／853記録／14列正常／実機SHA一致。本番コード変更なし、Unit再実行なし。[詳細](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
+
+2026-11-23 7355通信再開: 前回と同じ親runtime／HOST起動世代で実ATE INFO→READY→明示IDN一回。I/H/Qとi/h/A/T/Rを実raw照合し、32byte期待原文一致。NF送信試行0／Cache不変／frame error0。既存FAULT／連続測定等は別受入。コード変更なし、Unit再実行なし。[実機結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。
+
+2026-11-23 RST実機限定成功: 親管理版とHOST .23.2を配置後、COM7の実ATE入口からINFO／通常RST一回／INFO。COM22でi/i/K/iを受動取得し、新HOST nonce・同一親nonce・Cache不変・NF送信試行0・frame error0を確認。USB NOT_READY条件の結果であり、READY／既存FAULTからの復帰・7355通信再開は未受入。[実機結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/hil_result.json)。
+
+2026-11-23 HOST側追加回帰: ACK前の再起動要求消費0回、ACK後1000巡回で消費1回、再起動までdue／BUSY保持をnative Cで確認。固定SDKのwatchdog再設定を毎巡回で呼ばない修正を含め全476件成功（19.505秒）。HOST候補.23.2のARM／実機結果は[継続記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)へ記載。
+
+2026-11-23 HOST側追加回帰: ACK前の再起動要求消費0回、ACK後1000巡回で消費1回、再起動までdue／BUSY保持をnative Cで確認。固定SDKのwatchdog再設定を毎巡回で呼ばない修正を含め全476件成功（19.505秒）。HOST候補.23.2のARM／実機結果は[継続記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)へ記載。
+
+2026-11-23 RST追加回帰: native C／親連携で新boot未確認時の通常要求拒否、RST_DONE後H/h再確立と明示IDN、既存親fault保持の3件を追加。修正前2件失敗、修正後Host Unit／Mock全475件成功。実機RST受入は未完了。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-23 HOST管理RST: 通常Qから分離したI/i/S/K管理kind、FAULT/USB未接続時照会、BUSY、ID・親/HOST nonce・challenge・連続request ID、重複/遅着/CRC不正、ACK全送出期限、ACK欠落時RESULT_UNKNOWN/fault保持をnative C Host + 親Mockで検証する。新nonce確認とREADY/7355応答確認を分離し、Cache/製品PASSを復元しない。NF55G/7355への管理本文送信なし。詳細は[HOST管理RST仕様](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)。
+
+2026-11-22 ADC小数の実機確認要求: [試験計画Rev.0](ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md)を追加。3系統×2点、整数対照/小数/同一整数部の異なる小数/範囲内境界、内部観測、校正後測定、再投入後保持を分離。AD/AR rawを保存し、AR整数化だけで保存値を断定しない。先行デバッグ後に実施、現時点では未実施。
+
 2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。
 
 

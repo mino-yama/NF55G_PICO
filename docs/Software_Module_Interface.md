@@ -1,5 +1,7 @@
 # Pico Software Module / Interface Specification
 
+2026-11-23 HOST通常RST補正: 親はRST受理後の新boot確認まで通常要求を拒否し、管理INFOでは通常sessionをbindせず次の明示要求のH/hで確立する。HOSTの`relay_host_take_reset`はACK送出完了後一度だけtrueとなり、mainがwatchdog期限を毎巡回で再設定することを防ぐ。reset due／BUSYは通常再起動まで保持する。Code／Test／仕様を同時更新、全476回帰成功。[仕様・実機記録](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)。
+
 2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。
 
 

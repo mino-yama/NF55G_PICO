@@ -1,0 +1,5 @@
+SD_BEFORE|{"last_error": "OSError(1,)", "open_filename": null, "bank": "BANK_A", "mounted": false, "mount_stage": "VFS_MOUNT", "status": "MOUNT_ERR"}
+RTC_CHECK True
+SD_REINIT_REPLY ERR:MOUNT_ERR
+SD_AFTER|{"last_error": "OSError(1,)", "open_filename": null, "bank": "BANK_A", "mounted": false, "mount_stage": "VFS_MOUNT", "status": "MOUNT_ERR"}
+LOGGER False 0 0

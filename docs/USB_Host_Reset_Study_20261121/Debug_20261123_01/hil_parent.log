@@ -1,0 +1,3 @@
+RST_HIL_READY|f2caeb2e46c95f01
+RST_HIL_DONE|{"host_info": ["BFCF2EDB84B0B37F", "meter-host-relay-20261123.2", "NOT_READY"], "cache_unchanged": true, "frame_errors": 0, "logger_active": false, "parent_nonce": "f2caeb2e46c95f01", "nf_write_attempts": 0, "fault": false}
+RST_HIL_STOPPED_PIO_INPUT

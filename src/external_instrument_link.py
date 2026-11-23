@@ -165,9 +165,8 @@ class ExternalInstrumentLink:
                         return
                     old_nonce = self._reset_boot_nonce
                     self._reset_boot_nonce = None
-                    self.session = frame["session"]
-                    if not self.fault:
-                        self.core.establish_link()
+                    # 管理INFOは通常sessionをbindしない。次の明示要求でH/hを照合する。
+                    self.session = None
                     self._finish_management("OK:HOST_RESET_DONE:{}:{}:{}:{}".format(
                         identity.upper(), old_nonce.hex().upper(), host_nonce.hex().upper(), state))
                     return
@@ -201,7 +200,8 @@ class ExternalInstrumentLink:
     def start(self, request):
         if self.busy:
             raise RelayError('BUSY')
-        if self.fault:
+        # RST受理だけでは通常通信へ戻さず、別INFOによる新boot確認を待つ。
+        if self.fault or self._reset_boot_nonce is not None:
             raise RelayError('RECOVERY_REQUIRED')
         self._active = dict(request)
         self._active['started_at'] = self.clock.ticks_ms()

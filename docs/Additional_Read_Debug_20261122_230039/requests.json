@@ -1,0 +1,1316 @@
+[
+  {
+    "commands": [
+      "*IDN?",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4e463535475f5049434f5f464958545552452c5265762e300d4f4b0d4f4b0d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "NF55G_PICO_FIXTURE,Rev.0",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "LOG_CONT_START"
+    ],
+    "reply_hex": "4f4b0d",
+    "elapsed_ms": 172.0,
+    "replies": [
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "PS_OFF_HOUR?",
+      "TOTAL_ADU_HOUR?",
+      "AC_FAIL_COUNT?",
+      "BATT_SOC_WH?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_RPM?",
+      "OFF_BATT_DEG?",
+      "BBU_TEMP?",
+      "LIFE_BATT_DEG?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_VOLT?",
+      "CHG_CURR?",
+      "AC_LOW_COUNT?",
+      "BACKUP_COUNT?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "TOTAL_BATT_HOUR?",
+      "NF55_DATE?",
+      "NF55_TIME?",
+      "CHARGE_END?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DISCHARGE_COUNT?",
+      "BATT_TTL_CHARGE?",
+      "TOTAL_BATT_TEMP?",
+      "BATT_TEMP_AVE?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 297.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "AVE_OFF_TEMP?",
+      "BATT_TEMP_MAX?",
+      "NF55_DATETIME?",
+      "BATT_SOC_MAH?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_TEMP_MIN?",
+      "BATT_CURR?",
+      "ADU_TEMP?",
+      "OFF_CHARGE_HOUR?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_DATA?",
+      "AVE_CHARGE_TEMP?",
+      "LIFE_BATT_CHARGE?",
+      "BATT_DEG_TOTAL?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 32.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "VOUT12?",
+      "AC_OFF_HOUR?",
+      "BATT_CHARGE_COUNT?",
+      "BATT_TTL_DISCHARGE?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 281.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_LEVEL?",
+      "OFF_CHARGE?",
+      "TOTAL_ADU_TEMP?",
+      "IOUT12?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_VOLT?",
+      "LIFE_BATT_TEMP?",
+      "BATT_TEMP?",
+      "FW_REV?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "UNIT_REV?",
+      "UNIT_LOT?",
+      "UNIT_SERIAL?",
+      "ADU_REV?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 46.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_LOT?",
+      "ADU_SERIAL?",
+      "BBU_REV?",
+      "BBU_LOT?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 282.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_SERIAL?",
+      "PS_ON_BACKUP?",
+      "AC_LINK?",
+      "AUTO_CHARGE?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 62.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "EVENT_ENABLE?",
+      "MAX_BACKUP_TIME?",
+      "MIN_BACKUP_TIME?",
+      "RESTART_TIME?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 63.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_LOW_THD?",
+      "BATT_CAP_MAH?",
+      "BATT_CAP_WH?",
+      "CHG_IR_THD?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 78.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_WNG_THD?",
+      "BATT_ALM_THD?",
+      "ADU_TEMP_THD?",
+      "BBU_TEMP_THD?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 281.0,
+    "replies": [
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID",
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_WNG_THD?"
+    ],
+    "reply_hex": "4552523a43414348455f494e56414c49440d",
+    "elapsed_ms": 16.0,
+    "replies": [
+      "ERR:CACHE_INVALID"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH"
+    ],
+    "reply_hex": "4f4b0d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "INFO_REFRESH"
+    ],
+    "reply_hex": "4f4b0d",
+    "elapsed_ms": 109.0,
+    "replies": [
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "PS_OFF_HOUR?",
+      "TOTAL_ADU_HOUR?",
+      "AC_FAIL_COUNT?",
+      "BATT_SOC_WH?"
+    ],
+    "reply_hex": "302e300d35350d3130370d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "0.0",
+      "55",
+      "107",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_RPM?",
+      "OFF_BATT_DEG?",
+      "BBU_TEMP?",
+      "LIFE_BATT_DEG?"
+    ],
+    "reply_hex": "313737380d302e300d31360d302e300d",
+    "elapsed_ms": 328.0,
+    "replies": [
+      "1778",
+      "0.0",
+      "16",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_VOLT?",
+      "CHG_CURR?",
+      "AC_LOW_COUNT?",
+      "BACKUP_COUNT?"
+    ],
+    "reply_hex": "302e300d302e300d300d320d",
+    "elapsed_ms": 32.0,
+    "replies": [
+      "0.0",
+      "0.0",
+      "0",
+      "2"
+    ]
+  },
+  {
+    "commands": [
+      "TOTAL_BATT_HOUR?",
+      "NF55_DATE?",
+      "NF55_TIME?",
+      "CHARGE_END?"
+    ],
+    "reply_hex": "35350d32303236313131300d3139313832310d300d",
+    "elapsed_ms": 15.0,
+    "replies": [
+      "55",
+      "20261110",
+      "191821",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DISCHARGE_COUNT?",
+      "BATT_TTL_CHARGE?",
+      "TOTAL_BATT_TEMP?",
+      "BATT_TEMP_AVE?"
+    ],
+    "reply_hex": "39380d3338390d313337350d32350d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "98",
+      "389",
+      "1375",
+      "25"
+    ]
+  },
+  {
+    "commands": [
+      "AVE_OFF_TEMP?",
+      "BATT_TEMP_MAX?",
+      "NF55_DATETIME?",
+      "BATT_SOC_MAH?"
+    ],
+    "reply_hex": "300d32350d32303236313131305f3139313832310d300d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "0",
+      "25",
+      "20261110_191821",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_TEMP_MIN?",
+      "BATT_CURR?",
+      "ADU_TEMP?",
+      "OFF_CHARGE_HOUR?"
+    ],
+    "reply_hex": "32350d302e300d32300d302e300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "25",
+      "0.0",
+      "20",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_DATA?",
+      "AVE_CHARGE_TEMP?",
+      "LIFE_BATT_CHARGE?",
+      "BATT_DEG_TOTAL?"
+    ],
+    "reply_hex": "300d300d300d302e300d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "VOUT12?",
+      "AC_OFF_HOUR?",
+      "BATT_CHARGE_COUNT?",
+      "BATT_TTL_DISCHARGE?"
+    ],
+    "reply_hex": "31322e3032360d34372e380d300d3332330d",
+    "elapsed_ms": 63.0,
+    "replies": [
+      "12.026",
+      "47.8",
+      "0",
+      "323"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_LEVEL?",
+      "OFF_CHARGE?",
+      "TOTAL_ADU_TEMP?",
+      "IOUT12?"
+    ],
+    "reply_hex": "340d300d313639380d302e3033320d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "4",
+      "0",
+      "1698",
+      "0.032"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_VOLT?",
+      "LIFE_BATT_TEMP?",
+      "BATT_TEMP?",
+      "FW_REV?"
+    ],
+    "reply_hex": "302e3031310d32350d32350d53312e3134420d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "0.011",
+      "25",
+      "25",
+      "S1.14B"
+    ]
+  },
+  {
+    "commands": [
+      "UNIT_REV?",
+      "UNIT_LOT?",
+      "UNIT_SERIAL?",
+      "ADU_REV?"
+    ],
+    "reply_hex": "41352e200d323631300d3030303833320d303030300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "A5. ",
+      "2610",
+      "000832",
+      "0000"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_LOT?",
+      "ADU_SERIAL?",
+      "BBU_REV?",
+      "BBU_LOT?"
+    ],
+    "reply_hex": "303030300d3030303030300d303030300d303030300d",
+    "elapsed_ms": 32.0,
+    "replies": [
+      "0000",
+      "000000",
+      "0000",
+      "0000"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_SERIAL?",
+      "PS_ON_BACKUP?",
+      "AC_LINK?",
+      "AUTO_CHARGE?"
+    ],
+    "reply_hex": "3030303030300d310d300d320d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "000000",
+      "1",
+      "0",
+      "2"
+    ]
+  },
+  {
+    "commands": [
+      "EVENT_ENABLE?",
+      "MAX_BACKUP_TIME?",
+      "MIN_BACKUP_TIME?",
+      "RESTART_TIME?"
+    ],
+    "reply_hex": "300d300d31350d31350d",
+    "elapsed_ms": 46.0,
+    "replies": [
+      "0",
+      "0",
+      "15",
+      "15"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_LOW_THD?",
+      "BATT_CAP_MAH?",
+      "BATT_CAP_WH?",
+      "CHG_IR_THD?"
+    ],
+    "reply_hex": "35300d343930300d33360d300d",
+    "elapsed_ms": 32.0,
+    "replies": [
+      "50",
+      "4900",
+      "36",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_WNG_THD?",
+      "BATT_ALM_THD?",
+      "ADU_TEMP_THD?",
+      "BBU_TEMP_THD?"
+    ],
+    "reply_hex": "36350d38300d38350d38350d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "65",
+      "80",
+      "85",
+      "85"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_WNG_THD?"
+    ],
+    "reply_hex": "3631350d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "615"
+    ]
+  },
+  {
+    "commands": [
+      "PS_OFF_HOUR?",
+      "TOTAL_ADU_HOUR?",
+      "AC_FAIL_COUNT?",
+      "BATT_SOC_WH?"
+    ],
+    "reply_hex": "302e300d35350d3130370d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "0.0",
+      "55",
+      "107",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_RPM?",
+      "OFF_BATT_DEG?",
+      "BBU_TEMP?",
+      "LIFE_BATT_DEG?"
+    ],
+    "reply_hex": "313737380d302e300d31360d302e300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "1778",
+      "0.0",
+      "16",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "CHG_VOLT?",
+      "CHG_CURR?",
+      "AC_LOW_COUNT?",
+      "BACKUP_COUNT?"
+    ],
+    "reply_hex": "302e300d302e300d300d320d",
+    "elapsed_ms": 16.0,
+    "replies": [
+      "0.0",
+      "0.0",
+      "0",
+      "2"
+    ]
+  },
+  {
+    "commands": [
+      "TOTAL_BATT_HOUR?",
+      "NF55_DATE?",
+      "NF55_TIME?",
+      "CHARGE_END?"
+    ],
+    "reply_hex": "35350d32303236313131300d3139313832310d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "55",
+      "20261110",
+      "191821",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_DISCHARGE_COUNT?",
+      "BATT_TTL_CHARGE?",
+      "TOTAL_BATT_TEMP?",
+      "BATT_TEMP_AVE?"
+    ],
+    "reply_hex": "39380d3338390d313337350d32350d",
+    "elapsed_ms": 266.0,
+    "replies": [
+      "98",
+      "389",
+      "1375",
+      "25"
+    ]
+  },
+  {
+    "commands": [
+      "AVE_OFF_TEMP?",
+      "BATT_TEMP_MAX?",
+      "NF55_DATETIME?",
+      "BATT_SOC_MAH?"
+    ],
+    "reply_hex": "300d32350d32303236313131305f3139313832310d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "0",
+      "25",
+      "20261110_191821",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_TEMP_MIN?",
+      "BATT_CURR?",
+      "ADU_TEMP?",
+      "OFF_CHARGE_HOUR?"
+    ],
+    "reply_hex": "32350d302e300d32300d302e300d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "25",
+      "0.0",
+      "20",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "CHARGE_DATA?",
+      "AVE_CHARGE_TEMP?",
+      "LIFE_BATT_CHARGE?",
+      "BATT_DEG_TOTAL?"
+    ],
+    "reply_hex": "300d300d300d302e300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "0",
+      "0",
+      "0",
+      "0.0"
+    ]
+  },
+  {
+    "commands": [
+      "VOUT12?",
+      "AC_OFF_HOUR?",
+      "BATT_CHARGE_COUNT?",
+      "BATT_TTL_DISCHARGE?"
+    ],
+    "reply_hex": "31322e3032360d34372e380d300d3332330d",
+    "elapsed_ms": 281.0,
+    "replies": [
+      "12.026",
+      "47.8",
+      "0",
+      "323"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_LEVEL?",
+      "OFF_CHARGE?",
+      "TOTAL_ADU_TEMP?",
+      "IOUT12?"
+    ],
+    "reply_hex": "340d300d313639380d302e3033320d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "4",
+      "0",
+      "1698",
+      "0.032"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_VOLT?",
+      "LIFE_BATT_TEMP?",
+      "BATT_TEMP?",
+      "FW_REV?"
+    ],
+    "reply_hex": "302e3031310d32350d32350d53312e3134420d",
+    "elapsed_ms": 32.0,
+    "replies": [
+      "0.011",
+      "25",
+      "25",
+      "S1.14B"
+    ]
+  },
+  {
+    "commands": [
+      "UNIT_REV?",
+      "UNIT_LOT?",
+      "UNIT_SERIAL?",
+      "ADU_REV?"
+    ],
+    "reply_hex": "41352e200d323631300d3030303833320d303030300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "A5. ",
+      "2610",
+      "000832",
+      "0000"
+    ]
+  },
+  {
+    "commands": [
+      "ADU_LOT?",
+      "ADU_SERIAL?",
+      "BBU_REV?",
+      "BBU_LOT?"
+    ],
+    "reply_hex": "303030300d3030303030300d303030300d303030300d",
+    "elapsed_ms": 250.0,
+    "replies": [
+      "0000",
+      "000000",
+      "0000",
+      "0000"
+    ]
+  },
+  {
+    "commands": [
+      "BBU_SERIAL?",
+      "PS_ON_BACKUP?",
+      "AC_LINK?",
+      "AUTO_CHARGE?"
+    ],
+    "reply_hex": "3030303030300d310d300d320d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "000000",
+      "1",
+      "0",
+      "2"
+    ]
+  },
+  {
+    "commands": [
+      "EVENT_ENABLE?",
+      "MAX_BACKUP_TIME?",
+      "MIN_BACKUP_TIME?",
+      "RESTART_TIME?"
+    ],
+    "reply_hex": "300d300d31350d31350d",
+    "elapsed_ms": 47.0,
+    "replies": [
+      "0",
+      "0",
+      "15",
+      "15"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_LOW_THD?",
+      "BATT_CAP_MAH?",
+      "BATT_CAP_WH?",
+      "CHG_IR_THD?"
+    ],
+    "reply_hex": "35300d343930300d33360d300d",
+    "elapsed_ms": 31.0,
+    "replies": [
+      "50",
+      "4900",
+      "36",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "BATT_WNG_THD?",
+      "BATT_ALM_THD?",
+      "ADU_TEMP_THD?",
+      "BBU_TEMP_THD?"
+    ],
+    "reply_hex": "36350d38300d38350d38350d",
+    "elapsed_ms": 282.0,
+    "replies": [
+      "65",
+      "80",
+      "85",
+      "85"
+    ]
+  },
+  {
+    "commands": [
+      "FAN_WNG_THD?"
+    ],
+    "reply_hex": "3631350d",
+    "elapsed_ms": 0.0,
+    "replies": [
+      "615"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 453.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 750.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 765.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 469.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 766.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 812.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 781.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 782.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 797.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 781.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 453.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 812.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 782.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 781.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 797.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 765.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 454.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 781.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 812.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "DATA_REFRESH",
+      "STATUS_REFRESH",
+      "INFO_REFRESH",
+      "RTC_CHECK?",
+      "SD_STATUS?",
+      "LOG_DROP_COUNT?"
+    ],
+    "reply_hex": "4f4b0d4f4b0d4f4b0d4f4b0d4f4b0d300d",
+    "elapsed_ms": 782.0,
+    "replies": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "0"
+    ]
+  },
+  {
+    "commands": [
+      "LOG_CONT_STOP"
+    ],
+    "reply_hex": "4f4b0d",
+    "elapsed_ms": 421.0,
+    "replies": [
+      "OK"
+    ]
+  },
+  {
+    "commands": [
+      "LOG_DROP_COUNT?",
+      "SD_STATUS?"
+    ],
+    "reply_hex": "300d4f4b0d",
+    "elapsed_ms": 1641.0,
+    "replies": [
+      "0",
+      "OK"
+    ]
+  }
+]

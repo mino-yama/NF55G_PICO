@@ -1,0 +1,25 @@
+{
+  "host_uid": "BFCF2EDB84B0B37F",
+  "host_uf2_sha256": "77ccbbb88f220131b4a319fd2b7edd2c639482d4f6879c6b29f2854a74859f69",
+  "host_uf2_bytes": 100864,
+  "host_version": "meter-host-relay-20261123.2",
+  "host_elf_sha256": "38ab438223657ce0c62ddbee79309a54a52468ab8a650db5b2bbdf4da9c4a3ec",
+  "host_elf_bytes": 1035920,
+  "host_source_sha256": {
+    "CMakeLists.txt": "1d675e346362aca343cbccc459c08c8ab15b99a513c6dee5d8996e485995e94d",
+    "main.c": "8bc6bbc29bc9d8fae3ac1b4aa1c25c3c50d30d5b823895997967c6aaf30c1798",
+    "newlib_malloc_lock.c": "751082b4939b4ff4db0d8fcdc942b31775f78eb2bc6e554b21de7ca41997288c",
+    "relay_cdc_guard.c": "2f9acc8fa072f25aea9882eb3d491dfc1f82711a71fbc3a6f6a514d682644097",
+    "relay_cdc_guard.h": "78c0a5e9a1933668526489c688cf7739959c8132c464164253990e10494ee2c6",
+    "relay_host.c": "2df51232feb4f7323124dc9e3e88a095fe7368e73136fa2fb68791240a6df56a",
+    "relay_host.h": "1e5bf322ba1c9a786fb6f73e6717f67f4901f2a3d4f9f730ae5dee5876ca6c22",
+    "relay_main.c": "2b14c6607387259aace4a4688284ebdc7c349b61c7533c19389ffd82f114503a",
+    "relay_usb_diag.c": "55bc1ddcf54a4d82aa79b5850e42e76743045b864c9db9acfab4a229fd17cdec",
+    "relay_usb_diag.h": "beeacc794101d319368e2da06685d9b9c073a33af586232e092482103fc09d3a",
+    "relay_wire.c": "ef58652a5f3092fd72d6cc775f7c2f918ccbef3c3a8bb0b9dfc8575f158ddccd",
+    "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+    "scpi_response_validation.c": "5938aa82a87dfa31019e49437ce21e96123ce12010b793babfcfbe43fbe40b6a",
+    "scpi_response_validation.h": "ebdb62c4647ba85b8a60ed6efcccb5c93773099f3c772ccd76eebe3179c27a0f",
+    "tusb_config.h": "b1070a27ddba19d9daa35a3f7e1bae56c86917f3f903caaa1d5afa00f90ff59d"
+  }
+}

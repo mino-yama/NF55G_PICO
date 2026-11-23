@@ -1,0 +1,14 @@
+{
+  "evidence_git_blobs_match_working_bytes": 141,
+  "uf2_and_both_flash_backups_sha256_verified": true,
+  "csv_sha256_verified": true,
+  "read10": "READ10_SUCCESS",
+  "coexist50": "COEXIST50_SUCCESS",
+  "unit_mock_baseline_passed": 476,
+  "unit_mock_rerun": false,
+  "diff_check": "passed; CRLF recognized and preserved evidence trailing blank lines excluded from whitespace checking",
+  "excluded_local_files": [
+    "firmware/usb_submcu_external_meter_host/build/",
+    "tmp/"
+  ]
+}

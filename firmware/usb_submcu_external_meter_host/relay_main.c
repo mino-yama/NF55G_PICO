@@ -252,7 +252,8 @@ int main(void) {
         service_usb_rx();
         service_uart();
         service_usb_tx();
-        if (relay_host_reset_due(&host)) watchdog_reboot(0u, 0u, 10u);
+        // ACK送出後に一度だけarmし、次巡回で再起動期限を延長しない。
+        if (relay_host_take_reset(&host)) watchdog_reboot(0u, 0u, 10u);
         tight_loop_contents();
     }
 }

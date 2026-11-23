@@ -1,0 +1,4 @@
+SD_ROOT ['System Volume Information', 'BANK_B', 'BANK_A', '.nf55_active_bank']
+SD_STATVFS (65536, 65536, 242768, 242687, 242687, 0, 0, 0, 0, 255)
+VFS_MOUNTS [(<VfsFat>, '/sd'), (<VfsLfs2>, '/')]
+SD_FILE_OPEN False

@@ -82,6 +82,7 @@ API int test_fault(test_t *test) { return test->host.fault; }
 API void test_fail(test_t *test) { relay_host_fail(&test->host, "TEST_FAULT"); }
 API void test_reset_ack_sent(test_t *test) { relay_host_reset_ack_transmitted(&test->host); }
 API int test_reset_due(test_t *test) { return relay_host_reset_due(&test->host); }
+API int test_take_reset(test_t *test) { return relay_host_take_reset(&test->host); }
 API size_t test_command(test_t *test, unsigned char *out) {
     memcpy(out,test->host.command,test->host.command_length);
     return test->host.command_length;
@@ -205,7 +206,7 @@ class NativeRelayLinkTests(unittest.TestCase):
         cls.lib.test_poll.argtypes = [ctypes.c_void_p, ctypes.c_uint32]
         for name in ('test_start', 'test_done', 'test_pending', 'test_fault'):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p]
-        for name in ('test_set_pending', 'test_fail', 'test_reset_ack_sent', 'test_reset_due'):
+        for name in ('test_set_pending', 'test_fail', 'test_reset_ack_sent', 'test_reset_due', 'test_take_reset'):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p]
         for name in ('test_command', 'test_pop'):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p, ctypes.c_void_p]
@@ -422,6 +423,58 @@ class NativeRelayLinkTests(unittest.TestCase):
 
         confirmed = run_management('HOST_INFO? METER')
         self.assertEqual(confirmed, 'OK:HOST_RESET_DONE:BFCF2EDB84B0B37F:484F53544E4F4E43:4E4557484F535431:READY')
+        self.assertEqual(self.transport.commands, [])
+
+    def run_management(self, operation):
+        self.link.start_management(operation)
+        for _ in range(1100):
+            self.link.poll()
+            reply = self.link.take_reply()
+            if reply is not None:
+                return reply
+            self.clock.sleep_ms(1)
+        self.fail('No bounded management response')
+
+    def test_reset_confirmation_precedes_normal_query(self):
+        self.transport.auto_ack_transmission = True
+        self.transport.reboot_on_reset_ack = True
+        self.assertTrue(self.run_management('RESET').startswith('OK:HOST_RESET_ACCEPTED:'))
+        with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+            self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+        self.assertEqual(self.transport.commands, [])
+
+    def test_reset_dispatch_arms_watchdog_once_and_keeps_busy_until_reboot(self):
+        self.assertFalse(self.lib.test_take_reset(self.transport.memory))
+        self.assertTrue(self.run_management('RESET').startswith('OK:HOST_RESET_ACCEPTED:'))
+        self.assertFalse(self.lib.test_take_reset(self.transport.memory))
+        self.lib.test_reset_ack_sent(self.transport.memory)
+        calls = 0
+        for now in range(1000):
+            self.lib.test_poll(self.transport.memory, self.clock.ticks_ms() + now)
+            calls += bool(self.lib.test_take_reset(self.transport.memory))
+        self.assertEqual(calls, 1)
+        self.assertTrue(self.lib.test_reset_due(self.transport.memory))
+        self.assertFalse(self.lib.test_take_reset(self.transport.memory))
+        self.assertEqual(self.transport.commands, [])
+
+    def test_reset_done_requires_normal_hello_before_explicit_query(self):
+        self.transport.auto_ack_transmission = True
+        self.transport.reboot_on_reset_ack = True
+        self.assertTrue(self.run_management('RESET').startswith('OK:HOST_RESET_ACCEPTED:'))
+        self.assertTrue(self.run_management('INFO').startswith('OK:HOST_RESET_DONE:'))
+        self.assertEqual(self.transport.commands, [])
+        self.assertTrue(self.request().startswith('OK:EXT_RX:32:'))
+        self.assertEqual(self.transport.commands, [b'*IDN?\r\n'])
+
+    def test_reset_done_preserves_existing_parent_fault(self):
+        self.link.fault = True
+        self.transport.auto_ack_transmission = True
+        self.transport.reboot_on_reset_ack = True
+        self.assertTrue(self.run_management('RESET').startswith('OK:HOST_RESET_ACCEPTED:'))
+        self.assertTrue(self.run_management('INFO').startswith('OK:HOST_RESET_DONE:'))
+        with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+            self.link.start(parse_monitor_request(b'EXT_QUERY 2000 *IDN?'))
+        self.assertTrue(self.link.fault)
         self.assertEqual(self.transport.commands, [])
 
     def test_reset_ack_loss_is_result_unknown_and_latches_parent_fault(self):

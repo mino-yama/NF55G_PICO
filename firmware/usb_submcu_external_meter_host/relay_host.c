@@ -275,6 +275,13 @@ bool relay_host_reset_due(const relay_host_t *host) {
     return host->management_reset_due;
 }
 
+bool relay_host_take_reset(relay_host_t *host) {
+    // SDKのwatchdog期限を巡回ごとに設定し直さない。再起動までBUSYは保持する。
+    if (!host->management_reset_due || host->management_reset_started) return false;
+    host->management_reset_started = true;
+    return true;
+}
+
 bool relay_host_reset_ack_pending(const relay_host_t *host) {
     return host->management_reset_waiting && !host->management_reset_ack_sent;
 }

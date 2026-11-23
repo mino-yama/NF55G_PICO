@@ -1,6 +1,6 @@
 # 測定器HOST管理・通常RST仕様 Rev.0
 
-記録日: 2026-11-23。対象は測定器用RP2350-USB-A HOSTのみ。状態: PC/native検証済み、ARM build・実機確認待ち。
+記録日: 2026-11-23。対象は測定器用RP2350-USB-A HOSTのみ。現状: .23.2のARM build・配置・実ATE経由の通常RST一回／新nonce照合成功。USBはNOT_READYで機器通信再開未確認。全476回帰成功。詳細は[追加デバッグ・実機記録](Debug_20261123_01/Result_Rev0.md)。以下の.23.1ビルド／未確認記述は初版時点の履歴として保持。
 
 ## ATE入口
 
@@ -23,7 +23,13 @@
 
 HOSTは`watchdog_reboot(0, 0, 10)`で通常起動へ戻す。BOOTSEL移行、親全体の再起動、NF55G/7355へのRESET/SCPI送信、WDT常時監視は対象外。
 
+2026-11-23実装補正: `relay_host_take_reset`でACK送出後の再起動要求を一度だけ消費する。reset due／BUSYは再起動まで保持する。SDKの`watchdog_reboot`はwatchdogを無効化して期限を再設定するため、10ms期限をmainの毎巡回で設定し直さない。1000巡回で実行1回のnative試験を追加し、全476件成功。HOST版を`meter-host-relay-20261123.2`へ更新し、.23.1を比較用に保持。
+
+2026-11-23実装補正: `relay_host_take_reset`でACK送出後の再起動要求を一度だけ消費する。reset due／BUSYは再起動まで保持する。SDKの`watchdog_reboot`はwatchdogを無効化して期限を再設定するため、10ms期限をmainの毎巡回で設定し直さない。1000巡回で実行1回のnative試験を追加し、全476件成功。HOST版を`meter-host-relay-20261123.2`へ更新し、.23.1を比較用に保持。
+
 ## 復帰境界
+
+2026-11-23追加デバッグ: RST受理後は新boot確認INFO成立まで通常要求を`RECOVERY_REQUIRED`で拒否する。管理INFOは通常sessionをbindしないため、RST_DONEでは通常sessionを確立せず、次の明示要求でH/h照合後にQを送る。既存親faultは保持。追加3件を含め全475件成功、実機未配置。[検証記録](Debug_20261123_01/Result_Rev0.md)。
 
 RST受理と再起動確認は別操作。HOST_INFOで同一個体・新nonceを確認しても、USB READYや7355応答境界の成立を意味しない。既存の親fault/ambiguousとCache INVALIDは解除しない。既存親faultがある場合は新nonce照合後も保持する。7355の遅着応答境界は未確定であり、RSTだけで測定再開/PASSとしない。
 

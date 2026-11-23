@@ -2,6 +2,25 @@ NF55G Pico 2 Codex Handoff Rev.0
 Created: 2026-09-01
 
 Core handoff files:
+2026-11-23 latest next-step result: docs/USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md
+Same parent f2caeb2e46c95f01 / HOST CBFA8C2C4F42C7BA .23.2. Current DCV/AUTO ON/single/IMM/count1/sample1/delay0 verified; explicit same AUTO ON and READ10/10 succeeded. READ+D1+SD+RTC50/50 succeeded, D1 including precheck51/ACK51 only, Retry0, drop0/Queue0, SD during-communication write/flush attempts0. CSV55879 bytes/853 data rows/14 columns, device-copy SHA256 20d699d9d2ba6f9eb6db15b89ab4035f0aa9dce1393057f2613eaf7feaf854a0 matched. Existing /sd VFS mount vs trial sink state mismatch was reconciled during idle; SD OK. Production source/Flash unchanged. Parent REPL stopped, PIO4/5 closed/input, original NF write-blocking guard restored; same app/session preserved. STATUS valid via explicit D1, other caches unchanged. ADC acquisition/cache ATE integration next, unresolved contracts remain open; no production acceptance/Issue Close.
+
+2026-11-23 latest CDC resume: docs/USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md
+Same parent f2caeb2e46c95f01 / HOST CBFA8C2C4F42C7BA (.23.2) now returned READY; explicit IDN once succeeded, expected 32-byte raw exact. Sent I/H/Q once each, observed i/h/A/T/R, no reset/retry/settings/READ/Flash write. NF write attempts 0, cache unchanged, frame/stale/decode errors 0. Parent REPL stopped, PIO4/5 closed, GP12/13 input; existing app/session retained. HOST stays in normal firmware on same boot. Previous NOT_READY records below are historical; cause/continuous measurement/coexistence remain unaccepted.
+
+2026-11-23 RST handoff/debug final: docs/USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md
+Fixed parent reset-confirmation gate/normal H-h binding and HOST watchdog dispatch-once. Full Host/Mock: 476 passed. SDK2.2.0 ARM .23.2 built and deployed; UF2 SHA256 77ccbbb88f220131b4a319fd2b7edd2c639482d4f6879c6b29f2854a74859f69. Both full Flash images backed up and verified. Parent four files installed, all sources checked after reboot; deployed config True preserved.
+Actual ATE INFO/RESET/INFO: one reset accepted, same HOST BFCF2EDB84B0B37F, new boot nonce D90F7FE8E7DFF8D5 -> CBFA8C2C4F42C7BA. Parent nonce f2caeb2e46c95f01 and cache metadata unchanged, NF write attempts 0, frame errors 0. HOST USB was NOT_READY before/after. No 7355 commands; CDC readiness/recovery not accepted. Parent REPL stopped with PIO4/5 closed and GP12/13 input; HOST running normal .23.2. USB-HOST-RESET-01 stays Open. Earlier progress below is historical.
+
+Latest approved order and hardware update: docs/Development_Order_and_Fixed_Wiring_Decision_20261122.md
+User accepted HOST INFO/normal RESET and debugging -> ADC acquisition/cache -> AD/AR decimal hardware checks -> explicit verification -> QR/SS.
+Yamada plans breadboard-to-fixed-wiring upgrade on 2026-11-23. Check actual wiring/power/identities/firmware before resuming standalone hardware tests; upgrade not yet verified.
+ADC decimal hardware test requested 2026-11-22: docs/ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md
+After current debugging, distinguish AD wire encoding, internal storage, AR integer truncation, calibration effect and power-cycle retention; plan only, not executed.
+Latest ADC/QR sequencing (user instruction 2026-11-22): docs/ADC_QR_Integration_Plan_20261122_Rev0.md
+Prepare ADC alongside current debugging; integrate after baseline debugging, then study ATE-controlled QR acquisition/cache/SS destinations.
+Reviewed ChatGPT conversation "ADC仕様" (6b00fe44-61c0-83ec-b1be-0f20216ec71b): separate explicit AD write and AR verification; Pico compares/logs, ATE judges product.
+AD/AR decimal readback and QR-to-SS conversion contracts remain open. This update changes documents only.
 Current next-session plan (2026-11-23; user confirmed 2026-11-22):
 docs/Debug_Development_Plan_20261123_Rev0.md
 Baseline hashes: docs/Debug_Development_Plan_20261123_Rev0_Baseline.json
@@ -10,6 +29,8 @@ Debug USB bulk IN, then QR after Yamada installs it, then staged coexistence tes
 Yamada owns power-maintenance/signal-disconnection/external-operation hardware design.
 BOOTSEL implementation date is not assigned. AD/AR and automatic WDT remain separate pending work.
 Check live identities, firmware/source hashes and wiring; historical COM numbers and handoffs are not current-state proof.
+
+2026-11-23 restart progress: Implemented `HOST_INFO? METER` / `HOST_RESET METER` with independent X1 I/i/S/K management frames. Native C Host + Python parent end-to-end tests cover FAULT info, challenge/request sequencing, BUSY/replay/expiry, ACK-loss RESULT_UNKNOWN and new-boot nonce confirmation; no NF55G/7355 command is sent. Full Host/Mock suite: 472 tests passed. SDK 2.2.0 ARM build succeeded in new `tmp/host_reset_build_20261123`; relay UF2 is 100864 bytes, SHA-256 `9C32948FA4DF986AC53E377925535608B60F5D2B870FFB7EAF31C0A2C53C6427`, version `meter-host-relay-20261123.1`. Existing `firmware/usb_submcu_external_meter_host/build` and .22.3 baseline were left untouched. No live wiring/COM/identity confirmation, deployment, or hardware operation has been performed today. Spec: docs/USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md. Next: confirm actual fixed wiring, power and target identities before .22.3 baseline CDC observation or candidate deployment. Keep USB-HOST-RESET-01 Open; reset/new nonce does not prove CDC readiness, old 7355 response boundary, cache validity, or product PASS.
 
 1. AGENTS.md
 2. README.md

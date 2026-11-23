@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "events": [
+    {
+      "preexisting_ate_hex": ""
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132332e323a443930463746453845374446463844353a4e4f545f52454144590d",
+      "response": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261123.2:D90F7FE8E7DFF8D5:NOT_READY"
+    },
+    {
+      "command": "HOST_RESET METER",
+      "raw_hex": "4f4b3a484f53545f52455345545f41434345505445443a424643463245444238344230423337463a443930463746453845374446463844350d",
+      "response": "OK:HOST_RESET_ACCEPTED:BFCF2EDB84B0B37F:D90F7FE8E7DFF8D5"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "raw_hex": "4f4b3a484f53545f52455345545f444f4e453a424643463245444238344230423337463a443930463746453845374446463844353a434246413843324334463432433742413a4e4f545f52454144590d",
+      "response": "OK:HOST_RESET_DONE:BFCF2EDB84B0B37F:D90F7FE8E7DFF8D5:CBFA8C2C4F42C7BA:NOT_READY"
+    }
+  ],
+  "parent": {
+    "host_info": [
+      "BFCF2EDB84B0B37F",
+      "meter-host-relay-20261123.2",
+      "NOT_READY"
+    ],
+    "cache_unchanged": true,
+    "frame_errors": 0,
+    "logger_active": false,
+    "parent_nonce": "f2caeb2e46c95f01",
+    "nf_write_attempts": 0,
+    "fault": false
+  },
+  "passive_host_frames": [
+    {
+      "kind": "i",
+      "request": 1,
+      "session": "f2caeb2e46c95f01d90f7fe8e7dff8d5",
+      "payload_hex": "424643463245444238344230423337467c6d657465722d686f73742d72656c61792d32303236313132332e327c4e4f545f52454144597c30303030303030313030303030313030"
+    },
+    {
+      "kind": "i",
+      "request": 2,
+      "session": "f2caeb2e46c95f01d90f7fe8e7dff8d5",
+      "payload_hex": "424643463245444238344230423337467c6d657465722d686f73742d72656c61792d32303236313132332e327c4e4f545f52454144597c30303030303030323030303030314142"
+    },
+    {
+      "kind": "K",
+      "request": 3,
+      "session": "f2caeb2e46c95f01d90f7fe8e7dff8d5",
+      "payload_hex": "52455345545f4143434550544544"
+    },
+    {
+      "kind": "i",
+      "request": 4,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_hex": "424643463245444238344230423337467c6d657465722d686f73742d72656c61792d32303236313132332e327c4e4f545f52454144597c30303030303030343030303030454243"
+    }
+  ],
+  "passive_decode_errors": 0
+}

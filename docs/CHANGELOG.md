@@ -1,5 +1,23 @@
 # CHANGELOG
 
+2026-11-23 次段階実機試験: 前回と同じ親/HOST世代でDCV/AUTO/単発条件を読戻し、ATEから同じAUTO ON明示後READ10/10成功。READ+D1+SD+RTCの50burstも全成功、D1は事前含む51回・Retry0、drop/Queue0、通信中SD write/flush試行0。CSV55,879byte／853記録／14列正常、実機とPC SHA一致。VFS既存mountと試験用sink認識不一致を整理しSD復帰。本番コード/Flash変更なし。有限共存結果であり量産完成・根本原因解決扱いなし。[結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
+
+2026-11-23 7355通信再開の実機確認: RST後と同じHOST nonce CBFA8C2C4F42C7BA／.23.2、親nonce f2caeb2e46c95f01を維持。実ATE INFOでREADY、通常H/h後に明示IDN一回を送り、A/T/Rと期待原文32byte完全一致を確認。再起動・再送・設定／READ・Flash変更なし。NF送信試行0／Cache不変／frame error0。親はPIO停止・入力化、同じRAM session保持。連続測定・複合負荷・根本原因は未受入。[結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。
+
+2026-11-23 RST実機確認完了（限定条件）: HOST .23.2はSDK2.2.0 ARM -Wall/-Wextra/-Werror build成功。UF2 100864 byte／SHA-256 `77ccbbb88f220131b4a319fd2b7edd2c639482d4f6879c6b29f2854a74859f69`、実個体BFCF2EDB84B0B37Fへload -v／独立verify。親4ファイル配置・再起動後hash照合済み。実ATE INFO→RST一回→INFOでACKと同一個体の新nonceを確認。親nonce／Cache不変、NF送信試行0、frame error0。前後ともUSB NOT_READY、7355通信／FAULT条件の実機RSTは未受入。親はPIO停止・入力化、HOSTは通常FW起動。[結果とraw](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-23 HOST通常RSTの追加修正: mainの毎巡回でwatchdog_reboot(10ms)を呼ぶ経路を、ACK送出後一度だけ取り出すrelay_host_take_resetへ変更。SDKのwatchdog期限再設定を防ぎ、再起動までBUSYを保持。HOST版.23.2、native追加1件を含め全476件成功。親全Flash4MB／HOST全Flash2MB退避・verify、親4ファイル配置と通常再起動後の全source hash・API照合まで完了。[実機継続記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-23 RST引継ぎ後の追加デバッグ: 新boot未確認時に通常要求を開始できる問題と、RST_DONEで管理INFOを通常sessionとして扱いHOSTのH/h bindを省略する問題をnative C／親で再現・修正。親link・追加回帰3件・日本語コメント・管理仕様を更新。修正前2件失敗、修正後Host Unit／Mock全475件成功。RST候補UF2は既存hash一致、親実IDと配置sourceを取得・退避。実機RST未受入。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-22 ユーザーが提示した開発順序を採用。HOST情報/通常RST・先行デバッグ→ADC取得/Cache→AD/AR小数実機確認→個別照合→QR/SSを[決定記録](Development_Order_and_Fixed_Wiring_Decision_20261122.md)へ保存。山田担当の23日ブレッド→固定配線更新予定と、更新後の結線/給電/個体/FW確認からの再開を引継ぎへ反映。文書のみ更新、コード/実機操作・試験再実行なし。
+
+2026-11-22 [未開発コマンド一覧Rev.0](Undeveloped_Command_Inventory_20261122_Rev0.md)を作成。ATE Masterと現parser/builder/dispatcher・QR/ADC基盤を照合し、未実装・試作のみ・正式名未定・意図的拒否を区別。HOST管理/ADC/QR/SS/補助照会の優先案を提示（未決定）。PC上の代表名分類とAR Query登録0件を確認。コード変更・実機送信・全Unit再実行なし。
+
+2026-11-22 NF55G製品FWの小数扱いを実機確認するユーザー要求を受け、[試験計画Rev.0](ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md)を保存。小数/整数対照・同一整数部の比較、AD wire/保存値/AR/校正効果、再投入保持を分離し、元値保全・復元・ログ・結論の限界を規定。統合計画/Test Specification/Open Issues/引継ぎへ追記。文書のみ変更、コード/製品FW/実機変更・テスト実行なし。
+
+2026-11-22 ADC並行開発・後続QR連携の[計画Rev.0](ADC_QR_Integration_Plan_20261122_Rev0.md)を新規保存。チャット「ADC仕様」の最終ユーザー指示を確認し、先行デバッグ後のADC統合、明示AD書込み/AR個別照合、続くATE主導QR読取り/Cache/書込み先の検討を開発単位と受入に整理。Implementation Plan/Open Issues/引継ぎへ反映。今回コード/実機変更・テスト再実行なし、文書差分のみ検査。既存IssueはOpen継続。
+
 2026-11-22 実機証跡の保存: .gitattributesの既存原文保持方針を今回のParent/Host統合・ATE/SD・RTC/Cache記録フォルダにも適用。raw/CSV/退避ソース等をGitの改行変換対象から外し、元byteと記録hashを保持する。原記録の末尾空白・特殊改行は加工しない。
 
 2026-11-22 終了時引継ぎ・コミット前検証: ユーザー承認済みの11月23日計画をHANDOFF_MANIFEST.txtへ追記。通常RST実装、USB IN診断、QR取付け後の確認、条件成立後の共存、山田担当ハードの分担を次回開始情報として保持。Host Unit/Mock全467件成功（4.277秒）、[検証ログ](Commit_Verification_20261122_Host_Mock.log)。実機操作・追加FW配置なし。
@@ -1202,3 +1220,5 @@ qr-fixed-20261114.1／A06FEA01012EC137。電源ONからRSTなしのQR自動認�
 ### 2026-11-18 S1.15_r1検証の工程割当て
 - docs/S1.15_r1/Verification_Schedule_20261118.mdにV01〜09の工程・担当区分・前提・完了証跡を登録。現行Development_StepsとImplementation_Planへ参照追記。
 - Fixture_Impactの確認事項を段階1/4/5/6へ配置。日程は工程順で管理し、製品FW設計回答と治具検証を分担。計画文書のみのためテスト再実行なし。
+
+2026-11-23 開発用測定器HOST管理/通常RSTを実装。ATE `HOST_INFO? METER`/`HOST_RESET METER`、X1 I/i/S/K、ID/boot nonce/challenge/request連番照合、BUSY/期限/重複拒否、ACK UART送出完了後の通常再起動、親側の新nonce確認/ACK欠落時RESULT_UNKNOWN保持を追加。Host/Mock全472件・native C Host/親管理縦通し48件成功。SDK 2.2.0 ARM build成功、UF2 100,864 byte、SHA-256 `9C32948FA4DF986AC53E377925535608B60F5D2B870FFB7EAF31C0A2C53C6427`。実機未配置・未確認。NF55G/7355送信なし。詳細は[仕様Rev.0](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)。

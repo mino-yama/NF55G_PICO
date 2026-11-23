@@ -13,3 +13,6 @@ firmware/usb_submcu_acceptance/build/
 firmware/usb_submcu_host_probe/build/
 firmware/usb_submcu_host_probe/build_uart_gp0/
 firmware/usb_submcu_host_probe/build_uart_continuous/
+
+# RST .23.2 local ARM intermediates; deliverables are fixed under docs/.
+tmp/host_reset_build_20261123_02/

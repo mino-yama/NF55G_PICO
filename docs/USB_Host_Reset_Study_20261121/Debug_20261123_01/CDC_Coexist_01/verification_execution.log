@@ -1,0 +1,34 @@
+{
+  "csv": {
+    "sha256": "20d699d9d2ba6f9eb6db15b89ab4035f0aa9dce1393057f2613eaf7feaf854a0",
+    "path": "/sd/BANK_A/20261123_123053.csv",
+    "bytes": 55879
+  },
+  "local_file": "20261123_123053.csv",
+  "hash_match": true,
+  "data_rows": 853,
+  "malformed_rows": 0,
+  "nf_d1_transaction_rows": 50,
+  "read_result_rows": 50,
+  "host_kind_counts": {
+    "A": 50,
+    "T": 50,
+    "R": 50
+  },
+  "request_response_correlated": true,
+  "nf_d1_plus_ack_only": true,
+  "measure_min_v": "9.62118",
+  "measure_max_v": "9.62122",
+  "burst_ms": {
+    "min": 656.0000000172295,
+    "median": 921.4999999967404,
+    "max": 1077.999999979511
+  },
+  "sd_stats": {
+    "during_comm": 0,
+    "writes": 853,
+    "flushes": 27
+  },
+  "drop": 0,
+  "queue": 0
+}

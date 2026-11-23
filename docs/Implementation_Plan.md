@@ -1,5 +1,9 @@
 # NF55G Pico 2 Implementation Plan
 
+2026-11-22 ユーザー採用: HOST情報/通常RST・先行デバッグ→ADC取得/Cache→AD/ARと小数実機確認→個別照合→QR/SSの順で進める。ADC独立開発は並行、統合は先行デバッグ後。11月23日は山田がブレッド配線を固定配線へ更新予定。更新後の結線/給電/個体/FW照合と単独確認から実機再開する。[決定・分担](Development_Order_and_Fixed_Wiring_Decision_20261122.md)。
+
+2026-11-22 最新順序: ADCは先行デバッグと並行して準備・独立部分を開発し、先行デバッグ後に統合。その後QR実データを基に読取り/Cache/SS書込み先をATEから制御する仕様を検討する。チャット「ADC仕様」の最終指示を確認し、AD書込みとAR個別照合を分離、Picoが比較/ログ、ATEが製品判定を担当する。測定Cache基盤は実装済み、正式接続とAD/AR小数読戻し契約は残る。今回コード/実機変更なし。[開発単位・受入・QR制御案](ADC_QR_Integration_Plan_20261122_Rev0.md)。
+
 2026-11-20 ユーザー方針更新: RUNパッド施工は難しいため外部RESET配線/駆動回路は進めず、手動RESET/電源再投入をデバッグで選ぶ。GP14/22は汎用予備。初回起動前から記録し、異常→正常データを交互に送る受入を計画。形式不正後の受付継続と、timeout/切断等の規定fault保持を分けて判定する。今回は計画のみ、実機注入/コード変更なし。 [計画](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Error_Normal_Alternation_Plan_Rev0/Plan_and_Reset_Decision_Rev0.md)／[現行GPIO Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev1.md)。
 
 2026-11-20 工数/GPIO並行計画: 測定原文取得/ATE返却は実機済み。残る数値・単位/Cache/正式ATE入口とAD実装は仕様回答後コード/Mock1〜2実働日、基本実機確認含2〜3実働日（概算12〜24時間、待ち/全量産受入は別）。親GPIOは既存予約のQR GP8/9と実装済み測定器GP12/13を配線基準として維持。現行測定器PIOはSM4/5で旧案の順序に注意。RESETは必須/制御方式未確定、GP14/22を親側予備候補として確保しHost RUN結線は回路確認後。今回コード/Flash/実配線変更なし。 [工数](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Effort_Estimate_Rev0.md)／[配線基準](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/GPIO_and_AD_Plan_20261120_Rev0/Parent_GPIO_Wiring_Baseline_Rev0.md)。

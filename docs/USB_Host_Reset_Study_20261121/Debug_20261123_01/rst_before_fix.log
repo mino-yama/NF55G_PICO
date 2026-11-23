@@ -1,0 +1,75 @@
+test_192_byte_command_and_uart_fragmentation (test_external_instrument_link.NativeRelayLinkTests.test_192_byte_command_and_uart_fragmentation) ... ok
+test_active_disconnect_latches_ambiguous_fault_without_retry (test_external_instrument_link.NativeRelayLinkTests.test_active_disconnect_latches_ambiguous_fault_without_retry) ... ok
+test_all_usb_command_lengths_avoid_zlp_and_preserve_exact_byte_count (test_external_instrument_link.NativeRelayLinkTests.test_all_usb_command_lengths_avoid_zlp_and_preserve_exact_byte_count) ... ok
+test_ate_host_management_fault_reset_and_new_nonce_round_trip (test_external_instrument_link.NativeRelayLinkTests.test_ate_host_management_fault_reset_and_new_nonce_round_trip) ... ok
+test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies (test_external_instrument_link.NativeRelayLinkTests.test_back_to_back_cdc_nf_bursts_do_not_starve_sd_between_replies) ... ok
+test_cdc_guard_delegates_success_and_other_device_errors (test_external_instrument_link.NativeRelayLinkTests.test_cdc_guard_delegates_success_and_other_device_errors) ... ok
+test_cdc_guard_ignores_unmounted_device_error (test_external_instrument_link.NativeRelayLinkTests.test_cdc_guard_ignores_unmounted_device_error) ... ok
+test_cdc_guard_reports_transfer_error_without_retry (test_external_instrument_link.NativeRelayLinkTests.test_cdc_guard_reports_transfer_error_without_retry) ... ok
+test_conf_200v_is_transferred_without_range_gate (test_external_instrument_link.NativeRelayLinkTests.test_conf_200v_is_transferred_without_range_gate) ... ok
+test_crc_broken_request_never_reaches_usb (test_external_instrument_link.NativeRelayLinkTests.test_crc_broken_request_never_reaches_usb) ... ok
+test_disabled_fixture_validates_request_without_touching_hardware (test_external_instrument_link.NativeRelayLinkTests.test_disabled_fixture_validates_request_without_touching_hardware) ... ok
+test_expired_partial_uart_request_is_not_completed_after_deadline (test_external_instrument_link.NativeRelayLinkTests.test_expired_partial_uart_request_is_not_completed_after_deadline) ... ok
+test_fixture_ate_to_real_c_host_and_back_without_nf55g_transmission (test_external_instrument_link.NativeRelayLinkTests.test_fixture_ate_to_real_c_host_and_back_without_nf55g_transmission) ... ok
+test_fixture_busy_boundary_does_not_end_trial_or_bypass_fu_prohibition (test_external_instrument_link.NativeRelayLinkTests.test_fixture_busy_boundary_does_not_end_trial_or_bypass_fu_prohibition) ... ok
+test_fixture_defers_reply_and_preserves_ate_order_while_waiting (test_external_instrument_link.NativeRelayLinkTests.test_fixture_defers_reply_and_preserves_ate_order_while_waiting) ... ok
+test_fixture_rejects_bad_ate_lines_then_accepts_one_normal_request_each (test_external_instrument_link.NativeRelayLinkTests.test_fixture_rejects_bad_ate_lines_then_accepts_one_normal_request_each) ... ok
+test_fixture_send_preserves_trailing_spaces_and_does_not_add_query (test_external_instrument_link.NativeRelayLinkTests.test_fixture_send_preserves_trailing_spaces_and_does_not_add_query) ... ok
+test_host_finds_header_after_noise_truncation_and_overflow (test_external_instrument_link.NativeRelayLinkTests.test_host_finds_header_after_noise_truncation_and_overflow) ... ok
+test_host_handles_response_before_tx_completion (test_external_instrument_link.NativeRelayLinkTests.test_host_handles_response_before_tx_completion) ... ok
+test_host_recovers_power_on_capture_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_host_recovers_power_on_capture_at_every_split) ... ok
+test_host_rejects_duplicate_request_without_reexecution (test_external_instrument_link.NativeRelayLinkTests.test_host_rejects_duplicate_request_without_reexecution) ... ok
+test_host_response_overflow_is_error_not_truncated_success (test_external_instrument_link.NativeRelayLinkTests.test_host_response_overflow_is_error_not_truncated_success) ... ok
+test_host_timeout_clock_wrap (test_external_instrument_link.NativeRelayLinkTests.test_host_timeout_clock_wrap) ... ok
+test_host_timeout_rejects_late_usb_data_and_new_request (test_external_instrument_link.NativeRelayLinkTests.test_host_timeout_rejects_late_usb_data_and_new_request) ... ok
+test_host_timeout_snapshot_distinguishes_no_partial_and_completed_rx (test_external_instrument_link.NativeRelayLinkTests.test_host_timeout_snapshot_distinguishes_no_partial_and_completed_rx) ... ok
+test_idle_disconnect_and_remount_reuse_link_without_reset (test_external_instrument_link.NativeRelayLinkTests.test_idle_disconnect_and_remount_reuse_link_without_reset) ... ok
+test_idn_round_trip_has_no_automatic_instrument_query (test_external_instrument_link.NativeRelayLinkTests.test_idn_round_trip_has_no_automatic_instrument_query) ... ok
+test_management_info_is_available_in_fault_without_device_command (test_external_instrument_link.NativeRelayLinkTests.test_management_info_is_available_in_fault_without_device_command) ... ok
+test_management_reset_is_challenge_bound_and_waits_for_ack_transmission (test_external_instrument_link.NativeRelayLinkTests.test_management_reset_is_challenge_bound_and_waits_for_ack_transmission) ... ok
+test_management_reset_timeout_and_pending_request_never_reboot (test_external_instrument_link.NativeRelayLinkTests.test_management_reset_timeout_and_pending_request_never_reboot) ... ok
+test_new_parent_cannot_silently_rebind_old_host_session (test_external_instrument_link.NativeRelayLinkTests.test_new_parent_cannot_silently_rebind_old_host_session) ... ok
+test_no_device_does_not_send_and_can_be_rechecked (test_external_instrument_link.NativeRelayLinkTests.test_no_device_does_not_send_and_can_be_rechecked) ... ok
+test_overlong_uart_stream_resynchronizes_only_at_line_boundary (test_external_instrument_link.NativeRelayLinkTests.test_overlong_uart_stream_resynchronizes_only_at_line_boundary) ... ok
+test_partial_q_stops_at_parent_deadline_without_usb_execution (test_external_instrument_link.NativeRelayLinkTests.test_partial_q_stops_at_parent_deadline_without_usb_execution) ... ok
+test_partial_response_disconnect_cannot_revive_after_remount_or_late_data (test_external_instrument_link.NativeRelayLinkTests.test_partial_response_disconnect_cannot_revive_after_remount_or_late_data) ... ok
+test_pending_ate_request_keeps_priority_over_due_sd_write (test_external_instrument_link.NativeRelayLinkTests.test_pending_ate_request_keeps_priority_over_due_sd_write) ... ok
+test_power_on_bytes_do_not_block_parent_query (test_external_instrument_link.NativeRelayLinkTests.test_power_on_bytes_do_not_block_parent_query) ... ok
+test_python_and_c_codec_agree_all_kinds_and_payload_lengths (test_external_instrument_link.NativeRelayLinkTests.test_python_and_c_codec_agree_all_kinds_and_payload_lengths) ... ok
+test_query_timeout_latches_and_never_retries (test_external_instrument_link.NativeRelayLinkTests.test_query_timeout_latches_and_never_retries) ... ok
+test_query_while_usb_disconnected_is_definite_and_recovers_after_remount (test_external_instrument_link.NativeRelayLinkTests.test_query_while_usb_disconnected_is_definite_and_recovers_after_remount) ... ok
+test_real_c_engine_reassembles_usb_response_at_every_split (test_external_instrument_link.NativeRelayLinkTests.test_real_c_engine_reassembles_usb_response_at_every_split) ... ok
+test_reset_ack_loss_is_result_unknown_and_latches_parent_fault (test_external_instrument_link.NativeRelayLinkTests.test_reset_ack_loss_is_result_unknown_and_latches_parent_fault) ... ok
+test_reset_confirmation_precedes_normal_query (test_external_instrument_link.NativeRelayLinkTests.test_reset_confirmation_precedes_normal_query) ... FAIL
+test_reset_done_preserves_existing_parent_fault (test_external_instrument_link.NativeRelayLinkTests.test_reset_done_preserves_existing_parent_fault) ... ok
+test_reset_done_requires_normal_hello_before_explicit_query (test_external_instrument_link.NativeRelayLinkTests.test_reset_done_requires_normal_hello_before_explicit_query) ... FAIL
+test_resync_keeps_crc_session_and_replay_checks (test_external_instrument_link.NativeRelayLinkTests.test_resync_keeps_crc_session_and_replay_checks) ... ok
+test_thousand_native_exchanges_preserve_variable_response_boundaries (test_external_instrument_link.NativeRelayLinkTests.test_thousand_native_exchanges_preserve_variable_response_boundaries) ... ok
+test_unsolicited_usb_data_quarantines_host_before_first_request (test_external_instrument_link.NativeRelayLinkTests.test_unsolicited_usb_data_quarantines_host_before_first_request) ... ok
+test_usb_diagnostic_leaves_normal_other_error_and_full_payload_unchanged (test_external_instrument_link.NativeRelayLinkTests.test_usb_diagnostic_leaves_normal_other_error_and_full_payload_unchanged) ... ok
+test_usb_timeout_diagnostic_preserves_identity_and_ambiguous_flag (test_external_instrument_link.NativeRelayLinkTests.test_usb_timeout_diagnostic_preserves_identity_and_ambiguous_flag) ... ok
+test_wrong_host_identity_never_sends_q (test_external_instrument_link.NativeRelayLinkTests.test_wrong_host_identity_never_sends_q) ... ok
+
+======================================================================
+FAIL: test_reset_confirmation_precedes_normal_query (test_external_instrument_link.NativeRelayLinkTests.test_reset_confirmation_precedes_normal_query)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 441, in test_reset_confirmation_precedes_normal_query
+    with self.assertRaisesRegex(RelayError, 'RECOVERY_REQUIRED'):
+AssertionError: RelayError not raised
+
+======================================================================
+FAIL: test_reset_done_requires_normal_hello_before_explicit_query (test_external_instrument_link.NativeRelayLinkTests.test_reset_done_requires_normal_hello_before_explicit_query)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 451, in test_reset_done_requires_normal_hello_before_explicit_query
+    self.assertTrue(self.request().startswith('OK:EXT_RX:32:'))
+                    ^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_instrument_link.py", line 242, in request
+    self.fail('No bounded response')
+AssertionError: No bounded response
+
+----------------------------------------------------------------------
+Ran 51 tests in 2.996s
+
+FAILED (failures=2)

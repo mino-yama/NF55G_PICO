@@ -1,0 +1,6 @@
+{
+  "status": "INCOMPLETE",
+  "failure": "AssertionError('RAM execution failed')",
+  "completed_mixed_cycles": 20,
+  "exchanges": 80
+}

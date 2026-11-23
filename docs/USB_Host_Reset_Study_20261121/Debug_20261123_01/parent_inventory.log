@@ -1,0 +1,84 @@
+PICO_INVENTORY_BEGIN
+IMPLEMENTATION|(name='micropython', version=(1, 27, 0, ''), _machine='Raspberry Pi Pico2 with RP2350', _mpy=7942, _build='RPI_PICO2', _thread='unsafe')
+VERSION|3.4.0; MicroPython v1.27.0 on 2025-12-09
+PLATFORM|rp2
+UNAME|(sysname='rp2', nodename='rp2', release='1.27.0', version='v1.27.0 on 2025-12-09 (GNU 14.2.0 MinSizeRel)', machine='Raspberry Pi Pico2 with RP2350')
+UNIQUE_ID|69f7d45962cfdfad
+FREQ|150000000
+CWD|/
+SYS_PATH|['', '.frozen', '/lib']
+FILE|/main.py|230
+SHA256|/main.py|b0b2a60bdabebe7f7f576039755b6e135be3731f9a2470d991b95ca540a21b93
+BOOT_SOURCE_BEGIN|/main.py
+# Picoの/main.pyへ配置する通常起動の入口。src.mainの初期化と常駐ループを呼び出す。
+
+"""Deployment entry point. Copy with the src/ package after HIL entry checks."""
+
+from src.main import main
+
+main()
+
+BOOT_SOURCE_END|/main.py
+DIR|/sd
+DIR|/src
+FILE|/src/__init__.py|173
+SHA256|/src/__init__.py|e24338d23aacaf2264623fd733a269d8cfcf5b0cb3c0c20d44a27526b03565e3
+FILE|/src/ate_server.py|2729
+SHA256|/src/ate_server.py|2baab034e84f39f1a4bdebf207545fd27659548098393d2060a0682b11646564
+FILE|/src/ate_uart.py|1542
+SHA256|/src/ate_uart.py|06ff03efce6b4414b062390a05d890d1f9830e1fb72d5d0c623b58456bc970d9
+FILE|/src/cache_manager.py|2456
+SHA256|/src/cache_manager.py|316894ed9608d7c50625752b536db7c4c057d6330298ac457cd1c1a775da4cea
+FILE|/src/calibration_measurement.py|5664
+SHA256|/src/calibration_measurement.py|afed2fe36c15b2823339bd6ca8059c7207b35460f8e337d908c25b14ceb9936f
+FILE|/src/command_dispatcher.py|14884
+SHA256|/src/command_dispatcher.py|09da9ea2be4af0fe708814de3e93760ff6e920fa2038d95211f073cc11dcc5e9
+FILE|/src/command_parser.py|4963
+SHA256|/src/command_parser.py|57e7dd21d5a8312f8ee3fc4daaa755e738e234731df7146cf10d825b5db9a6bc
+FILE|/src/config.py|2580
+SHA256|/src/config.py|34ed863d111a4edbe7d527e34fcb92d417e141f5fb067ed78a4755374471a801
+FILE|/src/diagnostic.py|3231
+SHA256|/src/diagnostic.py|79f68255eb028de5505c066946a46c235851cd1612e70d3a9e1c93f1e27e01b6
+FILE|/src/external_instrument_contract.py|5282
+SHA256|/src/external_instrument_contract.py|2ac0b822d478f5f9e3afd73210cb8289f1d1669ff57e2d22849b7bd6c623a447
+FILE|/src/external_instrument_link.py|10012
+SHA256|/src/external_instrument_link.py|18defb0a1a55f2b88a8bc9baecc9429dd5e7380201f19cba73f46f4462c41fe2
+FILE|/src/external_instrument_pio.py|3500
+SHA256|/src/external_instrument_pio.py|dbb3e54e81d38177bd04052dde8f0633d530bfc42a4b1abc13487afe1ef4010d
+FILE|/src/external_instrument_relay.py|7360
+SHA256|/src/external_instrument_relay.py|a1dcb864f87696847f48917cdbdf052cfcd4f53c765a095872b422143a285042
+FILE|/src/frame.py|2467
+SHA256|/src/frame.py|1d5beff86867c79c8fffe6054f349ba471fab7474b7ea5cd4b8959e99792790a
+FILE|/src/logger.py|15576
+SHA256|/src/logger.py|4898bcfde0568ecc7a38ab0eab8288b949fff296bd6b497badc57793ef6a90dd
+FILE|/src/main.py|15522
+SHA256|/src/main.py|cbb7c94e70cf330c11af056a5f7ff7e05a31e11fc7228494450ce468a580a120
+FILE|/src/mock_nf55g.py|6911
+SHA256|/src/mock_nf55g.py|8194d5580d93c7f67c8206fe9c684e7a2fd111da4294f1a093f25a719f50f5e5
+FILE|/src/models.py|2512
+SHA256|/src/models.py|abbc80b2cc065a3d96236e458b61e29bcbd7a732f3e2081dbc0bfb37a21a96b6
+FILE|/src/nf55_command.py|13822
+SHA256|/src/nf55_command.py|f900d3a11bb0e540faecb46cfb96e5d1104d3024f605e787c32bd742a42059eb
+FILE|/src/nf55_decode.py|12279
+SHA256|/src/nf55_decode.py|1998f4d762b273172961535338b7c8434dba097e906e77c6a86d0d43a899182b
+FILE|/src/nf55_event.py|916
+SHA256|/src/nf55_event.py|affc06a1f8ee27a9459f95cb25cf59ad4bb2b4aedd0481fda8bd113352bce3d0
+FILE|/src/nf55_protocol.py|15936
+SHA256|/src/nf55_protocol.py|efaa78b33a49a1f9590d5a9408af77f39cc306ca74e6729ccd5dfe5743754fcd
+FILE|/src/nf55_uart.py|1846
+SHA256|/src/nf55_uart.py|1aa7ece4beef1dae726b31ff000d0ad05680a6857732ebd9f0eee024b86f0b6b
+FILE|/src/pico_clock.py|956
+SHA256|/src/pico_clock.py|f8bc5096c18871d8e6a5ddffde8e8b27bd9a248f32b027438664737ee3c7278d
+FILE|/src/qr_pio_rx.py|3134
+SHA256|/src/qr_pio_rx.py|0634649c21788b1ce4a3e7e30b3f8835066930ba431d2090fe93c3e04633bf38
+FILE|/src/qr_reader.py|4390
+SHA256|/src/qr_reader.py|9129adfbb657f83e1317a08209b5d6d1b3dc8a5188915964397053afbb1fd906
+FILE|/src/repl_sink.py|3660
+SHA256|/src/repl_sink.py|5908bfed7d78bf2bfd18cd59e96b53885a34b93e2c5730246eaed521ab29186d
+FILE|/src/rtc_driver.py|6792
+SHA256|/src/rtc_driver.py|7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254
+FILE|/src/sd_card.py|8607
+SHA256|/src/sd_card.py|d2b87a15f89ca40c28de2ebf8cbcbae4a24a388671641d6b988aee94b1ce9f56
+FILE|/src/sd_sink.py|11837
+SHA256|/src/sd_sink.py|5f58adf307a4134da640c1273826e27e770665fc45105976040479b387de6eb5
+PICO_INVENTORY_END

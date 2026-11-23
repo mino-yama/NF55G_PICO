@@ -1,5 +1,17 @@
 # Open Issues
 
+2026-11-23 有限共存試験進捗（Open継続）: .23.2の同じ親/HOST世代でREAD10/10、READ+D1+SD+RTC50/50、Retry0/drop0/Queue0、通信中SD書込み試行0、CSV実機SHA一致を確認。SDはVFS既存mountと試験用sink認識不一致を確認し、idleで整理後にOK復帰。ハード故障や本番起動不具合とは断定しない。USB受信0byteの根本原因・遅着応答境界・長期安定性は未確認、既存IssueをCloseしない。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
+
+2026-11-23 通信再開の追加実機確認（Open継続）: .23.2の前回RST後と同じHOST／親nonceでREADYとIDN一回成功。I/H/Q各1件、HOST i/h/A/T/Rを照合、32byte期待原文一致。既存USB受信0byteの根本原因・NOT_READY→READYの理由、連続測定／遅着応答境界／複合負荷は未確認。今回の成功だけでUSB-HOST-RESET-01等をCloseしない。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。
+
+2026-11-23 USB-HOST-RESET-01実機進捗（Open継続）: .23.2と親管理版を全Flash退避／verify後に配置。実ATE経由の通常RST一回で受理ACK・同一個体／新nonceを確認。親nonce／Cache不変、NF送信試行0。USBは前後NOT_READYで、READY条件／既存FAULT条件・旧7355応答境界・量産復旧は未受入。実機RST成立だけでIssueをCloseしない。[最終記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-23 USB-HOST-RESET-01追加デバッグ（Open継続）: 新boot確認前の通常要求拒否、RST_DONE後の通常H/h再確立を修正。修正前native回帰2件失敗、修正後Host Unit／Mock全475件成功。親実ID一致・source退避済み、RST候補UF2 hash一致。実機ACK／再起動／新nonce・旧機器応答境界は未受入。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
+
+2026-11-22 ユーザー指定の製品FW小数実機確認: [計画](ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md)を追加。送信VALUE8/内部保存/AR REF8/補正結果と再投入保持を分離し、ARだけ整数化する場合と保存段階で欠落する場合を切分ける。小数保持元値の復元手段・正式契約を確認してから書込み実施。ARの情報欠落時に照合不能を返す正式応答は未確定。今回実機未実施、関連Issue Open継続。
+
+2026-11-22 ADC/QRの順序更新: ユーザー指定によりADC準備・独立開発は先行デバッグと並行し、統合はその後、続いてQR読取り/Cache/書込み先のATE制御を検討する。チャット「ADC仕様」を確認、書込みと個別照合を分離する最終指示は既存記録と一致。QR実データ確定の申告を記録するが、SS変換規則の未回答を解決扱いしない。AD/AR小数読戻し等とOI-23はOpen継続。今回文書更新のみ。[計画](ADC_QR_Integration_Plan_20261122_Rev0.md)。
+
 2026-11-22 23日作業計画: 既存改善/診断と通常RSTの重複箇所を照合。今回の文書調査でコード変更なし、固定.22.3 UF2/全12ソースhash一致。将来RST実装はmain/engine/親link等を共有するため別版で統合・回帰検証する。23日は測定器HOST RST実装、USB IN診断、山田のQR取付け後単独確認、成立後の共存試験を計画。ハードは山田担当、BOOTSEL実装日/AD-AR/WDTは別途。[項目・手順・開発案件](Debug_Development_Plan_20261123_Rev0.md)。
 
 2026-11-22 USB bulk INソース追跡（原因未確定・Open継続）: 固定SDK/vendorの受信投入→PIO IN→完了event→CDC FIFO→engineを確認。NAK継続/PID不一致は失敗eventなしで待機、FIFO空で受信投入失敗時はappに再投入契機なし、完了event未到達と期限前FIFO未回収でもengine RX0となり得る経路を整理。実発生の証明ではなく、.22.3の計数と追加観測で切分けが必要。コード/原典/FW/実機変更・試験実行なし。[調査Rev.0](Parent_Host_Integration_20261122_01/USB_Bulk_IN_Source_Trace_20261122_Rev0.md)。
@@ -600,3 +612,5 @@ USB-SUB-03は1基板・2 Hostという旧構成の課題としてOpenのまま�
 | S115-04 | ARの整数変換による小数情報喪失と正式REF表現。今回S1.13にも存在。OI-04と関連。 | Open |
 
 上記は静的解析の確認事項。製品不良や実機改善を断定せず、設計回答を推測してCloseしない。治具側での吸収・仕様変更は行っていない。
+
+2026-11-23 USB-HOST-RESET-01進捗（Open継続）: 開発用測定器HOSTの`HOST_INFO? METER`/`HOST_RESET METER`と独立X1管理kind I/i/S/Kを実装。対象ID/boot nonce/fresh challenge/要求IDを照合し、BUSY/重複/期限を拒否、ACK送出完了後のみ通常RSTする。Host/Mock全472件とnative縦通し48件成功、ACK欠落時RESULT_UNKNOWNも確認。SDK 2.2.0 ARM build成功: HOST relay UF2 100,864 byte、SHA-256 `9C32948FA4DF986AC53E377925535608B60F5D2B870FFB7EAF31C0A2C53C6427`、版`meter-host-relay-20261123.1`。配置・実機の通常再起動/新nonce確認は未実施。配線/電源/対象個体も未確認で、今日の固定配線作業完了とは扱わない。HOST rebootだけでUSB READY/旧7355応答境界/Cacheを成立させず、既存fault/ambiguous保持。BOOTSEL・WDT・量産自動復旧・QR HOSTは対象外。[仕様Rev.0](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)。
