@@ -1,5 +1,21 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-23 QR→SS経路: QR独立11項目追加、全527件成功（14.035秒）。異なる2件目で値を置換しない、照会・ID・試行・消費のgate、timeout／HOST/PIO異常、UART例外・ambiguousでの消費とDATA/INFO失効、明示D5読戻しを検証。実機T000022で同QR2連続→SS一回→D5全100文字比較を成功、UNIT以外不変。CSV80記録14列／親PC SHA一致、通信中SD書込み0。[実機結果と全ログ](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23 QR修正版の実機限定確認: 全516回帰成功のqr-fixed-20261123.1を配置・独立verify。Run_07でRST後のboot／個体／版一致、QR実原文35文字5件全一致、REV A1.／号機000001保持、85レコード連続／drop0／解析エラー0を確認。配線復帰直後の0byte原因、cold-start保証、正式ATE／SSは未受入。[実測と証跡](QR_Hardware_Integration_20261123_01/Write_Read_Test_Result_20261123_Rev0.md)。
+
+2026-11-23 実QR REVピリオド: 提示原文`US250A-CGXE-009491-101A1.2601000001`のC HID再生・PC分解、別REV、REV欄以外のピリオド拒否と次読取復帰を検証。35文字／数字欄／先頭ゼロを維持。全515件成功後、新FW版ログと実原文の組合せ検証を追加。実機修正前のRun_03はHID388件・文字復元error07であり読取成功に数えない。[仕様](QR_Hardware_Integration_20261123_01/Revision_Period_Spec_20261123_Rev0.md)。
+
+2026-11-23可変型式・REV対応後: 全511件成功（21.091秒）。正常サンプル10件と、サンプル番号を製品受付ホワイトリストにしない回帰も含む。[ログ](QR_Hardware_Integration_20261123_01/Variable_Fields_Host_Mock_Rev1.log)。
+
+2026-11-23 QR可変値仕様への訂正: 型式／品目コード／REVを固定せず受け付け、構造35文字・年週数字4桁・号機数字6桁を確認。000001～000010の10サンプル全件と、範囲外番号も製品許可番号として排除しないことを追加検証。[仕様と回帰](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev1.md)。
+
+2026-11-23 NF55802-G_03 QR profile回帰: 固定8/14文字の全文字照合、可変REV/年週/SN、数字欄・先頭ゼロ・旧汎用decoderを検証し、全509件成功（23.879秒）。実QR入力は未採取、可変欄実値の全文字期待値は未指定。[根拠と検証](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev0.md)。
+
+2026-11-23 ADC/QR追加後の最終回帰は全503件成功（18.692秒）。TEST_STARTによる製品Cache全失効を追加検証し、QR途中接続・個体・gap/drop・CRLF・原文比較も確認。ADC実機は2試行4取得・Query無追加機器送信・旧ID失効を確認、最終assertの誤条件は別回収記録へ分離。CSV2本は親COM6復帰後に読戻し、QR実入力は結合後。[記録](ADC_Acquisition_20261123_01/Result_Rev0.md)。
+
+2026-11-23 ADC取得/照会: adapter/core15件、実C HOST/親の追加6件を含め全497件成功（16.409秒）。数値OL/演算エラー、DCV単位、指数換算、単一総期限、取消/試行失効、3対象×A/B、Cache Query無送信、NF送信0を確認。実機受入は別記録。[仕様とログ](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-23 次段階: .23.2実機で設定前後一致、単発READ10/10、READ/D1/SD/RTC50burst成功。HOST A/T/R各50をrequest/session照合、D1 Retry0、NF送信D1/ACKのみ、drop/Queue0、通信中SD write/flush試行0。CSV55,879byte／853記録／14列正常／実機SHA一致。本番コード変更なし、Unit再実行なし。[詳細](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
 
 2026-11-23 7355通信再開: 前回と同じ親runtime／HOST起動世代で実ATE INFO→READY→明示IDN一回。I/H/Qとi/h/A/T/Rを実raw照合し、32byte期待原文一致。NF送信試行0／Cache不変／frame error0。既存FAULT／連続測定等は別受入。コード変更なし、Unit再実行なし。[実機結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。

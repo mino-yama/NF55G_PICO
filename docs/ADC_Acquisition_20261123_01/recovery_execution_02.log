@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\docs\ADC_Acquisition_20261123_01\recover_verify_hardware.py", line 54, in <module>
+    response=run(base+['exec',code])
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\docs\ADC_Acquisition_20261123_01\recover_verify_hardware.py", line 22, in run
+    assert p.returncode==0,p.stderr
+           ^^^^^^^^^^^^^^^
+AssertionError: b'mpremote: failed to access COM6 (it may be in use by another program)\r\n'

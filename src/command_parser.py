@@ -9,10 +9,12 @@ judgement, or NF55G transmission.
 
 
 try:
+    from .calibration_acquisition import parse_measure_request, parse_acquisition_id, MeasurementError
     from .external_instrument_contract import ContractError, parse_monitor_request
     from .nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
     from .nf55_command import build_item_parameter_command, build_life_command
 except ImportError:  # pragma: no cover
+    from calibration_acquisition import parse_measure_request, parse_acquisition_id, MeasurementError
     from external_instrument_contract import ContractError, parse_monitor_request
     from nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
     from nf55_command import build_item_parameter_command, build_life_command
@@ -81,6 +83,12 @@ class ParseError(ValueError):
 def parse_ate_command(line):
     # 中継本文の空白を一般コマンド用stripで失わせない。
     raw = line.encode('ascii') if isinstance(line, str) else line
+    if isinstance(raw, bytes) and raw.split(b' ', 1)[0].rstrip(b'\r\n') == b'CAL_MEASURE':
+        try:
+            request = parse_measure_request(raw)
+        except MeasurementError as exc:
+            raise ParseError('CAL_' + str(exc))
+        return ParsedCommand(raw.decode('ascii'), 'CAL_MEASURE', payload=request, category='CALIBRATION_ACQUIRE')
     if isinstance(raw, bytes) and raw.split(b' ', 1)[0].rstrip(b'\r\n') in (b'EXT_QUERY', b'EXT_SEND'):
         try:
             request = parse_monitor_request(raw)
@@ -98,6 +106,25 @@ def parse_ate_command(line):
         return ParsedCommand(text, "HOST_RESET", payload="RESET", category="HOST_MANAGEMENT")
 
     name, payload = _split_payload(text)
+
+    if name in ('QR_SCAN', 'QR_GET?', 'QR_DATA?', 'QR_WRITE', 'QR_CANCEL'):
+        if name == 'QR_CANCEL':
+            if payload is not None:
+                raise ParseError('UNEXPECTED_PAYLOAD')
+        elif name == 'QR_SCAN':
+            if not payload or any(c not in '0123456789' for c in payload) or not 100 <= int(payload) <= 60000:
+                raise ParseError('QR_TIMEOUT_RANGE')
+            payload = int(payload)
+        elif not payload or len(payload) > 80 or any(c not in '0123456789abcdefABCDEFQ-' for c in payload):
+            raise ParseError('QR_ID')
+        return ParsedCommand(text, name, payload=payload, category='QR_WRITE_SESSION')
+
+    if name == 'CAL_MEASUREMENT?':
+        try:
+            token = parse_acquisition_id(payload)
+        except MeasurementError as exc:
+            raise ParseError('CAL_' + str(exc))
+        return ParsedCommand(text, name, payload=token, category='CALIBRATION_QUERY')
 
     if name == "FW_UPDATE":
         return ParsedCommand(text, name, payload=payload, category="FORBIDDEN")

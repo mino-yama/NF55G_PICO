@@ -1,0 +1,56 @@
+7355 Digital Multimeter Operation Manual
+7.1.4 DC Current Measurement (DCI)
+7-9
+7.1.4 DC Current Measurement (DCI)
+5 1/2 digits
+6 1/2 digits
+Input 
+terminal Range
+Maximum display Resolution Resistance 
+between 
+terminals
+Measurement accuracy*1
+(% of reading + digits)
+Temperature coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto-zero ON Auto-zero OFF
+mA-COM 200 mA 199.99 199.999 10 A1  A0 . 5   or
+lower
+0.03+2 0.03+10 0.03+10 40+1 40+2
+2000 mA 1999.9 1999.99 100 A 10 A0 . 5   or
+lower
+0.05+2 0.05+6 0.05+5 50+0.7 50+1.5
+10A-COM 10 A 10.999 10.9999 1 mA 100 A0 . 0 6   or
+lower
+0.15+2 0.15+7 0.15+6 50+0.7 50+1.5
+Input 
+terminal Range
+Maximum display Resolution Resistance 
+between 
+terminals
+Measurement accuracy*1
+(% of reading + digits)
+Temperature 
+coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto-zero ON Auto-zero OFF
+mA-COM 200 mA Same as 
+5 1/2 
+digits
+199.9999 Same as 
+5 1/2 
+digits
+100 nA Same as 
+5 1/2 
+digits
+Same as 
+5 1/2 
+digits
+0.03+100 0.03+100 40+10 40+20
+2000 mA 1999.999 1 A 0.05+60 0.05+50 50+7 50+15
+10A-COM 10 A 10.99999 10 A 0.15+70 0.15+60 50+7 50+15
+*1: When the Auto-zero is ON
+When the Auto-zero is OFF, add 2 digits (5½ digits) or 20 digits (6½ digits) to the digit error. “IT > 400 ms” is specified only when the 
+Auto-zero is ON.

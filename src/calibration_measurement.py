@@ -105,6 +105,10 @@ class CalibrationMeasurements:
         self._pending = None
         return True
 
+    def pending_matches(self, token):
+        # 試行終了/再START後に、取得側が残りの機器要求を出さないための照合口。
+        return self._active and self._pending is not None and token == self._pending
+
     def get(self, token):
         if not self._active:
             raise MeasurementError("MEASUREMENT_INVALID")

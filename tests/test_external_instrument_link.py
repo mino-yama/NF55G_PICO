@@ -494,6 +494,102 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.assertEqual(self.transport.commands, [])
         self.assertTrue(self.lib.test_reset_due(self.transport.memory))
 
+    def calibration_app(self):
+        nf = MockUART(clock=self.clock)
+        app = FixtureApp(clock=self.clock, external_link=self.link, protocol=NF55Protocol(nf, clock=self.clock))
+        self.assertEqual(app.execute_ate_line('TEST_START'), 'OK')
+        return app, nf
+
+    def calibration_request(self, app, target='BATT_V', point='A'):
+        self.assertIsNone(app.execute_ate_line('CAL_MEASURE {} {} 2000 :READ?'.format(target, point)))
+        for _ in range(2200):
+            app._service_external()
+            reply = app.take_external_response()
+            if reply is not None:
+                return reply
+            self.clock.sleep_ms(1)
+        self.fail('No bounded calibration response')
+
+    def test_calibration_native_all_targets_points_and_cache_only_queries(self):
+        app, nf = self.calibration_app()
+        for target in ('BATT_V', 'DISCHG_I', 'BATT_CHG'):
+            for point in ('A', 'B'):
+                self.transport.responses = [b'"VOLT:DC"\r\n', b'-001.8500E-03\r\n']
+                reply = self.calibration_request(app, target, point)
+                self.assertTrue(reply.startswith('OK:CAL_MEASURE:'), reply)
+                token_id = reply.split(':', 2)[2]
+                before = list(self.transport.commands)
+                query = app.execute_ate_line('CAL_MEASUREMENT? ' + token_id)
+                unit_fields = ':-001.8500E-03:V:-001.8500E-03:V:' if target == 'BATT_V' else ':-001.8500E+00:mV:-001.8500E+00:A:'
+                self.assertIn(unit_fields, query)
+                self.assertEqual(self.transport.commands, before)
+        self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n', b':READ?\r\n'] * 6)
+        self.assertEqual(nf.tx_log, [])
+        self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
+        self.assertEqual(app.execute_ate_line('CAL_MEASUREMENT? ' + token_id), 'ERR:CAL_MEASUREMENT_INVALID')
+        self.assertEqual(nf.tx_log, [])
+
+    def test_calibration_native_no_trial_disabled_or_bad_command_sends_nothing(self):
+        app = FixtureApp(clock=self.clock, external_link=self.link)
+        self.assertEqual(app.execute_ate_line('CAL_MEASURE BATT_V A 2000 :READ?'), 'ERR:CAL_NO_ACTIVE_TRIAL')
+        self.assertEqual(app.execute_ate_line('CAL_MEASURE BATT_V A 2000 :CONF?'), 'ERR:CAL_MEASUREMENT_COMMAND')
+        disabled = FixtureApp(clock=self.clock)
+        disabled.execute_ate_line('TEST_START')
+        self.assertEqual(disabled.execute_ate_line('CAL_MEASURE BATT_V A 2000 :READ?'), 'ERR:CAL_DISABLED')
+        self.assertEqual(self.transport.commands, [])
+
+    def test_calibration_native_non_dcv_stops_before_read(self):
+        app, nf = self.calibration_app()
+        self.transport.responses = [b'"CURR:DC"\r\n']
+        self.assertEqual(self.calibration_request(app), 'ERR:CAL_METER_FUNCTION')
+        self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n'])
+        self.assertEqual(nf.tx_log, [])
+
+    def test_calibration_trial_start_invalidates_prior_product_status(self):
+        app, nf = self.calibration_app()
+        app.cache.validate('STATUS', {'previous_product': True}, 'D1')
+        self.assertEqual(app.execute_ate_line('TEST_START'), 'OK')
+        self.assertFalse(app.cache.is_valid('STATUS'))
+        self.transport.responses = [b'"VOLT:DC"\r\n', b'+09.62123E+00\r\n']
+        self.assertTrue(self.calibration_request(app).startswith('OK:CAL_MEASURE:'))
+        self.assertFalse(app.cache.is_valid('STATUS'))
+        self.assertTrue(all(not app.cache.is_valid(name) for name in app.cache._entries))
+        self.assertEqual(nf.tx_log, [])
+
+    def test_calibration_native_bad_reacquisition_never_restores_prior_id(self):
+        app, nf = self.calibration_app()
+        self.transport.responses = [b'"VOLT:DC"\r\n', b'+09.62123E+00\r\n']
+        old_id = self.calibration_request(app).split(':', 2)[2]
+        self.transport.responses = [b'"VOLT:DC"\r\n', b'+9.999999E+37\r\n']
+        self.assertEqual(self.calibration_request(app), 'ERR:CAL_MEASUREMENT_OVERRANGE')
+        self.assertEqual(app.execute_ate_line('CAL_MEASUREMENT? ' + old_id), 'ERR:CAL_MEASUREMENT_INVALID')
+        self.assertEqual(nf.tx_log, [])
+
+    def test_calibration_native_pending_blocks_trial_change_and_regular_queries(self):
+        app, nf = self.calibration_app()
+        self.transport.responses = [b'"VOLT:DC"\r\n', b'+09.62123E+00\r\n']
+        self.assertIsNone(app.execute_ate_line('CAL_MEASURE BATT_V A 2000 :READ?'))
+        for command in ('TEST_END', 'TEST_START', 'STATUS_REFRESH', 'HOST_RESET METER'):
+            self.assertEqual(app.execute_ate_line(command), 'ERR:BUSY')
+        self.assertEqual(app.execute_ate_line('EXT_QUERY 2000 *IDN?'), 'ERR:EXT_BUSY:AMBIGUOUS=0')
+        for _ in range(2000):
+            app._service_external()
+            reply = app.take_external_response()
+            if reply is not None:
+                break
+            self.clock.sleep_ms(1)
+        self.assertTrue(reply.startswith('OK:CAL_MEASURE:'), reply)
+        self.assertEqual(nf.tx_log, [])
+
+    def test_calibration_native_timeout_keeps_link_fault_and_never_sends_read(self):
+        app, nf = self.calibration_app()
+        self.transport.responses = []
+        reply = self.calibration_request(app)
+        self.assertTrue(reply.startswith('ERR:CAL_TIMEOUT'), reply)
+        self.assertTrue(self.link.fault)
+        self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n'])
+        self.assertEqual(nf.tx_log, [])
+
     def test_idn_round_trip_has_no_automatic_instrument_query(self):
         self.link.poll()
         self.assertEqual(self.transport.commands, [])

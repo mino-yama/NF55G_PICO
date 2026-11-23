@@ -1,0 +1,31 @@
+7355 Digital Multimeter Operation Manual
+7.1.7 Diode Measurement
+7-16
+7.1.7 Diode Measurement
+5 1/2 digits
+6 1/2 digits
+The specifications other than the above are the same as those of the 2000 Ω range in 2WΩ measurement.
+Range
+Maximum display Resolution
+Measurement 
+current
+Measurement accuracy*1
+(% of reading + digits)
+Temperature coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+2000 mV 1999.9 1999.99 100 V 10 V 1 mA 0.02+2 0.02+4 0.014+3 15+0.25 15+1.5
+Range
+Maximum display Resolution
+Measurement 
+current
+Measurement accuracy*1
+(% of reading + digits)
+Temperature coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+2000 mV *2 1999.999 *2 1 V *2 *2 0.02+40 0.014+30 15+2.5 15+15
+*1: Add the offset error “(the me asurement cable resistance + 0.3 Ω) × 1 mA.”
+*2: Same as 5 1/2 digits

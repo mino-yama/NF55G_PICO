@@ -99,6 +99,18 @@ TEST_API int qr_test_error(qr_alt_decoder_t *s) { return s->error; }
 
     def test_preserve_case_zero_and_hyphen(self):self.assert_scan('Az09-'*7)
 
+    def test_actual_label_revision_period_and_next_scan(self):
+        self.assert_scan('US250A-CGXE-009491-101A1.2601000001')
+        self.assert_scan('US250A-CGXE-009491-101B2.2601000010')
+
+    def test_period_outside_revision_is_rejected_without_partial_publication(self):
+        for index in (0,8,21,25,29,34):
+            self.setUp()
+            raw=EXPECTED[:index]+'.'+EXPECTED[index+1:]
+            self.assertEqual(self.replay(reports_for(raw)),[(2,None)])
+            self.assertEqual(self.lib.qr_test_error(self.state),7)
+            self.assert_scan()
+
     def test_repeated_held_reports_do_not_duplicate(self):
         source=reports_for(EXPECTED)
         self.assertEqual(self.replay([r for r in source for _ in range(2)]),[(1,EXPECTED)])

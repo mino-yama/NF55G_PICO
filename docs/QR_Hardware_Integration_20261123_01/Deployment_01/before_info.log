@@ -1,0 +1,58 @@
+Program Information
+ name:                   usb_submcu_qr_uart_probe
+ version:                qr-fixed-20261114.1
+ features:               Diagnostic RAM
+                         capacity: 1024
+                         records
+ binary start:           0x10000000
+ binary end:             0x1000a380
+ target chip:            RP2350
+ image type:             ARM Secure
+
+Fixed Pin Information
+ 0:                      Diagnostic
+                         UART0 TX 115200
+                         8N1
+ 12:                     Type_C2 D+
+ 13:                     Type_C2 D-
+
+Build Information
+ sdk version:            2.2.0
+ pico_board:             waveshare_rp2350_usb_c_acceptance
+ boot2_name:             boot2_w25q080
+ build date:             Nov 14 2026
+ build attributes:       Release
+
+Metadata Block 1
+ address:                0x10000138
+ next block address:     0x1000a36c
+ block type:             image def
+ target chip:            RP2350
+ image type:             ARM Secure
+
+Metadata Block 2
+ address:                0x1000a36c
+ next block address:     0x10000138
+ block type:             ignored
+
+Device Information
+ type:                   RP2350
+ revision:               A4
+ package:                QFN60
+ chipid:                 0xa06fea01012ec137
+ flash devinfo:          0x0c00
+ current cpu:            ARM
+ available cpus:         ARM, RISC-V
+ default cpu:            ARM
+ secure boot:            0
+ debug enable:           1
+ secure debug enable:    1
+ boot_random:            b9cc462e:b45a500f:9232d9d8:09ebf2bc
+ boot type:              bootsel
+ last booted partition:  none
+ diagnostic source:      slot 0
+ last boot diagnostics:  0x00000000
+ reboot param 0:         0x00000000
+ reboot param 1:         0x00000000
+ rom gitrev:             0xa8bfe860
+ flash size:             2048K

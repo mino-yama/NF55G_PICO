@@ -37,9 +37,11 @@ qr_alt_result_t qr_alt_decoder_poll(qr_alt_decoder_t *s, uint32_t now_ms) {
  return QR_ALT_NONE;
 }
 
-static bool allowed(uint32_t value) {
+static bool allowed(uint32_t value, uint8_t position) {
  return (value>='A' && value<='Z') || (value>='a' && value<='z') ||
-        (value>='0' && value<='9') || value=='-';
+        (value>='0' && value<='9') || value=='-' ||
+        /* 実ラベルのREV A1.。他欄の記号制約は維持する。 */
+        (value=='.' && position>=22 && position<25);
 }
 
 qr_alt_result_t qr_alt_decoder_feed(qr_alt_decoder_t *s,
@@ -69,7 +71,7 @@ qr_alt_result_t qr_alt_decoder_feed(qr_alt_decoder_t *s,
 
  if(alt_released) {
   if(s->digits!=5) return fail(s,QR_ALT_DIGITS);
-  if(!allowed(s->value)) return fail(s,QR_ALT_CHARACTER);
+  if(!allowed(s->value,s->length)) return fail(s,QR_ALT_CHARACTER);
   if(s->length>=QR_ALT_TEXT_LENGTH) return fail(s,QR_ALT_LENGTH);
   s->text[s->length++]=(char)s->value;
   s->text[s->length]='\0'; s->digits=0; s->value=0;

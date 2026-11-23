@@ -1,0 +1,42 @@
+7355 Digital Multimeter Operation Manual
+6.8.3 ADC Command Reference
+6-35
+Calculation PASS condition 
+range setting
+LOP0 Calculation result LO is not  specified as the PASS condition. 
+LOP1 Calculation result LO is specified as the PASS condition.
+LOP? Response: LOP0 or LOP1
+MIP0 Calculation result GO is not  specified as the PASS condition.
+MIP1 Calculation result GO is specified as the PASS condition. 
+MIP? Response: MIP0 or MIP1
+HIP0 Calculation result HI is not  specified as the PASS condition. 
+HIP1 Calculation result HI is specified as the PASS condition.
+HIP? Response: HIP0 or HIP1
+Statistical calculation SIRDn,m Range setting and execution of statistical calculations
+n, m: 0 to 19999
+Note:
+1. An error occurs if no data exists in the setting range in the 
+measurement data memory.
+2. No parameters can be omitted.
+(0,-1)
+SIRD? Response: SIRDddddd, ddddd
+Default: SIRD + 00000, -00001
+SCNT? Sample count reading
+Response: SCNT + d.ddddddE + dd *2
+SMAX? Maximum value reading
+Response: SMAX ± d.ddddddE ± dd *2
+SMIN? Minimum value reading
+Response: SMIN ± d.ddddddE ± dd *2
+SA VE? Average value reading
+Response: SA VE ± d.ddddddE ± dd *2
+SSIG? Standard deviation value reading
+Response: SSIG + d.ddddddE ± dd *2
+However, if the sample count is 1 or less:
+Outputs SSIG + 9.999999E + 30.
+SPTP? MAX-MIN reading
+Response: SPTP ± d.ddddddE ± dd *2
+Digital output DO0 Digital  output disabled (comparator output enabled) 
+DO1 Digital output enabled (c omparator output disabled)
+DO? Response: DO0 or DO1
+*2: The decimal point position in the response is fixed.
+Item Command Description Default

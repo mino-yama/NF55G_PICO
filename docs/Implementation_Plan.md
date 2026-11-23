@@ -1,5 +1,9 @@
 # NF55G Pico 2 Implementation Plan
 
+2026-11-23最新進捗: QRのREVピリオド対応FWを配置、親のQR取得ID・最初の1件固定・照会・明示SS・使用後失効を実装。全527回帰成功、実ATEでQR2連続→SS一回→明示D5読戻し一致、CSV原文hash一致を確認。今回のUNIT格納規則はユーザー承認済み。旧記述のQR/SS全体未実装・未回答は更新前の履歴。電源再投入保持・旧QRのHOST内遅着境界・cold-start、ADC既存CSV2本回収は残る。[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23次工程: ユーザー採用のCAL_MEASURE／CAL_MEASUREMENT?を実装・配置し、2試行4取得等を実ATEで確認。全503回帰成功。親USB復帰後のCSV2本読戻しを残し、QRハード結合後のGP9/115200診断入力へ準備を進めた。AD/ARとQR/SS未回答は保留維持。[ADC結果](ADC_Acquisition_20261123_01/Result_Rev0.md)、[QR準備](QR_Hardware_Integration_20261123_01/Preparation_Rev0.md)。
+
 2026-11-22 ユーザー採用: HOST情報/通常RST・先行デバッグ→ADC取得/Cache→AD/ARと小数実機確認→個別照合→QR/SSの順で進める。ADC独立開発は並行、統合は先行デバッグ後。11月23日は山田がブレッド配線を固定配線へ更新予定。更新後の結線/給電/個体/FW照合と単独確認から実機再開する。[決定・分担](Development_Order_and_Fixed_Wiring_Decision_20261122.md)。
 
 2026-11-22 最新順序: ADCは先行デバッグと並行して準備・独立部分を開発し、先行デバッグ後に統合。その後QR実データを基に読取り/Cache/SS書込み先をATEから制御する仕様を検討する。チャット「ADC仕様」の最終指示を確認し、AD書込みとAR個別照合を分離、Picoが比較/ログ、ATEが製品判定を担当する。測定Cache基盤は実装済み、正式接続とAD/AR小数読戻し契約は残る。今回コード/実機変更なし。[開発単位・受入・QR制御案](ADC_QR_Integration_Plan_20261122_Rev0.md)。

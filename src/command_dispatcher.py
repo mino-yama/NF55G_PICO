@@ -135,7 +135,7 @@ class CommandDispatcher:
             # BCは開始・停止とも30文字。SEの状態情報はSTATUSへ転用しない。
             expected_length=(30 if spec.nf_cmd == "BC" else
                              15 if spec.nf_cmd == "SE" else
-                             0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP", "SL") else None),
+                             0 if spec.nf_cmd in ("SC", "CD", "CL", "SP", "RP", "SL", "SS") else None),
         )
 
         # Control応答のStatusはCacheへ転用しない。成功または成否不明なら規定範囲を無効化する。

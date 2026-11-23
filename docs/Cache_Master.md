@@ -1,5 +1,9 @@
 # Cache / Invalidation / Post-Action Confirmation Master
 
+2026-11-23 QR書込みCache追加: `QRWriteSession`に起動nonce／試行世代／取得ID・原文35文字・SS DATA・READY・照会済み状態を保持。既存製品INFO Cacheとは別。QR_SCANで旧値を破棄し、最初の完成1件だけ固定、READY後の入力で置換しない。QR_DATA?は取得済み値の照会だけ。QR_WRITE実行結果で使用取得値を消費し、SS成功／ambiguous時はDATA／INFOをINVALID。TEST_START新世代／TEST_END成立／取消で旧取得値を失効。親受付前からHOST内で処理中の遅着を識別するwire境界は未実装。[仕様と限界](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
+
+2026-11-23 ADC取得接続: 採用済みCAL_MEASUREで現試行/対象/A-B/tokenを照合し、同点旧値を取得前に失効。7355 DCV完成応答を検証後だけ保存し、OL/演算エラー・失敗・取消・旧試行では復活させない。電流の測定値は厳密V→mV正規化、校正候補は同じ数値のA、元rawはV原文保持。CAL_MEASUREMENT?はCacheのみ。TEST_END/再STARTの全失効を維持し、NF読出しCacheとは分離。全497回帰成功。[仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-19シャント換算追加: ユーザー指定50A/50mVに従い、電流2系統のmV値を親Picoの`get_calibration(token)`で同じ数値のAへ換算する。測定Cacheは原文・元のmV値を保持し変更しない。BATT_VはVのまま、対象と単位が不一致なら候補取得を拒否する。換算候補取得では再測定・AD送信しない。[詳細](ADC_Calibration_Development_20261119.md)。
 
 2026-11-19 ADC測定Cache基盤: 製品読出しCacheと別の`CalibrationMeasurements`を追加。3系統×A/B、試行/取得token照合、取得開始時の旧値破棄、完成済み単一数値だけの保持、遅着/重複拒否、TEST_END成立時の全失効、再START時の世代更新を実装。書込み完了/成否不明時用の`discard`は内部入口のみでAD結果への接続は未実装。正式ATE取得/照会/書込み・CDC・換算は未実装、時間期限は未確定。[内部仕様と検証範囲](ADC_Calibration_Development_20261119.md)。

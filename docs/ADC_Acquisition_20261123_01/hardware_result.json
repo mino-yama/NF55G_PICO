@@ -1,0 +1,344 @@
+{
+  "status": "STOPPED",
+  "events": [
+    {
+      "command": "HOST_INFO? METER",
+      "response": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261123.2:CBFA8C2C4F42C7BA:READY",
+      "raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132332e323a434246413843324334463432433742413a52454144590d",
+      "elapsed_ms": 140.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V A 2000 :READ?",
+      "response": "ERR:CAL_NO_ACTIVE_TRIAL",
+      "raw_hex": "4552523a43414c5f4e4f5f4143544956455f545249414c0d",
+      "elapsed_ms": 31.0
+    },
+    {
+      "command": "TEST_START",
+      "response": "OK",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 204.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V A 2000 :READ?",
+      "response": "OK:CAL_MEASURE:00000001-00000001-BATT_V-A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030312d30303030303030312d424154545f562d410d",
+      "elapsed_ms": 828.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030312d424154545f562d413a424154545f563a413a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 62.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V B 2000 :READ?",
+      "response": "OK:CAL_MEASURE:00000001-00000002-BATT_V-B",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030312d30303030303030322d424154545f562d420d",
+      "elapsed_ms": 875.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000002-BATT_V-B",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000002-BATT_V-B:BATT_V:B:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030322d424154545f562d423a424154545f563a423a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 156.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030312d424154545f562d413a424154545f563a413a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 63.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000002-BATT_V-B",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000002-BATT_V-B:BATT_V:B:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030322d424154545f562d423a424154545f563a423a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 78.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030312d424154545f562d413a424154545f563a413a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 47.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000002-BATT_V-B",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000002-BATT_V-B:BATT_V:B:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030322d424154545f562d423a424154545f563a423a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 62.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030312d424154545f562d413a424154545f563a413a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 63.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000002-BATT_V-B",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000002-BATT_V-B:BATT_V:B:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030322d424154545f562d423a424154545f563a423a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 47.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V A 2000 :READ?",
+      "response": "OK:CAL_MEASURE:00000001-00000003-BATT_V-A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030312d30303030303030332d424154545f562d410d",
+      "elapsed_ms": 797.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000003-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000003-BATT_V-A:BATT_V:A:+09.62072E+00:V:+09.62072E+00:V:2B30392E3632303732452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030332d424154545f562d413a424154545f563a413a2b30392e3632303732452b30303a563a2b30392e3632303732452b30303a563a3242333033393245333633323330333733323435324233303330304430410d",
+      "elapsed_ms": 156.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_V-A",
+      "response": "ERR:CAL_MEASUREMENT_INVALID",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f494e56414c49440d",
+      "elapsed_ms": 31.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V A 2000 :CONF?",
+      "response": "ERR:CAL_MEASUREMENT_COMMAND",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f434f4d4d414e440d",
+      "elapsed_ms": 31.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000003-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000001-00000003-BATT_V-A:BATT_V:A:+09.62072E+00:V:+09.62072E+00:V:2B30392E3632303732452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030332d424154545f562d413a424154545f563a413a2b30392e3632303732452b30303a563a2b30392e3632303732452b30303a563a3242333033393245333633323330333733323435324233303330304430410d",
+      "elapsed_ms": 79.0
+    },
+    {
+      "command": "TEST_END",
+      "response": "OK",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 250.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000002-BATT_V-B",
+      "response": "ERR:CAL_MEASUREMENT_INVALID",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f494e56414c49440d",
+      "elapsed_ms": 1671.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000003-BATT_V-A",
+      "response": "ERR:CAL_MEASUREMENT_INVALID",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f494e56414c49440d",
+      "elapsed_ms": 47.0
+    },
+    {
+      "command": "TEST_START",
+      "response": "OK",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 188.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000003-BATT_V-A",
+      "response": "ERR:CAL_MEASUREMENT_INVALID",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f494e56414c49440d",
+      "elapsed_ms": 31.0
+    },
+    {
+      "command": "CAL_MEASURE BATT_V A 2000 :READ?",
+      "response": "OK:CAL_MEASURE:00000002-00000004-BATT_V-A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030322d30303030303030342d424154545f562d410d",
+      "elapsed_ms": 922.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000002-00000004-BATT_V-A",
+      "response": "OK:CAL_MEASUREMENT:00000002-00000004-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030322d30303030303030342d424154545f562d413a424154545f563a413a2b30392e3632303731452b30303a563a2b30392e3632303731452b30303a563a3242333033393245333633323330333733313435324233303330304430410d",
+      "elapsed_ms": 62.0
+    },
+    {
+      "command": "TEST_END",
+      "response": "OK",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 204.0
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000002-00000004-BATT_V-A",
+      "response": "ERR:CAL_MEASUREMENT_INVALID",
+      "raw_hex": "4552523a43414c5f4d4541535552454d454e545f494e56414c49440d",
+      "elapsed_ms": 1765.0
+    }
+  ],
+  "acquisitions": [
+    {
+      "id": "00000001-00000001-BATT_V-A",
+      "point": "A",
+      "snapshot": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A"
+    },
+    {
+      "id": "00000001-00000002-BATT_V-B",
+      "point": "B",
+      "snapshot": "OK:CAL_MEASUREMENT:00000001-00000002-BATT_V-B:BATT_V:B:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A"
+    },
+    {
+      "id": "00000001-00000003-BATT_V-A",
+      "point": "A",
+      "snapshot": "OK:CAL_MEASUREMENT:00000001-00000003-BATT_V-A:BATT_V:A:+09.62072E+00:V:+09.62072E+00:V:2B30392E3632303732452B30300D0A"
+    },
+    {
+      "id": "00000002-00000004-BATT_V-A",
+      "point": "A",
+      "snapshot": "OK:CAL_MEASUREMENT:00000002-00000004-BATT_V-A:BATT_V:A:+09.62071E+00:V:+09.62071E+00:V:2B30392E3632303731452B30300D0A"
+    }
+  ],
+  "parent_exit_code": 1,
+  "parent_validation_error": "StopIteration()",
+  "host_frames": [
+    {
+      "kind": "i",
+      "request": 8,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "BFCF2EDB84B0B37F|meter-host-relay-20261123.2|READY|000000080036F958"
+    },
+    {
+      "kind": "A",
+      "request": 82,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 82,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 82,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 83,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 83,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 83,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "+09.62071E+00\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 84,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 84,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 84,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 85,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 85,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 85,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "+09.62071E+00\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 86,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 86,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 86,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 87,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 87,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 87,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "+09.62072E+00\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 88,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 88,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 88,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "\"VOLT:DC\"\r\n"
+    },
+    {
+      "kind": "A",
+      "request": 89,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "T",
+      "request": 89,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": ""
+    },
+    {
+      "kind": "R",
+      "request": 89,
+      "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba",
+      "payload_text": "+09.62071E+00\r\n"
+    }
+  ],
+  "host_decode_errors": 0
+}

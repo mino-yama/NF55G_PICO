@@ -1,0 +1,10 @@
+test_boot_version_and_board_id_require_exact_expected_identity (test_qr_integration_capture.QRCaptureTests.test_boot_version_and_board_id_require_exact_expected_identity) ... ok
+test_boundary_fragments_are_preserved_and_full_line_corruption_is_error (test_qr_integration_capture.QRCaptureTests.test_boundary_fragments_are_preserved_and_full_line_corruption_is_error) ... ok
+test_gap_drop_and_host_decode_error_are_recorded_as_errors (test_qr_integration_capture.QRCaptureTests.test_gap_drop_and_host_decode_error_are_recorded_as_errors) ... ok
+test_midstream_text_is_decoded_but_identity_and_hardware_are_unaccepted (test_qr_integration_capture.QRCaptureTests.test_midstream_text_is_decoded_but_identity_and_hardware_are_unaccepted) ... ok
+test_mismatch_invalid_text_and_crlf (test_qr_integration_capture.QRCaptureTests.test_mismatch_invalid_text_and_crlf) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

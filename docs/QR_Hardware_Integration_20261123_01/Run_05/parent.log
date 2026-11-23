@@ -1,0 +1,3 @@
+QR_CAPTURE_READY|GP9|115200|180s
+QR_CAPTURE_META|{"meter_sm5_active": false, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0, "fault": null, "baudrate": 115200, "rx_pin": 9, "qr_sm_active": false, "duration_ms": 180001, "meter_sm4_active": false}
+QR_CAPTURE_DONE_PIO_INPUT

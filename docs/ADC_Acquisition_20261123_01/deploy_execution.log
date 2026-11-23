@@ -1,0 +1,13 @@
+SOURCE_HASHES_OK 30
+
+
+RUNTIME_QUIESCENT
+
+
+INSTALLED /src/calibration_acquisition.py
+INSTALLED /src/calibration_measurement.py
+INSTALLED /src/command_parser.py
+INSTALLED /src/main.py
+SOURCE_HASHES_OK 31
+
+

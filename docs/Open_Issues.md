@@ -1,5 +1,19 @@
 # Open Issues
 
+2026-11-23 OI-23進捗（Open継続）: ユーザーがQR REV3＋空白→UNIT_REV4、YYWW→LOT、号機→SERIAL、ADU／BBU維持を了承し実行指定。取得ID付きQR Cache・照会・明示SS・消費を親へ実装・配置し、実ATEから同QR二連続読取→確定SS一回→D5前後照合が成功。FW S1.14B／ADU／BBU／予約／PARAMETER不変、書込値A1.末尾空白／2601／000001、CSV原文hash一致。残件は親受付前からHOST内で処理中の旧読取の識別（現wireはTXのみ・要求IDなし）、RST不要cold-start、再投入保持・量産統合条件。今回の成功でOI全体をCloseしない。[現仕様](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機証跡](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23 QR修正版実機追記（Open継続）: 新版配置・独立verify後、Run_05／06は0byte、配線確認・QR HOST RST後Run_07で新版boot／個体ID一致と実原文35文字5件完全一致を確認。REV A1.と号機000001を保持、drop／解析エラー0。今回RST後の受信・分解まで前進。0byte原因・RST不要cold-start・トリガーとの対応・正式ATE／Cache／SS変換は未確定のまま。[限定結果](QR_Hardware_Integration_20261123_01/Write_Read_Test_Result_20261123_Rev0.md)。
+
+2026-11-23 QR実機追記（Open継続）: Type_C2接続／読取音をユーザー確認。Run_03のRST後は期待個体・旧FWの起動文字列、E851:1001／HID mount／388 reportを確認し、完成原文はQR_ALT_CHARACTER(07)で拒否。提示原文のREV=A1.に対応するためREV3文字欄のピリオドを追加、他欄制約と可変型式／REVを維持。修正後FW配置・実読取は未完了、SS変換等は未確定のまま。[起動実測](QR_Hardware_Integration_20261123_01/Startup_Result_20261123_Rev0.md)／[修正仕様](QR_Hardware_Integration_20261123_01/Revision_Period_Spec_20261123_Rev0.md)。
+
+2026-11-23 QR追加訂正（Open継続）: ユーザーにより品名／型式8・品目コード14・REV3の値は固定せず、図面左下の構造を基準にする。正常データの号機範囲は000001～000010の10個と確認。実製品の許可番号制限・REV値・年週実値・SS変換を確定しない。従前の固定値照合を削除。[現行Rev.1](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev1.md)。
+
+2026-11-23 QR/OI-23情報更新（Open継続）: ユーザーとG_03銘板図面により固定US250A-C8文字／GXE-009491-101 14文字、REV3 Lot毎可変、YYWW、S/N6桁を確認。QRの週と銘板DATEの月、REV3→SS4文字の対応は推測しない。専用profileと全509回帰成功、QR実入力/正式ATE/SS連携は未実施。[定義](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev0.md)。
+
+2026-11-23 ADC-1/2実機進捗（Open継続）: 2試行4取得・照会・旧ID／試行終了失効を実ATEで確認。TEST_START製品Cache全失効を誤って不変とした診断assertは訂正方針を記録し、保持RAMで正しい失効を確認。本番処理変更なし。親COM6消失によりCSV読戻し未完了。QRハード結合・実原文は回答待ち、GP9←QR GP0/115200の採取を準備。全503回帰成功。[進捗](ADC_Acquisition_20261123_01/Result_Rev0.md)。
+
+2026-11-23 CAL-EXT-02部分確定（Open継続）: ユーザーがCAL_MEASUREの対象/A-B/総期限/:READ?引数と、取得IDによるCAL_MEASUREMENT?照会を採用。取得時のDCV確認→READ、V→mV→Aの厳密換算、Cache照会のみ、AD/AR非接続を実装し全497回帰成功。A/BとP1/P2、AD/AR表現・小数読戻し・極性等は未回答のまま。[仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-23 有限共存試験進捗（Open継続）: .23.2の同じ親/HOST世代でREAD10/10、READ+D1+SD+RTC50/50、Retry0/drop0/Queue0、通信中SD書込み試行0、CSV実機SHA一致を確認。SDはVFS既存mountと試験用sink認識不一致を確認し、idleで整理後にOK復帰。ハード故障や本番起動不具合とは断定しない。USB受信0byteの根本原因・遅着応答境界・長期安定性は未確認、既存IssueをCloseしない。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
 
 2026-11-23 通信再開の追加実機確認（Open継続）: .23.2の前回RST後と同じHOST／親nonceでREADYとIDN一回成功。I/H/Q各1件、HOST i/h/A/T/Rを照合、32byte期待原文一致。既存USB受信0byteの根本原因・NOT_READY→READYの理由、連続測定／遅着応答境界／複合負荷は未確認。今回の成功だけでUSB-HOST-RESET-01等をCloseしない。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。

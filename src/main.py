@@ -8,6 +8,7 @@ import binascii
 # First application startup snapshot: RAM only, retained across SD_REINIT.
 # Read from REPL after interrupting the loop, before resetting the interpreter.
 startup_sd_diagnostic = None
+active_app = None
 
 try:
     from . import config
@@ -16,7 +17,8 @@ try:
     from .external_instrument_relay import RelayError
     from .ate_uart import create_ate_uart
     from .cache_manager import CacheManager
-    from .calibration_measurement import CalibrationMeasurements
+    from .calibration_measurement import CalibrationMeasurements, MeasurementError
+    from .calibration_acquisition import CalibrationAcquisition, acquisition_id, measurement_reply
     from .command_dispatcher import CommandDispatcher
     from .command_parser import ParseError, parse_ate_command
     from .diagnostic import FixtureDiagnostics
@@ -29,6 +31,8 @@ try:
     from .sd_sink import PicoSDSink
     from .repl_sink import create_repl_sink
     from .qr_reader import QRReceiver, decode_qr
+    from .qr_write_session import QRWriteSession, QRWriteError
+    from .qr_reader import decode_nf55g_label
 except ImportError:  # pragma: no cover
     import config
     from external_instrument_contract import format_error
@@ -36,7 +40,8 @@ except ImportError:  # pragma: no cover
     from external_instrument_relay import RelayError
     from ate_uart import create_ate_uart
     from cache_manager import CacheManager
-    from calibration_measurement import CalibrationMeasurements
+    from calibration_measurement import CalibrationMeasurements, MeasurementError
+    from calibration_acquisition import CalibrationAcquisition, acquisition_id, measurement_reply
     from command_dispatcher import CommandDispatcher
     from command_parser import ParseError, parse_ate_command
     from diagnostic import FixtureDiagnostics
@@ -49,10 +54,12 @@ except ImportError:  # pragma: no cover
     from sd_sink import PicoSDSink
     from repl_sink import create_repl_sink
     from qr_reader import QRReceiver, decode_qr
+    from qr_write_session import QRWriteSession, QRWriteError
+    from qr_reader import decode_nf55g_label
 
 
 class FixtureApp:
-    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None, external_link=None):
+    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None, external_link=None, qr_transport=None):
         self.clock = clock or getattr(protocol, 'clock', None) or SystemClock()
         self.external_link = external_link
         self.external_error = None
@@ -65,10 +72,15 @@ class FixtureApp:
         self.cache = cache or CacheManager(clock_ms=self.clock.ticks_ms)
         self.logger = logger or Logger(clock=self.clock, rtc=rtc)
         self.measurements = CalibrationMeasurements()
+        self.calibration_acquisition = CalibrationAcquisition(self.measurements, external_link, self.clock)
+        self._calibration_pending = False
         if self.logger.test_running:
             self.measurements.start_trial()
         self.rtc = rtc
         self.qr_reader = QRReceiver(on_ready=self.accept_qr)
+        self.qr_write = QRWriteSession(self.clock, binascii.hexlify(new_nonce()).decode(), qr_transport)
+        if self.logger.test_running:
+            self.qr_write.start_trial()
         self.server = ATEServer(ate_uart) if ate_uart is not None else None
         self.running = False
         self._last_rtc_sample = -1000
@@ -88,7 +100,7 @@ class FixtureApp:
         if not self.logger.test_running:
             return False
         try:
-            fields = decode_qr(raw)
+            fields = decode_nf55g_label(raw)
         except ValueError:
             self.logger.set_serial(None)
             return False
@@ -132,12 +144,28 @@ class FixtureApp:
     def _service_external(self):
         if self.external_link is None:
             return
-        self.external_link.poll()
-        if not self._external_pending:
-            return
-        reply = self.external_link.take_reply()
-        if reply is None:
-            return
+        if self._calibration_pending:
+            # 取得中は2段階の所有者だけがlinkをpollし、通常中継と競合させない。
+            self.calibration_acquisition.poll()
+            result = self.calibration_acquisition.take_result()
+            if result is None:
+                return
+            self._calibration_pending = False
+            reply = result['reply']
+            if self.logger.active or self.logger.test_running:
+                detail = acquisition_id(result['token'])
+                if reply.startswith('OK:'):
+                    detail = measurement_reply(self.measurements, result['token'])
+                self.logger.log(category='CAL', event='ACQUIRED' if reply.startswith('OK:') else 'FAILED',
+                                result=reply, detail=detail,
+                                raw_hex=binascii.hexlify(result['raw'] or b'').decode('ascii'))
+        else:
+            self.external_link.poll()
+            if not self._external_pending:
+                return
+            reply = self.external_link.take_reply()
+            if reply is None:
+                return
         self._external_pending = False
         if self.logger.active or self.logger.test_running:
             self.logger.log(category='ATE', direction='TX', event='RESULT', result=reply,
@@ -158,6 +186,10 @@ class FixtureApp:
     # 1巡分の処理：ATE受信とidle EB処理→ATE応答/要求実行→空き時間のRTC/SD処理。
     def service_once(self):
         self._pump_ate()
+        previous_qr = self.qr_write.state
+        self.qr_write.poll()
+        if previous_qr == 'READING' and self.qr_write.state == 'READY':
+            self.accept_qr(self.qr_write.raw)
         if self.protocol is not None:
             self.protocol.service_idle()
         self._service_external()
@@ -227,10 +259,12 @@ class FixtureApp:
         if new_trial:
             # 前試行のQR・測定値・未完取得を新試行へ引き継がせない。
             self.qr_reader.cancel()
+            self.qr_write.start_trial()
             self.measurements.start_trial()
         if not self.logger.test_running:
             # 終了が通信/SD処理で延期された間は保持し、試行終了成立時に破棄する。
             self.measurements.end_trial()
+            self.qr_write.end_trial()
         if (not was_recording or new_trial) and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
         if response is not None and (self.logger.active or self.logger.test_running):
@@ -275,6 +309,25 @@ class FixtureApp:
             return "ERR:FU_DISABLED"
         if self._external_pending:
             return "ERR:BUSY"
+        if parsed.category == 'QR_WRITE_SESSION':
+            return self._execute_qr(parsed.name, parsed.payload)
+        if parsed.category == 'CALIBRATION_ACQUIRE':
+            if self._comm_busy():
+                return 'ERR:CAL_BUSY'
+            try:
+                self.calibration_acquisition.start(**parsed.payload)
+            except MeasurementError as exc:
+                return 'ERR:CAL_' + str(exc)
+            self._external_pending = True
+            self._calibration_pending = True
+            self.external_response = None
+            self._external_text = parsed.raw
+            return None
+        if parsed.category == 'CALIBRATION_QUERY':
+            try:
+                return measurement_reply(self.measurements, parsed.payload)
+            except MeasurementError as exc:
+                return 'ERR:CAL_' + str(exc)
         if parsed.category == "REFRESH":
             return self._record_result(self.dispatcher.execute_refresh(parsed.name, parsed.payload))
         if parsed.category == "QUERY":
@@ -290,6 +343,42 @@ class FixtureApp:
             return self._record_result(self.dispatcher.execute_control(parsed.name, payload=parsed.payload))
         return "ERR:UNKNOWN_CMD"
 
+    def _execute_qr(self, name, token):
+        try:
+            if name == 'QR_CANCEL':
+                self.qr_write.cancel()
+                return 'OK'
+            if name == 'QR_SCAN':
+                return 'OK:QR_ARMED:' + self.qr_write.start(token)
+            if name in ('QR_GET?', 'QR_DATA?'):
+                raw, data = self.qr_write.get(token, review=name == 'QR_DATA?')
+                return 'OK:{}:{}:{}'.format(name[:-1], token,
+                    raw if name == 'QR_GET?' else binascii.hexlify(data).decode())
+            data = self.qr_write.write_data(token)
+            if self._comm_busy():
+                return 'ERR:QR_BUSY'
+            if self.protocol is None:
+                return 'ERR:NF55G_NOT_CONNECTED'
+            # 送信前の条件拒否以外は再利用不可。成否不明もSSの失効規則へ。
+            try:
+                result = self.dispatcher.execute_control('SERIAL_SET_RAW', data)
+            except OSError:
+                self.cache.apply_ambiguous_invalidation('SS')
+                self.logger.log(category='QR', event='WRITE', cmd='SS',
+                                result='ERR:QR_WRITE:UART:AMBIGUOUS=1',
+                                raw_hex=binascii.hexlify(data).decode(), detail='acquisition_id='+token)
+                return 'ERR:QR_WRITE:UART:AMBIGUOUS=1'
+            finally:
+                self.qr_write.consume()
+            response = self._record_result(result)
+            self.logger.log(category='QR', event='WRITE', cmd='SS', result=response,
+                            raw_hex=binascii.hexlify(data).decode(), detail='acquisition_id='+token)
+            if result.transaction is not None and result.transaction.ambiguous:
+                return 'ERR:QR_WRITE:{}:AMBIGUOUS=1'.format(result.error)
+            return 'OK:QR_WRITE:'+token if result.ok else response
+        except QRWriteError as exc:
+            return 'ERR:QR_' + str(exc)
+
 
 # 実機部品を生成して結合する。RTC/SDの初期化失敗は記録し、通信機能の起動を継続する。
 def create_fixture_app(enable_hardware=True):
@@ -302,7 +391,15 @@ def create_fixture_app(enable_hardware=True):
     logger = None
     external_link = None
     external_error = None
+    qr_transport = None
     if enable_hardware:
+        if config.QR_HOST_ENABLED:
+            try:
+                from .qr_pio_rx import QRPioRx
+            except ImportError:
+                from qr_pio_rx import QRPioRx
+            qr_transport = QRPioRx(rx_pin=9, baudrate=115200, sm_id=0,
+                                   tx_idle_pin=None, buffer_size=2048)
         if config.EXTERNAL_INSTRUMENT_ENABLED:
             transport = None
             try:
@@ -339,14 +436,15 @@ def create_fixture_app(enable_hardware=True):
             }
         logger = Logger(sd_sink=sink, clock=clock, rtc=rtc,
                 repl_sink=create_repl_sink(config.REPL_LOG_ENABLED))
-    app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock, external_link=external_link)
+    app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock, external_link=external_link, qr_transport=qr_transport)
     app.external_error = external_error
     return app
 
 
 def main():
-    app = create_fixture_app(enable_hardware=True)
-    app.run()
+    global active_app
+    active_app = create_fixture_app(enable_hardware=True)
+    active_app.run()
 
 
 if __name__ == "__main__":  # pragma: no cover

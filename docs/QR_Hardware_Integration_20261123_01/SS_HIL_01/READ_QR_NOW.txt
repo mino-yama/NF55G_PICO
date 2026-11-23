@@ -1,0 +1,1 @@
+QR_SCAN accepted; read same QR twice now.

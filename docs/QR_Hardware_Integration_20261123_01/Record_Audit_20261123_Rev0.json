@@ -1,0 +1,30 @@
+{
+  "status": "RECORDS_AND_DEPLOYMENT_MATCH",
+  "source_files": 7,
+  "source_snapshot_and_device_hash_match": true,
+  "runtime_config_override": "QR_HOST_ENABLED=True; existing external meter setting preserved",
+  "documents_updated": [
+    "ATE_Command_Master.md",
+    "Cache_Master.md",
+    "QR_Reader_Requirements.md",
+    "Software_Module_Interface.md",
+    "Test_Specification.md",
+    "Open_Issues.md",
+    "CHANGELOG.md"
+  ],
+  "host_mock_tests": 527,
+  "ss_count": 1,
+  "d5_count": 2,
+  "csv_bytes": 6283,
+  "csv_rows": 80,
+  "csv_hash_match": true,
+  "ss_data_and_readback_match": true,
+  "unmodified_fields_verified": true,
+  "committed": false,
+  "pushed": false,
+  "remaining": [
+    "power-cycle persistence",
+    "QR HOST in-flight old scan/request boundary",
+    "cold-start without manual RST"
+  ]
+}

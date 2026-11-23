@@ -1,0 +1,47 @@
+{
+  "parent_id": "69f7d45962cfdfad",
+  "changes": [
+    {
+      "file": "src/qr_write_session.py",
+      "before_sha256": null,
+      "candidate_sha256": "e4cc7a3bb9e671bffdef70605afa0fd498ee59150560ca40008ded60f5465b2d",
+      "bytes": 5527
+    },
+    {
+      "file": "src/qr_reader.py",
+      "before_sha256": "9129adfbb657f83e1317a08209b5d6d1b3dc8a5188915964397053afbb1fd906",
+      "candidate_sha256": "ccf7386376daf709589caa78a3c52f729ec72c7af47ed56ba72dd8c21c55693f",
+      "bytes": 5176
+    },
+    {
+      "file": "src/nf55_command.py",
+      "before_sha256": "f900d3a11bb0e540faecb46cfb96e5d1104d3024f605e787c32bd742a42059eb",
+      "candidate_sha256": "c46b352573f0efbe9a93fbe180031ecb459b9f1f3e43dbb0a43d0f5c406d7579",
+      "bytes": 14156
+    },
+    {
+      "file": "src/command_dispatcher.py",
+      "before_sha256": "09da9ea2be4af0fe708814de3e93760ff6e920fa2038d95211f073cc11dcc5e9",
+      "candidate_sha256": "b76f66a52d98a9e1bd432079f2b8fa63987ac256beada8e58b7beff5dca80704",
+      "bytes": 14890
+    },
+    {
+      "file": "src/command_parser.py",
+      "before_sha256": "f3d84bee13a4345ebbd9a066c0be901872c4222897a51c3e1451b411b72ca188",
+      "candidate_sha256": "3350b882b0e16393743e6f8912f4a9490124a9239b07f458615b88a979ab3f78",
+      "bytes": 6718
+    },
+    {
+      "file": "src/main.py",
+      "before_sha256": "ce9544829d0ae1e4dce481eb0bc0ac34ed2b8ca09dbacdea3e102f9574473eb9",
+      "candidate_sha256": "25e7ad67cd0b9b99c1fcdb67709b7ec5f06dfbb7260fb9a7710fcd1b62fc5780",
+      "bytes": 21281
+    },
+    {
+      "file": "src/config.py",
+      "before_sha256": "34ed863d111a4edbe7d527e34fcb92d417e141f5fb067ed78a4755374471a801",
+      "candidate_sha256": "3b536c87066a904b572ef9269b83b2779df25411bf754c2a2f3d504a52a3db60",
+      "bytes": 2645
+    }
+  ]
+}

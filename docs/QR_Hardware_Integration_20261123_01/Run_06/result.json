@@ -1,0 +1,31 @@
+{
+  "status": "CAPTURE_ONLY",
+  "record_count": 0,
+  "records": [],
+  "texts": [],
+  "health": [],
+  "errors": [],
+  "boot_versions": [],
+  "board_ids": [],
+  "identity_verified": false,
+  "midstream": true,
+  "prefix_hex": "",
+  "tail_hex": "",
+  "expected_qr": "US250A-CGXE-009491-101A1.2601000001",
+  "all_texts_match": false,
+  "hardware_acceptance": false,
+  "nf55g_commands_sent": 0,
+  "ss_or_cache_integration": false,
+  "label_profile": "NF55802-G_03",
+  "capture": {
+    "meter_sm5_active": false,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0,
+    "fault": null,
+    "baudrate": 115200,
+    "rx_pin": 9,
+    "qr_sm_active": false,
+    "duration_ms": 60000,
+    "meter_sm4_active": false
+  }
+}

@@ -1,5 +1,11 @@
 # QRコード読取・書込み連携要件
 
+2026-11-23 QR→SS承認・実装: ユーザーがUNIT_REV=QR REV3＋末尾空白、UNIT_LOT=YYWW、UNIT_SERIAL=号機6桁、ADU／BBU維持を了承し実行指定。例A1.→`A1. `、2601、000001。親で取得ID付きCache・照会・別指令SS・使用後失効を実装し、2連続読取→SS一回→D5照合を実機成功。型式／REV値固定なし。従前の3→4格納／LOT／号機対応の未回答記述は今回承認で更新されるが、旧資料は履歴として保持。wire上の旧読取境界、量産cold-start、電源再投入保持は未受入。[現仕様](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23後続訂正（現行）: 基準はG_03図面左下「QRコードについて」。品名／型式8・品目コード14・REV3は長さを維持するが値を固定しない。YY/WW各2桁、製造号機6桁・先頭ゼロ保持。正常サンプルはユーザー確認済み000001～000010の10個で、製品許可番号の制限ではない。固定値照合を削除し、型式／REV可変と10サンプルを検証。[現行定義・サンプル](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev1.md)。
+
+2026-11-23最新確定: ユーザー指定図面NF55802-G_03.pdfと指示により、QRは`US250A-C`固定8文字＋`GXE-009491-101`固定14文字＋REV3文字（Lot毎可変）＋YYWW4文字＋S/N6桁の計35文字と確認。銘板の印字DATEはYY_MM、QRはYYWWであり自動変換しない。旧G_01図面・旧試験文字列は履歴。専用profile検証を追加し全509回帰成功、QR実入力/正式ATE/SSは未完了。[文字位置・根拠・検証](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev0.md)。
+
 2026-11-14最新確定指示: QRもDMM同様、読取り→Cache保存・ATE返却→ATE確認→別の明示書込み指令でCache値をNF55G書込みへ付加する。取得のみで書かず、書込み時に再取得しない。[確定要件](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Acquired_Value_Write_Requirement_Rev0.md)。SS保留解除時期と未回答のフィールド変換規則を推定せず、読取単体だけを全体開発完了としない。
 
 2026-11-11試行分離: ユーザー指定によりQRを次試行へ引き継がず、再試験でも当該試行で再取得・明示SS実行とする。現行共通入口では、受付済みTEST_STARTごとに旧QRReceiver状態とログ用S/Nを失効させる実装を追加した。前試行のQR履歴は旧CSVに残す。新USB下位UARTの旧要求・遅延応答を試行／要求IDで除外する部分は結合時に実装する。SS開発は保留し、空シリアルの無送信エラーは確定要求として保持するが、今回はSS入口・変換・拒否処理を新設しない。[実装記録](Test_Interruption_20261111/Implementation_20261111.md)。

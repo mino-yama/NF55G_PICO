@@ -1,0 +1,336 @@
+{
+  "status": "SS_WRITE_READBACK_SUCCESS",
+  "operations": [
+    {
+      "command": "TEST_START",
+      "reply": "OK",
+      "raw_hex": "4f4b0d"
+    },
+    {
+      "command": "INFO_REFRESH",
+      "reply": "OK",
+      "raw_hex": "4f4b0d"
+    },
+    {
+      "command": "FW_REV?",
+      "reply": "S1.14B",
+      "raw_hex": "53312e3134420d"
+    },
+    {
+      "command": "UNIT_REV?",
+      "reply": "A5. ",
+      "raw_hex": "41352e200d"
+    },
+    {
+      "command": "UNIT_LOT?",
+      "reply": "2610",
+      "raw_hex": "323631300d"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "reply": "000832",
+      "raw_hex": "3030303833320d"
+    },
+    {
+      "command": "ADU_REV?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "ADU_LOT?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "ADU_SERIAL?",
+      "reply": "000000",
+      "raw_hex": "3030303030300d"
+    },
+    {
+      "command": "BBU_REV?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "BBU_LOT?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "BBU_SERIAL?",
+      "reply": "000000",
+      "raw_hex": "3030303030300d"
+    },
+    {
+      "command": "QR_SCAN 60000",
+      "reply": "OK:QR_ARMED:Q00ddfa807ef1beb2-00000001-00000001",
+      "raw_hex": "4f4b3a51525f41524d45443a51303064646661383037656631626562322d30303030303030312d30303030303030310d"
+    },
+    {
+      "command": "QR_GET? Q00ddfa807ef1beb2-00000001-00000001",
+      "reply": "OK:QR_GET:Q00ddfa807ef1beb2-00000001-00000001:US250A-CGXE-009491-101A1.2601000001",
+      "raw_hex": "4f4b3a51525f4745543a51303064646661383037656631626562322d30303030303030312d30303030303030313a5553323530412d434758452d3030393439312d31303141312e323630313030303030310d"
+    },
+    {
+      "command": "QR_DATA? Q00ddfa807ef1beb2-00000001-00000001",
+      "reply": "OK:QR_DATA:Q00ddfa807ef1beb2-00000001-00000001:46464646464641312e2032363031303030303031464646464646464646464646464646464646464646464646464646464646",
+      "raw_hex": "4f4b3a51525f444154413a51303064646661383037656631626562322d30303030303030312d30303030303030313a343634363436343634363436343133313265323033323336333033313330333033303330333033313436343634363436343634363436343634363436343634363436343634363436343634363436343634363436343634363436343634363436343634360d"
+    },
+    {
+      "command": "QR_WRITE Q00ddfa807ef1beb2-00000001-00000001",
+      "reply": "OK:QR_WRITE:Q00ddfa807ef1beb2-00000001-00000001",
+      "raw_hex": "4f4b3a51525f57524954453a51303064646661383037656631626562322d30303030303030312d30303030303030310d"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "reply": "ERR:CACHE_INVALID",
+      "raw_hex": "4552523a43414348455f494e56414c49440d"
+    },
+    {
+      "command": "QR_WRITE Q00ddfa807ef1beb2-00000001-00000001",
+      "reply": "ERR:QR_CONSUMED",
+      "raw_hex": "4552523a51525f434f4e53554d45440d"
+    },
+    {
+      "command": "INFO_REFRESH",
+      "reply": "OK",
+      "raw_hex": "4f4b0d"
+    },
+    {
+      "command": "FW_REV?",
+      "reply": "S1.14B",
+      "raw_hex": "53312e3134420d"
+    },
+    {
+      "command": "UNIT_REV?",
+      "reply": "A1. ",
+      "raw_hex": "41312e200d"
+    },
+    {
+      "command": "UNIT_LOT?",
+      "reply": "2601",
+      "raw_hex": "323630310d"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "reply": "000001",
+      "raw_hex": "3030303030310d"
+    },
+    {
+      "command": "ADU_REV?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "ADU_LOT?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "ADU_SERIAL?",
+      "reply": "000000",
+      "raw_hex": "3030303030300d"
+    },
+    {
+      "command": "BBU_REV?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "BBU_LOT?",
+      "reply": "0000",
+      "raw_hex": "303030300d"
+    },
+    {
+      "command": "BBU_SERIAL?",
+      "reply": "000000",
+      "raw_hex": "3030303030300d"
+    },
+    {
+      "command": "TEST_END",
+      "reply": "OK",
+      "raw_hex": "4f4b0d"
+    }
+  ],
+  "before": {
+    "FW_REV": "S1.14B",
+    "UNIT_REV": "A5. ",
+    "UNIT_LOT": "2610",
+    "UNIT_SERIAL": "000832",
+    "ADU_REV": "0000",
+    "ADU_LOT": "0000",
+    "ADU_SERIAL": "000000",
+    "BBU_REV": "0000",
+    "BBU_LOT": "0000",
+    "BBU_SERIAL": "000000"
+  },
+  "acquisition_id": "Q00ddfa807ef1beb2-00000001-00000001",
+  "verified_ss_data_hex": "46464646464641312e2032363031303030303031464646464646464646464646464646464646464646464646464646464646",
+  "after": {
+    "FW_REV": "S1.14B",
+    "UNIT_REV": "A1. ",
+    "UNIT_LOT": "2601",
+    "UNIT_SERIAL": "000001",
+    "ADU_REV": "0000",
+    "ADU_LOT": "0000",
+    "ADU_SERIAL": "000000",
+    "BBU_REV": "0000",
+    "BBU_LOT": "0000",
+    "BBU_SERIAL": "000000"
+  },
+  "parent": {
+    "tx_hex": [
+      "024435033732",
+      "06",
+      "02535346464646464641312e2032363031303030303031464646464646464646464646464646464646464646464646464646464646033739",
+      "06",
+      "024435033732",
+      "06"
+    ],
+    "error": null,
+    "test_running": false,
+    "history": [
+      {
+        "filename": "000001_20261123_145409_T000022.csv",
+        "reason": "TEST_END",
+        "serial": "000001",
+        "sd_status": "OK",
+        "drop_count": 0,
+        "trial_id": "T000022"
+      }
+    ],
+    "drop": 0,
+    "nf_count": {
+      "D5": 2,
+      "SS": 1
+    },
+    "rx_hex": "0602443553312e31344241352e20323631303030303833323030303030303030303030303030303030303030303030303030303030303130323030304630463332313332343234303030343135303535353530323637303030303030303030303030303030303030033043060253530330330602443553312e31344241312e20323630313030303030313030303030303030303030303030303030303030303030303030303030303130323030304630463332313332343234303030343135303535353530323637303030303030303030303030303030303030033030",
+    "sd_stats": {
+      "during_comm": 0,
+      "flush": 9,
+      "write": 80
+    },
+    "csv_path": "/sd/BANK_A/000001_20261123_145409_T000022.csv",
+    "logger_active": false,
+    "queue": 0,
+    "duration_ms": 59522,
+    "qr_ignored": 1,
+    "cache": {
+      "OL_17": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_49": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "STATUS": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_57": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "D2": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "EL_25": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "EL_09": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "D4": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "AR": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_09": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "INFO": {
+        "updated_ms": 171296,
+        "valid": true,
+        "source_cmd": "D5"
+      },
+      "OL_41": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "DATA": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_33": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "D3": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_25": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "BC": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "OL_01": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "FD": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "EL_17": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      },
+      "EL_01": {
+        "updated_ms": null,
+        "valid": false,
+        "source_cmd": null
+      }
+    }
+  },
+  "csv_export": {
+    "sha256": "acec29d275903ce4236098b14ee9d6d8f58573e083daea0b2e20a7f274ff4fd5",
+    "path": "/sd/BANK_A/000001_20261123_145409_T000022.csv",
+    "bytes": 6283,
+    "local_file": "000001_20261123_145409_T000022.csv",
+    "data_rows": 80,
+    "columns": 14,
+    "hash_match": true
+  },
+  "ss_csv_rows": 1
+}

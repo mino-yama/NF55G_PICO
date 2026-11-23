@@ -1,0 +1,1 @@
+ADC_BASELINE|{"host_info": ["BFCF2EDB84B0B37F", "meter-host-relay-20261123.2", "READY"], "drop": 0, "sd": "OK", "parent_nonce": "f2caeb2e46c95f01", "session": "f2caeb2e46c95f01cbfa8c2c4f42c7ba", "fault": false, "queue": 0, "test_running": false, "busy": false, "nf_guard": true, "logger_active": false, "free": 219280}

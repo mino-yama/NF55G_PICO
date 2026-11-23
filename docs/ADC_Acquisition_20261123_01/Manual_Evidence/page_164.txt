@@ -1,0 +1,52 @@
+7355 Digital Multimeter Operation Manual
+7.1.2 AC Voltage Measurement (ACV, ACV (AC+DC))
+7-4
+ACV 6 1/2 digits
+ACV additional error depending on integration time setting
+Input 
+terminal Range
+Maximum display Resolution
+Input impedance
+FAST MED/ SLOW1,2 FAST MED/ SLOW1,2
+V-COM 200 mV
+Same as 
+5 1/2 digits
+199.9999
+Same as 
+5 1/2 digits
+100 nV
+Same as 
+5 1/2 digits
+2000 mV 1999.999 1 V
+20 V 19.99999 10 V
+200 V 199.9999 100 V
+700 V 749.999 1 mV
+RATE setting Range
+Measurement accuracy*1 (% of reading + digits)
+20 Hz - 
+45 Hz
+45 Hz - 
+100 Hz
+100 Hz - 
+20 kHz
+20 kHz - 
+50 kHz
+50 kHz - 
+100 kHz
+MED/
+SLOW1,2
+200 mV 0.38+1400 0.11+1200 0.1+1000 0.25+1500 0.7+2400
+2000 mV 0.38+1400 0.11+1200 0.1+1000 0.2+1500 0.6+2400
+20 V 0.38+1400 0.11+1200 0.1+1000 0.2+1500 0.6+2400
+200 V 0.38+1400 0.11+1200 0.1+1000 0.2+1500 0.6+2400
+700 V 0.38+1000 0.11+1000 0.1+1000 - -
+*1: For sine wave input
+Integration time Measurement accuracy Description
+200 µs ≤ IT < 2 ms
+See FAST.
+4 1/2-digit display, additional error ± 10 digits
+IT = 2 ms -
+2 ms < IT ≤ 15 ms Convert the digit error to 5 1/2-digit display.
+15 ms < IT < 1 PLC Convert the digit error to 5 1/2-digit display or 6 1/2-digit 
+display.
+1 PLC ≤ IT ≤ 2 s See MED/ SLOW1, 2. For integer multiples of 1 PLC

@@ -1,5 +1,9 @@
 # Pico Software Module / Interface Specification
 
+2026-11-23 QR/SSモジュール: `qr_write_session.QRWriteSession`がQR HOST GP9/115200診断フレーム、試行・取得ID・最初の完成値・照会済み状態を管理。`serial_data_from_qr`は承認済みSS50文字だけを生成する。mainの協調ループから有界pollし、明示QR_WRITEを共通dispatcherの内部SERIAL_SET_RAWへ渡す。SS正常応答DATA0／T2=100ms、既存DATA/INFO失効を共用。main.active_appは起動済みappを実機診断で再利用し、UART/SDの二重初期化を避ける。QR_HOST_ENABLEDは既定False、実配線済み親のみ有効化。[API・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
+
+2026-11-23 ADC取得adapter追加: calibration_acquisition.pyが7355固有検証と機能照会→READを担当し、CalibrationMeasurementsのpending_matchesで試行境界を照合する。mainは取得中に同じlinkを専有し、既存外部pending/ATE scheduler/Logger経路へ接続。全497回帰成功。NF55G書込み経路なし。[取得/照会・内部境界](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-23 HOST通常RST補正: 親はRST受理後の新boot確認まで通常要求を拒否し、管理INFOでは通常sessionをbindせず次の明示要求のH/hで確立する。HOSTの`relay_host_take_reset`はACK送出完了後一度だけtrueとなり、mainがwatchdog期限を毎巡回で再設定することを防ぐ。reset due／BUSYは通常再起動まで保持する。Code／Test／仕様を同時更新、全476回帰成功。[仕様・実機記録](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)。
 
 2026-11-22 CDC下位診断: 実機.22.2の初回IDNがTIMEOUT_RX0_T1_C0_XNONE|1となった。自動再送なし・fault保持。候補.22.3は受信関数の戻り後に対象bulk INのNAK/PID/転送状態を観測し、TIMEOUT Eだけへ追記する。vendor原典・転送制御・fault規則は変更しない。Host/Mock全467件成功（19.094秒）、ARMビルド確認中・実機未配置。[記録](Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md)。

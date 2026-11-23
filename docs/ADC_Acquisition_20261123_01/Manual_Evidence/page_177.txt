@@ -1,0 +1,31 @@
+7355 Digital Multimeter Operation Manual
+7.1.8 Continuity Measurement
+7-17
+7.1.8 Continuity Measurement
+5 1/2 digits
+6 1/2 digits
+Continuity judgment value: 1 to 1000 
+The specifications other than the above are the same as those of the 2000 Ω range in 2WΩ measurement.
+Range
+Maximum display Resolution
+Measurement 
+current
+Measurement accuracy
+(% of reading + digits)
+Temperature coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+2000  1999.9 1999.99 100 m  10 m 1 mA 0.02+2 0.02+4 0.014+3 15+0.25 15+1.5
+Range
+Maximum display Resolution
+Measurement 
+current
+Measurement accuracy
+(% of reading + digits)
+Temperature coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+2000  *1 1999.999 *1 1 m  *1 *1 0.02+40 0.014+30 15+2.5 15+15
+*1: Same as 5 1/2 digits

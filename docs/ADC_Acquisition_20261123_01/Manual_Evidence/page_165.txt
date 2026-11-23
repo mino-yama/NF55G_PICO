@@ -1,0 +1,60 @@
+7355 Digital Multimeter Operation Manual
+7.1.2 AC Voltage Measurement (ACV, ACV (AC+DC))
+7-5
+ACV (AC + DC) 5 1/2-digit display, 6 1/2-digit display
+ACV (AC+DC) additional error depending on integration time setting
+Additional error depending on crest factor (For non-sine wave input)
+Maximum allowable input voltage
+Input 
+terminal Range
+Maximum display Resolution
+Input impedance
+FAST MED/ SLOW1,2 FAST MED/ SLOW1,2
+V-COM 200 mV 199.9 199.99 100 V1 0  V
+1 M 12 %, 140 pF or 
+less
+2000 mV 1999 1999.9 1 mV 100 V
+20 V 19.99 19.999 10 mV 1 mV
+200 V 199.9 199.99 100 mV 10 mV
+700 V 749 749.9 1 V 100 mV
+RATE setting Range
+Measurement accuracy*2 (% of reading + digits)
+20 Hz - 
+45 Hz
+45 Hz - 
+100 Hz
+100 Hz - 
+20 kHz
+20 kHz - 
+50 kHz
+50 kHz - 
+100 kHz
+FAST/
+MED/
+SLOW1,2
+200 mV 0.38+14 0.11+12 0.1+12 0.25+15 0.7+24
+2000 mV 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+20 V 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+200 V 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+700 V 0.38+10 0.11+10 0.1+10 - -
+*2: For sine wave input
+Integration time
+Reading error ± (% of reading) Digit error
+(Value of 
+measurement 
+accuracy)
+Description
+20 Hz to 45 Hz 45 Hz to 100 Hz
+200 s ≤ IT ≤ 2 ms
+30 . 1 5
+×1 -
+2 ms < IT < 1 PLC ×10 (4 1/2-digit 
+conversion)
+-
+1 PLC ≤ IT < 100 ms 2 0.015
+×1 For integer multiples of 1 PLC
+100 ms ≤ IT ≤ 2 s - -
+1 to 2 0.05 % of range
+2 to 3 0.15 % of range
+V terminal – COM terminal 1000 V peak, 700 V rms, 2.2 × 107 V Hz
+COM terminal – chassis 500 V peak

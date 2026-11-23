@@ -1,0 +1,47 @@
+7355 Digital Multimeter Operation Manual
+7.1.2 AC Voltage Measurement (ACV, ACV (AC+DC))
+7-3
+7.1.2 AC Voltage Measurem ent (ACV, ACV (AC+DC))
+Measurement method: True RMS measurement, RMS display
+Input range: 5% or more of a full scale
+Crest factor: 3 : 1 at a full scale (Res tricted to the maximum allowable input)
+Temperature coefficient: (1/10 of  measurement accuracy that in cludes the additional error)/ ˚C in each
+range and frequency range)
+Response time: Approx. 1 s (Time until the measurement value reaches within 0.1% of the
+final value in the same range)
+ACV 5 1/2 digits
+Input 
+terminal Range
+Maximum display Resolution
+Input impedance
+FAST MED/ SLOW1,2 FAST MED/ SLOW1,2
+V-COM 200 mV 199.99 199.999 10 V1  V
+1 M 2 %, 140 pF or less
+2000 mV 1999.9 1999.99 100 V 10 V
+20 V 19.999 19.9999 1 mV 100 V
+200 V 199.99 199.999 10 mV 1 mV
+700 V 749.9 749.99 100 mV 10 mV
+RATE setting Range
+Measurement accuracy*1 (% of reading + digits)
+20 Hz - 
+45 Hz
+45 Hz - 
+100 Hz
+100 Hz - 
+20 kHz
+20 kHz - 
+50 kHz
+50 kHz - 
+100 kHz
+FAST 200 mV 0.38+14 0.11+12 0.1+12 0.25+15 0.7+24
+2000 mV 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+20 V 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+200 V 0.38+14 0.11+12 0.1+12 0.2+15 0.6+24
+700 V 0.38+10 0.11+10 0.1+10 - -
+MED/
+SLOW1,2
+200 mV 0.38+140 0.11+120 0.1+100 0.25+150 0.7+240
+2000 mV 0.38+140 0.11+120 0.1+100 0.2+150 0.6+240
+20 V 0.38+140 0.11+120 0.1+100 0.2+150 0.6+240
+200 V 0.38+140 0.11+120 0.1+100 0.2+150 0.6+240
+700 V 0.38+100 0.11+100 0.1+100 - -

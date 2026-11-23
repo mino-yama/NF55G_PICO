@@ -1,5 +1,31 @@
 # CHANGELOG
 
+2026-11-23 QR→NF55G SS書込み実装・実機成功: ユーザー承認のREV3＋空白／YYWW／号機をUNIT欄へ、他欄は変更なし指定で送る。QR_SCAN／GET?／DATA?／WRITE／CANCEL、起動・試行・取得ID、最初の1件固定、照会gate、書込み後消費、SS DATA/INFO失効を追加。親7ファイル退避・配置hash一致・再起動。全527件回帰成功。実ATEでQR2連続→SS一回→D5の明示読戻し、A1.末尾空白／2601／000001を完全一致確認。FW/ADU/BBU/予約/設定不変、CSV80行14列／6,283byte／親PC SHA一致、通信中SD write/flush0。旧QRのHOST内遅着境界・電源再投入保持は未検証。[実装仕様](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23 NF55G SS書込み検証の準備: ユーザー指示を受け、原典r1 SS DATA50文字と既存未実装範囲を照合。読取専用ガードでD5を実行しS1.14B／UNIT_REV A5.（末尾空白）／LOT2610／号機000832、ADU・BBU各ゼロを退避。SS送信なし。QR A1.の4文字格納、LOT／号機対応、ADU／BBUの書込値を確認中。2連続読取→取得値保持→ATE確認→別指令SS→明示D5照合の検証手順を保存。[準備記録](QR_Hardware_Integration_20261123_01/NF55G_SS_Verification_Plan_20261123_Rev0.md)。
+
+2026-11-23 QR書込み・実読取成功（限定）: 新版qr-fixed-20261123.1をID指定で配置・全Flash退避・独立verify後、固定配線復帰のRun_05／06は0byte。配線再確認・QR HOST RST後Run_07で新版／個体ID一致、3606msのHID認識、実原文US250A-CGXE-009491-101A1.2601000001を5件完全一致で受信・分解。85レコード連続、drop0／解析エラー0／HID1940件、raw13,090byteの親／PC SHA一致。0byte原因とRST不要の電源投入動作は未確定。正式ATE／Cache／SS連携は未実装、NF送信なし。[実機結果](QR_Hardware_Integration_20261123_01/Write_Read_Test_Result_20261123_Rev0.md)。
+
+2026-11-23 QR修正版書込み: ユーザー指示とPC単独給電BOOTSEL確認後、A06FEA01012EC137の現Flash2MB退避・独立verify、新版qr-fixed-20261123.1のload -v／独立verify／info版照合が全成功。Run_04の親診断バッファ再確保MemoryErrorを後始末し、バッファ再利用・PIO開始前確保へ修正。Run_05待受開始、固定配線復帰と同原文読取りの操作待ち。[実機書込み結果](QR_Hardware_Integration_20261123_01/Deployment_Result_20261123_Rev0.md)。
+
+2026-11-23 QR REVピリオド修正版の準備完了: qr-fixed-20261123.1のSDK2.2.0 ARMビルド成功、UF2 84,480byte／SHA cadff2460cc7b1be3ca8c8882c4b120569178371d3092c1182c66eb01bae2b3e。新FW版と提示原文の組合せを含め最終回帰516件成功。新版ソース／配布物／manifestと実原文に基づくサンプル10件を別版保存。実機書込み・修正後の実読取は未実施。[準備結果](QR_Hardware_Integration_20261123_01/Revision_Period_Build_Result_Rev0.md)。
+
+2026-11-23 実QR原文のREVピリオド対応: ユーザー提示35文字のREV=A1.を確認。QR HOST Cデコーダと専用PC解析・ログ検証でREV欄23～25文字目だけピリオドを許可。型式／REV固定や数字欄の緩和なし。FW版qr-fixed-20261123.1、旧ログ互換維持。実C HID再生と欄外拒否／復帰を含めHost／Mock515件成功。実機配置は未実施。[変更仕様](QR_Hardware_Integration_20261123_01/Revision_Period_Spec_20261123_Rev0.md)。
+
+2026-11-23 QR起動診断: Type_C2接続・読取り音のユーザー確認後、GP9で180秒採取、途中QR HOST RSTを実施。boot境界別解析を追加し、.qr-fixed-20261114.1／A06FEA01012EC137、3606msのHID mountとE851:1001を確認。RST後HID388件、drop0、文字復元QR_ALT_CHARACTER(07)で完成原文なし。読んだQRの内容確認待ち。FW未変更、NF送信なし、全Host／Mock512件成功。[起動診断結果](QR_Hardware_Integration_20261123_01/Startup_Result_20261123_Rev0.md)。
+
+2026-11-23 QR接続案内訂正: ユーザー申告はQR用HOST USB-C＋GP0→親GP9。USB-Aとの案内は測定器用基板との取り違えのため撤回。QR FWはType_C2／D+GP12・D−GP13のPIO Hostを使用し、Type_C1 native USBは初期化しない。現在の接続先とスキャナー反応を確認中。[訂正記録](QR_Hardware_Integration_20261123_01/Connection_Correction_20261123_Rev0.md)。
+
+2026-11-23 QR結合実測: 親COM6を再認識。GP9/115200で2回各60秒、各9,240byte／60件のHOST heartbeatを受信し、連番・drop・解析エラーなし。初回USB REPL回収欠落は同一RAM再回収でSHA一致、後続出力に64byte/20msの間隔を追加。読取り操作の申告後もQR文字列／HID report=0、qr_enabled=falseのためラベル読取りは未確認。関連13件成功。NF送信なし。[実測記録](QR_Hardware_Integration_20261123_01/Hardware_Result_20261123_Rev0.md)。
+
+2026-11-23 QR定義訂正: ユーザー指定により図面左下「QRコードについて」を基準に、型式8／品目コード14／REV3の値を固定しない検証へ変更。専用profileの定数／一致制限を削除し、年週・号機の数字／桁数は維持。確認済み000001～000010の正常原文10件をTXT/JSONで作成し、例示型式・仮REV/年週を製品条件へ固定しないことを明記。[現行定義とサンプル](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev1.md)。
+
+2026-11-23 QR銘板情報確定: ユーザー提示NF55802-G_03を原本同一保存・描画照合し、固定US250A-C（8）＋GXE-009491-101（14）＋Lot毎可変REV3＋YYWW＋S/N6の35文字と確認。専用decode_nf55g_labelを追加し、PC結合診断の既定profileへ接続。既存汎用decoder・SS未確定規則は維持。新規6件を含め全509回帰成功。親へのQR追加配置／実読取は未実施。[定義と原典](QR_Hardware_Integration_20261123_01/Label_Definition_20261123_Rev0.md)。
+
+2026-11-23 ADC取得・照会の実機進捗: 4source配置／計31source hash照合、同runtime/資源引継ぎで2試行4取得・Cache Query・旧ID拒否・試行終了失効を確認。最終診断のCache不変assertは既存TEST_START全失効に反する試験条件と判明し、保持RAMを無再取得で回収。NF0/drop0/Queue0、SD通信中書込み試行0。親COM6消失のためCSV2本読戻しは未完了。QRのGP9/115200診断wire・受動採取を準備。追加回帰を含め全503件成功。[ADC結果](ADC_Acquisition_20261123_01/Result_Rev0.md)、[QR準備](QR_Hardware_Integration_20261123_01/Preparation_Rev0.md)。
+
+2026-11-23 ADC明示取得/Cache照会を追加。ユーザー採用のCAL_MEASURE/CAL_MEASUREMENT?をparser/mainへ接続し、非blocking DCV確認→READ、単一総期限、取得ID/試行照合、7355数値OL拒否、桁を失わないV→mV→A換算を実装。AD/AR/SS/FUは送信しない。独立15件・native C/親追加6件を含め全497回帰成功。実機準備で既存30sourceとruntimeを退避。[仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-23 次段階実機試験: 前回と同じ親/HOST世代でDCV/AUTO/単発条件を読戻し、ATEから同じAUTO ON明示後READ10/10成功。READ+D1+SD+RTCの50burstも全成功、D1は事前含む51回・Retry0、drop/Queue0、通信中SD write/flush試行0。CSV55,879byte／853記録／14列正常、実機とPC SHA一致。VFS既存mountと試験用sink認識不一致を整理しSD復帰。本番コード/Flash変更なし。有限共存結果であり量産完成・根本原因解決扱いなし。[結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/Next_Step_Result_20261123_Rev0.md)。
 
 2026-11-23 7355通信再開の実機確認: RST後と同じHOST nonce CBFA8C2C4F42C7BA／.23.2、親nonce f2caeb2e46c95f01を維持。実ATE INFOでREADY、通常H/h後に明示IDN一回を送り、A/T/Rと期待原文32byte完全一致を確認。再起動・再送・設定／READ・Flash変更なし。NF送信試行0／Cache不変／frame error0。親はPIO停止・入力化、同じRAM session保持。連続測定・複合負荷・根本原因は未受入。[結果](USB_Host_Reset_Study_20261121/Debug_20261123_01/CDC_Resume_01/Result_Rev0.md)。

@@ -1,0 +1,39 @@
+7355 Digital Multimeter Operation Manual
+7.1.5 AC Current Measurement (ACI, ACI (AC+DC))
+7-13
+ACI (AC + DC) 5 1/2 digits, 6 1/2 digits
+ACI (AC+DC) additional error depending on integration time setting
+Input 
+terminal Range
+Maximum display Resolution Resistance 
+between 
+terminalsFAST MED/ SLOW1,2 FAST MED/ SLOW1,2
+mA-COM 200 mA 199.9 199.99 100 A 10 A0 . 5   or less
+2000 mA 1999 1999.9 1 mA 100 A0 . 5   or less
+10A-COM 10 A 10.99 10.999 10 mA 1 mA 0.06  or less
+RATE setting Range
+Measurement accuracy*2  (% of reading +digits)
+20 Hz - 45 Hz 45 Hz - 1 kHz 1 kHz - 5 kHz
+FAST/
+MED/
+SLOW1,2
+200 mA 0.4+20 0.3+20 0.3+12
+2000 mA 0.5+20 0.35+12 0.35+20
+10 A 0.5+20 0.35+20 0.7+20
+*2: For sine wave input
+Integration time
+Reading error ± (% of reading) Digit error
+(Value of 
+measurement 
+accuracy)
+Description
+20 Hz to 45 Hz 45 Hz to 100 Hz
+200 s ≤ IT ≤ 2 ms
+30 . 1 5
+×1 -
+2 ms < IT < 1 PLC ×10 (4 1/2-digit 
+conversion)
+-
+1 PLC ≤ IT < 100 ms 2 0.015
+×1 For integer multiples of 1 PLC
+100 ms ≤ IT ≤ 2 s - -

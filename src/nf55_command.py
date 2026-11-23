@@ -258,6 +258,12 @@ def build_life_command(ate_name, payload=None):
 
 
 def build_control_command(ate_name, payload=None):
+    if ate_name == 'SERIAL_SET_RAW':
+        # QR_WRITE内部用。正式ATE parserへRAW書込み口は公開しない。
+        data = _ascii_bytes(payload)
+        if len(data) != 50 or any(c < 32 or c > 126 for c in data):
+            raise CommandError('SS_DATA')
+        return NF55CommandSpec(ate_name, 'SS', data, 100, 'SS')
     if ate_name.startswith("LIFE_SET_"):
         return build_life_command(ate_name, payload)
 

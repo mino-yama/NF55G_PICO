@@ -1,0 +1,106 @@
+7355 Digital Multimeter Operation Manual
+5.1.2 Menu List
+5-4
+5.1.2 Menu List
+1 MEAS A.ZERO
+Select layer Input/Run layer Default TypeCategory layer
+(Measure) OFF/ON/ONCE ON
+IT SEC
+200 Ps to 2 s 200 ms
+IT PLC
+0.02 PLC to 100 PLC 10 PLC
+M.DISP
+OFF/ON ON
+DIGIT
+1999999 (6 1/2) to 1999___ (3 1/2) 6 1/2
+.BEEP
+1 : to 1000 : 10
+2 TRIG DELAY
+(Trigger) 0 s to 3600 s 0 s
+SRC
+IMMED/MAN/EXT/BUS IMMED
+N.Smpl
+1 to 20000 1
+SI
+205 ms
+INITC INITiate:CONTinus
+OFF/ON ON
+3 CALC COMP
+(Calculation) OFF/ON OFF
+MATH
+OFF/dB/dBm/SCL OFF
+MX/M MAX/MIN and display
+OFF/ON/MAX/MIN OFF
+RSLT MAX/MIN calculation result display
+SAMPL/MAX/MIN/AVG SAMPL
+PAS Pass condition
+Select
+Select
+LGH/__H/_G_/L__/L_H/LG_/_GH/___ _G_
+BEEP
+OFF/FAIL/PASS OFF
+SM.CNT
+2 to 100 (times) 10
+D.OUT
+OFF/ON OFF
+4 CONST HIGH Constant HIGH
+(Constant) -9999.999E+9 to +9999.999E+9
+LOW Constant LOW
+-9999.999E+9 to +9999.999E+9 0
+NULL Constant NULL (For only NULL ON)
+-9999.999E+9 to +9999.999E+9 0
+Val_A
+-9999.999E+9 to +9999.999E+9 1
+Val_B
+-9999.999E+9 to +9999.999E+9 0
+Val_C
+-9999.999E+9 to +9999.999E+9 1
+ValDB
+Auto-zero
+Integration time (s)
+Integration time (PLC)
+Measured value display
+Measurement display digits
+Continuity measurement function threshold
+Trigger delay
+Trigger source
+Number of sampling
+Sampling interval
+Comparator calculation
+Other calculations
+Calculation result buzzer
+Smoothing count
+Digital output
+Constant A (scaling calculation)
+Constant B (scaling calculation)_
+Constant C (scaling calculation)
+Constant D (dB/dBm calculation)
+Select
+Select
+Input
+Input
+Input
+Select
+Input
+Input
+Select
+Select
+Input
+Input
+Select
+Input
+Input
+Select
+Select
+Select
+Input
+Select
+Input
+Input
+Input
+Input
+-9999.999E+9 to +9999.999E+9 1
+MENU
+(a)
+4 ms to 3600 s
+*1

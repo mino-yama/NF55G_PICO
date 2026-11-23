@@ -11,6 +11,7 @@ MAGIC = 0x51525042
 # 固定した診断FW版だけに容量を割り当てる。未知版は従来の256件上限を維持。
 UART_CAPACITIES = {b'qr-uart-20261114.1': 1024,b'qr-uart-20261114.2': 1024}
 STREAM_VERSION = b'qr-fixed-20261114.1'
+STREAM_VERSIONS = (STREAM_VERSION, b'qr-fixed-20261123.1')
 KINDS = {1:'boot',2:'mount',3:'unmount',4:'hid_mount',5:'report_descriptor',6:'hid_report',7:'receive_request_failed',8:'hid_unmount',9:'oversize_report',10:'init_failed',11:'board_id',12:'qr_text',13:'qr_decode_error'}
 KINDS.update({14:'host_health',15:'startup_stage'})
 
@@ -52,7 +53,8 @@ def inspect_records(records):
                 raise ValueError('report without HID mount')
         elif r['kind']=='qr_text':
             if key not in descriptors or len(data)!=35 or any(
-                    c not in b'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-' for c in data):
+                    c not in b'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-'
+                    and not (22<=index<25 and c==46) for index,c in enumerate(data)):
                 raise ValueError('invalid decoded QR text')
         elif r['kind']=='qr_decode_error':
             if len(data)!=1 or not 1<=data[0]<=11:
@@ -102,7 +104,7 @@ def read_uart(text):
         records.append(decode_record(bytes.fromhex(line[1:])))
     result=inspect_records(records)
     version = bytes.fromhex(records[0]['data_hex'])
-    capacity = None if version==STREAM_VERSION else UART_CAPACITIES.get(version, 256)
+    capacity = None if version in STREAM_VERSIONS else UART_CAPACITIES.get(version, 256)
     if capacity is not None and len(records)>=capacity:
         raise ValueError('log at capacity: repeat shorter capture')
     result.update(transport='UART',dropped=None,tail_completeness='not_proven',record_capacity=capacity)

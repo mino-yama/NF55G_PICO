@@ -1,0 +1,35 @@
+7355 Digital Multimeter Operation Manual
+6.8.2 Output Data Format
+6-26
+4. Measurement data
+(6 1/2-digit output)
+(5 1/2-digit output)
+6 1/2-digit output 5 1/2-digit output
+Overload (OL) ±9.999999E+37 ±9.99999E+37
+Scaling calculation results OVER ±9.999999E+36 ±9.99999E+36
+dB/dBm calculation error ±9.999999E+35 ±9.99999E+35
+6 1/2-digit output 5 1/2-digit output
+DCV 200 mV ±ddd.ddddE-03 ±ddd.dddE-03
+2000 mV ±dddd.dddE-03 ±dddd.ddE-03
+20 V ±dd.dddddE+00 ±dd.ddddE+00
+200 V ±ddd.ddddE+00 ±ddd.dddE+00
+1000 V ±dddd.dddE+00 ±dddd.ddE+00
+ACV 200 mV ±ddd.ddddE-03 ±ddd.dddE-03
+2000 mV ±dddd.dddE-03 ±dddd.ddE-03
+20 V ±dd.dddddE+00 ±dd.ddddE+00
+200 V ±ddd.ddddE+00 ±ddd.dddE+00
+700 V ±dddd.dddE+00 ±dddd.ddE+00
+ACV (AC+DC) 200 mV ±ddd.ddddE-03 ±ddd.dddE-03
+2000 mV ±dddd.dddE-03 ±dddd.ddE-03
+20 V ±dd.dddddE+00 ±dd.ddddE+00
+200 V ±ddd.ddddE+00 ±ddd.dddE+00
+700 V ±dddd.dddE+00 ±dddd.ddE+00
+2WΩ 200 Ω ±ddd.ddddE+00 ±ddd.dddE+00
+2000 Ω ±dddd.dddE+00 ±dddd.ddE+00
+20 kΩ ±dd.dddddE+03 ±dd.ddddE+03
+200 kΩ ±ddd.ddddE+03 ±ddd.dddE+03
+2000 kΩ ±dddd.dddE+03 ±dddd.ddE+03
+20 MΩ ±dd.dddddE+06 ±dd.ddddE+06
+200 MΩ ±ddd.ddddE+06 ±ddd.dddE+06
+±E±
+±E±

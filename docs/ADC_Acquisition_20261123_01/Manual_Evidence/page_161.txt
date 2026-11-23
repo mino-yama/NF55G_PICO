@@ -1,0 +1,67 @@
+7355 Digital Multimeter Operation Manual
+7. SPECIFICATIONS
+7-1
+7. SPECIFICATIONS
+7.1 Specifications
+Unless otherwise specified, the meas urement accuracy is guaranteed fo r one year under the following
+conditions: temperature of 23±5 °C, relative humidity of 85 % or less (75 % or less in resistance measurement
+of 20 MΩ or more and low power resistance measurement of 2 MΩ or more).
+7.1.1 DC Voltage Measurement (DCV)
+5 1/2 digits
+6 1/2 digits
+Input 
+terminal Range
+Maximum display Resolution
+Input 
+impedance
+Measurement accuracy*1
+(% of reading + digits)
+Temperature 
+coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+V-COM 200 mV 199.99 199.999 10 V1  V1  G  or
+higher
+0.012+2 0.012+7 0.012+6 15+0.85 15+2
+2000 mV 1999.9 1999.99 100 V 10 V1  G  or
+higher
+0.011+2 0.011+4 0.011+2 15+0.2 15+1.5
+20 V 19.999 19.9999 1 mV 100 V1 0  M  1 % 0.015+2 0.015+5 0.015+5 20+0.25 20+1.5
+200 V 199.99 199.999 10 mV 1 mV 10 M  1 % 0.015+2 0.015+4 0.015+3 20+0.25 20+1.5
+1000 V 1099.9 1099.99 100 mV 10 mV 10 M  1 % 0.015+2 0.015+4 0.015+3 20+0.25 20+1.5
+Input 
+terminal Range
+Maximum display Resolution
+Input 
+impedance
+Measurement accuracy*1
+(% of reading + digits)
+Temperature 
+coefficient
+(ppm of reading + 
+digits)/C
+FAST MED/ SLOW1, 2 FAST MED/ SLOW1, 2 FAST MED SLOW1, 2 Auto zero ON Auto zero OFF
+V-COM 200 mV
+Same as 
+5 1/2 
+digits
+199.9999
+Same as 
+5 1/2 
+digits
+100 nV
+Same as 
+5 1/2 
+digits
+Same as 
+5 1/2 
+digits
+0.012+70 0.012+60 15+8.5 15+20
+2000 mV 1999.999 1 μV 0.011+40 0.011+20 15+2 15+15
+20 V 19.99999 10 μV 0.015+50 0.015+50 20+2.5 20+15
+200 V 199.9999 100 μV 0.015+40 0.015+30 20+2.5 20+15
+1000 V 1099.999 1 mV 0.015+40 0.015+30 20+2.5 20+15
+*1: When the Auto-zero is ON
+When the Auto-zero is OFF, add 2 digits (5 1/2 digits) or 20 digits (6 1/2 digits) to the digit error. “IT > 400 ms” is specified only when 
+the Auto-zero is ON.

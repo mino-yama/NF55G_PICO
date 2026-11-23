@@ -1,0 +1,20 @@
+7355 Digital Multimeter Operation Manual
+6.8.2 Output Data Format
+6-23
+3. Output format of th e measurement data memory (binary, REAL)
+When the binary format is sel ected for measurement data memory  output, the following formatted
+data is output.
+This does not apply to the output of single data by the RN or :TRACe:RECAll? command. Also, it
+does not apply to the RS-232 or USBCDC interface.
+1 Header
+8-character ASCII data
+“#”: Indicates binary data
+“6”: Indicates the number of digits of the next data length. Always 6.
+“nnnnnn”: Indicates the number of bytes from data No. 1 to data No. n.
+Since each data is 8 bytes, the value n × 8 is shown as a 6-digit integer in the
+ASCII format.
+2 Measurement data
+64-bit floating point data conforming to IEEE-754.
+Data that is over-range or has a calculation error is expressed as NaN (Not a Number).
+12
+#6nnnnnn        Data No.1        Data No.2         ···  Data No.n-1     Data No.n

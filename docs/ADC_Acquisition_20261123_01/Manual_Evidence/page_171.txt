@@ -1,0 +1,32 @@
+7355 Digital Multimeter Operation Manual
+7.1.5 AC Current Measurement (ACI, ACI (AC+DC))
+7-11
+7.1.5 AC Current Measurem ent (ACI, ACI (AC+DC))
+Measurement method: True RMS measurement, RMS display
+Input range: 5% or more of a full scale
+Crest factor: 3 : 1 at a full scale (Restricted to the current protection fuse rating)
+Temperature coefficient: (1/10 of measurement accuracy that in cludes the additional error)/ ˚C in each
+range and frequency range)
+Response time: Approx. 1 s (Time until the measurement value reaches within 0.1% of the
+final value)
+ACI  5 1/2 digits
+Input 
+terminal Range
+Maximum display Resolution Resistance 
+between 
+terminalsFAST MED/ SLOW1,2 FAST MED/ SLOW1,2
+mA-COM 200 mA 199.99 199.999 10 A1  A0 . 5   or less
+2000 mA 1999.9 1999.99 100 A 10 A0 . 5   or less
+10A-COM 10 A 10.999 10.9999 1 mA 100 A0 . 0 6   or less
+RATE 
+setting Range
+Measurement accuracy*1 (% of reading + digits)
+20 Hz - 45 Hz 45 Hz - 1 kHz 1 kHz - 5 kHz
+FAST 200 mA 0.4+20 0.3+20 0.3+10
+2000 mA 0.5+20 0.35+10 0.35+20
+10 A 0.5+20 0.35+20 0.7+20
+MED/
+SLOW1,2
+200 mA 0.4+200 0.3+200 0.3+100
+2000 mA 0.5+200 0.35+100 0.35+200
+10 A 0.5+200 0.35+200 0.7+200

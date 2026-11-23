@@ -1,0 +1,136 @@
+{
+  "purpose": "正常形式の読取/分解試験用。実製造Lot/校正/SS書込み指定ではない。",
+  "sample_count": 10,
+  "serial_start": "000001",
+  "serial_end": "000010",
+  "example_values_only": {
+    "product_name": "US250A-C",
+    "item_code": "GXE-009491-101",
+    "product_rev": "A03",
+    "manufacture_year": "26",
+    "manufacture_week": "01"
+  },
+  "model_item_revision_not_fixed": true,
+  "samples": [
+    {
+      "serial": "000001",
+      "raw": "US250A-CGXE-009491-101A032601000001",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000001"
+      }
+    },
+    {
+      "serial": "000002",
+      "raw": "US250A-CGXE-009491-101A032601000002",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000002"
+      }
+    },
+    {
+      "serial": "000003",
+      "raw": "US250A-CGXE-009491-101A032601000003",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000003"
+      }
+    },
+    {
+      "serial": "000004",
+      "raw": "US250A-CGXE-009491-101A032601000004",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000004"
+      }
+    },
+    {
+      "serial": "000005",
+      "raw": "US250A-CGXE-009491-101A032601000005",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000005"
+      }
+    },
+    {
+      "serial": "000006",
+      "raw": "US250A-CGXE-009491-101A032601000006",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000006"
+      }
+    },
+    {
+      "serial": "000007",
+      "raw": "US250A-CGXE-009491-101A032601000007",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000007"
+      }
+    },
+    {
+      "serial": "000008",
+      "raw": "US250A-CGXE-009491-101A032601000008",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000008"
+      }
+    },
+    {
+      "serial": "000009",
+      "raw": "US250A-CGXE-009491-101A032601000009",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000009"
+      }
+    },
+    {
+      "serial": "000010",
+      "raw": "US250A-CGXE-009491-101A032601000010",
+      "fields": {
+        "product_name": "US250A-C",
+        "item_code": "GXE-009491-101",
+        "product_rev": "A03",
+        "manufacture_year": "26",
+        "manufacture_week": "01",
+        "serial": "000010"
+      }
+    }
+  ]
+}

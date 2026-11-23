@@ -7,19 +7,31 @@
 FIELDS = (("product_name", 8), ("item_code", 14), ("product_rev", 3),
           ("manufacture_year", 2), ("manufacture_week", 2), ("serial", 6))
 
-
-def decode_qr(raw, allow_hyphen=True):
+def decode_qr(raw, allow_hyphen=True, allow_revision_period=False):
     if len(raw) != 35:
         raise ValueError("QR_LENGTH")
-    for ch in raw:
+    for index, ch in enumerate(raw):
         if not ("0" <= ch <= "9" or "A" <= ch <= "Z" or
-                "a" <= ch <= "z" or (allow_hyphen and ch == "-")):
+                "a" <= ch <= "z" or (allow_hyphen and ch == "-") or
+                (allow_revision_period and 22 <= index < 25 and ch == ".")):
             raise ValueError("QR_CHAR")
     fields = {}
     offset = 0
     for name, length in FIELDS:
         fields[name] = raw[offset:offset + length]
         offset += length
+    return fields
+
+
+def decode_nf55g_label(raw):
+    """図面左下の35文字構造を確認。型式/品目コード/REVの値は固定しない。"""
+    # 実ラベルA1.を受け付ける。ピリオド追加はREV欄に限定する。
+    fields = decode_qr(raw, allow_revision_period=True)
+    if any(c not in '0123456789' for c in fields['manufacture_year'] + fields['manufacture_week']):
+        raise ValueError('QR_DATE')
+    if any(c not in '0123456789' for c in fields['serial']):
+        raise ValueError('QR_SERIAL')
+    # 型式8/品目コード14/REV3は変更可能。週範囲・SS変換・号機開始番号は推測しない。
     return fields
 
 

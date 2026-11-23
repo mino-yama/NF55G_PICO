@@ -1,5 +1,9 @@
 # ATE Command Master
 
+2026-11-23 QR→SS実装: `QR_SCAN <100..60000ms>`で現試行の取得IDを発行、`QR_GET? <ID>`で原文、`QR_DATA? <ID>`でSS DATA50文字のHEXを照会する。照会済み同一IDの`QR_WRITE <ID>`だけがSSを送信し、完了後はIDを消費。`QR_CANCEL`は無送信で失効。SS後の`INFO_REFRESH`は別指令。承認済み対応はREV3＋空白→UNIT_REV4、YYWW→UNIT_LOT、号機→UNIT_SERIAL、FW／ADU／BBU／予約は変更なし指定。従前のQR/SS未実装記述は更新前の履歴。[応答・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-23 ユーザー採用・ADC取得/照会: `CAL_MEASURE <DISCHG_I|BATT_CHG|BATT_V> <A|B> <期限ms> :READ?`と`CAL_MEASUREMENT? <取得ID>`を追加。現TEST試行に限定し、DCV確認→READを単一総期限で処理、電流はV→mV→Aの厳密換算。照会はCacheのみ、AD/AR/SS/FU送信なし。全497回帰成功、実機確認を継続。[応答・失敗・失効仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
+
 2026-11-23 RST追加修正・実機確認: RST受理後は新boot確認まで通常要求を拒否し、管理INFOから通常sessionをbindしない。次の明示要求でH/hを照合する。HOST .23.2はwatchdog設定一回のみとし、実ATEのINFO→RST→INFOで新nonce確認成功。USB NOT_READY条件の限定結果であり、機器通信再開未確認。[記録](USB_Host_Reset_Study_20261121/Debug_20261123_01/Result_Rev0.md)。
 
 2026-11-23 開発用測定器HOST管理入口: `HOST_INFO? METER`で対象ID/FW/boot nonce/状態を照会し、`HOST_RESET METER`でHOST通常RSTを要求する仕様を追加。RST受理ACKと新nonce確認は別段階で、確認用INFOを再実行する。管理要求は通常EXT_QUERY/Qとは独立し、NF55G/7355へ転送しない。応答・X1管理kind・BUSY/期限/結果不明の詳細は[HOST管理RST仕様](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)を参照。PC/native検証とSDK 2.2.0 ARM build成功、実機未確認。

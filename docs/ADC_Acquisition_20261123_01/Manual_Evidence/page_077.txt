@@ -1,0 +1,40 @@
+7355 Digital Multimeter Operation Manual
+5.9.3 Scaling Calculation
+5-25
+3. Setting the numerical value of the constant 
+The setting ranges of Constants A, B, and C are shown below.
+1. Press  or  in entering the consta nt setting mode, each of the following
+changeable items will blink.
+• From the most significant digit to th e least significant digit in the numeric
+value
+•U n i t  p r e f i x
+• Decimal point
+2. Change the numeric value and unit prefix by using  and .
+The unit prefix cycles through the following order.
+p  n    m  No unit prefix  k  M  G  T
+Press the  key in this mode if setting the measured value as the scaling
+constant.
+3. Press  to apply the setting.
+4. SOL (scaling over)
+If the scaling calculation result exceeds ±999.9999E + 6, “±S OL” is displayed.
+In this case, the measurement ra nge is not changed to the upper range even if the Auto-range is
+executed.
+(The Auto-range is determined according to the measured value ac quired before the calculation is
+performed.)
+5. Canceling the scaling calculation
+The scaling calculation is canceled when any of the following conditions occur.
+• OFF is selected from the MATH item in  while the scaling calculation is performed.
+• The measurement function is changed.
+• The *RST command is executed.
+• The dB or dBm calculation is performed.
+Constant Setting range Minimum resolution
+A
+-9999999.E +6 to +9999999.E + 6
+0.000001E - 9
+B
+0.000000E - 9
+C
+The exponential part is set by using a unit prefix (p, n, , m, k, M, G, T).
+TRIG
+ENTER
+MENU

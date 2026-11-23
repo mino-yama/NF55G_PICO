@@ -1,0 +1,15 @@
+{
+  "status": "FLASH_VERIFIED_RECONNECT_PENDING",
+  "serial": "A06FEA01012EC137",
+  "version": "qr-fixed-20261123.1",
+  "backup_bytes": 2097152,
+  "backup_sha256": "214d4db5a5af3d3e21dd0f735666bfceca3707bb3d73f43f3ae935313a7c4faa",
+  "uf2_bytes": 84480,
+  "uf2_sha256": "cadff2460cc7b1be3ca8c8882c4b120569178371d3092c1182c66eb01bae2b3e",
+  "load_verify": true,
+  "independent_verify": true,
+  "retained_in_bootsel": true,
+  "power_condition": "user confirmed PC-only Type_C1, external 5V/scanner/GP0 disconnected",
+  "post_update_qr_read_verified": false,
+  "nf55g_commands_sent": 0
+}
