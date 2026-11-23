@@ -58,7 +58,7 @@ API size_t test_chunk(size_t remaining) { return relay_usb_chunk_size(remaining)
 API size_t test_size(void) { return sizeof(test_t); }
 API void test_init(test_t *test, const unsigned char *nonce) {
     memset(test,0,sizeof(*test));
-    relay_host_init(&test->host, nonce, "BFCF2EDB84B0B37F", "meter-host-relay-20261121.1", emit, test);
+    relay_host_init(&test->host, nonce, "BFCF2EDB84B0B37F", "meter-host-relay-20261123.1", emit, test);
     relay_cdc_guard_bind(&test->host, 3);
     real_cdc_calls = 0;
 }
@@ -73,7 +73,15 @@ API void test_rx(test_t *test, const unsigned char *bytes, size_t size, unsigned
     relay_host_rx(&test->host,bytes,size,now);
 }
 API int test_pending(test_t *test) { return test->host.pending; }
+API void test_set_pending(test_t *test) {
+    test->host.pending = true;
+    test->host.started_at = 0;
+    test->host.request.timeout_ms = 1000;
+}
 API int test_fault(test_t *test) { return test->host.fault; }
+API void test_fail(test_t *test) { relay_host_fail(&test->host, "TEST_FAULT"); }
+API void test_reset_ack_sent(test_t *test) { relay_host_reset_ack_transmitted(&test->host); }
+API int test_reset_due(test_t *test) { return relay_host_reset_due(&test->host); }
 API size_t test_command(test_t *test, unsigned char *out) {
     memcpy(out,test->host.command,test->host.command_length);
     return test->host.command_length;
@@ -112,14 +120,26 @@ class NativeHostTransport:
         self.auto_device = True
         self.write_limit = write_limit
         self.drop_replies = False
+        self.drop_kinds = set()
+        self.auto_ack_transmission = False
+        self.reboot_on_reset_ack = False
         self.last_request = 0
         self.frame_reader = FrameReader()
+        self.output_reader = FrameReader()
 
     def drain(self):
         out = ctypes.create_string_buffer(512)
         while (size := self.lib.test_pop(self.memory, out)):
-            if not self.drop_replies:
-                self.rx.extend(out.raw[:size])
+            raw = out.raw[:size]
+            frames = self.output_reader.feed(raw)
+            if self.auto_ack_transmission and any(frame['kind'] == 'K' for frame in frames):
+                self.lib.test_reset_ack_sent(self.memory)
+                self.lib.test_poll(self.memory, self.clock.ticks_ms())
+                if self.reboot_on_reset_ack and self.lib.test_reset_due(self.memory):
+                    self.lib.test_init(self.memory, b'NEWHOST1')
+                    self.lib.test_ready(self.memory, 1)
+            if not self.drop_replies and not any(frame['kind'] in self.drop_kinds for frame in frames):
+                self.rx.extend(raw)
 
     def any(self):
         self.drain()
@@ -184,6 +204,8 @@ class NativeRelayLinkTests(unittest.TestCase):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_size_t, ctypes.c_uint32]
         cls.lib.test_poll.argtypes = [ctypes.c_void_p, ctypes.c_uint32]
         for name in ('test_start', 'test_done', 'test_pending', 'test_fault'):
+            getattr(cls.lib, name).argtypes = [ctypes.c_void_p]
+        for name in ('test_set_pending', 'test_fail', 'test_reset_ack_sent', 'test_reset_due'):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p]
         for name in ('test_command', 'test_pop'):
             getattr(cls.lib, name).argtypes = [ctypes.c_void_p, ctypes.c_void_p]
@@ -286,7 +308,7 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.assertEqual(self.transport.commands, [b'*IDN?\r\n'])
 
     def test_python_and_c_codec_agree_all_kinds_and_payload_lengths(self):
-        for kind in ('H','h','Q','A','T','R','E'):
+        for kind in ('H','h','Q','A','T','R','E','I','i','S','K'):
             for size in (0,1,63,64,191,192):
                 wire = encode_frame(bytes(range(16)), 0xffffffff, kind, 1, 10000, bytes(range(size)))
                 out = ctypes.create_string_buffer(512)
@@ -294,6 +316,130 @@ class NativeRelayLinkTests(unittest.TestCase):
                 self.assertEqual(out.raw[:length], wire)
                 bad = wire[:-4] + b'AA' + wire[-2:]
                 self.assertEqual(self.lib.test_recode(bad,len(bad),out),0)
+
+    def test_management_info_is_available_in_fault_without_device_command(self):
+        self.lib.test_fail(self.transport.memory)
+        challenge = b'0123456789ABCDEF'
+        payload = b'BFCF2EDB84B0B37F|' + challenge
+        request = encode_frame(b'PARENT01' + bytes(8), 7, 'I', 0, 1000, payload)
+        self.lib.test_uart(self.transport.memory, request, len(request), 10)
+        reply = decode_frame(self.transport.read(512))
+        self.assertEqual(reply['kind'], 'i')
+        self.assertEqual(reply['request'], 7)
+        self.assertEqual(reply['session'], b'PARENT01HOSTNONC')
+        self.assertTrue(reply['payload'].endswith(b'|FAULT|' + challenge))
+        self.assertEqual(self.transport.commands, [])
+
+        self.lib.test_uart(self.transport.memory, request, len(request), 11)
+        duplicate = decode_frame(self.transport.read(512))
+        self.assertEqual(duplicate['kind'], 'E')
+        self.assertEqual(duplicate['payload'], b'REPLAY_REQUEST|0')
+
+    def test_management_reset_is_challenge_bound_and_waits_for_ack_transmission(self):
+        challenge = b'0123456789ABCDEF'
+        parent_session = b'PARENT01' + bytes(8)
+        payload = b'BFCF2EDB84B0B37F|' + challenge
+        info = encode_frame(parent_session, 7, 'I', 0, 1000, payload)
+        self.lib.test_uart(self.transport.memory, info, len(info), 10)
+        info_reply = decode_frame(self.transport.read(512))
+
+        reset = encode_frame(info_reply['session'], 8, 'S', 0, 1000, payload)
+        self.lib.test_uart(self.transport.memory, reset, len(reset), 20)
+        ack = decode_frame(self.transport.read(512))
+        self.assertEqual((ack['kind'], ack['payload']), ('K', b'RESET_ACCEPTED'))
+        self.assertFalse(self.lib.test_reset_due(self.transport.memory))
+        self.assertEqual(self.transport.commands, [])
+
+        self.lib.test_reset_ack_sent(self.transport.memory)
+        self.lib.test_poll(self.transport.memory, 21)
+        self.assertTrue(self.lib.test_reset_due(self.transport.memory))
+
+        self.lib.test_uart(self.transport.memory, reset, len(reset), 22)
+        duplicate = decode_frame(self.transport.read(512))
+        self.assertEqual(duplicate['kind'], 'E')
+        self.assertEqual(duplicate['payload'], b'REPLAY_REQUEST|0')
+
+        stale = NativeHostTransport(self.lib, self.clock)
+        info = encode_frame(parent_session, 7, 'I', 0, 1000, payload)
+        self.lib.test_uart(stale.memory, info, len(info), 10)
+        stale_info = decode_frame(stale.read(512))
+        wrong_reset = encode_frame(stale_info['session'], 9, 'S', 0, 1000, payload)
+        self.lib.test_uart(stale.memory, wrong_reset, len(wrong_reset), 20)
+        self.assertEqual(decode_frame(stale.read(512))['payload'], b'CHALLENGE_EXPIRED|0')
+        valid_reset = encode_frame(stale_info['session'], 8, 'S', 0, 1000, payload)
+        self.lib.test_uart(stale.memory, valid_reset, len(valid_reset), 21)
+        self.assertEqual(decode_frame(stale.read(512))['payload'], b'REPLAY_REQUEST|0')
+
+    def test_management_reset_timeout_and_pending_request_never_reboot(self):
+        challenge = b'0123456789ABCDEF'
+        payload = b'BFCF2EDB84B0B37F|' + challenge
+        session = b'PARENT01' + bytes(8)
+        info = encode_frame(session, 7, 'I', 0, 1000, payload)
+        reset = encode_frame(b'PARENT01HOSTNONC', 8, 'S', 0, 1000, payload)
+
+        self.lib.test_uart(self.transport.memory, info, len(info), 1)
+        self.transport.read(512)
+        self.lib.test_uart(self.transport.memory, reset, len(reset), 2)
+        self.assertEqual(decode_frame(self.transport.read(512))['kind'], 'K')
+        self.lib.test_poll(self.transport.memory, 1002)
+        self.assertFalse(self.lib.test_reset_due(self.transport.memory))
+
+        busy = NativeHostTransport(self.lib, self.clock)
+        self.lib.test_set_pending(busy.memory)
+        info = encode_frame(session, 7, 'I', 0, 1000, payload)
+        self.lib.test_uart(busy.memory, info, len(info), 3)
+        info_reply = decode_frame(busy.read(512))
+        self.assertEqual(info_reply['kind'], 'i', repr(info_reply))
+        self.assertTrue(info_reply['payload'].endswith(b'|BUSY|' + challenge), repr(info_reply))
+        reset = encode_frame(b'PARENT01HOSTNONC', 8, 'S', 0, 1000, payload)
+        self.lib.test_uart(busy.memory, reset, len(reset), 4)
+        rejected = decode_frame(busy.read(512))
+        self.assertEqual(rejected['kind'], 'E')
+        self.assertEqual(rejected['payload'], b'BUSY|0')
+        self.assertFalse(self.lib.test_reset_due(busy.memory))
+
+    def test_ate_host_management_fault_reset_and_new_nonce_round_trip(self):
+        self.lib.test_fail(self.transport.memory)
+        app = FixtureApp(clock=self.clock, external_link=self.link)
+
+        def run_management(command):
+            self.assertIsNone(app.execute_ate_line(command))
+            for _ in range(1000):
+                app._service_external()
+                reply = app.take_external_response()
+                if reply is not None:
+                    return reply
+                self.clock.sleep_ms(1)
+            self.fail('No bounded management response')
+
+        info = run_management('HOST_INFO? METER')
+        self.assertEqual(info, 'OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261123.1:484F53544E4F4E43:FAULT')
+        self.transport.auto_ack_transmission = True
+        self.transport.reboot_on_reset_ack = True
+        reset = run_management('HOST_RESET METER')
+        self.assertEqual(reset, 'OK:HOST_RESET_ACCEPTED:BFCF2EDB84B0B37F:484F53544E4F4E43')
+        self.assertEqual(self.transport.commands, [])
+
+        confirmed = run_management('HOST_INFO? METER')
+        self.assertEqual(confirmed, 'OK:HOST_RESET_DONE:BFCF2EDB84B0B37F:484F53544E4F4E43:4E4557484F535431:READY')
+        self.assertEqual(self.transport.commands, [])
+
+    def test_reset_ack_loss_is_result_unknown_and_latches_parent_fault(self):
+        self.transport.drop_kinds.add('K')
+        self.transport.auto_ack_transmission = True
+        self.link.start_management('RESET')
+        reply = None
+        for _ in range(1100):
+            self.link.poll()
+            reply = self.link.take_reply()
+            if reply is not None:
+                break
+            self.clock.sleep_ms(1)
+        self.assertEqual(reply, 'ERR:HOST_RESULT_UNKNOWN')
+        self.assertTrue(self.link.fault)
+        self.assertIsNone(self.link.session)
+        self.assertEqual(self.transport.commands, [])
+        self.assertTrue(self.lib.test_reset_due(self.transport.memory))
 
     def test_idn_round_trip_has_no_automatic_instrument_query(self):
         self.link.poll()

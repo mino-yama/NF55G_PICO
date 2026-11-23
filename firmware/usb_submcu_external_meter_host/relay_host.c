@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MANAGEMENT_RESET_ACK_TIMEOUT_MS 1000u
+#define MANAGEMENT_INFO_MAX_AGE_MS 2000u
+
 // 固定SDKのZLP完了callbackを次の送信データ完了と誤認しないよう奇数長に分割する。
 size_t relay_usb_chunk_size(size_t remaining) {
     size_t size = remaining > 63u ? 63u : remaining;
@@ -88,9 +91,128 @@ static void hello(relay_host_t *host, const x1_frame_t *request) {
     emit_frame(host, &reply);
 }
 
+static bool bytes_zero(const uint8_t *data, size_t length) {
+    for (size_t i = 0u; i < length; i++) if (data[i] != 0u) return false;
+    return true;
+}
+
+static bool challenge_valid(const uint8_t *data) {
+    for (size_t i = 0u; i < 16u; i++) {
+        uint8_t value = data[i];
+        if (!((value >= '0' && value <= '9') || (value >= 'A' && value <= 'F'))) return false;
+    }
+    return true;
+}
+
+static void management_error(relay_host_t *host, const x1_frame_t *request, const char *reason) {
+    x1_frame_t reply = *request;
+    reply.kind = 'E';
+    int length = snprintf((char *)reply.payload, sizeof(reply.payload), "%s|0", reason);
+    if (length <= 0 || (size_t)length >= sizeof(reply.payload)) return;
+    reply.length = (uint16_t)length;
+    emit_frame(host, &reply);
+}
+
+static bool management_info(relay_host_t *host, const x1_frame_t *request, uint32_t now) {
+    if (request->kind != 'I') return false;
+    if (request->request == 0u || request->mode != 0u || request->timeout_ms == 0u ||
+        request->length != 33u || memcmp(request->payload, host->chipid, 16u) != 0 ||
+        request->payload[16] != '|' || !challenge_valid(request->payload + 17u) ||
+        bytes_zero(request->session, 8u) || !bytes_zero(request->session + 8u, 8u)) {
+        management_error(host, request, "MANAGEMENT_FORMAT");
+        return true;
+    }
+    if (host->management_parent_valid &&
+        memcmp(host->management_parent_nonce, request->session, 8u) == 0 &&
+        request->request <= host->management_high_watermark) {
+        management_error(host, request, "REPLAY_REQUEST");
+        return true;
+    }
+    if (!host->management_parent_valid ||
+        memcmp(host->management_parent_nonce, request->session, 8u) != 0) {
+        memcpy(host->management_parent_nonce, request->session, 8u);
+        host->management_parent_valid = true;
+        host->management_high_watermark = 0u;
+        host->management_info_valid = false;
+    }
+    host->management_high_watermark = request->request;
+    host->management_info_request = request->request;
+    memcpy(host->management_challenge, request->payload + 17u, 16u);
+    host->management_info_at = now;
+    host->management_info_valid = true;
+
+    x1_frame_t reply = *request;
+    memcpy(reply.session + 8u, host->nonce, 8u);
+    reply.kind = 'i';
+    const char *state = host->fault ? "FAULT" :
+        (host->pending || host->management_reset_waiting) ? "BUSY" :
+        host->ready ? "READY" : "NOT_READY";
+    int length = snprintf((char *)reply.payload, sizeof(reply.payload), "%s|%s|%s|%.*s",
+                          host->chipid, host->version, state, 16, host->management_challenge);
+    if (length <= 0 || (size_t)length >= sizeof(reply.payload)) return true;
+    reply.length = (uint16_t)length;
+    emit_frame(host, &reply);
+    return true;
+}
+
+static bool management_reset(relay_host_t *host, const x1_frame_t *request, uint32_t now) {
+    if (request->kind != 'S') return false;
+    if (request->request == 0u || request->mode != 0u || request->timeout_ms == 0u ||
+        request->length != 33u || memcmp(request->payload, host->chipid, 16u) != 0 ||
+        request->payload[16] != '|' || !challenge_valid(request->payload + 17u)) {
+        management_error(host, request, "MANAGEMENT_FORMAT");
+        return true;
+    }
+    if (!host->management_parent_valid ||
+        memcmp(request->session, host->management_parent_nonce, 8u) != 0 ||
+        memcmp(request->session + 8u, host->nonce, 8u) != 0) {
+        management_error(host, request, "SESSION_MISMATCH");
+        return true;
+    }
+    if (request->request <= host->management_high_watermark) {
+        management_error(host, request, "REPLAY_REQUEST");
+        return true;
+    }
+    host->management_high_watermark = request->request;
+    if (host->management_info_request == UINT32_MAX ||
+        request->request != host->management_info_request + 1u) {
+        host->management_info_valid = false;
+        management_error(host, request, "CHALLENGE_EXPIRED");
+        return true;
+    }
+    if (!host->management_info_valid ||
+        (uint32_t)(now - host->management_info_at) > MANAGEMENT_INFO_MAX_AGE_MS ||
+        memcmp(request->payload + 17u, host->management_challenge, 16u) != 0) {
+        host->management_info_valid = false;
+        management_error(host, request, "CHALLENGE_EXPIRED");
+        return true;
+    }
+    host->management_info_valid = false;
+    if (host->pending || host->management_reset_waiting || host->management_reset_due) {
+        management_error(host, request, "BUSY");
+        return true;
+    }
+
+    x1_frame_t reply = *request;
+    reply.kind = 'K';
+    static const char accepted[] = "RESET_ACCEPTED";
+    memcpy(reply.payload, accepted, sizeof(accepted) - 1u);
+    reply.length = (uint16_t)(sizeof(accepted) - 1u);
+    if (emit_frame(host, &reply)) {
+        host->management_reset_waiting = true;
+        host->management_reset_ack_sent = false;
+        host->management_reset_at = now;
+    }
+    return true;
+}
+
 static void accept_request(relay_host_t *host, const x1_frame_t *request, uint32_t now) {
+    if (management_info(host, request, now) || management_reset(host, request, now)) return;
     if (request->kind == 'H') { hello(host, request); return; }
     if (request->kind != 'Q' || !host->bound || memcmp(request->session, host->session, 16u) != 0) return;
+    if (host->management_reset_waiting || host->management_reset_due) {
+        error_frame(host, request, "BUSY", false); return;
+    }
     if (host->fault) { error_frame(host, request, "RECOVERY_REQUIRED", false); return; }
     if (!host->ready) { error_frame(host, request, "LINK_NOT_READY", false); return; }
     if (request->request <= host->high_watermark) {
@@ -123,6 +245,11 @@ static void accept_request(relay_host_t *host, const x1_frame_t *request, uint32
 }
 
 void relay_host_poll(relay_host_t *host, uint32_t now) {
+    if (host->management_reset_waiting) {
+        if (host->management_reset_ack_sent) host->management_reset_due = true;
+        else if ((uint32_t)(now - host->management_reset_at) >= MANAGEMENT_RESET_ACK_TIMEOUT_MS)
+            host->management_reset_waiting = false;
+    }
     if (host->pending && (uint32_t)(now - host->started_at) >= host->request.timeout_ms) {
         // 成否不明の停止時に保持済みRX長・TX/応答完成・末尾4byteを診断へ残す。
         // 部分応答をRへ昇格させず、再送やfault解除は行わない。
@@ -138,6 +265,18 @@ void relay_host_poll(relay_host_t *host, uint32_t now) {
                             host->tx_done ? 1u : 0u, host->response_done ? 1u : 0u, tail);
         relay_host_fail(host, size > 0 && (size_t)size < sizeof(reason) ? reason : "TIMEOUT");
     }
+}
+
+void relay_host_reset_ack_transmitted(relay_host_t *host) {
+    if (host->management_reset_waiting) host->management_reset_ack_sent = true;
+}
+
+bool relay_host_reset_due(const relay_host_t *host) {
+    return host->management_reset_due;
+}
+
+bool relay_host_reset_ack_pending(const relay_host_t *host) {
+    return host->management_reset_waiting && !host->management_reset_ack_sent;
 }
 
 void relay_host_uart(relay_host_t *host, const uint8_t *data, size_t length, uint32_t now) {

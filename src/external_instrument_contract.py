@@ -15,7 +15,7 @@ MAX_RESPONSE_BYTES = 192
 MAX_FRAME_BYTES = 512
 MAX_TIMEOUT_MS = 10000
 DEVICE_ENDING = b"\r\n"
-FRAME_KINDS = ("H", "h", "Q", "A", "T", "R", "E")
+FRAME_KINDS = ("H", "h", "Q", "A", "T", "R", "E", "I", "i", "S", "K")
 
 
 class ContractError(ValueError):

@@ -92,6 +92,11 @@ def parse_ate_command(line):
     if not text:
         raise ParseError("EMPTY_COMMAND")
 
+    if text == "HOST_INFO? METER":
+        return ParsedCommand(text, "HOST_INFO?", payload="INFO", category="HOST_MANAGEMENT")
+    if text == "HOST_RESET METER":
+        return ParsedCommand(text, "HOST_RESET", payload="RESET", category="HOST_MANAGEMENT")
+
     name, payload = _split_payload(text)
 
     if name == "FW_UPDATE":

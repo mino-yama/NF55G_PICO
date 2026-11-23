@@ -1,5 +1,7 @@
 # ATE Command Master
 
+2026-11-23 開発用測定器HOST管理入口: `HOST_INFO? METER`で対象ID/FW/boot nonce/状態を照会し、`HOST_RESET METER`でHOST通常RSTを要求する仕様を追加。RST受理ACKと新nonce確認は別段階で、確認用INFOを再実行する。管理要求は通常EXT_QUERY/Qとは独立し、NF55G/7355へ転送しない。応答・X1管理kind・BUSY/期限/結果不明の詳細は[HOST管理RST仕様](USB_Host_Reset_Study_20261121/Host_Reset_Management_Spec_20261123_Rev0.md)を参照。PC/native検証とSDK 2.2.0 ARM build成功、実機未確認。
+
 2026-11-20 ユーザー補足による解釈訂正: 「試験者設定のレンジ」はATE側のコマンドで決定/設定する意味。前面手動設定を前提にせず、ATEが固定レンジ値またはAUTO条件を指定→Queryで設定確認→測定要求を送る。Pico/Hostは本文を中継し、指定値の独自置換/自動最適化を行わない。次の安定性試験もこの順序で実施する計画。今回は記録訂正のみ、実機送信/コード/Flash変更なし。 [現行方針Rev.1](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Next_Steps_After_ATE_Range_Decision_Rev1.md)。
 
 2026-11-20 親配置完了: COM6/unique_id 69f7d45962cfdfadの既存26ファイルを退避・SHA照合後、配置対象30ファイルを実機SHA照合（追加/更新8）。実機RAM検証と配置後import成功。通常起動せずREPL停止、PIO4/5はinactive。Host/親の配置は完了したが、配線と実機中継受入は未実施。[親配置結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Parent_Deployment_01/Result_Rev0.md)。以下の親未配置記述は配置前の状態として保持。

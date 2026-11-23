@@ -29,7 +29,7 @@ static bool hex_value(const uint8_t *bytes, size_t size, uint32_t *value) {
 }
 
 static bool valid_kind(char kind) {
-    return kind != '\0' && strchr("HhQATRE", kind) != NULL;
+    return kind != '\0' && strchr("HhQATREIiSK", kind) != NULL;
 }
 
 size_t x1_encode(const x1_frame_t *frame, uint8_t *output, size_t capacity) {

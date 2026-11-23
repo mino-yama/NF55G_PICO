@@ -258,6 +258,19 @@ class FixtureApp:
             self._external_text = parsed.raw
             # 応答は協調型service_onceから返す。ここでUSB待ちを行わない。
             return None
+        if parsed.category == "HOST_MANAGEMENT":
+            if self.external_link is None:
+                return "ERR:HOST_MANAGEMENT_DISABLED"
+            if self._comm_busy():
+                return "ERR:BUSY"
+            try:
+                self.external_link.start_management(parsed.payload)
+            except RelayError as exc:
+                return "ERR:HOST_{}".format(exc)
+            self.external_response = None
+            self._external_pending = True
+            self._external_text = parsed.raw
+            return None
         if parsed.category == "FORBIDDEN":
             return "ERR:FU_DISABLED"
         if self._external_pending:

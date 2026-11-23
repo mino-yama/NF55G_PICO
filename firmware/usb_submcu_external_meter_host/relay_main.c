@@ -6,6 +6,7 @@
 #include "hardware/gpio.h"
 #include "hardware/uart.h"
 #include "hardware/sync.h"
+#include "hardware/watchdog.h"
 #include "pico/binary_info.h"
 #include "pico/rand.h"
 #include "pico/stdlib.h"
@@ -22,12 +23,13 @@ bi_decl(bi_2pins_with_names(12, "USB-A D+", 13, "USB-A D-"));
 bi_decl(bi_program_feature("X1 UART relay; explicit commands only; no automatic SCPI"));
 
 #define OUTBOX_COUNT 8u
-typedef struct { uint8_t bytes[X1_FRAME_MAX]; size_t length, offset; } output_t;
+typedef struct { uint8_t bytes[X1_FRAME_MAX]; size_t length, offset; char kind; } output_t;
 static output_t outbox[OUTBOX_COUNT];
 static size_t output_head, output_tail, output_count;
 static relay_host_t host;
 static uint8_t cdc_index = TUSB_INDEX_INVALID_8;
 static bool mounted, configured, control_done, control_started, usb_inflight;
+static bool reset_ack_waiting_for_uart;
 static uint8_t control_step;
 static uint32_t control_epoch, control_started_at;
 static xfer_result_t control_result;
@@ -81,8 +83,10 @@ static bool enqueue(void *context, const x1_frame_t *frame) {
     entry->length = x1_encode(&diagnostic, entry->bytes, sizeof(entry->bytes));
     entry->offset = 0u;
     if (entry->length == 0u) return false;
+    entry->kind = frame->kind;
     output_head = (output_head + 1u) % OUTBOX_COUNT;
     output_count++;
+    if (frame->kind == 'K') reset_ack_waiting_for_uart = true;
     return true;
 }
 
@@ -94,9 +98,20 @@ static void service_uart(void) {
     size_t budget = 32u;
     while (output_count > 0u && budget > 0u && uart_is_writable(uart0)) {
         output_t *entry = &outbox[output_tail];
+        if (entry->kind == 'K' && !relay_host_reset_ack_pending(&host)) {
+            output_tail = (output_tail + 1u) % OUTBOX_COUNT;
+            output_count--;
+            reset_ack_waiting_for_uart = false;
+            continue;
+        }
         uart_putc_raw(uart0, entry->bytes[entry->offset++]);
         budget--;
         if (entry->offset == entry->length) { output_tail = (output_tail + 1u) % OUTBOX_COUNT; output_count--; }
+    }
+    if (output_count == 0u && reset_ack_waiting_for_uart &&
+        (uart_get_hw(uart0)->fr & UART_UARTFR_BUSY_BITS) == 0u) {
+        reset_ack_waiting_for_uart = false;
+        relay_host_reset_ack_transmitted(&host);
     }
 }
 
@@ -237,6 +252,7 @@ int main(void) {
         service_usb_rx();
         service_uart();
         service_usb_tx();
+        if (relay_host_reset_due(&host)) watchdog_reboot(0u, 0u, 10u);
         tight_loop_contents();
     }
 }

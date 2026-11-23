@@ -172,6 +172,8 @@ class HardwareLayerTests(unittest.TestCase):
             "RTC_SET_20260907_120000": "RTC",
             "PICO_SELF_CHECK?": "DIAGNOSTIC",
             "CHARGE_ON": "CONTROL",
+            "HOST_INFO? METER": "HOST_MANAGEMENT",
+            "HOST_RESET METER": "HOST_MANAGEMENT",
             "FW_UPDATE": "FORBIDDEN",
             "UNKNOWN?": "UNKNOWN",
         }

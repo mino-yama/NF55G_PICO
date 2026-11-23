@@ -71,10 +71,132 @@ class ExternalInstrumentLink:
         self._remote_ambiguous = None
         self._immediate = None
         self.stale_frames = 0
+        self._management = None
+        self._management_reply = None
+        self._management_counter = 0
+        self._reset_boot_nonce = None
 
     @property
     def busy(self):
-        return self._active is not None or self._immediate is not None
+        return (self._active is not None or self._immediate is not None or
+                self._management is not None or self._management_reply is not None)
+
+    def start_management(self, operation):
+        if operation not in ("INFO", "RESET"):
+            raise RelayError("MANAGEMENT_COMMAND")
+        if self.busy or self._tx:
+            raise RelayError("BUSY")
+        request_id = self._next_management_id()
+        challenge = ("{:08X}{:08X}".format(request_id, self.clock.ticks_ms() & 0xffffffff)).encode("ascii")
+        payload = self.expected_chipid.encode("ascii") + b"|" + challenge
+        self._management = {
+            "operation": operation,
+            "stage": "INFO",
+            "request_id": request_id,
+            "challenge": challenge,
+            "payload": payload,
+            "started_at": self.clock.ticks_ms(),
+            "timeout_ms": 1000,
+            "session": None,
+            "tx_started": False,
+        }
+        self._tx = encode_frame(self.parent_nonce + bytes(8), request_id, "I", 0, 1000, payload)
+        self._tx_kind = "I"
+
+    def _next_management_id(self):
+        if self._management_counter >= 0xffffffff:
+            raise RelayError("SESSION_EXHAUSTED")
+        self._management_counter += 1
+        return self._management_counter
+
+    def _finish_management(self, reply):
+        self._tx = b""
+        self._management = None
+        self._management_reply = reply
+
+    def _management_error(self, reason, ambiguous=False):
+        if ambiguous:
+            operation = self._management
+            self.fault = True
+            self.session = None
+            self.host_info = None
+            if operation is not None and operation["session"] is not None:
+                self._reset_boot_nonce = operation["session"][8:]
+        self._finish_management("ERR:HOST_{}".format(reason))
+
+    def _receive_management_frame(self, frame):
+        operation = self._management
+        if (frame["request"] != operation["request_id"] or
+                frame["session"][:8] != self.parent_nonce or frame["mode"] != 0 or
+                frame["timeout_ms"] != operation["timeout_ms"]):
+            self.stale_frames += 1
+            return
+        if frame["kind"] == "E":
+            try:
+                reason, ambiguous = frame["payload"].decode("ascii").split("|")
+                if ambiguous != "0" or not reason or not reason.replace("_", "").isalnum():
+                    raise ValueError("management error")
+            except (UnicodeError, ValueError):
+                self._management_error("RESPONSE_FRAME")
+                return
+            self._management_error(reason)
+            return
+        if operation["stage"] == "INFO":
+            if frame["kind"] != "i" or frame["session"][8:] == bytes(8):
+                self._management_error("RESPONSE_FRAME")
+                return
+            try:
+                identity, version, state, challenge = frame["payload"].decode("ascii").split("|")
+            except (UnicodeError, ValueError):
+                self._management_error("HOST_IDENTITY")
+                return
+            if (identity.upper() != self.expected_chipid or
+                    not version.startswith("meter-host-relay-") or
+                    challenge.encode("ascii") != operation["challenge"] or
+                    state not in ("READY", "NOT_READY", "BUSY", "FAULT")):
+                self._management_error("HOST_IDENTITY")
+                return
+            self.host_info = (identity, version, state)
+            host_nonce = frame["session"][8:]
+            if operation["operation"] == "INFO":
+                if self._reset_boot_nonce is not None:
+                    if host_nonce == self._reset_boot_nonce:
+                        self._management_error("RESET_NOT_CONFIRMED")
+                        return
+                    old_nonce = self._reset_boot_nonce
+                    self._reset_boot_nonce = None
+                    self.session = frame["session"]
+                    if not self.fault:
+                        self.core.establish_link()
+                    self._finish_management("OK:HOST_RESET_DONE:{}:{}:{}:{}".format(
+                        identity.upper(), old_nonce.hex().upper(), host_nonce.hex().upper(), state))
+                    return
+                self._finish_management("OK:HOST_INFO:{}:{}:{}:{}".format(
+                    identity.upper(), version, host_nonce.hex().upper(), state))
+                return
+            if state == "BUSY":
+                self._management_error("BUSY")
+                return
+            request_id = self._next_management_id()
+            operation["request_id"] = request_id
+            operation["stage"] = "RESET"
+            operation["session"] = frame["session"]
+            operation["started_at"] = self.clock.ticks_ms()
+            self._tx = encode_frame(frame["session"], request_id, "S", 0,
+                                    operation["timeout_ms"], operation["payload"])
+            self._tx_kind = "S"
+            return
+        if frame["session"] != operation["session"] or frame["kind"] != "K" or frame["payload"] != b"RESET_ACCEPTED":
+            self._management_error("RESULT_UNKNOWN", ambiguous=operation["tx_started"])
+            return
+        self._reset_boot_nonce = frame["session"][8:]
+        self.session = None
+        self.host_info = None
+        self.reader.buffer = bytearray()
+        self.reader.dropping = False
+        self.reader.previous = None
+        self._finish_management("OK:HOST_RESET_ACCEPTED:{}:{}".format(
+            self.expected_chipid, self._reset_boot_nonce.hex().upper()))
 
     def start(self, request):
         if self.busy:
@@ -108,6 +230,11 @@ class ExternalInstrumentLink:
         self._tx_kind = 'Q'
 
     def poll(self):
+        if self._management is not None:
+            operation = self._management
+            if self.clock.ticks_ms() - operation["started_at"] >= operation["timeout_ms"]:
+                ambiguous = operation["stage"] == "RESET" and operation["tx_started"]
+                self._management_error("RESULT_UNKNOWN" if ambiguous else "TIMEOUT", ambiguous)
         if self._active is not None:
             elapsed = self.clock.ticks_ms() - self._active['started_at']
             if elapsed >= self._active['timeout_ms'] and self._token is None:
@@ -131,6 +258,8 @@ class ExternalInstrumentLink:
                     if not isinstance(written, int) or written < 0 or written > min(64, len(self._tx)):
                         self._transport_fail('UART')
                     else:
+                        if written > 0 and self._management is not None and self._management["stage"] == "RESET":
+                            self._management["tx_started"] = True
                         self._tx = self._tx[written:]
             if self.transport.any():
                 for frame in self.reader.feed(self.transport.read(64) or b''):
@@ -145,6 +274,9 @@ class ExternalInstrumentLink:
                 self._tx = b''
 
     def _receive_frame(self, frame):
+        if self._management is not None:
+            self._receive_management_frame(frame)
+            return
         if self._active is None:
             self.stale_frames += 1
             return
@@ -208,12 +340,20 @@ class ExternalInstrumentLink:
     def _transport_fail(self, reason):
         self.fault = True
         self._tx = b''
+        if self._management is not None:
+            operation = self._management
+            ambiguous = operation["stage"] == "RESET" and operation["tx_started"]
+            self._management_error("RESULT_UNKNOWN" if ambiguous else reason, ambiguous)
+            return
         if self._token is not None:
             self.core.fail(self._token, reason)
         elif self._active is not None:
             self._fail_handshake(reason, True)
 
     def take_reply(self):
+        if self._management_reply is not None:
+            reply, self._management_reply = self._management_reply, None
+            return reply
         if self._immediate is not None:
             reply, self._immediate = self._immediate, None
             return reply
