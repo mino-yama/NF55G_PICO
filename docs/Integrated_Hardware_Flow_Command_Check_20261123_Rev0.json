@@ -1,0 +1,1898 @@
+{
+  "csv_rows": 399,
+  "parser_checked_rows": 378,
+  "hardware_executed": false,
+  "notes": "代入値は構文照合専用。既定試験値ではない。CSVは一括送信不可。",
+  "checks": [
+    {
+      "工程ID": "S01",
+      "command_template": "TEST_START",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "S02",
+      "command_template": "*IDN?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "S03",
+      "command_template": "PICO_SELF_CHECK?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "S04",
+      "command_template": "RTC_CHECK?",
+      "category": "RTC"
+    },
+    {
+      "工程ID": "S05",
+      "command_template": "RTC_DATETIME?",
+      "category": "RTC"
+    },
+    {
+      "工程ID": "S06",
+      "command_template": "SD_STATUS?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "S07",
+      "command_template": "SD_USAGE?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "S08",
+      "command_template": "LOG_DROP_COUNT?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "S09",
+      "command_template": "COMM_STATUS?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "S10",
+      "command_template": "CLOCK_SYNC {SC_TIME}",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "S11",
+      "command_template": "DATA_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "S12",
+      "command_template": "NF55_DATETIME?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "S13",
+      "command_template": "RETRY_COUNT?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "S14",
+      "command_template": "INFO_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "S15",
+      "command_template": "FW_REV?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q01",
+      "command_template": "QR_SCAN {T_QR}",
+      "category": "QR_WRITE_SESSION"
+    },
+    {
+      "工程ID": "Q03",
+      "command_template": "QR_GET? {QR_ID}",
+      "category": "QR_WRITE_SESSION"
+    },
+    {
+      "工程ID": "Q04",
+      "command_template": "QR_DATA? {QR_ID}",
+      "category": "QR_WRITE_SESSION"
+    },
+    {
+      "工程ID": "Q05",
+      "command_template": "QR_WRITE {QR_ID}",
+      "category": "QR_WRITE_SESSION"
+    },
+    {
+      "工程ID": "Q06",
+      "command_template": "RETRY_COUNT?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "Q07",
+      "command_template": "INFO_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "Q08",
+      "command_template": "UNIT_REV?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q09",
+      "command_template": "UNIT_LOT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q10",
+      "command_template": "UNIT_SERIAL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q11",
+      "command_template": "FW_REV?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q12.1",
+      "command_template": "ADU_REV?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q12.2",
+      "command_template": "ADU_LOT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q12.3",
+      "command_template": "ADU_SERIAL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q13.1",
+      "command_template": "BBU_REV?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q13.2",
+      "command_template": "BBU_LOT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q13.3",
+      "command_template": "BBU_SERIAL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "Q15",
+      "command_template": "QR_CANCEL",
+      "category": "QR_WRITE_SESSION"
+    },
+    {
+      "工程ID": "I01",
+      "command_template": "INFO_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "I02.1",
+      "command_template": "PS_ON_BACKUP?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I02.2",
+      "command_template": "AC_LINK?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I02.3",
+      "command_template": "AUTO_CHARGE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I02.4",
+      "command_template": "EVENT_ENABLE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I03.1",
+      "command_template": "MAX_BACKUP_TIME?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I03.2",
+      "command_template": "MIN_BACKUP_TIME?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I03.3",
+      "command_template": "RESTART_TIME?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I04.1",
+      "command_template": "BATT_LOW_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I04.2",
+      "command_template": "BATT_CAP_MAH?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I04.3",
+      "command_template": "BATT_CAP_WH?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I04.4",
+      "command_template": "CHG_IR_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I05.1",
+      "command_template": "BATT_WNG_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I05.2",
+      "command_template": "BATT_ALM_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I05.3",
+      "command_template": "ADU_TEMP_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I05.4",
+      "command_template": "BBU_TEMP_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I05.5",
+      "command_template": "FAN_WNG_THD?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I06",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "I07.1",
+      "command_template": "BURST?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I07.2",
+      "command_template": "PS_OFF_CHARGE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I09",
+      "command_template": "INFO_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "I10.1",
+      "command_template": "ERP_SET_0_0",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "I10.2",
+      "command_template": "ERP_SET_1_0",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "I10.3",
+      "command_template": "ERP_SET_0_1",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "I10.4",
+      "command_template": "ERP_SET_1_1",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "I11.1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "I11.2",
+      "command_template": "BURST?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "I11.3",
+      "command_template": "PS_OFF_CHARGE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "M01",
+      "command_template": "HOST_INFO? METER",
+      "category": "HOST_MANAGEMENT"
+    },
+    {
+      "工程ID": "M02",
+      "command_template": "EXT_QUERY {T_EXT} *IDN?",
+      "category": "EXTERNAL"
+    },
+    {
+      "工程ID": "M04",
+      "command_template": "EXT_QUERY {T_EXT} :SENS:FUNC?",
+      "category": "EXTERNAL"
+    },
+    {
+      "工程ID": "M05",
+      "command_template": "EXT_QUERY {T_EXT} :CONF?",
+      "category": "EXTERNAL"
+    },
+    {
+      "工程ID": "M06",
+      "command_template": "EXT_QUERY {T_EXT} :SYST:ERR?",
+      "category": "EXTERNAL"
+    },
+    {
+      "工程ID": "C1.取得",
+      "command_template": "CAL_MEASURE DISCHG_I A {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C1.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C2.取得",
+      "command_template": "CAL_MEASURE DISCHG_I B {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C2.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C3.取得",
+      "command_template": "CAL_MEASURE BATT_CHG A {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C3.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C4.取得",
+      "command_template": "CAL_MEASURE BATT_CHG B {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C4.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C5.取得",
+      "command_template": "CAL_MEASURE BATT_V A {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C5.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C6.取得",
+      "command_template": "CAL_MEASURE BATT_V B {T_EXT} :READ?",
+      "category": "CALIBRATION_ACQUIRE"
+    },
+    {
+      "工程ID": "C6.照会",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C02",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "C03.1",
+      "command_template": "PS_ON?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "C03.2",
+      "command_template": "BATT_ON?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "C03.3",
+      "command_template": "CHARGE_ON_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "C03.4",
+      "command_template": "CHARGE_OFF_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "C05",
+      "command_template": "CAL_MEASUREMENT? {CAL_ID}",
+      "category": "CALIBRATION_QUERY"
+    },
+    {
+      "工程ID": "C08",
+      "command_template": "RETRY_COUNT?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "V01",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "V02.1",
+      "command_template": "PS_ON?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V02.2",
+      "command_template": "BATT_ON?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V02.3",
+      "command_template": "BURST_ON?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V03",
+      "command_template": "DATA_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "V04.1",
+      "command_template": "VOUT12?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V04.2",
+      "command_template": "IOUT12?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V05.1",
+      "command_template": "BATT_VOLT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V05.2",
+      "command_template": "CHG_VOLT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V06.1",
+      "command_template": "CHG_CURR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V06.2",
+      "command_template": "BATT_CURR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V07.1",
+      "command_template": "BATT_TEMP?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V07.2",
+      "command_template": "ADU_TEMP?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V07.3",
+      "command_template": "BBU_TEMP?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V08.1",
+      "command_template": "FAN_RPM?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V08.2",
+      "command_template": "FAN_LEVEL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V09.1",
+      "command_template": "BATT_SOC_WH?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V09.2",
+      "command_template": "BATT_SOC_MAH?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "V10.1",
+      "command_template": "RETRY_COUNT?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "V10.2",
+      "command_template": "COMM_STATUS?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "A01",
+      "command_template": "CHARGE_ON",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A01.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A01.確認2",
+      "command_template": "CHARGE_ON_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A01.確認3",
+      "command_template": "CHARGE_READY?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A02",
+      "command_template": "CHARGE_ON_STOP",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A02.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A02.確認2",
+      "command_template": "CHARGE_ON_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A03",
+      "command_template": "CHARGE_OFF",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A03.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A03.確認2",
+      "command_template": "CHARGE_OFF_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A04",
+      "command_template": "CHARGE_OFF_CLEAR",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A04.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A04.確認2",
+      "command_template": "CHARGE_OFF_STATUS?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A05",
+      "command_template": "BACKUP_ENABLE",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A05.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A05.確認2",
+      "command_template": "BACKUP_READY?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A06",
+      "command_template": "BACKUP_OFF",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A06.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A07",
+      "command_template": "OUTPUT_RESTART",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A07.確認1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A07.確認2",
+      "command_template": "RESTART_READY?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A08",
+      "command_template": "BATT_CHECK_START",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A09.1",
+      "command_template": "BC_MODE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.2",
+      "command_template": "BC_V1?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.3",
+      "command_template": "BC_V2?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.4",
+      "command_template": "BC_I1?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.5",
+      "command_template": "BC_I2?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.6",
+      "command_template": "BC_TEMP?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.7",
+      "command_template": "BC_SOC?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A09.8",
+      "command_template": "BC_IR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A10",
+      "command_template": "BATT_CHECK_STOP",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "A11.1",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "A11.2",
+      "command_template": "BATT_CHECK_RUN?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "A13",
+      "command_template": "INFO_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E03.1",
+      "command_template": "CLEAR_ALL",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "E03.2",
+      "command_template": "CLEAR_POWER",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "E03.3",
+      "command_template": "CLEAR_BATT",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "E04",
+      "command_template": "DATA_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E05.1",
+      "command_template": "AC_FAIL_COUNT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E05.2",
+      "command_template": "AC_LOW_COUNT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E05.3",
+      "command_template": "BACKUP_COUNT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E05.4",
+      "command_template": "TOTAL_ADU_HOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E06.1",
+      "command_template": "BATT_DISCHARGE_COUNT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E06.2",
+      "command_template": "BATT_CHARGE_COUNT?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E06.3",
+      "command_template": "BATT_TTL_DISCHARGE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E06.4",
+      "command_template": "BATT_TTL_CHARGE?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E06.5",
+      "command_template": "BATT_DEG_TOTAL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E07",
+      "command_template": "STATUS_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E08",
+      "command_template": "LIFE_SET_{LIFE_VALUE10}",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "E09",
+      "command_template": "DATA_REFRESH",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E10",
+      "command_template": "BATT_DEG_TOTAL?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E12",
+      "command_template": "CLEAR_LOG",
+      "category": "CONTROL"
+    },
+    {
+      "工程ID": "E13.1",
+      "command_template": "EL_REFRESH_01",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E13.2",
+      "command_template": "EL_01_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E13.3",
+      "command_template": "EL_01_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E14.1",
+      "command_template": "OL_REFRESH_01",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E14.2",
+      "command_template": "OL_01_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E14.3",
+      "command_template": "OL_01_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL01.R",
+      "command_template": "EL_REFRESH_01",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.EL01.DATEHOUR",
+      "command_template": "EL_01_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL01.ID",
+      "command_template": "EL_01_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL02.DATEHOUR",
+      "command_template": "EL_02_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL02.ID",
+      "command_template": "EL_02_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL03.DATEHOUR",
+      "command_template": "EL_03_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL03.ID",
+      "command_template": "EL_03_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL04.DATEHOUR",
+      "command_template": "EL_04_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL04.ID",
+      "command_template": "EL_04_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL05.DATEHOUR",
+      "command_template": "EL_05_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL05.ID",
+      "command_template": "EL_05_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL06.DATEHOUR",
+      "command_template": "EL_06_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL06.ID",
+      "command_template": "EL_06_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL07.DATEHOUR",
+      "command_template": "EL_07_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL07.ID",
+      "command_template": "EL_07_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL08.DATEHOUR",
+      "command_template": "EL_08_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL08.ID",
+      "command_template": "EL_08_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL09.R",
+      "command_template": "EL_REFRESH_09",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.EL09.DATEHOUR",
+      "command_template": "EL_09_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL09.ID",
+      "command_template": "EL_09_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL10.DATEHOUR",
+      "command_template": "EL_10_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL10.ID",
+      "command_template": "EL_10_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL11.DATEHOUR",
+      "command_template": "EL_11_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL11.ID",
+      "command_template": "EL_11_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL12.DATEHOUR",
+      "command_template": "EL_12_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL12.ID",
+      "command_template": "EL_12_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL13.DATEHOUR",
+      "command_template": "EL_13_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL13.ID",
+      "command_template": "EL_13_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL14.DATEHOUR",
+      "command_template": "EL_14_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL14.ID",
+      "command_template": "EL_14_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL15.DATEHOUR",
+      "command_template": "EL_15_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL15.ID",
+      "command_template": "EL_15_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL16.DATEHOUR",
+      "command_template": "EL_16_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL16.ID",
+      "command_template": "EL_16_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL17.R",
+      "command_template": "EL_REFRESH_17",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.EL17.DATEHOUR",
+      "command_template": "EL_17_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL17.ID",
+      "command_template": "EL_17_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL18.DATEHOUR",
+      "command_template": "EL_18_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL18.ID",
+      "command_template": "EL_18_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL19.DATEHOUR",
+      "command_template": "EL_19_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL19.ID",
+      "command_template": "EL_19_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL20.DATEHOUR",
+      "command_template": "EL_20_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL20.ID",
+      "command_template": "EL_20_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL21.DATEHOUR",
+      "command_template": "EL_21_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL21.ID",
+      "command_template": "EL_21_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL22.DATEHOUR",
+      "command_template": "EL_22_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL22.ID",
+      "command_template": "EL_22_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL23.DATEHOUR",
+      "command_template": "EL_23_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL23.ID",
+      "command_template": "EL_23_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL24.DATEHOUR",
+      "command_template": "EL_24_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL24.ID",
+      "command_template": "EL_24_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL25.R",
+      "command_template": "EL_REFRESH_25",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.EL25.DATEHOUR",
+      "command_template": "EL_25_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL25.ID",
+      "command_template": "EL_25_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL26.DATEHOUR",
+      "command_template": "EL_26_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL26.ID",
+      "command_template": "EL_26_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL27.DATEHOUR",
+      "command_template": "EL_27_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL27.ID",
+      "command_template": "EL_27_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL28.DATEHOUR",
+      "command_template": "EL_28_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL28.ID",
+      "command_template": "EL_28_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL29.DATEHOUR",
+      "command_template": "EL_29_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL29.ID",
+      "command_template": "EL_29_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL30.DATEHOUR",
+      "command_template": "EL_30_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL30.ID",
+      "command_template": "EL_30_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL31.DATEHOUR",
+      "command_template": "EL_31_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL31.ID",
+      "command_template": "EL_31_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL32.DATEHOUR",
+      "command_template": "EL_32_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.EL32.ID",
+      "command_template": "EL_32_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL01.R",
+      "command_template": "OL_REFRESH_01",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL01.DATEHOUR",
+      "command_template": "OL_01_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL01.ID",
+      "command_template": "OL_01_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL02.DATEHOUR",
+      "command_template": "OL_02_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL02.ID",
+      "command_template": "OL_02_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL03.DATEHOUR",
+      "command_template": "OL_03_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL03.ID",
+      "command_template": "OL_03_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL04.DATEHOUR",
+      "command_template": "OL_04_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL04.ID",
+      "command_template": "OL_04_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL05.DATEHOUR",
+      "command_template": "OL_05_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL05.ID",
+      "command_template": "OL_05_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL06.DATEHOUR",
+      "command_template": "OL_06_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL06.ID",
+      "command_template": "OL_06_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL07.DATEHOUR",
+      "command_template": "OL_07_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL07.ID",
+      "command_template": "OL_07_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL08.DATEHOUR",
+      "command_template": "OL_08_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL08.ID",
+      "command_template": "OL_08_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL09.R",
+      "command_template": "OL_REFRESH_09",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL09.DATEHOUR",
+      "command_template": "OL_09_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL09.ID",
+      "command_template": "OL_09_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL10.DATEHOUR",
+      "command_template": "OL_10_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL10.ID",
+      "command_template": "OL_10_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL11.DATEHOUR",
+      "command_template": "OL_11_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL11.ID",
+      "command_template": "OL_11_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL12.DATEHOUR",
+      "command_template": "OL_12_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL12.ID",
+      "command_template": "OL_12_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL13.DATEHOUR",
+      "command_template": "OL_13_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL13.ID",
+      "command_template": "OL_13_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL14.DATEHOUR",
+      "command_template": "OL_14_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL14.ID",
+      "command_template": "OL_14_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL15.DATEHOUR",
+      "command_template": "OL_15_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL15.ID",
+      "command_template": "OL_15_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL16.DATEHOUR",
+      "command_template": "OL_16_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL16.ID",
+      "command_template": "OL_16_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL17.R",
+      "command_template": "OL_REFRESH_17",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL17.DATEHOUR",
+      "command_template": "OL_17_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL17.ID",
+      "command_template": "OL_17_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL18.DATEHOUR",
+      "command_template": "OL_18_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL18.ID",
+      "command_template": "OL_18_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL19.DATEHOUR",
+      "command_template": "OL_19_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL19.ID",
+      "command_template": "OL_19_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL20.DATEHOUR",
+      "command_template": "OL_20_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL20.ID",
+      "command_template": "OL_20_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL21.DATEHOUR",
+      "command_template": "OL_21_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL21.ID",
+      "command_template": "OL_21_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL22.DATEHOUR",
+      "command_template": "OL_22_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL22.ID",
+      "command_template": "OL_22_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL23.DATEHOUR",
+      "command_template": "OL_23_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL23.ID",
+      "command_template": "OL_23_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL24.DATEHOUR",
+      "command_template": "OL_24_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL24.ID",
+      "command_template": "OL_24_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL25.R",
+      "command_template": "OL_REFRESH_25",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL25.DATEHOUR",
+      "command_template": "OL_25_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL25.ID",
+      "command_template": "OL_25_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL26.DATEHOUR",
+      "command_template": "OL_26_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL26.ID",
+      "command_template": "OL_26_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL27.DATEHOUR",
+      "command_template": "OL_27_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL27.ID",
+      "command_template": "OL_27_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL28.DATEHOUR",
+      "command_template": "OL_28_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL28.ID",
+      "command_template": "OL_28_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL29.DATEHOUR",
+      "command_template": "OL_29_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL29.ID",
+      "command_template": "OL_29_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL30.DATEHOUR",
+      "command_template": "OL_30_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL30.ID",
+      "command_template": "OL_30_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL31.DATEHOUR",
+      "command_template": "OL_31_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL31.ID",
+      "command_template": "OL_31_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL32.DATEHOUR",
+      "command_template": "OL_32_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL32.ID",
+      "command_template": "OL_32_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL33.R",
+      "command_template": "OL_REFRESH_33",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL33.DATEHOUR",
+      "command_template": "OL_33_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL33.ID",
+      "command_template": "OL_33_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL34.DATEHOUR",
+      "command_template": "OL_34_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL34.ID",
+      "command_template": "OL_34_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL35.DATEHOUR",
+      "command_template": "OL_35_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL35.ID",
+      "command_template": "OL_35_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL36.DATEHOUR",
+      "command_template": "OL_36_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL36.ID",
+      "command_template": "OL_36_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL37.DATEHOUR",
+      "command_template": "OL_37_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL37.ID",
+      "command_template": "OL_37_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL38.DATEHOUR",
+      "command_template": "OL_38_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL38.ID",
+      "command_template": "OL_38_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL39.DATEHOUR",
+      "command_template": "OL_39_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL39.ID",
+      "command_template": "OL_39_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL40.DATEHOUR",
+      "command_template": "OL_40_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL40.ID",
+      "command_template": "OL_40_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL41.R",
+      "command_template": "OL_REFRESH_41",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL41.DATEHOUR",
+      "command_template": "OL_41_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL41.ID",
+      "command_template": "OL_41_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL42.DATEHOUR",
+      "command_template": "OL_42_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL42.ID",
+      "command_template": "OL_42_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL43.DATEHOUR",
+      "command_template": "OL_43_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL43.ID",
+      "command_template": "OL_43_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL44.DATEHOUR",
+      "command_template": "OL_44_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL44.ID",
+      "command_template": "OL_44_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL45.DATEHOUR",
+      "command_template": "OL_45_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL45.ID",
+      "command_template": "OL_45_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL46.DATEHOUR",
+      "command_template": "OL_46_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL46.ID",
+      "command_template": "OL_46_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL47.DATEHOUR",
+      "command_template": "OL_47_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL47.ID",
+      "command_template": "OL_47_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL48.DATEHOUR",
+      "command_template": "OL_48_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL48.ID",
+      "command_template": "OL_48_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL49.R",
+      "command_template": "OL_REFRESH_49",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL49.DATEHOUR",
+      "command_template": "OL_49_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL49.ID",
+      "command_template": "OL_49_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL50.DATEHOUR",
+      "command_template": "OL_50_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL50.ID",
+      "command_template": "OL_50_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL51.DATEHOUR",
+      "command_template": "OL_51_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL51.ID",
+      "command_template": "OL_51_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL52.DATEHOUR",
+      "command_template": "OL_52_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL52.ID",
+      "command_template": "OL_52_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL53.DATEHOUR",
+      "command_template": "OL_53_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL53.ID",
+      "command_template": "OL_53_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL54.DATEHOUR",
+      "command_template": "OL_54_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL54.ID",
+      "command_template": "OL_54_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL55.DATEHOUR",
+      "command_template": "OL_55_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL55.ID",
+      "command_template": "OL_55_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL56.DATEHOUR",
+      "command_template": "OL_56_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL56.ID",
+      "command_template": "OL_56_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL57.R",
+      "command_template": "OL_REFRESH_57",
+      "category": "REFRESH"
+    },
+    {
+      "工程ID": "E15.OL57.DATEHOUR",
+      "command_template": "OL_57_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL57.ID",
+      "command_template": "OL_57_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL58.DATEHOUR",
+      "command_template": "OL_58_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL58.ID",
+      "command_template": "OL_58_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL59.DATEHOUR",
+      "command_template": "OL_59_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL59.ID",
+      "command_template": "OL_59_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL60.DATEHOUR",
+      "command_template": "OL_60_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL60.ID",
+      "command_template": "OL_60_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL61.DATEHOUR",
+      "command_template": "OL_61_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL61.ID",
+      "command_template": "OL_61_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL62.DATEHOUR",
+      "command_template": "OL_62_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL62.ID",
+      "command_template": "OL_62_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL63.DATEHOUR",
+      "command_template": "OL_63_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL63.ID",
+      "command_template": "OL_63_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL64.DATEHOUR",
+      "command_template": "OL_64_DATEHOUR?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "E15.OL64.ID",
+      "command_template": "OL_64_ID?",
+      "category": "QUERY"
+    },
+    {
+      "工程ID": "F01",
+      "command_template": "TEST_END",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "F02",
+      "command_template": "PICO_SELF_CHECK?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "F03",
+      "command_template": "SD_STATUS?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "F04",
+      "command_template": "LOG_DROP_COUNT?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "F05",
+      "command_template": "SD_USAGE?",
+      "category": "LOGGER"
+    },
+    {
+      "工程ID": "D01",
+      "command_template": "COMM_STATUS?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "D02",
+      "command_template": "RETRY_COUNT?",
+      "category": "DIAGNOSTIC"
+    },
+    {
+      "工程ID": "D03",
+      "command_template": "HOST_INFO? METER",
+      "category": "HOST_MANAGEMENT"
+    },
+    {
+      "工程ID": "D04",
+      "command_template": "HOST_RESET METER",
+      "category": "HOST_MANAGEMENT"
+    },
+    {
+      "工程ID": "D05",
+      "command_template": "HOST_INFO? METER",
+      "category": "HOST_MANAGEMENT"
+    },
+    {
+      "工程ID": "D06",
+      "command_template": "EXT_QUERY {T_EXT} *IDN?",
+      "category": "EXTERNAL"
+    },
+    {
+      "工程ID": "D07",
+      "command_template": "SD_REINIT",
+      "category": "LOGGER"
+    }
+  ]
+}

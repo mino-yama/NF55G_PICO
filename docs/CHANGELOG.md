@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2026-11-23 実機総合フローと付属照合コマンド Rev.0
+
+- 原典NF55192-G_S1.docxの本文と第7章埋込み画面を読取り、TEST_START→SC/D0日時照合→D5/FW→QR/SS/D5→初期設定→3系統2点の測定/明示AD/別AR個別照合→計測→消去/寿命設定→TEST_END/保存確認を一つの手順に整理した。[総合フロー](Integrated_Hardware_Flow_20261123_Rev0.md)、[付属CSV](Integrated_Hardware_Flow_Commands_20261123_Rev0.csv)を新規作成。
+- AD/AR正式入口と個別照合は未実装の停止点として表示。小数は実機書込み・読出しを先に行い、その結果を山田から設計へ確認する指示を反映。原典の補正点と後日指示値、UNIT更新とADU/BBU書込み範囲、CLEAR_DATA対応、SET_LIFE設定値の未確定範囲をOpen Issuesへ追記し、原典・仕様・Issue状態は独断変更していない。
+- 付属CSV399行中、固定・引数置換可能な378行を現parserへ照合しUNKNOWNなし。代入値は構文照合専用で既定実機値ではない。EL32件/OL64件の全ブロック・全照会を展開。コード/FW/実機変更およびHost Unit/Mock・実機試験の新規実行なし。
+
+## 2026-11-23 ATEプログラム作成者向けコマンド一覧 Rev.2
+
+- README／CHANGELOGを先に参照し、ATE Master、Cache、追加のHOST管理／ADC取得／QR→SS仕様、現行parser・処理と実機結果を照合。`ATE_Command_List_for_Test_Program_Rev2_20261123.md`／`.docx`を新規作成し、Rev.1とRev.0-draftは保持した。
+- D0 T2=300msとATE UART 57600bpsを反映。EXT_QUERY／EXT_SEND、HOST_INFO?／HOST_RESET METER、CAL_MEASURE／CAL_MEASUREMENT?、QR_SCAN／GET?／DATA?／WRITE／CANCELについて引数・応答・順序・Cache失効・成否不明・実装有無を追加した。
+- QRはREV3＋空白→UNIT_REV、YYWW→UNIT_LOT、号機→UNIT_SERIALとし、FW／ADU／BBU／予約は変更なし指定。明示D5読戻しと、旧HOST内遅着・電源再投入保持の未受入を明記。AD／ARと直接SERIAL書込みは未実装、既存IssueはOpen継続。READMEへ最新版の参照を追加した。
+- Host Unit／Mock NF55G全527件成功（28.000秒）。表の実装印181件、固定名157件と追加入口の代表構文を現行parserへ照合。Rev.0／Rev.1の4ファイルはSHA-256一致で未変更を確認。WordをPDF・画像化して表幅・見出し繰返し・折返し・改ページを確認し、git diff --checkも成功した。FW／製品仕様の変更・実機操作なし。
+
 2026-11-23 QR→NF55G SS書込み実装・実機成功: ユーザー承認のREV3＋空白／YYWW／号機をUNIT欄へ、他欄は変更なし指定で送る。QR_SCAN／GET?／DATA?／WRITE／CANCEL、起動・試行・取得ID、最初の1件固定、照会gate、書込み後消費、SS DATA/INFO失効を追加。親7ファイル退避・配置hash一致・再起動。全527件回帰成功。実ATEでQR2連続→SS一回→D5の明示読戻し、A1.末尾空白／2601／000001を完全一致確認。FW/ADU/BBU/予約/設定不変、CSV80行14列／6,283byte／親PC SHA一致、通信中SD write/flush0。旧QRのHOST内遅着境界・電源再投入保持は未検証。[実装仕様](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
 
 2026-11-23 NF55G SS書込み検証の準備: ユーザー指示を受け、原典r1 SS DATA50文字と既存未実装範囲を照合。読取専用ガードでD5を実行しS1.14B／UNIT_REV A5.（末尾空白）／LOT2610／号機000832、ADU・BBU各ゼロを退避。SS送信なし。QR A1.の4文字格納、LOT／号機対応、ADU／BBUの書込値を確認中。2連続読取→取得値保持→ATE確認→別指令SS→明示D5照合の検証手順を保存。[準備記録](QR_Hardware_Integration_20261123_01/NF55G_SS_Verification_Plan_20261123_Rev0.md)。

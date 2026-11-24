@@ -1,5 +1,9 @@
 # Open Issues
 
+2026-11-23 実機総合フローの原典照合（Open継続）：NF55192-G_S1.docx第7章の本文・画面を確認。原典§7.3はDISCHG_I A45/B1.5A、BATT_CHG A0.4/B1.85A、BATT_V A5/B10Vで、後日のユーザー確認値（44/0.3、1.85/0.5、8/5）と異なる。最新指示値を保持し、量産適用時に原典の適用版・対応を人間確認する。原典の初期設定・補正画面例を合格値として採用しない。§7.5はCLEAR_DATA／CLEAR_LOGに加えSET_LIFEも要求。SL入口は実装済みだが量産設定値は未確定、CLEAR_DATAとの正式対応はATE-CLEAR-01継続。原典§7.1のADU/BBUを含む9欄の書込みと、現行QR_WRITEのUNIT3欄更新の範囲も区別する。新しい仕様確定・Issue Close・実機試験は行っていない。[総合フローと停止点](Integrated_Hardware_Flow_20261123_Rev0.md)。
+
+2026-11-23 AD/AR小数の進め方をユーザー指定：実機で小数を含むAD書込み→明示AR読出しを先に検証し、その結果を山田から設計へ確認する。小数挙動の設計回答待ちで診断試験を止めない。対象FW・送信条件・元値保全を確認した診断経路と、正式API・個別照合仕様の確定は分離する。送信原文・読戻し原文・内部観測の有無を記録し、ARだけで内部保存値を断定しない。試験未実施、関連IssueはOpen継続。[試験計画](ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md)／[予定表Rev.1](Development_to_Production_Schedule_20261124_Rev1.txt)。
+
 2026-11-23 OI-23進捗（Open継続）: ユーザーがQR REV3＋空白→UNIT_REV4、YYWW→LOT、号機→SERIAL、ADU／BBU維持を了承し実行指定。取得ID付きQR Cache・照会・明示SS・消費を親へ実装・配置し、実ATEから同QR二連続読取→確定SS一回→D5前後照合が成功。FW S1.14B／ADU／BBU／予約／PARAMETER不変、書込値A1.末尾空白／2601／000001、CSV原文hash一致。残件は親受付前からHOST内で処理中の旧読取の識別（現wireはTXのみ・要求IDなし）、RST不要cold-start、再投入保持・量産統合条件。今回の成功でOI全体をCloseしない。[現仕様](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機証跡](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
 
 2026-11-23 QR修正版実機追記（Open継続）: 新版配置・独立verify後、Run_05／06は0byte、配線確認・QR HOST RST後Run_07で新版boot／個体ID一致と実原文35文字5件完全一致を確認。REV A1.と号機000001を保持、drop／解析エラー0。今回RST後の受信・分解まで前進。0byte原因・RST不要cold-start・トリガーとの対応・正式ATE／Cache／SS変換は未確定のまま。[限定結果](QR_Hardware_Integration_20261123_01/Write_Read_Test_Result_20261123_Rev0.md)。

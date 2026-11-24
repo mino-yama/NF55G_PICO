@@ -1,5 +1,9 @@
 # NF55G Pico 2 試験治具
 
+## ATEプログラム作成者向けコマンド一覧
+
+最新版は2026-11-23の **Rev.2**: [Word版](docs/ATE_Command_List_for_Test_Program_Rev2_20261123.docx) ／ [Markdown版](docs/ATE_Command_List_for_Test_Program_Rev2_20261123.md)。D0 T2=300ms、ATE 57600bps、外部測定器中継、測定器HOST情報／通常RST、CAL測定取得・照会、QR確認後のSS書込みと明示読戻しを反映した。実装有無と限定実機確認を分け、AD／AR・直接SERIAL書込み等の未実装と残Issueを明記する。Rev.1／Rev.0-draftは履歴として保持する。
+
 2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
 
 2026-11-20 .3実機で設定Query5種×12周（60件、機器応答総1035byte）と終了エラーQueryを成功。全周で原文/書式/長さ一致、CONFは正常なVOLT +1.999999E+01,+1.000000E-06、AUTO=1、エラー0。先行の応答崩れは今回再現せず、受信健全性を確認。固定20V切替/前面一致/測定は未実施でレンジIssue等はOpen維持。COM7解放済み。 [結果](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/CONF_FIFO_Validation_01/Result_Rev0.md)。
