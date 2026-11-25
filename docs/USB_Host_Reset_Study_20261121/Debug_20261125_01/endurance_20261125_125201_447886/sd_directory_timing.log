@@ -1,0 +1,4 @@
+ILISTDIR 320 338184 1271
+Traceback (most recent call last):
+  File "<stdin>", line 32, in <module>
+MemoryError: memory allocation failed, allocating 1784 bytes

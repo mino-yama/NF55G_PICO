@@ -1,0 +1,54 @@
+test_all_response_lengths_and_packet_splits_keep_original (test_external_meter_rx_service.MeterRxServiceTests.test_all_response_lengths_and_packet_splits_keep_original) ... FAIL
+test_complete_response_and_queued_extra_never_emit_success (test_external_meter_rx_service.MeterRxServiceTests.test_complete_response_and_queued_extra_never_emit_success) ... 
+  test_complete_response_and_queued_extra_never_emit_success (test_external_meter_rx_service.MeterRxServiceTests.test_complete_response_and_queued_extra_never_emit_success) (boundary=64) ... FAIL
+  test_complete_response_and_queued_extra_never_emit_success (test_external_meter_rx_service.MeterRxServiceTests.test_complete_response_and_queued_extra_never_emit_success) (boundary=128) ... FAIL
+test_deadline_keeps_ambiguous_and_does_not_return_partial (test_external_meter_rx_service.MeterRxServiceTests.test_deadline_keeps_ambiguous_and_does_not_return_partial) ... ok
+test_empty_fifo_does_not_rearm_usb (test_external_meter_rx_service.MeterRxServiceTests.test_empty_fifo_does_not_rearm_usb) ... ok
+test_full_fifo_overlong_response_fails_without_truncation (test_external_meter_rx_service.MeterRxServiceTests.test_full_fifo_overlong_response_fails_without_truncation) ... FAIL
+test_unsolicited_fifo_is_checked_before_next_request (test_external_meter_rx_service.MeterRxServiceTests.test_unsolicited_fifo_is_checked_before_next_request) ... FAIL
+
+======================================================================
+FAIL: test_all_response_lengths_and_packet_splits_keep_original (test_external_meter_rx_service.MeterRxServiceTests.test_all_response_lengths_and_packet_splits_keep_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_rx_service.py", line 155, in test_all_response_lengths_and_packet_splits_keep_original
+    self.assertFalse(self.lib.pending(), (length, split))
+AssertionError: 1 is not false : (65, 0)
+
+======================================================================
+FAIL: test_complete_response_and_queued_extra_never_emit_success (test_external_meter_rx_service.MeterRxServiceTests.test_complete_response_and_queued_extra_never_emit_success) (boundary=64)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_rx_service.py", line 137, in test_complete_response_and_queued_extra_never_emit_success
+    self.assertEqual(self.lib.remaining(), 0)
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_complete_response_and_queued_extra_never_emit_success (test_external_meter_rx_service.MeterRxServiceTests.test_complete_response_and_queued_extra_never_emit_success) (boundary=128)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_rx_service.py", line 137, in test_complete_response_and_queued_extra_never_emit_success
+    self.assertEqual(self.lib.remaining(), 0)
+AssertionError: 65 != 0
+
+======================================================================
+FAIL: test_full_fifo_overlong_response_fails_without_truncation (test_external_meter_rx_service.MeterRxServiceTests.test_full_fifo_overlong_response_fails_without_truncation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_rx_service.py", line 163, in test_full_fifo_overlong_response_fails_without_truncation
+    self.assertTrue(self.lib.fault())
+AssertionError: 0 is not true
+
+======================================================================
+FAIL: test_unsolicited_fifo_is_checked_before_next_request (test_external_meter_rx_service.MeterRxServiceTests.test_unsolicited_fifo_is_checked_before_next_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_external_meter_rx_service.py", line 172, in test_unsolicited_fifo_is_checked_before_next_request
+    self.assertEqual(self.lib.remaining(), 0)
+AssertionError: 64 != 0
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.522s
+
+FAILED (failures=5)
+EXPECTED_LEGACY_FAILURES_CONFIRMED

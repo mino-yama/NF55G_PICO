@@ -1,0 +1,12 @@
+{
+  "purpose": "Close late TEST_START T000320 without measurement",
+  "events": [
+    {
+      "command": "TEST_END",
+      "tx_hex": "544553545f454e440d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 172.0,
+      "reply": "OK"
+    }
+  ]
+}

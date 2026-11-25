@@ -1,0 +1,16 @@
+{
+  "started": "2026-11-25T09:52:02.514101+09:00",
+  "planned_trials": 400,
+  "completed_trials": 302,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "status": "STOPPED",
+  "csv_recovery": "PENDING",
+  "session": "84a4e518b604ec0deed304e1b2a70051",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "error": "RuntimeError(\"EXT_QUERY 10000 :READ?: unexpected HOST frames ('A', 'T', 'E'); expected ('A', 'T', 'R')\")",
+  "stopped_trial": 303,
+  "ended": "2026-11-25T10:06:06.512421+09:00"
+}

@@ -1,0 +1,11 @@
+{
+  "version": "meter-host-relay-20261125.1",
+  "status": "SOURCE_CANDIDATE_NOT_DEPLOYED",
+  "hashes": {
+    "firmware/usb_submcu_external_meter_host/relay_cdc_rx.c": "b828cde4f5e55122b20208f083950e781272a6ec71aca6528844979a64f607ae",
+    "firmware/usb_submcu_external_meter_host/relay_cdc_rx.h": "c0dbc4a2f8ccdee4aa87d1a44dbb9c94bf2ff1e0683e65cfad116d52908df0bf",
+    "firmware/usb_submcu_external_meter_host/relay_main.c": "50e1c184238ea8bbd2419990687e7cfb9af1822227b6a3f258346edab79ea12e",
+    "firmware/usb_submcu_external_meter_host/CMakeLists.txt": "b1841ef39cfbbbbbc038bd178db3ca680ce71ac1a1a39ba445f5b34a3f441fc0",
+    "tests/test_external_meter_rx_service.py": "53a6a82cb448dc7281dd13d00686581539134aa645104db793e8ba96d26ea348"
+  }
+}

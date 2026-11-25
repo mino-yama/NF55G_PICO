@@ -1,0 +1,5 @@
+RANGE|[245, 547]
+Traceback (most recent call last):
+  File "<stdin>", line 17, in <module>
+  File "src/sd_card.py", line 155, in readblocks
+OSError: read failed

@@ -1,0 +1,94 @@
+{
+  "operator_reading": "cannot lower current shunt setting further",
+  "target": "BATT_CHG",
+  "point": "A",
+  "product_point": "P1",
+  "measure_only": true,
+  "events": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2a49444e3f0d",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d",
+      "elapsed_ms": 63.0,
+      "reply": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "tx_hex": "434f4d4d5f5354415455533f0d",
+      "raw_hex": "4f4b3a73746174653d49444c450d",
+      "elapsed_ms": 62.0,
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "tx_hex": "53445f5354415455533f0d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 63.0,
+      "reply": "OK"
+    },
+    {
+      "command": "INFO_REFRESH",
+      "tx_hex": "494e464f5f524546524553480d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 93.0,
+      "reply": "OK"
+    },
+    {
+      "command": "FW_REV?",
+      "tx_hex": "46575f5245563f0d",
+      "raw_hex": "53312e3134420d",
+      "elapsed_ms": 63.0,
+      "reply": "S1.14B"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "tx_hex": "554e49545f53455249414c3f0d",
+      "raw_hex": "3030303030310d",
+      "elapsed_ms": 62.0,
+      "reply": "000001"
+    },
+    {
+      "command": "AD_VERIFY BATT_CHG P1",
+      "tx_hex": "41445f56455249465920424154545f4348472050310d",
+      "raw_hex": "4552523a43414c5f4e4f5f4143544956455f545249414c0d",
+      "elapsed_ms": 47.0,
+      "reply": "ERR:CAL_NO_ACTIVE_TRIAL"
+    },
+    {
+      "command": "TEST_START",
+      "tx_hex": "544553545f53544152540d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 1157.0,
+      "reply": "OK"
+    },
+    {
+      "command": "AD_VERIFY BATT_CHG P1",
+      "tx_hex": "41445f56455249465920424154545f4348472050310d",
+      "raw_hex": "4552523a41445f5645524946595f4e4f5f57524954450d",
+      "elapsed_ms": 62.0,
+      "reply": "ERR:AD_VERIFY_NO_WRITE"
+    },
+    {
+      "command": "CAL_MEASURE BATT_CHG A 4000 :READ?",
+      "tx_hex": "43414c5f4d45415355524520424154545f43484720412034303030203a524541443f0d",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030322d30303030303030322d424154545f4348472d410d",
+      "elapsed_ms": 828.0,
+      "reply": "OK:CAL_MEASURE:00000002-00000002-BATT_CHG-A"
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000002-00000002-BATT_CHG-A",
+      "tx_hex": "43414c5f4d4541535552454d454e543f2030303030303030322d30303030303030322d424154545f4348472d410d",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030322d30303030303030322d424154545f4348472d413a424154545f4348473a413a2b303030392e313738452b30303a6d563a2b303030392e313738452b30303a413a3242333033303330333932453331333733383435324433303333304430410d",
+      "elapsed_ms": 47.0,
+      "reply": "OK:CAL_MEASUREMENT:00000002-00000002-BATT_CHG-A:BATT_CHG:A:+0009.178E+00:mV:+0009.178E+00:A:2B303030392E313738452D30330D0A"
+    },
+    {
+      "command": "TEST_END",
+      "tx_hex": "544553545f454e440d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 266.0,
+      "reply": "OK"
+    }
+  ],
+  "status": "TRIAL_COMPLETE"
+}

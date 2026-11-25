@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-25T10:24:31.261843+09:00",
+  "port": "COM26",
+  "hwid": "USB VID:PID=1334:0309 SER=24641009900 LOCATION=1-4.3",
+  "baud": 9600,
+  "dtr": true,
+  "rts": true,
+  "status": "SUCCESS",
+  "preexisting_hex": "",
+  "tx_hex": "2a49444e3f0d0a",
+  "elapsed_ms": 47.0,
+  "rx_hex": "41444320436f72702e2c373335352c3234363431303039392c20204130320d0a"
+}

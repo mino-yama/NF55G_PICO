@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## 2026-11-25 校正コマンドの回路名対応
+
+- 回路名と点から現試行の最新Cacheを指定するATEコマンドを追加。Pico側の校正値上限を削除し、回路名付き読戻しでは比較に使う原文とADC値をATEへ返す。 [手順と応答](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md)
+
+## 2026-11-25 7355実測値を使うサンプル校正のATE入口
+
+- 取得ID指定の `CAL_WRITE` と、別指令 `AD_VERIFY` を通常ATE経路に接続した。サンプル診断の有効化、試行内の個体照合、照会済みCache、ADコマンド1回を検証する。 [手順](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev0.md)
+
+## 2026-11-25 親PicoのSD再認識を短縮
+
+- BANK内のログのサイズをディレクトリ一覧から取得し、各ファイルへの個別 `stat` を削減した。旧形式のファイル名、試行番号、所有マーカー、再認識の条件を維持する。
+
+## 2026-11-25 測定器HOSTのUSB OUT応答診断
+
+- 診断候補 `.25.2` のタイムアウトEへ、対象bulk OUTのACK／NAK／その他・最終PID・エンドポイントを追記する。既存のIN診断と合わせて同一要求を追える。Host Unit／Mock NF55G 535件成功。[診断記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Host_OUT_ACK_Diagnostic_Rev0.md)
+
+## 2026-11-25 試験終了直後のATE応答を優先
+
+- 実機続報。親Picoへ配置し、単発と耐久302セットで終了直後の自己診断を確認。第303セットは7355 READがRX0・IN全NAKで停止。試験後のSD CSV回収も読出しエラーで停止。[実機結果](USB_Host_Reset_Study_20261121/Debug_20261125_01/ATE_Post_End_Stability_Rev0.md)
+- `TEST_END`／`LOG_CONT_STOP` 後の同期SD再認識を、ATE接続時は連続250 msの通信待機まで延期。直後に到着する自己診断を先に処理する。通常のログ排出は従来のスケジュールで処理する。
+- `TEST_END` の応答後120 msに到着する自己診断と、待機後の一回限りの再認識をMockで検証。実機の初回無応答との因果関係はOpenで追跡する。
+
+## 2026-11-25 USB HOST受信境界の改善候補
+
+- 実機続報: 短い中間パスでARMビルド完了。旧Flash 2MiBを退避し、測定器HOSTへ `.25.1` を書込み・独立verify・版照合。固定配線に復帰後、7355 IDN 1件が原文32byte一致、375ms。HOST nonce不変、SD OK、drop 0。単発測定・耐久は未実施。[実機記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Hardware_Test_Attempt_Rev0.md)
+- 続報: 旧64byte処理で期待した5失敗を再現し、候補.25.1の全Host Unit／Mock NF55G 534件と `git diff --check` が成功。ARM独立ビルドはコンパイラABI確認で停止し、候補UF2の生成・配置は保留。[検証記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Firmware_Verification_20261125_Rev0.md)
+- 256byte CDC FIFOの既着データを旧64byte単位で区切ることで、余分なデータの検出前に正常R／次Q受付へ進み得る箇所を修正。実受信serviceを分離しFIFO容量分を一括検査する。候補版meter-host-relay-20261125.1、SCPI自動再送・期限延長・fault解除なし。
+- 新規実C回帰6件成功、変更前Host/Mock全528件成功。COM5実機事前照会5件成功、既存.23.2 READY、SD正常、drop0。旧処理の期待失敗再現・変更後全体回帰・ARMビルド完了・新FW配置はOSプロセス生成のアクセス拒否により未完了。timeout原因／耐久受入の解決扱いにしない。[記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Result_Rev0.md)。
+
+## 2026-11-24 CDCエラー値後のREAD継続
+
+- 受入条件を補足: 完全応答でATEへ届いたREADエラー値/OLはATEが判定し、必要なら明示した次READを発行する。Pico/Hostは値の意味だけではfault停止せず、後続要求を処理する。通信timeout/AMBIGUOUS等は別扱いとし、自動再送しない。
+- `tests/test_external_instrument_link.py`に実C HOST/親リンク回帰を追加。overrange相当応答の原文保持、次の明示READ成功、HOST faultなしを検証。Host/Mock全528件成功。実機エラー値後続READと400セット耐久試験は未実施。
+
+## 2026-11-24 CDCレンジ責任と耐久受入基準
+
+- ユーザー決定により7355レンジ相違の原因追跡を終了し、ATEがレンジを選択、Pico/Hostは指定本文を中継する責任分担を確定。USB-CDC-RANGE-01は技術的原因解決ではなく運用決定として終了扱いにし、過去のCONF原文は履歴に保持。
+- USB HOST CDCの限定量産前受入を、固定電源/配線・リセットなしで24時間以内にTEST_START～TEST_ENDを400セット完了と定義。各回READ一回、Logger/SD/dropとHOST応答相関を照合し、再送なし。受入計画を追加した。実機400セットは未実施のため量産適合判定は保留。
+- 直近の単発40mV入力確認は約2V読戻しレンジで+0040.154E-03 V、TEST_LOGGER/TEST_LOG_DROP/SD正常・drop0。入力精度や製品合否は評価していない。
+
 ## 2026-11-23 実機総合フローと付属照合コマンド Rev.0
 
 - 原典NF55192-G_S1.docxの本文と第7章埋込み画面を読取り、TEST_START→SC/D0日時照合→D5/FW→QR/SS/D5→初期設定→3系統2点の測定/明示AD/別AR個別照合→計測→消去/寿命設定→TEST_END/保存確認を一つの手順に整理した。[総合フロー](Integrated_Hardware_Flow_20261123_Rev0.md)、[付属CSV](Integrated_Hardware_Flow_Commands_20261123_Rev0.csv)を新規作成。

@@ -1,0 +1,158 @@
+{
+  "operator_reading": "last reported setting, no adjustment confirmation since previous read",
+  "target": "BATT_CHG",
+  "point": "A",
+  "product_point": "P1",
+  "measure_only": false,
+  "events": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2a49444e3f0d",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d",
+      "elapsed_ms": 63.0,
+      "reply": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "tx_hex": "434f4d4d5f5354415455533f0d",
+      "raw_hex": "4f4b3a73746174653d49444c450d",
+      "elapsed_ms": 62.0,
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "tx_hex": "53445f5354415455533f0d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 63.0,
+      "reply": "OK"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "tx_hex": "484f53545f494e464f3f204d455445520d",
+      "raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a343438344236323441423231313331353a52454144590d",
+      "elapsed_ms": 234.0,
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:4484B624AB211315:READY"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "tx_hex": "4c4f475f44524f505f434f554e543f0d",
+      "raw_hex": "300d",
+      "elapsed_ms": 63.0,
+      "reply": "0"
+    },
+    {
+      "command": "INFO_REFRESH",
+      "tx_hex": "494e464f5f524546524553480d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 125.0,
+      "reply": "OK"
+    },
+    {
+      "command": "FW_REV?",
+      "tx_hex": "46575f5245563f0d",
+      "raw_hex": "53312e3134420d",
+      "elapsed_ms": 62.0,
+      "reply": "S1.14B"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "tx_hex": "554e49545f53455249414c3f0d",
+      "raw_hex": "3030303030310d",
+      "elapsed_ms": 63.0,
+      "reply": "000001"
+    },
+    {
+      "command": "AD_VERIFY BATT_CHG P1",
+      "tx_hex": "41445f56455249465920424154545f4348472050310d",
+      "raw_hex": "4552523a43414c5f4e4f5f4143544956455f545249414c0d",
+      "elapsed_ms": 62.0,
+      "reply": "ERR:CAL_NO_ACTIVE_TRIAL"
+    },
+    {
+      "command": "TEST_START",
+      "tx_hex": "544553545f53544152540d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 1172.0,
+      "reply": "OK"
+    },
+    {
+      "command": "INFO_REFRESH",
+      "tx_hex": "494e464f5f524546524553480d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 94.0,
+      "reply": "OK"
+    },
+    {
+      "command": "FW_REV?",
+      "tx_hex": "46575f5245563f0d",
+      "raw_hex": "53312e3134420d",
+      "elapsed_ms": 62.0,
+      "reply": "S1.14B"
+    },
+    {
+      "command": "UNIT_SERIAL?",
+      "tx_hex": "554e49545f53455249414c3f0d",
+      "raw_hex": "3030303030310d",
+      "elapsed_ms": 63.0,
+      "reply": "000001"
+    },
+    {
+      "command": "AD_VERIFY BATT_CHG P1",
+      "tx_hex": "41445f56455249465920424154545f4348472050310d",
+      "raw_hex": "4552523a41445f5645524946595f4e4f5f57524954450d",
+      "elapsed_ms": 47.0,
+      "reply": "ERR:AD_VERIFY_NO_WRITE"
+    },
+    {
+      "command": "CAL_MEASURE BATT_CHG A 4000 :READ?",
+      "tx_hex": "43414c5f4d45415355524520424154545f43484720412034303030203a524541443f0d",
+      "raw_hex": "4f4b3a43414c5f4d4541535552453a30303030303030312d30303030303030312d424154545f4348472d410d",
+      "elapsed_ms": 1015.0,
+      "reply": "OK:CAL_MEASURE:00000001-00000001-BATT_CHG-A"
+    },
+    {
+      "command": "CAL_MEASUREMENT? 00000001-00000001-BATT_CHG-A",
+      "tx_hex": "43414c5f4d4541535552454d454e543f2030303030303030312d30303030303030312d424154545f4348472d410d",
+      "raw_hex": "4f4b3a43414c5f4d4541535552454d454e543a30303030303030312d30303030303030312d424154545f4348472d413a424154545f4348473a413a2b303030392e313734452b30303a6d563a2b303030392e313734452b30303a413a3242333033303330333932453331333733343435324433303333304430410d",
+      "elapsed_ms": 235.0,
+      "reply": "OK:CAL_MEASUREMENT:00000001-00000001-BATT_CHG-A:BATT_CHG:A:+0009.174E+00:mV:+0009.174E+00:A:2B303030392E313734452D30330D0A"
+    },
+    {
+      "command": "CAL_WRITE 00000001-00000001-BATT_CHG-A P1",
+      "tx_hex": "43414c5f57524954452030303030303030312d30303030303030312d424154545f4348472d412050310d",
+      "raw_hex": "4552523a43414c5f57524954455f56414c55450d",
+      "elapsed_ms": 62.0,
+      "reply": "ERR:CAL_WRITE_VALUE"
+    },
+    {
+      "command": "TEST_END",
+      "tx_hex": "544553545f454e440d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 235.0,
+      "reply": "OK"
+    },
+    {
+      "command": "PICO_SELF_CHECK?",
+      "tx_hex": "5049434f5f53454c465f434845434b3f0d",
+      "raw_hex": "4f4b3a4154455f554152543d4f4b3b4e4635355f554152543d4f4b3b5254433d4f4b3b4c4f474745523d4f4b3b544553545f4c4f474745523d4f4b3b544553545f4c4f475f44524f503d4f4b0d",
+      "elapsed_ms": 109.0,
+      "reply": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK"
+    },
+    {
+      "command": "SD_STATUS?",
+      "tx_hex": "53445f5354415455533f0d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 62.0,
+      "reply": "OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "tx_hex": "4c4f475f44524f505f434f554e543f0d",
+      "raw_hex": "300d",
+      "elapsed_ms": 47.0,
+      "reply": "0"
+    }
+  ],
+  "status": "STOPPED",
+  "error": "CAL_WRITE 00000001-00000001-BATT_CHG-A P1: ERR:CAL_WRITE_VALUE"
+}

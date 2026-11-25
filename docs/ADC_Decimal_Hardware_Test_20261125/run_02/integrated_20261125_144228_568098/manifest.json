@@ -1,0 +1,18 @@
+{
+  "before": {
+    "calibration_write.py": "c6fd63178473a0617d65e46eb4515185f7cb82792cb610d382e97bc74a866412",
+    "command_parser.py": "b4dcf4cb152a6025b55e67b7d28913b828891b4558a83a98d331fa87dbb3a5ac",
+    "config.py": "a90d56a6aca5bfd0ab612f992fcf426add0bba8082b75089994ea7ef1efb8028",
+    "nf55_protocol.py": "92f025976a0edbd6046f37be658c7fa24060b564a6cf4f18f6deac4332b7de1b",
+    "main.py": "6488eb7a492d8fa4548a85fefdde1134ba34b5302fdbc52ac620a32b005af085",
+    "calibration_measurement.py": "87f023847bef7713d5d33114aa6e44367b71cdde38ca074fc0839769f367abac"
+  },
+  "candidate": {
+    "config.py": "a90d56a6aca5bfd0ab612f992fcf426add0bba8082b75089994ea7ef1efb8028",
+    "calibration_measurement.py": "96c6fc6f5f427ad17d4ab648d35602962527580069aa3a3918686639b9da8728",
+    "command_parser.py": "10146952e837cc6afdc3944de0aa5af40616c574b4913f81ac921cf9219fe25e",
+    "nf55_protocol.py": "92f025976a0edbd6046f37be658c7fa24060b564a6cf4f18f6deac4332b7de1b",
+    "main.py": "ea3bf8e573f65ea0b9f76c66d118a6c51ca88c70622e8ac04385da5d913f917b",
+    "calibration_write.py": "ef6628bd396eef263848a12257e9cfb2c4734c639f246ec024f76d828c131583"
+  }
+}

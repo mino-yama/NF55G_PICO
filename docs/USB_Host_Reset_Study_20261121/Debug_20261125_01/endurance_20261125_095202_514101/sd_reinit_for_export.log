@@ -1,0 +1,4 @@
+BEFORE OK OK BANK_SETUP None
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError: 

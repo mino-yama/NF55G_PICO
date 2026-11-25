@@ -1,0 +1,12 @@
+{
+  "started": "2026-11-25T10:26:00.346260+09:00",
+  "port": "COM26",
+  "hwid": "USB VID:PID=1334:0309 SER=24641009900 LOCATION=1-4.3",
+  "planned": 400,
+  "completed": 400,
+  "read_interval_s": 2.718,
+  "status": "SUCCESS",
+  "initial_hex": "",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "ended": "2026-11-25T10:44:06.011609+09:00"
+}

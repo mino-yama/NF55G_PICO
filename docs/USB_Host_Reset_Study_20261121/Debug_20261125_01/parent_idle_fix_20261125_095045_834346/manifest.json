@@ -1,0 +1,27 @@
+{
+  "uid": "69f7d45962cfdfad",
+  "trials": [
+    {
+      "filename": "20261125_094935_T000244.csv",
+      "reason": "TEST_END",
+      "serial": null,
+      "sd_status": "OK",
+      "drop_count": 0,
+      "trial_id": "T000244"
+    }
+  ],
+  "files": [
+    {
+      "sha256": "6e6fb7ee6baee16072665564d2fce1d4d6d119ae999e37561582729e96258f84",
+      "path": "/src/main.py",
+      "bytes": 22411
+    },
+    {
+      "sha256": "ec001fa161e08ee827b0f0566c3119716181c9a98d799f46e0fe5e3771f3edfd",
+      "path": "/sd/BANK_A/20261125_094935_T000244.csv",
+      "bytes": 1022,
+      "data_rows": 11
+    }
+  ],
+  "parent_matches_git_baseline": false
+}

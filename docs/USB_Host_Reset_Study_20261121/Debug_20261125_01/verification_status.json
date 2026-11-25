@@ -1,0 +1,21 @@
+{
+  "baseline": {
+    "command": "python -m unittest discover -s tests -v",
+    "tests": 528,
+    "seconds": 13.939,
+    "result": "OK"
+  },
+  "new_rx_regression": {
+    "command": "python -m unittest discover -s tests -p test_external_meter_rx_service.py -v",
+    "tests": 6,
+    "seconds": 0.747,
+    "result": "OK",
+    "evidence": "Observed tool execution output"
+  },
+  "post_change_full_suite": "NOT_RUN",
+  "legacy_reproduction": "NOT_RUN",
+  "arm_build": "CONFIGURE_GENERATE_OK_BUILD_COMPLETION_UNCONFIRMED",
+  "deployment": "NOT_PERFORMED",
+  "hardware": "ate_precheck.json",
+  "blocking_error": "CreateProcessAsUserW failed: 5; spawn EPERM"
+}

@@ -1,0 +1,1 @@
+SD_SPI_RESTORED SPI(0, baudrate=24000000, polarity=0, phase=0, bits=8, sck=18, mosi=19, miso=16)

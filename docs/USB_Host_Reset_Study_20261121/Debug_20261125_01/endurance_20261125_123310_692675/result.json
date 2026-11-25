@@ -1,0 +1,15 @@
+{
+  "started": "2026-11-25T12:33:10.692675+09:00",
+  "planned_trials": 1,
+  "completed_trials": 1,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "host_version": "20261125.2",
+  "status": "TRIALS_COMPLETE_CSV_PENDING",
+  "csv_recovery": "PENDING",
+  "session": "7d5de685bc0b9e5c3363029cba05827c",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "ended": "2026-11-25T12:33:14.803574+09:00"
+}

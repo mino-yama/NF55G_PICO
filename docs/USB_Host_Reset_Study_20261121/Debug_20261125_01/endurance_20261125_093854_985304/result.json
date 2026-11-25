@@ -1,0 +1,16 @@
+{
+  "started": "2026-11-25T09:38:54.985304+09:00",
+  "planned_trials": 400,
+  "completed_trials": 0,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "status": "STOPPED",
+  "csv_recovery": "PENDING",
+  "session": "edcd616cfac0d7267abc103d90988f33",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "error": "RuntimeError('Missing or extra ATE response for PICO_SELF_CHECK?')",
+  "stopped_trial": 1,
+  "ended": "2026-11-25T09:39:10.784652+09:00"
+}

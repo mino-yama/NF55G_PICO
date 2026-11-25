@@ -1,0 +1,1 @@
+{"active": false, "last_test_status": "OK", "mount_stage": "CARD_INIT", "sd_last_error": "OSError('CMD0 failed: 63',)", "mounted": false, "logger": "MOUNT_ERR", "last_test": "T000547"}

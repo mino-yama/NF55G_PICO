@@ -1,0 +1,25 @@
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................F.................E..................................................................................
+======================================================================
+ERROR: test_sd_recovery_waits_for_test_end_reply_and_ate_pending_work (test_runtime_integration.RuntimeIntegrationTests.test_sd_recovery_waits_for_test_end_reply_and_ate_pending_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_runtime_integration.py", line 560, in test_sd_recovery_waits_for_test_end_reply_and_ate_pending_work
+    app.clock.advance_ms(250)
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SystemClock' object has no attribute 'advance_ms'
+
+======================================================================
+FAIL: test_logger_failure_does_not_stop_ate_or_nf_and_reinit_recovers (test_runtime_integration.RuntimeIntegrationTests.test_logger_failure_does_not_stop_ate_or_nf_and_reinit_recovers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\tests\test_runtime_integration.py", line 326, in test_logger_failure_does_not_stop_ate_or_nf_and_reinit_recovers
+    self.assertEqual(logger.status(), 'OK')
+AssertionError: 'WRITE_ERR' != 'OK'
+- WRITE_ERR
++ OK
+
+
+----------------------------------------------------------------------
+Ran 535 tests in 9.535s
+
+FAILED (failures=1, errors=1)

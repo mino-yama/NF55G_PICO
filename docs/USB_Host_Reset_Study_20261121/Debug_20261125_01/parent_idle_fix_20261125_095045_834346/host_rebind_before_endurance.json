@@ -1,0 +1,12 @@
+{
+  "events": [
+    {
+      "command": "*IDN?",
+      "tx_hex": "2a49444e3f0d",
+      "raw_hex": "",
+      "elapsed_ms": 12000.0
+    }
+  ],
+  "status": "STOPPED",
+  "error": "RuntimeError('Missing or extra ATE response for *IDN?')"
+}

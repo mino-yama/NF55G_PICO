@@ -1,0 +1,18 @@
+{
+  "started": "2026-11-25T13:03:31.188284+09:00",
+  "planned_trials": 400,
+  "completed_trials": 240,
+  "inter_trial_delay_seconds": 5,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "host_version": "20261125.2",
+  "status": "STOPPED",
+  "csv_recovery": "PENDING",
+  "session": "73dfa50657cdfa87544d61e9d497ce96",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "error": "RuntimeError(\"EXT_QUERY 2000 :SYST:ERR?: ERR:EXT_TIMEOUT:AMBIGUOUS=1; HOST frames ('A', 'T', 'E')\")",
+  "stopped_trial": 241,
+  "ended": "2026-11-25T13:34:33.493415+09:00"
+}

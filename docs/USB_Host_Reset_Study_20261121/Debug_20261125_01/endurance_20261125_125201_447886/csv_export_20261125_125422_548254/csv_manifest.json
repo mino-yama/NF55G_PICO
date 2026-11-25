@@ -1,0 +1,25 @@
+{
+  "csv_count": 2,
+  "planned": 2,
+  "files": [
+    {
+      "bytes": 1054,
+      "path": "/sd/BANK_A/20261125_125202_T000319.csv",
+      "trial": 319,
+      "filename": "20261125_125202_T000319.csv",
+      "sha256": "b22f52eb38ce4cfc48699c5677ee5ea0f1c7610afa7e4a472663b9bd2adf637f",
+      "data_rows": 11,
+      "columns": 14
+    },
+    {
+      "bytes": 1432,
+      "path": "/sd/BANK_A/20261125_125231_T000320.csv",
+      "trial": 320,
+      "filename": "20261125_125231_T000320.csv",
+      "sha256": "ad63adfc687cf19fdaf6ed5540969eaa423f399b9ee503de5bde613a624c59a3",
+      "data_rows": 17,
+      "columns": 14
+    }
+  ],
+  "complete": true
+}

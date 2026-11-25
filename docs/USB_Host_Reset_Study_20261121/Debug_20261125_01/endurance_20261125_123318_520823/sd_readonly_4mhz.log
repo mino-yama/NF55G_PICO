@@ -1,0 +1,5 @@
+SD_PROBE SPI(0, baudrate=4000000, polarity=0, phase=0, bits=8, sck=18, mosi=19, miso=16)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "src/sd_card.py", line 155, in readblocks
+OSError: read failed

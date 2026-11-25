@@ -1,0 +1,2 @@
+STATE False True True T000320 T000319 False 0 False OK READY None
+LAST_HISTORY [{'filename': '20261125_125043_T000318.csv', 'reason': 'TEST_END', 'serial': None, 'sd_status': 'OK', 'drop_count': 0, 'trial_id': 'T000318'}, {'filename': '20261125_125202_T000319.csv', 'reason': 'TEST_END', 'serial': None, 'sd_status': 'OK', 'drop_count': 0, 'trial_id': 'T000319'}]

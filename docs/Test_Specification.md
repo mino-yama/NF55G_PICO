@@ -1,5 +1,17 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-25 測定器HOSTのUSB診断回帰。タイムアウトEへのOUT ACK／NAK／その他・最終PID・エンドポイントの追記で、X1のsession、request、mode、timeout、曖昧フラグを維持することを確認する。通常応答・対象外E・追記でpayload上限を超える場合は従来のフレームを返す。
+
+2026-11-25 ATE終了直後の回帰。`TEST_END` 応答後120 msに到着する `PICO_SELF_CHECK?` を同期SD再認識より先に処理し、最後のATE処理後250 ms連続idleで再認識を1回実施する。未送信応答・待ち要求がある場合と、書込み障害後に再認識できることも検証する。
+
+2026-11-25 CDC既着FIFO境界回帰の続報: 旧64byte処理で期待した5失敗を再現。変更後のHost Unit／Mock NF55Gは新規受信回帰6件を含む全534件成功。ARMビルドと実機耐久の受入は未完了。[検証ログと結果](USB_Host_Reset_Study_20261121/Debug_20261125_01/Firmware_Verification_20261125_Rev0.md)
+
+2026-11-25 CDC既着FIFO境界回帰: `tests/test_external_meter_rx_service.py`で実C受信service＋engineを検証。応答2～192byteと分割境界、64/128byte終端後に既着の余分なデータがある場合のR禁止／fault／次Q拒否、256byte過長、未要求データ、空FIFOでreadを呼ばないこと、期限時の成否不明を6件で確認し成功。USB APIはFIFO stubであり実USB転送試験とは区別する。変更前全Host/Mock528件成功。変更後全体回帰・旧処理再現・ARMビルド完了・実機CDC／400セット耐久は未完了。[検証記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Result_Rev0.md)。
+
+2026-11-24 CDCエラー値後の継続条件: 完全応答としてATEに届いたREADエラー値/OLはATEが判定し、必要なら次READ?を明示発行する。Pico/Hostは値の意味だけではfault停止せず、その後続要求を新規要求として応答する。Pico/Host自動再送はしない。timeout/AMBIGUOUS、応答欠落・破損・相関異常は計器値エラーと分けて停止し、成否不明要求を再送しない。実C HOST/親native回帰でoverrange相当の応答後の次READ成功を追加し、全528件成功。実機でのエラー値後続READと400セット/24時間試験は未確認。
+
+2026-11-24 USB HOST CDC量産前耐久基準: レンジはATEが選択し、Pico/Hostは値を補正・最適化しない。固定した電源/配線条件でTEST_START→7355 READ? 1回→SYST:ERR?→TEST_ENDを1セットとし、24時間以内に400セット完了、Pico/Host/7355をリセットしないことを限定CDC受入条件とする。各回TEST_LOGGER/TEST_LOG_DROP、SD/drop、応答原文、要求とHOST A/T/Rの相関を照合し、timeout/AMBIGUOUS、欠落/重複、ログ異常、drop、切断またはリセットが1件でもあれば不合格・停止、再送しない。設定レンジ値は比較ゲートにしない。基準は[耐久受入計画](USB_Host_Reset_Study_20261121/CDC_Endurance_Acceptance_20261124_Rev0.md)。実機400セットは未実施で、限定CDC受入以外の製品量産適合を示さない。
+
 2026-11-23 QR→SS経路: QR独立11項目追加、全527件成功（14.035秒）。異なる2件目で値を置換しない、照会・ID・試行・消費のgate、timeout／HOST/PIO異常、UART例外・ambiguousでの消費とDATA/INFO失効、明示D5読戻しを検証。実機T000022で同QR2連続→SS一回→D5全100文字比較を成功、UNIT以外不変。CSV80記録14列／親PC SHA一致、通信中SD書込み0。[実機結果と全ログ](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
 
 2026-11-23 QR修正版の実機限定確認: 全516回帰成功のqr-fixed-20261123.1を配置・独立verify。Run_07でRST後のboot／個体／版一致、QR実原文35文字5件全一致、REV A1.／号機000001保持、85レコード連続／drop0／解析エラー0を確認。配線復帰直後の0byte原因、cold-start保証、正式ATE／SSは未受入。[実測と証跡](QR_Hardware_Integration_20261123_01/Write_Read_Test_Result_20261123_Rev0.md)。

@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-25T08:35:57.385020+09:00",
+  "port": "COM5",
+  "baud": 57600,
+  "events": [
+    {
+      "command": "*IDN?",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d",
+      "elapsed_ms": 62.0,
+      "reply": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "raw_hex": "4f4b3a73746174653d49444c450d",
+      "elapsed_ms": 47.0,
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132332e323a364142364237324135383637303945373a52454144590d",
+      "elapsed_ms": 250.0,
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261123.2:6AB6B72A586709E7:READY"
+    },
+    {
+      "command": "SD_STATUS?",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 47.0,
+      "reply": "OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "raw_hex": "300d",
+      "elapsed_ms": 78.0,
+      "reply": "0"
+    }
+  ],
+  "status": "SUCCESS",
+  "initial_hex": ""
+}

@@ -1,0 +1,33 @@
+{
+  "purpose": "failed trial evidence only",
+  "events": [
+    {
+      "command": "COMM_STATUS?",
+      "tx_hex": "434f4d4d5f5354415455533f0d",
+      "raw_hex": "4f4b3a73746174653d49444c450d",
+      "elapsed_ms": 47.0,
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "tx_hex": "53445f5354415455533f0d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 63.0,
+      "reply": "OK"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "tx_hex": "484f53545f494e464f3f204d455445520d",
+      "raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a344137333236414338444534333534363a4641554c540d",
+      "elapsed_ms": 265.0,
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:4A7326AC8DE43546:FAULT"
+    },
+    {
+      "command": "TEST_END",
+      "tx_hex": "544553545f454e440d",
+      "raw_hex": "4f4b0d",
+      "elapsed_ms": 188.0,
+      "reply": "OK"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # External instrument USB Host diagnostic firmware
 
+2026-11-25: Source candidate `meter-host-relay-20261125.1` checks the entire queued CDC FIFO before accepting a new UART request. All 534 Host Unit and Mock NF55G tests pass, including six native receive regressions. ARM configuration stalled at the compiler ABI check while Windows reported process creation errors. Candidate UF2 generation and hardware deployment are pending. The earlier hardware precheck confirmed `.23.2` Host READY, SD OK and zero drops. [Verification record](../../docs/USB_Host_Reset_Study_20261121/Debug_20261125_01/Firmware_Verification_20261125_Rev0.md)
+
 Candidate `meter-host-relay-20261122.3` observes lower USB bulk IN calls, NAK/PID and endpoint state after the receive function returns. All 467 Host/Mock tests and ARM/ELF/UF2 checks pass; it is not deployed. The actual .22.2 firmware reported RX0/TX-complete/response-incomplete on its first IDN request. Fault is held without retry. See [current diagnostic](../../docs/Parent_Host_Integration_20261122_01/USB_Lower_Diagnostic_Rev0.md).
 
 Version `meter-host-relay-20261122.2` records RX length, TX/response completion flags and the final four RX bytes on TIMEOUT. Its deployment and runtime result are recorded in [timeout diagnostic](../../docs/Parent_Host_Integration_20261122_01/Timeout_Snapshot_Diagnostic_Rev0.md).

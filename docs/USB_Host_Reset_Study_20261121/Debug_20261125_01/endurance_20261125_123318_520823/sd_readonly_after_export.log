@@ -1,0 +1,6 @@
+SD_STATE OK BANK_SETUP True BANK_A SPI(0, baudrate=24000000, polarity=0, phase=0, bits=8, sck=18, mosi=19, miso=16)
+LAST_TRIAL {'filename': '20261125_124219_T000317.csv', 'reason': 'TEST_END', 'serial': None, 'sd_status': 'OK', 'drop_count': 0, 'trial_id': 'T000317'} total_drop 0
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "src/sd_card.py", line 155, in readblocks
+OSError: read failed

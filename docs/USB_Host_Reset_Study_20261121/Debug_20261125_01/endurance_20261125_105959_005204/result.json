@@ -1,0 +1,15 @@
+{
+  "started": "2026-11-25T10:59:59.005204+09:00",
+  "planned_trials": 1,
+  "completed_trials": 0,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "host_version": "20261125.2",
+  "status": "STOPPED",
+  "csv_recovery": "PENDING",
+  "error": "RuntimeError('Missing or extra ATE response for *IDN?')",
+  "stopped_trial": 0,
+  "ended": "2026-11-25T11:00:11.294364+09:00"
+}

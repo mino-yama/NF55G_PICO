@@ -1,0 +1,38 @@
+PICO_SDK_PATH is C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0
+Target board (PICO_BOARD) is 'waveshare_rp2350_usb_a_host_eval'.
+Using board configuration from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/firmware/usb_submcu_external_meter_host/boards/waveshare_rp2350_usb_a_host_eval.h
+Pico Platform (PICO_PLATFORM) is 'rp2350-arm-s'.
+Defaulting compiler (PICO_COMPILER) to 'pico_arm_cortex_m33_gcc' since not specified.
+Configuring toolchain based on PICO_COMPILER 'pico_arm_cortex_m33_gcc'
+Defaulting PICO_GCC_TRIPLE to 'arm-none-eabi'
+Build type is Release
+Using picotool from C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/picotool-2.2.0/picotool/picotool.exe
+TinyUSB available at C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/lib/tinyusb/hw/bsp/rp2040; enabling build support for USB.
+CMake Warning in C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2350/boot_stage2/CMakeLists.txt:
+  The object file directory
+
+    C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/docs/USB_Host_Reset_Study_20261121/Debug_20261125_01/arm_candidate_build/20261125_085956_504/pico-sdk/src/rp2350/boot_stage2/CMakeFiles/bs2_default_library.dir/./
+
+  has 218 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    bs2_default_padded_checksummed.S.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+
+CMake Warning in CMakeLists.txt:
+  The object file directory
+
+    C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/docs/USB_Host_Reset_Study_20261121/Debug_20261125_01/arm_candidate_build/20261125_085956_504/CMakeFiles/usb_submcu_external_meter_host.dir/./
+
+  has 197 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    eb7fab2bc0fb1745a33f1fd6afcb0ff3/irq_handler_chain.S.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+

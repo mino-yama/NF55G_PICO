@@ -1,0 +1,16 @@
+{
+  "before": {
+    "calibration_write.py": null,
+    "command_parser.py": "3350b882b0e16393743e6f8912f4a9490124a9239b07f458615b88a979ab3f78",
+    "config.py": "3b536c87066a904b572ef9269b83b2779df25411bf754c2a2f3d504a52a3db60",
+    "main.py": "6e6fb7ee6baee16072665564d2fce1d4d6d119ae999e37561582729e96258f84",
+    "nf55_protocol.py": "efaa78b33a49a1f9590d5a9408af77f39cc306ca74e6729ccd5dfe5743754fcd"
+  },
+  "candidate": {
+    "config.py": "a90d56a6aca5bfd0ab612f992fcf426add0bba8082b75089994ea7ef1efb8028",
+    "command_parser.py": "b4dcf4cb152a6025b55e67b7d28913b828891b4558a83a98d331fa87dbb3a5ac",
+    "nf55_protocol.py": "92f025976a0edbd6046f37be658c7fa24060b564a6cf4f18f6deac4332b7de1b",
+    "main.py": "6488eb7a492d8fa4548a85fefdde1134ba34b5302fdbc52ac620a32b005af085",
+    "calibration_write.py": "c6fd63178473a0617d65e46eb4515185f7cb82792cb610d382e97bc74a866412"
+  }
+}

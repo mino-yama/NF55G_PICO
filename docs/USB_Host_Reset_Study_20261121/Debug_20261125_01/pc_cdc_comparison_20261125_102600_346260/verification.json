@@ -1,0 +1,35 @@
+{
+  "started": "2026-11-25T10:26:00.346260+09:00",
+  "port": "COM26",
+  "hwid": "USB VID:PID=1334:0309 SER=24641009900 LOCATION=1-4.3",
+  "planned": 400,
+  "completed": 400,
+  "read_interval_s": 2.718,
+  "status": "SUCCESS",
+  "initial_hex": "",
+  "conf": "\"VOLT +1.999999E+00,+1.000000E-07\"\r\n",
+  "ended": "2026-11-25T10:44:06.011609+09:00",
+  "exchangeCount": 802,
+  "readMs": {
+    "n": 400,
+    "min": 406,
+    "median": 422,
+    "p95": 438,
+    "max": 438
+  },
+  "cadenceMs": {
+    "n": 399,
+    "min": 2703,
+    "median": 2720,
+    "p95": 2726,
+    "max": 2738
+  },
+  "valueMv": {
+    "n": 400,
+    "min": 40.427,
+    "median": 40.432,
+    "p95": 40.438,
+    "max": 40.439
+  },
+  "seconds": 1085.665
+}

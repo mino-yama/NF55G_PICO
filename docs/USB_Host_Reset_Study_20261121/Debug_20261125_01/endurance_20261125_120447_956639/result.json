@@ -1,0 +1,16 @@
+{
+  "started": "2026-11-25T12:04:47.956639+09:00",
+  "planned_trials": 1,
+  "completed_trials": 0,
+  "ate_selected_range_mV": 200,
+  "input_setpoint_mV": 40,
+  "ate_port": "COM5",
+  "host_rx_only": "COM23",
+  "host_version": "20261125.2",
+  "status": "STOPPED",
+  "csv_recovery": "PENDING",
+  "session": "981f06135bdf05980478133d04f13240",
+  "error": "RuntimeError('Unexpected response for SD_STATUS?')",
+  "stopped_trial": 0,
+  "ended": "2026-11-25T12:04:49.309005+09:00"
+}

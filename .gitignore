@@ -16,3 +16,29 @@ firmware/usb_submcu_host_probe/build_uart_continuous/
 
 # RST .23.2 local ARM intermediates; deliverables are fixed under docs/.
 tmp/host_reset_build_20261123_02/
+
+# USB SubMCU external meter build intermediates and firmware outputs
+firmware/usb_submcu_external_meter_host/build/
+docs/USB_Host_Reset_Study_20261121/Debug_20261125_01/arm_candidate_build/
+tmp/usb_host_build/
+tmp/host_reset_build_20261123/
+
+# ATE command-list document rendering outputs
+tmp/ate_list_rev2_20261123/render/
+tmp/ate_list_rev2_20261123/render_final/
+tmp/ate_list_rev2_20261123/verified/
+tmp/ate_list_rev2_20261123/soffice_convert_*/
+tmp/ate_list_rev2_20261123/soffice_profile_*/
+tmp/ate_list_rev2_20261123/word_*.pdf
+tmp/ate_list_rev2_20261123/build_word.py
+tmp/ate_list_rev2_20261123/verify_content.py
+tmp/ate_list_rev2_20261123/content_verification.json
+tmp/ate_list_rev2_20261123/original_hashes.json
+
+# Local deployment backups and command-list verification work files
+tmp/host_cdc_deploy_20261120_03/
+tmp/host_sync_deploy_20261120_02/
+tmp/integrated_flow_20261123/
+tmp/pdfs/7355_range_review/
+tmp/pdfs/host_reset_review/
+tmp/update_ate_list_rev2.py

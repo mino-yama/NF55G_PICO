@@ -1,5 +1,33 @@
 # Open Issues
 
+2026-11-25 CAL-EXT-02 サンプル実機診断（Open）: ソースの通常ATE入口へ、BATT_CHG A→P1の取得IDによる明示ADと別の `AD_VERIFY` を追加。サンプル個体のD5照合と現試行の測定Cache照会が前提。S1.14BのAR整数REF8で小数を含む書込み値に一致しない場合は不一致を記録する。量産での対象点、REFの正式表現、AD／ARの正式T2は未確定。[コマンドと実機手順](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev0.md)
+
+2026-11-25 AD／AR小数診断の実機結果（Open）: サンプルS1.14B・UNIT 000001の変更前ARを保存。BATT_CHG Point 1の書込み0.50／1.85／1.86／2.25 Aに対しAR REF8は0／1／1／2。0.50 AではAD応答の計算値欄に非HEX文字。小数の内部保持は未確認。ユーザー指示により7355の取得値→Cache指定の明示AD→明示AR照合の方針を維持する。BATT_CHG A→P1の診断候補を用意し、実測はシャント調整後に実施する。製品側の正式表示形式・量産契約はOpen。[実機原文と結果](ADC_Decimal_Hardware_Test_20261125/run_02/Result_Rev0.md)
+
+2026-11-25 AD／AR小数診断（Open）: D5で接続中の製品がS1.14B・UNIT 000001と確認。S1.13／S1.15_r1の実装レビューをこの個体の挙動には適用しない。DEC-01向けにAR原文のBCC・140文字検証と差分取得を実装し、模擬3件成功。現個体のAR診断送信条件と元の小数値を保全・復元する方法の確認を継続する。AD／AR送信未実施。[校正作業記録](ADC_Decimal_Hardware_Test_20261125/run_01/Result_Rev0.md)
+
+2026-11-25 HOST `.25.2` 起動切り分け（Open）: SDを装着した親PicoではATE IDN無応答。SDなしで通常起動するとCOM5の治具IDN、IDLE、HOST `.25.2` READYを確認。SDの直接原因・7355の測定・OUT/IN障害時観測は未確認。[診断記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Host_OUT_ACK_Diagnostic_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01（Open、ユーザー指示により調査保留）: セット間5秒の耐久は240/400完了。第241セットのREADは成功し、続く `:SYST:ERR?` でOUT ACK 2回、IN 2,000回すべてNAK、応答0バイト。5秒導入前にも同じ観測。測定器HOSTまたは7355側のCDC経路が調査対象。どちらが原因かは未確定。失敗を含む241件のCSVを照合済み。測定器HOSTのFAULTを保持し、400セット受入は未達。校正開発を優先する。[実機結果と診断記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/SD_Bank_Scan_Continuation_20261125_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01 診断続報（Open）: HOST `.25.2` はタイムアウトEに対象bulk OUTのACK／NAK／その他と最終PIDを既存IN診断と同居させる。全535回帰・ARMリンク成功。個体BFCF2EDB84B0B37Fに全Flash退避後に配置し、独立verify・版読戻し成功。固定配線復帰後の実機通信、エラー時観測および400セット受入は未確認。[診断・配置ログ](USB_Host_Reset_Study_20261121/Debug_20261125_01/Host_OUT_ACK_Diagnostic_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01 PC直結比較（Open）: 同じ7355で400/400回のREADと計器エラー照会が成功。タイムアウト0、第303回も正常。READ間隔中央値2.720秒、応答406～438ms。USB再列挙後の別経路での結果であり、Pico経由の停止原因・400セット受入は未確定。[比較結果](USB_Host_Reset_Study_20261121/Debug_20261125_01/pc_cdc_comparison_20261125_102600_346260/verification.json)
+
+2026-11-25 ATE-TX-01／USB-CDC-RX-BOUNDARY-01 続報（Open）: PCカードリーダーから停止試行を含むT000245～T000547の303 CSVを全件回収。SD/PC SHA-256、14列、開始終了マーカー、ATE応答原文が一致。第303 READ間隔3.065秒は成功時の範囲内。親Pico経由SD障害、USB IN全NAKの要因、400セット受入は未解決。[回収・解析記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/ATE_Post_End_Stability_Rev0.md)
+
+2026-11-25 ATE-TX-01／USB-CDC-RX-BOUNDARY-01 実機続報（Open）: 親Picoの250ms連続idle待ちを配置。耐久302セットで終了直後自己診断が全件成功（最大156ms）。第303セットは別のREAD無応答で停止。HOSTは送信完了後RX0、IN 9,999回全NAKで、ATEにAMBIGUOUS=1。終了後、SDからのCSV回収はreadblocksで失敗し、明示再認識1回でCMD0 failed:63。CSV未回収、根本原因と400セット受入はOpen。[安定化・耐久記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/ATE_Post_End_Stability_Rev0.md)
+
+2026-11-25 ATE-TX-01／USB-CDC-RX-BOUNDARY-01 続報（Open）: 親PicoがTEST_END応答と同じ巡回で同期SD再認識を開始し得る順序をMockで再現。ATE接続時は連続250 ms idleを確認してから一回だけ再認識する変更を追加し、全535件成功。実機への配置・直接原因の確認・400セット再開は未実施。[安定化記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/ATE_Post_End_Stability_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01 耐久続報（Open）: 第1セットでREAD 40.171mV・計器エラー0・HOST A/T/R相関・TEST_END OK。直後のATE `PICO_SELF_CHECK?` が12.031秒で0byteとなり、0/400で停止。単発事前試行でも同位置で再現。後追い照会でSD・ログ欠落・自己診断正常、HOST nonce不変。ATE応答が途切れた原因と試行CSV回収は未確認。[実機記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Hardware_Test_Attempt_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01 続報（Open）: ARMビルド完了後、測定器HOST個体 `BFCF2EDB84B0B37F` へ `.25.1` を配置し、独立verifyと版読戻し成功。固定配線復帰後の7355 IDN 1件は32byte完全一致（375ms）、HOST READY／nonce不変、親IDLE、SD OK、drop 0。単発READ・400セット耐久は未実施、過去timeout原因は未確定。[実機記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Hardware_Test_Attempt_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01 続報（Open）: 旧処理で期待した5失敗を再現し、候補.25.1の全534件が成功。ARMビルドはコンパイラABI確認で停止。候補UF2の生成・配置と400セット耐久は未完了。過去のRX0 timeout原因は未確定。[検証記録](USB_Host_Reset_Study_20261121/Debug_20261125_01/Firmware_Verification_20261125_Rev0.md)
+
+2026-11-25 USB-CDC-RX-BOUNDARY-01（Open）: 測定器HOSTの旧受信serviceは256byte FIFOから64byteだけ読み、終端後の既着データを残したまま次Q受付へ進み得る。候補.25.1でFIFO容量分を一括検査し、正常R前に余分なデータを拒否する修正を追加。新規実C回帰6件成功、変更前全Host/Mock528件成功。旧処理による回帰失敗の再現・変更後全体回帰・ARMビルド完了・配置・実機受入はPCプロセス起動のOSアクセス拒否により未完了。過去RX0 timeoutの原因とは未確定。COM5事前照会は既存.23.2のREADY／SD正常／drop0。400セット未実施、既存IssueもCloseしない。[結果・残作業](USB_Host_Reset_Study_20261121/Debug_20261125_01/Result_Rev0.md)。
+
 2026-11-23 実機総合フローの原典照合（Open継続）：NF55192-G_S1.docx第7章の本文・画面を確認。原典§7.3はDISCHG_I A45/B1.5A、BATT_CHG A0.4/B1.85A、BATT_V A5/B10Vで、後日のユーザー確認値（44/0.3、1.85/0.5、8/5）と異なる。最新指示値を保持し、量産適用時に原典の適用版・対応を人間確認する。原典の初期設定・補正画面例を合格値として採用しない。§7.5はCLEAR_DATA／CLEAR_LOGに加えSET_LIFEも要求。SL入口は実装済みだが量産設定値は未確定、CLEAR_DATAとの正式対応はATE-CLEAR-01継続。原典§7.1のADU/BBUを含む9欄の書込みと、現行QR_WRITEのUNIT3欄更新の範囲も区別する。新しい仕様確定・Issue Close・実機試験は行っていない。[総合フローと停止点](Integrated_Hardware_Flow_20261123_Rev0.md)。
 
 2026-11-23 AD/AR小数の進め方をユーザー指定：実機で小数を含むAD書込み→明示AR読出しを先に検証し、その結果を山田から設計へ確認する。小数挙動の設計回答待ちで診断試験を止めない。対象FW・送信条件・元値保全を確認した診断経路と、正式API・個別照合仕様の確定は分離する。送信原文・読戻し原文・内部観測の有無を記録し、ARだけで内部保存値を断定しない。試験未実施、関連IssueはOpen継続。[試験計画](ADC_Decimal_Hardware_Test_Plan_20261122_Rev0.md)／[予定表Rev.1](Development_to_Production_Schedule_20261124_Rev1.txt)。
@@ -166,9 +194,11 @@ COM5のELECOM（056E:5004）、57600/8N1から治具自身の*IDN?+CRを一回wr
 
 2026-11-20 .5実機再現: 同一試行でユーザーは前面20Vを報告。RANG 20直後のSYST:ERR?は+0,"No error"、CONFは再び約200Vを返し、.5はCONF_RANGE_NOT_20VでREAD前停止。原因は未確定でUSB-CDC-RANGE-01をOpen維持。 [実機結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md)。
 
-## USB-CDC-RANGE-01: 7355前面レンジとCONF読戻しの相違（Open、2026-11-20）
+## USB-CDC-RANGE-01: 7355前面レンジとCONF読戻しの相違（運用決定により終了、2026-11-24）
 
-確認事実: raw #09で`:SENS:VOLT:DC:RANG 20`の後、`:CONF?`が`"VOLT +1.999999E+02,+1.000000E-05"`を返した。ユーザーは引継ぎ時に前面20Vレンジ・電源OFFと回答。応答数値は約200Vであり前面20Vと一致しない。推測: nominal値とfull-scale境界、機器応答仕様等の可能性は未検証で、原因としない。未確認: 同一試行時点の前面/読戻し対応、レンジコマンドの実機挙動、メーカーの説明。独自換算や200V応答の20V扱いは行わない。評価FW.5でも19～21V以外はREAD前停止を維持する。設計/機器仕様の確認を要し、Codex判断でCloseしない。[引継ぎ記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Result_Rev0.md)。
+2026-11-24ユーザー決定: 7355のレンジはATE側で選択するため、本相違の原因追跡を終了する。Pico/HostはATEが選択したレンジを置換・自動最適化せず、指定ASCIIと読戻しを中継する。過去のRANG/CONF原文と前面報告の不一致は履歴として保持し、技術的原因を解決したとは扱わない。試験者が選択したレンジでREADを行い、固定条件のCDC耐久受入は400セット/24時間/リセットなしを目標とする。READの完全応答が計器エラー値/OLでもATE判定であり、次の明示READをPico/Hostが処理できることを確認する。AMBIGUOUS等の通信異常とは区別する。[受入基準](USB_Host_Reset_Study_20261121/CDC_Endurance_Acceptance_20261124_Rev0.md)。
+
+当時の確認記録（2026-11-20）: raw #09で`:SENS:VOLT:DC:RANG 20`の後、`:CONF?`が`"VOLT +1.999999E+02,+1.000000E-05"`を返した。ユーザーは引継ぎ時に前面20Vレンジ・電源OFFと回答。読戻し不一致の技術的原因は未確定のまま。独自換算や200V応答の20V扱いは行わない。2026-11-24ユーザー決定により原因追跡を終了し、ATE選択レンジでの試験へ移行する。評価FW.5の当時のREAD前ゲートと旧記述はその時点の履歴であり、現行の受入条件ではない。[引継ぎ記録](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Result_Rev0.md)。
 
 2026-11-19 CAL-EXT-02の追加回答: シャント抵抗は50A/50mV（1mΩ）、取得単位mV、Aへの換算担当はPicoで確定。I[A]=U[mV]を内部校正候補取得へ実装した。元測定Cacheを保持し、誤単位では候補を拒否する。正式API・実応答の単位正規化・AD表現/極性・A/B点対応等の未回答部分と実機検証は継続し、IssueはCloseしない。[記録](ADC_Calibration_Development_20261119.md)。
 

@@ -1,0 +1,15 @@
+{
+  "version": "meter-host-relay-20261125.2",
+  "files": [
+    {
+      "name": "usb_submcu_external_meter_relay.uf2",
+      "bytes": 101376,
+      "sha256": "088e6e2a11b2ea333e9de66af34dfe2558ab5d2c7a9ffbc6368110329d7035e4"
+    },
+    {
+      "name": "usb_submcu_external_meter_relay.elf",
+      "bytes": 1040332,
+      "sha256": "87ac3066f6e92a73b361f72e09ed7406b03a53a65dc1640a70ef8cd054b8b13e"
+    }
+  ]
+}

@@ -1,6 +1,10 @@
 # ATE Command Master
 
+2026-11-25 校正コマンド簡略化: 回路名付きの測定・最新Cache照会・明示書込み・明示読戻しを追加。ATEから取得IDの返送は不要。測定値の採否・読戻し照合はATEで扱う。 [コマンドと応答](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md)
+
 2026-11-23 QR→SS実装: `QR_SCAN <100..60000ms>`で現試行の取得IDを発行、`QR_GET? <ID>`で原文、`QR_DATA? <ID>`でSS DATA50文字のHEXを照会する。照会済み同一IDの`QR_WRITE <ID>`だけがSSを送信し、完了後はIDを消費。`QR_CANCEL`は無送信で失効。SS後の`INFO_REFRESH`は別指令。承認済み対応はREV3＋空白→UNIT_REV4、YYWW→UNIT_LOT、号機→UNIT_SERIAL、FW／ADU／BBU／予約は変更なし指定。従前のQR/SS未実装記述は更新前の履歴。[応答・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。
+
+2026-11-25 校正実機診断: 対象サンプルで明示有効化した場合、`CAL_WRITE <取得ID> P1` と `AD_VERIFY BATT_CHG P1` を受け付ける。S1.14B・UNIT 000001の同一試行のD5照合と、BATT_CHG AのCache照会が前提。 [実機コマンドと手順](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev0.md)
 
 2026-11-23 ユーザー採用・ADC取得/照会: `CAL_MEASURE <DISCHG_I|BATT_CHG|BATT_V> <A|B> <期限ms> :READ?`と`CAL_MEASUREMENT? <取得ID>`を追加。現TEST試行に限定し、DCV確認→READを単一総期限で処理、電流はV→mV→Aの厳密換算。照会はCacheのみ、AD/AR/SS/FU送信なし。全497回帰成功、実機確認を継続。[応答・失敗・失効仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
 
@@ -296,7 +300,7 @@ QRのREVは製品REVで、SSのUNIT_REVに対応する。FW_REVISIONとの照合
 
 ## SD復帰の試験期間制約（2026-11-09）
 
-TEST_START～TEST_END（ログ開始失敗時を含む）および連続記録中のSD_REINITはERR:BUSYを返す。TEST_END／LOG_CONT_STOP後、ATE応答・待ち要求を優先した通信待機時に1回だけ再認識する。2026-11-09②③要求によりTEST_START／TEST_ENDはSD異常でも試験受付・終了のOKを返す。保存異常はTEST_END最終段のSelf CheckとPICO_SELF_CHECK?で報告し、NF55G通信は継続可能。復帰結果はSD_STATUS?で確認する。フォーマットは実行しない。詳細は[Logger / SD仕様](Logger_SD_Spec.md)を参照。
+TEST_START～TEST_END（ログ開始失敗時を含む）および連続記録中のSD_REINITはERR:BUSYを返す。TEST_END／LOG_CONT_STOP後の自動再認識は、ATE応答・待ち要求の処理後に連続250 msの通信待機を確認して1回だけ行う。2026-11-09②③要求によりTEST_START／TEST_ENDはSD異常でも試験受付・終了のOKを返す。保存異常はTEST_END最終段のSelf CheckとPICO_SELF_CHECK?で報告し、NF55G通信は継続可能。復帰結果はSD_STATUS?で確認する。フォーマットは実行しない。詳細は[Logger / SD仕様](Logger_SD_Spec.md)を参照。
 
 ## 試験終了時の装置自己診断（2026-11-09）
 
