@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-11-25 7355 ADCコマンドの400セット耐久受入
+
+- ADC・20 Vレンジ・セット間1秒の400セット耐久を受入完了。通信タイムアウト、再送、再起動、ログ欠落は0件。SD CSV400件を照合した。 [受入記録 Rev.1](USB_Host_Reset_Study_20261121/CDC_ADC_Endurance_Acceptance_20261125_Rev1.md)
+
+## 2026-11-25 7355の運用コマンド確定
+
+- 7355の現行USB CDC運用にADCコマンドを採用。200 mVと20 Vの設定・読戻しを実機で確認し、USB-CDC-RANGE-01を終了。 [運用・校正手順 Rev.1](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
+
+## 2026-11-25 7355のADCコマンドによる校正取得
+
+- 回路別校正測定の末尾に `MD?` を追加。ADCモードで連続・即時DCVを確認し、測定完了を待って電圧を取得する。[設定と試験結果](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev0.md)
+
 ## 2026-11-25 校正コマンドの回路名対応
 
 - 回路名と点から現試行の最新Cacheを指定するATEコマンドを追加。Pico側の校正値上限を削除し、回路名付き読戻しでは比較に使う原文とADC値をATEへ返す。 [手順と応答](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md)

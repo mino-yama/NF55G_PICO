@@ -1,0 +1,503 @@
+{
+  "port": "COM5",
+  "window_ms": 60000,
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "response": "OK"
+    },
+    {
+      "command": "TEST_START",
+      "response": "OK"
+    },
+    {
+      "command": "QR_SCAN 60000",
+      "response": "OK:QR_ARMED:Q9c92f1a21d9c6f0d-00000005-00000002"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_TIMEOUT"
+    },
+    {
+      "command": "TEST_END",
+      "response": "OK"
+    },
+    {
+      "command": "QR_GET? Q9c92f1a21d9c6f0d-00000005-00000002",
+      "response": "ERR:QR_STALE_ID"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "response": "0"
+    }
+  ],
+  "result": "TIMEOUT_CONFIRMED"
+}

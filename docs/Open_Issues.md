@@ -1,5 +1,19 @@
 # Open Issues
 
+2026-11-25 OI-23 受付前読取の遅着を実機再現（Open）。実スキャナーでHID受信数増加・完成QR数不変を検出後に親PicoのATEコマンド処理から受付開始。771 ms後にラベルAが到着し、新取得IDの `QR_GET?`／`QR_DATA?` に登録された。発生頻度は未測定。SS未送信、試行終了、SD OK、ログ欠落0。 [遅着条件と実機記録](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Startup_And_Late_Frame_Rev0.md#実スキャナーでの受付前読取の遅着)
+
+2026-11-25 OI-23 再起動後実機確認（Open）。親Picoの保守USB復帰後、親・測定器HOSTの起動世代更新、QR HOST稼働約26秒・スキャナー認識を確認。再起動後の最初のATE試行でラベルAの35文字とSS書込み候補50文字が一致し、SD OK、ログ欠落0。QR HOST単体の電源再投入動作と実スキャナーでの遅着条件は未確認。 [実機試験記録](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Startup_And_Late_Frame_Rev0.md#治具の再起動後の再試験)
+
+2026-11-25 OI-23 起動・受付境界（Open）。電源再投入の申告後にラベルAがタイムアウト。QR HOSTの診断は稼働約4時間・`qr_enabled=0` で、新規起動は未確認。Host Mockでは受付前の到着済みQRは破棄されたが、受付後に完全な旧QRが届くと新しい取得IDに登録された。実スキャナーでの遅着頻度と発生条件は未確認。 [起動と受付境界の試験記録](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Startup_And_Late_Frame_Rev0.md)
+
+2026-11-25 OI-23実機進捗（Open）。量産銘板形式の試験QR 2枚を用意し、COM5でA（REV `A1.`／号機 `000001`）→B（REV `A03`／号機 `000002`）を別試行で読み取った。QR原文35文字、SS書込み候補の全50文字、試行切替時の旧ID失効が一致。ログ欠落0、SD OK。RSTなしの電源投入直後と受付前からの遅着は未確認。 [試験画像と実機結果](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Read_Test_Rev0.md)
+
+2026-11-25 **USB-CDC-RX-BOUNDARY-01の400セット耐久受入はClosed（ユーザー承認）。** 現行測定器HOST `20261125.2`、7355 ADC・DCV・20 V、セット間1秒で400/400セット完了。タイムアウト・再送・再起動・ログ欠落0、SD CSV400件のATE応答・SHA-256一致を確認。過去のSCPI無応答の技術的原因は未特定で、その調査は保留。200 mVレンジの400セット耐久は未確認。 [受入記録 Rev.1](USB_Host_Reset_Study_20261121/CDC_ADC_Endurance_Acceptance_20261125_Rev1.md)
+
+2026-11-25 ADCMT 7351A／7351E互換（Open）。DCV・レンジ等のADCコマンドは両機種の取説で照合し、7355のUSB CDCでBATT_V取得とR3での直流電源入力を確認。7351A／7351EのUSB通信・実測、R3でのシャント実測、ADCコマンド版でのAD／AR通し試験は未確認。[互換範囲と証跡](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
+
+2026-11-25 ユーザー決定。7351A／7351Eを含む他のDMMとの互換性は、対象型式のDMMへ交換した実機治具で型式ごとに確認する。接続方式と機種別コマンドを確認し、接続、DCV・レンジ設定と読戻し、既知入力の測定応答を記録する。対象機での確認完了まで互換性はOpen。 [機種別の確認方針](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md#7351a7351eへの適用範囲)
+
 2026-11-25 CAL-EXT-02 サンプル実機診断（Open）: ソースの通常ATE入口へ、BATT_CHG A→P1の取得IDによる明示ADと別の `AD_VERIFY` を追加。サンプル個体のD5照合と現試行の測定Cache照会が前提。S1.14BのAR整数REF8で小数を含む書込み値に一致しない場合は不一致を記録する。量産での対象点、REFの正式表現、AD／ARの正式T2は未確定。[コマンドと実機手順](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev0.md)
 
 2026-11-25 AD／AR小数診断の実機結果（Open）: サンプルS1.14B・UNIT 000001の変更前ARを保存。BATT_CHG Point 1の書込み0.50／1.85／1.86／2.25 Aに対しAR REF8は0／1／1／2。0.50 AではAD応答の計算値欄に非HEX文字。小数の内部保持は未確認。ユーザー指示により7355の取得値→Cache指定の明示AD→明示AR照合の方針を維持する。BATT_CHG A→P1の診断候補を用意し、実測はシャント調整後に実施する。製品側の正式表示形式・量産契約はOpen。[実機原文と結果](ADC_Decimal_Hardware_Test_20261125/run_02/Result_Rev0.md)
@@ -194,7 +208,9 @@ COM5のELECOM（056E:5004）、57600/8N1から治具自身の*IDN?+CRを一回wr
 
 2026-11-20 .5実機再現: 同一試行でユーザーは前面20Vを報告。RANG 20直後のSYST:ERR?は+0,"No error"、CONFは再び約200Vを返し、.5はCONF_RANGE_NOT_20VでREAD前停止。原因は未確定でUSB-CDC-RANGE-01をOpen維持。 [実機結果](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Handoff_20261120_Rev0/Runtime_v5_run01/Result_Rev0.md)。
 
-## USB-CDC-RANGE-01: 7355前面レンジとCONF読戻しの相違（運用決定により終了、2026-11-24）
+## USB-CDC-RANGE-01: 7355のレンジ設定と読戻し（Closed、2026-11-25）
+
+**2026-11-25 Closed（ユーザー承認）。** 7355の現行治具運用はADCコマンドを採用する。200 mVは `R3`、20 Vは `R5` で設定し、ATEが `R?` による同一コードの読戻しを確認する。実機で両コードの設定・読戻しが一致し、R3の40 mV設定入力も有効測定できた。設定と実測の差は直流電源の性能に由来するとのユーザー判断。採用根拠はSCPIの意図しない動作に関する社内実績と、ADCのレンジ実機試験および20 Vレンジの400/400セット完了。過去のSCPI固有の挙動の技術的原因は未特定。 [運用・校正手順と実機証跡](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
 
 2026-11-24ユーザー決定: 7355のレンジはATE側で選択するため、本相違の原因追跡を終了する。Pico/HostはATEが選択したレンジを置換・自動最適化せず、指定ASCIIと読戻しを中継する。過去のRANG/CONF原文と前面報告の不一致は履歴として保持し、技術的原因を解決したとは扱わない。試験者が選択したレンジでREADを行い、固定条件のCDC耐久受入は400セット/24時間/リセットなしを目標とする。READの完全応答が計器エラー値/OLでもATE判定であり、次の明示READをPico/Hostが処理できることを確認する。AMBIGUOUS等の通信異常とは区別する。[受入基準](USB_Host_Reset_Study_20261121/CDC_Endurance_Acceptance_20261124_Rev0.md)。
 
@@ -395,7 +411,7 @@ Codex must NOT close these by inference.
 
 ## 外部測定値による補正の追加要求 2026-11-04
 
-- CAL-EXT-03（Open）: ユーザー指示により7355の通信仕様・アドレス設定を仕様化対象へ追加。採用GPIBアドレス、設定／保持／照合方法、ADC／SCPI選択、正確なコマンド、終端／EOI、応答表現、測定・timeout設定、異常復帰を確定する。メーカー製品ページではGPIBが+01オプション、ADC／SCPI対応と確認したが、実機搭載・マニュアル本文は未確認。値を推測で設定しない。GPIB制御経路はCAL-EXT-01と併せて確認。
+- CAL-EXT-03（Open）: 現行7355 USB CDCのコマンド体系は2026-11-25にADCで確定。GPIBを利用する場合の実機搭載、アドレス、設定／保持／照合、終端／EOI、測定・timeout設定と異常復帰は確認を継続する。GPIB制御経路はCAL-EXT-01と併せて確認。 [現行USB CDC手順](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
 
 - CAL-EXT-01（Open）: ユーザー指定はPico 2 UART0↔PIA5100↔GPIBのATE接続と、7355による外部シャント抵抗／製品電圧の測定。測定対象はATEが制御する。GPIB制御権、PIA5100のモード、7355読出し手順、ATE指令と測定応答の識別・中継方法は未確認。接続構成だけでPicoからの直接読出し可能と断定しない。
 - CAL-EXT-02（Open）: 2026-11-04ユーザー確認により①DISCHG_I／充電、②BATT_CHG／放電は記載どおりで確定。取得と書込みは別コマンドとし、読取値を一旦ATEへ返して判定した後、ATEが改めて書込みコマンド＋数値を送る。取得による自動書込みは行わない。残事項はA/BとP1/P2対応、シャント換算の担当・符号・丸め、返却値の形式・単位、測定の鮮度、正式コマンド／応答／失敗時動作。既存AD/ARのOI-04/OI-05/OI-16～OI-21はOpenを維持する。

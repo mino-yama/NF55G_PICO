@@ -1,0 +1,24 @@
+{
+  "started": "2026-11-25T17:19:50.944540+09:00",
+  "planned_trials": 400,
+  "completed_trials": 400,
+  "inter_trial_delay_seconds": 1,
+  "meter_language": "adc",
+  "ate_selected_range_mV": null,
+  "input_setpoint_mV": null,
+  "ate_port": "COM5",
+  "host_rx_only": "COM22",
+  "host_version": "20261125.2",
+  "status": "TRIALS_COMPLETE_CSV_PENDING",
+  "csv_recovery": "PENDING",
+  "session": "844adec26bba9baff6097f9107ed89d7",
+  "adc_settings": {
+    "F?": "F01",
+    "INIC?": "INIC1",
+    "TRS?": "TRS0",
+    "R?": "R5",
+    "H?": "H0"
+  },
+  "conf": "ADC DCV R5 (20 V), continuous/immediate",
+  "ended": "2026-11-25T18:01:34.971323+09:00"
+}

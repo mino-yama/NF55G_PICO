@@ -1,0 +1,457 @@
+[
+  {
+    "sequence": 14555,
+    "uptime_ms": 14545616,
+    "kind": 14,
+    "payload_hex": "7c1433ecd9e6dd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14556,
+    "uptime_ms": 14546616,
+    "kind": 14,
+    "payload_hex": "b06635ecc1eadd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14557,
+    "uptime_ms": 14547616,
+    "kind": 14,
+    "payload_hex": "90b937eca9eedd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14558,
+    "uptime_ms": 14548616,
+    "kind": 14,
+    "payload_hex": "7e083aec91f2dd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14559,
+    "uptime_ms": 14549616,
+    "kind": 14,
+    "payload_hex": "c0753cec79f6dd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14560,
+    "uptime_ms": 14550616,
+    "kind": 14,
+    "payload_hex": "89eb3eec61fadd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14561,
+    "uptime_ms": 14551616,
+    "kind": 14,
+    "payload_hex": "ef5d41ec49fedd000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14562,
+    "uptime_ms": 14552616,
+    "kind": 14,
+    "payload_hex": "90c943ec3102de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14563,
+    "uptime_ms": 14553616,
+    "kind": 14,
+    "payload_hex": "de3846ec1906de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14564,
+    "uptime_ms": 14554616,
+    "kind": 14,
+    "payload_hex": "a3a148ec010ade000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14565,
+    "uptime_ms": 14555616,
+    "kind": 14,
+    "payload_hex": "cd094bece90dde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14566,
+    "uptime_ms": 14556616,
+    "kind": 14,
+    "payload_hex": "af6e4decd111de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14567,
+    "uptime_ms": 14557616,
+    "kind": 14,
+    "payload_hex": "22da4fecb915de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14568,
+    "uptime_ms": 14558616,
+    "kind": 14,
+    "payload_hex": "7c4452eca119de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14569,
+    "uptime_ms": 14559616,
+    "kind": 14,
+    "payload_hex": "d9a954ec891dde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14570,
+    "uptime_ms": 14560616,
+    "kind": 14,
+    "payload_hex": "d00957ec7121de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14571,
+    "uptime_ms": 14561616,
+    "kind": 14,
+    "payload_hex": "556c59ec5925de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14572,
+    "uptime_ms": 14562616,
+    "kind": 14,
+    "payload_hex": "6bd05bec4129de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14573,
+    "uptime_ms": 14563616,
+    "kind": 14,
+    "payload_hex": "f92f5eec292dde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14574,
+    "uptime_ms": 14564616,
+    "kind": 14,
+    "payload_hex": "a38e60ec1131de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14575,
+    "uptime_ms": 14565616,
+    "kind": 14,
+    "payload_hex": "ccf162ecf934de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14576,
+    "uptime_ms": 14566616,
+    "kind": 14,
+    "payload_hex": "8c5f65ece138de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14577,
+    "uptime_ms": 14567616,
+    "kind": 14,
+    "payload_hex": "eac467ecc93cde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14578,
+    "uptime_ms": 14568616,
+    "kind": 14,
+    "payload_hex": "1b266aecb140de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14579,
+    "uptime_ms": 14569616,
+    "kind": 14,
+    "payload_hex": "95856cec9944de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14580,
+    "uptime_ms": 14570616,
+    "kind": 14,
+    "payload_hex": "65e86eec8148de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14581,
+    "uptime_ms": 14571616,
+    "kind": 14,
+    "payload_hex": "af4971ec694cde000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14582,
+    "uptime_ms": 14572616,
+    "kind": 14,
+    "payload_hex": "b3ac73ec5150de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14583,
+    "uptime_ms": 14573616,
+    "kind": 14,
+    "payload_hex": "b80c76ec3954de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14584,
+    "uptime_ms": 14574616,
+    "kind": 14,
+    "payload_hex": "f37c78ec2158de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14585,
+    "uptime_ms": 14575616,
+    "kind": 14,
+    "payload_hex": "d4e27aec095cde000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14586,
+    "uptime_ms": 14576616,
+    "kind": 14,
+    "payload_hex": "4f477decf15fde000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14587,
+    "uptime_ms": 14577616,
+    "kind": 14,
+    "payload_hex": "d6a67fecd963de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14588,
+    "uptime_ms": 14578616,
+    "kind": 14,
+    "payload_hex": "221082ecc167de000000000002000000080300000e000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14589,
+    "uptime_ms": 14579642,
+    "kind": 14,
+    "payload_hex": "01d882ecc46bde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14590,
+    "uptime_ms": 14580642,
+    "kind": 14,
+    "payload_hex": "9ff584ecab6fde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14591,
+    "uptime_ms": 14581642,
+    "kind": 14,
+    "payload_hex": "0d4b87ec9373de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14592,
+    "uptime_ms": 14582642,
+    "kind": 14,
+    "payload_hex": "dfbc89ec7b77de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14593,
+    "uptime_ms": 14583642,
+    "kind": 14,
+    "payload_hex": "64238cec637bde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14594,
+    "uptime_ms": 14584642,
+    "kind": 14,
+    "payload_hex": "2d878eec4b7fde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14595,
+    "uptime_ms": 14585642,
+    "kind": 14,
+    "payload_hex": "6de590ec3383de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14596,
+    "uptime_ms": 14586642,
+    "kind": 14,
+    "payload_hex": "164893ec1b87de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14597,
+    "uptime_ms": 14587642,
+    "kind": 14,
+    "payload_hex": "1ba295ec038bde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14598,
+    "uptime_ms": 14588642,
+    "kind": 14,
+    "payload_hex": "97fd97eceb8ede000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14599,
+    "uptime_ms": 14589642,
+    "kind": 14,
+    "payload_hex": "fd549aecd392de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14600,
+    "uptime_ms": 14590642,
+    "kind": 14,
+    "payload_hex": "18b69cecbb96de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14601,
+    "uptime_ms": 14591642,
+    "kind": 14,
+    "payload_hex": "0b119feca39ade000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14602,
+    "uptime_ms": 14592642,
+    "kind": 14,
+    "payload_hex": "f568a1ec8b9ede000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14603,
+    "uptime_ms": 14593642,
+    "kind": 14,
+    "payload_hex": "fbbaa3ec73a2de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14604,
+    "uptime_ms": 14594642,
+    "kind": 14,
+    "payload_hex": "7b13a6ec5ba6de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14605,
+    "uptime_ms": 14595642,
+    "kind": 14,
+    "payload_hex": "d467a8ec43aade000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14606,
+    "uptime_ms": 14596642,
+    "kind": 14,
+    "payload_hex": "f5bbaaec2baede000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14607,
+    "uptime_ms": 14597642,
+    "kind": 14,
+    "payload_hex": "440cadec13b2de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14608,
+    "uptime_ms": 14598642,
+    "kind": 14,
+    "payload_hex": "a669afecfbb5de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14609,
+    "uptime_ms": 14599642,
+    "kind": 14,
+    "payload_hex": "cfcbb1ece3b9de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14610,
+    "uptime_ms": 14600642,
+    "kind": 14,
+    "payload_hex": "132ab4eccbbdde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14611,
+    "uptime_ms": 14601642,
+    "kind": 14,
+    "payload_hex": "5b82b6ecb3c1de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14612,
+    "uptime_ms": 14602642,
+    "kind": 14,
+    "payload_hex": "afdcb8ec9bc5de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14613,
+    "uptime_ms": 14603642,
+    "kind": 14,
+    "payload_hex": "1e33bbec83c9de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14614,
+    "uptime_ms": 14604642,
+    "kind": 14,
+    "payload_hex": "9f86bdec6bcdde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14615,
+    "uptime_ms": 14605642,
+    "kind": 14,
+    "payload_hex": "8ad8bfec53d1de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14616,
+    "uptime_ms": 14606642,
+    "kind": 14,
+    "payload_hex": "8c2ec2ec3bd5de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14617,
+    "uptime_ms": 14607642,
+    "kind": 14,
+    "payload_hex": "af8bc4ec23d9de000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14618,
+    "uptime_ms": 14608642,
+    "kind": 14,
+    "payload_hex": "80e2c6ec0bddde000000000002000000080300000c000000",
+    "qr_enabled": false
+  },
+  {
+    "sequence": 14619,
+    "uptime_ms": 14609642,
+    "kind": 14,
+    "payload_hex": "0035c9ecf3e0de000000000002000000080300000c000000",
+    "qr_enabled": false
+  }
+]

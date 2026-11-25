@@ -1,0 +1,19 @@
+{
+  "port": "COM5",
+  "window_ms": 1000,
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "response": "OK"
+    },
+    {
+      "command": "TEST_START",
+      "response": ""
+    }
+  ],
+  "error": "AssertionError()"
+}

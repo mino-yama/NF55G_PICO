@@ -1,0 +1,29 @@
+{
+  "scope": "Host Mock with synthetic QR HOST UART frame arrival timing; physical timing unmeasured",
+  "cases": [
+    {
+      "case": "complete_frame_waiting_before_scan",
+      "bytes_waiting_before_qr_scan": 154,
+      "bytes_arrived_after_qr_scan": 154,
+      "qr_get_reply": "OK:QR_GET:Q7e7d590ae4bf2507-00000001-00000001:US250A-CGXE-009491-101A032601000002",
+      "qr_data_reply": "OK:QR_DATA:Q7e7d590ae4bf2507-00000001-00000001:4646464646464130332032363031303030303032464646464646464646464646464646464646464646464646464646464646",
+      "nf55g_transmissions": 0
+    },
+    {
+      "case": "frame_spans_scan_boundary_at_parent",
+      "bytes_waiting_before_qr_scan": 64,
+      "bytes_arrived_after_qr_scan": 244,
+      "qr_get_reply": "ERR:QR_FRAME",
+      "qr_data_reply": "ERR:QR_FRAME",
+      "nf55g_transmissions": 0
+    },
+    {
+      "case": "complete_old_frame_reaches_parent_after_scan",
+      "bytes_waiting_before_qr_scan": 0,
+      "bytes_arrived_after_qr_scan": 308,
+      "qr_get_reply": "OK:QR_GET:Q090efb67e75f438b-00000001-00000001:US250A-CGXE-009491-101A1.2601000001",
+      "qr_data_reply": "OK:QR_DATA:Q090efb67e75f438b-00000001-00000001:46464646464641312e2032363031303030303031464646464646464646464646464646464646464646464646464646464646",
+      "nf55g_transmissions": 0
+    }
+  ]
+}

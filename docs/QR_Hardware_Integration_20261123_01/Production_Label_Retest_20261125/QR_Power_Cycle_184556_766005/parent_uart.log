@@ -1,0 +1,26 @@
+QR_UART_CAPTURE_READY
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\__main__.py", line 6, in <module>
+    sys.exit(main.main())
+             ^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\main.py", line 622, in main
+    handler_func(state, args)
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\commands.py", line 515, in do_run
+    _do_execbuffer(state, buf, args.follow)
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\commands.py", line 489, in _do_execbuffer
+    ret, ret_err = state.transport.follow(timeout=None, data_consumer=stdout_write_bytes)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\transport_serial.py", line 220, in follow
+    data = self.read_until(1, b"\x04", timeout=timeout, data_consumer=data_consumer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\transport_serial.py", line 158, in read_until
+    if self.is_pty or self.serial.inWaiting() > 0:
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\serial\serialutil.py", line 594, in inWaiting
+    return self.in_waiting
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\serial\serialwin32.py", line 259, in in_waiting
+    raise SerialException("ClearCommError failed ({!r})".format(ctypes.WinError()))
+serial.serialutil.SerialException: ClearCommError failed (PermissionError(13, 'デバイスがコマンドを認識できません。', None, 22))

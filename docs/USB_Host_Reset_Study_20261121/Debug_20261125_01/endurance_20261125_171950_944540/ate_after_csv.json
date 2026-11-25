@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-25T18:08:46.634357+09:00",
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "reply": "OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "reply": "0"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:F6097F9107ED89D7:READY"
+    }
+  ]
+}

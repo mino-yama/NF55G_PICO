@@ -1,0 +1,12 @@
+UID 69f7d45962cfdfad
+MAIN 250 APP False
+FLAGS None None
+SD None
+ENTRY # Picoの/main.pyへ配置する通常起動の入口。src.mainの初期化と常駐ループを呼び出す。
+
+"""Deployment entry point. Copy with the src/ package after HIL entry checks."""
+
+from src.main import main
+
+main()
+

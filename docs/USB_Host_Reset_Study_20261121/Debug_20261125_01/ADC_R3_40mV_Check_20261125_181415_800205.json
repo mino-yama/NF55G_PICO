@@ -1,0 +1,213 @@
+{
+  "started": "2026-11-25T18:14:15.800205+09:00",
+  "port": "COM5",
+  "setpoint_mV": "40",
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "ate_raw_hex": "4f4b3a73746174653d49444c450d",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "ate_raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a463630393746393130374544383944373a52454144590d",
+      "response": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:F6097F9107ED89D7:READY"
+    },
+    {
+      "command": "EXT_QUERY 2500 *IDN?",
+      "ate_raw_hex": "4f4b3a4558545f52583a33323a343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410d",
+      "response": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "meter_response": "ADC Corp.,7355,246410099,  A02"
+    },
+    {
+      "command": "EXT_QUERY 2500 F?",
+      "ate_raw_hex": "4f4b3a4558545f52583a353a343633303331304430410d",
+      "response": "OK:EXT_RX:5:4630310D0A",
+      "meter_response": "F01"
+    },
+    {
+      "command": "EXT_QUERY 2500 INIC?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a34393445343934333331304430410d",
+      "response": "OK:EXT_RX:7:494E4943310D0A",
+      "meter_response": "INIC1"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRS?",
+      "ate_raw_hex": "4f4b3a4558545f52583a363a3534353235333330304430410d",
+      "response": "OK:EXT_RX:6:545253300D0A",
+      "meter_response": "TRS0"
+    },
+    {
+      "command": "EXT_QUERY 2500 H?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a34383330304430410d",
+      "response": "OK:EXT_RX:4:48300D0A",
+      "meter_response": "H0"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323335304430410d",
+      "response": "OK:EXT_RX:4:52350D0A",
+      "meter_response": "R5"
+    },
+    {
+      "command": "EXT_SEND 2500 R3",
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323333304430410d",
+      "response": "OK:EXT_RX:4:52330D0A",
+      "meter_response": "R3"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "meter_response": "00000"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033333339324533333330333833363435324433303333304430410d",
+      "response": "OK:EXT_RX:15:2B3033392E33303836452D30330D0A",
+      "meter_response": "+039.3086E-03"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033333339324533333330333833323435324433303333304430410d",
+      "response": "OK:EXT_RX:15:2B3033392E33303832452D30330D0A",
+      "meter_response": "+039.3082E-03"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033333339324533333330333733343435324433303333304430410d",
+      "response": "OK:EXT_RX:15:2B3033392E33303734452D30330D0A",
+      "meter_response": "+039.3074E-03"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "meter_response": "00000"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033333339324533333330333633383435324433303333304430410d",
+      "response": "OK:EXT_RX:15:2B3033392E33303638452D30330D0A",
+      "meter_response": "+039.3068E-03"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "meter_response": "00000"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "meter_response": "00256"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033333339324533333330333633373435324433303333304430410d",
+      "response": "OK:EXT_RX:15:2B3033392E33303637452D30330D0A",
+      "meter_response": "+039.3067E-03"
+    },
+    {
+      "command": "EXT_QUERY 2500 ERR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333032433232344536463230363537323732364637323232304430410d",
+      "response": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A",
+      "meter_response": "+0,\"No error\""
+    },
+    {
+      "command": "COMM_STATUS?",
+      "ate_raw_hex": "4f4b3a73746174653d49444c450d",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "ate_raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a463630393746393130374544383944373a52454144590d",
+      "response": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:F6097F9107ED89D7:READY"
+    }
+  ],
+  "measurements": [
+    {
+      "raw": "+039.3086E-03",
+      "mV": "39.3086000",
+      "delta_mV": "-0.6914000"
+    },
+    {
+      "raw": "+039.3082E-03",
+      "mV": "39.3082000",
+      "delta_mV": "-0.6918000"
+    },
+    {
+      "raw": "+039.3074E-03",
+      "mV": "39.3074000",
+      "delta_mV": "-0.6926000"
+    },
+    {
+      "raw": "+039.3068E-03",
+      "mV": "39.3068000",
+      "delta_mV": "-0.6932000"
+    },
+    {
+      "raw": "+039.3067E-03",
+      "mV": "39.3067000",
+      "delta_mV": "-0.6933000"
+    }
+  ],
+  "initial_range": "R5",
+  "verified_range": "R3",
+  "meter_error": "+0,\"No error\"",
+  "result": "COMPLETE"
+}

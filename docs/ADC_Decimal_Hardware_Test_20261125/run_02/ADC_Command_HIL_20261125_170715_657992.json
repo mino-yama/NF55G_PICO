@@ -1,0 +1,219 @@
+{
+  "port": "COM5",
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "elapsed_ms": 16,
+      "ate_raw_hex": "4f4b3a73746174653d49444c450d",
+      "response": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "elapsed_ms": 250,
+      "ate_raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a323844433346414336353941453844423a52454144590d",
+      "response": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:28DC3FAC659AE8DB:READY"
+    },
+    {
+      "command": "EXT_QUERY 2500 *IDN?",
+      "elapsed_ms": 218,
+      "ate_raw_hex": "4f4b3a4558545f52583a33323a343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410d",
+      "response": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "instrument_raw_hex": "41444320436f72702e2c373335352c3234363431303039392c20204130320d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 F?",
+      "elapsed_ms": 187,
+      "ate_raw_hex": "4f4b3a4558545f52583a353a343633303331304430410d",
+      "response": "OK:EXT_RX:5:4630310D0A",
+      "instrument_raw_hex": "4630310d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "elapsed_ms": 188,
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323330304430410d",
+      "response": "OK:EXT_RX:4:52300D0A",
+      "instrument_raw_hex": "52300d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 INIC?",
+      "elapsed_ms": 203,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a34393445343934333331304430410d",
+      "response": "OK:EXT_RX:7:494E4943310D0A",
+      "instrument_raw_hex": "494e4943310d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRS?",
+      "elapsed_ms": 109,
+      "ate_raw_hex": "4f4b3a4558545f52583a363a3534353235333330304430410d",
+      "response": "OK:EXT_RX:6:545253300D0A",
+      "instrument_raw_hex": "545253300d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 H?",
+      "elapsed_ms": 125,
+      "ate_raw_hex": "4f4b3a4558545f52583a343a34383330304430410d",
+      "response": "OK:EXT_RX:4:48300D0A",
+      "instrument_raw_hex": "48300d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 CMP?",
+      "elapsed_ms": 140,
+      "ate_raw_hex": "4f4b3a4558545f52583a363a3433344435303330304430410d",
+      "response": "OK:EXT_RX:6:434D50300D0A",
+      "instrument_raw_hex": "434d50300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 H0",
+      "elapsed_ms": 125,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 H?",
+      "elapsed_ms": 141,
+      "ate_raw_hex": "4f4b3a4558545f52583a343a34383330304430410d",
+      "response": "OK:EXT_RX:4:48300D0A",
+      "instrument_raw_hex": "48300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 INIC0",
+      "elapsed_ms": 141,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 INIC?",
+      "elapsed_ms": 172,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a34393445343934333330304430410d",
+      "response": "OK:EXT_RX:7:494E4943300D0A",
+      "instrument_raw_hex": "494e4943300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 TRS3",
+      "elapsed_ms": 156,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRS?",
+      "elapsed_ms": 172,
+      "ate_raw_hex": "4f4b3a4558545f52583a363a3534353235333333304430410d",
+      "response": "OK:EXT_RX:6:545253330D0A",
+      "instrument_raw_hex": "545253330d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 SPN1",
+      "elapsed_ms": 156,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 SPN?",
+      "elapsed_ms": 172,
+      "ate_raw_hex": "4f4b3a4558545f52583a31303a35333530344533303330333033303331304430410d",
+      "response": "OK:EXT_RX:10:53504E30303030310D0A",
+      "instrument_raw_hex": "53504e30303030310d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 TRN1",
+      "elapsed_ms": 156,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRN?",
+      "elapsed_ms": 187,
+      "ate_raw_hex": "4f4b3a4558545f52583a31303a35343532344533303330333033303331304430410d",
+      "response": "OK:EXT_RX:10:54524E30303030310D0A",
+      "instrument_raw_hex": "54524e30303030310d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 TRD0",
+      "elapsed_ms": 172,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRD?",
+      "elapsed_ms": 203,
+      "ate_raw_hex": "4f4b3a4558545f52583a31363a35343532343432423330324533303330333033303435324233303330304430410d",
+      "response": "OK:EXT_RX:16:5452442B302E30303030452B30300D0A",
+      "instrument_raw_hex": "5452442b302e30303030452b30300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 ST0",
+      "elapsed_ms": 172,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 ST?",
+      "elapsed_ms": 188,
+      "ate_raw_hex": "4f4b3a4558545f52583a353a353335343330304430410d",
+      "response": "OK:EXT_RX:5:5354300D0A",
+      "instrument_raw_hex": "5354300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 R5",
+      "elapsed_ms": 140,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "elapsed_ms": 141,
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323335304430410d",
+      "response": "OK:EXT_RX:4:52350D0A",
+      "instrument_raw_hex": "52350d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 ABO,INI",
+      "elapsed_ms": 125,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "elapsed_ms": 156,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "instrument_raw_hex": "30303030300d0a"
+    },
+    {
+      "command": "EXT_SEND 2500 *TRG",
+      "elapsed_ms": 140,
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "response": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "elapsed_ms": 156,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "instrument_raw_hex": "30303030300d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "elapsed_ms": 171,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333033303330304430410d",
+      "response": "OK:EXT_RX:7:30303030300D0A",
+      "instrument_raw_hex": "30303030300d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 MSR?",
+      "elapsed_ms": 188,
+      "ate_raw_hex": "4f4b3a4558545f52583a373a33303330333233353336304430410d",
+      "response": "OK:EXT_RX:7:30303235360D0A",
+      "instrument_raw_hex": "30303235360d0a"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "elapsed_ms": 2515,
+      "ate_raw_hex": "4552523a4558545f54494d454f55543a414d424947554f55533d310d",
+      "response": "ERR:EXT_TIMEOUT:AMBIGUOUS=1"
+    }
+  ],
+  "samples": [],
+  "result": "STOPPED",
+  "error": "RuntimeError(('MD?', 'ERR:EXT_TIMEOUT:AMBIGUOUS=1'))"
+}

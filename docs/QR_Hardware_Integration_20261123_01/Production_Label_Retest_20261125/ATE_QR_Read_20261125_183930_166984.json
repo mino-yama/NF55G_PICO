@@ -1,0 +1,629 @@
+{
+  "started": "2026-11-25T18:39:30.166984+09:00",
+  "port": "COM5",
+  "labels": [
+    "A"
+  ],
+  "operations": [
+    {
+      "command": "*IDN?",
+      "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d",
+      "reply": "NF55G_PICO_FIXTURE,Rev.0"
+    },
+    {
+      "command": "COMM_STATUS?",
+      "raw_hex": "4f4b3a73746174653d49444c450d",
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "SD_STATUS?",
+      "raw_hex": "4f4b0d",
+      "reply": "OK"
+    },
+    {
+      "command": "LOG_DROP_COUNT?",
+      "raw_hex": "300d",
+      "reply": "0"
+    },
+    {
+      "command": "TEST_START",
+      "raw_hex": "4f4b0d",
+      "reply": "OK"
+    },
+    {
+      "command": "QR_SCAN 60000",
+      "raw_hex": "4f4b3a51525f41524d45443a51366538353530356435393136363134352d30303030303139342d30303030303030330d",
+      "reply": "OK:QR_ARMED:Q6e85505d59166145-00000194-00000003"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f52454144494e470d",
+      "reply": "ERR:QR_READING"
+    },
+    {
+      "command": "QR_GET? Q6e85505d59166145-00000194-00000003",
+      "raw_hex": "4552523a51525f54494d454f55540d",
+      "reply": "ERR:QR_TIMEOUT"
+    },
+    {
+      "command": "TEST_END",
+      "raw_hex": "4f4b0d",
+      "reply": "OK"
+    }
+  ],
+  "verified": [],
+  "armed_label": "A",
+  "scan_reply": "ERR:QR_TIMEOUT",
+  "result": "STOPPED",
+  "error": "TimeoutError('QR A: no payload within the acceptance window')"
+}

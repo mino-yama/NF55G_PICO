@@ -1,5 +1,9 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-25 7355のADCコマンド採用確認。`R3`／`R5` を指定後の `R?` と照合し、R3では40 mV設定の直流電源入力を5回取得した。R5でセット間1秒の400/400セットを完了し、CSV400件を照合した。[採用条件と実機記録](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
+
+2026-11-25 7355 ADCコマンド取得。最初のEOMを使わず新たな完了を待つこと、照会間隔20 ms、誤設定時の取得拒否、総期限、送信前取消しをMockで確認。全548件成功。実機BATT_VでR5取得→R3オーバーレンジでキャッシュ失効→R5再取得を確認。[証跡](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev0.md)
+
 2026-11-25 測定器HOSTのUSB診断回帰。タイムアウトEへのOUT ACK／NAK／その他・最終PID・エンドポイントの追記で、X1のsession、request、mode、timeout、曖昧フラグを維持することを確認する。通常応答・対象外E・追記でpayload上限を超える場合は従来のフレームを返す。
 
 2026-11-25 ATE終了直後の回帰。`TEST_END` 応答後120 msに到着する `PICO_SELF_CHECK?` を同期SD再認識より先に処理し、最後のATE処理後250 ms連続idleで再認識を1回実施する。未送信応答・待ち要求がある場合と、書込み障害後に再認識できることも検証する。

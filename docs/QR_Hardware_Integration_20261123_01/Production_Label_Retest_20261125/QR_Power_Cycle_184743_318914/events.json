@@ -1,0 +1,23 @@
+[
+  {
+    "sequence": 29,
+    "uptime_ms": 23575,
+    "kind": 14,
+    "payload_hex": "d4a5a900205000000000000000000000000000000d000000",
+    "qr_enabled": true
+  },
+  {
+    "sequence": 30,
+    "uptime_ms": 24575,
+    "kind": 14,
+    "payload_hex": "0821b200085400000000000000000000000000000d000000",
+    "qr_enabled": true
+  },
+  {
+    "sequence": 31,
+    "uptime_ms": 25575,
+    "kind": 14,
+    "payload_hex": "3d9cba00f05700000000000000000000000000000d000000",
+    "qr_enabled": true
+  }
+]

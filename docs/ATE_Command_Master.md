@@ -1,5 +1,7 @@
 # ATE Command Master
 
+2026-11-25 7355の現行USB CDC運用はADCコマンドを採用。ATEは200 mVを `R3`、20 Vを `R5` で設定し、`R?` で指定値を確認する。回路別 `CAL_MEASURE_<回路> <A|B> <期限ms> MD?` は連続・即時DCVの測定完了を確認して値を取得する。[採用決定・設定と取得手順](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
+
 2026-11-25 校正コマンド簡略化: 回路名付きの測定・最新Cache照会・明示書込み・明示読戻しを追加。ATEから取得IDの返送は不要。測定値の採否・読戻し照合はATEで扱う。 [コマンドと応答](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md)
 
 2026-11-23 QR→SS実装: `QR_SCAN <100..60000ms>`で現試行の取得IDを発行、`QR_GET? <ID>`で原文、`QR_DATA? <ID>`でSS DATA50文字のHEXを照会する。照会済み同一IDの`QR_WRITE <ID>`だけがSSを送信し、完了後はIDを消費。`QR_CANCEL`は無送信で失効。SS後の`INFO_REFRESH`は別指令。承認済み対応はREV3＋空白→UNIT_REV4、YYWW→UNIT_LOT、号機→UNIT_SERIAL、FW／ADU／BBU／予約は変更なし指定。従前のQR/SS未実装記述は更新前の履歴。[応答・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)／[実機結果](QR_Hardware_Integration_20261123_01/SS_Write_Readback_Result_20261123_Rev0.md)。

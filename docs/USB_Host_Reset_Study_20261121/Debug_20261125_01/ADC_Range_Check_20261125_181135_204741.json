@@ -1,0 +1,169 @@
+{
+  "started": "2026-11-25T18:11:35.204741+09:00",
+  "port": "COM5",
+  "operations": [
+    {
+      "command": "COMM_STATUS?",
+      "ate_raw_hex": "4f4b3a73746174653d49444c450d",
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "ate_raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a463630393746393130374544383944373a52454144590d",
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:F6097F9107ED89D7:READY"
+    },
+    {
+      "command": "EXT_QUERY 2500 *IDN?",
+      "ate_raw_hex": "4f4b3a4558545f52583a33323a343134343433323034333646373237303245324333373333333533353243333233343336333433313330333033393339324332303230343133303332304430410d",
+      "reply": "OK:EXT_RX:32:41444320436F72702E2C373335352C3234363431303039392C20204130320D0A",
+      "meter_reply": "ADC Corp.,7355,246410099,  A02"
+    },
+    {
+      "command": "EXT_QUERY 2500 F?",
+      "ate_raw_hex": "4f4b3a4558545f52583a353a343633303331304430410d",
+      "reply": "OK:EXT_RX:5:4630310D0A",
+      "meter_reply": "F01"
+    },
+    {
+      "command": "EXT_QUERY 2500 INIC?",
+      "ate_raw_hex": "4f4b3a4558545f52583a373a34393445343934333331304430410d",
+      "reply": "OK:EXT_RX:7:494E4943310D0A",
+      "meter_reply": "INIC1"
+    },
+    {
+      "command": "EXT_QUERY 2500 TRS?",
+      "ate_raw_hex": "4f4b3a4558545f52583a363a3534353235333330304430410d",
+      "reply": "OK:EXT_RX:6:545253300D0A",
+      "meter_reply": "TRS0"
+    },
+    {
+      "command": "EXT_QUERY 2500 H?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a34383330304430410d",
+      "reply": "OK:EXT_RX:4:48300D0A",
+      "meter_reply": "H0"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323335304430410d",
+      "reply": "OK:EXT_RX:4:52350D0A",
+      "meter_reply": "R5"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033383245333133323336333633393435324233303330304430410d",
+      "reply": "OK:EXT_RX:15:2B30382E3132363639452B30300D0A",
+      "meter_reply": "+08.12669E+00"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033383245333133323336333633363435324233303330304430410d",
+      "reply": "OK:EXT_RX:15:2B30382E3132363636452B30300D0A",
+      "meter_reply": "+08.12666E+00"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033383245333133323336333633393435324233303330304430410d",
+      "reply": "OK:EXT_RX:15:2B30382E3132363639452B30300D0A",
+      "meter_reply": "+08.12669E+00"
+    },
+    {
+      "command": "EXT_SEND 2500 R3",
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "reply": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323333304430410d",
+      "reply": "OK:EXT_RX:4:52330D0A",
+      "meter_reply": "R3"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333932453339333933393339333933393435324233333337304430410d",
+      "reply": "OK:EXT_RX:15:2B392E393939393939452B33370D0A",
+      "meter_reply": "+9.999999E+37"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333932453339333933393339333933393435324233333337304430410d",
+      "reply": "OK:EXT_RX:15:2B392E393939393939452B33370D0A",
+      "meter_reply": "+9.999999E+37"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333932453339333933393339333933393435324233333337304430410d",
+      "reply": "OK:EXT_RX:15:2B392E393939393939452B33370D0A",
+      "meter_reply": "+9.999999E+37"
+    },
+    {
+      "command": "EXT_SEND 2500 R5",
+      "ate_raw_hex": "4f4b3a4558545f54580d",
+      "reply": "OK:EXT_TX"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323335304430410d",
+      "reply": "OK:EXT_RX:4:52350D0A",
+      "meter_reply": "R5"
+    },
+    {
+      "command": "EXT_QUERY 2500 R?",
+      "ate_raw_hex": "4f4b3a4558545f52583a343a35323335304430410d",
+      "reply": "OK:EXT_RX:4:52350D0A",
+      "meter_reply": "R5"
+    },
+    {
+      "command": "EXT_QUERY 2500 MD?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333033383245333133323336333633383435324233303330304430410d",
+      "reply": "OK:EXT_RX:15:2B30382E3132363638452B30300D0A",
+      "meter_reply": "+08.12668E+00"
+    },
+    {
+      "command": "EXT_QUERY 2500 ERR?",
+      "ate_raw_hex": "4f4b3a4558545f52583a31353a3242333032433232344536463230363537323732364637323232304430410d",
+      "reply": "OK:EXT_RX:15:2B302C224E6F206572726F72220D0A",
+      "meter_reply": "+0,\"No error\""
+    },
+    {
+      "command": "COMM_STATUS?",
+      "ate_raw_hex": "4f4b3a73746174653d49444c450d",
+      "reply": "OK:state=IDLE"
+    },
+    {
+      "command": "HOST_INFO? METER",
+      "ate_raw_hex": "4f4b3a484f53545f494e464f3a424643463245444238344230423337463a6d657465722d686f73742d72656c61792d32303236313132352e323a463630393746393130374544383944373a52454144590d",
+      "reply": "OK:HOST_INFO:BFCF2EDB84B0B37F:meter-host-relay-20261125.2:F6097F9107ED89D7:READY"
+    }
+  ],
+  "ranges": {
+    "R5": {
+      "samples": [
+        "+08.12669E+00",
+        "+08.12666E+00",
+        "+08.12669E+00"
+      ],
+      "status": [
+        "VALUE",
+        "VALUE",
+        "VALUE"
+      ]
+    },
+    "R3": {
+      "samples": [
+        "+9.999999E+37",
+        "+9.999999E+37",
+        "+9.999999E+37"
+      ],
+      "status": [
+        "OVERRANGE",
+        "OVERRANGE",
+        "OVERRANGE"
+      ]
+    }
+  },
+  "original": "R5",
+  "restored": "R5",
+  "after_read": "+08.12668E+00",
+  "meter_error": "+0,\"No error\"",
+  "status": "COMPLETE"
+}

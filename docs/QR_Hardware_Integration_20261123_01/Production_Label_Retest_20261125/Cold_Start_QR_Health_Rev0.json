@@ -1,0 +1,22 @@
+[
+  {
+    "sequence": 14452,
+    "uptime_ms": 14442616,
+    "main_loops": 3946788146,
+    "usb_frames": 14439553,
+    "drops": 0,
+    "qr_texts": 2,
+    "hid_reports": 776,
+    "flags": 12
+  },
+  {
+    "sequence": 14453,
+    "uptime_ms": 14443616,
+    "main_loops": 3946947442,
+    "usb_frames": 14440553,
+    "drops": 0,
+    "qr_texts": 2,
+    "hid_reports": 776,
+    "flags": 12
+  }
+]

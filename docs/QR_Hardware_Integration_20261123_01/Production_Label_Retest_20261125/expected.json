@@ -1,0 +1,36 @@
+{
+  "A": {
+    "file": "QR_Test_A_000001.png",
+    "payload": "US250A-CGXE-009491-101A1.2601000001",
+    "fields": {
+      "product_name": "US250A-C",
+      "item_code": "GXE-009491-101",
+      "product_rev": "A1.",
+      "manufacture_year": "26",
+      "manufacture_week": "01",
+      "serial": "000001"
+    },
+    "ss_data_hex": "46464646464641312e2032363031303030303031464646464646464646464646464646464646464646464646464646464646",
+    "qr_version": 2,
+    "quiet_zone_modules": 4,
+    "error_correction": "M",
+    "sha256": "05d0f3642a02628c763813339cd010293a35db2f63b60c9847be1511dbb8fe63"
+  },
+  "B": {
+    "file": "QR_Test_B_000002.png",
+    "payload": "US250A-CGXE-009491-101A032601000002",
+    "fields": {
+      "product_name": "US250A-C",
+      "item_code": "GXE-009491-101",
+      "product_rev": "A03",
+      "manufacture_year": "26",
+      "manufacture_week": "01",
+      "serial": "000002"
+    },
+    "ss_data_hex": "4646464646464130332032363031303030303032464646464646464646464646464646464646464646464646464646464646",
+    "qr_version": 2,
+    "quiet_zone_modules": 4,
+    "error_correction": "M",
+    "sha256": "9d420b7502bd30afd8d2d24acdae0bfd9aaff1640ddc60108f7aeed6ab04dac9"
+  }
+}
