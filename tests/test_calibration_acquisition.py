@@ -191,6 +191,12 @@ class AcquisitionTests(unittest.TestCase):
 
 
 class CalibrationParserTests(unittest.TestCase):
+    def test_circuit_named_measure_command_uses_existing_request_validation(self):
+        named = parse_ate_command('CAL_MEASURE_BATT_CHG A 4000 :READ?')
+        legacy = parse_ate_command('CAL_MEASURE BATT_CHG A 4000 :READ?')
+        self.assertEqual(named.category, 'CALIBRATION_ACQUIRE')
+        self.assertEqual(named.payload, legacy.payload)
+
     def test_new_commands_and_opaque_id_roundtrip(self):
         parsed = parse_ate_command('CAL_MEASURE BATT_V A 2000 :READ?')
         self.assertEqual(parsed.category, 'CALIBRATION_ACQUIRE')

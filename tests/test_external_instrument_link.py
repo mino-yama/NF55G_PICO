@@ -3,6 +3,7 @@ import ctypes
 import os
 from pathlib import Path
 import shutil
+import struct
 import subprocess
 import tempfile
 import unittest
@@ -10,7 +11,8 @@ import unittest
 from src.external_instrument_contract import encode_frame, decode_frame, parse_monitor_request
 from src.external_instrument_link import ExternalInstrumentLink, FrameReader
 from src.external_instrument_relay import RelayError
-from src.mock_nf55g import FakeClock, MockUART
+from src.frame import build_frame
+from src.mock_nf55g import FakeClock, MockNF55GScenario, MockUART, ScenarioStep
 from src.main import FixtureApp
 from src.nf55_protocol import NF55Protocol
 
@@ -102,7 +104,7 @@ API size_t test_recode(const unsigned char *bytes, size_t size, unsigned char *o
 API size_t test_usb_diag(const unsigned char *bytes, size_t size, unsigned char *out) {
     x1_frame_t frame;
     if (!x1_decode(bytes,size,&frame)) return 0;
-    relay_usb_snapshot_t snapshot = {2000,1998,2,0x80,0xD2,0x81,1,0,0,64};
+    relay_usb_snapshot_t snapshot = {2000,1998,2,0x80,0xD2,0x81,1,0,0,64,2,3,0,0xD2,0x02};
     relay_usb_diag_decorate(&frame, &snapshot);
     return x1_encode(&frame,out,X1_FRAME_MAX);
 }
@@ -267,6 +269,28 @@ class NativeRelayLinkTests(unittest.TestCase):
         reply = self.request()
         self.assertTrue(reply.startswith('OK:EXT_RX:32:'))
         self.assertEqual(self.transport.commands, [b'*IDN?\r\n'])
+
+    def test_error_valued_read_response_does_not_block_next_explicit_read(self):
+        error_value = b'+9.999999E+37\r\n'
+        next_value = b'+0040.154E-03\r\n'
+        self.transport.responses = [error_value, next_value]
+
+        first = self.request(b'EXT_QUERY 10000 :READ?')
+        self.assertTrue(first.startswith('OK:EXT_RX:'))
+        _, _, length, encoded = first.split(':', 3)
+        first_raw = bytes.fromhex(encoded)
+        self.assertEqual(int(length), len(error_value))
+        self.assertEqual(first_raw, error_value)
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
+
+        second = self.request(b'EXT_QUERY 10000 :READ?')
+        self.assertTrue(second.startswith('OK:EXT_RX:'))
+        _, _, length, encoded = second.split(':', 3)
+        second_raw = bytes.fromhex(encoded)
+        self.assertEqual(int(length), len(next_value))
+        self.assertEqual(second_raw, next_value)
+        self.assertEqual(self.transport.commands, [b':READ?\r\n', b':READ?\r\n'])
+        self.assertFalse(self.lib.test_fault(self.transport.memory))
 
     def test_host_finds_header_after_noise_truncation_and_overflow(self):
         hello = encode_frame(b'PARENT01' + bytes(8), 0, 'H', 0, 0, b'')
@@ -529,6 +553,66 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.assertEqual(app.execute_ate_line('CAL_MEASUREMENT? ' + token_id), 'ERR:CAL_MEASUREMENT_INVALID')
         self.assertEqual(nf.tx_log, [])
 
+    def test_named_calibration_workflow_from_ate_uart_through_six_points(self):
+        points = (
+            ('DISCHG_I', 'A', 'P2', '12', b'+044.2500E-03\r\n', 44.25),
+            ('DISCHG_I', 'B', 'P1', '11', b'+000.3000E-03\r\n', 0.3),
+            ('BATT_CHG', 'A', 'P2', '42', b'+001.8500E-03\r\n', 1.85),
+            ('BATT_CHG', 'B', 'P1', '41', b'+000.5000E-03\r\n', 0.5),
+            ('BATT_V', 'A', 'P2', '22', b'+08.12500E+00\r\n', 8.125),
+            ('BATT_V', 'B', 'P1', '21', b'+05.25000E+00\r\n', 5.25),
+        )
+        manufacturing = b'S1.14BA1. 2601000001' + b'0' * 80
+        scenario = MockNF55GScenario([ScenarioStep.ack_response('D5', manufacturing)])
+        ate = MockUART(clock=self.clock)
+        nf = MockUART(clock=self.clock, scenario=scenario)
+        app = FixtureApp(ate_uart=ate, nf55_uart=nf, clock=self.clock, external_link=self.link,
+                         calibration_sample_enabled=True)
+
+        def exchange(command):
+            start = len(ate.tx_log)
+            ate.enqueue_rx(command.encode('ascii') + b'\r')
+            for _ in range(2200):
+                app.service_once()
+                output = b''.join(ate.tx_log[start:])
+                if output.endswith(b'\r'):
+                    self.assertEqual(output.count(b'\r'), 1)
+                    return output[:-1].decode('ascii')
+                self.clock.sleep_ms(1)
+            self.fail('No ATE response for ' + command)
+
+        self.assertEqual(exchange('TEST_START'), 'OK')
+        self.assertEqual(exchange('INFO_REFRESH'), 'OK')
+        for circuit, point, destination, type_point, raw, value in points:
+            with self.subTest(circuit=circuit, point=point):
+                self.transport.responses = [b'"VOLT:DC"\r\n', raw]
+                measured = exchange(f'CAL_MEASURE_{circuit} {point} 2000 :READ?')
+                self.assertTrue(measured.startswith('OK:CAL_MEASURE:'), measured)
+                token = measured.split(':')[-1]
+                self.assertEqual(exchange(f'AD_VERIFY_{circuit} {destination}'), 'ERR:AD_VERIFY_NO_WRITE')
+                instrument_requests = list(self.transport.commands)
+                before = scenario.handled_command_count
+                cached = exchange(f'CAL_MEASUREMENT_{circuit}? {point}')
+                self.assertTrue(cached.startswith(f'OK:CAL_MEASUREMENT:{token}:{circuit}:{point}:'))
+                self.assertEqual(cached.rsplit(':', 1)[-1], raw.hex().upper())
+                self.assertEqual(scenario.handled_command_count, before)
+                scenario.add(ScenarioStep.ack_response('AD', type_point.encode() + b'00012344A8699A'))
+                value8 = struct.pack('>f', value).hex().upper()
+                self.assertTrue(exchange(f'CAL_WRITE_{circuit} {point} {destination}').startswith(
+                    f'OK:CAL_WRITE:{value8}:291:'))
+                self.assertEqual(scenario.handled_command_count, before + 1)
+                self.assertIn(build_frame('AD', (type_point + value8).encode()), nf.tx_log)
+                scenario.add(ScenarioStep.ack_response('AR', b'00012300000001' * 10))
+                self.assertEqual(exchange(f'AD_VERIFY_{circuit} {destination}'),
+                                 f'OK:AD_VERIFY:{circuit}:{destination}:{value8}:00000001:291:291')
+                self.assertEqual(exchange(f'CAL_MEASUREMENT_{circuit}? {point}'), 'ERR:CAL_MEASUREMENT_INVALID')
+                self.assertEqual(scenario.handled_command_count, before + 2)
+                self.assertEqual(self.transport.commands, instrument_requests)
+        self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n', b':READ?\r\n'] * len(points))
+        self.assertEqual(exchange('TEST_END'), 'OK')
+        self.assertEqual(exchange('LOG_DROP_COUNT?'), '0')
+        self.assertEqual(exchange('AD_VERIFY_BATT_V P1'), 'ERR:CAL_NO_ACTIVE_TRIAL')
+
     def test_calibration_native_no_trial_disabled_or_bad_command_sends_nothing(self):
         app = FixtureApp(clock=self.clock, external_link=self.link)
         self.assertEqual(app.execute_ate_line('CAL_MEASURE BATT_V A 2000 :READ?'), 'ERR:CAL_NO_ACTIVE_TRIAL')
@@ -747,7 +831,7 @@ class NativeRelayLinkTests(unittest.TestCase):
         original = decode_frame(raw)
         for name in ('session', 'request', 'kind', 'mode', 'timeout_ms'):
             self.assertEqual(frame[name], original[name])
-        self.assertEqual(frame['payload'], b'TIMEOUT_RX0_T1_C0_XNONE_I2000_N1998_D2_S80_PD2_EP81_H1_K0_L0/64|1')
+        self.assertEqual(frame['payload'], b'TIMEOUT_RX0_T1_C0_XNONE_I2000_N1998_D2_S80_PD2_EP81_H1_K0_L0/64_OA2_ON3_OX0_OPD2_OE02|1')
 
     def test_usb_diagnostic_leaves_normal_other_error_and_full_payload_unchanged(self):
         for kind, payload in (('R', b'TIMEOUT_RX0_T1_C0_XNONE|1'),

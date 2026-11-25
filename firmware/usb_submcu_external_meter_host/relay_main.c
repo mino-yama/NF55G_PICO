@@ -16,6 +16,7 @@
 #include "tusb.h"
 #include "relay_host.h"
 #include "relay_cdc_guard.h"
+#include "relay_cdc_rx.h"
 #include "relay_usb_diag.h"
 
 bi_decl(bi_2pins_with_names(0, "Relay UART TX", 1, "Relay UART RX"));
@@ -35,11 +36,27 @@ static uint32_t control_epoch, control_started_at;
 static xfer_result_t control_result;
 static size_t usb_offset;
 static endpoint_t *diag_endpoint;
+static endpoint_t *diag_out_endpoint;
 static volatile bool diag_armed;
 static volatile uint32_t diag_calls, diag_nak, diag_data;
 static volatile uint8_t diag_sync, diag_pid;
+static volatile uint32_t diag_out_ack, diag_out_nak, diag_out_other;
+static volatile uint8_t diag_out_pid;
 
 int __real_pio_usb_bus_receive_packet_and_handshake(pio_port_t *pp, uint8_t handshake);
+uint8_t __real_pio_usb_bus_wait_handshake(pio_port_t *pp);
+
+// bulk OUTの応答だけを読み取り、PIO側が判定するPIDや転送状態は変更しない。
+uint8_t __no_inline_not_in_flash_func(__wrap_pio_usb_bus_wait_handshake)(pio_port_t *pp) {
+    uint8_t pid = __real_pio_usb_bus_wait_handshake(pp);
+    if (diag_armed && diag_out_endpoint != NULL && diag_out_endpoint->transfer_started) {
+        diag_out_pid = pid;
+        volatile uint32_t *counter = pid == USB_PID_ACK ? &diag_out_ack :
+                                     pid == USB_PID_NAK ? &diag_out_nak : &diag_out_other;
+        if (*counter != UINT32_MAX) (*counter)++;
+    }
+    return pid;
+}
 // ACK等の時間制約区間を終えた後だけ集計する。受信値・戻り値は変更しない。
 int __no_inline_not_in_flash_func(__wrap_pio_usb_bus_receive_packet_and_handshake)(pio_port_t *pp, uint8_t handshake) {
     int result = __real_pio_usb_bus_receive_packet_and_handshake(pp, handshake);
@@ -57,7 +74,10 @@ static relay_usb_snapshot_t usb_snapshot(void) {
     // 故障通知時だけ短時間IRQを抑止し、一貫した観測値をコピーする。
     uint32_t irq = save_and_disable_interrupts();
     relay_usb_snapshot_t s = { .calls = diag_calls, .nak = diag_nak, .data = diag_data,
-                              .sync = diag_sync, .pid = diag_pid };
+                              .sync = diag_sync, .pid = diag_pid,
+                              .out_ack = diag_out_ack, .out_nak = diag_out_nak,
+                              .out_other = diag_out_other, .out_pid = diag_out_pid,
+                              .out_endpoint = diag_out_endpoint != NULL ? diag_out_endpoint->ep_num : 0u };
     if (diag_endpoint != NULL) {
         s.endpoint = diag_endpoint->ep_num;
         s.active = diag_endpoint->has_transfer;
@@ -128,10 +148,12 @@ void tuh_cdc_mount_cb(uint8_t index) {
         vid != 0x1334u || pid != 0x0309u) return;
     cdc_index = index;
     diag_endpoint = NULL;
+    diag_out_endpoint = NULL;
     for (size_t i = 0u; i < PIO_USB_EP_POOL_CNT; i++) {
         endpoint_t *ep = PIO_USB_ENDPOINT(i);
-        if (ep->dev_addr == info.daddr && !ep->is_tx && ep->ep_num != 0u &&
-            (ep->attr & 3u) == TUSB_XFER_BULK) { diag_endpoint = ep; break; }
+        if (ep->dev_addr != info.daddr || ep->ep_num == 0u || (ep->attr & 3u) != TUSB_XFER_BULK) continue;
+        if (ep->is_tx) diag_out_endpoint = ep;
+        else diag_endpoint = ep;
     }
     relay_cdc_guard_bind(&host, info.daddr);
     mounted = true;
@@ -149,6 +171,7 @@ void tuh_cdc_umount_cb(uint8_t index) {
     relay_cdc_guard_bind(NULL, 0u);
     diag_armed = false;
     diag_endpoint = NULL;
+    diag_out_endpoint = NULL;
     mounted = false;
     configured = false;
     control_epoch++;
@@ -193,12 +216,8 @@ static void service_configuration(void) {
 
 static void service_usb_rx(void) {
     if (!mounted) return;
-    uint8_t bytes[64];
-    // UARTから新要求を採用する前に既着の未要求データを検出する。
-    if (tuh_cdc_read_available(cdc_index) > 0u) {
-        uint32_t count = tuh_cdc_read(cdc_index, bytes, sizeof(bytes));
-        if (count > 0u) relay_host_rx(&host, bytes, count, now_ms());
-    }
+    // UARTから新要求を採用する前に、FIFO内の既着データ全体を検査する。
+    relay_cdc_rx_service(&host, cdc_index, now_ms());
 }
 
 static void service_usb_tx(void) {
@@ -207,6 +226,8 @@ static void service_usb_tx(void) {
         uint32_t irq = save_and_disable_interrupts();
         diag_calls = diag_nak = diag_data = 0u;
         diag_sync = diag_pid = 0u;
+        diag_out_ack = diag_out_nak = diag_out_other = 0u;
+        diag_out_pid = 0u;
         diag_armed = true;
         restore_interrupts(irq);
         usb_offset = 0u;

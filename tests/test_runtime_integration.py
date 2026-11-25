@@ -323,6 +323,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
         self.assertEqual(app.execute_ate_line('SD_REINIT'), 'ERR:BUSY')
         self.assertEqual(app.execute_ate_line('TEST_END'), 'OK')
         app.service_once()
+        self.assertEqual(logger.status(), 'WRITE_ERR')
+        app.clock.advance_ms(250)
+        app.service_once()
         self.assertEqual(logger.status(), 'OK')
         self.assertFalse(logger.active)
         self.assertTrue(logger.test_start())
@@ -547,15 +550,44 @@ class RuntimeIntegrationTests(unittest.TestCase):
 
     def test_sd_recovery_waits_for_test_end_reply_and_ate_pending_work(self):
         sink = MemorySDSink()
-        logger = Logger(sink, clock=FakeClock())
+        clock = FakeClock()
+        logger = Logger(sink, clock=clock)
         ate = BytePort(b'TEST_START\r\nTEST_END\r\n*IDN?\r\n', max_write=0)
-        app = FixtureApp(ate_uart=ate, logger=logger)
+        app = FixtureApp(ate_uart=ate, logger=logger, clock=clock)
         app.service_once()
         self.assertEqual(sink.reinit_count, 0)
         ate.max_write = 100
         for _ in range(8):
             app.service_once()
         self.assertEqual(bytes(ate.tx), b'OK\rOK\rNF55G_PICO_FIXTURE,Rev.0\r')
+        self.assertEqual(sink.reinit_count, 0)
+        app.clock.advance_ms(250)
+        app.service_once()
+        self.assertEqual(sink.reinit_count, 1)
+
+    def test_sd_recovery_allows_followup_after_test_end_reply(self):
+        sink = MemorySDSink()
+        clock = FakeClock()
+        ate = BytePort(b'TEST_START\r')
+        app = FixtureApp(ate_uart=ate, logger=Logger(sink, clock=clock), clock=clock)
+        app.service_once()
+        ate.rx.extend(b'TEST_END\r')
+        app.service_once()
+        self.assertEqual(bytes(ate.tx), b'OK\rOK\r')
+        self.assertEqual(sink.reinit_count, 0)
+
+        clock.advance_ms(120)
+        ate.rx.extend(b'PICO_SELF_CHECK?\r')
+        app.service_once()
+        self.assertIn(b'TEST_LOGGER=OK;TEST_LOG_DROP=OK\r', ate.tx)
+        self.assertEqual(sink.reinit_count, 0)
+
+        clock.advance_ms(249)
+        app.service_once()
+        self.assertEqual(sink.reinit_count, 0)
+        clock.advance_ms(1)
+        app.service_once()
+        app.service_once()
         self.assertEqual(sink.reinit_count, 1)
 
     def test_no_card_test_session_allows_nf_but_blocks_recovery(self):

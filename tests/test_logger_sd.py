@@ -1,5 +1,7 @@
 import os
 import sys
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -10,9 +12,50 @@ from src.cache_manager import CacheManager
 from src.command_dispatcher import CommandDispatcher
 from src.logger import Logger, MemorySDSink, LoggerError, SD_NO_CARD, SD_OK, SD_WRITE_ERR
 from src.mock_nf55g import FakeClock
+from src.sd_sink import FileSDSink
 
 
 class LoggerSDTests(unittest.TestCase):
+    def test_bank_scan_uses_fat_directory_sizes_and_falls_back_when_missing(self):
+        regular = '20261125_120000_T000321.csv'
+        legacy = '20261125_115959.csv'
+        other = '20261125_120001_T000322.csv'
+        stat_calls = []
+
+        class HostFS:
+            def __getattr__(self, name):
+                return getattr(os, name)
+
+            def statvfs(self, _path):
+                return (512, 512, 2000, 1500)
+
+        class TestFS(HostFS):
+            def stat(self, path):
+                stat_calls.append(Path(path).name)
+                return os.stat(path)
+
+            def ilistdir(self, path):
+                for name in os.listdir(path):
+                    size = os.stat(os.path.join(path, name)).st_size
+                    yield (name, 0x8000, 0, size) if name != legacy else (name, 0x8000, 0)
+
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            FileSDSink(temp, fs=HostFS()).mount()
+            for bank, name, raw in (('BANK_A', regular, b'123'), ('BANK_A', legacy, b'12345'),
+                                    ('BANK_B', other, b''), ('BANK_B', 'foreign.txt', b'ignored')):
+                (root / bank / name).write_bytes(raw)
+
+            baseline = FileSDSink(temp, fs=HostFS())
+            baseline.mount()
+            fast = FileSDSink(temp, fs=TestFS())
+            fast.mount()
+            self.assertEqual(fast.bank_bytes, {'BANK_A': 8, 'BANK_B': 0})
+            self.assertEqual(fast.bank_bytes, baseline.bank_bytes)
+            self.assertEqual(fast.trial_high_watermark, baseline.trial_high_watermark)
+            self.assertEqual(fast.trial_high_watermark, 322)
+            self.assertEqual([name for name in stat_calls if name.endswith('.csv')], [legacy])
+
     def make_logger(self, queue_limit=256):
         clock = FakeClock()
         sink = MemorySDSink(capacity_bytes=1000)

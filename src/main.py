@@ -19,6 +19,7 @@ try:
     from .cache_manager import CacheManager
     from .calibration_measurement import CalibrationMeasurements, MeasurementError
     from .calibration_acquisition import CalibrationAcquisition, acquisition_id, measurement_reply
+    from .calibration_write import SampleCalibrationWrite
     from .command_dispatcher import CommandDispatcher
     from .command_parser import ParseError, parse_ate_command
     from .diagnostic import FixtureDiagnostics
@@ -42,6 +43,7 @@ except ImportError:  # pragma: no cover
     from cache_manager import CacheManager
     from calibration_measurement import CalibrationMeasurements, MeasurementError
     from calibration_acquisition import CalibrationAcquisition, acquisition_id, measurement_reply
+    from calibration_write import SampleCalibrationWrite
     from command_dispatcher import CommandDispatcher
     from command_parser import ParseError, parse_ate_command
     from diagnostic import FixtureDiagnostics
@@ -58,8 +60,13 @@ except ImportError:  # pragma: no cover
     from qr_reader import decode_nf55g_label
 
 
+# ATEが終了応答を受け取ってから次の照会を返すまで、同期SD再認識を始めない。
+SD_RECOVERY_IDLE_MS = 250
+
+
 class FixtureApp:
-    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None, external_link=None, qr_transport=None):
+    def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None,
+                 external_link=None, qr_transport=None, calibration_sample_enabled=False):
         self.clock = clock or getattr(protocol, 'clock', None) or SystemClock()
         self.external_link = external_link
         self.external_error = None
@@ -73,6 +80,8 @@ class FixtureApp:
         self.logger = logger or Logger(clock=self.clock, rtc=rtc)
         self.measurements = CalibrationMeasurements()
         self.calibration_acquisition = CalibrationAcquisition(self.measurements, external_link, self.clock)
+        self.calibration_write = (SampleCalibrationWrite(self.measurements, self.protocol, self.cache, self.logger)
+                                  if calibration_sample_enabled and self.protocol is not None else None)
         self._calibration_pending = False
         if self.logger.test_running:
             self.measurements.start_trial()
@@ -84,6 +93,7 @@ class FixtureApp:
         self.server = ATEServer(ate_uart) if ate_uart is not None else None
         self.running = False
         self._last_rtc_sample = -1000
+        self._sd_recovery_idle_since = None
         self.ate_error = None
         self.logger.busy = self._comm_busy
         if hasattr(self.logger.sd_sink, 'busy'):
@@ -195,6 +205,8 @@ class FixtureApp:
         self._service_external()
         if self.server is not None:
             try:
+                if self.server.tx or self.server.pending:
+                    self._sd_recovery_idle_since = None
                 self.server.flush_reply()
                 if not self.server.tx and self.server.pending and not self._comm_busy():
                     line, error = self.server.pending.pop(0)
@@ -212,13 +224,15 @@ class FixtureApp:
                         self.server.flush_reply()
                     # 最終応答の送出後は下のhas_work/busy判定へ進む。
                     # 常に次巡回へ延期すると、直後のATE burstでSD排出が飢餓状態になる。
-                    # 待ち要求・未送出応答・受信中の行があれば、従来どおりATEを優先する。
                 if self.server.has_work():
+                    self._sd_recovery_idle_since = None
                     return
             except OSError as exc:
+                self._sd_recovery_idle_since = None
                 self.ate_error = str(exc)
                 return
         if self._comm_busy():
+            self._sd_recovery_idle_since = None
             return
         now = self.clock.ticks_ms()
         if self.rtc is not None and now - self._last_rtc_sample >= 1000:
@@ -227,9 +241,27 @@ class FixtureApp:
             except (ValueError, OSError):
                 self.logger.timestamp_snapshot = ''
             self._last_rtc_sample = now
-        # TEST_END応答とATE待ち要求を処理した後に、一度だけSDを再認識する。
-        self.logger.service_recovery()
+        self._service_sd_recovery()
         self.logger.service(protocol_busy=self._comm_busy())
+
+    def _service_sd_recovery(self):
+        # 通常のログ排出は延期せず、終了後の同期再認識だけを連続idleまで待たせる。
+        if not self.logger.recovery_pending or self.logger.test_running or self.logger.active:
+            self._sd_recovery_idle_since = None
+            return
+        if self.server is not None:
+            now = self.clock.ticks_ms()
+            if self._sd_recovery_idle_since is None:
+                self._sd_recovery_idle_since = now
+                return
+            if now - self._sd_recovery_idle_since < SD_RECOVERY_IDLE_MS:
+                return
+            # RTC照会などの間に到着した入力も再認識の前に確認する。
+            if self.server.has_work():
+                self._sd_recovery_idle_since = None
+                return
+        self.logger.service_recovery()
+        self._sd_recovery_idle_since = None
 
     def run(self):
         self.running = True
@@ -261,10 +293,14 @@ class FixtureApp:
             self.qr_reader.cancel()
             self.qr_write.start_trial()
             self.measurements.start_trial()
+            if self.calibration_write is not None:
+                self.calibration_write.reset()
         if not self.logger.test_running:
             # 終了が通信/SD処理で延期された間は保持し、試行終了成立時に破棄する。
             self.measurements.end_trial()
             self.qr_write.end_trial()
+            if self.calibration_write is not None:
+                self.calibration_write.reset()
         if (not was_recording or new_trial) and (self.logger.active or self.logger.test_running):
             self.logger.log(category='ATE', direction='RX', event='REQUEST', detail=text)
         if response is not None and (self.logger.active or self.logger.test_running):
@@ -323,11 +359,22 @@ class FixtureApp:
             self.external_response = None
             self._external_text = parsed.raw
             return None
-        if parsed.category == 'CALIBRATION_QUERY':
+        if parsed.category in ('CALIBRATION_QUERY', 'CALIBRATION_LATEST'):
             try:
-                return measurement_reply(self.measurements, parsed.payload)
+                token = (self.measurements.latest_token(*parsed.payload)
+                         if parsed.category == 'CALIBRATION_LATEST' else parsed.payload)
+                reply = measurement_reply(self.measurements, token)
             except MeasurementError as exc:
                 return 'ERR:CAL_' + str(exc)
+            if self.calibration_write is not None:
+                self.calibration_write.mark_queried(token)
+            return reply
+        if parsed.category == 'CALIBRATION_WRITE':
+            if self.calibration_write is None:
+                return 'ERR:CAL_WRITE_DISABLED'
+            if self._comm_busy():
+                return 'ERR:BUSY'
+            return self.calibration_write.execute(parsed.name, parsed.payload)
         if parsed.category == "REFRESH":
             return self._record_result(self.dispatcher.execute_refresh(parsed.name, parsed.payload))
         if parsed.category == "QUERY":
@@ -436,7 +483,9 @@ def create_fixture_app(enable_hardware=True):
             }
         logger = Logger(sd_sink=sink, clock=clock, rtc=rtc,
                 repl_sink=create_repl_sink(config.REPL_LOG_ENABLED))
-    app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock, external_link=external_link, qr_transport=qr_transport)
+    app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock,
+                     external_link=external_link, qr_transport=qr_transport,
+                     calibration_sample_enabled=config.CALIBRATION_SAMPLE_ENABLED)
     app.external_error = external_error
     return app
 

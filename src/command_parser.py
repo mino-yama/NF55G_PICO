@@ -83,12 +83,14 @@ class ParseError(ValueError):
 def parse_ate_command(line):
     # 中継本文の空白を一般コマンド用stripで失わせない。
     raw = line.encode('ascii') if isinstance(line, str) else line
-    if isinstance(raw, bytes) and raw.split(b' ', 1)[0].rstrip(b'\r\n') == b'CAL_MEASURE':
+    head = raw.split(b' ', 1)[0].rstrip(b'\r\n') if isinstance(raw, bytes) else b''
+    if head == b'CAL_MEASURE' or head.startswith(b'CAL_MEASURE_'):
         try:
-            request = parse_measure_request(raw)
+            request_raw = raw if head == b'CAL_MEASURE' else b'CAL_MEASURE ' + head[12:] + raw[len(head):]
+            request = parse_measure_request(request_raw)
         except MeasurementError as exc:
             raise ParseError('CAL_' + str(exc))
-        return ParsedCommand(raw.decode('ascii'), 'CAL_MEASURE', payload=request, category='CALIBRATION_ACQUIRE')
+        return ParsedCommand(raw.decode('ascii'), head.decode('ascii'), payload=request, category='CALIBRATION_ACQUIRE')
     if isinstance(raw, bytes) and raw.split(b' ', 1)[0].rstrip(b'\r\n') in (b'EXT_QUERY', b'EXT_SEND'):
         try:
             request = parse_monitor_request(raw)
@@ -125,6 +127,34 @@ def parse_ate_command(line):
         except MeasurementError as exc:
             raise ParseError('CAL_' + str(exc))
         return ParsedCommand(text, name, payload=token, category='CALIBRATION_QUERY')
+
+    if name.startswith('CAL_MEASUREMENT_') and name.endswith('?'):
+        if payload not in ('A', 'B'):
+            raise ParseError('CAL_POINT')
+        return ParsedCommand(text, name, payload=(name[16:-1], payload), category='CALIBRATION_LATEST')
+
+    if name.startswith('CAL_WRITE_'):
+        parts = (payload or '').split()
+        if len(parts) != 2 or parts[0] not in ('A', 'B') or parts[1] not in ('P1', 'P2'):
+            raise ParseError('CAL_WRITE_ARGUMENTS')
+        return ParsedCommand(text, 'CAL_WRITE_LATEST', payload=(name[10:], parts[0], parts[1]),
+                             category='CALIBRATION_WRITE')
+
+    if name.startswith('AD_VERIFY_'):
+        if payload not in ('P1', 'P2'):
+            raise ParseError('AD_VERIFY_ARGUMENTS')
+        return ParsedCommand(text, 'AD_VERIFY_READBACK', payload=(name[10:], payload), category='CALIBRATION_WRITE')
+
+    if name in ('CAL_WRITE', 'AD_VERIFY'):
+        parts = (payload or '').split()
+        if len(parts) != 2 or parts[1] not in ('P1', 'P2'):
+            raise ParseError(name + '_ARGUMENTS')
+        if name == 'CAL_WRITE':
+            try:
+                parts[0] = parse_acquisition_id(parts[0])
+            except MeasurementError as exc:
+                raise ParseError('CAL_' + str(exc))
+        return ParsedCommand(text, name, payload=tuple(parts), category='CALIBRATION_WRITE')
 
     if name == "FW_UPDATE":
         return ParsedCommand(text, name, payload=payload, category="FORBIDDEN")

@@ -56,7 +56,7 @@ class NF55Protocol:
         return self.busy or bool(self._idle_raw) or bool(self.uart.any())
 
     # 外部入口でFUと同時実行を拒否し、通信終了時は成功/失敗にかかわらずIDLEへ戻す。
-    def transact(self, cmd, data=b"", t2_ms=None, expected_length=None):
+    def transact(self, cmd, data=b"", t2_ms=None, expected_length=None, *, allow_command_retry=True):
         if (isinstance(cmd, str) and cmd.upper() == 'FU') or (isinstance(cmd, (bytes, bytearray)) and bytes(cmd).upper() == b'FU'):
             return TransactionResult(False, cmd, error="FU_DISABLED")
         if self.busy or self._idle_raw:
@@ -65,7 +65,8 @@ class NF55Protocol:
         self._cmd_retries = self._rsp_retries = 0
         started = self._ticks_ms()
         try:
-            result = self._transact(cmd, data, t2_ms, expected_length)
+            retry_limit = config.MAX_COMMAND_RETRY if allow_command_retry else 0
+            result = self._transact(cmd, data, t2_ms, expected_length, retry_limit)
         except OSError:
             self._set_state(FAILED)
             result = self._result(False, cmd, started, error="UART", ambiguous=True,
@@ -77,7 +78,7 @@ class NF55Protocol:
         self.last_result = result
         return result
 
-    def _transact(self, cmd, data=b"", t2_ms=None, expected_length=None):
+    def _transact(self, cmd, data, t2_ms, expected_length, retry_limit):
         if t2_ms is None:
             t2_ms = config.T2_DEFAULT_MS
         self.state_trace = []
@@ -97,7 +98,7 @@ class NF55Protocol:
             if ack_status == "ACK":
                 pass
             elif ack_status == "NAK":
-                if self._can_command_retry(command_retry_count, nak_reason):
+                if command_retry_count < retry_limit and nak_reason in config.NAK_RETRY_REASONS:
                     command_retry_count += 1
                     self._cmd_retries = command_retry_count
                     self._set_state(COMMAND_RETRY)
@@ -114,7 +115,7 @@ class NF55Protocol:
                     ambiguous=False,
                 )
             else:
-                if command_retry_count < config.MAX_COMMAND_RETRY:
+                if command_retry_count < retry_limit:
                     command_retry_count += 1
                     self._cmd_retries = command_retry_count
                     self._set_state(COMMAND_RETRY)
@@ -134,7 +135,7 @@ class NF55Protocol:
             self._set_state(WAIT_RESPONSE)
             response = self._wait_response_frame(t2_ms)
             if response is None:
-                if command_retry_count < config.MAX_COMMAND_RETRY:
+                if command_retry_count < retry_limit:
                     command_retry_count += 1
                     self._cmd_retries = command_retry_count
                     self._set_state(COMMAND_RETRY)
@@ -336,12 +337,6 @@ class NF55Protocol:
         except UnicodeError:
             return False
         return data in config.NF55_ERROR_CODES
-
-    def _can_command_retry(self, command_retry_count, nak_reason):
-        return (
-            command_retry_count < config.MAX_COMMAND_RETRY
-            and nak_reason in config.NAK_RETRY_REASONS
-        )
 
     def _read_byte_until(self, deadline_ms):
         while self._ticks_ms() <= deadline_ms:

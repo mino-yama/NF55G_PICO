@@ -67,6 +67,7 @@ class FileSDSink:
 
     # 所有マーカーと使用中BANKの記録を照合し、既存ログのある不明な領域は引き継がない。
     def _prepare_banks(self):
+        ilistdir = getattr(self.fs, 'ilistdir', None)
         for bank in self.bank_bytes:
             path = self.root + '/' + bank
             try:
@@ -79,9 +80,15 @@ class FileSDSink:
                     marker.write('NF55G logger\n')
             self.fs.stat(path + '/.nf55_logger')
             total = 0
-            for name in self.fs.listdir(path):
+            # FATの一覧にサイズがある場合、ファイルごとのディレクトリ再走査を避ける。
+            entries = ilistdir(path) if ilistdir else ((name,) for name in self.fs.listdir(path))
+            for entry in entries:
+                name = entry[0]
                 if self._log_name(name):
-                    total += self.fs.stat(path + '/' + name)[6]
+                    size = entry[3] if len(entry) >= 4 and entry[1] == 0x8000 else None
+                    if not isinstance(size, int) or size < 0:
+                        size = self.fs.stat(path + '/' + name)[6]
+                    total += size
                     if '_T' in name:
                         self.trial_high_watermark = max(self.trial_high_watermark,
                                                         int(name.rsplit('_T', 1)[1][:-4]))

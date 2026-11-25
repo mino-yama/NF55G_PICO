@@ -118,6 +118,13 @@ class CalibrationMeasurements:
                 return dict(value)
         raise MeasurementError("MEASUREMENT_INVALID")
 
+    def latest_token(self, target, point):
+        # ATEは取得IDを指定せず、現試行の指定回路・補正点だけを参照できる。
+        value = self._values.get((target, point)) if self._active else None
+        if value is None:
+            raise MeasurementError("MEASUREMENT_INVALID")
+        return value['token']
+
     def discard(self, token):
         # 書込み完了/成否不明時の失効口。送信bufferへの投入時には呼ばない。
         for key, value in self._values.items():
