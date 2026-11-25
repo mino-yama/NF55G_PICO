@@ -14,7 +14,8 @@ def main(out):
     samples = (out / 'ate.jsonl').read_text(encoding='utf8').splitlines()
     last = json.loads(samples[-1])
     assert last['trial'] == result['stopped_trial']
-    assert last['command'] in ('EXT_QUERY 10000 :READ?', 'EXT_QUERY 2000 :SYST:ERR?')
+    assert last['command'] in ('EXT_QUERY 10000 :READ?', 'EXT_QUERY 2000 :SYST:ERR?',
+                               'EXT_QUERY 10000 MD?', 'EXT_QUERY 2500 ERR?')
     assert last['reply'] == 'ERR:EXT_TIMEOUT:AMBIGUOUS=1'
     events = []
     with (out / 'failed_trial_close.json').open('x', encoding='utf8') as log:

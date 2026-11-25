@@ -14,6 +14,7 @@ class ScriptedLink:
     def __init__(self, clock, responses):
         self.clock, self.responses = clock, list(responses)
         self.requests = []
+        self.request_times = []
         self.pending = None
         self.reply = None
         self.cancel_count = 0
@@ -25,6 +26,7 @@ class ScriptedLink:
     def start(self, request):
         assert not self.busy
         self.requests.append(dict(request))
+        self.request_times.append(self.clock.ticks_ms())
         self.pending = (dict(request), self.clock.ticks_ms())
 
     def poll(self):
@@ -105,7 +107,7 @@ class AcquisitionTests(unittest.TestCase):
         return acquisition, link
 
     def finish(self, acquisition):
-        for _ in range(100):
+        for _ in range(300):
             acquisition.poll()
             result = acquisition.take_result()
             if result is not None:
@@ -123,6 +125,48 @@ class AcquisitionTests(unittest.TestCase):
             self.assertIn(':-001.8500E+00:mV:-001.8500E+00:A:', reply)
         self.assertEqual(len(link.requests), 2)
         self.assertEqual(self.cache.get(token)['raw'], b'-001.8500E-03\r\n')
+
+    def test_adc_read_requires_new_eom_and_keeps_unmodified_meter_response(self):
+        raw = b'+08.1268E+00\r\n'
+        answers = (b'F01\r\n', b'INIC1\r\n', b'TRS0\r\n', b'RN0,00000\r\n',
+                   b'00256\r\n', b'00000\r\n', b'00257\r\n', raw)
+        acquisition, link = self.create([(0, item) for item in answers])
+        token = acquisition.start('BATT_V', 'A', 250, b'MD?')
+        self.assertEqual(self.finish(acquisition)['reply'], 'OK:CAL_MEASURE:' + acquisition_id(token))
+        self.assertEqual([item['command'] for item in link.requests],
+                         [b'F?', b'INIC?', b'TRS?', b'RN?', b'MSR?', b'MSR?', b'MSR?', b'MD?'])
+        self.assertTrue(all(after - before >= 20 for before, after in
+                            zip(link.request_times, link.request_times[1:])))
+        self.assertEqual(self.cache.get(token)['raw'], raw)
+
+    def test_adc_rejects_wrong_trigger_and_recall_without_reading(self):
+        for answers, expected in (
+            ((b'F1\r\n', b'INIC0\r\n'), 'ERR:CAL_METER_TRIGGER'),
+            ((b'F01\r\n', b'INIC1\r\n', b'TRS3\r\n'), 'ERR:CAL_METER_TRIGGER'),
+            ((b'F01\r\n', b'INIC1\r\n', b'TRS0\r\n', b'RN1,00000\r\n'), 'ERR:CAL_METER_RECALL'),
+        ):
+            with self.subTest(answers=answers):
+                acquisition, link = self.create([(0, item) for item in answers])
+                token = acquisition.start('BATT_V', 'A', 200, b'MD?')
+                self.assertEqual(self.finish(acquisition)['reply'], expected)
+                self.assertNotIn(b'MD?', [item['command'] for item in link.requests])
+                with self.assertRaises(MeasurementError):
+                    self.cache.get(token)
+
+    def test_adc_eom_wait_honors_deadline_and_cancel_before_send(self):
+        answers = (b'F01\r\n', b'INIC1\r\n', b'TRS0\r\n', b'RN0,00000\r\n',
+                   b'00256\r\n', b'00000\r\n')
+        acquisition, link = self.create([(0, item) for item in answers])
+        token = acquisition.start('BATT_V', 'A', 130, b'MD?')
+        self.assertEqual(self.finish(acquisition)['reply'], 'ERR:CAL_TIMEOUT')
+        self.assertEqual(len(link.requests), 6)
+        with self.assertRaises(MeasurementError):
+            self.cache.get(token)
+        acquisition, link = self.create([])
+        acquisition.start('BATT_V', 'A', 200, b'MD?')
+        acquisition.cancel()
+        self.assertEqual(self.finish(acquisition)['reply'], 'ERR:CAL_CANCELLED')
+        self.assertFalse(link.requests)
 
     def test_wrong_function_never_sends_read_or_caches_numeric_data(self):
         acquisition, link = self.create([(0, b'"CURR:DC"\r\n')])
@@ -191,6 +235,11 @@ class AcquisitionTests(unittest.TestCase):
 
 
 class CalibrationParserTests(unittest.TestCase):
+    def test_adc_read_is_explicit(self):
+        self.assertEqual(parse_ate_command('CAL_MEASURE_BATT_V A 4000 MD?').payload['command'], b'MD?')
+        with self.assertRaises(ParseError):
+            parse_ate_command('CAL_MEASURE_BATT_V A 4000 MD?;*RST')
+
     def test_circuit_named_measure_command_uses_existing_request_validation(self):
         named = parse_ate_command('CAL_MEASURE_BATT_CHG A 4000 :READ?')
         legacy = parse_ate_command('CAL_MEASURE BATT_CHG A 4000 :READ?')

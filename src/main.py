@@ -155,7 +155,7 @@ class FixtureApp:
         if self.external_link is None:
             return
         if self._calibration_pending:
-            # 取得中は2段階の所有者だけがlinkをpollし、通常中継と競合させない。
+            # 校正取得中は取得処理だけがlinkをpollし、通常中継と競合させない。
             self.calibration_acquisition.poll()
             result = self.calibration_acquisition.take_result()
             if result is None:

@@ -1,5 +1,5 @@
-# 明示ADC取得を機能確認→READの2段階で進め、完成値だけを試行別Cacheへ渡す。
-# 7355固有の形式/単位検証はadapterに閉じ、NF55G書込みや製品判定を行わない。
+# 明示ADC取得で測定条件と応答を確認し、完成値だけを試行別Cacheへ渡す。
+# ADCコマンドでは測定完了フラグを読み捨て、新しい完了を待ってからMD?を送る。
 import binascii
 
 try:
@@ -66,16 +66,43 @@ class Meter7355Voltage:
     numeric OL/scaling/dB error values cannot become calibration values.
     """
     function_command = b':SENS:FUNC?'
+    adc_read_command = b'MD?'
+    adc_query_gap_ms = 20
 
     @staticmethod
     def validate_command(command):
-        if command not in (b':READ?', b'READ?'):
+        if command not in (b':READ?', b'READ?', Meter7355Voltage.adc_read_command):
             raise MeasurementError('MEASUREMENT_COMMAND')
 
     @staticmethod
     def validate_function(raw):
         if raw not in (b'"VOLT:DC"\r\n', b'VOLT:DC\r\n'):
             raise MeasurementError('METER_FUNCTION')
+
+    @staticmethod
+    def next_adc_query(command, raw, event_armed):
+        if command == b'F?':
+            if raw not in (b'F1\r\n', b'F01\r\n'):
+                raise MeasurementError('METER_FUNCTION')
+            return b'INIC?'
+        if command == b'INIC?':
+            if raw != b'INIC1\r\n':
+                raise MeasurementError('METER_TRIGGER')
+            return b'TRS?'
+        if command == b'TRS?':
+            if raw != b'TRS0\r\n':
+                raise MeasurementError('METER_TRIGGER')
+            return b'RN?'
+        if command == b'RN?':
+            if len(raw) != 11 or not raw.startswith(b'RN0,') or not raw[4:9].isdigit():
+                raise MeasurementError('METER_RECALL')
+            return b'MSR?'
+        if len(raw) != 7 or not raw[:5].isdigit() or int(raw[:5]) > 65535:
+            raise MeasurementError('METER_EVENT')
+        # 読むとMERがクリアされる。初回のEOMは開始前の値を含み得る。
+        if not event_armed or not int(raw[:5]) & 256:
+            return b'MSR?'
+        return Meter7355Voltage.adc_read_command
 
     @staticmethod
     def decode(raw, target):
@@ -115,7 +142,7 @@ class Meter7355Voltage:
 class CalibrationAcquisition:
     """One nonblocking, explicit acquisition; owns the link until completion.
 
-    The single deadline covers function evidence, handshake and READ. Queries
+    The single deadline covers function evidence, handshake and measurement. Queries
     access CalibrationMeasurements only; no automatic settings, retry or AD.
     """
     def __init__(self, measurements, link, clock, adapter=None):
@@ -137,13 +164,20 @@ class CalibrationAcquisition:
             raise MeasurementError('TIMEOUT')
         self.adapter.validate_command(command)
         token = self.measurements.begin(target, point)
-        self._active = {'token': token, 'command': command, 'stage': 'FUNCTION',
+        self._active = {'token': token, 'command': command, 'stage': None, 'queued': None,
+                        'adc_event_armed': False,
                         'started': self.clock.ticks_ms(), 'timeout_ms': timeout_ms, 'cancelled': None}
+        if command == Meter7355Voltage.adc_read_command:
+            self._queue_adc(b'F?')
+            return token
         try:
             self._send(self.adapter.function_command)
         except (RelayError, MeasurementError) as exc:
             self._finish('ERR:CAL_' + str(exc))
         return token
+
+    def _queue_adc(self, command):
+        self._active['queued'] = (command, self.clock.ticks_ms() + Meter7355Voltage.adc_query_gap_ms)
 
     def _send(self, command):
         active = self._active
@@ -176,7 +210,8 @@ class CalibrationAcquisition:
         if self._active is not None and self._active['cancelled'] is None:
             self.measurements.fail(self._active['token'])
             self._active['cancelled'] = 'CANCELLED'
-            self.link.cancel()
+            if self._active['queued'] is None:
+                self.link.cancel()
 
     def poll(self):
         if self._active is None:
@@ -184,7 +219,24 @@ class CalibrationAcquisition:
         active = self._active
         if not self.measurements.pending_matches(active['token']) and active['cancelled'] is None:
             active['cancelled'] = 'STALE'
-            self.link.cancel()
+            if active['queued'] is None:
+                self.link.cancel()
+        if active['queued'] is not None:
+            if active['cancelled'] is not None:
+                self._finish('ERR:CAL_' + active['cancelled'])
+                return
+            command, due = active['queued']
+            now = self.clock.ticks_ms()
+            if now - active['started'] >= active['timeout_ms']:
+                self._finish('ERR:CAL_TIMEOUT')
+            elif now >= due:
+                active['queued'] = None
+                active['stage'] = command
+                try:
+                    self._send(command)
+                except (MeasurementError, RelayError) as exc:
+                    self._finish('ERR:CAL_' + str(exc))
+            return
         self.link.poll()
         reply = self.link.take_reply()
         if reply is None:
@@ -198,10 +250,15 @@ class CalibrationAcquisition:
         raw = None
         try:
             raw = self._decode_reply(reply)
-            if active['stage'] == 'FUNCTION':
+            if active['stage'] is None:
                 self.adapter.validate_function(raw)
-                active['stage'] = 'READ'
+                active['stage'] = active['command']
                 self._send(active['command'])
+                return
+            if active['command'] == Meter7355Voltage.adc_read_command and active['stage'] != active['command']:
+                self._queue_adc(Meter7355Voltage.next_adc_query(active['stage'], raw, active['adc_event_armed']))
+                if active['stage'] == b'MSR?':
+                    active['adc_event_armed'] = True
                 return
             value_text, unit = self.adapter.decode(raw, active['token'][2])
             if not self.measurements.complete(active['token'], raw, value_text, unit):

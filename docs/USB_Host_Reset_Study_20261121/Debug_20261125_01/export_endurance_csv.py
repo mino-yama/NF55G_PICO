@@ -12,8 +12,11 @@ import sys
 from prepare_parent_idle_fix import BASE, CASE, ROOT
 
 
-def main(out):
+def main(out, previous_wire=None):
     result = json.loads((out / 'result.json').read_text(encoding='utf8'))
+    meter_commands = (('EXT_QUERY 10000 MD?', 'EXT_QUERY 2500 ERR?')
+                      if result.get('meter_language') == 'adc' else
+                      ('EXT_QUERY 10000 :READ?', 'EXT_QUERY 2000 :SYST:ERR?'))
     count = result['completed_trials']
     failed = result['status'] == 'STOPPED' and result.get('stopped_trial') == count + 1
     if failed:
@@ -28,10 +31,25 @@ def main(out):
     first_time = (dt.datetime.fromisoformat(result['started']) - dt.timedelta(minutes=2)).strftime('%Y%m%d_%H%M%S')
     last_time = (dt.datetime.fromisoformat(result['ended']) + dt.timedelta(minutes=2)).strftime('%Y%m%d_%H%M%S')
     expected_session = result['session'][:16]
+    prefix = b''
+    prefix_range = None
+    start_at = 0
+    if previous_wire is not None:
+        raw = previous_wire.read_bytes()
+        last_hash = raw.rfind(b'\nHASH|')
+        end = raw.find(b'\n', last_hash + 1) if last_hash >= 0 else -1
+        if end < 0:
+            raise RuntimeError('Previous capture has no complete hash line')
+        prefix = raw[:end + 1]
+        prefix_range, = (json.loads(line[6:]) for line in prefix.splitlines() if line.startswith(b'RANGE|'))
+        captured = [json.loads(line[5:])['trial'] for line in prefix.splitlines() if line.startswith(b'FILE|')]
+        if captured != list(range(prefix_range[0], prefix_range[0] + len(captured))):
+            raise RuntimeError('Previous capture does not cover a contiguous trial prefix')
+        start_at = captured[-1] + 1
     now = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
     export = out / f'csv_export_{now:%Y%m%d_%H%M%S_%f}'
     export.mkdir()
-    script = f'count={count}\nfirst_time={first_time!r}\nlast_time={last_time!r}\nexpected_session={expected_session!r}\n' + '''
+    script = f'count={count}\nfirst_time={first_time!r}\nlast_time={last_time!r}\nexpected_session={expected_session!r}\nstart_at={start_at}\nprefix_range={prefix_range!r}\n' + '''
 import binascii, hashlib, json, machine, os, sys, time
 assert binascii.hexlify(machine.unique_id()).decode() == '69f7d45962cfdfad'
 app = sys.modules['src.main'].active_app
@@ -40,6 +58,7 @@ assert not app.logger.active and not app.logger.test_running and not app._comm_b
 last = int(app.logger.last_test_id[1:])
 first = last - count + 1
 assert first > 0
+assert prefix_range is None or prefix_range == [first, last]
 print('RANGE|' + json.dumps([first,last]))
 for bank in ('BANK_A', 'BANK_B'):
     folder = app.logger.sd_sink.root + '/' + bank
@@ -52,7 +71,7 @@ for bank in ('BANK_A', 'BANK_B'):
             continue
         number = int(fields[2][1:])
         stamp = fields[0] + '_' + fields[1]
-        if not (first <= number <= last and first_time <= stamp <= last_time):
+        if not (max(first, start_at) <= number <= last and first_time <= stamp <= last_time):
             continue
         path = folder + '/' + name
         print('FILE|' + json.dumps({'path':path,'trial':number,'bytes':os.stat(path)[6]}))
@@ -73,12 +92,14 @@ print('EXPORT_END')
         f.write(script)
     wire_path = export / 'csv_usb_raw.log'
     with wire_path.open('xb') as wire, (export / 'csv_usb_stderr.log').open('xb') as err:
+        wire.write(prefix)
+        wire.flush()
         proc = subprocess.run(BASE + ['run', str(payload)], cwd=ROOT, stdout=wire, stderr=err, timeout=300)
 
     ate = {}
     for line in (out / 'ate.jsonl').read_text(encoding='utf8').splitlines():
         item = json.loads(line)
-        if item['trial'] and item['command'] in ('EXT_QUERY 10000 :READ?', 'EXT_QUERY 2000 :SYST:ERR?'):
+        if item['trial'] and item['command'] in meter_commands:
             ate[(item['trial'], item['command'])] = item['reply']
     dest = export / 'csv'
     dest.mkdir()
@@ -113,7 +134,7 @@ print('EXPORT_END')
             if not any(r['event'] == 'TRIAL_END_REQUEST' and
                        r['detail'] == f'trial_id={trial_id};reason=TEST_END' for r in records):
                 raise RuntimeError(f'Missing trial end record: {name}')
-            for command in ('EXT_QUERY 10000 :READ?', 'EXT_QUERY 2000 :SYST:ERR?'):
+            for command in meter_commands:
                 replies = [r['result'] for r in records if r['category'] == 'ATE' and
                            r['event'] == 'RESULT' and r['detail'] == command]
                 expected_reply = ate.get((number - first + 1, command))
@@ -137,4 +158,7 @@ print('EXPORT_END')
 if __name__ == '__main__':
     target = (CASE / sys.argv[1]).resolve()
     assert target.parent == CASE.resolve() and target.name.startswith('endurance_')
-    main(target)
+    previous = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else None
+    if previous is not None:
+        assert previous.parent.parent == target and previous.name == 'csv_usb_raw.log'
+    main(target, previous)

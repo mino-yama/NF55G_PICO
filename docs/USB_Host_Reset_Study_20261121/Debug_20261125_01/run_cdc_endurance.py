@@ -26,6 +26,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--count', type=int, choices=(1, 400), default=400)
     parser.add_argument('--host-version', choices=('20261125.1', '20261125.2'), default='20261125.1')
+    parser.add_argument('--meter-language', choices=('scpi', 'adc'), default='scpi')
+    parser.add_argument('--monitor-port', default='COM23')
     parser.add_argument('--inter-trial-delay-seconds', type=int, default=DEFAULT_INTER_TRIAL_DELAY_SECONDS,
                         help='idle seconds after a completed trial, before the next TEST_START (default: 5)')
     args = parser.parse_args()
@@ -39,15 +41,17 @@ def main():
     out.mkdir()
     result = {'started': now.isoformat(), 'planned_trials': count, 'completed_trials': 0,
               'inter_trial_delay_seconds': args.inter_trial_delay_seconds,
-              'ate_selected_range_mV': 200, 'input_setpoint_mV': 40,
-              'ate_port': 'COM5', 'host_rx_only': 'COM23', 'host_version': args.host_version, 'status': 'STOPPED',
+              'meter_language': args.meter_language,
+              'ate_selected_range_mV': 200 if args.meter_language == 'scpi' else None,
+              'input_setpoint_mV': 40 if args.meter_language == 'scpi' else None,
+              'ate_port': 'COM5', 'host_rx_only': args.monitor_port, 'host_version': args.host_version, 'status': 'STOPPED',
               'csv_recovery': 'PENDING'}
     print(f'RECORDS: {out}', flush=True)
     trial = 0
     try:
         with (out / 'ate.jsonl').open('x', encoding='utf8') as log, \
                 (out / 'host_uart.bin').open('xb') as host_raw, \
-                serial.Serial('COM23', 115200, timeout=0.06) as monitor, \
+                serial.Serial(args.monitor_port, 115200, timeout=0.06) as monitor, \
                 serial.Serial('COM5', 57600, timeout=0.05, write_timeout=1) as ate:
             reader = FrameReader()
             session = None
@@ -139,14 +143,24 @@ def main():
                 raise RuntimeError('Invalid log drop count')
             if meter('*IDN?', 2000).encode('ascii') != IDN:
                 raise RuntimeError('Unexpected 7355 identity')
-            result['conf'] = meter(':CONF?', 2000)
+            read_command, error_command = ':READ?', ':SYST:ERR?'
+            if args.meter_language == 'adc':
+                expected = {'F?': 'F01', 'INIC?': 'INIC1', 'TRS?': 'TRS0', 'R?': 'R5', 'H?': 'H0'}
+                settings = {command: meter(command, 2500).strip() for command in expected}
+                result['adc_settings'] = settings
+                if settings != expected:
+                    raise RuntimeError(f'Unexpected 7355 ADC settings: {settings}')
+                result['conf'] = 'ADC DCV R5 (20 V), continuous/immediate'
+                read_command, error_command = 'MD?', 'ERR?'
+            else:
+                result['conf'] = meter(':CONF?', 2000)
             print(f'PREFLIGHT OK; CONF={result["conf"].strip()}; '
                   f'inter-trial idle={args.inter_trial_delay_seconds}s', flush=True)
 
             for trial in range(1, count + 1):
                 expect('TEST_START', 'OK')
-                read = meter(':READ?', 10000)
-                meter(':SYST:ERR?', 2000)
+                read = meter(read_command, 10000)
+                meter(error_command, 2500 if args.meter_language == 'adc' else 2000)
                 expect('TEST_END', 'OK')
                 check = ask('PICO_SELF_CHECK?')[0]
                 fields = set(check.split(':', 1)[-1].split(';'))

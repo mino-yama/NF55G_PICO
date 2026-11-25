@@ -16,7 +16,7 @@ from src.external_instrument_contract import encode_frame, format_query_response
 
 
 class EnduranceRunnerTest(unittest.TestCase):
-    def run_simulation(self, trial_count, diagnostic=None):
+    def run_simulation(self, trial_count, diagnostic=None, options=()):
         session = bytes.fromhex('b3a22bbe4d66e8604a7326ac8de43546')
         chunks = deque()
         commands = []
@@ -56,6 +56,13 @@ class EnduranceRunnerTest(unittest.TestCase):
                         ':CONF?': b'VOLT\r\n',
                         ':READ?': b'+0040.407E-03\r\n',
                         ':SYST:ERR?': b'+0,"No error"\r\n',
+                        'F?': b'F01\r\n',
+                        'INIC?': b'INIC1\r\n',
+                        'TRS?': b'TRS0\r\n',
+                        'R?': b'R5\r\n',
+                        'H?': b'H0\r\n',
+                        'MD?': b'+08.12687E+00\r\n',
+                        'ERR?': b'+0,"No error"\r\n',
                     }[query]
                     chunks.append(initial + encode_frame(session, request, 'R', 1, timeout, payload))
                     reply = format_query_response(payload)
@@ -66,7 +73,7 @@ class EnduranceRunnerTest(unittest.TestCase):
 
         ticks = count(step=0.2)
         with TemporaryDirectory() as tmp, redirect_stdout(io.StringIO()), \
-                patch.object(sys, 'argv', ['runner', '--count', str(trial_count), '--host-version', '20261125.2']), \
+                patch.object(sys, 'argv', ['runner', '--count', str(trial_count), '--host-version', '20261125.2', *options]), \
                 patch.object(runner, '__file__', str(Path(tmp) / 'runner.py')), \
                 patch.object(runner.time, 'monotonic', side_effect=lambda: next(ticks)), \
                 patch.object(runner.time, 'sleep', side_effect=lambda delay: waits.append((len(commands), delay))), \
@@ -109,6 +116,19 @@ class EnduranceRunnerTest(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(result['completed_trials'], 1)
         self.assertEqual(waits, [])
+
+    def test_adc_endurance_reads_without_changing_settings(self):
+        options = ('--meter-language', 'adc', '--monitor-port', 'COM22', '--inter-trial-delay-seconds', '1')
+        exit_code, result, _, commands, waits = self.run_simulation(400, options=options)
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(result['completed_trials'], 400)
+        self.assertEqual(result['host_rx_only'], 'COM22')
+        self.assertEqual(result['adc_settings']['R?'], 'R5')
+        self.assertEqual(commands.count('EXT_QUERY 10000 MD?'), 400)
+        self.assertEqual(commands.count('EXT_QUERY 2500 ERR?'), 400)
+        starts = [index for index, command in enumerate(commands) if command == 'TEST_START']
+        self.assertEqual(waits, [(index, 1) for index in starts[1:]])
+        self.assertFalse(any(command.startswith('EXT_SEND ') for command in commands))
 
 
 if __name__ == '__main__':
