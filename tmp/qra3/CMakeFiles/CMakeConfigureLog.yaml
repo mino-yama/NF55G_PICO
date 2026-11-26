@@ -1,0 +1,247 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      The target system is: PICO -  - cortex-m33
+      The host system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-gcc.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags:  
+      
+      The output was:
+      1
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-exit.o): in function `exit':
+      /workdir/repo/newlib/newlib/libc/stdlib/exit.c:65:(.text+0x16): undefined reference to `_exit'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:283:(.text+0x6e): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:293:(.text+0x8a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `std':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0xda): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x124): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x17c): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x1ba): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:201:(.text+0x1ea): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x1f0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x25a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:194:(.text+0x264): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x27c): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x294): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `global_stdio_init':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:260:(.text+0x2a0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2b0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:270:(.text+0x2b8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2c0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:276:(.text+0x2c8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2d0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:303:(.text+0x2e0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2fa): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:310:(.text+0x308): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fclose.o): in function `_fclose_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fclose.c:109:(.text+0x7e): undefined reference to `__retarget_lock_close_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:76:(.text+0xb4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:81:(.text+0xc8): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:107:(.text+0xd0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o): in function `__call_exitprocs':
+      /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:79:(.text+0x16): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:156:(.text+0x5c): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o):/workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:17:(.data+0x0): undefined reference to `__lock___atexit_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__atexit.o): in function `__register_exitproc':
+      /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:72:(.text+0x1a): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:151:(.text+0x76): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:131:(.text+0xc6): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_lock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:44:(.text+0x4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:46:(.text+0xc): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_unlock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:53:(.text+0x14): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:55:(.text+0x1c): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      /workdir/repo/newlib/newlib/libc/reent/sbrkr.c:51:(.text+0xc): undefined reference to `_sbrk'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fflush.o): in function `_fflush_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fflush.c:277:(.text+0x190): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fflush.c:279:(.text+0x19a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-writer.o): in function `_write_r':
+      /workdir/repo/newlib/newlib/libc/reent/writer.c:49:(.text+0x10): undefined reference to `_write'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-closer.o): in function `_close_r':
+      /workdir/repo/newlib/newlib/libc/reent/closer.c:47:(.text+0xc): undefined reference to `_close'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+      /workdir/repo/newlib/newlib/libc/reent/lseekr.c:49:(.text+0x10): undefined reference to `_lseek'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-readr.o): in function `_read_r':
+      /workdir/repo/newlib/newlib/libc/reent/readr.c:49:(.text+0x10): undefined reference to `_read'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-gcc.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra3/CMakeFiles/3.31.6/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-g++.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags:  
+      
+      The output was:
+      1
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-exit.o): in function `exit':
+      /workdir/repo/newlib/newlib/libc/stdlib/exit.c:65:(.text+0x16): undefined reference to `_exit'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:283:(.text+0x6e): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:293:(.text+0x8a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `std':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0xda): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x124): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x17c): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x1ba): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:201:(.text+0x1ea): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x1f0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x25a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:194:(.text+0x264): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x27c): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x294): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `global_stdio_init':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:260:(.text+0x2a0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2b0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:270:(.text+0x2b8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2c0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:276:(.text+0x2c8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2d0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:303:(.text+0x2e0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2fa): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:310:(.text+0x308): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fclose.o): in function `_fclose_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fclose.c:109:(.text+0x7e): undefined reference to `__retarget_lock_close_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:76:(.text+0xb4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:81:(.text+0xc8): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:107:(.text+0xd0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o): in function `__call_exitprocs':
+      /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:79:(.text+0x16): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:156:(.text+0x5c): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o):/workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:17:(.data+0x0): undefined reference to `__lock___atexit_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__atexit.o): in function `__register_exitproc':
+      /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:72:(.text+0x1a): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:151:(.text+0x76): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:131:(.text+0xc6): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_lock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:44:(.text+0x4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:46:(.text+0xc): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_unlock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:53:(.text+0x14): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:55:(.text+0x1c): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      /workdir/repo/newlib/newlib/libc/reent/sbrkr.c:51:(.text+0xc): undefined reference to `_sbrk'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fflush.o): in function `_fflush_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fflush.c:277:(.text+0x190): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fflush.c:279:(.text+0x19a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-writer.o): in function `_write_r':
+      /workdir/repo/newlib/newlib/libc/reent/writer.c:49:(.text+0x10): undefined reference to `_write'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-closer.o): in function `_close_r':
+      /workdir/repo/newlib/newlib/libc/reent/closer.c:47:(.text+0xc): undefined reference to `_close'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+      /workdir/repo/newlib/newlib/libc/reent/lseekr.c:49:(.text+0x10): undefined reference to `_lseek'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-readr.o): in function `_read_r':
+      /workdir/repo/newlib/newlib/libc/reent/readr.c:49:(.text+0x10): undefined reference to `_read'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-g++.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra3/CMakeFiles/3.31.6/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1237 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-none-eabi-gcc.exe (GCC) 14.3.0
+      Copyright (C) 2024 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+...

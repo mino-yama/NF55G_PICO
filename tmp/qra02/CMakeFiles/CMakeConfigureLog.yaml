@@ -1,0 +1,642 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      The target system is: PICO -  - cortex-m33
+      The host system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-gcc.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags:  
+      
+      The output was:
+      1
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-exit.o): in function `exit':
+      /workdir/repo/newlib/newlib/libc/stdlib/exit.c:65:(.text+0x16): undefined reference to `_exit'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:283:(.text+0x6e): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:293:(.text+0x8a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `std':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0xda): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x124): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x17c): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x1ba): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:201:(.text+0x1ea): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x1f0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x25a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:194:(.text+0x264): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x27c): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x294): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `global_stdio_init':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:260:(.text+0x2a0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2b0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:270:(.text+0x2b8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2c0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:276:(.text+0x2c8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2d0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:303:(.text+0x2e0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2fa): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:310:(.text+0x308): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fclose.o): in function `_fclose_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fclose.c:109:(.text+0x7e): undefined reference to `__retarget_lock_close_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:76:(.text+0xb4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:81:(.text+0xc8): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:107:(.text+0xd0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o): in function `__call_exitprocs':
+      /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:79:(.text+0x16): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:156:(.text+0x5c): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o):/workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:17:(.data+0x0): undefined reference to `__lock___atexit_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__atexit.o): in function `__register_exitproc':
+      /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:72:(.text+0x1a): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:151:(.text+0x76): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:131:(.text+0xc6): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_lock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:44:(.text+0x4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:46:(.text+0xc): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_unlock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:53:(.text+0x14): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:55:(.text+0x1c): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      /workdir/repo/newlib/newlib/libc/reent/sbrkr.c:51:(.text+0xc): undefined reference to `_sbrk'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fflush.o): in function `_fflush_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fflush.c:277:(.text+0x190): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fflush.c:279:(.text+0x19a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-writer.o): in function `_write_r':
+      /workdir/repo/newlib/newlib/libc/reent/writer.c:49:(.text+0x10): undefined reference to `_write'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-closer.o): in function `_close_r':
+      /workdir/repo/newlib/newlib/libc/reent/closer.c:47:(.text+0xc): undefined reference to `_close'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+      /workdir/repo/newlib/newlib/libc/reent/lseekr.c:49:(.text+0x10): undefined reference to `_lseek'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-readr.o): in function `_read_r':
+      /workdir/repo/newlib/newlib/libc/reent/readr.c:49:(.text+0x10): undefined reference to `_read'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-gcc.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/3.31.6/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-g++.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags:  
+      
+      The output was:
+      1
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-exit.o): in function `exit':
+      /workdir/repo/newlib/newlib/libc/stdlib/exit.c:65:(.text+0x16): undefined reference to `_exit'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:283:(.text+0x6e): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:293:(.text+0x8a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `std':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0xda): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x124): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:93:(.text+0x17c): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x1ba): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:201:(.text+0x1ea): undefined reference to `__retarget_lock_init_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x1f0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x25a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:194:(.text+0x264): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x27c): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x294): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `global_stdio_init':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:260:(.text+0x2a0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2b0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:270:(.text+0x2b8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2c0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/findfp.c:276:(.text+0x2c8): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_acquire':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:269:(.text+0x2d0): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_lock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:303:(.text+0x2e0): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__sfp_lock_release':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:275:(.text+0x2fa): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-findfp.o): in function `__fp_unlock_all':
+      /workdir/repo/newlib/newlib/libc/stdio/findfp.c:310:(.text+0x308): undefined reference to `__lock___sfp_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fclose.o): in function `_fclose_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fclose.c:109:(.text+0x7e): undefined reference to `__retarget_lock_close_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:76:(.text+0xb4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:81:(.text+0xc8): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fclose.c:107:(.text+0xd0): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o): in function `__call_exitprocs':
+      /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:79:(.text+0x16): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:156:(.text+0x5c): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__call_atexit.o):/workdir/repo/newlib/newlib/libc/stdlib/__call_atexit.c:17:(.data+0x0): undefined reference to `__lock___atexit_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-__atexit.o): in function `__register_exitproc':
+      /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:72:(.text+0x1a): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:151:(.text+0x76): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/__atexit.c:131:(.text+0xc6): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_lock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:44:(.text+0x4): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:46:(.text+0xc): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-mlock.o): in function `__malloc_unlock':
+      /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:53:(.text+0x14): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdlib/mlock.c:55:(.text+0x1c): undefined reference to `__lock___malloc_recursive_mutex'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
+      /workdir/repo/newlib/newlib/libc/reent/sbrkr.c:51:(.text+0xc): undefined reference to `_sbrk'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-fflush.o): in function `_fflush_r':
+      /workdir/repo/newlib/newlib/libc/stdio/fflush.c:277:(.text+0x190): undefined reference to `__retarget_lock_acquire_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: /workdir/repo/newlib/newlib/libc/stdio/fflush.c:279:(.text+0x19a): undefined reference to `__retarget_lock_release_recursive'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-writer.o): in function `_write_r':
+      /workdir/repo/newlib/newlib/libc/reent/writer.c:49:(.text+0x10): undefined reference to `_write'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-closer.o): in function `_close_r':
+      /workdir/repo/newlib/newlib/libc/reent/closer.c:47:(.text+0xc): undefined reference to `_close'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-lseekr.o): in function `_lseek_r':
+      /workdir/repo/newlib/newlib/libc/reent/lseekr.c:49:(.text+0x10): undefined reference to `_lseek'
+      C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb\\libc.a(libc_a-readr.o): in function `_read_r':
+      /workdir/repo/newlib/newlib/libc/reent/readr.c:49:(.text+0x10): undefined reference to `_read'
+      collect2.exe: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/arm-none-eabi-g++.exe 
+      Build flags: -mcpu=cortex-m33;-mthumb;-march=armv8-m.main+fp+dsp;-mfloat-abi=softfp;-mcmse
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/3.31.6/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1237 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineASMCompiler.cmake:135 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Checking whether the ASM compiler is GNU using "--version" matched "(GNU assembler)|(GCC)|(Free Software Foundation)":
+      arm-none-eabi-gcc.exe (GCC) 14.3.0
+      Copyright (C) 2024 Free Software Foundation, Inc.
+      This is free software; see the source for copying conditions.  There is NO
+      warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-n42sls"
+      binary: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-n42sls"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse"
+      CMAKE_C_FLAGS_DEBUG: "-Og -g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/cmake"
+      PICO_SDK_PATH: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-n42sls'
+        
+        Run Build Command(s): "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Scripts/ninja.exe" -v cmTC_37efc
+        [1/2] C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe   -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse    -v -o CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj -c "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCCompilerABI.c"
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe
+        Target: arm-none-eabi
+        Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c,c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 14.3.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/cc1.exe -quiet -v -imultilib thumb -iprefix C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/ -D__USES_INITFINI__ C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_37efc.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m33 -mthumb -mfloat-abi=softfp -mcmse -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -version -o C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccJNkLAv.s
+        GNU C17 (GCC) version 14.3.0 (arm-none-eabi)
+        	compiled by GNU C version 9.3-win32 20200320, GMP version 6.2.1, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include-fixed"
+        ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include
+        End of search list.
+        Compiler executable checksum: e3a25c10d91ae783728711ba110742d9
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/as.exe -march=armv8-m.main+dsp+fp -mfloat-abi=softfp -meabi=5 -o CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccJNkLAv.s
+        COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.'\x0d
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse -Wl,--build-id=none -nostdlib -v CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj -o cmTC_37efc.elf   && cd ."
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe
+        COLLECT_LTO_WRAPPER=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/lto-wrapper.exe
+        Target: arm-none-eabi
+        Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c,c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 14.3.0 (GCC) 
+        COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_37efc.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_37efc.elf.'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe -X -o cmTC_37efc.elf -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0 -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj
+        C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: warning: cannot find entry symbol _start; defaulting to 00008000
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_37efc.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_37efc.elf.'\x0d
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include]
+        end of search list found
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include]
+        implicit include dirs: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include-fixed;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-n42sls']
+        ignore line: []
+        ignore line: [Run Build Command(s): "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Scripts/ninja.exe" -v cmTC_37efc]
+        ignore line: [[1/2] C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe   -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse    -v -o CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj -c "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCCompilerABI.c"]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 14.3.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/']
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/cc1.exe -quiet -v -imultilib thumb -iprefix C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/ -D__USES_INITFINI__ C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_37efc.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m33 -mthumb -mfloat-abi=softfp -mcmse -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -version -o C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccJNkLAv.s]
+        ignore line: [GNU C17 (GCC) version 14.3.0 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 9.3-win32 20200320  GMP version 6.2.1  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: e3a25c10d91ae783728711ba110742d9]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/']
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/as.exe -march=armv8-m.main+dsp+fp -mfloat-abi=softfp -meabi=5 -o CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccJNkLAv.s]
+        ignore line: [COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.'\x0d]
+        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse -Wl --build-id=none -nostdlib -v CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj -o cmTC_37efc.elf   && cd ."]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-gcc.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/lto-wrapper.exe]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 14.3.0 (GCC) ]
+        ignore line: [COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_37efc.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_37efc.elf.']
+        link line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe -X -o cmTC_37efc.elf -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0 -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj]
+          arg [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe] ==> ignore
+          arg [-X] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_37efc.elf] ==> ignore
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib]
+          arg [--build-id=none] ==> ignore
+          arg [CMakeFiles/cmTC_37efc.dir/CMakeCCompilerABI.c.obj] ==> ignore
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: warning: cannot find entry symbol _start]
+        ignore line: [ defaulting to 00008000]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_37efc.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_37efc.elf.'\x0d]
+        ignore line: []
+        ignore line: []
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/thumb]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib/thumb]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib]
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/thumb;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib/thumb;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-imesiw"
+      binary: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-imesiw"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse"
+      CMAKE_CXX_FLAGS_DEBUG: "-Og -g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/cmake"
+      PICO_SDK_PATH: "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-imesiw'
+        
+        Run Build Command(s): "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Scripts/ninja.exe" -v cmTC_e6da1
+        [1/2] C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe   -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse    -v -o CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj -c "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp"
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe
+        Target: arm-none-eabi
+        Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c,c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 14.3.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/cc1plus.exe -quiet -v -imultilib thumb -iprefix C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/ -D__USES_INITFINI__ C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e6da1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m33 -mthumb -mfloat-abi=softfp -mcmse -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -version -o C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccVO9DKK.s
+        GNU C++17 (GCC) version 14.3.0 (arm-none-eabi)
+        	compiled by GNU C version 9.3-win32 20200320, GMP version 6.2.1, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include-fixed"
+        ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"
+        ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include
+        End of search list.
+        Compiler executable checksum: 2ad9b91008f69478e084bb5fc20acebc
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/as.exe -march=armv8-m.main+dsp+fp -mfloat-abi=softfp -meabi=5 -o CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccVO9DKK.s
+        COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/\x0d
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.'\x0d
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse -Wl,--build-id=none -nostdlib -v CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_e6da1.elf   && cd ."
+        Using built-in specs.
+        COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe
+        COLLECT_LTO_WRAPPER=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/lto-wrapper.exe
+        Target: arm-none-eabi
+        Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c,c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath
+        Thread model: single
+        Supported LTO compression algorithms: zlib
+        gcc version 14.3.0 (GCC) 
+        COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/
+        LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_e6da1.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_e6da1.elf.'
+         C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe -X -o cmTC_e6da1.elf -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0 -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj
+        C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: warning: cannot find entry symbol _start; defaulting to 00008000\x0d
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_e6da1.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_e6da1.elf.'\x0d
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+          add: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include]
+        end of search list found
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0/backward]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+        collapse include dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include]
+        implicit include dirs: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include/c++/14.3.0/backward;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/include-fixed;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: 'C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/tmp/qra02/CMakeFiles/CMakeScratch/TryCompile-imesiw']
+        ignore line: []
+        ignore line: [Run Build Command(s): "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Scripts/ninja.exe" -v cmTC_e6da1]
+        ignore line: [[1/2] C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe   -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse    -v -o CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj -c "C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp"]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 14.3.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/']
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/cc1plus.exe -quiet -v -imultilib thumb -iprefix C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/ -D__USES_INITFINI__ C:/Users/m_yamada/OneDrive/My Document/NF55G/NF55G_Pico/.venv/Lib/site-packages/cmake/data/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_e6da1.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m33 -mthumb -mfloat-abi=softfp -mcmse -mlibarch=armv8-m.main+dsp+fp -march=armv8-m.main+dsp+fp -version -o C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccVO9DKK.s]
+        ignore line: [GNU C++17 (GCC) version 14.3.0 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version 9.3-win32 20200320  GMP version 6.2.1  MPFR version 3.1.4  MPC version 1.0.3  isl version isl-0.18-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring duplicate directory "C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/../../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/arm-none-eabi/thumb]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include/c++/14.3.0/backward]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/include-fixed]
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 2ad9b91008f69478e084bb5fc20acebc]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/']
+        ignore line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/as.exe -march=armv8-m.main+dsp+fp -mfloat-abi=softfp -meabi=5 -o CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj C:\\Users\\m_yamada\\AppData\\Local\\Temp\\ccVO9DKK.s]
+        ignore line: [COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-v' '-o' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.'\x0d]
+        ignore line: [[2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe -mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse -Wl --build-id=none -nostdlib -v CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_e6da1.elf   && cd ."]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=C:\\Users\\m_yamada\\AppData\\Local\\Arduino15\\packages\\rp2040\\tools\\pqt-gcc\\4.1.0-1aec55e\\bin\\arm-none-eabi-g++.exe]
+        ignore line: [COLLECT_LTO_WRAPPER=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/lto-wrapper.exe]
+        ignore line: [Target: arm-none-eabi]
+        ignore line: [Configured with: /workdir/repo/gcc-gnu/configure --with-cpu=cortex-m0plus --with-no-thumb-interwork --prefix=/workdir/arena.win64/arm-none-eabi --target=arm-none-eabi --build=x86_64-linux-gnu --host=x86_64-w64-mingw32 --disable-shared --with-newlib --enable-threads=no --disable-__cxa_atexit --disable-libgomp --disable-libmudflap --disable-nls --without-python --disable-bootstrap --enable-languages=c c++ --disable-lto --enable-static=yes --disable-libstdcxx-verbose --disable-decimal-float --disable-tui --disable-pie-tools --disable-libquadmath]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 14.3.0 (GCC) ]
+        ignore line: [COMPILER_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/]
+        ignore line: [LIBRARY_PATH=C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/]
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_e6da1.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_e6da1.elf.']
+        link line: [ C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe -X -o cmTC_e6da1.elf -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0 -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc -LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj]
+          arg [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../libexec/gcc/arm-none-eabi/14.3.0/collect2.exe] ==> ignore
+          arg [-X] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_e6da1.elf] ==> ignore
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc]
+          arg [-LC:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib] ==> dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib]
+          arg [--build-id=none] ==> ignore
+          arg [CMakeFiles/cmTC_e6da1.dir/CMakeCXXCompilerABI.cpp.obj] ==> ignore
+        ignore line: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/bin/ld.exe: warning: cannot find entry symbol _start]
+        ignore line: [ defaulting to 00008000\x0d]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m33' '-mthumb'  '-mfloat-abi=softfp' '-mcmse' '-nostdlib' '-v' '-o' 'cmTC_e6da1.elf' '-mlibarch=armv8-m.main+dsp+fp' '-march=armv8-m.main+dsp+fp' '-dumpdir' 'cmTC_e6da1.elf.'\x0d]
+        ignore line: []
+        ignore line: []
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/thumb] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/thumb]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib/thumb] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib/thumb]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc]
+        collapse library dir [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/bin/../lib/gcc/arm-none-eabi/14.3.0/../../../../arm-none-eabi/lib] ==> [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib]
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: [C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0/thumb;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib/thumb;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc/arm-none-eabi/14.3.0;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/lib/gcc;C:/Users/m_yamada/AppData/Local/Arduino15/packages/rp2040/tools/pqt-gcc/4.1.0-1aec55e/arm-none-eabi/lib]
+        implicit fwks: []
+      
+      
+...
