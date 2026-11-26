@@ -36,7 +36,7 @@ class NativeQRDecoderTests(unittest.TestCase):
         cls.temp=tempfile.TemporaryDirectory(prefix='nf55g_qr_decoder_')
         directory=Path(cls.temp.name)
         wrapper=directory/'wrapper.c'
-        wrapper.write_text('''#include "qr_alt_decoder.h"
+        wrapper.write_text('''#include "qr_arm_gate.h"
 #ifdef _WIN32
 #define TEST_API __declspec(dllexport)
 #else
@@ -44,10 +44,18 @@ class NativeQRDecoderTests(unittest.TestCase):
 #endif
 TEST_API size_t qr_test_size(void) { return sizeof(qr_alt_decoder_t); }
 TEST_API int qr_test_error(qr_alt_decoder_t *s) { return s->error; }
+TEST_API size_t qr_test_gate_size(void) { return sizeof(qr_arm_gate_t); }
+TEST_API void qr_test_gate_byte(qr_arm_gate_t *g, uint8_t b, uint32_t now) { qr_arm_gate_input(g,b,now); }
+TEST_API int qr_test_gate_ack(qr_arm_gate_t *g, qr_alt_decoder_t *s) { return qr_arm_gate_ack(g,s); }
+TEST_API int qr_test_gate_take(qr_arm_gate_t *g) { return qr_arm_gate_take(g); }
+TEST_API int qr_test_gate_drained(qr_arm_gate_t *g) { return g->drained; }
+TEST_API void qr_test_gate_cancel(qr_arm_gate_t *g) { qr_arm_gate_cancel(g); }
+TEST_API void qr_test_gate_expire(qr_arm_gate_t *g, uint32_t now) { qr_arm_gate_expire(g,now); }
 ''',encoding='ascii')
         library=directory/('decoder.dll' if os.name=='nt' else 'decoder.so')
         source=ROOT/'firmware/usb_submcu_host_probe'
-        command=[compiler,'-shared','-DQR_ALT_TEST_DLL','-I',str(source),str(source/'qr_alt_decoder.c'),str(wrapper),'-o',str(library)]
+        command=[compiler,'-shared','-DQR_ALT_TEST_DLL','-I',str(source),str(source/'qr_alt_decoder.c'),
+                 str(source/'qr_arm_gate.c'),str(wrapper),'-o',str(library)]
         if os.name!='nt':command.insert(2,'-fPIC')
         subprocess.run(command,check=True,capture_output=True,text=True)
         cls.lib=ctypes.CDLL(str(library))
@@ -58,6 +66,13 @@ TEST_API int qr_test_error(qr_alt_decoder_t *s) { return s->error; }
         cls.lib.qr_alt_decoder_poll.argtypes=[ctypes.c_void_p,ctypes.c_uint32]
         cls.lib.qr_alt_profile_supported.argtypes=[ctypes.c_uint16,ctypes.c_uint16,ctypes.c_void_p,ctypes.c_size_t]
         cls.lib.qr_alt_profile_supported.restype=ctypes.c_bool
+        cls.lib.qr_test_gate_size.restype=ctypes.c_size_t
+        cls.lib.qr_test_gate_byte.argtypes=[ctypes.c_void_p,ctypes.c_uint8,ctypes.c_uint32]
+        cls.lib.qr_test_gate_ack.argtypes=[ctypes.c_void_p,ctypes.c_void_p]
+        cls.lib.qr_test_gate_take.argtypes=[ctypes.c_void_p]
+        cls.lib.qr_test_gate_drained.argtypes=[ctypes.c_void_p]
+        cls.lib.qr_test_gate_cancel.argtypes=[ctypes.c_void_p]
+        cls.lib.qr_test_gate_expire.argtypes=[ctypes.c_void_p,ctypes.c_uint32]
 
     @classmethod
     def tearDownClass(cls):
@@ -71,6 +86,55 @@ TEST_API int qr_test_error(qr_alt_decoder_t *s) { return s->error; }
         self.state=ctypes.create_string_buffer(self.lib.qr_test_size())
         self.lib.qr_alt_decoder_init(self.state)
         self.now=0
+
+    def send_arm(self, gate, request=b'A0123456789ABCDEF00000001\n', when=0):
+        for byte in request:
+            self.lib.qr_test_gate_byte(gate, byte, when)
+
+    def test_arm_between_old_hid_start_and_end_excludes_old_qr(self):
+        gate=ctypes.create_string_buffer(self.lib.qr_test_gate_size())
+        reports=reports_for(EXPECTED)
+        for split in (1, len(reports)//2, len(reports)-2, len(reports)-1):
+            with self.subTest(split=split):
+                self.setUp()
+                ctypes.memset(gate, 0, len(gate))
+                before=self.replay(reports[:split])
+                if before:
+                    self.assertFalse(self.lib.qr_test_gate_take(gate))
+                self.send_arm(gate)
+                self.assertFalse(self.lib.qr_test_gate_ack(gate,self.state))
+                self.assertFalse(self.lib.qr_test_gate_drained(gate))
+                after=self.replay(reports[split:])
+                self.assertEqual(before+after,[(1,EXPECTED)])
+                if after:
+                    self.assertFalse(self.lib.qr_test_gate_take(gate))
+                self.assertEqual(bool(self.lib.qr_test_gate_drained(gate)),bool(after))
+                self.assertTrue(self.lib.qr_test_gate_ack(gate,self.state))
+                self.assert_scan('Z9-0a'*7)
+                self.assertTrue(self.lib.qr_test_gate_take(gate))
+                self.assertFalse(self.lib.qr_test_gate_take(gate))
+
+    def test_arm_rejects_malformed_or_replayed_requests(self):
+        gate=ctypes.create_string_buffer(self.lib.qr_test_gate_size())
+        for invalid in (b'A0\n', b'A'+b'G'*24+b'\n', b'A'+b'0'*25+b'\n'):
+            self.send_arm(gate,invalid)
+            self.assertFalse(self.lib.qr_test_gate_ack(gate,self.state))
+        self.send_arm(gate)
+        self.assertTrue(self.lib.qr_test_gate_ack(gate,self.state))
+        self.assertTrue(self.lib.qr_test_gate_take(gate))
+        self.send_arm(gate)
+        self.assertFalse(self.lib.qr_test_gate_ack(gate,self.state))
+
+    def test_arm_expiry_wrap_and_disconnect_cancel(self):
+        gate=ctypes.create_string_buffer(self.lib.qr_test_gate_size())
+        start=0xfffffff0
+        self.send_arm(gate,when=start)
+        self.assertTrue(self.lib.qr_test_gate_ack(gate,self.state))
+        self.lib.qr_test_gate_expire(gate,(start+65000)&0xffffffff)
+        self.assertFalse(self.lib.qr_test_gate_take(gate))
+        self.send_arm(gate,b'A0123456789ABCDEF00000002\n')
+        self.lib.qr_test_gate_cancel(gate)
+        self.assertFalse(self.lib.qr_test_gate_ack(gate,self.state))
 
     def feed(self, report, when=None):
         when=self.now if when is None else when

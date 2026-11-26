@@ -1,4 +1,4 @@
-# QR試作用のPIO受信。既定はGP9・9600bps・8N1・PIO0/SM0で、NF55G用UART1を使わない。
+# QR用PIO UART。受信はGP9・PIO0/SM0で、双方向試験時はGP8・SM1で送信する。
 # PIOが受信した値を割込みでRAMリングへ移し、通常処理からread()で取り出す。
 
 """RP2350 QR UART receiver: GP9, 9600 8N1, PIO0/SM0, no UART1 use.
@@ -88,3 +88,34 @@ class QRPioRx:
     def close(self):
         self.sm.active(0)
         self.sm.irq(None)
+
+
+class QRPioUART(QRPioRx):
+    def __init__(self, rx_pin=9, baudrate=115200, sm_id=0, tx_idle_pin=None, buffer_size=2048):
+        try:
+            from .external_instrument_pio import _transmit
+        except ImportError:  # pragma: no cover
+            from external_instrument_pio import _transmit
+
+        self.tx = rp2.StateMachine(1)
+        if self.tx.active():
+            raise RuntimeError('QR TX state machine already active')
+        super().__init__(rx_pin, baudrate, sm_id, tx_idle_pin, buffer_size)
+        pin = Pin(8, Pin.OUT, value=1)
+        try:
+            self.tx.init(_transmit, freq=baudrate * 8, out_base=pin, sideset_base=pin)
+            self.tx.active(1)
+        except Exception:
+            self.close()
+            raise
+
+    def write(self, data):
+        # FIFOに空きがある分だけ送る。残りは次のサービス巡回で送る。
+        count = min(len(data), 4 - self.tx.tx_fifo())
+        for index in range(count):
+            self.tx.put(data[index])
+        return count
+
+    def close(self):
+        self.tx.active(0)
+        super().close()

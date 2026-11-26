@@ -1,0 +1,9 @@
+timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail
+20261126_134123,FIXTURE,,,TRIAL_START,,,,,,,,,trial_id=T000985
+20261126_134123,ATE,RX,,REQUEST,,,,,,,,,TEST_START
+20261126_134123,ATE,TX,,RESULT,,,,,,,,OK,TEST_START
+QR_HID_ARM_END| OK 0
+Traceback (most recent call last):
+  File "<stdin>", line 74, in <module>
+  File "<stdin>", line 48, in wait_for
+RuntimeError: QR_HOST_TIMEOUT

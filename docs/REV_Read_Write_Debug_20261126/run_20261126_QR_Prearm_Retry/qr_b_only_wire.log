@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\__main__.py", line 6, in <module>
+    sys.exit(main.main())
+             ^^^^^^^^^^^
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\main.py", line 622, in main
+    handler_func(state, args)
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\commands.py", line 515, in do_run
+    _do_execbuffer(state, buf, args.follow)
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\commands.py", line 483, in _do_execbuffer
+    state.ensure_raw_repl()
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\main.py", line 552, in ensure_raw_repl
+    self.transport.enter_raw_repl(soft_reset=soft_reset)
+  File "C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\.venv\Lib\site-packages\mpremote\transport_serial.py", line 210, in enter_raw_repl
+    raise TransportError("could not enter raw repl")
+mpremote.transport.TransportError: could not enter raw repl
+b'Uncaught exception in IRQ callback handler\r\nKeyboardInterrupt: \r\n'

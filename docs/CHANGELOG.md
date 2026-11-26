@@ -1,5 +1,9 @@
 # CHANGELOG
 
+2026-11-26 OI-23 親Picoの双方向QR受付の試験モードを追加。候補モードで `QR_SCAN` は `QR_PENDING`、同一IDのHOST応答後にQR取得を有効化。既定は無効。Host Unit／Mock NF55Gは557件成功し、NF55Gを接続しないCOM5実機で旧A破棄、新B照合、書込み未接続拒否を確認。 [結果と制約](REV_Read_Write_Debug_20261126/QR_ATE_No_Product_Result_Rev0.md)
+
+2026-11-26 OI-23 旧QR遅着対策の双方向診断版を追加。QR用HOSTの旧HID読取の終端・キー解放後に受付IDを応答し、以後のQR 1件を同じID付きで返す。Host Unit／Mock NF55G 551件成功。量産フローへの統合は未確定。 [診断版と検証](REV_Read_Write_Debug_20261126/QR_Arm_Candidate_Rev0.md)
+
 ## 2026-11-25 7355 ADCコマンドの400セット耐久受入
 
 - ADC・20 Vレンジ・セット間1秒の400セット耐久を受入完了。通信タイムアウト、再送、再起動、ログ欠落は0件。SD CSV400件を照合した。 [受入記録 Rev.1](USB_Host_Reset_Study_20261121/CDC_ADC_Endurance_Acceptance_20261125_Rev1.md)

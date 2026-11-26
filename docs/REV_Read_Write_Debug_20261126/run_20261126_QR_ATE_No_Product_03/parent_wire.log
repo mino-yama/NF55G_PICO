@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<stdin>", line 55, in <module>
+  File "<stdin>", line 24, in __init__
+  File "<string>", line 103, in __init__
+  File "<string>", line 46, in __init__
+OSError: [Errno 12] ENOMEM

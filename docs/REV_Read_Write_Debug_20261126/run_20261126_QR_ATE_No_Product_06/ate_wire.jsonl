@@ -1,0 +1,5 @@
+{"command": "*IDN?", "reply": "NF55G_PICO_FIXTURE,Rev.0", "time": 1795670286.168485}
+{"command": "COMM_STATUS?", "reply": "NG:NO_PROTOCOL", "time": 1795670286.1783452}
+{"command": "SD_STATUS?", "reply": "OK", "time": 1795670286.1832442}
+{"command": "TEST_START", "reply": "OK", "time": 1795670286.1961744}
+{"command": "TEST_END", "reply": "OK", "time": 1795670351.7778144}

@@ -1,5 +1,19 @@
 # Open Issues
 
+2026-11-26 OI-23 NF55G未接続のCOM5試験（Open）。親PicoのRAM試験版で、旧AのHID受信中にCOM5から受付を要求し、同一受付IDの破棄応答後にBだけを取得。原文35文字とSS候補50文字が一致し、製品向け送信0。模擬30セットを含むHost Unit／Mock NF55G全557件成功。実SDを用いた別試行は終了応答欠落・ログ欠落増分4件。RAM再試行では終了OK・欠落0。量産ATE応答条件、実スキャナー30セット、実SDの再確認、実製品SS／D5は未完。 [試験結果](REV_Read_Write_Debug_20261126/QR_ATE_No_Product_Result_Rev0.md)
+
+2026-11-26 OI-23 繰返し実機試験（Open）。診断版のT000990でAの読取途中に受付要求し、同一受付IDの破棄応答後にBを取得する手順が3セット連続で成功。原文35文字とSS候補50文字が一致し、SS送信0件、ログ欠落0。量産ATEへの統合、初回HID報告前の遅延、電源再投入時の挙動は未確認。 [繰返し試験結果](REV_Read_Write_Debug_20261126/QR_Arm_Repeat_Rev0.md)
+
+2026-11-26 OI-23 双方向診断の実機確認（Open）。T000989では旧AのHID取得中に親GP8から受付要求を送信し、QR用HOSTの応答で同じ受付ID・破棄フラグ1を確認。その後のBだけを同じIDで取得し、原文35文字とSS候補50文字が一致。SS送信0件、ログ欠落0。量産ATEへの統合、初回HID報告前の遅延、繰返し耐久は未確認。 [実機結果](REV_Read_Write_Debug_20261126/QR_Arm_Candidate_Rev0.md#旧qrの破棄とbの実機照合)
+
+2026-11-26 OI-23 双方向診断候補（Open）。受付IDの応答前にHOST内で処理中の旧QRを破棄し、以後のQR 1件を受付ID付きで返す。CでHID境界を再生し、Host Unit／Mock NF55G全551件成功。実配線、実スキャナー、量産ATEへの統合は未確認。 [診断版と検証](REV_Read_Write_Debug_20261126/QR_Arm_Candidate_Rev0.md)
+
+2026-11-26 OI-23 受付境界の実機再試験（Open）。T000984ではAの完成と破棄を確認後にBを受け付け、QR原文35文字とSS候補50文字が一致。SS送信0件、ログ欠落0、試行後の取得ID失効を確認。別試行ではB受付後にAが到着し、2回目のAの発生経路は未確認。受付開始後に到着する旧QRの自動識別は継続。 [実機結果](REV_Read_Write_Debug_20261126/QR_Prearm_Boundary_Rev0.md)
+
+2026-11-26 OI-23のUNIT_REV格納規則をユーザー承認。初期サンプル（S1.13、号機000832）の2026-11-09 D5受信原文は `41 35 2E 20`（`A5.<SP>`）。現行FWのQR→SSはREV3文字の右にASCII空白1文字を付け、D5は4バイトをそのまま返す。S1.14Bの実試験で `A03<SP>` と `B7.<SP>` のSS送信値・D5読戻し値が一致した。受付前に始まったQRの識別はOI-23で継続。 [現行実機結果](REV_Read_Write_Debug_20261126/run_20261126_083052_555081/Result_Rev0.md)
+
+2026-11-26 OI-23 REV／旧QR遅着（Open）。S1.14Bで疑似QRとSS診断9ケースを実行し、開始時D5の全100バイトへ復元。49文字SSは受信原文 `15 35` で拒否、前詰め50文字はREV／LOT／号機がずれて書き込まれた。実QR Aの連続読取とBへの試行切替を確認。1,080 ms遅着したAは、試験プログラムで予定Bとの不一致を検出して取り消し、新IDでBを取得した。親Pico側の受付前読取の識別は未実装。 [実機結果とログ](REV_Read_Write_Debug_20261126/run_20261126_083052_555081/Result_Rev0.md)
+
 2026-11-25 OI-23 受付前読取の遅着を実機再現（Open）。実スキャナーでHID受信数増加・完成QR数不変を検出後に親PicoのATEコマンド処理から受付開始。771 ms後にラベルAが到着し、新取得IDの `QR_GET?`／`QR_DATA?` に登録された。発生頻度は未測定。SS未送信、試行終了、SD OK、ログ欠落0。 [遅着条件と実機記録](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Startup_And_Late_Frame_Rev0.md#実スキャナーでの受付前読取の遅着)
 
 2026-11-25 OI-23 再起動後実機確認（Open）。親Picoの保守USB復帰後、親・測定器HOSTの起動世代更新、QR HOST稼働約26秒・スキャナー認識を確認。再起動後の最初のATE試行でラベルAの35文字とSS書込み候補50文字が一致し、SD OK、ログ欠落0。QR HOST単体の電源再投入動作と実スキャナーでの遅着条件は未確認。 [実機試験記録](QR_Hardware_Integration_20261123_01/Production_Label_Retest_20261125/Startup_And_Late_Frame_Rev0.md#治具の再起動後の再試験)

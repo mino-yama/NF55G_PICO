@@ -11,6 +11,11 @@
 #include "tusb.h"
 #include "qr_alt_decoder.h"
 #include "probe_stream.h"
+#if PROBE_QR_ARM
+#include "qr_arm_gate.h"
+static qr_arm_gate_t arm_gate;
+bi_decl(bi_1pin_with_name(1,"QR arm diagnostic UART0 RX"));
+#endif
 #ifndef PROBE_CONTINUOUS
 #define PROBE_CONTINUOUS 0
 #endif
@@ -74,10 +79,16 @@ static void record(uint8_t kind, uint8_t addr, uint8_t instance, const void *dat
 }
 #if PROBE_UART_TX_PIN >= 0
 static void qr_error(uint8_t addr, uint8_t instance, qr_alt_error_t error) {
+#if PROBE_QR_ARM
+ if(arm_gate.armed) qr_arm_gate_cancel(&arm_gate);
+#endif
  uint8_t value=(uint8_t)error; record(13,addr,instance,&value,1);
 }
 static void qr_disconnect(uint8_t addr) {
  if(qr_enabled && qr_addr==addr) {
+#if PROBE_QR_ARM
+  qr_arm_gate_cancel(&arm_gate);
+#endif
   if(qr_decoder.active || qr_decoder.discarding)
    qr_error(qr_addr,qr_instance,QR_ALT_DISCONNECT);
   qr_alt_decoder_init(&qr_decoder); qr_enabled=false;
@@ -133,7 +144,16 @@ void tuh_hid_report_received_cb(uint8_t a,uint8_t i,const uint8_t *report,uint16
 #if PROBE_CONTINUOUS
    qr_count++;
 #endif
+#if PROBE_QR_ARM
+   if(qr_arm_gate_take(&arm_gate)) {
+    char data[QR_ARM_ID_SIZE+QR_ALT_TEXT_LENGTH];
+    memcpy(data,arm_gate.id,QR_ARM_ID_SIZE);
+    memcpy(data+QR_ARM_ID_SIZE,text,QR_ALT_TEXT_LENGTH);
+    record(QR_ARM_TEXT_RECORD,a,i,data,sizeof(data));
+   }
+#else
    record(12,a,i,text,QR_ALT_TEXT_LENGTH);
+#endif
   }
   else if(result==QR_ALT_ERROR) qr_error(a,i,qr_decoder.error);
  }
@@ -141,7 +161,7 @@ void tuh_hid_report_received_cb(uint8_t a,uint8_t i,const uint8_t *report,uint16
  request(a,i);
 }
 #if PROBE_UART_TX_PIN >= 0
-// 任意の診断TXは受信・コマンド処理なし。FIFO空きの分だけ出しUSB処理を待たせない。
+// FIFO空きの分だけ出し、USB処理を送信待ちで止めない。
 static void pump_uart(void) {
 #if PROBE_CONTINUOUS
  probe_record_t r;
@@ -160,6 +180,18 @@ static void pump_uart(void) {
  for(unsigned budget=0;budget<16 && tx_offset<tx_length && uart_is_writable(uart0);budget++)
   uart_putc_raw(uart0,tx[tx_offset++]);
 }
+#if PROBE_QR_ARM
+static void pump_arm_requests(uint32_t now) {
+ for(unsigned budget=0;budget<32 && uart_is_readable(uart0);budget++)
+  qr_arm_gate_input(&arm_gate,(uint8_t)uart_getc(uart0),now);
+ if(qr_enabled && qr_arm_gate_ack(&arm_gate,&qr_decoder)) {
+  char data[QR_ARM_ID_SIZE+1];
+  memcpy(data,arm_gate.id,QR_ARM_ID_SIZE);
+  data[QR_ARM_ID_SIZE]=arm_gate.drained;
+  record(QR_ARM_ACK_RECORD,qr_addr,qr_instance,data,sizeof(data));
+ }
+}
+#endif
 #endif
 #if PROBE_CONTINUOUS
 static void stage(uint8_t phase, uint32_t value) {
@@ -190,6 +222,10 @@ int main(void) {
  uart_init(uart0,115200);uart_set_format(uart0,8,1,UART_PARITY_NONE);
  uart_set_hw_flow(uart0,false,false);
  gpio_set_function(PROBE_UART_TX_PIN,GPIO_FUNC_UART);
+#if PROBE_QR_ARM
+ gpio_set_function(1,GPIO_FUNC_UART);
+ gpio_pull_up(1);
+#endif
  // USB開始前に版と個体IDだけを先に出す。Host処理中の送信は16byte上限。
 #if PROBE_CONTINUOUS
  while(stream.count || tx_offset<tx_length) { pump_uart(); tight_loop_contents(); }
@@ -225,6 +261,9 @@ int main(void) {
  stage(4,0);
 #endif
  while(true) {
+#if PROBE_QR_ARM
+  qr_arm_gate_expire(&arm_gate,to_ms_since_boot(get_absolute_time()));
+#endif
   tuh_task_ext(0,false);
   uint32_t now=to_ms_since_boot(get_absolute_time());
 #if PROBE_CONTINUOUS
@@ -236,6 +275,9 @@ int main(void) {
 #if PROBE_UART_TX_PIN >= 0
   if(qr_enabled && qr_alt_decoder_poll(&qr_decoder,now)==QR_ALT_ERROR)
    qr_error(qr_addr,qr_instance,qr_decoder.error);
+#if PROBE_QR_ARM
+  pump_arm_requests(now);
+#endif
   pump_uart();
 #endif
  }

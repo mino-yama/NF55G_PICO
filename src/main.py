@@ -66,7 +66,7 @@ SD_RECOVERY_IDLE_MS = 250
 
 class FixtureApp:
     def __init__(self, ate_uart=None, nf55_uart=None, protocol=None, cache=None, logger=None, rtc=None, clock=None,
-                 external_link=None, qr_transport=None, calibration_sample_enabled=False):
+                 external_link=None, qr_transport=None, calibration_sample_enabled=False, qr_host_arm=False):
         self.clock = clock or getattr(protocol, 'clock', None) or SystemClock()
         self.external_link = external_link
         self.external_error = None
@@ -87,7 +87,7 @@ class FixtureApp:
             self.measurements.start_trial()
         self.rtc = rtc
         self.qr_reader = QRReceiver(on_ready=self.accept_qr)
-        self.qr_write = QRWriteSession(self.clock, binascii.hexlify(new_nonce()).decode(), qr_transport)
+        self.qr_write = QRWriteSession(self.clock, binascii.hexlify(new_nonce()).decode(), qr_transport, arm_host=qr_host_arm)
         if self.logger.test_running:
             self.qr_write.start_trial()
         self.server = ATEServer(ate_uart) if ate_uart is not None else None
@@ -198,7 +198,7 @@ class FixtureApp:
         self._pump_ate()
         previous_qr = self.qr_write.state
         self.qr_write.poll()
-        if previous_qr == 'READING' and self.qr_write.state == 'READY':
+        if previous_qr in ('ARMING', 'READING') and self.qr_write.state == 'READY':
             self.accept_qr(self.qr_write.raw)
         if self.protocol is not None:
             self.protocol.service_idle()
@@ -396,7 +396,9 @@ class FixtureApp:
                 self.qr_write.cancel()
                 return 'OK'
             if name == 'QR_SCAN':
-                return 'OK:QR_ARMED:' + self.qr_write.start(token)
+                acquisition = self.qr_write.start(token)
+                response = 'OK:QR_PENDING:' if self.qr_write.arm_host else 'OK:QR_ARMED:'
+                return response + acquisition
             if name in ('QR_GET?', 'QR_DATA?'):
                 raw, data = self.qr_write.get(token, review=name == 'QR_DATA?')
                 return 'OK:{}:{}:{}'.format(name[:-1], token,
@@ -442,10 +444,11 @@ def create_fixture_app(enable_hardware=True):
     if enable_hardware:
         if config.QR_HOST_ENABLED:
             try:
-                from .qr_pio_rx import QRPioRx
+                from .qr_pio_rx import QRPioRx, QRPioUART
             except ImportError:
-                from qr_pio_rx import QRPioRx
-            qr_transport = QRPioRx(rx_pin=9, baudrate=115200, sm_id=0,
+                from qr_pio_rx import QRPioRx, QRPioUART
+            qr_port = QRPioUART if config.QR_HOST_ARM_ENABLED else QRPioRx
+            qr_transport = qr_port(rx_pin=9, baudrate=115200, sm_id=0,
                                    tx_idle_pin=None, buffer_size=2048)
         if config.EXTERNAL_INSTRUMENT_ENABLED:
             transport = None
@@ -485,7 +488,8 @@ def create_fixture_app(enable_hardware=True):
                 repl_sink=create_repl_sink(config.REPL_LOG_ENABLED))
     app = FixtureApp(ate_uart=ate_uart, nf55_uart=nf55_uart, rtc=rtc, logger=logger, clock=clock,
                      external_link=external_link, qr_transport=qr_transport,
-                     calibration_sample_enabled=config.CALIBRATION_SAMPLE_ENABLED)
+                     calibration_sample_enabled=config.CALIBRATION_SAMPLE_ENABLED,
+                     qr_host_arm=config.QR_HOST_ARM_ENABLED)
     app.external_error = external_error
     return app
 

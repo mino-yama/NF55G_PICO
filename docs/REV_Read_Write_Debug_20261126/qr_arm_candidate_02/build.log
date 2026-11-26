@@ -1,0 +1,32 @@
+[1/89] Generating usb_tx.pio.h
+[2/89] Generating usb_rx.pio.h
+[3/89] Building ASM object pico-sdk/src/rp2350/boot_stage2/CMakeFiles/bs2_default.dir/compile_time_choice.S.obj
+[4/89] Linking ASM executable pico-sdk\src\rp2350\boot_stage2\bs2_default.elf
+[5/89] Generating bs2_default.bin
+[6/89] Generating bs2_default_padded_checksummed.S
+[7/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/newlib_malloc_lock.c.obj
+[8/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/main.c.obj
+[9/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/qr_alt_decoder.c.obj
+[10/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/probe_stream.c.obj
+[11/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/qr_arm_gate.c.obj
+[12/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_gpio/gpio.c.obj
+[13/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/pico_stdlib/stdlib.c.obj
+[14/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2350/pico_platform/platform.c.obj
+[15/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/pico_platform_common/common.c.obj
+[16/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/hardware_claim/claim.c.obj
+[17/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/pico_platform_panic/panic.c.obj
+[18/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_sync/sync.c.obj
+[19/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/43ee3f986fc127ed80a436cfdc520d4a/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.obj
+[20/89] Building ASM object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.obj
+[21/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_irq/irq.c.obj
+[22/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_sync/sem.c.obj
+[23/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_sync/lock_core.c.obj
+[24/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_sync/mutex.c.obj
+[25/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_sync/critical_section.c.obj
+[26/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_time/timeout_helper.c.obj
+[27/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_time/time.c.obj
+[28/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_timer/timer.c.obj
+[29/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_util/pheap.c.obj
+[30/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/common/pico_util/datetime.c.obj
+[31/89] Building C object CMakeFiles/usb_submcu_host_probe.dir/C_/Users/m_yamada/OneDrive/My_Document/NF55G/NF55G_Pico/tools/usb_submcu/pico-sdk-2.2.0/src/rp2_common/hardware_uart/uart.c.obj
+[32/89] Building C object CMakeFile

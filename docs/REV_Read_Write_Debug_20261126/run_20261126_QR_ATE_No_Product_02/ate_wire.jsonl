@@ -1,0 +1,2 @@
+{"command": "*IDN?", "reply": "NF55G_PICO_FIXTURE,Rev.0", "time": 1795670013.9614124}
+{"command": "COMM_STATUS?", "reply": "NG:NO_PROTOCOL", "time": 1795670013.970221}
