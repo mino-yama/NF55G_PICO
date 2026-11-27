@@ -555,12 +555,12 @@ class NativeRelayLinkTests(unittest.TestCase):
 
     def test_named_calibration_workflow_from_ate_uart_through_six_points(self):
         points = (
-            ('DISCHG_I', 'A', 'P2', '12', b'+044.2500E-03\r\n', 44.25),
-            ('DISCHG_I', 'B', 'P1', '11', b'+000.3000E-03\r\n', 0.3),
-            ('BATT_CHG', 'A', 'P2', '42', b'+001.8500E-03\r\n', 1.85),
-            ('BATT_CHG', 'B', 'P1', '41', b'+000.5000E-03\r\n', 0.5),
-            ('BATT_V', 'A', 'P2', '22', b'+08.12500E+00\r\n', 8.125),
-            ('BATT_V', 'B', 'P1', '21', b'+05.25000E+00\r\n', 5.25),
+            ('DISCHG_I', 'A', 'A', '11', b'+044.2500E-03\r\n', 44.25),
+            ('DISCHG_I', 'B', 'B', '12', b'+000.3000E-03\r\n', 0.3),
+            ('BATT_CHG', 'A', 'A', '41', b'+001.8500E-03\r\n', 1.85),
+            ('BATT_CHG', 'B', 'B', '42', b'+000.5000E-03\r\n', 0.5),
+            ('BATT_V', 'A', 'A', '21', b'+08.12500E+00\r\n', 8.125),
+            ('BATT_V', 'B', 'B', '22', b'+05.25000E+00\r\n', 5.25),
         )
         manufacturing = b'S1.14BA1. 2601000001' + b'0' * 80
         scenario = MockNF55GScenario([ScenarioStep.ack_response('D5', manufacturing)])
@@ -598,7 +598,7 @@ class NativeRelayLinkTests(unittest.TestCase):
                 self.assertEqual(scenario.handled_command_count, before)
                 scenario.add(ScenarioStep.ack_response('AD', type_point.encode() + b'00012344A8699A'))
                 value8 = struct.pack('>f', value).hex().upper()
-                self.assertTrue(exchange(f'CAL_WRITE_{circuit} {point} {destination}').startswith(
+                self.assertTrue(exchange(f'CAL_WRITE_{circuit} {point}').startswith(
                     f'OK:CAL_WRITE:{value8}:291:'))
                 self.assertEqual(scenario.handled_command_count, before + 1)
                 self.assertIn(build_frame('AD', (type_point + value8).encode()), nf.tx_log)
@@ -611,7 +611,7 @@ class NativeRelayLinkTests(unittest.TestCase):
         self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n', b':READ?\r\n'] * len(points))
         self.assertEqual(exchange('TEST_END'), 'OK')
         self.assertEqual(exchange('LOG_DROP_COUNT?'), '0')
-        self.assertEqual(exchange('AD_VERIFY_BATT_V P1'), 'ERR:CAL_NO_ACTIVE_TRIAL')
+        self.assertEqual(exchange('AD_VERIFY_BATT_V A'), 'ERR:CAL_NO_ACTIVE_TRIAL')
 
     def test_calibration_native_no_trial_disabled_or_bad_command_sends_nothing(self):
         app = FixtureApp(clock=self.clock, external_link=self.link)

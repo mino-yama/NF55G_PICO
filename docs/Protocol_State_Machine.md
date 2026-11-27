@@ -1,5 +1,8 @@
 # Error Handling / Retry / Protocol State Machine
 
+2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を現行AD_VERIFYのAR通信へ適用する。従来のAR診断用1000msおよびAR T2未確定の記載は承認前の履歴。AD書込みの診断用T2=1000msは継続し、ARのCommand Retryなし・別指令読戻し・Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryはこの変更では追加しない。
+
+
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。 ただしD0のT2のみ、2026-11-11ユーザー指定により通信r2事前確認版p.17／28の300msを採用。r2の他項目は一括採用しない。
 Revision: Rev.0
 

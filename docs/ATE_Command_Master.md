@@ -1,5 +1,17 @@
 # ATE Command Master
 
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+
+2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を現行AD_VERIFYのAR通信へ適用する。従来のAR診断用1000msおよびAR T2未確定の記載は承認前の履歴。AD書込みの診断用T2=1000msは継続し、ARのCommand Retryなし・別指令読戻し・Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryはこの変更では追加しない。
+
+
+2026-11-26 ユーザー確定（OI-23の書込み範囲と温度取得の分離）: 従来の SERIAL_<ITEM>_<VALUE> に関する書込み方式・対象欄の課題は、実装済みの QR_WRITE <取得ID> でUNIT_REV／UNIT_LOT（LOT）／UNIT_SERIAL（SERIAL）の3欄を書き込む方式として確定。汎用SERIAL入口やADU／BBU製造情報6欄への書込み追加を、本工程の残実装として要求しない。QRのREV3文字＋空白→UNIT_REV4文字、YYWW→UNIT_LOT、号機→UNIT_SERIALという承認済み対応を使用し、他の製造情報欄は変更なし指定とする。
+
+ADU／BBUの温度取得は ADU_TEMP?／BBU_TEMP? として既に実装済みの別機能であり、QR_WRITEの書込み対象・未確定事項に含めない。明示 DATA_REFRESH で取得したDATA Cacheを照会し、個別Queryから自動Refreshしない。SS／D5のADU_REV・ADU_LOT・ADU_SERIAL／BBU_REV・BBU_LOT・BBU_SERIALは製造情報であり、温度項目とは別である。今回確定した書込み方式・3欄の範囲は再確認待ちに戻さない。旧QR遅着、電源再投入保持、実SD・量産ATE統合等の残確認とFW_REV照合条件は分けて管理し、OI-23全体を一括Closeしない。下記の過去記載にある9欄書込み要求・ADU／BBU書込値の確認待ちは、現在の3欄工程には適用しない。
+
+
+2026-11-26 ユーザー確定: 人が測定器を読み、`AD_<TYPE>_<POINT>_<VALUE>` をATEへ直接記載してNF55Gへ送る方式を採用。例 `AD_4_1_1.85`、VALUEはA／Vの10進値で、測定器接続・測定Cacheは不要。既存サンプル診断条件を維持して通常ATE経路に実装し、回路名付きAD_VERIFYで別の明示ARへ接続する。CAL_WRITE方式も併用。製品側正式T2・REF表現・量産受入は継続。[確定方式と手順](AD_Direct_ATE_20261126_Rev0.md)。
+
 2026-11-25 7355の現行USB CDC運用はADCコマンドを採用。ATEは200 mVを `R3`、20 Vを `R5` で設定し、`R?` で指定値を確認する。回路別 `CAL_MEASURE_<回路> <A|B> <期限ms> MD?` は連続・即時DCVの測定完了を確認して値を取得する。[採用決定・設定と取得手順](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
 
 2026-11-25 校正コマンド簡略化: 回路名付きの測定・最新Cache照会・明示書込み・明示読戻しを追加。ATEから取得IDの返送は不要。測定値の採否・読戻し照合はATEで扱う。 [コマンドと応答](ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md)
@@ -105,7 +117,7 @@ Revision: Rev.0
 | ERP_SET_0_1 | SE | 0100 (BURST=0, PS_OFF_CHARGE=1, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
 | ERP_SET_1_1 | SE | 1100 (BURST=1, PS_OFF_CHARGE=1, reserve=00) | 100 | DATA/STATUS | STATUS_REFRESH + 外部測定 |
 | CLOCK_SYNC | SC | YYMMDDHHMMSS | 100 | DATA/STATUS | DATA_REFRESH |
-| SERIAL_<ITEM>_<VALUE> | SS | 50 chars | 100 | DATA/INFO | INFO_REFRESH |
+| QR_WRITE <取得ID> | SS | 50 chars（UNIT_REV／UNIT_LOT／UNIT_SERIALの3欄更新） | 100 | DATA/INFO | INFO_REFRESH |
 | LIFE_SET_<VALUE> | SL | 3 chars + reserve | 100 | DATA | DATA_REFRESH |
 | BATT_CHECK_START | BC | 1 | 6000 | DATA/STATUS, BC refreshed | BC queries |
 | BATT_CHECK_STOP | BC | 0 | 6000 | BC/DATA/STATUS | STATUS_REFRESH |
@@ -247,11 +259,11 @@ Revision: Rev.0
 BC_MODE?, BC_V1?, BC_V2?, BC_I1?, BC_I2?, BC_TEMP?, BC_SOC?, BC_IR?
 
 ## 8. AR Cache Query
-- AR_DISCHG_I_P1_ADC?/REF?, P2_ADC?/REF?
-- AR_BATT_V_P1_ADC?/REF?, P2_ADC?/REF?
-- AR_ACDC12V_V_P1_ADC?/REF?, P2_ADC?/REF?
-- AR_BATT_CHG_P1_ADC?/REF?, P2_ADC?/REF?
-- AR_12VOUT_V_P1_ADC?/REF?, P2_ADC?/REF?
+- AR_DISCHG_I_A_ADC?/REF?, B_ADC?/REF?
+- AR_BATT_V_A_ADC?/REF?, B_ADC?/REF?
+- AR_ACDC12V_V_A_ADC?/REF?, B_ADC?/REF?
+- AR_BATT_CHG_A_ADC?/REF?, B_ADC?/REF?
+- AR_12VOUT_V_A_ADC?/REF?, B_ADC?/REF?
 
 ## 9. EL/OL Query
 Pattern:
@@ -290,7 +302,7 @@ QR_PARSEでフィールド分解と桁数・文字種・範囲検証を行い、
 QR_GET/QR_DATAは保持情報を返し、自動読取・自動Refreshを行わない。QR_VERIFYを採用する場合も明示読出し済みの値と比較する。
 各工程の異常はATEへエラーコードを返す。正式名称、応答形式、エラーコード表と照合担当はOI-23で確定する。
 
-### SET_SERIAL画面によるSS書込み対象の指定
+### SET_SERIAL画面による過去のSS書込み対象記録（現行は冒頭の3欄確定を適用）
 生産LOT・生産年月・S/N情報の書込み範囲は画面のUNIT_REVからBBU_SRLまで。SS対象はUNIT_REV/UNIT_LOT/UNIT_SERIAL、ADU_REV/ADU_LOT/ADU_SERIAL、BBU_REV/BBU_LOT/BBU_SERIALの9項目。画面のSRL表記は既存SERIAL項目に対応する。FW_REVISIONはFW書き込み仕様書のREVSIONとの一致照合のみとし、書込み対象に含めない。ATEが明示INFO_REFRESHを実行した後、FW_REV?で読出し値を取得する。比較元の仕様書・期待値・比較規則・照合担当はOI-23で確定する。
 QR値からの変換、各値の取得元、SS DATA詳細は[QR読取要件](QR_Reader_Requirements.md)とOI-23で管理する。
 

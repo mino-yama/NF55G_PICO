@@ -28,6 +28,8 @@ NF55_STOP_BITS = 1
 
 T1_ACK_TIMEOUT_MS = 200
 T2_DEFAULT_MS = 100
+# ARはD5等の同種読出しと同じ100ms（2026-11-26 山田承認）。
+T2_AR_MS = 100
 T2_D0_MS = 300
 T2_BC_MS = 6000
 
@@ -123,5 +125,6 @@ QR_HOST_ENABLED = False
 # 双方向QR HOST試験版。対応HOSTと組み合わせる場合に有効化する。
 QR_HOST_ARM_ENABLED = False
 
-# S1.14B／UNIT 000001専用の実機校正診断。量産でのAD/AR有効化とは別。
+# S1.14B／UNIT 000001専用の校正診断。Cache採用・ATE直接指定のADと別指令ARに共通。
+# 直接指定方式の採用と、量産での製品側AD/AR仕様の確定は別に管理する。
 CALIBRATION_SAMPLE_ENABLED = False

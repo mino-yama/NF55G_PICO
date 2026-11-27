@@ -370,6 +370,7 @@ class FixtureApp:
                 self.calibration_write.mark_queried(token)
             return reply
         if parsed.category == 'CALIBRATION_WRITE':
+            # Cache採用と人の読取り値の直接指定は、同じ診断条件・単一通信制約で実行する。
             if self.calibration_write is None:
                 return 'ERR:CAL_WRITE_DISABLED'
             if self._comm_busy():

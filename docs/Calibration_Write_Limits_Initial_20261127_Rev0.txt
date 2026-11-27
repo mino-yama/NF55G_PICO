@@ -1,0 +1,14 @@
+NF55G calibration write limits - Initial Rev.0
+Date: 2026-11-27
+Status: Approved initial values; firmware integration NOT implemented.
+Source: User instruction, nominal value +/-20%.
+Comparison: lower <= write_candidate <= upper (A or V after unit conversion).
+This is a review text file; not loaded by current Pico firmware.
+
+CIRCUIT | POINT | UNIT | NOMINAL | LOWER | UPPER | TOLERANCE_PERCENT
+DISCHG_I | A | A | 44 | 35.2 | 52.8 | 20
+DISCHG_I | B | A | 0.3 | 0.24 | 0.36 | 20
+BATT_CHG | A | A | 1.85 | 1.48 | 2.22 | 20
+BATT_CHG | B | A | 0.5 | 0.4 | 0.6 | 20
+BATT_V | A | V | 8 | 6.4 | 9.6 | 20
+BATT_V | B | V | 5 | 4 | 6 | 20

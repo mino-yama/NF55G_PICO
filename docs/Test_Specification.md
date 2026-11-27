@@ -1,5 +1,18 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+
+## 2026-11-26 ARのT2を100msへ確定（山田承認）
+
+- 保存情報を読むD5／EL／OLと同じく、有効ACK受信後のAR T2を100msに確定。config.T2_AR_MSを追加し、SampleCalibrationWriteのARだけへ適用。AD診断T2=1000msは維持。
+- 新規tests/test_ar_timing.pyで、ACKが20ms後・応答が送信119ms後（ACK後99ms）なら正常、121ms後（ACK後101ms）ならtimeoutとなることを、回路名付き／旧互換AD_VERIFYの両入口で検証。timeout時のAR再送なし・AR Cache非昇格、および500ms後のAD応答受理も確認。時刻はFakeClockによる模擬値で実機測定ではない。
+- 関連18件成功（2.311秒）。全Host Unit／Mock NF55G 569件成功（24.018秒）。ログ: tmp/ar_t2_100ms_host_mock_20261126.log。git diff --check成功（改行コード警告のみ）。
+- OI-12のT2決定は承認によりResolved。OI-04の返却契約・小数保持、OI-20の正式長さ・順序等と実機Timing検証は継続。AR_REFRESH／AR Cache Queryの追加なし。
+- 次回の親Pico配置候補はAD_Direct_Pico_Preparation_20261126_Rev1。34ファイルが原本とバイト一致しmanifest SHA-256一致。Rev.0は履歴として保持。実機配置・校正値変更は未実施。
+
+
+2026-11-26 直接指定ADの回帰: `tests/test_direct_ad.py`でTYPE5種×Point2種の実フレームと負の小数、DMM／Cache不要、回路名・指数指定、構文とfloat32異常の無送信拒否、診断・試行・個体・BUSY gate、別ARの読戻し、Cache失効、後続timeout時の旧比較元破棄、対象不一致応答、UART例外・Command Retry禁止と原文ログを確認する。実機配置・AD書込みは別途。[手順](AD_Direct_ATE_20261126_Rev0.md)。
+
 2026-11-25 7355のADCコマンド採用確認。`R3`／`R5` を指定後の `R?` と照合し、R3では40 mV設定の直流電源入力を5回取得した。R5でセット間1秒の400/400セットを完了し、CSV400件を照合した。[採用条件と実機記録](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
 
 2026-11-25 7355 ADCコマンド取得。最初のEOMを使わず新たな完了を待つこと、照会間隔20 ms、誤設定時の取得拒否、総期限、送信前取消しをMockで確認。全548件成功。実機BATT_VでR5取得→R3オーバーレンジでキャッシュ失効→R5再取得を確認。[証跡](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev0.md)

@@ -350,7 +350,7 @@ def decode_ar(data):
     result = {}
     offset = 0
     for system in systems:
-        for point in ("P1", "P2"):
+        for point in ("A", "B"):
             adc = _slice(text, offset, 6)
             ref = _slice(text, offset + 6, 8)
             result["AR_{}_{}_ADC".format(system, point)] = _num(adc)

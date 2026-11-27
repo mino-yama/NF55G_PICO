@@ -1,5 +1,9 @@
 # Cache / Invalidation / Post-Action Confirmation Master
 
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+
+2026-11-26 直接指定AD: 人の読取り値をATEから指定するAD入口を追加。測定Cacheは参照・自動取得しない。AD正常／成否不明時にDATA／ARと同回路のDMM Cache A／B・照会済み記録を失効。正常応答の対象・ADCを検証した場合のみ同試行のAD_VERIFY用比較元を記録し、同点の後続AD成否不明時は旧比較元を破棄。AR／STATUS／INFOへの応答転用なし。[契約](AD_Direct_ATE_20261126_Rev0.md)。
+
 2026-11-23 QR書込みCache追加: `QRWriteSession`に起動nonce／試行世代／取得ID・原文35文字・SS DATA・READY・照会済み状態を保持。既存製品INFO Cacheとは別。QR_SCANで旧値を破棄し、最初の完成1件だけ固定、READY後の入力で置換しない。QR_DATA?は取得済み値の照会だけ。QR_WRITE実行結果で使用取得値を消費し、SS成功／ambiguous時はDATA／INFOをINVALID。TEST_START新世代／TEST_END成立／取消で旧取得値を失効。親受付前からHOST内で処理中の遅着を識別するwire境界は未実装。[仕様と限界](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
 
 2026-11-23 ADC取得接続: 採用済みCAL_MEASUREで現試行/対象/A-B/tokenを照合し、同点旧値を取得前に失効。7355 DCV完成応答を検証後だけ保存し、OL/演算エラー・失敗・取消・旧試行では復活させない。電流の測定値は厳密V→mV正規化、校正候補は同じ数値のA、元rawはV原文保持。CAL_MEASUREMENT?はCacheのみ。TEST_END/再STARTの全失効を維持し、NF読出しCacheとは分離。全497回帰成功。[仕様](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。

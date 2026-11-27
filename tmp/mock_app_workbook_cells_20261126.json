@@ -1,0 +1,8713 @@
+[
+  {
+    "sheet": "目次",
+    "path": "xl/worksheets/sheet1.xml",
+    "cells": [
+      {
+        "cell": "B3",
+        "text": "目次モクジ",
+        "formula": ""
+      },
+      {
+        "cell": "B4",
+        "text": "設定セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "C4",
+        "text": "SET PARAMETER",
+        "formula": ""
+      },
+      {
+        "cell": "F4",
+        "text": "制御セイギョ",
+        "formula": ""
+      },
+      {
+        "cell": "G4",
+        "text": "BACKUP ENABLE ",
+        "formula": ""
+      },
+      {
+        "cell": "I4",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "C5",
+        "text": "RESET PARAMETER",
+        "formula": ""
+      },
+      {
+        "cell": "G5",
+        "text": "BACKUP OFF",
+        "formula": ""
+      },
+      {
+        "cell": "I5",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "C6",
+        "text": "SET ERP",
+        "formula": ""
+      },
+      {
+        "cell": "G6",
+        "text": "OUTPUT RESTART",
+        "formula": ""
+      },
+      {
+        "cell": "I6",
+        "text": "94",
+        "formula": ""
+      },
+      {
+        "cell": "C7",
+        "text": "SET CLOCK",
+        "formula": ""
+      },
+      {
+        "cell": "G7",
+        "text": "CHARGE ON",
+        "formula": ""
+      },
+      {
+        "cell": "I7",
+        "text": "138",
+        "formula": ""
+      },
+      {
+        "cell": "C8",
+        "text": "SET SERIAL",
+        "formula": ""
+      },
+      {
+        "cell": "G8",
+        "text": "CHARGE OFF",
+        "formula": ""
+      },
+      {
+        "cell": "I8",
+        "text": "178",
+        "formula": ""
+      },
+      {
+        "cell": "C9",
+        "text": "SET LIFE",
+        "formula": ""
+      },
+      {
+        "cell": "C10",
+        "text": "BATT CHECK",
+        "formula": ""
+      },
+      {
+        "cell": "B14",
+        "text": "情報取得ジョウホウシュトク",
+        "formula": ""
+      },
+      {
+        "cell": "C14",
+        "text": "GET DATA0",
+        "formula": ""
+      },
+      {
+        "cell": "F14",
+        "text": "保守ホシュ",
+        "formula": ""
+      },
+      {
+        "cell": "G14",
+        "text": "CLEAR DATA",
+        "formula": ""
+      },
+      {
+        "cell": "C15",
+        "text": "GET DATA1",
+        "formula": ""
+      },
+      {
+        "cell": "G15",
+        "text": "CLEAR LOG ",
+        "formula": ""
+      },
+      {
+        "cell": "C16",
+        "text": "GET DATA2",
+        "formula": ""
+      },
+      {
+        "cell": "C17",
+        "text": "GET DATA3",
+        "formula": ""
+      },
+      {
+        "cell": "C18",
+        "text": "GET DATA4",
+        "formula": ""
+      },
+      {
+        "cell": "C19",
+        "text": "GET DATA5",
+        "formula": ""
+      },
+      {
+        "cell": "C20",
+        "text": "ERROR LOG",
+        "formula": ""
+      },
+      {
+        "cell": "C21",
+        "text": "OPERATE LOG",
+        "formula": ""
+      }
+    ]
+  },
+  {
+    "sheet": "設定",
+    "path": "xl/worksheets/sheet2.xml",
+    "cells": [
+      {
+        "cell": "H4",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "O4",
+        "text": "※",
+        "formula": ""
+      },
+      {
+        "cell": "P4",
+        "text": "エラー時の処理などは別途ジショリベット",
+        "formula": ""
+      },
+      {
+        "cell": "C5",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E5",
+        "text": "SET PARAMETER",
+        "formula": ""
+      },
+      {
+        "cell": "H5",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J5",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H6",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J6",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D11",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "K11",
+        "text": "T2[ms]",
+        "formula": ""
+      },
+      {
+        "cell": "L11",
+        "text": "100",
+        "formula": ""
+      },
+      {
+        "cell": "B12",
+        "text": "SETボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C12",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D12",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E12",
+        "text": "P",
+        "formula": ""
+      },
+      {
+        "cell": "F12",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G12",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H12",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C13",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D13",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E13",
+        "text": "50h",
+        "formula": ""
+      },
+      {
+        "cell": "F13",
+        "text": "50(byte)",
+        "formula": ""
+      },
+      {
+        "cell": "G13",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H13",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I13",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "J16",
+        "text": "ルール2で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C17",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "D17",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E17",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F17",
+        "text": "設定範囲セッテイハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "G17",
+        "text": "単位タンイ",
+        "formula": ""
+      },
+      {
+        "cell": "H17",
+        "text": "初期値ショキチ",
+        "formula": ""
+      },
+      {
+        "cell": "J17",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C18",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D18",
+        "text": "PS_ON_BACKUP",
+        "formula": ""
+      },
+      {
+        "cell": "E18",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F18",
+        "text": "0~1",
+        "formula": ""
+      },
+      {
+        "cell": "H18",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "I18",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J18",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "K18",
+        "text": "*初期値ショキチ",
+        "formula": ""
+      },
+      {
+        "cell": "C19",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D19",
+        "text": "AC_LINK",
+        "formula": ""
+      },
+      {
+        "cell": "E19",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F19",
+        "text": "0~1",
+        "formula": ""
+      },
+      {
+        "cell": "H19",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "I19",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J19",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "C20",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "D20",
+        "text": "AUTO_CHARGE",
+        "formula": ""
+      },
+      {
+        "cell": "E20",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F20",
+        "text": "0~3",
+        "formula": ""
+      },
+      {
+        "cell": "H20",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "I20",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J20",
+        "text": "32h",
+        "formula": ""
+      },
+      {
+        "cell": "C21",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "D21",
+        "text": "EVENT",
+        "formula": ""
+      },
+      {
+        "cell": "E21",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F21",
+        "text": "0~1",
+        "formula": ""
+      },
+      {
+        "cell": "H21",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "I21",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J21",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "C22",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "D22",
+        "text": "MAX_BACKUP_TIME",
+        "formula": ""
+      },
+      {
+        "cell": "E22",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F22",
+        "text": "1~14 ,  0",
+        "formula": ""
+      },
+      {
+        "cell": "G22",
+        "text": "分フン",
+        "formula": ""
+      },
+      {
+        "cell": "H22",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "I22",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J22",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "C23",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "D23",
+        "text": "MIN_BACKUP_TIME",
+        "formula": ""
+      },
+      {
+        "cell": "E23",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F23",
+        "text": "0~254",
+        "formula": ""
+      },
+      {
+        "cell": "G23",
+        "text": "秒ビョウ",
+        "formula": ""
+      },
+      {
+        "cell": "H23",
+        "text": "15",
+        "formula": ""
+      },
+      {
+        "cell": "I23",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J23",
+        "text": "30h 46h",
+        "formula": ""
+      },
+      {
+        "cell": "C24",
+        "text": "7",
+        "formula": ""
+      },
+      {
+        "cell": "D24",
+        "text": "RESTART_TIME",
+        "formula": ""
+      },
+      {
+        "cell": "E24",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F24",
+        "text": "0~254",
+        "formula": ""
+      },
+      {
+        "cell": "G24",
+        "text": "秒ビョウ",
+        "formula": ""
+      },
+      {
+        "cell": "H24",
+        "text": "15",
+        "formula": ""
+      },
+      {
+        "cell": "I24",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J24",
+        "text": "30h 46h",
+        "formula": ""
+      },
+      {
+        "cell": "C25",
+        "text": "8",
+        "formula": ""
+      },
+      {
+        "cell": "D25",
+        "text": "BATT_LOW_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E25",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F25",
+        "text": "0~100",
+        "formula": ""
+      },
+      {
+        "cell": "G25",
+        "text": "％",
+        "formula": ""
+      },
+      {
+        "cell": "H25",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "I25",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J25",
+        "text": "33h 32h",
+        "formula": ""
+      },
+      {
+        "cell": "C26",
+        "text": "9",
+        "formula": ""
+      },
+      {
+        "cell": "D26",
+        "text": "BATT_CAP(mAh)",
+        "formula": ""
+      },
+      {
+        "cell": "E26",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "F26",
+        "text": "0~65534",
+        "formula": ""
+      },
+      {
+        "cell": "G26",
+        "text": "mAh",
+        "formula": ""
+      },
+      {
+        "cell": "H26",
+        "text": "4900",
+        "formula": ""
+      },
+      {
+        "cell": "I26",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J26",
+        "text": "31h 33h 32h 34h",
+        "formula": ""
+      },
+      {
+        "cell": "C27",
+        "text": "10",
+        "formula": ""
+      },
+      {
+        "cell": "D27",
+        "text": "BATT_CAP(Wh)",
+        "formula": ""
+      },
+      {
+        "cell": "E27",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F27",
+        "text": "0~254",
+        "formula": ""
+      },
+      {
+        "cell": "G27",
+        "text": "Wh",
+        "formula": ""
+      },
+      {
+        "cell": "H27",
+        "text": "36",
+        "formula": ""
+      },
+      {
+        "cell": "I27",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J27",
+        "text": "32h 34h ",
+        "formula": ""
+      },
+      {
+        "cell": "C28",
+        "text": "11",
+        "formula": ""
+      },
+      {
+        "cell": "D28",
+        "text": "CHG_IR_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E28",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "F28",
+        "text": "0~4094",
+        "formula": ""
+      },
+      {
+        "cell": "G28",
+        "text": "mΩ",
+        "formula": ""
+      },
+      {
+        "cell": "H28",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "I28",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J28",
+        "text": "30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C29",
+        "text": "12",
+        "formula": ""
+      },
+      {
+        "cell": "D29",
+        "text": "BATT_WNG_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E29",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F29",
+        "text": "50~70 , 0",
+        "formula": ""
+      },
+      {
+        "cell": "G29",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "H29",
+        "text": "65",
+        "formula": ""
+      },
+      {
+        "cell": "I29",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J29",
+        "text": "34h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C30",
+        "text": "13",
+        "formula": ""
+      },
+      {
+        "cell": "D30",
+        "text": "BATT_ALM_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E30",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F30",
+        "text": "70~95 , 0",
+        "formula": ""
+      },
+      {
+        "cell": "G30",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "H30",
+        "text": "80",
+        "formula": ""
+      },
+      {
+        "cell": "I30",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J30",
+        "text": "35h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C31",
+        "text": "14",
+        "formula": ""
+      },
+      {
+        "cell": "D31",
+        "text": "ADU_TEMP_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E31",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F31",
+        "text": "60~95 , 0 , 254",
+        "formula": ""
+      },
+      {
+        "cell": "G31",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "H31",
+        "text": "85",
+        "formula": ""
+      },
+      {
+        "cell": "I31",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J31",
+        "text": "35h 35h",
+        "formula": ""
+      },
+      {
+        "cell": "C32",
+        "text": "15",
+        "formula": ""
+      },
+      {
+        "cell": "D32",
+        "text": "BBU_TEMP_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E32",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F32",
+        "text": "60~95 , 0 , 254",
+        "formula": ""
+      },
+      {
+        "cell": "G32",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "H32",
+        "text": "85",
+        "formula": ""
+      },
+      {
+        "cell": "I32",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J32",
+        "text": "35h 35h",
+        "formula": ""
+      },
+      {
+        "cell": "C33",
+        "text": "16",
+        "formula": ""
+      },
+      {
+        "cell": "D33",
+        "text": "FAN_WNG_THD",
+        "formula": ""
+      },
+      {
+        "cell": "E33",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "F33",
+        "text": "0~1230 , 0 , 65534",
+        "formula": ""
+      },
+      {
+        "cell": "G33",
+        "text": "rpm",
+        "formula": ""
+      },
+      {
+        "cell": "H33",
+        "text": "615",
+        "formula": ""
+      },
+      {
+        "cell": "I33",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J33",
+        "text": "30h 32h 36h 37h",
+        "formula": ""
+      },
+      {
+        "cell": "C34",
+        "text": "17",
+        "formula": ""
+      },
+      {
+        "cell": "D34",
+        "text": "RESERVE)",
+        "formula": ""
+      },
+      {
+        "cell": "E34",
+        "text": "18",
+        "formula": ""
+      },
+      {
+        "cell": "I34",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J34",
+        "text": "30h×18",
+        "formula": ""
+      },
+      {
+        "cell": "C35",
+        "text": "18",
+        "formula": ""
+      },
+      {
+        "cell": "E35",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "B38",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C38",
+        "text": "①電源初期値とは電源に保持している電源内設定値を使用することを意味する。デンゲンショキチデンゲンホジデンゲンナイセッテイチシヨウイミ",
+        "formula": ""
+      },
+      {
+        "cell": "C39",
+        "text": "②設定範囲外の設定値が指定された場合はパラメータエラーを返す",
+        "formula": ""
+      },
+      {
+        "cell": "B42",
+        "text": "初期値でSETした場合の送信コマンドショキチバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C42",
+        "text": "02h 53h 50h 31h 30h 32h 30h 30h 30h 46h 30h 46h 33h 32h 31h 33h 32h 34h 32h 34h 30h 30h 30h 34h 31h 35h 30h 35h 35h 35h 35h 30h 32h 36h 37h( 30*18)h 03h 30h 33h",
+        "formula": ""
+      },
+      {
+        "cell": "B45",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C45",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B50",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C50",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D50",
+        "text": "S     P",
+        "formula": ""
+      },
+      {
+        "cell": "E50",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F50",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C51",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D51",
+        "text": "53h   50h",
+        "formula": ""
+      },
+      {
+        "cell": "E51",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "F51",
+        "text": "30h  30h",
+        "formula": ""
+      },
+      {
+        "cell": "B55",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C55",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "D59",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C65",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E65",
+        "text": "RESET PARAMETER",
+        "formula": ""
+      },
+      {
+        "cell": "H66",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H67",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J67",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D76",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B77",
+        "text": "RESETボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C77",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D77",
+        "text": "R",
+        "formula": ""
+      },
+      {
+        "cell": "E77",
+        "text": "P",
+        "formula": ""
+      },
+      {
+        "cell": "F77",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G77",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C78",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D78",
+        "text": "52h",
+        "formula": ""
+      },
+      {
+        "cell": "E78",
+        "text": "50h",
+        "formula": ""
+      },
+      {
+        "cell": "F78",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G78",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H78",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "B85",
+        "text": "RESETした場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C85",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D85",
+        "text": "R",
+        "formula": ""
+      },
+      {
+        "cell": "E85",
+        "text": "P",
+        "formula": ""
+      },
+      {
+        "cell": "F85",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G85",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C86",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D86",
+        "text": "52h",
+        "formula": ""
+      },
+      {
+        "cell": "E86",
+        "text": "50h",
+        "formula": ""
+      },
+      {
+        "cell": "F86",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G86",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H86",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "B89",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C89",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B94",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C94",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D94",
+        "text": "R     P",
+        "formula": ""
+      },
+      {
+        "cell": "E94",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F94",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C95",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D95",
+        "text": "52h   50h",
+        "formula": ""
+      },
+      {
+        "cell": "E95",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "F95",
+        "text": "30h  31h",
+        "formula": ""
+      },
+      {
+        "cell": "B99",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C99",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F102",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C108",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E108",
+        "text": "SET ERP",
+        "formula": ""
+      },
+      {
+        "cell": "H109",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H110",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J110",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H111",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J111",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D116",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B117",
+        "text": "SETボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C117",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D117",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E117",
+        "text": "E",
+        "formula": ""
+      },
+      {
+        "cell": "F117",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G117",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H117",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C118",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D118",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E118",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "F118",
+        "text": "4(byte)",
+        "formula": ""
+      },
+      {
+        "cell": "G118",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H118",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I118",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "J121",
+        "text": "ルール1で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C122",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "D122",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E122",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F122",
+        "text": "設定範囲セッテイハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "G122",
+        "text": "初期値ショキチ",
+        "formula": ""
+      },
+      {
+        "cell": "J122",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C123",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D123",
+        "text": "BURST",
+        "formula": ""
+      },
+      {
+        "cell": "E123",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F123",
+        "text": "0(無効)~1(有効)ムコウユウコウ",
+        "formula": ""
+      },
+      {
+        "cell": "G123",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "I123",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J123",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "C124",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D124",
+        "text": "PS_OFF_CHAREGE",
+        "formula": ""
+      },
+      {
+        "cell": "E124",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F124",
+        "text": "0(無効)~1(有効)ムコウユウコウ",
+        "formula": ""
+      },
+      {
+        "cell": "G124",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "I124",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J124",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "C125",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "D125",
+        "text": "RESERVE",
+        "formula": ""
+      },
+      {
+        "cell": "E125",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "I125",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J125",
+        "text": "30h　30h",
+        "formula": ""
+      },
+      {
+        "cell": "B129",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C129",
+        "text": "①低消費電力状態にするには、BURST を有効、PS_OFF_CHARGE を無効にセットする　テイショウヒデンリョクジョウタイユウコウムコウ",
+        "formula": ""
+      },
+      {
+        "cell": "C130",
+        "text": "②設定範囲外の設定値が指定された場合はパラメータエラーを返す",
+        "formula": ""
+      },
+      {
+        "cell": "B134",
+        "text": "初期値でSET_ERPした場合の送信コマンドショキチバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C134",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D134",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E134",
+        "text": "E",
+        "formula": ""
+      },
+      {
+        "cell": "F134",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G134",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H134",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C135",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D135",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E135",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "F135",
+        "text": "31h 31h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "G135",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H135",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "I135",
+        "text": "36h",
+        "formula": ""
+      },
+      {
+        "cell": "B138",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C138",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B142",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C142",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D142",
+        "text": "S     E",
+        "formula": ""
+      },
+      {
+        "cell": "E142",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F142",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G142",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C143",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D143",
+        "text": "53h   45h",
+        "formula": ""
+      },
+      {
+        "cell": "E143",
+        "text": "状態情報ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F143",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G143",
+        "text": "30h  31h",
+        "formula": ""
+      },
+      {
+        "cell": "B146",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C146",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F149",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C156",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E156",
+        "text": "SET CLOCK",
+        "formula": ""
+      },
+      {
+        "cell": "H157",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H158",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J158",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D162",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B163",
+        "text": "SET_CLOCKボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C163",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D163",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E163",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "F163",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G163",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H163",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C164",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D164",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E164",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "F164",
+        "text": "時刻データ12(byte)ジコク",
+        "formula": ""
+      },
+      {
+        "cell": "G164",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H164",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I164",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "J167",
+        "text": "ルール2で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C168",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "D168",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E168",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F168",
+        "text": "設定範囲セッテイハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "G168",
+        "text": "内容ナイヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "J168",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C169",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D169",
+        "text": "YEAR",
+        "formula": ""
+      },
+      {
+        "cell": "E169",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F169",
+        "text": "00~99",
+        "formula": ""
+      },
+      {
+        "cell": "G169",
+        "text": "年:25ネン",
+        "formula": ""
+      },
+      {
+        "cell": "I169",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J169",
+        "text": "31h 39h",
+        "formula": ""
+      },
+      {
+        "cell": "C170",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D170",
+        "text": "MONTH",
+        "formula": ""
+      },
+      {
+        "cell": "E170",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F170",
+        "text": "01~12",
+        "formula": ""
+      },
+      {
+        "cell": "G170",
+        "text": "月:01ガツ",
+        "formula": ""
+      },
+      {
+        "cell": "I170",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J170",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C171",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "D171",
+        "text": "DAY",
+        "formula": ""
+      },
+      {
+        "cell": "E171",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F171",
+        "text": "01~31",
+        "formula": ""
+      },
+      {
+        "cell": "G171",
+        "text": "日:01ヒ",
+        "formula": ""
+      },
+      {
+        "cell": "I171",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J171",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C172",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "D172",
+        "text": "HOUR",
+        "formula": ""
+      },
+      {
+        "cell": "E172",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F172",
+        "text": "00~23",
+        "formula": ""
+      },
+      {
+        "cell": "G172",
+        "text": "時間:01ジカン",
+        "formula": ""
+      },
+      {
+        "cell": "I172",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J172",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C173",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "D173",
+        "text": "MINUTE",
+        "formula": ""
+      },
+      {
+        "cell": "E173",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F173",
+        "text": "00~59",
+        "formula": ""
+      },
+      {
+        "cell": "G173",
+        "text": "分:01ブン",
+        "formula": ""
+      },
+      {
+        "cell": "I173",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J173",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C174",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "D174",
+        "text": "SECOND",
+        "formula": ""
+      },
+      {
+        "cell": "E174",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F174",
+        "text": "00~59",
+        "formula": ""
+      },
+      {
+        "cell": "G174",
+        "text": "秒:01ビョウ",
+        "formula": ""
+      },
+      {
+        "cell": "I174",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J174",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "B176",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C176",
+        "text": "①時刻合わせは通信開始直後に実行すること　ジコクアツウシンカイシチョクゴジッコウ",
+        "formula": ""
+      },
+      {
+        "cell": "C177",
+        "text": "②無通信期間中に電源が停止(AC OFF)状態になることで、PS_OFF 期間のエラー、動作ログにおけるタイムスタンプの遅\n延が発生するが許容する",
+        "formula": ""
+      },
+      {
+        "cell": "C178",
+        "text": "③本コマンド受信、処理完了後に通信状態が確立したものとし、発生しているイベントを送信する\n",
+        "formula": ""
+      },
+      {
+        "cell": "C179",
+        "text": "④ 処理完了後2 秒以内は GET DATA1 コマンドの受信待ち時間としてイベントを送信しない。GET DATA1 受信後はイベント\n発行可能状態に移行する\n",
+        "formula": ""
+      },
+      {
+        "cell": "C180",
+        "text": "⑤設定範囲外の設定値が指定された場合はパラメータエラーを返す。時刻設定および各種計算は実行されない。過去日時\nが設定された場合を含む\n\n",
+        "formula": ""
+      },
+      {
+        "cell": "B182",
+        "text": "SETした場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C182",
+        "text": " 02h 53h 43h 31h 39h 30h 31h 30h 31h 30h 31h 30h 31h 30h 31h 03h 31h 41h",
+        "formula": ""
+      },
+      {
+        "cell": "B186",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C186",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B190",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C190",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D190",
+        "text": "S     C",
+        "formula": ""
+      },
+      {
+        "cell": "E190",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F190",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C191",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D191",
+        "text": "53h   43h",
+        "formula": ""
+      },
+      {
+        "cell": "E191",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "F191",
+        "text": "31h  33h",
+        "formula": ""
+      },
+      {
+        "cell": "B194",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C194",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F197",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C204",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E204",
+        "text": "SET SERIAL",
+        "formula": ""
+      },
+      {
+        "cell": "H205",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H206",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J206",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D211",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B212",
+        "text": "画像の状態でSET_SERIALボタンを押したときの送信コマンドガゾウジョウタイオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C212",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D212",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E212",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "F212",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G212",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H212",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C213",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D213",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E213",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "F213",
+        "text": "製造データ50(byte)セイゾウ",
+        "formula": ""
+      },
+      {
+        "cell": "G213",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H213",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I213",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "J216",
+        "text": "ルール3で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C217",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "D217",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E217",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F217",
+        "text": "内容(実際のデータ)ナイヨウジッサイ",
+        "formula": ""
+      },
+      {
+        "cell": "J217",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C218",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D218",
+        "text": "FW_REV",
+        "formula": ""
+      },
+      {
+        "cell": "E218",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "I218",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J218",
+        "text": "30h 31h 2Eh 32h 30h 30h ",
+        "formula": ""
+      },
+      {
+        "cell": "C219",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D219",
+        "text": "UNIT_REV",
+        "formula": ""
+      },
+      {
+        "cell": "E219",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I219",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J219",
+        "text": "43h 31h 34h 2Eh",
+        "formula": ""
+      },
+      {
+        "cell": "C220",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "D220",
+        "text": "UNIT_LOT",
+        "formula": ""
+      },
+      {
+        "cell": "E220",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I220",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J220",
+        "text": " 30h 30h 35h 34h 31h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "C221",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "D221",
+        "text": "UNIT_SERIAL",
+        "formula": ""
+      },
+      {
+        "cell": "E221",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "I221",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J221",
+        "text": "32h 35h 32h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C222",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "D222",
+        "text": "ADU_REV",
+        "formula": ""
+      },
+      {
+        "cell": "E222",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I222",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J222",
+        "text": "30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C223",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "D223",
+        "text": "ADU_LOT",
+        "formula": ""
+      },
+      {
+        "cell": "E223",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I223",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J223",
+        "text": "30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C224",
+        "text": "7",
+        "formula": ""
+      },
+      {
+        "cell": "D224",
+        "text": "ADU_SERIAL",
+        "formula": ""
+      },
+      {
+        "cell": "E224",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "I224",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J224",
+        "text": "30h 30h 30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C225",
+        "text": "8",
+        "formula": ""
+      },
+      {
+        "cell": "D225",
+        "text": "BBU_REV",
+        "formula": ""
+      },
+      {
+        "cell": "E225",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I225",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J225",
+        "text": "30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C226",
+        "text": "9",
+        "formula": ""
+      },
+      {
+        "cell": "D226",
+        "text": "BBU_LOT",
+        "formula": ""
+      },
+      {
+        "cell": "E226",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "I226",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J226",
+        "text": "30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C227",
+        "text": "10",
+        "formula": ""
+      },
+      {
+        "cell": "D227",
+        "text": "BBU_SERIAL",
+        "formula": ""
+      },
+      {
+        "cell": "E227",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "I227",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J227",
+        "text": "30h 30h 30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C228",
+        "text": "11",
+        "formula": ""
+      },
+      {
+        "cell": "D228",
+        "text": "RESERVE",
+        "formula": ""
+      },
+      {
+        "cell": "E228",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "B231",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C231",
+        "text": "① 最大値(FF～FFFFFF)を入れることでデータは更新されないサイダイチイコウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C232",
+        "text": "②RW11 では ADU、BBU の個別管理がないため、”0“がレスポンスされる",
+        "formula": ""
+      },
+      {
+        "cell": "B236",
+        "text": "初期値でSETした場合の送信コマンドショキチバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C236",
+        "text": "02h 53h 53h 30h 31h 2Eh 32h 30h 30h 43h 31h 34h 2Eh  30h 30h 35h 34h 31h 31h 32h 35h 32h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h 30h( 30*2)h 03h 37h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "B239",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C239",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B243",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C243",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D243",
+        "text": "S     C",
+        "formula": ""
+      },
+      {
+        "cell": "E243",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F243",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C244",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D244",
+        "text": "53h   53h",
+        "formula": ""
+      },
+      {
+        "cell": "E244",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "F244",
+        "text": "30h  33h",
+        "formula": ""
+      },
+      {
+        "cell": "B247",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C247",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "C258",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E258",
+        "text": "SET LIFE",
+        "formula": ""
+      },
+      {
+        "cell": "B265",
+        "text": "SET_SERIALボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C265",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D265",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E265",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F265",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G265",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H265",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C266",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D266",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E266",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F266",
+        "text": "バッテリ寿命データ8(byte)ジュミョウ",
+        "formula": ""
+      },
+      {
+        "cell": "G266",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H266",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I266",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "J273",
+        "text": "ルール2で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C274",
+        "text": "NO",
+        "formula": ""
+      },
+      {
+        "cell": "D274",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E274",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F274",
+        "text": "設定範囲セッテイハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "G274",
+        "text": "単位タンイ",
+        "formula": ""
+      },
+      {
+        "cell": "H274",
+        "text": "初期値ショキチ",
+        "formula": ""
+      },
+      {
+        "cell": "J274",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C275",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D275",
+        "text": "BATT_DEG",
+        "formula": ""
+      },
+      {
+        "cell": "E275",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "F275",
+        "text": "0~4095",
+        "formula": ""
+      },
+      {
+        "cell": "G275",
+        "text": "1E-3",
+        "formula": ""
+      },
+      {
+        "cell": "H275",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "I275",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "J275",
+        "text": "30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "C276",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D276",
+        "text": "RESERVE",
+        "formula": ""
+      },
+      {
+        "cell": "E276",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "B280",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C280",
+        "text": "① GET DATA2 および 3 で取得されたバッテリ情報から上位で計算された寿命値であるシュトクジョウホウジョウイケイサンジュミョウチ",
+        "formula": ""
+      },
+      {
+        "cell": "B284",
+        "text": "初期値でSET_LIFEした場合の送信コマンドショキチバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C284",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D284",
+        "text": "S",
+        "formula": ""
+      },
+      {
+        "cell": "E284",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F284",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G284",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H284",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C285",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D285",
+        "text": "53h",
+        "formula": ""
+      },
+      {
+        "cell": "E285",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F285",
+        "text": "30h 30h 30h 30h 30h 30h 30h 30h",
+        "formula": ""
+      },
+      {
+        "cell": "G285",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H285",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "I285",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "B288",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C288",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B292",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C292",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D292",
+        "text": "S     L",
+        "formula": ""
+      },
+      {
+        "cell": "E292",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F292",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C293",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D293",
+        "text": "53h   4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "E293",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "F293",
+        "text": "31h  43h",
+        "formula": ""
+      },
+      {
+        "cell": "B296",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C296",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "C306",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E306",
+        "text": "BATT CHECK",
+        "formula": ""
+      },
+      {
+        "cell": "H307",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H308",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J308",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H309",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J309",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H310",
+        "text": "バッテリ異常時イジョウジ",
+        "formula": ""
+      },
+      {
+        "cell": "J310",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H311",
+        "text": "充電中/禁止中ジュウデンチュウキンシチュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J311",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D313",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B314",
+        "text": "SET_SERIALボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C314",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D314",
+        "text": "B",
+        "formula": ""
+      },
+      {
+        "cell": "E314",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "F314",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G314",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H314",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C315",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D315",
+        "text": "42h",
+        "formula": ""
+      },
+      {
+        "cell": "E315",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "F315",
+        "text": "設定1(byte)セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "G315",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H315",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I315",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "G318",
+        "text": "ルール2で変換ヘンカン",
+        "formula": ""
+      },
+      {
+        "cell": "C319",
+        "text": "NO",
+        "formula": ""
+      },
+      {
+        "cell": "D319",
+        "text": "制御仕様セイギョシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "E319",
+        "text": "設定値セッテイチ",
+        "formula": ""
+      },
+      {
+        "cell": "G319",
+        "text": "ASCIIコード",
+        "formula": ""
+      },
+      {
+        "cell": "C320",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D320",
+        "text": "バッテリチェック停止テイシ",
+        "formula": ""
+      },
+      {
+        "cell": "E320",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "F320",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "G320",
+        "text": "30h ",
+        "formula": ""
+      },
+      {
+        "cell": "C321",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D321",
+        "text": "バッテリチェック開始カイシ",
+        "formula": ""
+      },
+      {
+        "cell": "E321",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F321",
+        "text": "→",
+        "formula": ""
+      },
+      {
+        "cell": "G321",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "B328",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C328",
+        "text": "①  定義外の設定値が指定された場合はパラメータエラーを返す",
+        "formula": ""
+      },
+      {
+        "cell": "C329",
+        "text": "② コマンド受信時は充電DCIR の測定を行い、測定結果を返す",
+        "formula": ""
+      },
+      {
+        "cell": "C330",
+        "text": "③ AUTO_CHARGE が「無効」に設定されていた場合でも実行する",
+        "formula": ""
+      },
+      {
+        "cell": "C331",
+        "text": "④放電中、充電中はコマンドを受け付けず、シーケンスエラーを返すホウデンチュウジュウデンチュウ",
+        "formula": ""
+      },
+      {
+        "cell": "B335",
+        "text": "1でSendした場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C335",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D335",
+        "text": "B",
+        "formula": ""
+      },
+      {
+        "cell": "E335",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "F335",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G335",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H335",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C336",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D336",
+        "text": "42h",
+        "formula": ""
+      },
+      {
+        "cell": "E336",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "F336",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "G336",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H336",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I336",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "B339",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C339",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B343",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C343",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D343",
+        "text": "B     C",
+        "formula": ""
+      },
+      {
+        "cell": "E343",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F343",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G343",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C344",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D344",
+        "text": "42h   43h",
+        "formula": ""
+      },
+      {
+        "cell": "E344",
+        "text": "寿命診断データ30byteジュミョウシンダン",
+        "formula": ""
+      },
+      {
+        "cell": "F344",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G344",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H344",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B347",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C347",
+        "text": "6h",
+        "formula": ""
+      }
+    ]
+  },
+  {
+    "sheet": "情報取得",
+    "path": "xl/worksheets/sheet3.xml",
+    "cells": [
+      {
+        "cell": "O4",
+        "text": "※",
+        "formula": ""
+      },
+      {
+        "cell": "P4",
+        "text": "エラー時の処理などは別途ジショリベット",
+        "formula": ""
+      },
+      {
+        "cell": "C5",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E5",
+        "text": "GET DATA0",
+        "formula": ""
+      },
+      {
+        "cell": "D11",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B12",
+        "text": "GET_D0をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C12",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D12",
+        "text": "D   0",
+        "formula": ""
+      },
+      {
+        "cell": "E12",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F12",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C13",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D13",
+        "text": "44h 30h ",
+        "formula": ""
+      },
+      {
+        "cell": "E13",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F13",
+        "text": "37h  37h",
+        "formula": ""
+      },
+      {
+        "cell": "E16",
+        "text": "計327バイトケイ",
+        "formula": ""
+      },
+      {
+        "cell": "C17",
+        "text": "NO",
+        "formula": ""
+      },
+      {
+        "cell": "D17",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E17",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "F17",
+        "text": "表記ルールヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "C18",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "D18",
+        "text": "時刻データジコク",
+        "formula": ""
+      },
+      {
+        "cell": "E18",
+        "text": "12",
+        "formula": ""
+      },
+      {
+        "cell": "F18",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C19",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "D19",
+        "text": "リアルタイムデータ",
+        "formula": ""
+      },
+      {
+        "cell": "E19",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "F19",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C20",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "D20",
+        "text": "OFF期間データキカン",
+        "formula": ""
+      },
+      {
+        "cell": "E20",
+        "text": "30",
+        "formula": ""
+      },
+      {
+        "cell": "F20",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C21",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "D21",
+        "text": "寿命予測データジュミョウヨソク",
+        "formula": ""
+      },
+      {
+        "cell": "E21",
+        "text": "20",
+        "formula": ""
+      },
+      {
+        "cell": "F21",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C22",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "D22",
+        "text": "寿命診断データジュミョウシンダン",
+        "formula": ""
+      },
+      {
+        "cell": "E22",
+        "text": "30",
+        "formula": ""
+      },
+      {
+        "cell": "F22",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C23",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "D23",
+        "text": "積算データセキサン",
+        "formula": ""
+      },
+      {
+        "cell": "E23",
+        "text": "70",
+        "formula": ""
+      },
+      {
+        "cell": "F23",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C24",
+        "text": "7",
+        "formula": ""
+      },
+      {
+        "cell": "D24",
+        "text": "製造データセイゾウ",
+        "formula": ""
+      },
+      {
+        "cell": "E24",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "F24",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "C25",
+        "text": "8",
+        "formula": ""
+      },
+      {
+        "cell": "D25",
+        "text": "設定データセッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "E25",
+        "text": "50",
+        "formula": ""
+      },
+      {
+        "cell": "F25",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "C26",
+        "text": "9",
+        "formula": ""
+      },
+      {
+        "cell": "D26",
+        "text": "状態情報ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "E26",
+        "text": "15",
+        "formula": ""
+      },
+      {
+        "cell": "F26",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "B38",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C38",
+        "text": "① 本コマンド受信後はデータ取得の各コマンドで規定されているデータのクリアは行わない。ホンジュシンゴシュトクカクキテイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "B42",
+        "text": "GET_DATA0場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C42",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D42",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E42",
+        "text": "0",
+        "formula": ""
+      },
+      {
+        "cell": "F42",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G42",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C43",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D43",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E43",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "F43",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G43",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H43",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B46",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C46",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B50",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C50",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D50",
+        "text": "D     0",
+        "formula": ""
+      },
+      {
+        "cell": "E50",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F50",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G50",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C51",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D51",
+        "text": "44h   30h",
+        "formula": ""
+      },
+      {
+        "cell": "E51",
+        "text": "すべてのデータ327byte",
+        "formula": ""
+      },
+      {
+        "cell": "F51",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G51",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H51",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B55",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C55",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "D59",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C65",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E65",
+        "text": "GET DATA1",
+        "formula": ""
+      },
+      {
+        "cell": "C70",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D70",
+        "text": "ルール１",
+        "formula": ""
+      },
+      {
+        "cell": "D76",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B77",
+        "text": "GET_D1をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C77",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D77",
+        "text": "D   1",
+        "formula": ""
+      },
+      {
+        "cell": "E77",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F77",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C78",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D78",
+        "text": "44h 31h ",
+        "formula": ""
+      },
+      {
+        "cell": "E78",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F78",
+        "text": "37h  36h",
+        "formula": ""
+      },
+      {
+        "cell": "B81",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C81",
+        "text": "①  アクティブになったフラグには 1 がセットされ、インアクティブになった場合はクリアされる。バアイ",
+        "formula": ""
+      },
+      {
+        "cell": "C82",
+        "text": "② CHARGE_OK のフラグ以外は CD コマンドによりクリアされる",
+        "formula": ""
+      },
+      {
+        "cell": "B85",
+        "text": "GET_DATA1場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C85",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D85",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E85",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "F85",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G85",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C86",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D86",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E86",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F86",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G86",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H86",
+        "text": "36h",
+        "formula": ""
+      },
+      {
+        "cell": "B89",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C89",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B94",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C94",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D94",
+        "text": "D     1",
+        "formula": ""
+      },
+      {
+        "cell": "E94",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F94",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G94",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C95",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D95",
+        "text": "44h   31h",
+        "formula": ""
+      },
+      {
+        "cell": "E95",
+        "text": "状態情報(15byte)ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F95",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G95",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H95",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B99",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C99",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F102",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C108",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E108",
+        "text": "GET DATA2",
+        "formula": ""
+      },
+      {
+        "cell": "H109",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H110",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J110",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H111",
+        "text": "RESTART中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J111",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H112",
+        "text": "SC受信前ジュシンマエ",
+        "formula": ""
+      },
+      {
+        "cell": "J112",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C113",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D113",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D115",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B116",
+        "text": "GET_D2をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C116",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D116",
+        "text": "D   2",
+        "formula": ""
+      },
+      {
+        "cell": "E116",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F116",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C117",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D117",
+        "text": "44h 32h ",
+        "formula": ""
+      },
+      {
+        "cell": "E117",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F117",
+        "text": "37h  35h",
+        "formula": ""
+      },
+      {
+        "cell": "B125",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C125",
+        "text": "①GET DATA2 受信後、SET LIFE コマンドを受信した時点で BATT1,2_DEG 以外の OFF 期間データクリアする。ただし、SET LIFE コマンド受信までに AC OFF および PS_OFF した場合は、再度GET DATA2 を受信されない限り、SET LIFE を受信してもクリアされない。",
+        "formula": ""
+      },
+      {
+        "cell": "B129",
+        "text": "GET_DATA3場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C129",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D129",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E129",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "F129",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G129",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C130",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D130",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E130",
+        "text": "32h",
+        "formula": ""
+      },
+      {
+        "cell": "F130",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G130",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H130",
+        "text": "35h",
+        "formula": ""
+      },
+      {
+        "cell": "B133",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C133",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "K134",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "L134",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "M134",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "N134",
+        "text": "有効範囲ユウコウハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "O134",
+        "text": "単位タンイ",
+        "formula": ""
+      },
+      {
+        "cell": "K135",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "L135",
+        "text": "AC_OFF_HOUR",
+        "formula": ""
+      },
+      {
+        "cell": "M135",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "N135",
+        "text": "0~65535",
+        "formula": ""
+      },
+      {
+        "cell": "O135",
+        "text": "0.1時間ジカン",
+        "formula": ""
+      },
+      {
+        "cell": "K136",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "L136",
+        "text": "PS_OFF_HOUR",
+        "formula": ""
+      },
+      {
+        "cell": "M136",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "N136",
+        "text": "0~65536",
+        "formula": ""
+      },
+      {
+        "cell": "O136",
+        "text": "0.1時間ジカン",
+        "formula": ""
+      },
+      {
+        "cell": "B137",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C137",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D137",
+        "text": "D     2",
+        "formula": ""
+      },
+      {
+        "cell": "E137",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F137",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G137",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "K137",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "L137",
+        "text": "AVE_OFF_TEMP",
+        "formula": ""
+      },
+      {
+        "cell": "M137",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "N137",
+        "text": "マイナス128~127",
+        "formula": ""
+      },
+      {
+        "cell": "O137",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "C138",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D138",
+        "text": "44h   32h",
+        "formula": ""
+      },
+      {
+        "cell": "E138",
+        "text": "OFF期間データ(30byte)キカン",
+        "formula": ""
+      },
+      {
+        "cell": "F138",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G138",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H138",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "K138",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "L138",
+        "text": "OFF_CHARGE_HOUR",
+        "formula": ""
+      },
+      {
+        "cell": "M138",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "N138",
+        "text": "0~4095",
+        "formula": ""
+      },
+      {
+        "cell": "O138",
+        "text": "0.1時間ジカン",
+        "formula": ""
+      },
+      {
+        "cell": "K139",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "L139",
+        "text": "AVE_CHARGE_TEMP",
+        "formula": ""
+      },
+      {
+        "cell": "M139",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "N139",
+        "text": "マイナス128~127",
+        "formula": ""
+      },
+      {
+        "cell": "O139",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "K140",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "L140",
+        "text": "OFF_CHARGE",
+        "formula": ""
+      },
+      {
+        "cell": "M140",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "N140",
+        "text": "0~1000",
+        "formula": ""
+      },
+      {
+        "cell": "O140",
+        "text": "％",
+        "formula": ""
+      },
+      {
+        "cell": "B141",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C141",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "K141",
+        "text": "7",
+        "formula": ""
+      },
+      {
+        "cell": "L141",
+        "text": "BATT_DEG",
+        "formula": ""
+      },
+      {
+        "cell": "M141",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "N141",
+        "text": "0~4095",
+        "formula": ""
+      },
+      {
+        "cell": "O141",
+        "text": "1E-3",
+        "formula": ""
+      },
+      {
+        "cell": "K142",
+        "text": "8",
+        "formula": ""
+      },
+      {
+        "cell": "L142",
+        "text": "RESERVE",
+        "formula": ""
+      },
+      {
+        "cell": "M142",
+        "text": "9",
+        "formula": ""
+      },
+      {
+        "cell": "F144",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C151",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E151",
+        "text": "GET DATA3",
+        "formula": ""
+      },
+      {
+        "cell": "C156",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D156",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D157",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B158",
+        "text": "GET_D3をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C158",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D158",
+        "text": "D   3",
+        "formula": ""
+      },
+      {
+        "cell": "E158",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F158",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C159",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D159",
+        "text": "44h 33h ",
+        "formula": ""
+      },
+      {
+        "cell": "E159",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F159",
+        "text": "37h  34h",
+        "formula": ""
+      },
+      {
+        "cell": "B164",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C164",
+        "text": "①DATA 部は 20 バイトの寿命計算データと 1 バイトのイベントロストフラグで構成されるブジュミョウケイサンコウセイ",
+        "formula": ""
+      },
+      {
+        "cell": "C165",
+        "text": "② DATA 部の表記は、寿命計算データはルール②、イベントロストフラグはルール③を使用する",
+        "formula": ""
+      },
+      {
+        "cell": "C166",
+        "text": "③イベントロストフラグ(1 バイト) \n0：正常\n1:イベントロスト発生\n",
+        "formula": ""
+      },
+      {
+        "cell": "C167",
+        "text": "④  GET DATA3 受信した時点で全データクリアする\n発行可能状態に移行する\n",
+        "formula": ""
+      },
+      {
+        "cell": "B170",
+        "text": "GET_DATA2場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C170",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D170",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E170",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "F170",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G170",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C171",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D171",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E171",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "F171",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G171",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H171",
+        "text": "34h",
+        "formula": ""
+      },
+      {
+        "cell": "B174",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C174",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "K174",
+        "text": "No",
+        "formula": ""
+      },
+      {
+        "cell": "L174",
+        "text": "データ名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "M174",
+        "text": "バイト数スウ",
+        "formula": ""
+      },
+      {
+        "cell": "N174",
+        "text": "有効範囲ユウコウハンイ",
+        "formula": ""
+      },
+      {
+        "cell": "O174",
+        "text": "単位タンイ",
+        "formula": ""
+      },
+      {
+        "cell": "K175",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "L175",
+        "text": "CHARGE_DATA",
+        "formula": ""
+      },
+      {
+        "cell": "M175",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "N175",
+        "text": "0:データなし　　　1:データあり",
+        "formula": ""
+      },
+      {
+        "cell": "K176",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "L176",
+        "text": "CHARGE_END",
+        "formula": ""
+      },
+      {
+        "cell": "M176",
+        "text": "1",
+        "formula": ""
+      },
+      {
+        "cell": "N176",
+        "text": "0:充電魅了　　　　1:充電完了ジュウデンミリョウジュウデンカンリョウ",
+        "formula": ""
+      },
+      {
+        "cell": "K177",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "L177",
+        "text": "BATT_CHARGE ",
+        "formula": ""
+      },
+      {
+        "cell": "M177",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "N177",
+        "text": "0~255",
+        "formula": ""
+      },
+      {
+        "cell": "O177",
+        "text": "%",
+        "formula": ""
+      },
+      {
+        "cell": "B178",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C178",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D178",
+        "text": "D     3",
+        "formula": ""
+      },
+      {
+        "cell": "E178",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F178",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G178",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "K178",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "L178",
+        "text": "BATT_TEMP",
+        "formula": ""
+      },
+      {
+        "cell": "M178",
+        "text": "2",
+        "formula": ""
+      },
+      {
+        "cell": "N178",
+        "text": "マイナス128~127",
+        "formula": ""
+      },
+      {
+        "cell": "O178",
+        "text": "℃",
+        "formula": ""
+      },
+      {
+        "cell": "C179",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D179",
+        "text": "44h   33h",
+        "formula": ""
+      },
+      {
+        "cell": "E179",
+        "text": "寿命計算データ＋イベントロストフラグ(21byte)ジュミョウケイサン",
+        "formula": ""
+      },
+      {
+        "cell": "F179",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G179",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H179",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "K179",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "L179",
+        "text": "BATT_DEG",
+        "formula": ""
+      },
+      {
+        "cell": "M179",
+        "text": "3",
+        "formula": ""
+      },
+      {
+        "cell": "N179",
+        "text": "0~4095",
+        "formula": ""
+      },
+      {
+        "cell": "O179",
+        "text": "1E-3",
+        "formula": ""
+      },
+      {
+        "cell": "K180",
+        "text": "6",
+        "formula": ""
+      },
+      {
+        "cell": "L180",
+        "text": "RESERVE",
+        "formula": ""
+      },
+      {
+        "cell": "M180",
+        "text": "11",
+        "formula": ""
+      },
+      {
+        "cell": "B182",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C182",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F185",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C192",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E192",
+        "text": "GET DATA4",
+        "formula": ""
+      },
+      {
+        "cell": "C197",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D197",
+        "text": "ルール2,3",
+        "formula": ""
+      },
+      {
+        "cell": "D199",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B200",
+        "text": "GET_D4をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C200",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D200",
+        "text": "D   4",
+        "formula": ""
+      },
+      {
+        "cell": "E200",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F200",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C201",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D201",
+        "text": "44h 34h ",
+        "formula": ""
+      },
+      {
+        "cell": "E201",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F201",
+        "text": "37h  33h",
+        "formula": ""
+      },
+      {
+        "cell": "B206",
+        "text": "時刻データジコク",
+        "formula": ""
+      },
+      {
+        "cell": "P226",
+        "text": "製造データセイゾウ",
+        "formula": ""
+      },
+      {
+        "cell": "B246",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C246",
+        "text": "①  本コマンド送信、ACK 受信後に積算データの AC_FAIL_COUNT(瞬断回数)のデータをクリアするホンソウシンジュシンゴセキサンシュンダンカイスウ",
+        "formula": ""
+      },
+      {
+        "cell": "B251",
+        "text": "GET_DATA4場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C251",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D251",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E251",
+        "text": "4",
+        "formula": ""
+      },
+      {
+        "cell": "F251",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G251",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C252",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D252",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E252",
+        "text": "34h",
+        "formula": ""
+      },
+      {
+        "cell": "F252",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G252",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H252",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "B255",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C255",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B259",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C259",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D259",
+        "text": "D     4",
+        "formula": ""
+      },
+      {
+        "cell": "E259",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F259",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G259",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C260",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D260",
+        "text": "44h   34h",
+        "formula": ""
+      },
+      {
+        "cell": "E260",
+        "text": "時刻データデータ＋リアルタイムデータ+寿命診断データ+積算データ+製造データ(212byte)ジコクジュミョウシンダンセキサンセイゾウ",
+        "formula": ""
+      },
+      {
+        "cell": "F260",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G260",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H260",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B263",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C263",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "C273",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E273",
+        "text": "GET DATA5",
+        "formula": ""
+      },
+      {
+        "cell": "C278",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D278",
+        "text": "ルール2,3",
+        "formula": ""
+      },
+      {
+        "cell": "D280",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B281",
+        "text": "GET_D5をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C281",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D281",
+        "text": "D   5",
+        "formula": ""
+      },
+      {
+        "cell": "E281",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F281",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C282",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D282",
+        "text": "44h 35h ",
+        "formula": ""
+      },
+      {
+        "cell": "E282",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F282",
+        "text": "37h  32h",
+        "formula": ""
+      },
+      {
+        "cell": "B307",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C307",
+        "text": "① DATA 部は下表の 80 バイトのデータからなる製造関連データで構成される",
+        "formula": ""
+      },
+      {
+        "cell": "B311",
+        "text": "GET_DATA5場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C311",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D311",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "E311",
+        "text": "5",
+        "formula": ""
+      },
+      {
+        "cell": "F311",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G311",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C312",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D312",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "E312",
+        "text": "35h",
+        "formula": ""
+      },
+      {
+        "cell": "F312",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G312",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "H312",
+        "text": "32h",
+        "formula": ""
+      },
+      {
+        "cell": "B315",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C315",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B319",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C319",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D319",
+        "text": "D     5",
+        "formula": ""
+      },
+      {
+        "cell": "E319",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F319",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G319",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C320",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D320",
+        "text": "44h   35h",
+        "formula": ""
+      },
+      {
+        "cell": "E320",
+        "text": "製造データ+設定データ(100byte)セイゾウセッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "F320",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G320",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H320",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B323",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C323",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "C333",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E333",
+        "text": "ERROR LOG",
+        "formula": ""
+      },
+      {
+        "cell": "H334",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H335",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J335",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C338",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D338",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D340",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B341",
+        "text": "ERROR LOGボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C341",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D341",
+        "text": "E",
+        "formula": ""
+      },
+      {
+        "cell": "E341",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F341",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G341",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H341",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C342",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D342",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "E342",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F342",
+        "text": "履歴No(2byte)リレキ",
+        "formula": ""
+      },
+      {
+        "cell": "G342",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H342",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I342",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B365",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C365",
+        "text": "① LOG は最大32 履歴とする",
+        "formula": ""
+      },
+      {
+        "cell": "C366",
+        "text": "②  1 度のコマンド発行により 8 履歴取得可能",
+        "formula": ""
+      },
+      {
+        "cell": "C367",
+        "text": "③  履歴No1,9,17,25 を指定する",
+        "formula": ""
+      },
+      {
+        "cell": "C368",
+        "text": "④ 定義外の履歴No が指定された場合はパラメータエラーを返す",
+        "formula": ""
+      },
+      {
+        "cell": "B372",
+        "text": "１でERROR LOGした場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C372",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D372",
+        "text": "E",
+        "formula": ""
+      },
+      {
+        "cell": "E372",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F372",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G372",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H372",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C373",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D373",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "E373",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F373",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "G373",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H373",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "I373",
+        "text": "42h",
+        "formula": ""
+      },
+      {
+        "cell": "B376",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C376",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B380",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C380",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D380",
+        "text": "E     L",
+        "formula": ""
+      },
+      {
+        "cell": "E380",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F380",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G380",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C381",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D381",
+        "text": "45h   4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "E381",
+        "text": "履歴No1(30h 31h)+             8履歴分のログ(80byte)リレキリレキブン",
+        "formula": ""
+      },
+      {
+        "cell": "F381",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G381",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H381",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B384",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C384",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "C392",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E392",
+        "text": "OPERATE LOG",
+        "formula": ""
+      },
+      {
+        "cell": "H394",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H395",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J395",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C397",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D397",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D398",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B399",
+        "text": "OPERATE LOGボタンを押したときの送信コマンドオソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C399",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D399",
+        "text": "O",
+        "formula": ""
+      },
+      {
+        "cell": "E399",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F399",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G399",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H399",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C400",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D400",
+        "text": "4Fh",
+        "formula": ""
+      },
+      {
+        "cell": "E400",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F400",
+        "text": "履歴No(2byte)リレキ",
+        "formula": ""
+      },
+      {
+        "cell": "G400",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H400",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "I400",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B442",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C442",
+        "text": "① LOG は最大64 履歴とする",
+        "formula": ""
+      },
+      {
+        "cell": "C443",
+        "text": "②  1 度のコマンド発行により 8 履歴取得可能",
+        "formula": ""
+      },
+      {
+        "cell": "C444",
+        "text": "③ 履歴No1,9,17,25,33,41,49,57 を指定する",
+        "formula": ""
+      },
+      {
+        "cell": "C445",
+        "text": "④ 定義外の履歴No が指定された場合はパラメータエラーを返す",
+        "formula": ""
+      },
+      {
+        "cell": "B448",
+        "text": "１でERROR LOGした場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C448",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D448",
+        "text": "O",
+        "formula": ""
+      },
+      {
+        "cell": "E448",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F448",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G448",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H448",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C449",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D449",
+        "text": "4Fh",
+        "formula": ""
+      },
+      {
+        "cell": "E449",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F449",
+        "text": "30h 31h",
+        "formula": ""
+      },
+      {
+        "cell": "G449",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H449",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "I449",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "B452",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C452",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B456",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C456",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D456",
+        "text": "O     L",
+        "formula": ""
+      },
+      {
+        "cell": "E456",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F456",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G456",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C457",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D457",
+        "text": "4Fh   4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "E457",
+        "text": "履歴No1(30h 31h)+             8履歴分のログ(80byte)リレキリレキブン",
+        "formula": ""
+      },
+      {
+        "cell": "F457",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G457",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H457",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B460",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C460",
+        "text": "6h",
+        "formula": ""
+      }
+    ]
+  },
+  {
+    "sheet": "制御",
+    "path": "xl/worksheets/sheet4.xml",
+    "cells": [
+      {
+        "cell": "O4",
+        "text": "※",
+        "formula": ""
+      },
+      {
+        "cell": "P4",
+        "text": "エラー時の処理などは別途ジショリベット",
+        "formula": ""
+      },
+      {
+        "cell": "C5",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E5",
+        "text": "BACKUP ENABLE ",
+        "formula": ""
+      },
+      {
+        "cell": "H5",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H6",
+        "text": "PS_OFF中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J6",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H7",
+        "text": "RESTART中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J7",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C10",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D10",
+        "text": "ルール１",
+        "formula": ""
+      },
+      {
+        "cell": "D11",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B12",
+        "text": "BACKUP ENABLE をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C12",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D12",
+        "text": "B   E",
+        "formula": ""
+      },
+      {
+        "cell": "E12",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F12",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C13",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D13",
+        "text": "42h 45h ",
+        "formula": ""
+      },
+      {
+        "cell": "E13",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F13",
+        "text": "30h  34h",
+        "formula": ""
+      },
+      {
+        "cell": "B17",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C17",
+        "text": "① BACKUP_READY がセットされて、停電時のバックアップ待ちの状態となる",
+        "formula": ""
+      },
+      {
+        "cell": "C18",
+        "text": "②停電した時点でバックアップし、BATT_ON がセットされる",
+        "formula": ""
+      },
+      {
+        "cell": "C19",
+        "text": "③PS_ON_BACKUP を無効とした上で使用する",
+        "formula": ""
+      },
+      {
+        "cell": "B23",
+        "text": "BACKUP ENABLE場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C23",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D23",
+        "text": "B",
+        "formula": ""
+      },
+      {
+        "cell": "E23",
+        "text": "E",
+        "formula": ""
+      },
+      {
+        "cell": "F23",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G23",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C24",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D24",
+        "text": "42h",
+        "formula": ""
+      },
+      {
+        "cell": "E24",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "F24",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G24",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H24",
+        "text": "34h",
+        "formula": ""
+      },
+      {
+        "cell": "B27",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C27",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B31",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C31",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D31",
+        "text": "B     E",
+        "formula": ""
+      },
+      {
+        "cell": "E31",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F31",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G31",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C32",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D32",
+        "text": "42h   45h",
+        "formula": ""
+      },
+      {
+        "cell": "E32",
+        "text": "状態情報(15byte)ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F32",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G32",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H32",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B35",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C35",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "D41",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C50",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E50",
+        "text": "BACKUP OFF",
+        "formula": ""
+      },
+      {
+        "cell": "H51",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H52",
+        "text": "PS_OFF中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J52",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H53",
+        "text": "RESTART中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J53",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C55",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D55",
+        "text": "ルール１",
+        "formula": ""
+      },
+      {
+        "cell": "D59",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B60",
+        "text": "BACKUP OFF をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C60",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D60",
+        "text": "B   F",
+        "formula": ""
+      },
+      {
+        "cell": "E60",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F60",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C61",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D61",
+        "text": "42h 46h ",
+        "formula": ""
+      },
+      {
+        "cell": "E61",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F61",
+        "text": "30h  37h",
+        "formula": ""
+      },
+      {
+        "cell": "B64",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C64",
+        "text": "①   BACKUP_READY がリセットされて、停電時は MIN_BACKUP_TIME の時間バックアップし停止",
+        "formula": ""
+      },
+      {
+        "cell": "C65",
+        "text": "② バックアップ中は中断し、MIN_BACKUP_TIME で設定された時間経過後、強制停止する",
+        "formula": ""
+      },
+      {
+        "cell": "B68",
+        "text": "BACKUP OFF場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C68",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D68",
+        "text": "B",
+        "formula": ""
+      },
+      {
+        "cell": "E68",
+        "text": "F",
+        "formula": ""
+      },
+      {
+        "cell": "F68",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G68",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C69",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D69",
+        "text": "42h",
+        "formula": ""
+      },
+      {
+        "cell": "E69",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "F69",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G69",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H69",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B72",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C72",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B77",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C77",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D77",
+        "text": "B     F",
+        "formula": ""
+      },
+      {
+        "cell": "E77",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F77",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G77",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C78",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D78",
+        "text": "44h   46h",
+        "formula": ""
+      },
+      {
+        "cell": "E78",
+        "text": "状態情報(15byte)ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F78",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G78",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H78",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B82",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C82",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F85",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C93",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E93",
+        "text": "OUTPUT RESTART",
+        "formula": ""
+      },
+      {
+        "cell": "H94",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H95",
+        "text": "PS_OFF中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J95",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H96",
+        "text": "RESTART中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J96",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C98",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D98",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D100",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B101",
+        "text": "OUTPUT RESTARTをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C101",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D101",
+        "text": "O   R",
+        "formula": ""
+      },
+      {
+        "cell": "E101",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F101",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C102",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D102",
+        "text": "4Fh 52h ",
+        "formula": ""
+      },
+      {
+        "cell": "E102",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F102",
+        "text": "31h  45h",
+        "formula": ""
+      },
+      {
+        "cell": "B110",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C110",
+        "text": "①   RESTART_READY がセットされて、バックアップ後のリスタート動作待ち状態になる",
+        "formula": ""
+      },
+      {
+        "cell": "C111",
+        "text": "②  リスタート動作とは停電シャットダウン後 RESTAR_TIME で設定された時間の間、出力を停止する動作であり、装置の\nAC_LINK 動作を可能とする機能",
+        "formula": ""
+      },
+      {
+        "cell": "C112",
+        "text": "③ AC_LINK を無効とした状態で使用する",
+        "formula": ""
+      },
+      {
+        "cell": "B114",
+        "text": "OUTPUT RESTART場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C114",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D114",
+        "text": "O",
+        "formula": ""
+      },
+      {
+        "cell": "E114",
+        "text": "R",
+        "formula": ""
+      },
+      {
+        "cell": "F114",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G114",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C115",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D115",
+        "text": "4Fh",
+        "formula": ""
+      },
+      {
+        "cell": "E115",
+        "text": "52h",
+        "formula": ""
+      },
+      {
+        "cell": "F115",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G115",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "H115",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "B118",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C118",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B122",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C122",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D122",
+        "text": "O     R",
+        "formula": ""
+      },
+      {
+        "cell": "E122",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F122",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G122",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C123",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D123",
+        "text": "4Fh   52h",
+        "formula": ""
+      },
+      {
+        "cell": "E123",
+        "text": "状態情報(15byte)ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F123",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G123",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H123",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B126",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C126",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F129",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C136",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E136",
+        "text": "CHARGE ON",
+        "formula": ""
+      },
+      {
+        "cell": "H136",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H137",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J137",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H138",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J138",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H139",
+        "text": "バッテリ異常時イジョウジ",
+        "formula": ""
+      },
+      {
+        "cell": "J139",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H140",
+        "text": "充電中/禁止中ジュウデンチュウキンシチュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J140",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C141",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D141",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D142",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B143",
+        "text": "CHARGE_ONをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C143",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D143",
+        "text": "C   N",
+        "formula": ""
+      },
+      {
+        "cell": "E143",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F143",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G143",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C144",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D144",
+        "text": "43h 4Eh ",
+        "formula": ""
+      },
+      {
+        "cell": "E144",
+        "text": "設定(1バイト)セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "F144",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "G144",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H144",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B149",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C149",
+        "text": "以下の場合は充電開始コマンドを受け付けず、シーケンスエラーを返す　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　①充電停止は本コマンドにより充電開始した時のみ可能　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　②自動充電による主充電実行中　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　③ 強制充電停止状態（CHARGE_OFF コマンドによる停止）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　④  バッテリ異常時",
+        "formula": ""
+      },
+      {
+        "cell": "C153",
+        "text": "以下の場合は充電停止のコマンドを受け付けず、シーケンスエラーを返す。\n① 自動充電中（バッテリが充電中でバッテリの充電指示およびその逆も含む。）",
+        "formula": ""
+      },
+      {
+        "cell": "B155",
+        "text": "CHARGE_ONを設定1で行った場合の送信コマンドセッテイオコナバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C155",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D155",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E155",
+        "text": "N",
+        "formula": ""
+      },
+      {
+        "cell": "F155",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G155",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H155",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C156",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D156",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E156",
+        "text": "4Eh",
+        "formula": ""
+      },
+      {
+        "cell": "F156",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "G156",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H156",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I156",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "B159",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C159",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B163",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C163",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D163",
+        "text": "C     N",
+        "formula": ""
+      },
+      {
+        "cell": "E163",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F163",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G163",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C164",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D164",
+        "text": "43h   4Eh",
+        "formula": ""
+      },
+      {
+        "cell": "E164",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F164",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G164",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "H164",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "B167",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C167",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F170",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C177",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E177",
+        "text": "CHARGE OFF",
+        "formula": ""
+      },
+      {
+        "cell": "H178",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H179",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J179",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H180",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J180",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C182",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D182",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D184",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B185",
+        "text": "CHARGE_OFFをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C185",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D185",
+        "text": "C   F",
+        "formula": ""
+      },
+      {
+        "cell": "E185",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F185",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G185",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C186",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D186",
+        "text": "43h 46h ",
+        "formula": ""
+      },
+      {
+        "cell": "E186",
+        "text": "設定(1バイト)セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "F186",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "G186",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H186",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B190",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C190",
+        "text": "①   本コマンドは CHARGE ON コマンドに優先されるホンユウセン",
+        "formula": ""
+      },
+      {
+        "cell": "C191",
+        "text": "②   本コマンドにより停止された場合は、すべての充電を開始しない状態（強制充電停止状態）となる",
+        "formula": ""
+      },
+      {
+        "cell": "C192",
+        "text": "③    充電を可能とさせる場合は充電停止クリアのコマンドを送信する。他の解除方法は有さない",
+        "formula": ""
+      },
+      {
+        "cell": "C193",
+        "text": "④    SET PARAMETER の自動充電設定も無効となる。クリアで直前の設定に回復する",
+        "formula": ""
+      },
+      {
+        "cell": "B197",
+        "text": "CHARGE_OFFを設定1で行った場合の送信コマンドセッテイオコナバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C197",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D197",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E197",
+        "text": "F",
+        "formula": ""
+      },
+      {
+        "cell": "F197",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G197",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H197",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C198",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D198",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E198",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "F198",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "G198",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H198",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I198",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B201",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C201",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B205",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C205",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D205",
+        "text": "C     F",
+        "formula": ""
+      },
+      {
+        "cell": "E205",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F205",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G205",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C206",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D206",
+        "text": "43h   46h",
+        "formula": ""
+      },
+      {
+        "cell": "E206",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F206",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G206",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "H206",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B209",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C209",
+        "text": "6h",
+        "formula": ""
+      }
+    ]
+  },
+  {
+    "sheet": "保守",
+    "path": "xl/worksheets/sheet5.xml",
+    "cells": [
+      {
+        "cell": "O4",
+        "text": "※",
+        "formula": ""
+      },
+      {
+        "cell": "P4",
+        "text": "エラー時の処理などは別途ジショリベット",
+        "formula": ""
+      },
+      {
+        "cell": "C5",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E5",
+        "text": "CLEAR DATA ",
+        "formula": ""
+      },
+      {
+        "cell": "H5",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H6",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J6",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H7",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J7",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C10",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D10",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D11",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B12",
+        "text": "CLEAR DATAE をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C12",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D12",
+        "text": "C   D",
+        "formula": ""
+      },
+      {
+        "cell": "E12",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F12",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G12",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C13",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D13",
+        "text": "43h 44h ",
+        "formula": ""
+      },
+      {
+        "cell": "E13",
+        "text": "設定値(1byte)セッテイチ",
+        "formula": ""
+      },
+      {
+        "cell": "F13",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "G13",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H13",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B17",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C17",
+        "text": "① 積算データおよびバッテリに関する保持データ・CHARGE_OK フラグ/信号を全て消去する。\nバッテリの満充電情報が消去されるため、自動充電有効(レベル 1or2)に設定されていた場合は充電を実行する",
+        "formula": ""
+      },
+      {
+        "cell": "C18",
+        "text": "②規定されていない設定値はパラメータエラーとする。制御内容におけるカテゴリは積算データで規定するカテゴリ",
+        "formula": ""
+      },
+      {
+        "cell": "B23",
+        "text": "CLEAR DATAEを設定１で送信した場合の送信コマンドセッテイソウシンバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C23",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D23",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E23",
+        "text": "D",
+        "formula": ""
+      },
+      {
+        "cell": "F23",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G23",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H23",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C24",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D24",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E24",
+        "text": "44h",
+        "formula": ""
+      },
+      {
+        "cell": "F24",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "G24",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H24",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I24",
+        "text": "35h",
+        "formula": ""
+      },
+      {
+        "cell": "B27",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C27",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B31",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C31",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D31",
+        "text": "C     D",
+        "formula": ""
+      },
+      {
+        "cell": "E31",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F31",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G31",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C32",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D32",
+        "text": "43h   44h",
+        "formula": ""
+      },
+      {
+        "cell": "E32",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F32",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G32",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H32",
+        "text": "34h",
+        "formula": ""
+      },
+      {
+        "cell": "B35",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C35",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "D41",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C50",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E50",
+        "text": "CLEAR LOG",
+        "formula": ""
+      },
+      {
+        "cell": "H51",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H52",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J52",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H53",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J53",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "D59",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B60",
+        "text": "CLEAR LOG をした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C60",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D60",
+        "text": "C   L",
+        "formula": ""
+      },
+      {
+        "cell": "E60",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F60",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C61",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D61",
+        "text": "43h 4Ch ",
+        "formula": ""
+      },
+      {
+        "cell": "E61",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F61",
+        "text": "30h  43h",
+        "formula": ""
+      },
+      {
+        "cell": "B64",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "B68",
+        "text": "CLEAR LOG場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C68",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D68",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E68",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F68",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G68",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C69",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D69",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E69",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F69",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G69",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H69",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "B72",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C72",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B77",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C77",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D77",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E77",
+        "text": "L",
+        "formula": ""
+      },
+      {
+        "cell": "F77",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G77",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C78",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D78",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E78",
+        "text": "4Ch",
+        "formula": ""
+      },
+      {
+        "cell": "F78",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G78",
+        "text": "30h",
+        "formula": ""
+      },
+      {
+        "cell": "H78",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "B82",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C82",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F85",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C312",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E312",
+        "text": "OUTPUT RESTART",
+        "formula": ""
+      },
+      {
+        "cell": "H313",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H314",
+        "text": "PS_OFF中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J314",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H315",
+        "text": "RESTART中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J315",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C317",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D317",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D319",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B320",
+        "text": "OUTPUT RESTARTをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C320",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D320",
+        "text": "O   R",
+        "formula": ""
+      },
+      {
+        "cell": "E320",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "F320",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C321",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D321",
+        "text": "4Fh 52h ",
+        "formula": ""
+      },
+      {
+        "cell": "E321",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "F321",
+        "text": "31h  45h",
+        "formula": ""
+      },
+      {
+        "cell": "B329",
+        "text": "その他仕様タシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C329",
+        "text": "①   RESTART_READY がセットされて、バックアップ後のリスタート動作待ち状態になる",
+        "formula": ""
+      },
+      {
+        "cell": "C330",
+        "text": "②  リスタート動作とは停電シャットダウン後 RESTAR_TIME で設定された時間の間、出力を停止する動作であり、装置の\nAC_LINK 動作を可能とする機能",
+        "formula": ""
+      },
+      {
+        "cell": "C331",
+        "text": "③ AC_LINK を無効とした状態で使用する",
+        "formula": ""
+      },
+      {
+        "cell": "B333",
+        "text": "OUTPUT RESTART場合の送信コマンドバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C333",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D333",
+        "text": "O",
+        "formula": ""
+      },
+      {
+        "cell": "E333",
+        "text": "R",
+        "formula": ""
+      },
+      {
+        "cell": "F333",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G333",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C334",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D334",
+        "text": "4Fh",
+        "formula": ""
+      },
+      {
+        "cell": "E334",
+        "text": "52h",
+        "formula": ""
+      },
+      {
+        "cell": "F334",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G334",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "H334",
+        "text": "45h",
+        "formula": ""
+      },
+      {
+        "cell": "B337",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C337",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B341",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C341",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D341",
+        "text": "O     R",
+        "formula": ""
+      },
+      {
+        "cell": "E341",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F341",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G341",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C342",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D342",
+        "text": "4Fh   52h",
+        "formula": ""
+      },
+      {
+        "cell": "E342",
+        "text": "状態情報(15byte)ジョウタイジョウホウ",
+        "formula": ""
+      },
+      {
+        "cell": "F342",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G342",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H342",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B345",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C345",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F348",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C355",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E355",
+        "text": "CHARGE ON",
+        "formula": ""
+      },
+      {
+        "cell": "H355",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H356",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J356",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H357",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J357",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H358",
+        "text": "バッテリ異常時イジョウジ",
+        "formula": ""
+      },
+      {
+        "cell": "J358",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H359",
+        "text": "充電中/禁止中ジュウデンチュウキンシチュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J359",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C360",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D360",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D361",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B362",
+        "text": "CHARGE_ONをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C362",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D362",
+        "text": "C   N",
+        "formula": ""
+      },
+      {
+        "cell": "E362",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F362",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G362",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C363",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D363",
+        "text": "43h 4Eh ",
+        "formula": ""
+      },
+      {
+        "cell": "E363",
+        "text": "設定(1バイト)セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "F363",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "G363",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H363",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B368",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C368",
+        "text": "以下の場合は充電開始コマンドを受け付けず、シーケンスエラーを返す　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　①充電停止は本コマンドにより充電開始した時のみ可能　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　②自動充電による主充電実行中　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　③ 強制充電停止状態（CHARGE_OFF コマンドによる停止）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　④  バッテリ異常時",
+        "formula": ""
+      },
+      {
+        "cell": "C372",
+        "text": "以下の場合は充電停止のコマンドを受け付けず、シーケンスエラーを返す。\n① 自動充電中（バッテリが充電中でバッテリの充電指示およびその逆も含む。）",
+        "formula": ""
+      },
+      {
+        "cell": "B374",
+        "text": "CHARGE_ONを設定1で行った場合の送信コマンドセッテイオコナバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C374",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D374",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E374",
+        "text": "N",
+        "formula": ""
+      },
+      {
+        "cell": "F374",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G374",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H374",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C375",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D375",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E375",
+        "text": "4Eh",
+        "formula": ""
+      },
+      {
+        "cell": "F375",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "G375",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H375",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I375",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "B378",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C378",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B382",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C382",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D382",
+        "text": "C     N",
+        "formula": ""
+      },
+      {
+        "cell": "E382",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F382",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G382",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C383",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D383",
+        "text": "43h   4Eh",
+        "formula": ""
+      },
+      {
+        "cell": "E383",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F383",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G383",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "H383",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "B386",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C386",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "F389",
+        "text": "は、NAKが返ってきた場合でも行うカエバアイオコナ",
+        "formula": ""
+      },
+      {
+        "cell": "C396",
+        "text": "コマンド名メイ",
+        "formula": ""
+      },
+      {
+        "cell": "E396",
+        "text": "CHARGE OFF",
+        "formula": ""
+      },
+      {
+        "cell": "H397",
+        "text": "コマンド送信時ソウシンジ",
+        "formula": ""
+      },
+      {
+        "cell": "H398",
+        "text": "バックアップ中チュウ",
+        "formula": ""
+      },
+      {
+        "cell": "J398",
+        "text": "シーケンスエラー",
+        "formula": ""
+      },
+      {
+        "cell": "H399",
+        "text": "パラメータ問題モンダイ",
+        "formula": ""
+      },
+      {
+        "cell": "J399",
+        "text": "パラメータエラー",
+        "formula": ""
+      },
+      {
+        "cell": "C401",
+        "text": "表記ヒョウキ",
+        "formula": ""
+      },
+      {
+        "cell": "D401",
+        "text": "ルール2",
+        "formula": ""
+      },
+      {
+        "cell": "D403",
+        "text": "ID",
+        "formula": ""
+      },
+      {
+        "cell": "B404",
+        "text": "CHARGE_OFFをした時のコマンドトキ",
+        "formula": ""
+      },
+      {
+        "cell": "C404",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D404",
+        "text": "C   F",
+        "formula": ""
+      },
+      {
+        "cell": "E404",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F404",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G404",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C405",
+        "text": "02h",
+        "formula": ""
+      },
+      {
+        "cell": "D405",
+        "text": "43h 46h ",
+        "formula": ""
+      },
+      {
+        "cell": "E405",
+        "text": "設定(1バイト)セッテイ",
+        "formula": ""
+      },
+      {
+        "cell": "F405",
+        "text": "03h",
+        "formula": ""
+      },
+      {
+        "cell": "G405",
+        "text": "上位ジョウイ",
+        "formula": ""
+      },
+      {
+        "cell": "H405",
+        "text": "下位カイ",
+        "formula": ""
+      },
+      {
+        "cell": "B409",
+        "text": "その他仕様などタシヨウ",
+        "formula": ""
+      },
+      {
+        "cell": "C409",
+        "text": "①   本コマンドは CHARGE ON コマンドに優先されるホンユウセン",
+        "formula": ""
+      },
+      {
+        "cell": "C410",
+        "text": "②   本コマンドにより停止された場合は、すべての充電を開始しない状態（強制充電停止状態）となる",
+        "formula": ""
+      },
+      {
+        "cell": "C411",
+        "text": "③    充電を可能とさせる場合は充電停止クリアのコマンドを送信する。他の解除方法は有さない",
+        "formula": ""
+      },
+      {
+        "cell": "C412",
+        "text": "④    SET PARAMETER の自動充電設定も無効となる。クリアで直前の設定に回復する",
+        "formula": ""
+      },
+      {
+        "cell": "B416",
+        "text": "CHARGE_OFFを設定1で行った場合の送信コマンドセッテイオコナバアイソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C416",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D416",
+        "text": "C",
+        "formula": ""
+      },
+      {
+        "cell": "E416",
+        "text": "F",
+        "formula": ""
+      },
+      {
+        "cell": "F416",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "G416",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "H416",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C417",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D417",
+        "text": "43h",
+        "formula": ""
+      },
+      {
+        "cell": "E417",
+        "text": "46h",
+        "formula": ""
+      },
+      {
+        "cell": "F417",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "G417",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "H417",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "I417",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B420",
+        "text": "受信するACKジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C420",
+        "text": "6h",
+        "formula": ""
+      },
+      {
+        "cell": "B424",
+        "text": "受信するレスポンスジュシン",
+        "formula": ""
+      },
+      {
+        "cell": "C424",
+        "text": "STX",
+        "formula": ""
+      },
+      {
+        "cell": "D424",
+        "text": "C     F",
+        "formula": ""
+      },
+      {
+        "cell": "E424",
+        "text": "DATA",
+        "formula": ""
+      },
+      {
+        "cell": "F424",
+        "text": "ETX",
+        "formula": ""
+      },
+      {
+        "cell": "G424",
+        "text": "BCC",
+        "formula": ""
+      },
+      {
+        "cell": "C425",
+        "text": "2h",
+        "formula": ""
+      },
+      {
+        "cell": "D425",
+        "text": "43h   46h",
+        "formula": ""
+      },
+      {
+        "cell": "E425",
+        "text": "31h",
+        "formula": ""
+      },
+      {
+        "cell": "F425",
+        "text": "3h",
+        "formula": ""
+      },
+      {
+        "cell": "G425",
+        "text": "33h",
+        "formula": ""
+      },
+      {
+        "cell": "H425",
+        "text": "37h",
+        "formula": ""
+      },
+      {
+        "cell": "B428",
+        "text": "送信するACKソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "C428",
+        "text": "6h",
+        "formula": ""
+      }
+    ]
+  },
+  {
+    "sheet": "スクショ置き場",
+    "path": "xl/worksheets/sheet6.xml",
+    "cells": []
+  },
+  {
+    "sheet": "疑問点",
+    "path": "xl/worksheets/sheet7.xml",
+    "cells": [
+      {
+        "cell": "B3",
+        "text": "1、通信仕様書には電源側がうける詳細は書いてあるが、送信側の異常通信もNAK応答を行う条件は同じなのかツウシンシヨウショデンゲンガワショウサイカソウシンガワイジョウツウシンオウトウオナ",
+        "formula": ""
+      },
+      {
+        "cell": "B14",
+        "text": "２、(疑問点１に付随)装置側がタイムアウト（T1,T2）を検出した場合、リトライを一度だけするとあるが、疑問点１が正しいのなら装置側はNAKを送信したうえでコマンド送信リトライをするのかギモンテンフズイソウチガワケンシュツバアイイチドギモンテンタダソウチガワソウシンソウシン",
+        "formula": ""
+      },
+      {
+        "cell": "P32",
+        "text": "コマンド",
+        "formula": ""
+      },
+      {
+        "cell": "P34",
+        "text": "ACK",
+        "formula": ""
+      },
+      {
+        "cell": "P36",
+        "text": "レスポンス",
+        "formula": ""
+      },
+      {
+        "cell": "P38",
+        "text": "NAK",
+        "formula": ""
+      }
+    ]
+  }
+]

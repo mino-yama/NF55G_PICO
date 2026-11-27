@@ -1,5 +1,72 @@
 # CHANGELOG
 
+## 2026-11-27 校正A/B統一と書込み範囲保護
+
+- ユーザーの実装指示によりRev.2案を組込み。A/B単一点指定、通信内部だけ番号へ変換。旧P1/P2・数値点・二重指定は無送信拒否。
+- ルートcalibration_limits.pyを数値正本とし、全6点の設定検証・原入力の10進境界包含・float32比較を共通保護へ追加。正常／拒否ログに設定版を記録。
+- 設定不良／範囲外は無送信。既存の診断個体制限、Cache／Logger／AR期限と未確定契約を維持。TYPE3/5の上下限は追加しない。
+- 関連Host／Mockテストを改版・追加。試験ログと未確認範囲は[実装仕様・結果](Calibration_AB_Implementation_20261127_Rev0.md)参照。実機配置・製品校正は未実施。IssueはCloseしない。
+
+2026-11-27追記：ユーザー確認により、可読性・修正容易性を重視したPython定数ファイルをPicoプログラムが参照する方式に確定。改版案Rev.2とOpen Issuesに、定数ファイルへの上下限集約・処理側への数値重複記述禁止を記録した。文書のみの変更で、定数値・処理コード・実機は変更せず、実装許可待ちを継続。文書差分を確認し、Host／Mock再試験なし。
+
+## 2026-11-27 校正初期値を編集可能なPython定数形式に確定
+
+- ユーザー指定によりJSONではなくPython定数形式を採用。[設定候補](Calibration_Settings_20261127_Rev0/calibration_limits.py)へ回路・A/B別の上下限12定数、設定版、日本語コメント・単位を保存した。
+- [改版案Rev.2](Calibration_AB_Revision_Plan_20261127_Rev2.md)とOpen Issuesに反映し、旧版を履歴保持。Host Pythonで読込み・構文と±20%全6点の一致を確認。
+- src・既存FW・配置候補・実機は変更せず、設定読込みと書込み保護の実装は許可待ち。MicroPython実機試験・Host／Mock回帰は未実施。
+
+## 2026-11-27 校正書込み許可範囲の初期値を各点±20%に確定
+
+- ユーザー指定の必須3回路×A/Bの基準値に対して、下限0.8倍・上限1.2倍を算出。[改版案Rev.1](Calibration_AB_Revision_Plan_20261127_Rev1.md)と[別テキスト初期値表](Calibration_Write_Limits_Initial_20261127_Rev0.txt)を新規保存。Rev.0は履歴保持。
+- Open Issuesに6点の初期値を記録。製品精度の合否規格と書込み保護を区別し、換算後A/Vの候補へ適用する方針。10進数で計算・表の一致を確認。
+- 文書・検討用初期値表のみで、コード・FW・実機設定・製品校正値は変更していない。Host／Mock再試験・実機通信なし。実装許可待ちを継続。
+
+## 2026-11-27 校正画面の根拠除外とA/B表記統一の改版方針
+
+- ユーザー指定により校正画面は実ATEと異なるため今後の仕様根拠から除外。指定の3回路・動作条件・A/B目標値を保持し、[次回改版案](Calibration_AB_Revision_Plan_20261127_Rev0.md)へ記録した。
+- 試験担当者向け仕様・ATEコマンド・PicoプログラムをA/Bへ統一し、P1/P2との二重指定をなくす方針。コマンド書式案、内部点番号変換、別テキスト規格キー、移行・受入検討を記載し、過去資料に最新指示への参照を追記した。
+- Open Issuesへ方針を記録。文書確認のみでコード・設定・原典・FW・校正値を変更せず、実装許可待ちを維持。Host／Mock再試験・実機通信なし。
+
+## 2026-11-27 最新試験仕様S2とA/B・P1/P2の説明
+
+- 受領したNF55192-G_S2.docxをreferenceに原文保存し、添付とのバイト一致・SHA-256一致を確認。第7.3本文と埋込み校正画面を照合し、本文の3回路×2点目標が既存確定指示と一致すると記録。
+- [説明追補](Calibration_AB_P1P2_S2_Clarification_20261127_Rev0.md)を追加。A/Bは試験・測定Cacheの点名、P1/P2は製品の校正値1/2の指定名であり、点を増やしていないことを説明。製品レビューコードのA=point1、B=point2と、実ATE等の通し確認未実施を分離した。Open Issuesへ最新根拠を追記し、前回検討Rev.0は履歴保持。
+- 文書・原典コピーのみ。コード・FW・校正値変更なし。Host／Mock再試験・実機通信なし。実装許可待ちを継続。
+
+## 2026-11-27 校正書込み保護・AR小数点対応の検討資料
+
+- 指定共有フォルダを継続使用し、[検討Rev.0](Calibration_Write_Guard_AR_Study_20261127_Rev0.md)を新規保存。校正5回路×2点、必須3回路、試験仕様原典と後日確定値、現行ATE入口とAD/AR通信を整理した。
+- 回路・点別の書込み上下限、別テキスト管理、Cache・直接指定・旧互換入口への保護、拒否動作、AR小数保持の未確定事項と受入候補を整理。Open IssuesにCAL-GUARD-01～04を追加し、既存IssueはCloseしない。AR T2=100ms承認は維持。
+- 検討のみ。コード・設定・配置候補・原典変更なし。実装はユーザー許可待ち。資料／コードの照合と文書検査を実施し、Host Unit／Mock再試験・実機通信は実施していない。
+
+## 2026-11-26 ARのT2を100msへ確定（山田承認）
+
+- 保存情報を読むD5／EL／OLと同じく、有効ACK受信後のAR T2を100msに確定。config.T2_AR_MSを追加し、SampleCalibrationWriteのARだけへ適用。AD診断T2=1000msは維持。
+- 新規tests/test_ar_timing.pyで、ACKが20ms後・応答が送信119ms後（ACK後99ms）なら正常、121ms後（ACK後101ms）ならtimeoutとなることを、回路名付き／旧互換AD_VERIFYの両入口で検証。timeout時のAR再送なし・AR Cache非昇格、および500ms後のAD応答受理も確認。時刻はFakeClockによる模擬値で実機測定ではない。
+- 関連18件成功（2.311秒）。全Host Unit／Mock NF55G 569件成功（24.018秒）。ログ: tmp/ar_t2_100ms_host_mock_20261126.log。git diff --check成功（改行コード警告のみ）。
+- OI-12のT2決定は承認によりResolved。OI-04の返却契約・小数保持、OI-20の正式長さ・順序等と実機Timing検証は継続。AR_REFRESH／AR Cache Queryの追加なし。
+- 次回の親Pico配置候補はAD_Direct_Pico_Preparation_20261126_Rev1。34ファイルが原本とバイト一致しmanifest SHA-256一致。Rev.0は履歴として保持。実機配置・校正値変更は未実施。
+
+
+## 2026-11-26 OI-23のUNIT3欄書込み確定・温度取得の分離
+
+- ユーザー指示により、従来SERIAL項目別書込みの課題は実装済みQR_WRITEでUNIT_REV／UNIT_LOT／UNIT_SERIALの3欄を書き込む方式として確定。汎用SERIAL入口・ADU／BBU製造情報書込みの追加を本工程の残実装としない。Open Issues、ATE Command Master、QR要件の現行方針を更新し、過去の9欄要求は履歴として区別した。
+- 実装済みADU_TEMP?／BBU_TEMP?の温度取得は別機能。ADU／BBUの製造情報欄と区別し、自動Refresh禁止を維持。旧QR遅着・再投入保持・量産統合等の残Issueは継続。
+- 文書整理のみ。コード・配置候補・実機を変更せず、Host Unit／Mock試験は再実行していない。関連する温度Query定義・D0デコードと文書の整合を確認。
+
+
+## 2026-11-26 人の読取り値をATEから直接AD指定
+
+- ユーザー指示により `AD_<TYPE>_<POINT>_<VALUE>` 方式を採用確定。`AD_4_1_1.85` 等の10進A／V値をfloat32へ変換し、測定器／測定Cacheを使わずNF55Gへ送る入口を追加。CAL_WRITEは併用する。既存サンプル診断条件を維持し、回路名付きAD_VERIFYで別ARへ接続。
+- 正常／成否不明時のDATA／AR・同回路の測定Cache失効、旧比較元破棄、AD再送禁止、入力・送信値・製品原文の記録を実装。実機配置・デバッグは未実施。製品側正式T2・小数保持・反映・保持・量産受入のIssueはCloseしない。[確定事項と現行条件](AD_Direct_ATE_20261126_Rev0.md)。
+- 検証: 新規直接AD 10件＋既存557件のHost Unit／Mock NF55G全567件成功（最終24.379秒）、git diff --check成功。コマンド一覧をRev.4へ更新し、手動値指定の手順・PARAM_RESETの対象範囲・現行ソース既定のATE応答終端CRを明記する。
+
+## 2026-11-26 ATEコマンド一覧 Rev.3
+
+- ATE実機確認の準備として、11月26日までの実装・既存実機記録に基づく[コマンド一覧 Rev.3](ATE_Command_List_for_Test_Program_Rev3_20261126.md)を作成。旧版を保持し、7355 ADC設定・回路名測定／照会・サンプル診断CAL_WRITE／AD_VERIFY、QR受付からSS書込み・D5照合までの順序付き手順を追記した。
+- 条件付き診断入口と正式入口、QRのARMED／PENDINGモード、書込み値・読戻し表現の差、Cache失効、ATEの停止条件を区別。ADC・20 Vの400セット受入とQR候補の限定確認を反映し、未確定仕様・Issue状態は変更しない。今回は資料更新のみで、FW変更・配置・実機デバッグは行わない。
+- 確認結果: Host Unit／Mock NF55G全557件成功、具体的なコマンド例54件を現行Parserと照合、Markdown表39個の列数・版・追加節を確認。WordはA3横で生成し、Wordから確認用PDFへ出力して全ページの表示を確認。LibreOffice未導入のためWordを代替として使用した。
+
 2026-11-26 OI-23 親Picoの双方向QR受付の試験モードを追加。候補モードで `QR_SCAN` は `QR_PENDING`、同一IDのHOST応答後にQR取得を有効化。既定は無効。Host Unit／Mock NF55Gは557件成功し、NF55Gを接続しないCOM5実機で旧A破棄、新B照合、書込み未接続拒否を確認。 [結果と制約](REV_Read_Write_Debug_20261126/QR_ATE_No_Product_Result_Rev0.md)
 
 2026-11-26 OI-23 旧QR遅着対策の双方向診断版を追加。QR用HOSTの旧HID読取の終端・キー解放後に受付IDを応答し、以後のQR 1件を同じID付きで返す。Host Unit／Mock NF55G 551件成功。量産フローへの統合は未確定。 [診断版と検証](REV_Read_Write_Debug_20261126/QR_Arm_Candidate_Rev0.md)

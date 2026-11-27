@@ -9,11 +9,13 @@ judgement, or NF55G transmission.
 
 
 try:
+    from .calibration_write import parse_direct_ad
     from .calibration_acquisition import parse_measure_request, parse_acquisition_id, MeasurementError
     from .external_instrument_contract import ContractError, parse_monitor_request
     from .nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
     from .nf55_command import build_item_parameter_command, build_life_command
 except ImportError:  # pragma: no cover
+    from calibration_write import parse_direct_ad
     from calibration_acquisition import parse_measure_request, parse_acquisition_id, MeasurementError
     from external_instrument_contract import ContractError, parse_monitor_request
     from nf55_command import CommandError, resolve_read_command, CACHE_QUERY_COMMANDS
@@ -135,26 +137,36 @@ def parse_ate_command(line):
 
     if name.startswith('CAL_WRITE_'):
         parts = (payload or '').split()
-        if len(parts) != 2 or parts[0] not in ('A', 'B') or parts[1] not in ('P1', 'P2'):
+        if len(parts) != 1 or parts[0] not in ('A', 'B'):
             raise ParseError('CAL_WRITE_ARGUMENTS')
-        return ParsedCommand(text, 'CAL_WRITE_LATEST', payload=(name[10:], parts[0], parts[1]),
+        return ParsedCommand(text, 'CAL_WRITE_LATEST', payload=(name[10:], parts[0]),
                              category='CALIBRATION_WRITE')
 
     if name.startswith('AD_VERIFY_'):
-        if payload not in ('P1', 'P2'):
+        if payload not in ('A', 'B'):
             raise ParseError('AD_VERIFY_ARGUMENTS')
         return ParsedCommand(text, 'AD_VERIFY_READBACK', payload=(name[10:], payload), category='CALIBRATION_WRITE')
 
     if name in ('CAL_WRITE', 'AD_VERIFY'):
         parts = (payload or '').split()
-        if len(parts) != 2 or parts[1] not in ('P1', 'P2'):
-            raise ParseError(name + '_ARGUMENTS')
         if name == 'CAL_WRITE':
+            if len(parts) != 1:
+                raise ParseError(name + '_ARGUMENTS')
             try:
                 parts[0] = parse_acquisition_id(parts[0])
             except MeasurementError as exc:
                 raise ParseError('CAL_' + str(exc))
+            parts.append(parts[0][3])  # 取得ID自体の点を使用し、別の点指定を受け付けない。
+        elif len(parts) != 2 or parts[1] not in ('A', 'B'):
+            raise ParseError(name + '_ARGUMENTS')
         return ParsedCommand(text, name, payload=tuple(parts), category='CALIBRATION_WRITE')
+
+    if name.startswith('AD_'):
+        try:
+            request = parse_direct_ad(name, payload)
+        except MeasurementError as exc:
+            raise ParseError(str(exc))
+        return ParsedCommand(text, 'AD_DIRECT', payload=request, category='CALIBRATION_WRITE')
 
     if name == "FW_UPDATE":
         return ParsedCommand(text, name, payload=payload, category="FORBIDDEN")

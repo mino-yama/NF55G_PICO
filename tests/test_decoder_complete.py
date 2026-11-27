@@ -343,10 +343,10 @@ class DecoderCompleteTests(unittest.TestCase):
         payload = point * 10
         decoded = decode_ar(payload)
         self.assertEqual(len(payload), 140)
-        self.assertEqual(decoded["AR_DISCHG_I_P1_ADC"], 10)
-        self.assertEqual(decoded["AR_DISCHG_I_P1_REF_RAW"], "12345678")
-        self.assertEqual(decoded["AR_12VOUT_V_P2_ADC"], 10)
-        self.assertEqual(decoded["AR_12VOUT_V_P2_REF_RAW"], "12345678")
+        self.assertEqual(decoded["AR_DISCHG_I_A_ADC"], 10)
+        self.assertEqual(decoded["AR_DISCHG_I_A_REF_RAW"], "12345678")
+        self.assertEqual(decoded["AR_12VOUT_V_B_ADC"], 10)
+        self.assertEqual(decoded["AR_12VOUT_V_B_REF_RAW"], "12345678")
 
     def test_decode_el_ol_82_chars(self):
         record = "1A09010C" "09"

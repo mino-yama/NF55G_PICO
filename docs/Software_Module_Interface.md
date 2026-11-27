@@ -1,5 +1,7 @@
 # Pico Software Module / Interface Specification
 
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+
 2026-11-23 QR/SSモジュール: `qr_write_session.QRWriteSession`がQR HOST GP9/115200診断フレーム、試行・取得ID・最初の完成値・照会済み状態を管理。`serial_data_from_qr`は承認済みSS50文字だけを生成する。mainの協調ループから有界pollし、明示QR_WRITEを共通dispatcherの内部SERIAL_SET_RAWへ渡す。SS正常応答DATA0／T2=100ms、既存DATA/INFO失効を共用。main.active_appは起動済みappを実機診断で再利用し、UART/SDの二重初期化を避ける。QR_HOST_ENABLEDは既定False、実配線済み親のみ有効化。[API・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
 
 2026-11-23 ADC取得adapter追加: calibration_acquisition.pyが7355固有検証と機能照会→READを担当し、CalibrationMeasurementsのpending_matchesで試行境界を照合する。mainは取得中に同じlinkを専有し、既存外部pending/ATE scheduler/Logger経路へ接続。全497回帰成功。NF55G書込み経路なし。[取得/照会・内部境界](ADC_Acquisition_20261123_01/ADC_Acquisition_Spec_Rev0.md)。
@@ -235,3 +237,5 @@ qr-fixed-20261114.1はGP0 TXのみ115200/8N1・既存76byte HEXレコードで�
 ## 2026-11-14 Host基板と親接続経路の分離方針
 
 ユーザー指示によりQRは既存Host、7355は追加Hostとし、親Picoとの双方向UARTを独立2経路に分ける。1基板のnative＋PIO 2 Hostと、既存QR基板Type_C1の改造案は採用しない。親のATE UART0／NF55G UART1は維持し、PIO等のGPIO・SM・IRQ・bufferを確認してから割り当てる。経路別の起動識別・要求ID・取消・timeout・部分受信状態を持つ方針。ピン・baudrate・正式APIは未確定、診断TXを正式リンクに昇格させない。今回コード変更なし。[構成方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。
+
+2026-11-27 calibration_guard.py: check_value(target, point, value_text, encoded)は保護正常でNone、不正設定でSETTINGS、範囲外でRANGEを返す。通信・Cache更新なし。calibration_limits.pyはPicoルート配置、起動時import／再起動反映。

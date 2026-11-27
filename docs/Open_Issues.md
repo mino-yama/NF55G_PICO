@@ -1,5 +1,40 @@
 # Open Issues
 
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+
+2026-11-27ユーザー確認：可読性・修正容易性を重視したPython定数ファイルを、Picoプログラムから参照する方式に確定。上下限の正本はcalibration_limits.pyへ集約し、処理側に数値を重複記述しない。[改版案Rev.2](Calibration_AB_Revision_Plan_20261127_Rev2.md)へ反映。方式の再確認は不要。読込み・更新反映等の詳細と組込み実装は許可待ちのまま。今回の変更は文書のみ。
+
+2026-11-27ユーザー指定：初期値はJSONでなく、人が修正しやすくPicoが読めるPython定数形式に確定。[設定候補calibration_limits.py](Calibration_Settings_20261127_Rev0/calibration_limits.py)に必須3回路×A/Bの下限・上限12定数と版を保存。[改版案Rev.2](Calibration_AB_Revision_Plan_20261127_Rev2.md)を最新とする。CAL-GUARD-03のファイル形式は未決定へ戻さない。読み込み・更新反映、不正設定検証、正式エラー等は残す。設定候補のみを作成し、src・配置候補・実機へ未接続。書込み保護の実装許可待ちを継続。Host Pythonで構文・読込み・数値を確認し、MicroPython実機試験とHost／Mock回帰は未実施。
+
+2026-11-27ユーザー確定：必須3回路×A/Bの書込み許可範囲の初期値は各基準値の±20%。DISCHG_I A=35.2～52.8 A、B=0.24～0.36 A、BATT_CHG A=1.48～2.22 A、B=0.4～0.6 A、BATT_V A=6.4～9.6 V、B=4～6 V。[改版案Rev.1](Calibration_AB_Revision_Plan_20261127_Rev1.md)と[別テキスト初期値表](Calibration_Write_Limits_Initial_20261127_Rev0.txt)に記録。下限以上・上限以下として扱い、単位換算後の実際の書込み候補に適用する。CAL-GUARD-01の必須6点の数値初期値を未確定へ戻さない。float32境界処理・正式エラー等の詳細、非必須回路の扱いと実装・検証は残すためIssue全体はCloseしない。文書・初期値表のみで、現行FWへの組込み・実機設定は未実施、実装許可待ち。
+
+2026-11-27ユーザー指定（表記方針確定・実装許可待ち）：校正画面は実際のATE画面と異なるため、今後の根拠・操作手順・確認事項から除外する。提示された3回路の動作条件と目標値を保持し、校正点はA/Bへ統一。試験担当者向け仕様・コマンドとPicoプログラムからP1/P2表記をなくし、測定点と製品点の二重指定を解消する内容を次回改版案へ記録した。[改版案](Calibration_AB_Revision_Plan_20261127_Rev0.md)。CAL-GUARD-02のこの方針を未決定へ戻さない。通信の点番号変換はPico内部で扱い、製品通信を独自変更しない。旧入口移行、上下限、拒否応答等の詳細と実装・検証は残す。CAL-GUARD-04に過去の専用アプリ画面との一致確認を要求しない。下記の画面参照は過去の確認履歴。コード変更・実機通信なし。
+
+2026-11-27 最新試験仕様S2受領：[A/BとP1/P2の説明・原典確認](Calibration_AB_P1P2_S2_Clarification_20261127_Rev0.md)。S2第7.3項はDISCHG_I A44/B0.3 A、BATT_CHG A1.85/B0.5 A、BATT_V A8/B5 Vで後日ユーザー確定値と一致。CAL-GUARD-04のS1との差は旧版比較履歴として保持し、S2工程へ未解決の目標値差として適用しない。レビュー対象製品FWではpoint1=A、point2=B、PicoではP1→POINT1、P2→POINT2を確認済み。前回の「対応未確定」は、コード上の対応と実ATE／専用アプリ・適用FWでの通し確認未実施を分けて読む。S2埋込み画面の例値と本文目標は異なるため混同しない。Issueの一括Closeや実装は行わない。
+
+## 2026-11-27 校正書込み保護・AR小数点対応（検討のみ、実装許可待ち）
+
+ユーザー要求：回路・ポイント別の下限／上限を別テキストで保持し、DMM取得→ATE判定→別の書込み指令時にPicoがCacheと書込み値を検査し、範囲外ならNF55Gへ送信しない。極端な値で誤動作しEEPROM消去が必要となる事象はユーザー申告であり、今回再現・原因確定はしていない。AR小数点対応も同時検討。[回路・ポイント・現行コマンド一覧と開発仕様の穴埋め](Calibration_Write_Guard_AR_Study_20261127_Rev0.md)。
+
+| ID | 未確定・確認内容 | 状態 |
+|---|---|---|
+| CAL-GUARD-01 | 回路・点別の上下限、単位・符号・0・境界包含・float32丸め。目標値から許容範囲を推測しない。 | Open |
+| CAL-GUARD-02 | 測定A/Bと製品P1/P2、直接指定AD／旧互換入口への共通保護、非必須TYPE3/5の扱い。既存直接指定方式の採用は維持。 | Open |
+| CAL-GUARD-03 | 別テキスト形式・規格版・読込み／反映時期、不正設定の拒否、ATEエラーと拒否時Cache・再測定・ログ・鮮度期限。 | Open |
+| CAL-GUARD-04 | 実ATEプログラムの発行シーケンスと、試験原典§7.3／後日指示の適用版対応。原典45/1.5A、0.4/1.85A、5/10Vと後日確定44/0.3A、1.85/0.5A、8/5Vを区別。 | Open |
+
+通信r1にAD/ARの専用定義は確認できず、5回路の対応は治具資料・製品レビュー・現行コードの根拠として区別する。AR整数化で失われた小数をPicoで復元しない。OI-04等の正式REF表現・小数保持・係数反映・再投入保持は継続。承認済みAR T2=100msを未確定へ戻さない。今回コード・設定・FW・原典の変更、実機通信、Host／Mock再試験はなし。検討文書とIssue記録のみで、実装はユーザー許可後。
+
+2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を現行AD_VERIFYのAR通信へ適用する。従来のAR診断用1000msおよびAR T2未確定の記載は承認前の履歴。AD書込みの診断用T2=1000msは継続し、ARのCommand Retryなし・別指令読戻し・Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryはこの変更では追加しない。
+
+
+2026-11-26 ユーザー確定（OI-23の書込み範囲と温度取得の分離）: 従来の SERIAL_<ITEM>_<VALUE> に関する書込み方式・対象欄の課題は、実装済みの QR_WRITE <取得ID> でUNIT_REV／UNIT_LOT（LOT）／UNIT_SERIAL（SERIAL）の3欄を書き込む方式として確定。汎用SERIAL入口やADU／BBU製造情報6欄への書込み追加を、本工程の残実装として要求しない。QRのREV3文字＋空白→UNIT_REV4文字、YYWW→UNIT_LOT、号機→UNIT_SERIALという承認済み対応を使用し、他の製造情報欄は変更なし指定とする。
+
+ADU／BBUの温度取得は ADU_TEMP?／BBU_TEMP? として既に実装済みの別機能であり、QR_WRITEの書込み対象・未確定事項に含めない。明示 DATA_REFRESH で取得したDATA Cacheを照会し、個別Queryから自動Refreshしない。SS／D5のADU_REV・ADU_LOT・ADU_SERIAL／BBU_REV・BBU_LOT・BBU_SERIALは製造情報であり、温度項目とは別である。今回確定した書込み方式・3欄の範囲は再確認待ちに戻さない。旧QR遅着、電源再投入保持、実SD・量産ATE統合等の残確認とFW_REV照合条件は分けて管理し、OI-23全体を一括Closeしない。下記の過去記載にある9欄書込み要求・ADU／BBU書込値の確認待ちは、現在の3欄工程には適用しない。
+
+
+2026-11-26 ユーザー指定で、測定器表示を人が読み、ATEの `AD_<TYPE>_<POINT>_<VALUE>` から値を直接指定する方式を採用確定。方式未決定を理由に本入口を保留しない。測定Cacheを使用しない直接入口を既存サンプル診断条件で実装。これは製品側の正式AD／AR仕様、T2、REF小数保持、係数反映、保持、量産条件の設計回答ではないため、OI-04／05／12／16～21はOpen継続。旧「直接入口未実装」は当日以前の履歴として扱う。[仕様と現行条件](AD_Direct_ATE_20261126_Rev0.md)。
+
 2026-11-26 OI-23 NF55G未接続のCOM5試験（Open）。親PicoのRAM試験版で、旧AのHID受信中にCOM5から受付を要求し、同一受付IDの破棄応答後にBだけを取得。原文35文字とSS候補50文字が一致し、製品向け送信0。模擬30セットを含むHost Unit／Mock NF55G全557件成功。実SDを用いた別試行は終了応答欠落・ログ欠落増分4件。RAM再試行では終了OK・欠落0。量産ATE応答条件、実スキャナー30セット、実SDの再確認、実製品SS／D5は未完。 [試験結果](REV_Read_Write_Debug_20261126/QR_ATE_No_Product_Result_Rev0.md)
 
 2026-11-26 OI-23 繰返し実機試験（Open）。診断版のT000990でAの読取途中に受付要求し、同一受付IDの破棄応答後にBを取得する手順が3セット連続で成功。原文35文字とSS候補50文字が一致し、SS送信0件、ログ欠落0。量産ATEへの統合、初回HID報告前の遅延、電源再投入時の挙動は未確認。 [繰返し試験結果](REV_Read_Write_Debug_20261126/QR_Arm_Repeat_Rev0.md)
@@ -455,7 +490,7 @@ Codex must NOT close these by inference.
 | OI-09 | OR request while restart already active | current FW SQE; confirm |
 | OI-10 | FD out-of-range address | current FW FF fill; confirm formal behavior |
 | OI-11 | EB timing while command transaction active | keep original deadline; HIL confirm |
-| OI-12 | AR T2 final value | confirm before final release |
+| OI-12 | AR T2 = 100ms（有効ACK受信後） | Resolved：2026-11-26 山田承認。同種のD5／EL／OL読出しと同じ待ち時間を採用。実機Timing検証は別途。 |
 | OI-13（Resolved、2026-11-13） | RTC HAT revision pin mapping | ユーザー確認により現行I2C0 SDA=GP20／SCL=GP21で問題なく、ピン競合なしとして解決。実装・Software_Module_Interfaceと一致し、2026-11-10実機で0x68検出・日時設定／読戻し・秒進行を確認済み（RTC_Acceptance_Recheck_20261110.md）。HW-01のSD基板GP4／GP5分離、およびDEV-RTC-01の保持確認とは別件。 |
 | OI-14 | QR Cacheからのログファイル名生成 | 2026-09-18ユーザー指定によりQR読取Cacheをログファイル名に利用する。採用フィールド、命名形式、使用不可文字、重複時処理、未読時処理、TEST_STARTとの順序は未確定。OI-23参照。Openを維持する。 |
 | OI-15 | Detailed USB CDC/PySide6 protocol | deferred phase |
