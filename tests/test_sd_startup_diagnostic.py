@@ -63,6 +63,8 @@ class StartupDiagnosticTests(unittest.TestCase):
             sink.mount_stage = 'CARD_INIT'
             sink._error('MOUNT_ERR', OSError('CMD0 failed: 31'))
         with patch.object(main, 'startup_sd_diagnostic', None), \
+                patch.object(main.config, 'QR_HOST_ENABLED', False), \
+                patch.object(main.config, 'EXTERNAL_INSTRUMENT_ENABLED', False), \
                 patch.object(main, 'create_ate_uart', return_value=None), \
                 patch.object(main, 'create_nf55_uart', return_value=None), \
                 patch.object(main, 'DS3231I2CDevice', side_effect=OSError('no RTC')), \
