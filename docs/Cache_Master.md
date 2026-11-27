@@ -1,6 +1,6 @@
 # Cache / Invalidation / Post-Action Confirmation Master
 
-2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-26 直接指定AD: 人の読取り値をATEから指定するAD入口を追加。測定Cacheは参照・自動取得しない。AD正常／成否不明時にDATA／ARと同回路のDMM Cache A／B・照会済み記録を失効。正常応答の対象・ADCを検証した場合のみ同試行のAD_VERIFY用比較元を記録し、同点の後続AD成否不明時は旧比較元を破棄。AR／STATUS／INFOへの応答転用なし。[契約](AD_Direct_ATE_20261126_Rev0.md)。
 

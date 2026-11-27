@@ -32,7 +32,9 @@ def _compare(left, right):
     if a[0] == 0:
         return 0
     size = max(len(a[2]), len(b[2]))
-    x, y = (a[1], a[2].ljust(size, '0')), (b[1], b[2].ljust(size, '0'))
+    # MicroPythonにはstr.ljustがないため、末尾0を連結して桁数を揃える。
+    x = (a[1], a[2] + '0' * (size - len(a[2])))
+    y = (b[1], b[2] + '0' * (size - len(b[2])))
     return a[0] * ((x > y) - (x < y))
 
 

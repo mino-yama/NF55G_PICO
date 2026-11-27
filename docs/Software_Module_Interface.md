@@ -1,6 +1,6 @@
 # Pico Software Module / Interface Specification
 
-2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-23 QR/SSモジュール: `qr_write_session.QRWriteSession`がQR HOST GP9/115200診断フレーム、試行・取得ID・最初の完成値・照会済み状態を管理。`serial_data_from_qr`は承認済みSS50文字だけを生成する。mainの協調ループから有界pollし、明示QR_WRITEを共通dispatcherの内部SERIAL_SET_RAWへ渡す。SS正常応答DATA0／T2=100ms、既存DATA/INFO失効を共用。main.active_appは起動済みappを実機診断で再利用し、UART/SDの二重初期化を避ける。QR_HOST_ENABLEDは既定False、実配線済み親のみ有効化。[API・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
 

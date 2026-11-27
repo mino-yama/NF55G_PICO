@@ -1,6 +1,6 @@
 # ATE Command Master
 
-2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持し、実機配置は未実施。
+2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を現行AD_VERIFYのAR通信へ適用する。従来のAR診断用1000msおよびAR T2未確定の記載は承認前の履歴。AD書込みの診断用T2=1000msは継続し、ARのCommand Retryなし・別指令読戻し・Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryはこの変更では追加しない。
 

@@ -111,7 +111,8 @@ for target in calibration_guard.TARGETS:
 assert calibration_guard.check_value('DISCHG_I','A','0',encode_ad_value('0')) == 'RANGE'
 print('BOOT_CHECK|'+json.dumps({'unique_id':binascii.hexlify(machine.unique_id()).decode(),
     'settings_rev':calibration_limits.SETTINGS_REV,'app_present':True,'idle':True,
-    'calibration_enabled':app.calibration_write is not None,'boundary_checks':12,'zero_rejected':True}))
+    'calibration_enabled':app.calibration_write is not None,'boundary_checks':12,'zero_rejected':True,
+    'sd_status':app.logger.sd_status,'external_error':app.external_error}))
 '''
             print(execute(code), flush=True)
             execute("print('CONFIG|'+json.dumps({k:getattr(sys.modules['src.config'],k) for k in ('EXTERNAL_INSTRUMENT_ENABLED','QR_HOST_ENABLED','QR_HOST_ARM_ENABLED','CALIBRATION_SAMPLE_ENABLED','ATE_RESPONSE_TERMINATOR','REPL_LOG_ENABLED','T2_AR_MS')}))")
@@ -185,6 +186,8 @@ print('BOOT_CHECK|'+json.dumps({'unique_id':binascii.hexlify(machine.unique_id()
             print('STAGED ' + p, flush=True)
         execute('for p in ' + repr(list(after)) + ':\n gc.collect()\n with open(' + repr(stage) + '+p,"rb") as f: compile(f.read(),p,"exec")\nprint("MICROPYTHON_COMPILE_OK")')
         execute('sys.path.insert(0,' + repr(stage) + '); sys.path.insert(0,' + repr(stage + '/src') + ''')
+sys.modules.pop('calibration_guard',None)
+sys.modules.pop('calibration_limits',None)
 import calibration_limits, calibration_guard, struct
 assert calibration_guard.settings is calibration_limits
 for target in calibration_guard.TARGETS:
@@ -193,6 +196,8 @@ for target in calibration_guard.TARGETS:
             text = str(getattr(calibration_limits,target+'_'+point+'_'+suffix))
             assert calibration_guard.check_value(target,point,text,struct.pack('>f',float(text))) is None
 assert calibration_guard.check_value('DISCHG_I','A','0',struct.pack('>f',0)) == 'RANGE'
+assert calibration_guard.check_value('DISCHG_I','A','35.1999999999',struct.pack('>f',35.2)) == 'RANGE'
+assert calibration_guard.check_value('DISCHG_I','A','52.8000000001',struct.pack('>f',52.8)) == 'RANGE'
 print('STAGED_GUARD_RUNTIME_OK')
 ''')
         # 全候補の転送・構文検査後に切替え、失敗時は元ファイルを戻す。

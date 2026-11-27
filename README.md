@@ -2,7 +2,7 @@
 
 ## ATEプログラム作成者向けコマンド一覧
 
-最新版は2026-11-27の **Rev.5**: [Markdown版コマンド一覧](docs/ATE_Command_List_for_Test_Program_Rev5_20261127.md)。校正点をA/Bへ統一し、必須3回路×A/Bの書込み範囲保護を実装。[実装仕様・結果](docs/Calibration_AB_Implementation_20261127_Rev0.md)、[Picoルート配置用設定](calibration_limits.py)を参照。実機配置・実測校正は未実施。Word Rev.4および過去一覧は履歴として保持する。
+最新版は2026-11-27の **Rev.5**: [Markdown版コマンド一覧](docs/ATE_Command_List_for_Test_Program_Rev5_20261127.md)。校正点をA/Bへ統一し、必須3回路×A/Bの書込み範囲保護を実装。[実装仕様・結果](docs/Calibration_AB_Implementation_20261127_Rev0.md)、[Picoルート配置用設定](calibration_limits.py)を参照。[親Pico配置結果](docs/Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)：36件読戻し一致・起動と保護処理確認済み。実測校正は未実施。Word Rev.4および過去一覧は履歴として保持する。
 
 2026-11-20 Codex直接送受信: ユーザー固定入力/COM7解放後、AUTO単発-2.91185V、続けてRANG20指定-2.9118V、RANG200指定-2.912V、AUTO-2.91186Vを取得。全機器エラー0、各READ一回/再送なし、最終AUTO ON/COM7解放済み。CONFは20指定で199.9999V、200指定で1099.999V、AUTO測定後19.99999Vを原文保持し、選択境界の理由は未解決でIssue Open維持。 [測定比較](docs/USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Relay_Development_20261120_Rev0/Link_Implementation_Rev0/Hardware_Deployment_Rev0/Runtime_01/Host_CDC_Buffer_Fix_01/Codex_Fixed_Range_Comparison_01/Result_Rev0.md)。
 
