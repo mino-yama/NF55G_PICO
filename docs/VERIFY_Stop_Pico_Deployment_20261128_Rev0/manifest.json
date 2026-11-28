@@ -1,0 +1,76 @@
+{
+  "date_jst": "2026-11-28",
+  "purpose": "Deploy VERIFY-disabled / ATE-owned AR readback behavior",
+  "deployment_status": "DEPLOYED_AND_VERIFIED",
+  "git_commit": "8fd1238a5c774b2514c5816e86a86750397fb19e",
+  "pico": {
+    "port": "COM6",
+    "unique_id": "69f7d45962cfdfad",
+    "board": "Raspberry Pi Pico 2 / RP2350",
+    "micropython": "1.27.0"
+  },
+  "r3_endurance": {
+    "planned_trials": 400,
+    "completed_trials": 400,
+    "csv_count": 400,
+    "csv_complete": true,
+    "csv_columns": 14,
+    "csv_data_rows": 4400,
+    "trial_first": 998,
+    "trial_last": 1397,
+    "meter_errors": 0,
+    "logger_drops": 0,
+    "range": "R3 / 40 mV input setpoint"
+  },
+  "files": [
+    {
+      "target": "/src/main.py",
+      "backup_sha256": "d20dc3340e99fa26f122a7d092a648e8828b61cc268b7ec2c4e597282badb925",
+      "candidate_sha256": "fe3f2c9bc44b321e3531a7df40cc63d6160b02b592182283e97dccb9b4ebea7f",
+      "readback_sha256": "fe3f2c9bc44b321e3531a7df40cc63d6160b02b592182283e97dccb9b4ebea7f"
+    },
+    {
+      "target": "/src/calibration_write.py",
+      "backup_sha256": "7f27e07d85aa9ee2946f44634eec258d0883501495beb55f76efcdcf78f9bbd1",
+      "candidate_sha256": "ddfd4cf66904e0cccd4875b64aac7b423491dbd01df5305315c8917b7d3a5332",
+      "readback_sha256": "ddfd4cf66904e0cccd4875b64aac7b423491dbd01df5305315c8917b7d3a5332"
+    },
+    {
+      "target": "/src/command_parser.py",
+      "backup_sha256": "a905cbf52a9e38cf8c4d67fe75c48a70bc6a3c8dc7c8124b9af9a27e82a875a5",
+      "candidate_sha256": "f5b3fa4ad93ab3feb4e6435601f8ac4b74ed553c93bc3acb8d2ce02de69333db",
+      "readback_sha256": "f5b3fa4ad93ab3feb4e6435601f8ac4b74ed553c93bc3acb8d2ce02de69333db"
+    }
+  ],
+  "transfer": {
+    "method": "mpremote fs --force cp",
+    "order": ["/src/calibration_write.py", "/src/command_parser.py", "/src/main.py"],
+    "readback_verified": true
+  },
+  "preserved_config_sha256": "2f130267ace958100ca5b3acbb4d10048b4ff858093ae8e78bb6ce379745c663",
+  "preserved_settings": {
+    "EXTERNAL_INSTRUMENT_ENABLED": true,
+    "EXTERNAL_HOST_CHIPID": "73AD3A60D10514E9",
+    "QR_HOST_ENABLED": true,
+    "QR_HOST_ARM_ENABLED": true,
+    "CALIBRATION_SAMPLE_ENABLED": true,
+    "ATE_RESPONSE_TERMINATOR": "CR",
+    "T2_AR_MS": 100,
+    "REPL_LOG_ENABLED": true
+  },
+  "runtime_verification": {
+    "hard_reset": true,
+    "ate_idn_reply": "NF55G_PICO_FIXTURE,Rev.0",
+    "ate_verify_reply": "ERR:VERIFY_DISABLED",
+    "ar_read_parser_category": "CALIBRATION_READBACK",
+    "comm_status": "OK:state=IDLE",
+    "sd_status": "OK",
+    "log_drop_count": 0,
+    "resident_app_resumed": true,
+    "ar_read_nf55g_transaction_sent": false,
+    "nf55g_product_commands_sent": false
+  },
+  "nf55g_product_commands_sent": false,
+  "ad_verify_disabled_test_sent_to_nf55g": false,
+  "ar_read_hardware_test_sent": false
+}
