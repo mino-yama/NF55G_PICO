@@ -18,7 +18,8 @@ ATE_STOP_BITS = 1
 # EOIはPIA5100/GPIB側の信号であり、UARTからは送出できない。
 ATE_RESPONSE_TERMINATOR = "CR"
 
-# REPL CSV mirror is opt-in; set True only for interactive debug sessions.
+# REPLログ（USB stdoutへのCSV複製）。2026-11-13山田指示によりTrue、2026-11-28承認。
+# Timing影響を比較する場合はFalseにして再起動する。量産時の設定は別途判断する。
 REPL_LOG_ENABLED = True
 
 NF55_BAUDRATE = 38400

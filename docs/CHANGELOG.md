@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-28 REPLログ設定のコメント・仕様記述を現行値へ統一
+
+- `src/config.py`の`REPL_LOG_ENABLED = True`（2026-11-13山田指示）を2026-11-28に承認。値は変更せず、「opt-in・デバッグ時のみTrue」としていたコメントと、Logger_SD_Specの「既定値False」記述を現行値に合わせた。
+- Timing比較時は`False`で再起動する注意は維持。量産時の設定はHard Rule 17との関係で別途判断し、本変更では確定しない。
+- コード動作の変更なし。Host Unit／Mock NF55G 572件成功。test_external_meter_cdc_fifoの3件はpico-sdk 2.2.0未配置のLinux環境のため実行不可（setUpClassエラー）で、未確認。
+
 ## 2026-11-27 親Picoへの校正改版配置
 
 - MicroPythonにstr.ljustがないことを切替え前に検出し、末尾0の連結へ修正。SD起動診断テストは実機QR設定に依存しないようMockを補った。

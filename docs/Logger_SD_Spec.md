@@ -116,7 +116,7 @@ Logger architecture supports:
 
 ### REPL/debug mirror (2026-11-13)
 
-- `src/config.py`の`REPL_LOG_ENABLED`で起動時に切替える。既定値は`False`でREPL sinkを生成せず、poll／USB stdout writeを行わない。デバッグ時に一時的に`True`へ変更して配置・再起動すると、TEST_START／LOG_CONT_START後にSD sinkが受理したCSV行を同じ14列・CSV escape形式でUSB REPL/debug sinkにも出力する。開始時にはCSV headerも出力Queueへ追加する。
+- `src/config.py`の`REPL_LOG_ENABLED`で起動時に切替える。現行ソースの値は`True`（2026-11-13山田指示、2026-11-28承認）。`False`ではREPL sinkを生成せず、poll／USB stdout writeを行わない。`True`で配置・再起動すると、TEST_START／LOG_CONT_START後にSD sinkが受理したCSV行を同じ14列・CSV escape形式でUSB REPL/debug sinkにも出力する。開始時にはCSV headerも出力Queueへ追加する。
 - REPL出力はSD書込み後に複製し、NF55G通信中・ATE処理中は送信しない。`select.poll()`の書込可能通知をtimeout 0で確認し、1回のserviceにつき最大32文字だけ送る。REPL側Queueは4096 UTF-8 byteまでとする。
 - REPL未接続／非pollable、切断、Queue満杯の場合はREPLコピーを破棄する。SD記録とATE/NF55G処理は継続し、SD sinkを記録の正本とする。REPL drop数は`ReplDebugSink.drop_count`に保持し、ATEの`LOG_DROP_COUNT?`には合算しない。
 - USB書込み可能poll後の1回の`sys.stdout.write()`自体がUSB実装により待つ可能性までは排除できない。Timing影響を疑う比較や通常運用では`REPL_LOG_ENABLED=False`として再起動する。57600bps変更後の量産Timingは未測定。
