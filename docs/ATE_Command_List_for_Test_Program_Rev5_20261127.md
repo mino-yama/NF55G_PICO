@@ -66,7 +66,7 @@ ATE接続は57600bps／8N1、要求はCRLF、応答は配置FWの設定に従う
 | `D2_REFRESH` | なし | `D2` | なし | 100 ms | あり | `D2` VALID | D2 専用確認 | 量産原則未使用。 | ※ |
 | `D3_REFRESH` | なし | `D3` | なし | 200 ms | あり | `D3` VALID | D3 専用確認 | LIFE_CALC clear 副作用あり。 | ※ |
 | `D4_MAINT_READ` | なし | `D4` | なし | 100 ms | あり | `D4` VALID | D4 専用確認 | AC_FAIL_COUNT clear 副作用あり。量産では使用しない。D4-TIM-01継続。 | ※ |
-| `AR_REFRESH` | なし | `AR` | なし | Open Issue | あり | `AR` VALID | AR Cache Query | OI-12: AR T2 final value 未確定。 |  |
+| `AR_REFRESH` | なし | `AR` | なし | 100 ms | あり | `AR` VALID | AR Cache Query | T2はOI-12解決済み（2026-11-26山田承認、有効ACK受信後100ms）。正式ATE入口は未実装。REF表現・応答長はOI-04／OI-20継続。 |  |
 | `FD_READ_xxxxxx` | `xxxxxx` = 6 桁 HEX address | `FD` | address | 100 ms | あり | `FD` VALID | FD Query / raw 参照 | FD は 32 byte を 64 ASCII HEX のまま扱う。 | ※ |
 | `EL_REFRESH_01` / `09` / `17` / `25` | block start | `EL` | start no | 100 ms | あり | EL block VALID | `EL_<NN>_*?` | 8 records/block。START_NO 一致必須。 | ※ |
 | `OL_REFRESH_01` / `09` / `17` / `25` / `33` / `41` / `49` / `57` | block start | `OL` | start no | 100 ms | あり | OL block VALID | `OL_<NN>_*?` | 8 records/block。START_NO 一致必須。 | ※ |
@@ -468,7 +468,7 @@ INFO_REFRESHで取得した設定値を、ATEが試験指示書の初期設定�
 - 目安値を実測値の代用にせず、各点で実測した値を指定してSETする。
 - 校正点はA/Bを一度だけ指定する。書込み前に必須3回路の上下限を検査する。サンプル診断用CAL_WRITE／AD_VERIFYは第10.4節・第14.16節、測定取得は第14.14節に従う。取得・照会だけではADを書き込まない。
 - 現行の診断ATE入口は、取得して照会済みのCacheを回路名・A/B点で明示採用する。人の読取り値を直接指定するAD入口は第10.6／14.18節。取得や照会から自動書込みしない。
-- AD形式、数値表現、補正点、範囲、反映・保持、AR読戻しはOI-04 / OI-05 / OI-12 / OI-16～OI-21、外部測定はCAL-EXT-01～03で確認する。取得・照会は第10.2節の採用済み契約に従う。サンプル診断入口の実装を正式なAD／AR仕様の確定とは扱わない。
+- AD形式、数値表現、補正点、範囲、反映・保持、AR読戻しはOI-04 / OI-05 / OI-16～OI-21（AR T2=100msはOI-12で解決済み）、外部測定はCAL-EXT-01～03で確認する。取得・照会は第10.2節の採用済み契約に従う。サンプル診断入口の実装を正式なAD／AR仕様の確定とは扱わない。
 - QR用RP2350-USB-Cと測定器用RP2350-USB-Aを別HOSTとする現行構成で限定実機確認済み。旧CH9350案／ハブ結合案を現行手順として用いない。構成・確認範囲は第16節を参照する。
 
 ### 14.5 7.4 電圧 / 電流 / 温度 / FAN回転の確認
