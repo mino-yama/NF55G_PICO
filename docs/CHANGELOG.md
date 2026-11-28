@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-28 QR／測定器中継の有効設定を継続
+
+- 山田指示により、テスト・デバッグで使用し量産でも使用の可能性がある`EXTERNAL_INSTRUMENT_ENABLED`と`QR_HOST_ENABLED`をソース既定でもTrueとし、11/27の実機配置値と一致させた。configコメント、コマンド一覧Rev.5の前提記述、Open Issuesを更新。
+- 未配線の治具でも起動は正常（PIOは配線を検出しない）で、QR／測定器コマンドが実行時エラーまたは期限切れとなることを明記。`CALIBRATION_SAMPLE_ENABLED`・`QR_HOST_ARM_ENABLED`はFalseのまま、量産設定は未決定。USB-INT-01等はCloseしない。
+- Host Unit／Mock NF55G: 572件成功。test_external_meter_cdc_fifoの3件はpico-sdk未配置のため実行不可で未確認。実機への再配置は不要（実機は既にTrue）。
+
 ## 2026-11-28 コマンド一覧Rev.5のAR T2記述を解決済みOI-12へ統一
 
 - Rev.5第4節`AR_REFRESH`行のT2を「Open Issue」から100 msへ、注意欄を「OI-12未確定」からOI-12解決済み（2026-11-26山田承認）へ修正。第13節付近の未確定一覧からOI-12を外し、解決済みと注記した。

@@ -117,12 +117,14 @@ SUCCESS_INVALIDATION = {
     "AD": ("DATA", "AR"),
 }
 
-# 実機配線/PIO受入後に有効化する開発用中継。無効時はPIO1/GP12/13を初期化しない。
-EXTERNAL_INSTRUMENT_ENABLED = False
+# 7355測定器HOSTとの中継（PIO1/GP12/13）。試験・デバッグで使用し、量産でも使う可能性があるため
+# 有効を継続（2026-11-28山田指示）。配線の有無は起動時に検出せず、未配線ではEXT_*等が実行時エラーとなる。
+EXTERNAL_INSTRUMENT_ENABLED = True
 EXTERNAL_HOST_CHIPID = "BFCF2EDB84B0B37F"
 
-# QR HOST診断UARTの実配線済み個体だけで有効化。GP9/PIO0 SM0専用。
-QR_HOST_ENABLED = False
+# QR HOSTからの受信（GP9/PIO0 SM0）。試験・デバッグで使用し、量産でも使う可能性があるため
+# 有効を継続（2026-11-28山田指示）。未配線ではQR_SCANが受信待ちのまま期限切れとなる。
+QR_HOST_ENABLED = True
 # 双方向QR HOST試験版。対応HOSTと組み合わせる場合に有効化する。
 QR_HOST_ARM_ENABLED = False
 

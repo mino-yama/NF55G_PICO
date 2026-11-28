@@ -27,7 +27,7 @@ Date: 2026-11-27
 - ATE要求はCRLFで送る。応答終端はATE_RESPONSE_TERMINATORに従い、現行ソース既定はCR。CR／LF／CRLFから設定するためATEの受信設定を配置FWに合わせる。ATEは応答完了後に次のコマンドを送る。NF55G Transactionは常に1件とする。
 - ATE側UARTは57600bps、8 data bits、parityなし、1 stop bit。NF55G側38400bps／8E1と混同しない。
 - 略語・用語は第15節、使用例と注意事項は第14節、実機確認範囲は第16節を参照する。
-- QR／測定器の追加機能は対応FW・配線・有効設定が必要。ソース既定はQR_HOST_ENABLED=False／EXTERNAL_INSTRUMENT_ENABLED=False／CALIBRATION_SAMPLE_ENABLED=False／QR_HOST_ARM_ENABLED=False。評価機への配置実績と、任意の治具で利用可能な状態は区別する。
+- QR／測定器の追加機能は対応FW・配線・有効設定が必要。ソース既定はQR_HOST_ENABLED=True／EXTERNAL_INSTRUMENT_ENABLED=True（2026-11-28山田指示：試験・デバッグで使用、量産でも使用の可能性があるため継続）／CALIBRATION_SAMPLE_ENABLED=False／QR_HOST_ARM_ENABLED=False。未配線の治具でも起動は正常で、QR／測定器コマンドが実行時エラーまたは期限切れとなる。評価機への配置実績と、任意の治具で利用可能な状態は区別する。
 - 最新の追加入口は第10.1～10.6節、ATEの順序付き操作手順は第14.13～14.18節に示す。※は条件付き診断入口にも付けるため、使用条件を必ず確認する。
 - 本改訂はATE実機確認の準備資料であり、今回の実機デバッグ・FW配置は行わない。現行ソースと配置済みFWは別に確認する。
 

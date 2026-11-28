@@ -1,5 +1,7 @@
 # Open Issues
 
+2026-11-28山田指示：`EXTERNAL_INSTRUMENT_ENABLED`と`QR_HOST_ENABLED`はテスト・デバッグで使用し、量産時にも使用する可能性があるため有効（True）を継続する。ソース既定を実機配置値に合わせてTrueへ変更した。PIOは配線の有無を検出しないため、未配線の治具でも起動は正常で、QR／測定器コマンドが実行時エラーまたは期限切れとなる。量産で実際に使用するか、治具ごとの配線状態（USB-INT-01）、7355の着脱復帰（USB-RELAY-HOTPLUG-01）は引き続きOpen。`CALIBRATION_SAMPLE_ENABLED`（リポジトリFalse／実機True）と`QR_HOST_ARM_ENABLED`（双方向QRの採否、OI-23）の量産設定は未決定。
+
 2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-27ユーザー確認：可読性・修正容易性を重視したPython定数ファイルを、Picoプログラムから参照する方式に確定。上下限の正本はcalibration_limits.pyへ集約し、処理側に数値を重複記述しない。[改版案Rev.2](Calibration_AB_Revision_Plan_20261127_Rev2.md)へ反映。方式の再確認は不要。読込み・更新反映等の詳細と組込み実装は許可待ちのまま。今回の変更は文書のみ。
