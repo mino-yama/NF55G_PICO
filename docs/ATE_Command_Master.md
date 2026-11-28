@@ -1,9 +1,16 @@
 # ATE Command Master
 
 2026-11-28 校正読戻し方針：Pico内のVERIFY比較機能を停止し、一致・不一致はATEだけで判定する。書込み後の明示`AR_READ_<回路> <A/B>`は選択点のADC十進値とREF8原文を返すだけで、Picoは書込み値との比較・補正・PASS判定をしない。旧`AD_VERIFY`／`AD_VERIFY_<回路>`は`ERR:VERIFY_DISABLED`で無送信拒否する。詳細は[コマンド一覧Rev.6](ATE_Command_List_for_Test_Program_Rev6_20261128.md)。
+
+2026-11-28 RTCログ改修を親Picoへ配置。変更4件の読戻しとアプリ対象37件のSHA-256一致、実SDの仮ID保存・S/N付加・CONT分割・busy延期、ハードリセット後の最大47→48採番を確認。常駐処理再開・COM6解放済み。[配置・実SD結果](RTC_Fallback_Log_Deployment_20261128_Rev0/Result.md)。実電源OFF/ON、物理RTC未接続、途中電源断・量産Timingは未検証。以下のPico未配置の記載はソース実装時点の履歴。
+
+
+2026-11-28 RTC異常時ログ改善をソース実装。RTCなし／取得失敗／無効日時はNO_RTC_T番号.csvまたはNO_RTC_C番号.csvとし、S/N付加後もIDを保持。両BANKの確認済み番号最大値＋1を共用し、確認失敗時は採番・保存を行わない。全596件Host/Mock成功。Pico未配置・実カード電源断未検証。[実装・検証記録](RTC_Fallback_Log_Implementation_20261128_Rev0/Result.md)を参照。
+
+
 2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
-2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を現行AD_VERIFYのAR通信へ適用する。従来のAR診断用1000msおよびAR T2未確定の記載は承認前の履歴。AD書込みの診断用T2=1000msは継続し、ARのCommand Retryなし・別指令読戻し・Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryはこの変更では追加しない。
+2026-11-26 山田承認: ARのT2は同等の保存情報読出し（D5／EL／OL）に合わせ、有効ACK受信後100msに確定。src/config.pyのT2_AR_MS=100を校正用AR読戻しへ適用する。従来のVERIFYコマンドに関する表記は承認時点の履歴。AD書込みの診断用T2=1000ms、ARのCommand Retryなし・AR Cache非採用も維持する。OI-12の待ち時間の決定事項は山田承認により解決。製品側の実応答時間の実機検証、REF表現・小数保持・ATEへの返却仕様（OI-04）、長さ・順序の正式確認（OI-20）は別管理とする。AR_REFRESH／AR Cache Queryは追加しない。
 
 
 2026-11-26 ユーザー確定（OI-23の書込み範囲と温度取得の分離）: 従来の SERIAL_<ITEM>_<VALUE> に関する書込み方式・対象欄の課題は、実装済みの QR_WRITE <取得ID> でUNIT_REV／UNIT_LOT（LOT）／UNIT_SERIAL（SERIAL）の3欄を書き込む方式として確定。汎用SERIAL入口やADU／BBU製造情報6欄への書込み追加を、本工程の残実装として要求しない。QRのREV3文字＋空白→UNIT_REV4文字、YYWW→UNIT_LOT、号機→UNIT_SERIALという承認済み対応を使用し、他の製造情報欄は変更なし指定とする。
@@ -11,7 +18,7 @@
 ADU／BBUの温度取得は ADU_TEMP?／BBU_TEMP? として既に実装済みの別機能であり、QR_WRITEの書込み対象・未確定事項に含めない。明示 DATA_REFRESH で取得したDATA Cacheを照会し、個別Queryから自動Refreshしない。SS／D5のADU_REV・ADU_LOT・ADU_SERIAL／BBU_REV・BBU_LOT・BBU_SERIALは製造情報であり、温度項目とは別である。今回確定した書込み方式・3欄の範囲は再確認待ちに戻さない。旧QR遅着、電源再投入保持、実SD・量産ATE統合等の残確認とFW_REV照合条件は分けて管理し、OI-23全体を一括Closeしない。下記の過去記載にある9欄書込み要求・ADU／BBU書込値の確認待ちは、現在の3欄工程には適用しない。
 
 
-2026-11-26 ユーザー確定: 人が測定器を読み、`AD_<TYPE>_<POINT>_<VALUE>` をATEへ直接記載してNF55Gへ送る方式を採用。例 `AD_4_1_1.85`、VALUEはA／Vの10進値で、測定器接続・測定Cacheは不要。既存サンプル診断条件を維持して通常ATE経路に実装し、回路名付きAD_VERIFYで別の明示ARへ接続する。CAL_WRITE方式も併用。製品側正式T2・REF表現・量産受入は継続。[確定方式と手順](AD_Direct_ATE_20261126_Rev0.md)。
+2026-11-26 ユーザー確定: 人が測定器を読み、`AD_<TYPE>_<POINT>_<VALUE>`をATEへ直接記載してNF55Gへ送る方式を採用。例`AD_4_A_1.85`、VALUEはA／Vの10進値で、測定器接続・測定Cacheは不要。既存サンプル診断条件を維持して通常ATE経路に実装し、書込み後のAR読戻しは別指令とする。現行は`AR_READ_<回路> <A/B>`でraw値を返し、照合はATE側だけで行う。CAL_WRITE方式も併用。製品側正式T2・REF表現・量産受入は継続。[現行コマンドと手順](ATE_Command_List_for_Test_Program_Rev6_20261128.md)。
 
 2026-11-25 7355の現行USB CDC運用はADCコマンドを採用。ATEは200 mVを `R3`、20 Vを `R5` で設定し、`R?` で指定値を確認する。回路別 `CAL_MEASURE_<回路> <A|B> <期限ms> MD?` は連続・即時DCVの測定完了を確認して値を取得する。[採用決定・設定と取得手順](ADC_Decimal_Hardware_Test_20261125/run_02/ADCMT_ADC_Command_Compatibility_Rev1.md)
 
@@ -70,7 +77,7 @@ Revision: Rev.0
 | D2_REFRESH | D2 | 100ms | D2 | 量産原則未使用 |
 | D3_REFRESH | D3 | 200ms | D3 | LIFE_CALC clear 副作用 |
 | D4_MAINT_READ | D4 | 100ms | D4 | 量産では使用しない（2026-11-09ユーザー指定）。AC_FAIL_COUNT clear 副作用 |
-| AR_REFRESH | AR | Open Issue | AR | FW 独自 |
+| AR_REFRESH（未実装） | AR | 100ms（有効ACK受信後） | AR（未実装） | OI-12は2026-11-26承認で解決済み。AR_REFRESH／AR Cache Queryの未実装とは別管理 |
 | FD_READ_xxxxxx | FD | 100ms | FD | 6 hex address |
 | EL_REFRESH_01/09/17/25 | EL | 100ms | EL block | 8 records/block |
 | OL_REFRESH_01/09/17/25/33/41/49/57 | OL | 100ms | OL block | 8 records/block |
@@ -378,7 +385,7 @@ D4は副作用のため量産では使用しない。D4-TIM-01は未解決のま
 - FD_READ_xxxxxxは6桁ASCII HEXアドレスをそのままFDへ送信。T2=100ms、応答64文字を全桁HEX検証。FD_DATA?はFD Cacheの64文字を大文字小文字・先頭ゼロを含め保持して返す。FD Cacheは最新の1回分で、開始時に旧値をINVALIDにする。
 - FD_DATA?を正式Queryとして本Masterへ追記。FUへの連携、アドレス丸め・範囲外のFF補完・自動Refreshは行わない。FDの範囲外挙動はOI-10継続。原典のFD／F0表記不一致はREAD-FD-01へ記録し、設計確認前の実機送信を保留する。
 - Refresh開始時に対象のみINVALID。完全Decode後のみ対象をVALIDにし、失敗時は旧値を戻さない。HWEではDATA／STATUSもINVALID。CLの成功／ambiguousでは全EL／OL CacheをINVALIDにする既存処理を共用する。
-- AR_REFRESH／AR QueryはOI-04／12／20等の仕様確定待ちで未実装を維持する。D2／D3／D4専用Queryは未定義のまま追加しない。
+- AR_REFRESH／AR Cache QueryはOI-04／20等の仕様確定待ちで未実装。OI-12（AR T2）は2026-11-26承認で有効ACK受信後100msに解決済みであり、未確定理由には含めない。現行の明示AR_READもこの100msを使用し、AR Cacheへ昇格しない。D2／D3／D4専用Queryは未定義のまま追加しない。
 - Host／Mock全233件合格。詳細: tests/test_log_fd_read_commands.py、temp/read_commands_host_mock_20261109_run01.log。実機結果とは区別する。
 
 ## 2026-11-09 項目別PARAM設定のHost実装

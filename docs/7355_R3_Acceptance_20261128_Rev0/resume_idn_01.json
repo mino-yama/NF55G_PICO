@@ -1,0 +1,7 @@
+{
+  "command": "EXT_QUERY 2500 *IDN?",
+  "reply": "ERR:EXT_TIMEOUT:AMBIGUOUS=0\r",
+  "elapsed_ms": 2516,
+  "raw_hex": "4552523a4558545f54494d454f55543a414d424947554f55533d300d",
+  "automatic_retry": false
+}

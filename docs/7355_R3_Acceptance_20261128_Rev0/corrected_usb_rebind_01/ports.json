@@ -1,0 +1,14 @@
+[
+  {
+    "device": "COM7",
+    "vid": 1390,
+    "pid": 20484,
+    "serial": ""
+  },
+  {
+    "device": "COM6",
+    "vid": 11914,
+    "pid": 5,
+    "serial": "69F7D45962CFDFAD"
+  }
+]

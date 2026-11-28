@@ -1,0 +1,56 @@
+﻿NF55G 試験手順書 改訂確認記録 Rev.6
+確認日：2026-11-27
+保存先：C:\Users\m_yamada\OneDrive\My Document\NF55G\NF55G_Pico\docs
+
+【確認できた事実】
+・現行対象：ATE_Command_List_for_Test_Program_Rev5_20261127.docx（更新14:16）。同名Markdownは10:04版であり、Wordには追加訂正・既知差異表・上下限表があるため、Wordを基に改訂した。
+・10.2：DISCHG_I／BATT_CHG／BATT_VのA/B全6点について、取得→Cache照会→明示AD→明示AR→ATE照合を明記。固定送信値を作らず、測定Cacheの実値を採用する。
+・10.3：元資料で既にQR専用の項目。今回、別TEST試行としてQR原文読出し・候補確認・SS書込み・D5読戻し・対象／非対象の照合まで追加した。
+・既存10.4～10.6、11～17および14.1～14.18の項番を維持。目次の10.2／10.3タイトルと参照を整合。改訂履歴とフッターをRev.6へ更新。
+・回路別24指令を本文との一致および現行parserで確認。別途、固定指令58件のparser受付を確認済み。変動QR IDは返却IDを使用し、架空の固定IDを掲載していない。
+・Cache Query 4表の全124行の内容がRev.5と一致。文字8.5 pt、行送り10 pt、セル上下余白1 ptに圧縮。Query掲載範囲は旧p.6～9から新p.6～8へ集約。手順追加により文書全体は25ページから26ページ。
+・WordでPDF化した全ページを画像確認。ページ跨ぎの表は見出しを繰返し、見出しだけがページ末尾に残らないよう調整。
+・下記7ファイルは現行ソースと配置Rev.1の実機読戻しがSHA-256一致。配置記録の親Pico IDは69f7d45962cfdfad。configは実機設定を保持した配置記録で確認（EXT=True、QR=True、QR_ARM=False、CAL_SAMPLE=True、応答CR）。
+
+【根拠資料】
+・docs/Calibration_AB_Implementation_20261127_Rev0.md
+・docs/Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md／readback
+・docs/ATE_Command_Master.md、Cache_Master.md、ATE_Command_List_for_Test_Program_Rev5_20261127.md
+・docs/ADC_Decimal_Hardware_Test_20261125/run_02/Cache_Write_HIL_Rev1.md
+・docs/QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md
+
+【推測・解釈】
+・「現行」の選定は、参照チャットと10.2タイトルの一致、版数、更新時刻、配置記録を照合した判断。ファイルの更新時刻だけで現行を判断していない。
+・手順を独立化できる根拠は、現行のコマンド経路にQR_SCANを校正ADの必須条件、DMM取得をQR_WRITEの必須条件とする処理がないこと。個別試験の独立化は総合受入完了を意味しない。
+
+【未確認事項・制約】
+・本改訂では実機へ接続せず、AD／AR／SS送信、FW配置、製品校正値変更は行っていない。
+・S1.14Bでは小数入力に対しAR整数REFが切捨てとなった診断記録がある。小数の一致を確認できない場合は照合未成立で停止。丸めや仮の許容差で合格にしない。
+・実測3回路×A/B通し、AR小数保持、係数反映、電源再投入保持、量産向け制限解除は別検証。製品精度の判定規格を推測で作成しない。
+・元資料にあったHOST_RESET・SD_STATUS・RTCなしログの既知差異は記録時点の情報として保持。今回の修正完了を意味しない。
+・元のWord／Markdown・FW・設定値を変更していない。記録不在だけで作業未実施・原因を断定していない。
+
+【照合したファイル】
+src/command_parser.py
+SHA-256: a905cbf52a9e38cf8c4d67fe75c48a70bc6a3c8dc7c8124b9af9a27e82a875a5
+
+src/main.py
+SHA-256: f1fb004aabf28747b19d8c9effe2e884cb75b9ee4ed716d46a0a3fce29a6a9c9
+
+src/calibration_acquisition.py
+SHA-256: 823d1fd365e2c2f72e73b20c9da8ef7b39caed144db71a6c57005c906a519cb9
+
+src/calibration_write.py
+SHA-256: 7f27e07d85aa9ee2946f44634eec258d0883501495beb55f76efcdcf78f9bbd1
+
+src/calibration_guard.py
+SHA-256: 7241038651656a57c545c9a8d144183f7fe878ab95c3abfbd1be52da46ffa07e
+
+src/nf55_decode.py
+SHA-256: 8509cc83b1d1df461ba50217d7210ae3b21ee6585162135b5cd2af45382e9740
+
+calibration_limits.py
+SHA-256: 340bb0d3090032b64826aedf21cef2b9a7747b501a4bdc75f281a09ed665442b
+
+原本Word SHA-256: 21fa8ed13cf4313945f42a8bc6f944a1099e05851ac9d3b4812a5d7e2992ae33
+改訂Word SHA-256: b1d66c07a519c215437ecc9bb1cff6c9df339cfb83339ff5ec47d9b8506390e6

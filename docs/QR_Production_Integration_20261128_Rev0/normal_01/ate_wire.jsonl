@@ -1,0 +1,4 @@
+{"command": "*IDN?", "reply": "NF55G_PICO_FIXTURE,Rev.0", "elapsed_ms": 0.0, "time": 1795848052.356624}
+{"command": "TEST_START", "reply": "OK", "elapsed_ms": 78.00000003771856, "time": 1795848052.593908}
+{"command": "QR_SCAN 60000", "reply": "OK:QR_PENDING:Q7b3a9f81772a95c3-00000001-00000001", "elapsed_ms": 16.00000000325963, "time": 1795848052.7469466}
+{"command": "QR_GET? Q7b3a9f81772a95c3-00000001-00000001", "reply": "ERR:QR_READING", "elapsed_ms": 16.00000000325963, "time": 1795848052.9038284}

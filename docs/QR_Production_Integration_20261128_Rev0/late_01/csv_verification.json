@@ -1,0 +1,77 @@
+{
+  "files": [
+    {
+      "file": "000002_20261128_160014_T000008.csv",
+      "sha256": "8a27e63d9988bdda219f6bc0925cdab0db2ee28a575ad785e707e01e4e7a64fb",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155937_T000006.csv",
+      "sha256": "d52d7bacd405bfd78db3dc74ff075db9dae13a974b88cb14006b29932433efde",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155734_T000002.csv",
+      "sha256": "77b6b15654a26c22dbd4717664e904cc7657c3bebab276d6845324151d5b732f",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_160031_T000009.csv",
+      "sha256": "7423e63bc9f5fa5b78b96fd3a069b29d58da9e8ac5282e55dc492bfd722fc7db",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_160042_T000010.csv",
+      "sha256": "62a455c844366bdc17664de9711a995fd0ebce0c0c01cd07a16bc312a875a979",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155948_T000007.csv",
+      "sha256": "e9ba992ecab1ba2e677c230e1597e221ee20adb50dbc124e194b6db36d230c5f",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155801_T000004.csv",
+      "sha256": "39e844fdb371a33d69eca901a2ead9b4a3cae8701319114e48cf8721043c839c",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155748_T000003.csv",
+      "sha256": "e91d5a4b80c89c3989c9292a65e77d33a11ca664da9fec3a6e4c408212e967fb",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155721_T000001.csv",
+      "sha256": "b49a314c3e446bc3b2d8944d3194c2bdc582887d2ea656c83797704fc0b0195a",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155906_T000005.csv",
+      "sha256": "1ba30ef6a69073b22ee85e6c0604957a3460e33b520fd0bde296bc3a50a27fb0",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    }
+  ],
+  "sets": 10,
+  "sd_pc_hashes_match": true,
+  "result": "OK"
+}

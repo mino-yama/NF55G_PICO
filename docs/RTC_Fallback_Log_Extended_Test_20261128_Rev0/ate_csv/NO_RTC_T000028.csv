@@ -1,0 +1,14 @@
+timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail
+,FIXTURE,,,TRIAL_START,,,,,,,,,trial_id=T000028
+,ATE,RX,,REQUEST,,,,,,,,,TEST_START
+,ATE,TX,,RESULT,,,,,,,,OK,TEST_START
+,ATE,RX,,REQUEST,,,,,,,,,*IDN?
+,ATE,TX,,RESULT,,,,,,,,"NF55G_PICO_FIXTURE,Rev.0",*IDN?
+,ATE,RX,,REQUEST,,,,,,,,,SD_STATUS?
+,ATE,TX,,RESULT,,,,,,,,OK,SD_STATUS?
+,ATE,RX,,REQUEST,,,,,,,,,PICO_SELF_CHECK?
+,ATE,TX,,RESULT,,,,,,,,NG:ATE_UART=OK;NF55_UART=UNAVAILABLE;RTC=UNAVAILABLE;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK,PICO_SELF_CHECK?
+,ATE,RX,,REQUEST,,,,,,,,,TEST_END
+,FIXTURE,,,SELF_CHECK,,,,,,,,NG:ATE_UART=OK;NF55_UART=UNAVAILABLE;RTC=UNAVAILABLE;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK,before log flush/close; final result available via PICO_SELF_CHECK?
+,FIXTURE,,,TRIAL_END_REQUEST,,,,,,,,,trial_id=T000028;reason=TEST_END
+,ATE,,,END_REQUEST,,,,,,,,,TEST_END pending flush/close; final outcome via ATE and self-check

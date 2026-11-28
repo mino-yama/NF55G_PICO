@@ -1,5 +1,11 @@
 # Pico Software Module / Interface Specification
 
+2026-11-28 RTCログ改修を親Picoへ配置。変更4件の読戻しとアプリ対象37件のSHA-256一致、実SDの仮ID保存・S/N付加・CONT分割・busy延期、ハードリセット後の最大47→48採番を確認。常駐処理再開・COM6解放済み。[配置・実SD結果](RTC_Fallback_Log_Deployment_20261128_Rev0/Result.md)。実電源OFF/ON、物理RTC未接続、途中電源断・量産Timingは未検証。以下のPico未配置の記載はソース実装時点の履歴。
+
+
+2026-11-28 RTC異常時ログ改善をソース実装。RTCなし／取得失敗／無効日時はNO_RTC_T番号.csvまたはNO_RTC_C番号.csvとし、S/N付加後もIDを保持。両BANKの確認済み番号最大値＋1を共用し、確認失敗時は採番・保存を行わない。全596件Host/Mock成功。Pico未配置・実カード電源断未検証。[実装・検証記録](RTC_Fallback_Log_Implementation_20261128_Rev0/Result.md)を参照。
+
+
 2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-23 QR/SSモジュール: `qr_write_session.QRWriteSession`がQR HOST GP9/115200診断フレーム、試行・取得ID・最初の完成値・照会済み状態を管理。`serial_data_from_qr`は承認済みSS50文字だけを生成する。mainの協調ループから有界pollし、明示QR_WRITEを共通dispatcherの内部SERIAL_SET_RAWへ渡す。SS正常応答DATA0／T2=100ms、既存DATA/INFO失効を共用。main.active_appは起動済みappを実機診断で再利用し、UART/SDの二重初期化を避ける。QR_HOST_ENABLEDは既定False、実配線済み親のみ有効化。[API・制約](QR_Hardware_Integration_20261123_01/SS_Workflow_Spec_20261123_Rev0.md)。
@@ -76,7 +82,7 @@ src/
 └─ models.py
 ```
 
-USB CDC command-console implementation is deferred. The output-only `ReplDebugSink` mirrors CSV rows accepted by the SD sink through pollable `sys.stdout` only when `config.REPL_LOG_ENABLED=True`; the default is False. It does not accept ATE commands or create a second command interface. A future `usb_console.py` may feed the shared command core, subject to ATE/NF55G priority and nonblocking output constraints.
+USB CDC command-console implementation is deferred. The output-only `ReplDebugSink` mirrors CSV rows accepted by the SD sink through pollable `sys.stdout` only when `config.REPL_LOG_ENABLED=True`; the default and production setting are True (user decision, 2026-11-28). False is a temporary setting for debug comparisons; restore True afterward. It does not accept ATE commands or create a second command interface. A future `usb_console.py` may feed the shared command core, subject to ATE/NF55G priority and nonblocking output constraints.
 
 ## USB HOST Wiring Scope (2026-11-19)
 
@@ -239,3 +245,5 @@ qr-fixed-20261114.1はGP0 TXのみ115200/8N1・既存76byte HEXレコードで�
 ユーザー指示によりQRは既存Host、7355は追加Hostとし、親Picoとの双方向UARTを独立2経路に分ける。1基板のnative＋PIO 2 Hostと、既存QR基板Type_C1の改造案は採用しない。親のATE UART0／NF55G UART1は維持し、PIO等のGPIO・SM・IRQ・bufferを確認してから割り当てる。経路別の起動識別・要求ID・取消・timeout・部分受信状態を持つ方針。ピン・baudrate・正式APIは未確定、診断TXを正式リンクに昇格させない。今回コード変更なし。[構成方針](USB_SubMCU_Host_Preparation_20261111/DMM_CDC_Preparation_20261114/Split_Host_Architecture_Rev0.md)。
 
 2026-11-27 calibration_guard.py: check_value(target, point, value_text, encoded)は保護正常でNone、不正設定でSETTINGS、範囲外でRANGEを返す。通信・Cache更新なし。calibration_limits.pyはPicoルート配置、起動時import／再起動反映。
+
+2026-11-28追加API：log_filename.log_identity(name)は認識できる名に(kind,number)、対象外にNoneを返す。日時CONTはnumber=0。sink.reserve_log_number(minimum=0)は確認済み最大番号の次を予約し、未確認・busy・SD異常でLoggerErrorを返す。Logger.snapshot_time()は有効時刻文字列またはNoneを返し、古いスナップショットを異常時に消去する。FileSDSink.namespace_readyは両BANKの確認完了後だけTrue。

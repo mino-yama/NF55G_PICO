@@ -1,0 +1,11 @@
+{
+  "source": "COM7 ATE HOST_INFO explicit repeat",
+  "pin": 12,
+  "duration_limit_seconds": 600,
+  "host_removed_by_operator": true,
+  "no_firmware_changes": true,
+  "status": "STOPPED_ERROR",
+  "error": "AssertionError('')",
+  "requests": 74,
+  "elapsed_seconds": 91.34
+}

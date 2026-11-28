@@ -8,8 +8,10 @@ import os
 
 try:
     from .logger import CSV_FIELDS, LoggerError
+    from .log_filename import log_identity
 except ImportError:
     from logger import CSV_FIELDS, LoggerError
+    from log_filename import log_identity
 
 
 def csv_line(values):
@@ -42,6 +44,8 @@ class FileSDSink:
         self.capacity_bytes = 0
         self.last_error = None
         self.trial_high_watermark = 0
+        self.log_high_watermark = 0
+        self.namespace_ready = False
 
     def _guard(self):
         if self.busy():
@@ -54,19 +58,21 @@ class FileSDSink:
 
     @staticmethod
     def _log_name(name):
-        if len(name) >= 26 and name[6] == '_' and all('0' <= c <= '9' for c in name[:6]):
-            name = name[7:]
-        # 旧日時名と新試行番号名の両方をBANK容量集計・循環対象にする。
-        if len(name) >= 27 and name[15:17] == '_T' and name.endswith('.csv'):
-            number = name[17:-4]
-            if len(number) < 6 or not all('0' <= c <= '9' for c in number):
-                return False
-            name = name[:15] + '.csv'
-        return (len(name) == 19 and name[8] == '_' and name.endswith('.csv')
-                and all('0' <= c <= '9' for c in name[:8] + name[9:15]))
+        return log_identity(name) is not None
+
+    def reserve_log_number(self, minimum=0):
+        self._guard()
+        if self.status != 'OK':
+            raise LoggerError(self.status)
+        if not self.namespace_ready:
+            raise LoggerError('MOUNT_ERR')
+        self.log_high_watermark = max(self.log_high_watermark, self.trial_high_watermark, minimum) + 1
+        return self.log_high_watermark
 
     # 所有マーカーと使用中BANKの記録を照合し、既存ログのある不明な領域は引き継がない。
     def _prepare_banks(self):
+        trial_max = self.trial_high_watermark
+        log_max = self.log_high_watermark
         ilistdir = getattr(self.fs, 'ilistdir', None)
         for bank in self.bank_bytes:
             path = self.root + '/' + bank
@@ -84,14 +90,22 @@ class FileSDSink:
             entries = ilistdir(path) if ilistdir else ((name,) for name in self.fs.listdir(path))
             for entry in entries:
                 name = entry[0]
-                if self._log_name(name):
+                self._guard()
+                identity = log_identity(name)
+                if identity is not None:
+                    # 一覧と同名のディレクトリは、番号集計・削除の対象にしない。
+                    if len(entry) >= 2 and entry[1] & 0x4000:
+                        continue
                     size = entry[3] if len(entry) >= 4 and entry[1] == 0x8000 else None
                     if not isinstance(size, int) or size < 0:
-                        size = self.fs.stat(path + '/' + name)[6]
+                        info = self.fs.stat(path + '/' + name)
+                        if info[0] & 0x4000:
+                            continue
+                        size = info[6]
                     total += size
-                    if '_T' in name:
-                        self.trial_high_watermark = max(self.trial_high_watermark,
-                                                        int(name.rsplit('_T', 1)[1][:-4]))
+                    log_max = max(log_max, identity[1])
+                    if identity[0] == 'T':
+                        trial_max = max(trial_max, identity[1])
             self.bank_bytes[bank] = total
         self.capacity_bytes = self.usage()['capacity_bytes']
         if self.capacity_bytes <= 0:
@@ -109,6 +123,10 @@ class FileSDSink:
         if active not in self.bank_bytes:
             raise OSError('invalid active bank record')
         self.bank = active
+        # 両BANK・所有マーカー・使用中BANKの確認がすべて完了してから採番を許可する。
+        self.trial_high_watermark = trial_max
+        self.log_high_watermark = log_max
+        self.namespace_ready = True
 
     def _save_bank(self, bank):
         self._guard()
@@ -128,11 +146,15 @@ class FileSDSink:
 
     def mount(self):
         self._guard()
+        self.namespace_ready = False
         try:
             self.fs.stat(self.root)
             self._prepare_banks()
             self.status = "OK"
-        except OSError as exc:
+        except (OSError, LoggerError) as exc:
+            if isinstance(exc, LoggerError):
+                self.status = 'MOUNT_ERR'
+                raise
             self._error("MOUNT_ERR", exc)
 
     def _rotate_bank(self):
@@ -141,6 +163,8 @@ class FileSDSink:
         for name in self.fs.listdir(path):
             self._guard()
             if self._log_name(name):
+                if self.fs.stat(path + '/' + name)[0] & 0x4000:
+                    continue
                 self.fs.remove(path + '/' + name)
         self.bank_bytes[other] = 0
         self._save_bank(other)
@@ -152,7 +176,11 @@ class FileSDSink:
             raise LoggerError(self.status)
         if not self._log_name(filename):
             raise LoggerError('FILENAME')
+        if not self.namespace_ready:
+            raise LoggerError('MOUNT_ERR')
         try:
+            # 循環削除より先に両BANKの同名を確認する。ENOENT以外を空き扱いしない。
+            self._assert_absent(filename)
             if self.bank_bytes[self.bank] >= self.capacity_bytes * 0.45:
                 self._rotate_bank()
             path = self.root + '/' + self.bank + '/' + filename
@@ -167,14 +195,27 @@ class FileSDSink:
             if usage['used_percent'] >= 90:
                 raise LoggerError('FULL')
             self.file = self.open_file(path, 'wb')
-            if '_T' in filename:
+            identity = log_identity(filename)
+            self.log_high_watermark = max(self.log_high_watermark, identity[1])
+            if identity[0] == 'T':
                 self.trial_high_watermark = max(self.trial_high_watermark,
-                                                int(filename.rsplit('_T', 1)[1][:-4]))
+                                                identity[1])
             self.open_filename = path
             self.file_bytes = 0
             self._write(csv_line(CSV_FIELDS))
         except OSError as exc:
             self._error('OPEN_ERR', exc)
+
+    def _assert_absent(self, filename):
+        for bank in self.bank_bytes:
+            self._guard()
+            try:
+                self.fs.stat(self.root + '/' + bank + '/' + filename)
+            except OSError as exc:
+                if getattr(exc, 'errno', exc.args[0] if exc.args else None) != 2:
+                    raise
+            else:
+                raise LoggerError('FILE_EXISTS')
 
     def _write(self, text):
         if self.file is None:
@@ -224,6 +265,7 @@ class FileSDSink:
             raise LoggerError('FILENAME')
         target = self.root + '/' + self.bank + '/' + filename
         try:
+            self._assert_absent(filename)
             try:
                 self.fs.stat(target)
             except OSError as exc:
@@ -272,6 +314,7 @@ class PicoSDSink(FileSDSink):
 
     def mount(self):
         self._guard()
+        self.namespace_ready = False
         self.last_error = None
         self.mount_stage = 'IMPORT'
         try:

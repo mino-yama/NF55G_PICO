@@ -1,0 +1,17 @@
+{
+  "version": "meter-host-relay-uartdiag-20261128.2",
+  "uf2": "docs\\7355_R3_Acceptance_20261128_Rev0\\uart_diagnostic_v2\\build\\meter_uart_diagnostic.uf2",
+  "sha256": "5701979a2b22aa01d6af8b563cb1d8472aca9bb81d03ed3e319df72ae5fe23c9",
+  "source_hashes": {
+    "CMakeLists.txt": "35b41dd2388f2b1fcdbb4dbb8b61b711415c6c037e8fe1f9b673f03b3ee140f8",
+    "main.c": "c4527dbff8989482ad5657463a0138a4a034a3dbf3a961f64b282e7ff900eaee",
+    "relay_host.c": "2df51232feb4f7323124dc9e3e88a095fe7368e73136fa2fb68791240a6df56a",
+    "relay_host.h": "1e5bf322ba1c9a786fb6f73e6717f67f4901f2a3d4f9f730ae5dee5876ca6c22",
+    "relay_wire.c": "ef58652a5f3092fd72d6cc775f7c2f918ccbef3c3a8bb0b9dfc8575f158ddccd",
+    "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+    "boards\\waveshare_rp2350_usb_a_host_eval.h": "317c7f4c936630be8081a4f208d6ceebec6be857c7e713d682eee269ac80ba1f"
+  },
+  "purpose": "input edge observation and HOST to parent diagnostic frame; no meter USB",
+  "deployed": false,
+  "meter_usb_must_be_disconnected": true
+}

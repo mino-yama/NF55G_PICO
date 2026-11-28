@@ -1,0 +1,6 @@
+{
+  "native_port": "COM25",
+  "ate_reply": "ERR:HOST_TIMEOUT\r",
+  "native_bytes": 483,
+  "native_text": "DIAG|id=BFCF2EDB84B0B37F;ms=121904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=122904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=123904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=124904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=125904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=126904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\nDIAG|id=BFCF2EDB84B0B37F;ms=127904;rx=1;tx=0;emit=0;reject=0;pin1=1\r\n"
+}

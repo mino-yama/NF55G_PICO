@@ -1,5 +1,14 @@
 # Logger / SD Card Specification
 
+2026-11-28追加実機テスト：隔離した実SDで異常系6件、PC COM7経由の通常UARTサーバー30試行＋CONT（215要求、drop0）、CSV31件・397行の14列／時刻空欄を確認。ユーザーの全給電OFF／ON後に仮ID1→2と旧ログ保全、RTC未再設定での時刻進行・OSF=0も確認。[追加実機結果](RTC_Fallback_Log_Extended_Test_20261128_Rev0/Result.md)。書込み途中の電源断、物理RTC未接続、量産ATE・複合負荷は未検証。
+
+
+2026-11-28 RTCログ改修を親Picoへ配置。変更4件の読戻しとアプリ対象37件のSHA-256一致、実SDの仮ID保存・S/N付加・CONT分割・busy延期、ハードリセット後の最大47→48採番を確認。常駐処理再開・COM6解放済み。[配置・実SD結果](RTC_Fallback_Log_Deployment_20261128_Rev0/Result.md)。実電源OFF/ON、物理RTC未接続、途中電源断・量産Timingは未検証。以下のPico未配置の記載はソース実装時点の履歴。
+
+
+2026-11-28 RTC異常時ログ改善をソース実装。RTCなし／取得失敗／無効日時はNO_RTC_T番号.csvまたはNO_RTC_C番号.csvとし、S/N付加後もIDを保持。両BANKの確認済み番号最大値＋1を共用し、確認失敗時は採番・保存を行わない。全596件Host/Mock成功。Pico未配置・実カード電源断未検証。[実装・検証記録](RTC_Fallback_Log_Implementation_20261128_Rev0/Result.md)を参照。
+
+
 2026-11-22 実装修正: ATE最終応答の送出完了後は同じservice_once内の既存has_work/通信busy判定へ進み、待ち要求・未送出応答・受信中の行がなければ既存Logger.serviceへ到達する。flush条件（1秒または32行）、32行の通常排出単位、通信中SD禁止は変更しない。同期SD I/O開始後に届くATE要求の遅延上限を新たに保証する変更ではない。連続burstでのSD排出飢餓を修正し、待ちATE優先の回帰試験を追加。
 
 通信仕様基準: `reference/RW11用電源通信仕様書r1.pdf`（GVT-284454-001-00、初版 2026/9/4）。基準切替日: 2026-09-07。D6は過去比較用。未確定事項・暫定値は引き続きOpen Issuesに従う。
@@ -116,17 +125,17 @@ Logger architecture supports:
 
 ### REPL/debug mirror (2026-11-13)
 
-- `src/config.py`の`REPL_LOG_ENABLED`で起動時に切替える。既定値は`False`でREPL sinkを生成せず、poll／USB stdout writeを行わない。デバッグ時に一時的に`True`へ変更して配置・再起動すると、TEST_START／LOG_CONT_START後にSD sinkが受理したCSV行を同じ14列・CSV escape形式でUSB REPL/debug sinkにも出力する。開始時にはCSV headerも出力Queueへ追加する。
+- `src/config.py`の`REPL_LOG_ENABLED`で起動時に切替える。既定値・量産運用設定は`True`とする（2026-11-28ユーザー確定）。TEST_START／LOG_CONT_START後にSD sinkが受理したCSV行を同じ14列・CSV escape形式でUSB REPL/debug sinkにも出力する。開始時にはCSV headerも出力Queueへ追加する。`False`はデバッグ比較用の一時設定であり、REPL sinkを生成せず、poll／USB stdout writeを行わない。
 - REPL出力はSD書込み後に複製し、NF55G通信中・ATE処理中は送信しない。`select.poll()`の書込可能通知をtimeout 0で確認し、1回のserviceにつき最大32文字だけ送る。REPL側Queueは4096 UTF-8 byteまでとする。
 - REPL未接続／非pollable、切断、Queue満杯の場合はREPLコピーを破棄する。SD記録とATE/NF55G処理は継続し、SD sinkを記録の正本とする。REPL drop数は`ReplDebugSink.drop_count`に保持し、ATEの`LOG_DROP_COUNT?`には合算しない。
-- USB書込み可能poll後の1回の`sys.stdout.write()`自体がUSB実装により待つ可能性までは排除できない。Timing影響を疑う比較や通常運用では`REPL_LOG_ENABLED=False`として再起動する。57600bps変更後の量産Timingは未測定。
+- USB書込み可能poll後の1回の`sys.stdout.write()`自体がUSB実装により待つ可能性までは排除できない。Timing影響の切分けでは一時的に`REPL_LOG_ENABLED=False`として配置・再起動できるが、比較後は量産設定の`True`へ戻して配置・再起動する。Hard Rule 17のATE最優先と非阻害要件は維持し、量産複合条件のTiming検証は設定確定とは別に継続する。
 - USB CDCはMicroPython REPLと共有される。REPLへ接続／`Ctrl+D`を送ると`MPY: soft reboot`が発生し、実行中アプリは再起動される。Thonnyは観察専用に使い、Shellへコマンドを入力しない。NF55G Transaction中のTiming影響は未確認。
 
 ### Thonnyでの実機確認手順（2026-11-13）
 
 1. ATE側COM19で必要な試験を終了し、`TEST_END`応答と`COMM_STATUS?`=`OK:state=IDLE`を確認する。TEST_START中の状態でThonny接続／soft rebootを行わない。
 2. COM6を使用しているmpremote等の監視プロセスを終了する。Thonnyとmpremoteから同じCOM6を同時に開かない。
-3. REPL表示試験時だけ`src/config.py`の`REPL_LOG_ENABLED=True`をPicoへ配置し、ThonnyでMicroPython (Raspberry Pi Pico)とCOM6を選んでShellを接続する。Shellに`MPY: soft reboot`が出た場合はMain再起動後の出力を待つ。必要時のsoft rebootはShellにフォーカスしてCtrl+Dを押す。これはMainとMicroPython状態を再起動する操作である。通常運用／Timing比較ではFalseへ戻して配置・再起動する。
+3. `src/config.py`の`REPL_LOG_ENABLED=True`（量産設定）を確認し、ThonnyでMicroPython (Raspberry Pi Pico)とCOM6を選んでShellを接続する。デバッグ比較で一時的にFalseへ変更していた場合はTrueへ戻して配置・再起動する。Shellに`MPY: soft reboot`が出た場合はMain再起動後の出力を待つ。必要時のsoft rebootはShellにフォーカスしてCtrl+Dを押す。これはMainとMicroPython状態を再起動する操作である。
 4. 通常起動後、ATE側COM19で`*IDN?`により治具応答を確認する。その後、ローカルな試験であれば`TEST_START`を送り、ATE要求／応答がCSV形式でThonny Shellにも流れることを確認する。個々のATEコマンドは前応答完了後に送信する。
 5. 確認後はATEから`TEST_END`を送り、`PICO_SELF_CHECK?`、`SD_STATUS?`、`LOG_DROP_COUNT?`、`COMM_STATUS?`を確認する。Thonny Shellでは入力やCtrl+C/Ctrl+Dを行わない。
 
@@ -256,3 +265,13 @@ QR原文・解析値・NF55G書込み結果をCSVへ記録する。異常停止�
 ## 2026-11-11 再START実機確認
 
 修正版配置後、SC→D0→取得→10秒→再STARTと3試行の独立CSVを確認。前2本はNEXT_TEST_START、最終TEST_END、SD／PC hash一致・全行14列・破棄0・最終保存診断正常。再STARTのPC往復163.3／200.2ms。QR命名・保存異常系・量産Timing全般の検証ではない。[実機結果](Test_Interruption_20261111/Hardware_Deployment_Result_20261111.md)。
+
+## 2026-11-28 RTC異常時の仮ID命名・採番（実装版）
+
+- 正常TESTはYYYYMMDD_HHMMSS_T番号.csv、正常CONTは従来日時名。RTC異常TESTはNO_RTC_T番号.csv、異常CONTはNO_RTC_C番号.csv。番号は6桁以上・巻戻しなし。S/N付加はTESTのflush/close後だけに行い、S/N＋開始名とする。CONTへの製品S/N流用は行わない。
+- log_filename.log_identity()をLogger／MemorySDSink／FileSDSinkで共用し、容量集計・循環・番号抽出を一致させる。名前の上限は255文字。正規名の0 byteファイルも使用済み番号に含め、同名ディレクトリは集計・削除しない。
+- マウント時に両BANKの所有・一覧・使用中BANKを確認し、完了後だけnamespace_readyと最大番号を確定。reserve_log_number()でRAM最大値・既存最大値・下限の最大＋1を予約する。確認失敗・SD異常で保存不能でも、従来どおり試験期間と受付OKを維持する。RAM試行IDをSDの確保済みIDとはみなさない。
+- 単一Logger運用。両BANKの同名確認は循環より先に行い、ENOENT以外を空きと扱わない。有番名は衝突時に再採番し最大8候補で停止。独立した同時書込み主体に対する原子的排他の保証は含めない。
+- logger.snapshot_time()は正常な暦・時刻だけをtimestamp_snapshotへ保持し、異常時は空欄へ戻す。RTC状態はrtc_filename_statusにOK/NO_RTC/READ_ERROR/INVALIDを保持。CSVは既存14列、ATE指令・応答は追加しない。実時刻・OSF・電池保持の判定まで暦検証だけで保証しない。
+- RTC途中復帰だけで開いたファイルを改名しない。CONT分割も共通採番経路を使用する。SD未確認時の初期値採番、試験中の再マウント、通信中のSD I/Oは追加しない。
+- 残存ログとの重複防止を対象とし、削除済みログ・交換済みSDまで含む永久欠番やFAT破損修復は保証しない。実機・運用受入はRTC-LOG-01～04で継続する。

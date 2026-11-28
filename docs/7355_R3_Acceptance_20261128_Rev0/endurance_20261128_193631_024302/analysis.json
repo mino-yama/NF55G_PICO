@@ -1,0 +1,62 @@
+{
+  "completed_trials": 400,
+  "read_responses": 400,
+  "read_min_mV": "39.2019000",
+  "read_max_mV": "39.2576000",
+  "test_start": {
+    "min_ms": 2703.0,
+    "median_ms": 6875.0,
+    "max_ms": 9218.0
+  },
+  "read_timing": {
+    "min_ms": 156.0,
+    "median_ms": 375.0,
+    "max_ms": 641.0
+  },
+  "max_ate_ms": 9218.0,
+  "meter_errors": {
+    "+0,\"No error\"": 400
+  },
+  "host_frame_kinds": {
+    "i": 2,
+    "A": 806,
+    "T": 806,
+    "R": 806
+  },
+  "session_values": [
+    "dd66808f914230a69290db097e8bb8ba"
+  ],
+  "drop_values": [
+    "0"
+  ],
+  "sd_values": [
+    "OK"
+  ],
+  "inter_trial_min_seconds": 1.048875,
+  "inter_trial_max_seconds": 1.08129,
+  "result": {
+    "started": "2026-11-28T19:36:31.024302+09:00",
+    "planned_trials": 400,
+    "completed_trials": 400,
+    "host_chipid": "73AD3A60D10514E9",
+    "inter_trial_delay_seconds": 1,
+    "meter_language": "adc",
+    "ate_selected_range_mV": 200,
+    "input_setpoint_mV": "40",
+    "ate_port": "COM7",
+    "host_rx_only": "COM23",
+    "host_version": "20261125.2",
+    "status": "TRIALS_COMPLETE_CSV_PENDING",
+    "csv_recovery": "PENDING",
+    "session": "dd66808f914230a69290db097e8bb8ba",
+    "adc_settings": {
+      "F?": "F01",
+      "INIC?": "INIC1",
+      "TRS?": "TRS0",
+      "R?": "R3",
+      "H?": "H0"
+    },
+    "conf": "ADC DCV R3, continuous/immediate",
+    "ended": "2026-11-28T20:40:04.247807+09:00"
+  }
+}

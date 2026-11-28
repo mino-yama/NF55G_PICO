@@ -1,0 +1,11 @@
+{
+  "status": "deployed_hil_verified_running",
+  "unique_id": "69f7d45962cfdfad",
+  "changed_files": 4,
+  "verified_files": 37,
+  "real_sd_hil": true,
+  "hardware_reset_verified": true,
+  "physical_power_off_test": false,
+  "product_commands_sent": false,
+  "original_rtc_config_unchanged": true
+}

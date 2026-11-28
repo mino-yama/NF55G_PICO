@@ -1,0 +1,56 @@
+{
+  "result": {
+    "status": "COMPLETE",
+    "input_setpoint_mV": "40",
+    "nf55_commands_sent": 0,
+    "host_chipid": "73AD3A60D10514E9",
+    "external_uart_monitor": true,
+    "cache_query_wire_silence_verified": true,
+    "host_before": "OK:HOST_INFO:73AD3A60D10514E9:meter-host-relay-20261125.2:9290DB097E8BB8BA:READY",
+    "direct_raw": "+039.2026E-03",
+    "acquisitions": 5,
+    "host_after": "OK:HOST_INFO:73AD3A60D10514E9:meter-host-relay-20261125.2:9290DB097E8BB8BA:READY",
+    "log_drop": "0"
+  },
+  "values": [
+    {
+      "target": "DISCHG_I",
+      "point": "A",
+      "token": "00000002-00000002-DISCHG_I-A",
+      "cache": "OK:CAL_MEASUREMENT:00000002-00000002-DISCHG_I-A:DISCHG_I:A:+039.2028E+00:mV:+039.2028E+00:A:2B3033392E32303238452D30330D0A",
+      "raw": "+039.2028E-03\r\n"
+    },
+    {
+      "target": "DISCHG_I",
+      "point": "B",
+      "token": "00000002-00000003-DISCHG_I-B",
+      "cache": "OK:CAL_MEASUREMENT:00000002-00000003-DISCHG_I-B:DISCHG_I:B:+039.2033E+00:mV:+039.2033E+00:A:2B3033392E32303333452D30330D0A",
+      "raw": "+039.2033E-03\r\n"
+    },
+    {
+      "target": "BATT_CHG",
+      "point": "A",
+      "token": "00000002-00000004-BATT_CHG-A",
+      "cache": "OK:CAL_MEASUREMENT:00000002-00000004-BATT_CHG-A:BATT_CHG:A:+039.2029E+00:mV:+039.2029E+00:A:2B3033392E32303239452D30330D0A",
+      "raw": "+039.2029E-03\r\n"
+    },
+    {
+      "target": "BATT_CHG",
+      "point": "B",
+      "token": "00000002-00000005-BATT_CHG-B",
+      "cache": "OK:CAL_MEASUREMENT:00000002-00000005-BATT_CHG-B:BATT_CHG:B:+039.2031E+00:mV:+039.2031E+00:A:2B3033392E32303331452D30330D0A",
+      "raw": "+039.2031E-03\r\n"
+    },
+    {
+      "target": "DISCHG_I",
+      "point": "A",
+      "token": "00000002-00000006-DISCHG_I-A",
+      "cache": "OK:CAL_MEASUREMENT:00000002-00000006-DISCHG_I-A:DISCHG_I:A:+039.2029E+00:mV:+039.2029E+00:A:2B3033392E32303239452D30330D0A",
+      "raw": "+039.2029E-03\r\n"
+    }
+  ],
+  "host_raw_bytes": 13315,
+  "host_frames": 163,
+  "frame_errors": 0,
+  "remaining_bytes": 0
+}

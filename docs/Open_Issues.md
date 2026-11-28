@@ -1,5 +1,59 @@
 # Open Issues
 
+2026-11-28 REPL量産設定の確定：ユーザー指示により`REPL_LOG_ENABLED=True`を既定値・量産運用設定とする。Falseはデバッグ時の一時変更であり、量産設定を未決定とは扱わない。Hard Rule 17のATE最優先・通信Timing非阻害は維持し、量産複合条件のTiming検証は別の未確認事項として継続する。過去のOFF配置・比較試験の記録は当時の履歴として保持する。[現行仕様](Logger_SD_Spec.md#multi-sink-logger)。
+
+2026-11-28 R3限定耐久の基準達成（関連OI全体はOpen継続）。配線修正後、R3・入力40 mVの校正用取得5件と400／400セットを完了。全計器エラー0、同一session、機器コマンド自動再送・試験中リセット・ログ欠落0。実SD CSV400件4,400行の個別照合、PC実ファイルSHA400件一致、回収後R3／HOST nonce／37件配置／自己診断／IDLEを確認。R3の400セットを未実施とは扱わない一方、実シャント精度・製品AD／AR通し・他機種・量産複合条件は残す。[最終結果](7355_R3_Acceptance_20261128_Rev0/Final_R3_Acceptance_Rev0.md)。以下の未開始・実行中記載は当時の履歴。
+
+2026-11-28 R3有効入力で再開（Open継続）。ユーザーが入力40 mVへ変更し診断COM23を接続。校正用取得5件でV→mV→A、原文／対象／A/B／ID、再取得・終了失効、再照会中HOST出力0を確認。HOST原文163フレームCRC等0、単発耐久1件と実SD CSV照合成功、Host／Mock596件とランナー模擬6件成功。R3・40 mVの400セットを別記録で実行中で、完了前に受入済みとはしない。実シャント・製品校正精度・AD／AR通しは今回の限定確認外。[取得と耐久開始](7355_R3_Acceptance_20261128_Rev0/Corrected_R3_Acquisition_Rev0.md)。
+
+2026-11-28 校正VERIFY方針（現行）：Pico内の書込み値／AR戻り値の一致比較を停止し、照合・分類・PASS/FAILはATE側だけで行う。旧`AD_VERIFY`／`AD_VERIFY_<回路>`は無送信拒否、明示`AR_READ_<回路> <A/B>`は選択点のADCとREF8原文を返すだけ。S1.14BのBATT_CHG A実測記録は0.50 A→REF8 `00000000`、1.85／1.86 A→`00000001`、2.25 A→`00000002`。したがってATEは対象試験の値域で0/1分類を行えるが、全回路・全範囲に一般化しない。1 Aちょうどを「1 A以下」と「1 A以上」の双方に含めないよう、ATEの境界条件を試験手順で一意にする。REF8表現・内部小数保持・補正反映はOI-04等で継続。
+
+2026-11-28 配線修正後の確認（関連OIはOpen継続）。ユーザーが量産治具化時のTX/RX逆接を修正後、管理通信・通常RESET新nonce／READY・7355 IDNが復旧。旧基板故障は立証していない。R3設定後の入力200 mVはOLで校正取得拒否・試行終了OK、入力40 mV変更と診断UART接続確認を依頼中。400セット実機は未開始。[復旧・再開記録](7355_R3_Acceptance_20261128_Rev0/Corrected_Wiring_Recovery_Rev0.md)。
+
+2026-11-28 HOSTオシロ観測（Open）。ユーザーがHOST取り外しで親GP12の波形を確認、GP13はHigh。この条件のGP13 Highは受信故障の根拠にしない。反復INFO74回後のATE無応答は親RSTで正常復帰、原因は未確定。HOST再接続後は10回だけINFOを送り、全回管理timeout・最後IDLEで停止。HOST GP1の波形到達は観測回答待ち。[最新記録](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/scope_host_gp1_01/README.md)。
+
+2026-11-28 交換HOST受信端比較（Open）。電源はユーザー実測3.3 V／5.0 V正常。親GP12を低／高各30秒へ切替え、親デジタル読戻し0→1だがHOST GP1―GNDは両区間3.28 Vとの回答。親低レベルに追従しておらず信号経路・端子対応・共通GNDを確認する。PIO復元済み、信号2経路＋GNDの無給電Ω測定待ち。断線箇所やHOST故障は未確定。[比較結果](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/Rx_Level_Comparison_Rev0.md)。
+
+2026-11-28 交換HOST継続調査（Open）。PIOを介さず同じ親GP12/13のハードウェアUARTで情報要求1件を送ったが受信0。CRC／新ID／challengeは正常。ATEとGPIO／PIO復元後も通常INFO timeout、IDLE／SD OK／drop0。PIOだけが原因とは絞れず、通常給電時の5V／3V3実測を依頼中。保存済み製品コードとHOST FWは変更なし。[比較結果](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/UART_Comparison_Rev0.md)。
+
+2026-11-28 HOST交換後（Open）。新個体73AD3A60D10514E9へ通常.25.2配置・独立verify、親の個体ID更新・再起動後の実行中IDと37件SHA一致を確認。fault=False・待機、通常ATE経由のHOST_INFOはtimeout。旧ID設定残りによる拒否は実行中値で除外したが、無応答原因は未確定。R3校正取得・400セットは未開始。[交換結果](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/Result.md)。
+
+2026-11-28 HOST復旧追加診断（Open）。固定接続で親要求のHOST受信増分なし、HOSTの診断応答書込み時も親UART受信0。内部送信計数と端子実信号は未同定。親GP12は待機後のlow／high読戻し正常・PIO復元済み。元FW全Flashへ復元・verify後もHOST_INFO timeout、IDLE／SD OK／drop0、中継fault=True。無給電導通3経路の測定を依頼し操作停止中。原因は未確定、R3校正取得・400セット未開始。[最新記録](7355_R3_Acceptance_20261128_Rev0/Host_Recovery_Rev0.md)。
+
+2026-11-28 7355通常構成復帰後（Open）。コネクタ再装着・通常構成復帰との回答後もHOST_INFO timeout、親IDLE／SD OK／drop0。親nonceは不変で、今回の全給電OFFによる新規起動は未観測。UART単体診断後の元FW全2 MiB復元・verifyは完了、Host／Mock596件成功。R3校正取得・400セットは未開始。同じ照会・再装着の反復を止め、信号2経路と共通GNDの実導通確認を次段とする。原因は未確定。[現時点結果](7355_R3_Acceptance_20261128_Rev0/Result.md)。
+
+2026-11-28 7355 R3事前診断続報（Open）。固定基板・コネクタ接続とのユーザー補足を受け、親37件SHA一致・親通常再起動・7355 USB未接続を確認したがHOST_INFOはtimeout。USB処理なしのUART単体診断候補を一時配置し、native USBでHOST起動継続を確認。親の照会時もHOST自身のrx=1から増加なし、tx=0・emit=0。終了後は退避全2 MiBへ復元・独立verify・.25.2版確認済み。原因未確定、通常構成復帰待ち。R3校正取得と400セットは未開始。[診断結果](7355_R3_Acceptance_20261128_Rev0/Software_Isolation_Rev0.md)。
+
+2026-11-28 7355 R3（200 mV）受入の事前診断（Open）。入力源設定200 mVをユーザー確認。親IDLE・SD OK・drop0だが、既知測定器HOSTのINFOがRST／配線確認後もtimeout。BOOTSELで既知個体・.25.2を確認、全Flash退避・verify、既知UF2の198ブロック一致。FW未変更。親GP12で正しい情報要求141バイトを実受信確認したがHOST応答は未確認。R3校正取得・400セットは未開始で、HOST無応答原因を断定しない。[計画・診断証跡](7355_R3_Acceptance_20261128_Rev0/Plan.md)。
+
+2026-11-28 OI-23 SS／D5追加確認（Open）。接続済みS1.14Bで実QR B→通常ATE QR_WRITE→明示INFO_REFRESHを確認。UNIT REV `A03 `・LOT `2601`・号機 `000002`と他86バイト保持が一致し、開始時D5全100バイトへ復元・独立再照会済み。SD CSV69行14列SHA一致、配置37件一致、自己診断全OK・drop0。初回は監視出力混在でPCタイムアウトし復元済み、別試行で完了。以下の同日30セット時点のSS／D5未実施記載はその時点の履歴。RSTなし起動、初回HID前遅延、量産ATE受入・複合負荷等は継続。[追加結果](QR_Production_Integration_20261128_Rev0/product_02/Result.md)。
+
+2026-11-28 OI-23 実機配置・30セット（Open）。親arm有効＋QR HOST双方向候補で、PC COM7→通常ATE UART入口／実SD／実スキャナーの通常20・旧QR排除10セット成功。同一ID破棄応答後にBだけを取得し、原文・SS候補一致、旧ID失効、drop0、CSV30件SHA一致。RAM試験ハーネス使用、製品UART未割当、SS送信0件。RST後の実績でありRSTなし起動・初回HID前遅延・実製品SS／D5・量産ATE受入と複合負荷は継続。[結果](QR_Production_Integration_20261128_Rev0/Result.md)。過去日付の30セット未実施記載は当時の履歴。
+
+2026-11-28追加実機テスト：隔離した実SDで異常系6件、PC COM7経由の通常UARTサーバー30試行＋CONT（215要求、drop0）、CSV31件・397行の14列／時刻空欄を確認。ユーザーの全給電OFF／ON後に仮ID1→2と旧ログ保全、RTC未再設定での時刻進行・OSF=0も確認。[追加実機結果](RTC_Fallback_Log_Extended_Test_20261128_Rev0/Result.md)。書込み途中の電源断、物理RTC未接続、量産ATE・複合負荷は未検証。
+
+
+2026-11-28 RTCログ改修を親Picoへ配置。変更4件の読戻しとアプリ対象37件のSHA-256一致、実SDの仮ID保存・S/N付加・CONT分割・busy延期、ハードリセット後の最大47→48採番を確認。常駐処理再開・COM6解放済み。[配置・実SD結果](RTC_Fallback_Log_Deployment_20261128_Rev0/Result.md)。実電源OFF/ON、物理RTC未接続、途中電源断・量産Timingは未検証。以下のPico未配置の記載はソース実装時点の履歴。
+
+
+2026-11-28 RTC異常時ログ改善をソース実装。RTCなし／取得失敗／無効日時はNO_RTC_T番号.csvまたはNO_RTC_C番号.csvとし、S/N付加後もIDを保持。両BANKの確認済み番号最大値＋1を共用し、確認失敗時は採番・保存を行わない。全596件Host/Mock成功。Pico未配置・実カード電源断未検証。[実装・検証記録](RTC_Fallback_Log_Implementation_20261128_Rev0/Result.md)を参照。
+
+RTC-LOG-01～03の書式案・共通採番・時刻空欄・I/O拒否を改修版へ反映した。実装した内容を未実装とは扱わない一方、Pico実行・実電源断・FAT API・応答時間・正式運用は未受入のためOpenを維持する。RTC-LOG-04の永久欠番・CONT製品別S/Nは未追加。下記11月27日の資料整理記載は当時の履歴。
+
+DEV-RTC-01追記（2026-11-28）：保存後の全給電OFF／ON完了というユーザー回答を受け、RTC_SETなしで15:20:42→15:21:51、status=0x09／OSF=0を確認した。観測間隔は69秒だが実際の無給電時間は未測定。今回1回の追加保持実績とし、VBAT・長時間保持等はOpen継続。
+
+## 2026-11-27 RTC異常時の仮IDログ改善（資料整理・未実装）
+
+RTCなしではログ名不整合により保存できないことをHostで確認済み。ユーザー指定により、両BANKの既存ログから最大番号＋1を採番し、シリアルNo.付きへの変更後も仮IDを保持する方向で改善する。作成時の衝突確認・上書き禁止、SD確認失敗を未使用と判断しない方針を保持する。詳細は[改善資料Rev.0](RTC_Fallback_Log_ID_Improvement_Plan_20261127_Rev0.md)、事実確認は[不具合確認結果](RTC_Missing_Logger_Review_20261127_Rev0.md)。資料整理のみで、コード・実機は未変更。
+
+| ID | 残事項 | 状態 |
+|---|---|---|
+| RTC-LOG-01 | 正式な仮ID書式・桁数・trial_idとの対応・TEST／CONT番号共用と上限。既存最大値＋1と仮ID保持はユーザー指定済み。 | Open |
+| RTC-LOG-02 | RTC取得失敗・無効日時、時刻不明のCSV表記・診断・正式エラー。 | Open |
+| RTC-LOG-03 | 採番・作成・名前変更API、電源断時の保全、SD確認失敗時の受付と保存状態。 | Open |
+| RTC-LOG-04 | 削除済みログ・別SDも含めた永久欠番と、CONTへのシリアルNo.関連付けの要否。今回の範囲へ独断で追加しない。 | Open |
+
+
 2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 2026-11-27ユーザー確認：可読性・修正容易性を重視したPython定数ファイルを、Picoプログラムから参照する方式に確定。上下限の正本はcalibration_limits.pyへ集約し、処理側に数値を重複記述しない。[改版案Rev.2](Calibration_AB_Revision_Plan_20261127_Rev2.md)へ反映。方式の再確認は不要。読込み・更新反映等の詳細と組込み実装は許可待ちのまま。今回の変更は文書のみ。

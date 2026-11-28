@@ -1,0 +1,8 @@
+{
+  "uid": "73AD3A60D10514E9",
+  "version": "meter-host-relay-20261125.2",
+  "uf2_sha256": "088e6e2a11b2ea333e9de66af34dfe2558ab5d2c7a9ffbc6368110329d7035e4",
+  "backup_verified": true,
+  "flash_verified": true,
+  "left_in_bootsel": true
+}

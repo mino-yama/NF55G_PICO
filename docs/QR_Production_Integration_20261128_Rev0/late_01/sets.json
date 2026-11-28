@@ -1,0 +1,372 @@
+[
+  {
+    "set": 1,
+    "token": "Q17d48ed613cdfcd5-00000001-00000001",
+    "host_id": "17D48ED613CDFCD500000001",
+    "progress": {
+      "health": [
+        520281921,
+        1253512,
+        0,
+        64,
+        24839,
+        13
+      ],
+      "kind": 14,
+      "seq": 1335,
+      "ms": 1256575,
+      "pc_time": 282303.0
+    },
+    "ack": {
+      "seq": 1337,
+      "ms": 1257712,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000001",
+      "kind": 16,
+      "pc_time": 282304.125
+    },
+    "text": {
+      "seq": 1344,
+      "ms": 1264111,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000001",
+      "kind": 17,
+      "pc_time": 282310.546
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 2,
+    "token": "Q17d48ed613cdfcd5-00000002-00000002",
+    "host_id": "17D48ED613CDFCD500000002",
+    "progress": {
+      "health": [
+        526473880,
+        1268512,
+        0,
+        66,
+        25774,
+        13
+      ],
+      "kind": 14,
+      "seq": 1352,
+      "ms": 1271575,
+      "pc_time": 282317.984
+    },
+    "ack": {
+      "seq": 1353,
+      "ms": 1272238,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000002",
+      "kind": 16,
+      "pc_time": 282318.64
+    },
+    "text": {
+      "seq": 1360,
+      "ms": 1277953,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000002",
+      "kind": 17,
+      "pc_time": 282324.406
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 3,
+    "token": "Q17d48ed613cdfcd5-00000003-00000003",
+    "host_id": "17D48ED613CDFCD500000003",
+    "progress": {
+      "health": [
+        531849811,
+        1281512,
+        0,
+        68,
+        26427,
+        13
+      ],
+      "kind": 14,
+      "seq": 1367,
+      "ms": 1284575,
+      "pc_time": 282331.015
+    },
+    "ack": {
+      "seq": 1369,
+      "ms": 1285606,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000003",
+      "kind": 16,
+      "pc_time": 282332.015
+    },
+    "text": {
+      "seq": 1374,
+      "ms": 1290145,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000003",
+      "kind": 17,
+      "pc_time": 282336.593
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 4,
+    "token": "Q17d48ed613cdfcd5-00000004-00000004",
+    "host_id": "17D48ED613CDFCD500000004",
+    "progress": {
+      "health": [
+        559683216,
+        1348512,
+        0,
+        70,
+        27411,
+        13
+      ],
+      "kind": 14,
+      "seq": 1436,
+      "ms": 1351575,
+      "pc_time": 282397.984
+    },
+    "ack": {
+      "seq": 1437,
+      "ms": 1351981,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000004",
+      "kind": 16,
+      "pc_time": 282398.39
+    },
+    "text": {
+      "seq": 1442,
+      "ms": 1356226,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000004",
+      "kind": 17,
+      "pc_time": 282402.671
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 5,
+    "token": "Q17d48ed613cdfcd5-00000005-00000005",
+    "host_id": "17D48ED613CDFCD500000005",
+    "progress": {
+      "health": [
+        563801943,
+        1358512,
+        0,
+        72,
+        28250,
+        13
+      ],
+      "kind": 14,
+      "seq": 1448,
+      "ms": 1361575,
+      "pc_time": 282407.984
+    },
+    "ack": {
+      "seq": 1449,
+      "ms": 1361791,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000005",
+      "kind": 16,
+      "pc_time": 282408.203
+    },
+    "text": {
+      "seq": 1475,
+      "ms": 1386988,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000005",
+      "kind": 17,
+      "pc_time": 282433.421
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 6,
+    "token": "Q17d48ed613cdfcd5-00000006-00000006",
+    "host_id": "17D48ED613CDFCD500000006",
+    "progress": {
+      "health": [
+        577096635,
+        1390512,
+        0,
+        74,
+        28732,
+        13
+      ],
+      "kind": 14,
+      "seq": 1482,
+      "ms": 1393575,
+      "pc_time": 282439.968
+    },
+    "ack": {
+      "seq": 1484,
+      "ms": 1394674,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000006",
+      "kind": 16,
+      "pc_time": 282441.093
+    },
+    "text": {
+      "seq": 1488,
+      "ms": 1398268,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000006",
+      "kind": 17,
+      "pc_time": 282444.718
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 7,
+    "token": "Q17d48ed613cdfcd5-00000007-00000007",
+    "host_id": "17D48ED613CDFCD500000007",
+    "progress": {
+      "health": [
+        587459747,
+        1415512,
+        0,
+        76,
+        29494,
+        13
+      ],
+      "kind": 14,
+      "seq": 1509,
+      "ms": 1418575,
+      "pc_time": 282465.0
+    },
+    "ack": {
+      "seq": 1511,
+      "ms": 1419715,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000007",
+      "kind": 16,
+      "pc_time": 282466.125
+    },
+    "text": {
+      "seq": 1516,
+      "ms": 1423864,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000007",
+      "kind": 17,
+      "pc_time": 282470.312
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 8,
+    "token": "Q17d48ed613cdfcd5-00000008-00000008",
+    "host_id": "17D48ED613CDFCD500000008",
+    "progress": {
+      "health": [
+        591575234,
+        1425512,
+        0,
+        78,
+        30339,
+        13
+      ],
+      "kind": 14,
+      "seq": 1521,
+      "ms": 1428575,
+      "pc_time": 282475.015
+    },
+    "ack": {
+      "seq": 1522,
+      "ms": 1429510,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000008",
+      "kind": 16,
+      "pc_time": 282475.921
+    },
+    "text": {
+      "seq": 1535,
+      "ms": 1440625,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000008",
+      "kind": 17,
+      "pc_time": 282487.078
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 9,
+    "token": "Q17d48ed613cdfcd5-00000009-00000009",
+    "host_id": "17D48ED613CDFCD500000009",
+    "progress": {
+      "health": [
+        599435755,
+        1444512,
+        0,
+        80,
+        31222,
+        13
+      ],
+      "kind": 14,
+      "seq": 1542,
+      "ms": 1447575,
+      "pc_time": 282493.984
+    },
+    "ack": {
+      "seq": 1543,
+      "ms": 1448188,
+      "discard": 1,
+      "id": "17D48ED613CDFCD500000009",
+      "kind": 16,
+      "pc_time": 282494.609
+    },
+    "text": {
+      "seq": 1548,
+      "ms": 1451626,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD500000009",
+      "kind": 17,
+      "pc_time": 282498.078
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  },
+  {
+    "set": 10,
+    "token": "Q17d48ed613cdfcd5-0000000A-0000000A",
+    "host_id": "17D48ED613CDFCD50000000A",
+    "progress": {
+      "health": [
+        602725764,
+        1452512,
+        0,
+        82,
+        31972,
+        13
+      ],
+      "kind": 14,
+      "seq": 1552,
+      "ms": 1455575,
+      "pc_time": 282501.984
+    },
+    "ack": {
+      "seq": 1553,
+      "ms": 1456267,
+      "discard": 1,
+      "id": "17D48ED613CDFCD50000000A",
+      "kind": 16,
+      "pc_time": 282502.671
+    },
+    "text": {
+      "seq": 1558,
+      "ms": 1459810,
+      "text": "US250A-CGXE-009491-101A032601000002",
+      "id": "17D48ED613CDFCD50000000A",
+      "kind": 17,
+      "pc_time": 282506.25
+    },
+    "source": "REAL_SCANNER",
+    "drop": 0
+  }
+]

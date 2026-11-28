@@ -1,0 +1,37 @@
+{
+  "status": "extended_tests_passed_app_resumed",
+  "fault_cases": 6,
+  "uart_trials": 30,
+  "uart_requests": 215,
+  "uart_csv_files": 31,
+  "uart_data_rows": 397,
+  "power_cycle_user_report": "再投入完了",
+  "ram_restart_verified": true,
+  "power_id_before": 1,
+  "power_id_after": 2,
+  "power_old_file_preserved": true,
+  "power_csv_checks": [
+    {
+      "file": "000001_NO_RTC_T000001.csv",
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "000002_NO_RTC_T000002.csv",
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    }
+  ],
+  "rtc_observation_seconds": 69.0,
+  "host_observation_seconds": 69.279776,
+  "power_off_duration_seconds": null,
+  "rtc_osf_before": 0,
+  "rtc_osf_after": 0,
+  "rtc_set_executed": false,
+  "physical_rtc_disconnected": false,
+  "during_write_power_cut": false,
+  "product_uart_assigned_to_test_app": false,
+  "production_code_changed": false
+}

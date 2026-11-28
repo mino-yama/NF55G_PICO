@@ -1,0 +1,32 @@
+[
+  {
+    "command": "*IDN?",
+    "response": "NF55G_PICO_FIXTURE,Rev.0\r",
+    "elapsed_ms": 15,
+    "raw_hex": "4e463535475f5049434f5f464958545552452c5265762e300d"
+  },
+  {
+    "command": "COMM_STATUS?",
+    "response": "OK:state=IDLE\r",
+    "elapsed_ms": 0,
+    "raw_hex": "4f4b3a73746174653d49444c450d"
+  },
+  {
+    "command": "SD_STATUS?",
+    "response": "OK\r",
+    "elapsed_ms": 0,
+    "raw_hex": "4f4b0d"
+  },
+  {
+    "command": "LOG_DROP_COUNT?",
+    "response": "0\r",
+    "elapsed_ms": 15,
+    "raw_hex": "300d"
+  },
+  {
+    "command": "HOST_INFO? METER",
+    "response": "ERR:HOST_TIMEOUT\r",
+    "elapsed_ms": 1016,
+    "raw_hex": "4552523a484f53545f54494d454f55540d"
+  }
+]

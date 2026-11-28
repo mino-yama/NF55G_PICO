@@ -237,7 +237,7 @@ class FixtureApp:
         now = self.clock.ticks_ms()
         if self.rtc is not None and now - self._last_rtc_sample >= 1000:
             try:
-                self.logger.timestamp_snapshot = self.rtc.datetime()
+                self.logger.snapshot_time()
             except (ValueError, OSError):
                 self.logger.timestamp_snapshot = ''
             self._last_rtc_sample = now

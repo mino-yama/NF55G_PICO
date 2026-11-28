@@ -1,0 +1,20 @@
+{
+  "status": {
+    "drop": 0,
+    "active": false,
+    "busy": false,
+    "data": "53312e31344230303031303030313030303030313030303030303030303030303030303030303030303030303030303030303130323030304630463332313332343234303030343135303535353530323637303030303030303030303030303030303030",
+    "file": "/sd/BANK_A/000002_20261128_161219_T000994.csv",
+    "check": "OK:ATE_UART=OK;NF55_UART=OK;RTC=OK;LOGGER=OK;TEST_LOGGER=OK;TEST_LOG_DROP=OK"
+  },
+  "firmware37_match": true,
+  "sd_pc_sha256": "8069cf8e044434280aeb2c3610c6a4a8e08a298073ca54a502a372049ca68200",
+  "csv": "000002_20261128_161219_T000994.csv",
+  "csv_rows": 69,
+  "columns": 14,
+  "ss_frames": 1,
+  "written_unit": "A03 2601000002",
+  "other86_bytes_unchanged": true,
+  "final100_bytes_restored": true,
+  "result": "OK"
+}

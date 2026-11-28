@@ -1,0 +1,10 @@
+{
+  "path": "/sd/rtc_debug_20261128_rev0/BANK_A/000002_NO_RTC_T000048.csv",
+  "original_logs_preserved": true,
+  "sd_status": "OK",
+  "drop_count": 0,
+  "filename": "000002_NO_RTC_T000048.csv",
+  "real_rtc": "20261128_151241",
+  "number": 48,
+  "sha256": "73e3f4e019717454416c2218a97c8308f76a07c77a54d3e8cb480e3c364ecebb"
+}

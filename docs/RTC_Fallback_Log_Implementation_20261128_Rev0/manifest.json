@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-28",
+  "revision": "Rev0",
+  "status": "prepared_not_deployed",
+  "device_unique_id": "69f7d45962cfdfad",
+  "files": [
+    {
+      "source": "src/log_filename.py",
+      "target": "/src/log_filename.py",
+      "bytes": 1028,
+      "sha256": "7f81072fed893463f32fd3a8f64e9af6b69842a875b6d41c8b23a290955673be",
+      "expected_before": null
+    },
+    {
+      "source": "src/logger.py",
+      "target": "/src/logger.py",
+      "bytes": 18403,
+      "sha256": "3573a82ddf4ad19938f0d41c60ab7e4f26e3d0be56b508547d0ae68cfc541569",
+      "expected_before": "4898bcfde0568ecc7a38ab0eab8288b949fff296bd6b497badc57793ef6a90dd"
+    },
+    {
+      "source": "src/sd_sink.py",
+      "target": "/src/sd_sink.py",
+      "bytes": 14013,
+      "sha256": "73831a90e834d06a0ff3ab1fdf28ea8a4d7d0ff01311f830a0cb1ba2b382ed2c",
+      "expected_before": "3bfec110ad9b5b51f5f25155e22c04a0b688ef86d70c1263232dd2ed9c92866e"
+    },
+    {
+      "source": "src/main.py",
+      "target": "/src/main.py",
+      "bytes": 24140,
+      "sha256": "d20dc3340e99fa26f122a7d092a648e8828b61cc268b7ec2c4e597282badb925",
+      "expected_before": "f1fb004aabf28747b19d8c9effe2e884cb75b9ee4ed716d46a0a3fce29a6a9c9"
+    }
+  ],
+  "expected_dependencies": {
+    "/src/rtc_driver.py": "7fe2ab36e054a07bb0ae5d77240d1810995c60accf328129f5e97ae6c6026254"
+  },
+  "config_policy": "Keep current device config byte for byte; excluded from payload",
+  "hardware_tests": "not_run",
+  "host_mock_tests": {
+    "count": 596,
+    "seconds": 20.159,
+    "result": "OK",
+    "new_rtc_cases": 21
+  }
+}

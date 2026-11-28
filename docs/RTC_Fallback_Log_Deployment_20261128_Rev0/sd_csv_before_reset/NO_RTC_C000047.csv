@@ -1,0 +1,3 @@
+timestamp,category,direction,cmd,event,raw_ascii,raw_hex,bcc_rx,bcc_calc,bcc_ok,cmd_retry,rsp_retry,result,detail
+,HIL,,,ROLLOVER_NONE,,,,,,,,,
+,HIL,,,BUSY_DEFER,,,,,,,,,

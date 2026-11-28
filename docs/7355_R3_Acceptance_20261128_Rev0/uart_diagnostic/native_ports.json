@@ -1,0 +1,26 @@
+[
+  {
+    "device": "COM7",
+    "vid": 1390,
+    "pid": 20484,
+    "serial": ""
+  },
+  {
+    "device": "COM6",
+    "vid": 11914,
+    "pid": 5,
+    "serial": "69F7D45962CFDFAD"
+  },
+  {
+    "device": "COM25",
+    "vid": 11914,
+    "pid": 9,
+    "serial": "BFCF2EDB84B0B37F"
+  },
+  {
+    "device": "COM23",
+    "vid": 6790,
+    "pid": 21795,
+    "serial": ""
+  }
+]

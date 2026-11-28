@@ -1,5 +1,38 @@
 # Test Specification / Mock NF55G Specification
 
+2026-11-28 R3限定受入完了：ADC／DCV／R3（200 mVレンジ）・入力設定40 mV・セット間1秒で400／400セットを同一session・無リセット完了。ERR?全400件0、A/T/R相関・CRC等異常0、全セットSD／TEST_LOGGER／TEST_LOG_DROP正常・drop0。実SD CSV400件14列4,400行の開始終了／ATE原文／SHAとPC実ファイルSHA全件一致。回収後のR3／HOST同じnonce／自己診断／配置37件一致・常駐再開を確認。実シャント・製品校正精度・AD／AR通し等とは区別する。[基準・数値・証跡](7355_R3_Acceptance_20261128_Rev0/Final_R3_Acceptance_Rev0.md)。
+
+2026-11-28 R3・入力源40 mV：DISCHG_I／BATT_CHGのA/Bと同点再取得の5件で、V原文→mV→Aの厳密換算、対象・点・ID・原文CRLF、再照会不変とHOST出力0、再取得旧ID拒否・終了失効を確認。診断原文13,315バイト163フレームは独立CRC検査0エラー。単発耐久1件と実SD CSV照合成功。Host／Mock596件・ランナー模擬6件成功、400セットは別記録で実行中。[取得・開始記録](7355_R3_Acceptance_20261128_Rev0/Corrected_R3_Acquisition_Rev0.md)。
+
+2026-11-28 校正照合責任：VERIFY比較はPico機能として停止する。旧`AD_VERIFY`系コマンドが無送信で拒否されること、明示`AR_READ_<回路> <A/B>`が選択点のADCとREF8原文を返すだけであること、比較・0/1分類・製品判定をATE側のみが行うことを回帰試験する。AR_READ後もAR CacheをVALIDにしない。Host/Mock全597件成功。
+
+2026-11-28 配線修正後：新HOST管理通信復旧、通常RESETの新nonce・READYと7355 IDN32バイト一致を確認。R3設定読戻し後の入力200 mVはOLとなり、校正Cache採用拒否・TEST_END=OK。40 mVへ変更依頼中。新個体ID引数の耐久模擬6件成功、旧IDでは試行開始しない。実機400セット未開始。[復旧証跡](7355_R3_Acceptance_20261128_Rev0/Corrected_Wiring_Recovery_Rev0.md)。
+
+2026-11-28 HOST波形観測：HOST取り外しで親GP12波形あり／GP13 Highをユーザー確認。反復INFO74回後のATE空応答と親RST後の正常復帰を別記録。HOST再接続・GP1観測準備後は10回へ限定し、全回ERR:HOST_TIMEOUT、最後IDLEを確認。HOST端波形は回答待ちで、送信指令受理と物理信号到達を分けて扱う。[実測記録](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/scope_host_gp1_01/README.md)。
+
+2026-11-28 交換HOST受信端比較：待機中の親GP12を一時SIO出力で低／高各30秒へ固定し、20 ms待機後の親読戻し0／1とHOST GP1の手動電圧を対比。ユーザー測定値は両区間3.28 V。PIO CTRL=7・TX activeと常駐処理を復元。初回15秒条件は再実施指示によりHOST電圧値未採用。R3測定は実行せず、原因箇所は未確定。[結果・記録](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/Rx_Level_Comparison_Rev0.md)。
+
+2026-11-28 交換HOSTのPIO依存分離：親UART0を保守中だけGP12/13・115200/8N1へ切替え、CRC／新ID／challengeが正しい情報要求1件を送信。1,500 msで受信0。ATE57600/GP0/1とGPIO／パッド／PIO IRQ・activeを復元し、COM7占有解除後のATE正常応答を確認。通常INFO timeoutが継続し、給電実測待ち。製品指令・R3測定なし。[実機結果](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/UART_Comparison_Rev0.md)。
+
+2026-11-28 HOST交換時配置確認：新個体73AD3A60D10514E9を識別し元Flash全2 MiB退避・verify、通常.25.2 load -v・独立verify・版読戻し。親の接続先IDだけを変更し、事前compile・読戻し・再起動後の実行中新ID・37件SHA一致を確認。通常ATE経由INFOはtimeoutのため復旧判定しない。補助COM23欠落で停止した初回と、補助を任意扱いにした本経路の失敗は別記録。[結果](7355_R3_Acceptance_20261128_Rev0/host_replacement_01/Result.md)。
+
+2026-11-28 HOST両方向診断：USB処理なしの一時候補で、親の141バイト要求時にHOST UART受信増分なし。native USB起点の診断応答書込みに同期して親UART受信0・GP13サンプル変化0を記録した。内部書込み計数と端子実信号は区別する。親GPIO12の20 ms待機後low／high読戻し・PIO設定復元を確認。一時候補は元の全Flashへ復元・verify済みだが通常INFOは未復旧。R3測定・400セットには加算しない。[復旧記録](7355_R3_Acceptance_20261128_Rev0/Host_Recovery_Rev0.md)。
+
+2026-11-28 7355 R3事前切り分け：親37件SHA一致、HOST現行.25.2全Flash退避・既知UF2一致、UART単体診断でHOST起動と親照会時のUART受信増加なしを確認。元の全Flash復元・verify済み。通常構成復帰後もINFO timeout、IDLE／SD OK／drop0。R3校正取得・400セットは未開始。R3ランナー模擬4件とHost／Mock596件成功は実機受入とは区別する。[結果](7355_R3_Acceptance_20261128_Rev0/Result.md)。
+
+2026-11-28 SS／D5追加実機試験：開始時D5全100バイトを退避・直前再照合し、実QR Bを通常ATE入口から取得・照会してQR_WRITE、別INFO_REFRESHでUNIT3欄一致と他86バイト保持を確認。UNIT開始値へSS復元後、D5全100バイト一致を独立照会で再確認。実SD CSV69行14列・SHA一致、自己診断全OK・drop0、配置37件一致。監視出力混在による初回停止・復元確認の履歴も保存。RSTなし起動・量産総合条件等は未確認。[結果と証跡](QR_Production_Integration_20261128_Rev0/product_02/Result.md)。
+
+2026-11-28 QR双方向受付の実機試験：通常20＋旧QR排除10セットを、実スキャナー／通常ATE UART入口／専用実SD領域で確認。旧AのHID途中観測→同一ID破棄応答→Bだけ取得、原文35文字・SS候補50バイト、終了後旧ID拒否、drop0、CSV30件の14列・内容・SHA一致を照合した。RAM試験ハーネスを使用し製品UARTは未割当、SS送信0件。RSTなし起動、初回HID前遅延、実製品SS／D5、量産複合負荷と正式受入は未確認。[結果と手順](QR_Production_Integration_20261128_Rev0/Result.md)。
+
+2026-11-28追加実機テスト：隔離した実SDで異常系6件、PC COM7経由の通常UARTサーバー30試行＋CONT（215要求、drop0）、CSV31件・397行の14列／時刻空欄を確認。ユーザーの全給電OFF／ON後に仮ID1→2と旧ログ保全、RTC未再設定での時刻進行・OSF=0も確認。[追加実機結果](RTC_Fallback_Log_Extended_Test_20261128_Rev0/Result.md)。書込み途中の電源断、物理RTC未接続、量産ATE・複合負荷は未検証。
+
+
+2026-11-28 RTCログ改修を親Picoへ配置。変更4件の読戻しとアプリ対象37件のSHA-256一致、実SDの仮ID保存・S/N付加・CONT分割・busy延期、ハードリセット後の最大47→48採番を確認。常駐処理再開・COM6解放済み。[配置・実SD結果](RTC_Fallback_Log_Deployment_20261128_Rev0/Result.md)。実電源OFF/ON、物理RTC未接続、途中電源断・量産Timingは未検証。以下のPico未配置の記載はソース実装時点の履歴。
+
+
+2026-11-28 RTC異常時ログ改善をソース実装。RTCなし／取得失敗／無効日時はNO_RTC_T番号.csvまたはNO_RTC_C番号.csvとし、S/N付加後もIDを保持。両BANKの確認済み番号最大値＋1を共用し、確認失敗時は採番・保存を行わない。全596件Host/Mock成功。Pico未配置・実カード電源断未検証。[実装・検証記録](RTC_Fallback_Log_Implementation_20261128_Rev0/Result.md)を参照。
+
+
 2026-11-27 校正改版を実装：校正点はA/B、Cache書込みは回路＋点の一重指定、直接ADもA/B指定へ切替。必須3回路×A/Bの上下限をルートcalibration_limits.pyで管理し、送信直前に共通検証する。旧形式は拒否。現行契約は[校正実装仕様Rev.0](Calibration_AB_Implementation_20261127_Rev0.md)を優先する。以下の過去日付の旧点表記・実装許可待ちは履歴であり現行書式ではない。サンプル個体限定・AR小数保持等のOpen Issueは維持。2026-11-27に親Picoへ配置し、36件読戻し一致・起動・保護処理を確認。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)参照。実測校正は未実施。
 
 ## 2026-11-26 ARのT2を100msへ確定（山田承認）

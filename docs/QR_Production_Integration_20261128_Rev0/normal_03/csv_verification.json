@@ -1,0 +1,147 @@
+{
+  "files": [
+    {
+      "file": "000002_20261128_155526_T000005.csv",
+      "sha256": "24fb09d886576e2e86e6862d9a879a63dd70597a810fa20cf05091d8f18219a4",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155517_T000003.csv",
+      "sha256": "6cc6965d70b99aff54e655342a88f42512b4355b2408efa384fed5339a84b8e9",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155548_T000010.csv",
+      "sha256": "45e88e865bc20f4f68d58ffa7c06fec804adeb3f1b9bf6c23c1c16cabd72c37a",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155543_T000009.csv",
+      "sha256": "241c82538fda97227d9dd4bbd893027171b07ea3c338060498378d5d52554aae",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155609_T000015.csv",
+      "sha256": "fcf17c3aae4c2195998d29cc05f9b4d7b40a0509530588cdc5f5289a896660b3",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155557_T000012.csv",
+      "sha256": "13673f7c3acacc0b0c31c4215899478ed5409674de379bf40ce2d2de88414f99",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155530_T000006.csv",
+      "sha256": "25462101e2a48edccd2f609fa2de9b6336fa1745c7d03bab2e2de6f7af5f559d",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155601_T000013.csv",
+      "sha256": "7d2c09bc89a7a0baa915338a988e0df1da5928633f51ec801ed23630e963f9eb",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155539_T000008.csv",
+      "sha256": "af57c232dc6db295c8c239c1498e45b9626cac82e9ca68a88b8a5dcc1162899c",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155500_T000001.csv",
+      "sha256": "8e9320c426afd319cc4b2a266e938ad39e2d704762963f9bea580bb6fee30ebd",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155552_T000011.csv",
+      "sha256": "0ab64c70d50b9ce8f12070d1b930b18c52469159ddae70239d59ac5cdfead229",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155622_T000018.csv",
+      "sha256": "7e5a96aa3e8f9ab6feb60cebed781107d4cbab192f65bb2468f2a5b7f7c7b59f",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155626_T000019.csv",
+      "sha256": "2001d0c5253887fb77558d8c31fcb91a7da9695013ef866348a7676ce5536953",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155630_T000020.csv",
+      "sha256": "59eae52ff3f4e47ee0206e47297dc9f902e16c9d4fbdad1fdb19c3c0421a717a",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155521_T000004.csv",
+      "sha256": "d0a1baf75bc890a28bddb57fd1350ba1c17b1db028c0ad7ea3045a58fbe4f47e",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155613_T000016.csv",
+      "sha256": "80134764c4006dc71e35d90520595e45fb63a149d0064f27249c77d506b2412a",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155618_T000017.csv",
+      "sha256": "2b5dc051dd8417f6be6ef07459e9557e06577a15e6807976cb9bbfad44e9e8a9",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155535_T000007.csv",
+      "sha256": "3170bdb134acb57761282a52706b6da1fd5ba20b922f86a8a853abbab9194a1f",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155513_T000002.csv",
+      "sha256": "1930912fac58916772ab106b29998275af4e15ddf6a138be7ac52e916cf4a3bc",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    },
+    {
+      "file": "000002_20261128_155605_T000014.csv",
+      "sha256": "819526c0f1a8b93900ae1845fe63f0dd87b5ec2594942bffe264f0558399d005",
+      "rows": 18,
+      "columns": 14,
+      "accepted_B_only": true
+    }
+  ],
+  "sets": 20,
+  "sd_pc_hashes_match": true,
+  "result": "OK"
+}

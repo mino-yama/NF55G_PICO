@@ -1,0 +1,12 @@
+{
+  "status": "OK",
+  "uid": "73AD3A60D10514E9",
+  "reset_requested": true,
+  "monitor_port": null,
+  "before": "OK:HOST_INFO:73AD3A60D10514E9:meter-host-relay-20261125.2:AA165DBC70E798C0:NOT_READY",
+  "reset_done": "OK:HOST_RESET_DONE:73AD3A60D10514E9:AA165DBC70E798C0:9290DB097E8BB8BA:READY",
+  "new_nonce": "9290DB097E8BB8BA",
+  "host_info": "OK:HOST_INFO:73AD3A60D10514E9:meter-host-relay-20261125.2:9290DB097E8BB8BA:READY",
+  "meter_idn": "ADC Corp.,7355,246410099,  A02\r\n",
+  "drop": "0"
+}

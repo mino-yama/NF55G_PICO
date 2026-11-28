@@ -1,0 +1,23 @@
+{
+  "product_commands_sent": false,
+  "hashes": {
+    "/sd/rtc_debug_20261128_rev0/BANK_A/NO_RTC_C000047.csv": "9a11b526f1ade2603ec9a3cbee36ac4b456b3c70985b98da116b5ee43c4db9ba",
+    "/sd/rtc_debug_20261128_rev0/BANK_A/NO_RTC_C000046.csv": "fc1511ed65fa100b7b9d06a74854c1a9cfd51653239af07b0b76bae0f51cd1d0",
+    "/sd/rtc_debug_20261128_rev0/BANK_B/000001_NO_RTC_T000040.csv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/sd/rtc_debug_20261128_rev0/BANK_B/NO_RTC_C000041.csv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/sd/rtc_debug_20261128_rev0/BANK_A/NO_RTC_C000043.csv": "bbe73df0a69ee168b8118cd24e9853fe67bc05474ff5d5b379aac8661fb74780",
+    "/sd/rtc_debug_20261128_rev0/BANK_A/NO_RTC_T000044.csv": "8689aa83aa1cbc24d20d0ee55302b30bf75cf9eb9f3e8a6aaeac801e9d63fd91",
+    "/sd/rtc_debug_20261128_rev0/BANK_A/NO_RTC_T000045.csv": "c0ed5eadf1a6f54b075d167d54b86cb0921f6ced2437736a89781a99733a5b47",
+    "/sd/rtc_debug_20261128_rev0/BANK_A/000001_NO_RTC_T000042.csv": "84f53dfbb3d5022488c40d8002939f8bfd65acf39a824cc37d07687c731bc197"
+  },
+  "cases": [
+    "RTC_NONE_TEST_SN",
+    "RTC_NONE_CONT",
+    "RTC_READ_ERROR",
+    "RTC_INVALID",
+    "CONT_ROLLOVER",
+    "COMM_BUSY_DEFER",
+    "BOTH_BANK_ZERO_BYTES"
+  ],
+  "max_id": 47
+}

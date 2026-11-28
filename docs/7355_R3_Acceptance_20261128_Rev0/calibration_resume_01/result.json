@@ -1,0 +1,6 @@
+{
+  "status": "STOPPED",
+  "input_setpoint_mV": "200",
+  "nf55_commands_sent": 0,
+  "error": "AssertionError('ERR:HOST_TIMEOUT')"
+}

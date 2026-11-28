@@ -1,0 +1,6 @@
+
+RX_LEVEL|LOW
+
+RX_LEVEL|HIGH
+
+RX_LEVEL_RESULT|{"rows": [{"set": 0, "ms": 1473549, "read": 0}, {"set": 1, "ms": 1503569, "read": 1}], "active": true, "ctrl": 7}

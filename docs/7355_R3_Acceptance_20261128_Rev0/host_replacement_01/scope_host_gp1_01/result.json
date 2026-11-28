@@ -1,0 +1,8 @@
+{
+  "planned_requests": 10,
+  "status": "COMPLETE",
+  "firmware_changed": false,
+  "host_info_received": false,
+  "host_replies": [],
+  "completed_requests": 10
+}

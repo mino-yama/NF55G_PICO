@@ -1,0 +1,4 @@
+
+PULSE_READY
+
+PULSE_RESULT|{"tx_active": true, "restored_ctrl": 7, "values": [{"set": 0, "ms": 1642468, "read": 1}, {"set": 1, "ms": 1642768, "read": 1}, {"set": 0, "ms": 1643069, "read": 1}, {"set": 1, "ms": 1643370, "read": 1}]}

@@ -1,0 +1,7 @@
+{
+  "action": "diagnose",
+  "uid": "BFCF2EDB84B0B37F",
+  "load_verified": true,
+  "normal_boot_requested": true,
+  "image_sha256": "d25f530966166ecbd4c1717b3274afd00606f616e2f53ad38ef0182dbafc7a80"
+}

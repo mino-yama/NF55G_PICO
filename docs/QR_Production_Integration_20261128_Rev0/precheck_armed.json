@@ -1,0 +1,12 @@
+{
+  "time": "2026-11-28T06:33:25.663334+00:00",
+  "state": {
+    "last_seq": null,
+    "ignored": 0,
+    "sd": "OK",
+    "transport": "<class 'QRPioUART'>",
+    "arm_host": true
+  },
+  "bytes": 0,
+  "records": []
+}

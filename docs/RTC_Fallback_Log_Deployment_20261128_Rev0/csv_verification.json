@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "file": "000001_NO_RTC_T000040.csv",
+      "bytes": 0,
+      "rows": 0,
+      "zero_byte_fixture": true
+    },
+    {
+      "file": "000001_NO_RTC_T000042.csv",
+      "bytes": 174,
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_C000041.csv",
+      "bytes": 0,
+      "rows": 0,
+      "zero_byte_fixture": true
+    },
+    {
+      "file": "NO_RTC_C000043.csv",
+      "bytes": 140,
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_C000046.csv",
+      "bytes": 114,
+      "rows": 0,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_C000047.csv",
+      "bytes": 171,
+      "rows": 2,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000044.csv",
+      "bytes": 145,
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000045.csv",
+      "bytes": 142,
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "000002_NO_RTC_T000048.csv",
+      "bytes": 161,
+      "rows": 1,
+      "columns": 14,
+      "unknown_time_blank": true
+    }
+  ],
+  "file_count": 9,
+  "data_rows": 7,
+  "result": "OK"
+}

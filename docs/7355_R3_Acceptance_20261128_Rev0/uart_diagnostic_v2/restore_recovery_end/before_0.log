@@ -1,0 +1,10 @@
+No accessible RP-series devices in
+BOOTSEL mode were found found with
+serial number BFCF2EDB84B0B37F.
+
+but:
+
+RP-series device at bus 1, address 43
+    appears to be an RP-series
+    MicroPython device not in BOOTSEL
+    mode.

@@ -6,6 +6,13 @@
 
 import binascii
 
+try:
+    from .log_filename import log_identity
+    from .rtc_driver import RTCDateTime
+except ImportError:  # pragma: no cover
+    from log_filename import log_identity
+    from rtc_driver import RTCDateTime
+
 
 CSV_FIELDS = (
     "timestamp",
@@ -61,15 +68,29 @@ class MemorySDSink:
         self.write_count = 0
         self.flush_blocked = False
         self.trial_high_watermark = 0
+        self.log_high_watermark = 0
+
+    def reserve_log_number(self, minimum=0):
+        self._raise_if_not_ok(opening=True)
+        for name in self.files:
+            identity = log_identity(name)
+            if identity:
+                self.log_high_watermark = max(self.log_high_watermark, identity[1])
+        self.log_high_watermark = max(self.log_high_watermark, self.trial_high_watermark, minimum) + 1
+        return self.log_high_watermark
 
     def open(self, filename):
         self._raise_if_not_ok(opening=True)
+        identity = log_identity(filename)
+        if identity is None:
+            raise LoggerError('FILENAME')
         if filename in self.files:
             raise LoggerError('FILE_EXISTS')
         self.open_filename = filename
-        if '_T' in filename:
+        self.log_high_watermark = max(self.log_high_watermark, identity[1])
+        if identity[0] == 'T':
             self.trial_high_watermark = max(self.trial_high_watermark,
-                                            int(filename.rsplit('_T', 1)[1][:-4]))
+                                            identity[1])
         self.files.setdefault(filename, [])
 
     def write_record(self, row):
@@ -97,6 +118,8 @@ class MemorySDSink:
         self.reinit_count += 1
 
     def rename_closed(self, filename):
+        if log_identity(filename) is None:
+            raise LoggerError('FILENAME')
         if self.open_filename is not None:
             raise LoggerError('OPEN_ERR')
         if filename in self.files:
@@ -130,6 +153,7 @@ class Logger:
         self.rtc = rtc
         self.busy = busy or (lambda: False)
         self.timestamp_snapshot = ""
+        self.rtc_filename_status = 'NO_RTC'
         self.rollover_bytes = rollover_bytes
         self.queue_limit = int(queue_limit)
         self.flush_interval_ms = int(flush_interval_ms)
@@ -274,15 +298,15 @@ class Logger:
             due_by_count = len(self.queue) + self.records_since_flush >= self.flush_record_count
             due_by_time = now - self.last_flush_ms >= self.flush_interval_ms
             if due_by_count or due_by_time:
-                if (self.mode == 'CONT' and self.rtc is not None
+                if (self.mode == 'CONT'
                         and getattr(self.sd_sink, 'file_bytes', 0) >= self.rollover_bytes):
                     try:
-                        filename = self._filename()
+                        filename = self._filename('CONT')
                         if filename == self.current_filename:
                             rollover_waiting = True
                         else:
                             self.sd_sink.close()
-                            self.sd_sink.open(filename)
+                            filename = self._open_log('CONT', filename)
                             self.current_filename = filename
                     except (LoggerError, ValueError, OSError) as exc:
                         self.sd_status = str(exc)
@@ -342,20 +366,16 @@ class Logger:
         if self.busy() or self.test_running or self.active:
             return False
         try:
-            filename = self._filename()
             if mode == 'TEST':
                 # SD故障を次STARTだけで回復扱いにしない。再認識は明示終了後のみ。
                 if self.sd_status != SD_OK:
                     return False
-                filename = filename[:-4] + '_' + self.trial_id + '.csv'
-            self.sd_sink.open(filename)
+            filename = self._open_log(mode)
         except (LoggerError, ValueError, OSError) as exc:
             self.sd_status = str(exc)
             return False
         self.recovery_pending = False
         self.current_filename = filename
-        if self.rtc is not None:
-            self.timestamp_snapshot = filename[:15]
         self.mode = mode
         self.active = True
         self.records_since_flush = 0
@@ -402,11 +422,55 @@ class Logger:
             self.last_flush_ms = self._ticks_ms()
         return written
 
-    def _filename(self):
-        if self.rtc is not None:
-            return self.rtc.datetime() + '.csv'
-        now = self._ticks_ms()
-        return "{:014d}.csv".format(now)
+    def snapshot_time(self):
+        # 日時取得失敗後に前回の時刻を使わない。暦不正も仮ID経路へ渡す。
+        self.timestamp_snapshot = ''
+        if self.rtc is None:
+            self.rtc_filename_status = 'NO_RTC'
+            return None
+        try:
+            text = self.rtc.datetime()
+        except (ValueError, OSError, RuntimeError, AttributeError, TypeError):
+            self.rtc_filename_status = 'READ_ERROR'
+            return None
+        try:
+            if not isinstance(text, str):
+                raise ValueError('RTC text')
+            if not all('0' <= c <= '9' for c in text[:8] + text[9:]):
+                raise ValueError('RTC digits')
+            RTCDateTime.parse_ate(text)
+        except (ValueError, TypeError):
+            self.rtc_filename_status = 'INVALID'
+            return None
+        self.timestamp_snapshot = text
+        self.rtc_filename_status = 'OK'
+        return text
+
+    def _filename(self, mode=None):
+        mode = mode or self.mode or 'CONT'
+        date = self.snapshot_time()
+        if mode == 'CONT' and date is not None:
+            return date + '.csv'
+        # SD側の確認済み最大番号とRAM番号を共用。保存不可時はここで停止する。
+        minimum = self.trial_number - 1 if mode == 'TEST' else self.trial_number
+        number = self.sd_sink.reserve_log_number(max(0, minimum))
+        if mode == 'TEST':
+            self.trial_number = number
+            self.trial_id = 'T{:06d}'.format(number)
+            return (date if date is not None else 'NO_RTC') + '_' + self.trial_id + '.csv'
+        return 'NO_RTC_C{:06d}.csv'.format(number)
+
+    def _open_log(self, mode, filename=None):
+        # 単一Loggerだけが書く。衝突時は有番名だけを再採番し、待ち時間を有界にする。
+        for attempt in range(8):
+            name = filename if attempt == 0 and filename is not None else self._filename(mode)
+            try:
+                self.sd_sink.open(name)
+                return name
+            except LoggerError as exc:
+                if str(exc) != 'FILE_EXISTS' or (mode == 'CONT' and not name.startswith('NO_RTC_')):
+                    raise
+        raise LoggerError('FILE_EXISTS')
 
     def _ticks_ms(self):
         if self.clock is None:

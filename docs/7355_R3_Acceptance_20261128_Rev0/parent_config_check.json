@@ -1,0 +1,26 @@
+{
+  "tx_fifo": 0,
+  "transport_shared": true,
+  "expected_chipid": "BFCF2EDB84B0B37F",
+  "hashes_checked": 37,
+  "tx_active": true,
+  "pio1_ctrl": 3,
+  "rx_fifo": 0,
+  "closed": false,
+  "fault": false,
+  "management": null,
+  "pending": false,
+  "calibration_pending": false,
+  "gpio_ctrl": {
+    "9": 5,
+    "8": 6,
+    "12": 7,
+    "13": 5,
+    "1": 2,
+    "0": 2
+  },
+  "rx_active": true,
+  "parent_nonce": "9abb4c02ffe7af7c",
+  "hashes_match": true,
+  "hash_differences": []
+}

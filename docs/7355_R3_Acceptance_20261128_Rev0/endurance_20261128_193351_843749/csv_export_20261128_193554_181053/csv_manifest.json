@@ -1,0 +1,16 @@
+{
+  "csv_count": 1,
+  "planned": 1,
+  "files": [
+    {
+      "bytes": 1036,
+      "path": "/sd/BANK_A/20261128_193354_T000997.csv",
+      "trial": 997,
+      "filename": "20261128_193354_T000997.csv",
+      "sha256": "d7841e30874a95e8304d0b18e171a4f67d45e4cca9622c3d88b316fbdefd50e4",
+      "data_rows": 11,
+      "columns": 14
+    }
+  ],
+  "complete": true
+}

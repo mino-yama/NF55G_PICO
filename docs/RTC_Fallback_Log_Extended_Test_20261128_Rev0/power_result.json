@@ -1,0 +1,12 @@
+{
+  "old_preserved": true,
+  "path": "/sd/rtc_extended_20261128_rev0/power/BANK_A/000002_NO_RTC_T000002.csv",
+  "drop": 0,
+  "filename": "000002_NO_RTC_T000002.csv",
+  "hash": "cfc568a1d7922971c939532937ce118dbb36786ef8140e7d5f659fa50e4a6439",
+  "rtc": "20261128_152151",
+  "rtc_status": 9,
+  "number": 2,
+  "sd": "OK",
+  "host_utc": "2026-11-28T06:21:51.910637+00:00"
+}

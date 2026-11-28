@@ -1,0 +1,33 @@
+[
+  {
+    "case": "eight_collisions",
+    "preserved": 8,
+    "status": "FILE_EXISTS"
+  },
+  {
+    "case": "rename_collision_other_bank",
+    "both_preserved": true,
+    "status": "FILE_EXISTS"
+  },
+  {
+    "case": "stat_io_error",
+    "created": false,
+    "status": "OPEN_ERR"
+  },
+  {
+    "case": "partial_scan_error",
+    "namespace_ready": false,
+    "preserved": true
+  },
+  {
+    "case": "rename_io_error",
+    "original_preserved": true,
+    "status": "WRITE_ERR"
+  },
+  {
+    "foreign_preserved": true,
+    "case": "rotation_threshold_injected",
+    "directory_preserved": true,
+    "bank": "BANK_B"
+  }
+]

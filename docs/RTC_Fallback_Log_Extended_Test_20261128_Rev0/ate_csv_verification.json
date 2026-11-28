@@ -1,0 +1,195 @@
+{
+  "files": [
+    {
+      "file": "NO_RTC_C000031.csv",
+      "rows": 7,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000001.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000002.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000003.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000004.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000005.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000006.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000007.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000008.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000009.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000010.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000011.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000012.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000013.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000014.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000015.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000016.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000017.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000018.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000019.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000020.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000021.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000022.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000023.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000024.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000025.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000026.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000027.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000028.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000029.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    },
+    {
+      "file": "NO_RTC_T000030.csv",
+      "rows": 13,
+      "columns": 14,
+      "unknown_time_blank": true
+    }
+  ],
+  "file_count": 31,
+  "data_rows": 397,
+  "trials": 30,
+  "cont": 1,
+  "result": "OK"
+}

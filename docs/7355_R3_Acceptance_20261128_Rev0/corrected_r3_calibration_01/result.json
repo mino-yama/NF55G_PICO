@@ -1,0 +1,12 @@
+{
+  "status": "STOPPED",
+  "input_setpoint_mV": "200",
+  "nf55_commands_sent": 0,
+  "host_chipid": "73AD3A60D10514E9",
+  "external_uart_monitor": false,
+  "cache_query_wire_silence_verified": false,
+  "host_before": "OK:HOST_INFO:73AD3A60D10514E9:meter-host-relay-20261125.2:9290DB097E8BB8BA:READY",
+  "direct_raw": "+9.999999E+37",
+  "error": "AssertionError('ERR:CAL_MEASUREMENT_OVERRANGE')",
+  "cleanup_test_end": "OK"
+}

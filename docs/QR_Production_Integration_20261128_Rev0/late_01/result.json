@@ -1,0 +1,8 @@
+{
+  "phase": "late",
+  "sets": 10,
+  "expected": 10,
+  "sd_root": "/sd/qr_prod_20261128_late_01",
+  "product_uart_assigned": false,
+  "max_ate_ms": 266.00000000325963
+}

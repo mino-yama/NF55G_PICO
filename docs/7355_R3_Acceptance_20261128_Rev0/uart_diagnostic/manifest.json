@@ -1,0 +1,16 @@
+{
+  "version": "meter-host-relay-uartdiag-20261128.1",
+  "uf2": "docs\\7355_R3_Acceptance_20261128_Rev0\\uart_diagnostic\\build\\meter_uart_diagnostic.uf2",
+  "sha256": "d25f530966166ecbd4c1717b3274afd00606f616e2f53ad38ef0182dbafc7a80",
+  "source_hashes": {
+    "CMakeLists.txt": "fdfa82e03b8984279bf7470d7a3d4dc4dc39eb5dc65ddf5f6f50fe19ab87d72c",
+    "main.c": "21a3e2a351f8036be83c26336051a0c071af2543a03f8f4739e84a957fe6a22d",
+    "relay_host.c": "2df51232feb4f7323124dc9e3e88a095fe7368e73136fa2fb68791240a6df56a",
+    "relay_host.h": "1e5bf322ba1c9a786fb6f73e6717f67f4901f2a3d4f9f730ae5dee5876ca6c22",
+    "relay_wire.c": "ef58652a5f3092fd72d6cc775f7c2f918ccbef3c3a8bb0b9dfc8575f158ddccd",
+    "relay_wire.h": "24fc47a59725d6b438676c1aaf98302e21958f41e50ce61d3870950cd1ef33ec",
+    "boards\\waveshare_rp2350_usb_a_host_eval.h": "317c7f4c936630be8081a4f208d6ceebec6be857c7e713d682eee269ac80ba1f"
+  },
+  "purpose": "UART-only diagnosis; meter USB not initialized",
+  "deployed": false
+}
