@@ -142,23 +142,24 @@ def parse_ate_command(line):
         return ParsedCommand(text, 'CAL_WRITE_LATEST', payload=(name[10:], parts[0]),
                              category='CALIBRATION_WRITE')
 
-    if name.startswith('AD_VERIFY_'):
-        if payload not in ('A', 'B'):
-            raise ParseError('AD_VERIFY_ARGUMENTS')
-        return ParsedCommand(text, 'AD_VERIFY_READBACK', payload=(name[10:], payload), category='CALIBRATION_WRITE')
+    if name == 'AD_VERIFY' or name.startswith('AD_VERIFY_'):
+        raise ParseError('VERIFY_DISABLED')
 
-    if name in ('CAL_WRITE', 'AD_VERIFY'):
+    if name.startswith('AR_READ_'):
+        if payload not in ('A', 'B'):
+            raise ParseError('AR_READ_ARGUMENTS')
+        return ParsedCommand(text, 'AR_READ', payload=(name[8:], payload),
+                             category='CALIBRATION_READBACK')
+
+    if name == 'CAL_WRITE':
         parts = (payload or '').split()
-        if name == 'CAL_WRITE':
-            if len(parts) != 1:
-                raise ParseError(name + '_ARGUMENTS')
-            try:
-                parts[0] = parse_acquisition_id(parts[0])
-            except MeasurementError as exc:
-                raise ParseError('CAL_' + str(exc))
-            parts.append(parts[0][3])  # 取得ID自体の点を使用し、別の点指定を受け付けない。
-        elif len(parts) != 2 or parts[1] not in ('A', 'B'):
+        if len(parts) != 1:
             raise ParseError(name + '_ARGUMENTS')
+        try:
+            parts[0] = parse_acquisition_id(parts[0])
+        except MeasurementError as exc:
+            raise ParseError('CAL_' + str(exc))
+        parts.append(parts[0][3])  # 取得ID自体の点を使用し、別の点指定を受け付けない。
         return ParsedCommand(text, name, payload=tuple(parts), category='CALIBRATION_WRITE')
 
     if name.startswith('AD_'):

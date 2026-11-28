@@ -376,6 +376,12 @@ class FixtureApp:
             if self._comm_busy():
                 return 'ERR:BUSY'
             return self.calibration_write.execute(parsed.name, parsed.payload)
+        if parsed.category == 'CALIBRATION_READBACK':
+            if self.calibration_write is None:
+                return 'ERR:CAL_READBACK_DISABLED'
+            if self._comm_busy():
+                return 'ERR:BUSY'
+            return self.calibration_write.readback(*parsed.payload)
         if parsed.category == "REFRESH":
             return self._record_result(self.dispatcher.execute_refresh(parsed.name, parsed.payload))
         if parsed.category == "QUERY":

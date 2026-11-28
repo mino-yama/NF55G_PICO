@@ -589,7 +589,7 @@ class NativeRelayLinkTests(unittest.TestCase):
                 measured = exchange(f'CAL_MEASURE_{circuit} {point} 2000 :READ?')
                 self.assertTrue(measured.startswith('OK:CAL_MEASURE:'), measured)
                 token = measured.split(':')[-1]
-                self.assertEqual(exchange(f'AD_VERIFY_{circuit} {destination}'), 'ERR:AD_VERIFY_NO_WRITE')
+                self.assertEqual(exchange(f'AD_VERIFY_{circuit} {destination}'), 'ERR:VERIFY_DISABLED')
                 instrument_requests = list(self.transport.commands)
                 before = scenario.handled_command_count
                 cached = exchange(f'CAL_MEASUREMENT_{circuit}? {point}')
@@ -603,15 +603,15 @@ class NativeRelayLinkTests(unittest.TestCase):
                 self.assertEqual(scenario.handled_command_count, before + 1)
                 self.assertIn(build_frame('AD', (type_point + value8).encode()), nf.tx_log)
                 scenario.add(ScenarioStep.ack_response('AR', b'00012300000001' * 10))
-                self.assertEqual(exchange(f'AD_VERIFY_{circuit} {destination}'),
-                                 f'OK:AD_VERIFY:{circuit}:{destination}:{value8}:00000001:291:291')
+                self.assertEqual(exchange(f'AR_READ_{circuit} {destination}'),
+                                 f'OK:AR_READ:{circuit}:{destination}:291:00000001')
                 self.assertEqual(exchange(f'CAL_MEASUREMENT_{circuit}? {point}'), 'ERR:CAL_MEASUREMENT_INVALID')
                 self.assertEqual(scenario.handled_command_count, before + 2)
                 self.assertEqual(self.transport.commands, instrument_requests)
         self.assertEqual(self.transport.commands, [b':SENS:FUNC?\r\n', b':READ?\r\n'] * len(points))
         self.assertEqual(exchange('TEST_END'), 'OK')
         self.assertEqual(exchange('LOG_DROP_COUNT?'), '0')
-        self.assertEqual(exchange('AD_VERIFY_BATT_V A'), 'ERR:CAL_NO_ACTIVE_TRIAL')
+        self.assertEqual(exchange('AD_VERIFY_BATT_V A'), 'ERR:VERIFY_DISABLED')
 
     def test_calibration_native_no_trial_disabled_or_bad_command_sends_nothing(self):
         app = FixtureApp(clock=self.clock, external_link=self.link)

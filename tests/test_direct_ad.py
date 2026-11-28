@@ -72,24 +72,23 @@ class DirectADTests(unittest.TestCase):
         self.assertEqual(self.ate('CAL_MEASUREMENT_BATT_CHG? A'), 'ERR:CAL_MEASUREMENT_INVALID')
         self.assertEqual(self.ate('CAL_MEASUREMENT_BATT_CHG? B'), 'ERR:CAL_MEASUREMENT_INVALID')
 
-    def test_manual_write_can_be_read_back_only_on_explicit_verify(self):
+    def test_manual_write_and_ar_readback_are_separate_ate_operations(self):
         self.sample(ScenarioStep.ack_response('AD', b'4100000144A8699A'),
                     ScenarioStep.ack_response('AR', AR_RESPONSE))
         self.assertTrue(self.ate('AD_4_A_1.85').startswith('OK:AD_WRITE:'))
         self.assertEqual(self.scenario.handled_command_count, 2)
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG A'),
-                         'OK:AD_VERIFY:BATT_CHG:A:3FECCCCD:00000001:1:1')
+        self.assertEqual(self.ate('AR_READ_BATT_CHG A'),
+                 'OK:AR_READ:BATT_CHG:A:1:00000001')
         self.assertIsNone(self.app.cache.get('AR'))
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG B'), 'ERR:AD_VERIFY_NO_WRITE')
         self.assertEqual(self.ate('TEST_END'), 'OK')
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG A'), 'ERR:CAL_NO_ACTIVE_TRIAL')
+        self.assertEqual(self.ate('AR_READ_BATT_CHG A'), 'ERR:CAL_NO_ACTIVE_TRIAL')
 
     def test_ad_timeout_does_not_retry_and_clears_previous_write_record(self):
         self.sample(ScenarioStep.ack_response('AD', b'4100000144A8699A'), ScenarioStep.resp_timeout())
         self.ate('AD_4_A_1.5')
         self.assertEqual(self.ate('AD_4_A_1.85'), 'ERR:AD_WRITE_RESP_TIMEOUT:AMBIGUOUS=1')
         self.assertEqual(self.scenario.handled_command_count, 3)
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG A'), 'ERR:AD_VERIFY_NO_WRITE')
+        self.assertEqual(self.ate('AR_READ_BATT_CHG A'), 'ERR:AR_READ_TIMEOUT')
 
     def test_disabled_identity_and_no_trial_gates_send_nothing(self):
         app = FixtureApp()
@@ -107,10 +106,11 @@ class DirectADTests(unittest.TestCase):
         self.assertEqual(self.ate('AD_4_A_1.85'), 'ERR:BUSY')
         self.assertEqual(self.scenario.handled_command_count, 1)
 
-    def test_wrong_ad_response_does_not_create_verify_record(self):
-        self.sample(ScenarioStep.ack_response('AD', b'4200000144A8699A'))
+    def test_wrong_ad_response_does_not_block_ate_owned_ar_readback(self):
+        self.sample(ScenarioStep.ack_response('AD', b'4200000144A8699A'),
+                    ScenarioStep.ack_response('AR', AR_RESPONSE))
         self.assertEqual(self.ate('AD_4_A_1.85'), 'ERR:AD_WRITE_RESPONSE:AMBIGUOUS=1')
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG A'), 'ERR:AD_VERIFY_NO_WRITE')
+        self.assertEqual(self.ate('AR_READ_BATT_CHG A'), 'OK:AR_READ:BATT_CHG:A:1:00000001')
 
     def test_uart_exception_is_ambiguous_and_never_retried(self):
         self.sample()
@@ -122,7 +122,7 @@ class DirectADTests(unittest.TestCase):
         self.assertEqual(self.ate('AD_4_A_1.85'), 'ERR:AD_WRITE_UART:AMBIGUOUS=1')
         self.assertEqual(len(calls), 1)
         self.assertFalse(calls[0][1]['allow_command_retry'])
-        self.assertEqual(self.ate('AD_VERIFY_BATT_CHG A'), 'ERR:AD_VERIFY_NO_WRITE')
+        self.assertEqual(self.ate('AR_READ_BATT_CHG A'), 'ERR:AR_READ_UART:AMBIGUOUS=1')
 
 
 if __name__ == '__main__':

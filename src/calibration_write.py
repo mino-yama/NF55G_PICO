@@ -71,7 +71,6 @@ class SampleCalibrationWrite:
 
     def reset(self):
         self.queried = {}
-        self.written = {}
 
     def mark_queried(self, token):
         if token[2] in SAMPLE_AD_TYPES:
@@ -105,9 +104,7 @@ class SampleCalibrationWrite:
             except MeasurementError as exc:
                 return 'ERR:CAL_' + str(exc)
             return self._write(token, point, report_raw=True)
-        if payload[0] not in DIRECT_AD_TYPES or (name == 'AD_VERIFY' and payload != (SAMPLE_TARGET[0], SAMPLE_POINT)):
-            return 'ERR:AD_VERIFY_TARGET'
-        return self._verify(*payload, report_raw=name == 'AD_VERIFY_READBACK')
+        return 'ERR:CAL_WRITE_COMMAND'
 
     def _write(self, token, point, report_raw=False):
         target = token[2]
@@ -147,7 +144,6 @@ class SampleCalibrationWrite:
                                        elapsed_ms=None, response_retry_count=None)
         # 応答が異常でも書込み済みの可能性があるため、対象Cacheを再利用しない。
         if result.ok or result.ambiguous:
-            self.written.pop((target, point), None)
             if direct:
                 # 直接指定値と古いDMM Cacheを混同させない。同回路のA/B取得値は失効する。
                 for measurement_point in ('A', 'B'):
@@ -164,7 +160,6 @@ class SampleCalibrationWrite:
                 and all(c in b'0123456789ABCDEF' for c in data[2:8])
                 and (direct or report_raw or all(c in b'0123456789ABCDEF' for c in data[8:]))):
             written_adc = int(data[2:8], 16)
-            self.written[(target, point)] = (value_text, value8.decode(), struct.unpack('>f', encoded)[0], written_adc)
             raw_calc = binascii.hexlify(data[8:]).decode().upper()
             if direct:
                 reply = 'OK:AD_WRITE:{}:{}:{}:{}:{}'.format(
@@ -190,42 +185,35 @@ class SampleCalibrationWrite:
             from calibration_guard import settings
         return getattr(settings, 'SETTINGS_REV', 'INVALID')
 
-    def _verify(self, target, point, report_raw=False):
-        written = self.written.get((target, point))
-        if written is None:
-            return 'ERR:AD_VERIFY_NO_WRITE'
-        value_text, value8, written_value, written_adc = written
+    def readback(self, target, point):
+        if not self.logger.test_running or not self.logger.active:
+            return 'ERR:CAL_NO_ACTIVE_TRIAL'
+        info = self.cache.get('INFO') or {}
+        if (info.get('FW_REV'), info.get('UNIT_SERIAL')) != ('S1.14B', '000001'):
+            return 'ERR:CAL_SAMPLE_IDENTITY'
+        if target not in DIRECT_AD_TYPES or point not in ('A', 'B'):
+            return 'ERR:AR_READ_TARGET'
+        if self.protocol is None:
+            return 'ERR:NF55G_NOT_CONNECTED'
         try:
             result = self._transact('AR', b'', 140)
         except OSError:
             result = TransactionResult(False, 'AR', error='UART', ambiguous=True,
                                        elapsed_ms=None, response_retry_count=None)
-        raw_ref = ''
-        read_adc = None
         if result.ok:
             try:
                 decoded = decode_ar(result.response_data)
                 prefix = 'AR_{}_{}'.format(target, point)
                 raw_ref = decoded[prefix + '_REF_RAW']
                 read_adc = decoded[prefix + '_ADC']
-                if any(c not in '0123456789ABCDEF' for c in raw_ref):
-                    raise ValueError('Unsupported REF8 format')
-                if report_raw:
-                    reply = 'OK:AD_VERIFY:{}:{}:{}:{}:{}:{}'.format(target, point, value8, raw_ref,
-                                                                    written_adc, read_adc)
-                else:
-                    if int(raw_ref, 16) > 0x7fffffff:
-                        raise ValueError('Unsupported REF8 format for legacy comparison')
-                    matches = written_value == int(raw_ref, 16) and written_adc == read_adc
-                    reply = 'OK:AD_VERIFY' if matches else 'ERR:AD_VERIFY_MISMATCH'
-            except ValueError:
-                reply = 'ERR:AD_VERIFY_RESPONSE'
+                reply = 'OK:AR_READ:{}:{}:{}:{}'.format(target, point, read_adc, raw_ref)
+            except (KeyError, ValueError):
+                reply = 'ERR:AR_READ_RESPONSE'
         elif result.error in ('ACK_TIMEOUT', 'RESP_TIMEOUT'):
-            reply = 'ERR:AD_VERIFY_TIMEOUT'
+            reply = 'ERR:AR_READ_TIMEOUT'
         else:
-            reply = 'ERR:AD_VERIFY_' + str(result.error)
-        self._log('VERIFY', reply, '{};{};written={};REF8={};ADC={}/{}'.format(
-            target, point, value_text, raw_ref, written_adc, read_adc), result)
+            reply = 'ERR:AR_READ_{}:AMBIGUOUS={}'.format(result.error, int(result.ambiguous))
+        self._log('AR_READ', reply, '{};{};result={}'.format(target, point, reply), result)
         return reply
 
     def _log(self, event, reply, detail, result):

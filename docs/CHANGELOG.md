@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-11-28 校正VERIFY停止・ATE側照合
+
+- Pico内のAD書込み値とAR戻り値の比較機能、VERIFYログ／状態を削除。`AD_VERIFY`／`AD_VERIFY_<回路>`は`ERR:VERIFY_DISABLED`で無送信拒否する。
+- ATE用の明示`AR_READ_<回路> <A/B>`を追加。ARの選択点ADC十進値・REF8原文を返し、Cacheには昇格しない。値の比較・分類・製品合否はATE側だけで行う。
+- 校正書込み・AR_READは別指令、AR T2=有効ACK後100ms、Command Retryなしを維持。小数REFの意味・製品内部保持は未確定のまま。
+- 検証：Host/Mock全597件成功。VERIFY拒否、raw AR_READ、比較なし応答、timeout・Retryなし・Cache非昇格を確認。
 ## 2026-11-27 親Picoへの校正改版配置
 
 - MicroPythonにstr.ljustがないことを切替え前に検出し、末尾0の連結へ修正。SD起動診断テストは実機QR設定に依存しないようMockを補った。

@@ -3,6 +3,8 @@
 Revision: Rev.0  
 Date: 2026-11-27
 
+2026-11-28追記：VERIFY比較はPico機能として停止。ATEが書込み応答と明示AR読戻しを照合する。読戻し入口は`AR_READ_<回路> <A/B>`、応答は`OK:AR_READ:<回路>:<A/B>:<AR_ADC>:<REF8_RAW>`。Picoは一致判定を行わず、AR CacheもVALIDにしない。旧`AD_VERIFY`／`AD_VERIFY_<回路>`は`ERR:VERIFY_DISABLED`でNF55Gへ送信しない。実測校正と製品PASS判定はATE側の責任。
+
 2026-11-27追記：ユーザーのPico書込み指示により、MicroPythonの文字列互換性を修正したRev.1を実機へ配置。配置版Host/Mock全575件、36件読戻し一致、再起動・設定読込み・上下限保護を確認し常駐処理を再開。[親Pico配置結果Rev.1](Calibration_AB_Pico_Deployment_20261127_Rev1/Result.md)を現在の配置状態とする。以下の実機未実施記載はソース実装完了時点の履歴。
 
 今回の「実装を進めて下さい」を改版案Rev.2の組込み実装指示として適用した。案件フォルダはNF55G_Picoを継続する。原典・過去の改版案・設定候補・配置済み実機は変更していない。本書が現在のソースの校正契約であり、過去資料の「実装許可待ち」は当時の履歴とする。
@@ -15,13 +17,12 @@ Date: 2026-11-27
 | 照会 | `CAL_MEASUREMENT_<回路>? <A/B>` | 従来どおり。Cacheのみ |
 | Cache採用 | `CAL_WRITE_<回路> <A/B>` | `OK:CAL_WRITE:<VALUE8>:<AD_ADC>:<計算値原文HEX>` |
 | 人の実測値直接指定 | `AD_<TYPE>_<A/B>_<VALUE>` | `OK:AD_WRITE:<TYPE>:<A/B>:<VALUE8>:<AD_ADC>:<計算値原文HEX>` |
-| 明示読戻し | `AD_VERIFY_<回路> <A/B>` | `OK:AD_VERIFY:<回路>:<A/B>:<VALUE8>:<REF8>:<AD_ADC>:<AR_ADC>` |
+| ATE判定用読戻し | `AR_READ_<回路> <A/B>` | `OK:AR_READ:<回路>:<A/B>:<AR_ADC>:<REF8_RAW>` |
 | 取得ID式診断 | `CAL_WRITE <取得ID>` | `OK:CAL_WRITE`。BATT_CHG A限定、点はID内のAを使用 |
-| 整数照合診断 | `AD_VERIFY BATT_CHG A` | 従来の整数REF・送信float32・ADC比較。量産の小数保持確認へ転用しない |
 
 TYPEは1=DISCHG_I、2=BATT_V、3=ACDC12V_V、4=BATT_CHG、5=12VOUT_V。回路名指定も維持する。直接指定のVALUEはA/Vの10進実測値で、DMM接続・Cache不要。内部記録とAR decoderのキーもA/Bとし、通信生成箇所だけA→1、B→2へ変換する。製品通信・EEPROMを変更していない。
 
-旧P1/P2引数、直接ADの数値点1/2、Cache書込みの点二重指定は拒否する。旧取得ID式にも点を追加できない。引数拒否は`ERR:CAL_WRITE_ARGUMENTS`／`ERR:AD_VERIFY_ARGUMENTS`／`ERR:AD_POINT`。旧形式を自動的に読み替える別経路は設けない。
+旧P1/P2引数、直接ADの数値点1/2、Cache書込みの点二重指定は拒否する。旧取得ID式にも点を追加できない。VERIFY比較は廃止し、旧`AD_VERIFY`／`AD_VERIFY_<回路>`は`ERR:VERIFY_DISABLED`で無送信拒否する。`AR_READ`は選択点のADC十進値とREF8原文を返すだけで、float変換・整数比較・許容差判定を行わない。旧形式を自動的に読み替える別経路は設けない。
 
 ## 必須校正回路と書込み保護
 
@@ -47,7 +48,7 @@ Cache方式は単位換算済み候補A/Vへ適用し、電流のDMM原文VへA�
 
 CALIBRATION_SAMPLE_ENABLED既定False、有効なTEST試行、同試行INFOのS1.14B／UNIT 000001照合を維持する。量産向けの制限解除ではない。Cache方式は照会済みの最新Cacheだけを書き込む。
 
-正常／成否不明時のDATA／AR INVALID、測定Cache破棄、AD直接方式の同回路A/B失効、STATUS／INFO非昇格を維持する。ADのCommand Retryなし、診断T2=1000ms、ARは別指令・ACK後T2=100ms・Command Retryなし・AR Cache非採用。PicoのOKは製品PASSではない。FU送信禁止とNF55G単一Transactionを維持する。
+正常／成否不明時のDATA／AR INVALID、測定Cache破棄、AD直接方式の同回路A/B失効、STATUS／INFO非昇格を維持する。ADのCommand Retryなし、診断T2=1000ms、AR_READは別指令・ACK後T2=100ms・Command Retryなし・AR Cache非採用。PicoのOKは製品PASSではない。FU送信禁止とNF55G単一Transactionを維持する。
 
 ## 検証と未確認事項
 

@@ -78,7 +78,7 @@ class CalibrationGuardTests(unittest.TestCase):
                 self.assertEqual(h.ate('AD_4_A_1.85'), 'ERR:AD_WRITE_SETTINGS')
                 self.assertEqual(h.scenario.handled_command_count, 1)
 
-    def test_rejected_candidate_preserves_caches_and_prior_write(self):
+    def test_rejected_candidate_preserves_caches_and_query_record(self):
         h, _ = self.fixture('BATT_CHG', 'A')
         self.assertTrue(h.ate('AD_4_A_1.85').startswith('OK:'))
         token = h.app.measurements.begin('DISCHG_I', 'A')
@@ -86,11 +86,9 @@ class CalibrationGuardTests(unittest.TestCase):
         h.ate('CAL_MEASUREMENT_DISCHG_I? A')
         h.app.cache.validate('DATA', {'old': 1}, 'D0')
         before = list(h.uart.tx_log)
-        written = dict(h.app.calibration_write.written)
         for command in ('CAL_WRITE_DISCHG_I A', 'AD_1_A_0', 'AD_1_A_-44'):
             self.assertTrue(h.ate(command).endswith('_RANGE'))
         self.assertEqual(h.uart.tx_log, before)
-        self.assertEqual(h.app.calibration_write.written, written)
         self.assertEqual(h.app.measurements.get(token)['value_text'], '0')
         self.assertEqual(h.app.cache.get('DATA'), {'old': 1})
         self.assertEqual(h.app.calibration_write.queried[token[2:]], token)
